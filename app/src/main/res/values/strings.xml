@@ -14,4 +14,5 @@
     <string name="mobile_number">Mobile\n\u0020\u0020\u0020\u0020No.</string>
     <string name="attempt_no">Attempt\n\u0020\u0020\u0020\u0020\u0020No.</string>
     <string name="fab">fab</string>
+    <string name="add_new_lead">Add New Lead</string>
 </resources>

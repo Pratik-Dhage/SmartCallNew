@@ -8,18 +8,18 @@
         android:id="@+id/txtLeadName"
         android:text="Pratik Dhage"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         app:layout_constraintStart_toStartOf="parent"
-       style="@style/item_text_style"/>
+       style="@style/common_text_style"/>
 
     <TextView
         android:id="@+id/txtMobileNumber"
         android:text="123456789"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginStart="@dimen/_60sdp"
         app:layout_constraintStart_toEndOf="@id/txtLeadName"
-       style="@style/item_text_style"/>
+       style="@style/common_text_style"/>
 
     <ImageView
         android:id="@+id/ivLeadList"
@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
        android:layout_marginEnd="@dimen/_30sdp"
         android:layout_height="wrap_content"
         app:tint="@color/textBlue" />
@@ -36,7 +36,7 @@
     <View
         android:id="@+id/viewBorder"
         style="@style/viewBorderStyle"
-        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtLeadName" />
