@@ -20,6 +20,6 @@
     <string name="enter_password">Enter Password</string>
     <string name="login">LOGIN</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="first_time_user">First time user?</string>
+    <string name="first_time_user">First Time User?</string>
     <string name="sign_up">Sign Up</string>
 </resources>
