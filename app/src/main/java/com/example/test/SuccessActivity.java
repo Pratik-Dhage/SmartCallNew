@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.test.databinding.ActivitySuccessBinding;
+import com.example.test.login.LoginActivity;
 import com.example.test.mPin.MPinActivity;
 import com.example.test.otp.OTPActivity;
 import com.example.test.otp.OTPVerifyActivity;
@@ -37,6 +38,10 @@ public class SuccessActivity extends AppCompatActivity {
             binding.txtLink.setText(getResources().getString(R.string.generate_mpin));
         }
 
+        if(getIntent().hasExtra("isFromMPinActivity")){
+            binding.labelSuccess.setText(getResources().getString(R.string.pin_generated_success));
+            binding.txtLink.setText(getResources().getString(R.string.login_now));
+        }
 
     }
 
@@ -50,9 +55,18 @@ public class SuccessActivity extends AppCompatActivity {
                 i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
                 startActivity(i);*/
 
+                if(binding.txtLink.getText().toString().contentEquals(getResources().getString(R.string.login_now)))
+                {
+                    Intent loginIntent = new Intent(SuccessActivity.this, LoginActivity.class);
+                    startActivity(loginIntent);
+                }
+
                 //on Clicking Generate MPIN // NORMAL FLOW
-                Intent mPinIntent = new Intent(SuccessActivity.this, MPinActivity.class);
-                startActivity(mPinIntent);
+                else{
+                    Intent mPinIntent = new Intent(SuccessActivity.this, MPinActivity.class);
+                    startActivity(mPinIntent);
+                }
+
             }
         });
     }
