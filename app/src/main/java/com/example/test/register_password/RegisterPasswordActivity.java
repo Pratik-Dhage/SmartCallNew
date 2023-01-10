@@ -17,6 +17,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
 
     ActivityRegisterPasswordBinding binding;
     View view;
+    boolean isFromRegisterPasswordActivity = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +33,13 @@ public class RegisterPasswordActivity extends AppCompatActivity {
     }
 
     private void onClickListener() {
+
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent i = new Intent(RegisterPasswordActivity.this, SuccessActivity.class);
+                i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
                 startActivity(i);
 
             }

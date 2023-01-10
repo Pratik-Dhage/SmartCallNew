@@ -15,6 +15,7 @@ public class OTPActivity extends AppCompatActivity {
 
     ActivityOtpactivityBinding binding;
     View view;
+    boolean isFromRegisterPasswordActivity = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,18 @@ public class OTPActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(OTPActivity.this, OTPVerifyActivity.class);
-                startActivity(i);
+                //if coming from RegisterPasswordActivity
+                if(getIntent().hasExtra("isFromRegisterPasswordActivity")){
+                    Intent i = new Intent(OTPActivity.this, OTPVerifyActivity.class);
+                    i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
+                    startActivity(i);
+                }
+
+                else{
+                    Intent i = new Intent(OTPActivity.this, OTPVerifyActivity.class);
+                    startActivity(i);
+                }
+
             }
         });
     }

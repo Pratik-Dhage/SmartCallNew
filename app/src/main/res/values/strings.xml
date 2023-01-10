@@ -34,4 +34,6 @@
     <string name="set_password">Set Password</string>
     <string name="password_note">Note: Password must be 8-12 Characters long,\nalphanumberic with atleast 1 special character.</string>
     <string name="submit">Submit</string>
+    <string name="registration_successful">Registration Successful !</string>
+    <string name="generate_mpin">Generate MPIN</string>
 </resources>

@@ -85,7 +85,7 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:text="@string/resend_otp"
-            android:textColor="@color/black"
+            android:textColor="@color/textBlue"
             android:textSize="@dimen/_14ssp"
             android:textStyle="italic"
             app:layout_constraintStart_toEndOf="@id/txtOTPTimer"
