@@ -1,4 +1,4 @@
-package com.example.test.login;
+package com.example.test.otp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -8,46 +8,37 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.test.R;
-import com.example.test.databinding.ActivityLoginBinding;
-import com.example.test.otp.OTPActivity;
+import com.example.test.databinding.ActivityOtpactivityBinding;
+import com.example.test.login.LoginActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class OTPActivity extends AppCompatActivity {
 
-    ActivityLoginBinding binding;
+    ActivityOtpactivityBinding binding;
     View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         initializeFields();
         onClickListener();
     }
 
     private void initializeFields() {
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_otpactivity);
         view = binding.getRoot();
     }
 
     private void onClickListener() {
 
-        binding.txtSignUp.setOnClickListener(new View.OnClickListener() {
+        binding.btnSendOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(LoginActivity.this, OTPActivity.class);
+                Intent i = new Intent(OTPActivity.this, OTPVerifyActivity.class);
                 startActivity(i);
-
-            }
-        });
-
-        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
     }
-
-
 }

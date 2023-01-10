@@ -17,10 +17,17 @@
     <string name="add_new_lead">Add New Lead</string>
     <string name="s_call">S-Call</string>
     <string name="enter_user_id">Enter User ID</string>
+    <string name="enter_your_user_id">Enter your User ID</string>
     <string name="enter_password">Enter Password</string>
     <string name="login">LOGIN</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="first_time_user">First Time User?</string>
     <string name="sign_up">Sign Up</string>
     <string name="logo">Logo</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="enter_the_otp_sent_to_you_at">Enter the OTP sent to you at</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="verify_otp">Verify OTP</string>
 </resources>

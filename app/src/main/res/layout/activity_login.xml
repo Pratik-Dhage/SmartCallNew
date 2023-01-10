@@ -31,12 +31,12 @@
                     android:layout_height="@dimen/_50sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_60sdp"
+                    android:contentDescription="@string/logo"
                     android:src="@drawable/call_logo"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/textBlue"
-                    android:contentDescription="@string/logo" />
+                    app:tint="@color/textBlue" />
 
                 <TextView
                     android:id="@+id/labelSmartCall"
@@ -53,43 +53,39 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutId"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:hintEnabled="true"
-                    android:textColorHint="@color/borderColor"
-                    app:layout_constraintTop_toBottomOf="@id/ivCallLogo">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtUserID"
-                    style="@style/editTextStyle"
+                    style="@style/text_input_layout"
                     android:layout_marginTop="@dimen/_100sdp"
-                    android:hint="@string/enter_user_id"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ivCallLogo" />
+                    app:layout_constraintTop_toBottomOf="@id/ivCallLogo">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtUserID"
+                        style="@style/editTextStyle"
+                        android:hint="@string/enter_user_id"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivCallLogo" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:hintEnabled="true"
-                    android:textColorHint="@color/borderColor"
+                    style="@style/text_input_layout"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/inputLayoutId">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtUserPassword"
                         style="@style/editTextStyle"
-                        android:layout_marginTop="@dimen/_15sdp"
                         android:hint="@string/enter_password"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/edtUserID" />
 
-
                 </com.google.android.material.textfield.TextInputLayout>
-
 
 
                 <com.google.android.material.button.MaterialButton
