@@ -12,6 +12,7 @@
     <color name="borderColor">#C4BDBD</color>
     <!--TextColors-->
     <color name="textBlue">#3388ff</color>
+    <color name="textRed">#ED2F21</color>
 
 
 </resources>

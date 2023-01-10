@@ -30,4 +30,8 @@
     <string name="enter_otp">Enter OTP</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="verify_otp">Verify OTP</string>
+    <string name="enter_default_password">Enter Default Password</string>
+    <string name="set_password">Set Password</string>
+    <string name="password_note">Note: Password must be 8-12 Characters long,\nalphanumberic with atleast 1 special character.</string>
+    <string name="submit">Submit</string>
 </resources>

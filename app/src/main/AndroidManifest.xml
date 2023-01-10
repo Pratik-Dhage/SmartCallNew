@@ -18,6 +18,13 @@
         android:theme="@style/Theme.Test"
         tools:targetApi="31">
         <activity
+            android:name=".register_password.RegisterPasswordActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".otp.OTPVerifyActivity"
             android:exported="false">
             <meta-data
