@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Test</string>
+    <string name="queue">Queue</string>
+    <string name="completed_calls">Completed\n\u0020\u0020\u0020\u0020\u0020Calls</string>
+    <string name="pending_calls">Pending\n\u0020\u0020\u0020Calls</string>
+    <string name="marketing">Marketing</string>
+    <string name="collection">Collection</string>
+    <string name="welcome_call">Welcome Call</string>
+    <string name="renewal">Renewal</string>
+    <string name="todo_list">TODO list</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="list_of_leads">List of Leads</string>
+    <string name="lead_name">Lead Name</string>
+    <string name="mobile_number">Mobile\n\u0020\u0020\u0020\u0020No.</string>
+    <string name="attempt_no">Attempt\n\u0020\u0020\u0020\u0020\u0020No.</string>
+    <string name="fab">fab</string>
+</resources>

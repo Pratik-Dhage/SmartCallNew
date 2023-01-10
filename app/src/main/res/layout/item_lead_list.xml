@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txtLeadName"
+        android:text="Pratik Dhage"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+       style="@style/item_text_style"/>
+
+    <TextView
+        android:id="@+id/txtMobileNumber"
+        android:text="123456789"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_60sdp"
+        app:layout_constraintStart_toEndOf="@id/txtLeadName"
+       style="@style/item_text_style"/>
+
+    <ImageView
+        android:id="@+id/ivLeadList"
+        android:src="@drawable/hand"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+       android:layout_marginEnd="@dimen/_30sdp"
+        android:layout_height="wrap_content"
+        app:tint="@color/textBlue" />
+
+
+    <View
+        android:id="@+id/viewBorder"
+        style="@style/viewBorderStyle"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtLeadName" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LeadsActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/toolBarStyle"
+        android:background="@color/textBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/list_of_leads"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/LeadsScrollView"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rootConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_12sdp"
+            android:paddingEnd="@dimen/_12sdp">
+
+
+            <TextView
+                android:id="@+id/labelLeadName"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="@string/lead_name"
+                style="@style/mid_text_style"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/labelMobileNumber"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="@string/mobile_number"
+                style="@style/mid_text_style"
+                app:layout_constraintEnd_toStartOf="@id/labelAttemptNumber"
+                app:layout_constraintStart_toEndOf="@id/labelLeadName"/>
+
+            <TextView
+                android:id="@+id/labelAttemptNumber"
+               android:layout_marginEnd="@dimen/_15sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="@string/attempt_no"
+                style="@style/mid_text_style"
+                app:layout_constraintEnd_toEndOf="parent"
+               />
+
+
+           <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/rcLeadActivity"
+               tools:listitem="@layout/item_lead_list"
+               tools:itemCount="8"
+               app:layout_constraintTop_toBottomOf="@id/labelLeadName"
+               app:layout_constraintStart_toStartOf="parent"
+               android:layout_marginTop="@dimen/_20sdp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fabCustomSize="@dimen/_40sdp"
+                android:backgroundTint="@color/textBlue"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:src="@drawable/add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="@string/fab" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
