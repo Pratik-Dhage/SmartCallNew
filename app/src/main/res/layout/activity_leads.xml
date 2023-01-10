@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        style="@style/MainConstraintStyle"
         tools:context=".LeadsActivity">
 
 
@@ -34,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
+            android:fillViewport="true"
             app:layout_constraintBottom_toTopOf="@id/leadFloatingActionButton"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 

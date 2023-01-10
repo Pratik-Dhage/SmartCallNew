@@ -15,4 +15,11 @@
     <string name="attempt_no">Attempt\n\u0020\u0020\u0020\u0020\u0020No.</string>
     <string name="fab">fab</string>
     <string name="add_new_lead">Add New Lead</string>
+    <string name="s_call">S-Call</string>
+    <string name="enter_user_id">Enter User ID</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="login">LOGIN</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="first_time_user">First time user?</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
