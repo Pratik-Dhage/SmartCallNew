@@ -14,7 +14,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayoutUserId"
         style="@style/text_input_layout"
-        android:layout_marginTop="@dimen/_130sdp"
+        android:layout_marginTop="@dimen/_200sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -33,7 +33,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSendOTP"
         style="@style/ButtonStyle"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_25sdp"
         android:text="@string/send_otp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

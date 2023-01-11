@@ -18,6 +18,7 @@
         android:textColor="@color/black"
        style="@style/heading_text_style"/>
 
+    <!--This link is underlined programmatically-->
     <TextView
         android:id="@+id/txtLink"
         android:text="@string/generate_mpin"
