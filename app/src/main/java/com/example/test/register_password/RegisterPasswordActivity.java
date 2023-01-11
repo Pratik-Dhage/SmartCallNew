@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.test.R;
-import com.example.test.SuccessActivity;
+import com.example.test.success.SuccessActivity;
 import com.example.test.databinding.ActivityRegisterPasswordBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;

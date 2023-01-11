@@ -8,12 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.test.R;
-import com.example.test.SuccessActivity;
+import com.example.test.success.SuccessActivity;
 import com.example.test.databinding.ActivityMpinBinding;
 import com.example.test.databinding.ActivityRegisterPasswordBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.register_password.RegisterPasswordActivity;
+import com.example.test.success.SuccessActivity;
 
 public class MPinActivity extends AppCompatActivity {
 

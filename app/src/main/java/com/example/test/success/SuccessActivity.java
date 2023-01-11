@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.success;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.test.R;
 import com.example.test.databinding.ActivitySuccessBinding;
 import com.example.test.login.LoginActivity;
 import com.example.test.mPin.MPinActivity;
@@ -31,7 +32,7 @@ public class SuccessActivity extends AppCompatActivity {
     }
 
     private void initializeFields() {
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_success);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_success);
         view = binding.getRoot();
 
         //to make Generate Pin OR Login Now UnderLined

@@ -33,7 +33,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".SuccessActivity"
+            android:name=".success.SuccessActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -67,14 +67,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".LeadsActivity"
+            android:name=".lead.LeadsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".main_dashboard.MainActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

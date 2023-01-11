@@ -10,9 +10,18 @@
 
     <!--App based colors-->
     <color name="borderColor">#C4BDBD</color>
+    <color name="turquoise">#1D9CA2</color>
+    <color name="green">#69BE28</color>
+    <color name="darkRed">#8B0000</color>
+
+
     <!--TextColors-->
     <color name="textBlue">#3388ff</color>
-    <color name="textRed">#ED2F21</color>
+    <color name="textRed">#E60000</color>
+
+
+
+
 
 
 </resources>

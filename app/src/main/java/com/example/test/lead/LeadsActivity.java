@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.lead;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.test.R;
 import com.example.test.databinding.ActivityLeadsBinding;
 
 public class LeadsActivity extends AppCompatActivity {
@@ -23,7 +24,7 @@ public class LeadsActivity extends AppCompatActivity {
 
     private void initializeFields() {
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_leads);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_leads);
         view = binding.getRoot();
     }
 

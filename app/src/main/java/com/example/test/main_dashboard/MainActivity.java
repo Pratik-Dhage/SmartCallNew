@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.main_dashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.test.R;
 import com.example.test.databinding.ActivityMainBinding;
+import com.example.test.lead.LeadsActivity;
 
 
 //This is Dashboard Activity
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeFields() {
-     binding = DataBindingUtil.setContentView(this,R.layout.activity_main) ;
+     binding = DataBindingUtil.setContentView(this, R.layout.activity_main) ;
       view = binding.getRoot();
     }
 
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               Intent i = new Intent(MainActivity.this,LeadsActivity.class);
+               Intent i = new Intent(MainActivity.this, LeadsActivity.class);
                startActivity(i);
             }
         });
