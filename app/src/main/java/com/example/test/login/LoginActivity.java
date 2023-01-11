@@ -9,6 +9,8 @@ import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityLoginBinding;
+import com.example.test.helper_classes.Global;
+import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.otp.OTPActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -45,9 +47,35 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+               if(NetworkUtilities.getConnectivityStatus(LoginActivity.this)){
+
+                   if(validations()){
+                       Global.showToast(LoginActivity.this,"All Clear");
+                   }
+               }
+
+               else{
+                   Global.showSnackBar(view,getResources().getString(R.string.check_internet_connection));
+               }
+
+
             }
         });
     }
 
+    private boolean validations(){
+
+        if(binding.edtUserID.getText().toString().isEmpty()){
+            binding.edtUserID.setError(getResources().getString(R.string.user_id_cannot_be_empty));
+            return false;
+        }
+
+        if(binding.edtUserPassword.getText().toString().isEmpty()){
+           binding.edtUserPassword.setError(getResources().getString(R.string.password_cannot_be_empty));
+           return false;
+        }
+
+        return true;
+    }
 
 }

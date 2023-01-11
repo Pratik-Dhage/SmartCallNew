@@ -40,4 +40,12 @@
     <string name="login_now">Login Now</string>
     <string name="set_new_pin">Set New Pin</string>
     <string name="re_enter_pin">Re-enter Pin</string>
+    <string name="check_internet_connection">Check your internet connection</string>
+
+
+    <!--validations-->
+    <string name="user_id_cannot_be_empty">User ID cannot be empty</string>
+    <string name="password_cannot_be_empty">Password cannot be empty</string>
+
+
 </resources>
