@@ -80,6 +80,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtUserPassword"
                         style="@style/editTextStyle"
+                        android:inputType="numberPassword"
                         android:hint="@string/enter_password"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

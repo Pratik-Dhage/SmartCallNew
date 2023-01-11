@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 
@@ -32,6 +33,9 @@ public class SuccessActivity extends AppCompatActivity {
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_success);
         view = binding.getRoot();
+
+        //to make Generate Pin OR Login Now UnderLined
+        binding.txtLink.setPaintFlags(binding.txtLink.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         if(getIntent().hasExtra("isFromRegisterPasswordActivity")){
             binding.labelSuccess.setText(getResources().getString(R.string.registration_successful));

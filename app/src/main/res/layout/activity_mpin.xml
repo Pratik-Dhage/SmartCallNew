@@ -22,6 +22,9 @@
             android:id="@+id/edtSetPin"
             style="@style/editTextStyle"
             android:hint="@string/set_new_pin"
+            android:inputType="number"
+            android:digits="1234567890"
+            android:maxLength="4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -41,6 +44,9 @@
             android:id="@+id/edtRe_enterPin"
             style="@style/editTextStyle"
             android:hint="@string/re_enter_pin"
+            android:inputType="number"
+            android:digits="1234567890"
+            android:maxLength="4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

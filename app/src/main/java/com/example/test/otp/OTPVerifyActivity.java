@@ -74,7 +74,7 @@ public class OTPVerifyActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    Toast.makeText(OTPVerifyActivity.this, ""+getIntent().hasExtra("isFromRegisterActivity"), Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(OTPVerifyActivity.this, ""+getIntent().hasExtra("isFromRegisterActivity"), Toast.LENGTH_SHORT).show();
 
                     if(getIntent().hasExtra("isFromRegisterActivity") ){
                         Intent mPinIntent = new Intent(OTPVerifyActivity.this, MPinActivity.class);
@@ -93,5 +93,10 @@ public class OTPVerifyActivity extends AppCompatActivity {
             });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+       // super.onBackPressed();
     }
 }

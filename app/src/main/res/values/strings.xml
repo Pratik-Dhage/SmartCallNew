@@ -32,7 +32,7 @@
     <string name="verify_otp">Verify OTP</string>
     <string name="enter_default_password">Enter Default Password</string>
     <string name="set_password">Set Password</string>
-    <string name="password_note">Note: Password must be 8-12 Characters long,\nalphanumberic with atleast 1 special character.</string>
+    <string name="password_note">Note: Password must be 8-12 Characters long,\nalphanumeric with at least 1 special character.</string>
     <string name="submit">Submit</string>
     <string name="registration_successful">Registration Successful !</string>
     <string name="pin_generated_success">Pin generated Successfully !</string>
