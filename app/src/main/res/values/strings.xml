@@ -32,11 +32,11 @@
     <string name="verify_otp">Verify OTP</string>
     <string name="enter_default_password">Enter Default Password</string>
     <string name="set_password">Set Password</string>
-    <string name="password_note">Note: Password must be 8-12 Characters long,\nalphanumeric with at least 1 special character.</string>
+    <string name="password_note"><i>(Password must be 8-12 Characters long,\nAlphanumeric with at least 1 special character)</i></string>
     <string name="submit">Submit</string>
     <string name="registration_successful">Registration Successful !</string>
     <string name="pin_generated_success">Pin generated Successfully !</string>
-    <string name="generate_mpin">Generate MPIN</string>
+    <string name="generate_mpin">Generate mPIN</string>
     <string name="login_now">Login Now</string>
     <string name="set_new_pin">Set New Pin</string>
     <string name="re_enter_pin">Re-enter Pin</string>

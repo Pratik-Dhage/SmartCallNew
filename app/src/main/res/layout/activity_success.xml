@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/_80sdp"
+        android:layout_marginTop="@dimen/_120sdp"
         android:textColor="@color/black"
        style="@style/heading_text_style"/>
 
