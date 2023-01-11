@@ -75,6 +75,11 @@ public class LoginActivity extends AppCompatActivity {
            return false;
         }
 
+        if(!Global.isValidPassword(binding.edtUserPassword.getText().toString())){
+            binding.edtUserPassword.setError(getResources().getString(R.string.password_not_valid));
+            return false;
+        }
+
         return true;
     }
 
