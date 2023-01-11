@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityOtpverifyBinding;
+import com.example.test.helper_classes.Global;
+import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.login.LoginActivity;
 import com.example.test.mPin.MPinActivity;
 import com.example.test.register_password.RegisterPasswordActivity;
@@ -74,18 +76,31 @@ public class OTPVerifyActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                  //  Toast.makeText(OTPVerifyActivity.this, ""+getIntent().hasExtra("isFromRegisterActivity"), Toast.LENGTH_SHORT).show();
+                    if(NetworkUtilities.getConnectivityStatus(OTPVerifyActivity.this)){
 
-                    if(getIntent().hasExtra("isFromRegisterActivity") ){
-                        Intent mPinIntent = new Intent(OTPVerifyActivity.this, MPinActivity.class);
-                        startActivity(mPinIntent);
+                        if(validations()){
+
+                            //  Toast.makeText(OTPVerifyActivity.this, ""+getIntent().hasExtra("isFromRegisterActivity"), Toast.LENGTH_SHORT).show();
+
+                            if(getIntent().hasExtra("isFromRegisterActivity") ){
+                                Intent mPinIntent = new Intent(OTPVerifyActivity.this, MPinActivity.class);
+                                startActivity(mPinIntent);
+                            }
+
+                            else{
+                                // means user is coming from Login Activity
+                                Intent i = new Intent(OTPVerifyActivity.this, RegisterPasswordActivity.class);
+                                startActivity(i);
+                            }
+
+                        }
+
                     }
 
-                    else{
-                          // means user is coming from Login Activity
-                        Intent i = new Intent(OTPVerifyActivity.this, RegisterPasswordActivity.class);
-                        startActivity(i);
+                    else {
+                        Global.showSnackBar(view,getResources().getString(R.string.check_internet_connection));
                     }
+
 
 
 
@@ -93,6 +108,16 @@ public class OTPVerifyActivity extends AppCompatActivity {
             });
 
 
+    }
+
+    private boolean validations(){
+
+        if(binding.edtOTP.getText().toString().length()!=4){
+            binding.edtOTP.setError(getResources().getString(R.string.enter_valid_otp));
+           return false;
+        }
+
+        return true;
     }
 
     @Override

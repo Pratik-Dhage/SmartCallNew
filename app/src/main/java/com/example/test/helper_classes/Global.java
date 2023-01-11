@@ -14,6 +14,9 @@ import com.example.test.api_manager.WebServices;
 import com.example.test.api_manager.RestClient;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import io.reactivex.disposables.Disposable;
 
 public class Global {
@@ -59,5 +62,29 @@ public class Global {
         SharedPreferenceHelper.writeString(context, key, "");
     }
 
+    //for password purpose
+    // Define the regular expression for the password policy
+    private static final String PASSWORD_PATTERN = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,12}$";
+
+    // Compile the regular expression into a pattern
+    private static final Pattern PATTERN = Pattern.compile(PASSWORD_PATTERN);
+
+    public static boolean isValidPassword(String password) {
+        Matcher matcher = PATTERN.matcher(password);
+        return !matcher.matches();
+    }
+
+
+/*
+
+    For Password to be 8-12 character long, alphanumeric,with at least 1 special character:
+
+           1) ^ and $ - Anchors that assert the position at the start and end of the string, respectively.
+           2) (?=.*[A-Za-z]) - A positive lookahead that asserts that at least one alphabetical character must be present in the password.
+           3) (?=.*\d) - A positive lookahead that asserts that at least one numeric digit must be present in the password.
+           4) (?=.*[@$!%*#?&]) - A positive lookahead that asserts that at least one special character (@,$,!,%,*,#,?,&) must be present in the password.
+          5)  [A-Za-z\d@$!%*#?&]{8,12} - Character set and the quantifier that limit the length to 8-12
+
+*/
 
 }
