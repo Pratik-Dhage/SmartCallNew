@@ -11,6 +11,8 @@ import com.example.test.R;
 import com.example.test.SuccessActivity;
 import com.example.test.databinding.ActivityMpinBinding;
 import com.example.test.databinding.ActivityRegisterPasswordBinding;
+import com.example.test.helper_classes.Global;
+import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.register_password.RegisterPasswordActivity;
 
 public class MPinActivity extends AppCompatActivity {
@@ -38,11 +40,43 @@ public class MPinActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(MPinActivity.this, SuccessActivity.class);
-                i.putExtra("isFromMPinActivity",isFromMPinActivity);
-                startActivity(i);
+
+                if(NetworkUtilities.getConnectivityStatus(MPinActivity.this)){
+
+                    if(validations()){
+
+                        Intent i = new Intent(MPinActivity.this, SuccessActivity.class);
+                        i.putExtra("isFromMPinActivity",isFromMPinActivity);
+                        startActivity(i);
+                    }
+
+                }
+
+                else {
+                    Global.showSnackBar(view,getResources().getString(R.string.check_internet_connection));
+                }
 
             }
         });
+    }
+
+    private boolean validations(){
+
+        if(binding.edtSetPin.getText().toString().isEmpty()){
+            binding.edtSetPin.setError(getResources().getString(R.string.pin_cannot_be_empty));
+            return false;
+        }
+
+        if(binding.edtReEnterPin.getText().toString().isEmpty()){
+            binding.edtReEnterPin.setError(getResources().getString(R.string.pin_cannot_be_empty));
+            return false;
+        }
+
+        if(!binding.edtReEnterPin.getText().toString().equals(binding.edtSetPin.getText().toString())){
+            binding.edtReEnterPin.setError(getResources().getString(R.string.pin_not_matching));
+            return false;
+        }
+
+        return true;
     }
 }

@@ -71,7 +71,7 @@ public class Global {
 
     public static boolean isValidPassword(String password) {
         Matcher matcher = PATTERN.matcher(password);
-        return !matcher.matches();
+        return matcher.matches();
     }
 
 
