@@ -20,6 +20,7 @@ public class MPinActivity extends AppCompatActivity {
 
     ActivityMpinBinding binding;
     View view;
+    MPinViewModel mPinViewModel;
     boolean isFromMPinActivity = true;
 
     @Override
@@ -34,6 +35,7 @@ public class MPinActivity extends AppCompatActivity {
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_mpin);
         view = binding.getRoot();
+        mPinViewModel = binding.getViewModel();
     }
 
     private void onClickListener() {

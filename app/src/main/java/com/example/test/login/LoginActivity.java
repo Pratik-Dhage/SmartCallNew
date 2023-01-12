@@ -17,6 +17,7 @@ public class LoginActivity extends AppCompatActivity {
 
     ActivityLoginBinding binding;
     View view;
+    LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_login);
         view = binding.getRoot();
+        loginViewModel = binding.getViewModel();
     }
 
     private void onClickListener() {

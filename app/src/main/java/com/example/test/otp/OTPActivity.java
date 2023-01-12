@@ -17,6 +17,7 @@ public class OTPActivity extends AppCompatActivity {
 
     ActivityOtpactivityBinding binding;
     View view;
+    OTPViewModel otpViewModel;
     boolean isFromRegisterPasswordActivity = true;
 
     @Override
@@ -31,6 +32,7 @@ public class OTPActivity extends AppCompatActivity {
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_otpactivity);
         view = binding.getRoot();
+        otpViewModel = binding.getViewModel();
     }
 
     private void onClickListener() {

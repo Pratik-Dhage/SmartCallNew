@@ -19,6 +19,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
 
     ActivityRegisterPasswordBinding binding;
     View view;
+    RegisterPasswordViewModel registerPasswordViewModel;
     boolean isFromRegisterPasswordActivity = true;
 
     @Override
@@ -32,6 +33,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_register_password);
         view = binding.getRoot();
+        registerPasswordViewModel = binding.getViewModel();
     }
 
     private void onClickListener() {

@@ -23,6 +23,7 @@ public class OTPVerifyActivity extends AppCompatActivity {
 
     ActivityOtpverifyBinding binding;
     View view;
+    OTPVerifyViewModel otpVerifyViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class OTPVerifyActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this,R.layout.activity_otpverify);
         view = binding.getRoot();
+        otpVerifyViewModel = binding.getViewModel();
     }
 
     private void onClickListener() {

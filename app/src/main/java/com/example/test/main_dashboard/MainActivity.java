@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     View view;
+    MainDashBoardViewModel mainDashBoardViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializeFields() {
      binding = DataBindingUtil.setContentView(this, R.layout.activity_main) ;
       view = binding.getRoot();
+      mainDashBoardViewModel = binding.getViewModel();
     }
 
     private void onClickListener() {
