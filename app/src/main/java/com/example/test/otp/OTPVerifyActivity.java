@@ -8,7 +8,9 @@ import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.test.R;
@@ -32,6 +34,7 @@ public class OTPVerifyActivity extends AppCompatActivity {
         initializeFields();
         onClickListener();
         CustomTextWatcher();
+
     }
 
     private void initializeFields() {

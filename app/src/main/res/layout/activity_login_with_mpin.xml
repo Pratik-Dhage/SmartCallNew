@@ -10,6 +10,7 @@
 
     <TextView
         android:text="@string/enter_mpin"
+        android:textStyle="normal"
         style="@style/heading_text_style"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/_80sdp"

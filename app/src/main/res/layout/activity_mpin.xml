@@ -19,6 +19,7 @@
     <TextView
         android:text="@string/set_new_pin"
         style="@style/heading_text_style"
+        android:textStyle="normal"
         app:layout_constraintStart_toStartOf="@id/clMPIN1"
         android:layout_marginBottom="@dimen/_10sdp"
         app:layout_constraintBottom_toTopOf="@id/clMPIN1"
@@ -128,6 +129,7 @@
     <TextView
         android:text="@string/re_enter_pin"
         style="@style/heading_text_style"
+        android:textStyle="normal"
         app:layout_constraintStart_toStartOf="@id/clMPIN1"
         android:layout_marginBottom="@dimen/_10sdp"
         app:layout_constraintBottom_toTopOf="@id/clMPIN2"
