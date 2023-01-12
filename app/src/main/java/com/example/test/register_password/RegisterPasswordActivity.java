@@ -5,6 +5,8 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.example.test.R;
@@ -28,6 +30,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
 
         initializeFields();
         onClickListener();
+        CustomEditTextWatcher();
     }
 
     private void initializeFields() {
@@ -64,36 +67,87 @@ public class RegisterPasswordActivity extends AppCompatActivity {
 
         //Default Password
         if(binding.edtDefaultPassword.getText().toString().isEmpty()){
-            binding.edtDefaultPassword.setError(getResources().getString(R.string.password_cannot_be_empty));
+            binding.inputLayoutDefaultPassword.setError(getResources().getString(R.string.password_cannot_be_empty));
             return false;
         }
 
         // Set Password for empty
         if(binding.edtSetPassword.getText().toString().isEmpty()){
-           binding.edtSetPassword.setError(getResources().getString(R.string.password_cannot_be_empty));
+           binding.inputLayoutSetPassword.setError(getResources().getString(R.string.password_cannot_be_empty));
             return false;
         }
 
          //Set Password for 8-12 characters long,alphanumeric,with at least 1 special character
         if(!Global.isValidPassword(binding.edtSetPassword.getText().toString())){
-            binding.edtSetPassword.setError(getResources().getString(R.string.password_not_valid));
+            binding.inputLayoutSetPassword.setError(getResources().getString(R.string.password_not_valid));
             return false;
         }
 
         // Confirm Password for empty
         if(binding.edtConfirmPassword.getText().toString().isEmpty()){
-            binding.edtConfirmPassword.setError(getResources().getString(R.string.password_cannot_be_empty));
+            binding.inputLayoutConfirmPassword.setError(getResources().getString(R.string.password_cannot_be_empty));
             return false;
         }
 
 
          //if Confirm Password not equals Set Password
         if(!binding.edtConfirmPassword.getText().toString().equals(binding.edtSetPassword.getText().toString())) {
-            binding.edtConfirmPassword.setError(getResources().getString(R.string.password_not_matching));
+            binding.inputLayoutConfirmPassword.setError(getResources().getString(R.string.password_not_matching));
             return false;
         }
 
         return true;
+    }
+
+    private void CustomEditTextWatcher(){
+
+        //Default Password
+        binding.edtDefaultPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    binding.inputLayoutDefaultPassword.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        //Set Password
+        binding.edtSetPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                binding.inputLayoutSetPassword.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        //Confirm Password
+        binding.edtConfirmPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                binding.inputLayoutConfirmPassword.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
 

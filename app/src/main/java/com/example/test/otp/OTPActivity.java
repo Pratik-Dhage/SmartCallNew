@@ -5,6 +5,8 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.example.test.R;
@@ -27,6 +29,7 @@ public class OTPActivity extends AppCompatActivity {
 
         initializeFields();
         onClickListener();
+        CustomEditTextWatcher();
     }
 
     private void initializeFields() {
@@ -76,10 +79,29 @@ public class OTPActivity extends AppCompatActivity {
     private boolean validations(){
 
         if(binding.edtOTPUserId.getText().toString().isEmpty()){
-            binding.edtOTPUserId.setError(getResources().getString(R.string.user_id_cannot_be_empty));
+            binding.inputLayoutUserId.setError(getResources().getString(R.string.user_id_cannot_be_empty));
             return false;
         }
 
         return true;
+    }
+
+    private void CustomEditTextWatcher(){
+
+        binding.edtOTPUserId.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                binding.inputLayoutUserId.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
     }
 }

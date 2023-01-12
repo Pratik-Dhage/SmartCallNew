@@ -3,8 +3,12 @@ package com.example.test.login;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.test.R;
@@ -25,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
         initializeFields();
         onClickListener();
+        CustomEditTextWatcher();
     }
 
     private void initializeFields() {
@@ -54,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                    if(validations()){
                        Global.showToast(LoginActivity.this,"All Clear");
                    }
+
                }
 
                else{
@@ -68,21 +74,56 @@ public class LoginActivity extends AppCompatActivity {
     private boolean validations(){
 
         if(binding.edtUserID.getText().toString().isEmpty()){
-            binding.edtUserID.setError(getResources().getString(R.string.user_id_cannot_be_empty));
+            binding.inputLayoutId.setError(getResources().getString(R.string.user_id_cannot_be_empty));
             return false;
         }
 
         if(binding.edtUserPassword.getText().toString().isEmpty()){
-           binding.edtUserPassword.setError(getResources().getString(R.string.password_cannot_be_empty));
+           binding.inputLayoutPassword.setError(getResources().getString(R.string.password_cannot_be_empty));
            return false;
         }
 
         if(!Global.isValidPassword(binding.edtUserPassword.getText().toString())){
-            binding.edtUserPassword.setError(getResources().getString(R.string.password_not_valid));
+            binding.inputLayoutPassword.setError(getResources().getString(R.string.password_not_valid));
             return false;
         }
 
         return true;
+
+    }
+
+    private void CustomEditTextWatcher(){
+
+        binding.edtUserID.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                binding.inputLayoutId.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        binding.edtUserPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                binding.inputLayoutPassword.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
     }
 
 }
