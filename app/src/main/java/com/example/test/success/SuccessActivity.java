@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.test.R;
 import com.example.test.databinding.ActivitySuccessBinding;
 import com.example.test.login.LoginActivity;
+import com.example.test.login.LoginWithMPinActivity;
 import com.example.test.mPin.MPinActivity;
 import com.example.test.otp.OTPActivity;
 import com.example.test.otp.OTPVerifyActivity;
@@ -62,7 +63,7 @@ public class SuccessActivity extends AppCompatActivity {
 
                 if(binding.txtLink.getText().toString().contentEquals(getResources().getString(R.string.login_now)))
                 {
-                    Intent loginIntent = new Intent(SuccessActivity.this, LoginActivity.class);
+                    Intent loginIntent = new Intent(SuccessActivity.this, LoginWithMPinActivity.class);
                     startActivity(loginIntent);
                 }
 

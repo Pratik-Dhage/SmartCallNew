@@ -16,50 +16,238 @@
     style="@style/MainConstraintStyle"
     tools:context=".mPin.MPinActivity">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputLayoutSetPin"
-        style="@style/text_input_layout"
-        android:layout_marginStart="@dimen/_30sdp"
-        android:layout_marginEnd="@dimen/_30sdp"
+    <TextView
+        android:text="@string/set_new_pin"
+        style="@style/heading_text_style"
+        app:layout_constraintStart_toStartOf="@id/clMPIN1"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintBottom_toTopOf="@id/clMPIN1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <!--for Set New mPIN-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMPIN1"
         android:layout_marginTop="@dimen/_100sdp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtSetPin"
-            style="@style/editTextStyle"
-            android:hint="@string/set_new_pin"
-            android:inputType="number"
-            android:digits="1234567890"
-            android:maxLength="4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputLayoutRe_enterPin"
-        style="@style/text_input_layout"
-        android:layout_marginStart="@dimen/_30sdp"
-        android:layout_marginEnd="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_45sdp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content">
+
+        <!--edt1-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il1"
+            style="@style/text_input_layout"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt1"
+                android:layout_width="wrap_content"
+                style="@style/editTextStyle"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:maxLength="1"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--edt2-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il2"
+            style="@style/text_input_layout"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/il1"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt2"
+                android:layout_width="wrap_content"
+                style="@style/editTextStyle"
+                android:textAlignment="center"
+                android:maxLength="1"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:inputType="number"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--edt3-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il3"
+            style="@style/text_input_layout"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/il2"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt3"
+                android:layout_width="wrap_content"
+                style="@style/editTextStyle"
+                android:textAlignment="center"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:maxLength="1"
+                android:inputType="number"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <!--edt4-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il4"
+            style="@style/text_input_layout"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/il3"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt4"
+                android:layout_width="wrap_content"
+                style="@style/editTextStyle"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:maxLength="1"
+                android:textAlignment="center"
+                android:inputType="number"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:text="@string/re_enter_pin"
+        style="@style/heading_text_style"
+        app:layout_constraintStart_toStartOf="@id/clMPIN1"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintBottom_toTopOf="@id/clMPIN2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+    <!--for Re-enter mPIN-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMPIN2"
+        android:layout_marginTop="@dimen/_60sdp"
+        android:layout_width="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toBottomOf="@id/inputLayoutSetPin">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clMPIN1"
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtRe_enterPin"
-            style="@style/editTextStyle"
-            android:hint="@string/re_enter_pin"
-            android:inputType="number"
-            android:digits="1234567890"
-            android:maxLength="4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+        <!--edt5-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il5"
+            style="@style/text_input_layout"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="wrap_content">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt5"
+                android:layout_width="wrap_content"
+                style="@style/editTextStyle"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:maxLength="1"
+                android:layout_height="wrap_content"/>
 
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--edt6-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il6"
+            style="@style/text_input_layout"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/il5"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt6"
+                android:layout_width="wrap_content"
+                style="@style/editTextStyle"
+                android:textAlignment="center"
+                android:maxLength="1"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:inputType="number"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--edt7-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il7"
+            style="@style/text_input_layout"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/il6"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt7"
+                android:layout_width="wrap_content"
+                style="@style/editTextStyle"
+                android:textAlignment="center"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:maxLength="1"
+                android:inputType="number"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <!--edt8-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il8"
+            style="@style/text_input_layout"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/il7"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt8"
+                android:layout_width="wrap_content"
+                style="@style/editTextStyle"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:maxLength="1"
+                android:textAlignment="center"
+                android:inputType="number"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/txtErrorPIN"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="@string/pin_cannot_be_empty"
+        android:textColor="@color/textRed"
+        android:textStyle="normal"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintEnd_toEndOf="@id/btnSubmit"
+        app:layout_constraintStart_toStartOf="@id/btnSubmit"
+        app:layout_constraintBottom_toTopOf="@id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSubmit"
@@ -68,7 +256,7 @@
         android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputLayoutRe_enterPin" />
+        app:layout_constraintTop_toBottomOf="@id/clMPIN2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

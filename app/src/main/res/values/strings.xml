@@ -51,6 +51,8 @@
     <string name="enter_valid_otp">Enter valid OTP</string>
     <string name="pin_cannot_be_empty">Pin cannot be empty</string>
     <string name="pin_not_matching">Pin not matching</string>
+    <string name="enter_mpin">Enter mPin</string>
+    <string name="forgot_mpin">Forgot mPin ?</string>
 
 
 </resources>

@@ -51,29 +51,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/labelEnter_OTP" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayoutOTP"
-            style="@style/text_input_layout"
-            android:layout_marginStart="@dimen/_80sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_80sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtMobileNumber">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtOTP"
-                style="@style/editTextStyle"
-                android:textAlignment="center"
-                android:inputType="number"
-                android:digits="0123456789"
-                android:maxLength="4"
-                android:hint="@string/enter_otp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <TextView
             android:id="@+id/txtOTPTimer"
             android:layout_width="wrap_content"
@@ -82,8 +59,10 @@
             android:text="00:30"
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
-            app:layout_constraintStart_toStartOf="@id/inputLayoutOTP"
-            app:layout_constraintTop_toBottomOf="@id/inputLayoutOTP" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/_50sdp"
+            app:layout_constraintTop_toBottomOf="@id/clOTP" />
 
         <TextView
             android:id="@+id/labelResendOTP"
@@ -96,8 +75,22 @@
             android:textSize="@dimen/_14ssp"
             android:textStyle="italic"
             app:layout_constraintStart_toEndOf="@id/txtOTPTimer"
-            app:layout_constraintTop_toBottomOf="@id/inputLayoutOTP" />
+            app:layout_constraintTop_toBottomOf="@id/clOTP" />
 
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/txtErrorOTP"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:text="@string/enter_valid_otp"
+            android:textColor="@color/textRed"
+            android:textStyle="normal"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintEnd_toEndOf="@id/btnVerifyOTP"
+            app:layout_constraintStart_toStartOf="@id/btnVerifyOTP"
+            app:layout_constraintBottom_toTopOf="@id/btnVerifyOTP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnVerifyOTP"
@@ -108,6 +101,106 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/labelResendOTP" />
+
+
+        <!--for OTP-->
+       <androidx.constraintlayout.widget.ConstraintLayout
+              android:id="@+id/clOTP"
+           android:layout_marginTop="@dimen/_10sdp"
+           android:layout_width="wrap_content"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/txtMobileNumber"
+           android:layout_height="wrap_content">
+
+           <!--edt1-->
+           <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/il1"
+               style="@style/text_input_layout"
+               android:layout_width="wrap_content"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               android:layout_height="wrap_content">
+
+               <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt1"
+                   android:layout_width="wrap_content"
+                   style="@style/editTextStyle"
+                   android:inputType="number"
+                   android:textAlignment="center"
+                   android:maxLength="1"
+                   android:layout_height="wrap_content"/>
+
+           </com.google.android.material.textfield.TextInputLayout>
+
+           <!--edt2-->
+           <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/il2"
+               style="@style/text_input_layout"
+               android:layout_width="wrap_content"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintStart_toEndOf="@id/il1"
+               android:layout_height="wrap_content">
+
+               <com.google.android.material.textfield.TextInputEditText
+                  android:id="@+id/edt2"
+                   android:layout_width="wrap_content"
+                   style="@style/editTextStyle"
+                   android:textAlignment="center"
+                   android:maxLength="1"
+                   android:layout_marginStart="@dimen/_3sdp"
+                   android:inputType="number"
+                   android:layout_height="wrap_content"/>
+
+           </com.google.android.material.textfield.TextInputLayout>
+
+           <!--edt3-->
+           <com.google.android.material.textfield.TextInputLayout
+               android:id="@+id/il3"
+               style="@style/text_input_layout"
+               android:layout_width="wrap_content"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintStart_toEndOf="@id/il2"
+               android:layout_height="wrap_content">
+
+               <com.google.android.material.textfield.TextInputEditText
+                  android:id="@+id/edt3"
+                   android:layout_width="wrap_content"
+                   style="@style/editTextStyle"
+                   android:textAlignment="center"
+                   android:layout_marginStart="@dimen/_3sdp"
+                   android:maxLength="1"
+                   android:inputType="number"
+                   android:layout_height="wrap_content"/>
+
+           </com.google.android.material.textfield.TextInputLayout>
+
+
+           <!--edt4-->
+           <com.google.android.material.textfield.TextInputLayout
+               android:id="@+id/il4"
+               style="@style/text_input_layout"
+               android:layout_width="wrap_content"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintStart_toEndOf="@id/il3"
+               android:layout_height="wrap_content">
+
+               <com.google.android.material.textfield.TextInputEditText
+                 android:id="@+id/edt4"
+                   android:layout_width="wrap_content"
+                   style="@style/editTextStyle"
+                   android:layout_marginStart="@dimen/_3sdp"
+                   android:maxLength="1"
+                   android:textAlignment="center"
+                   android:inputType="number"
+                   android:layout_height="wrap_content"/>
+
+           </com.google.android.material.textfield.TextInputLayout>
+
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

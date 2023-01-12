@@ -31,6 +31,7 @@ public class OTPVerifyActivity extends AppCompatActivity {
 
         initializeFields();
         onClickListener();
+        CustomTextWatcher();
     }
 
     private void initializeFields() {
@@ -42,37 +43,6 @@ public class OTPVerifyActivity extends AppCompatActivity {
 
     private void onClickListener() {
 
-        if(binding.edtOTP.getText().toString().isEmpty()){
-
-        }
-
-        //textwatcher for otp verify button
-
-        binding.edtOTP.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if(s.toString().length()==4){
-                    binding.btnVerifyOTP.setBackgroundColor(getResources().getColor(R.color.textBlue));
-                }
-                else{
-                    binding.btnVerifyOTP.setBackgroundColor(getResources().getColor(R.color.borderColor));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
-
 
             binding.btnVerifyOTP.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -82,19 +52,8 @@ public class OTPVerifyActivity extends AppCompatActivity {
 
                         if(validations()){
 
-                            //  Toast.makeText(OTPVerifyActivity.this, ""+getIntent().hasExtra("isFromRegisterActivity"), Toast.LENGTH_SHORT).show();
-
-                            if(getIntent().hasExtra("isFromRegisterActivity") ){
                                 Intent mPinIntent = new Intent(OTPVerifyActivity.this, MPinActivity.class);
                                 startActivity(mPinIntent);
-                            }
-
-                            else{
-                                // means user is coming from Login Activity
-                                Intent i = new Intent(OTPVerifyActivity.this, RegisterPasswordActivity.class);
-                                startActivity(i);
-                            }
-
                         }
 
                     }
@@ -114,13 +73,141 @@ public class OTPVerifyActivity extends AppCompatActivity {
 
     private boolean validations(){
 
-        if(binding.edtOTP.getText().toString().length()!=4){
-            binding.edtOTP.setError(getResources().getString(R.string.enter_valid_otp));
+             if(binding.edt4.getText().toString().isEmpty() ||
+                binding.edt3.getText().toString().isEmpty() ||
+                binding.edt2.getText().toString().isEmpty() ||
+                binding.edt4.getText().toString().isEmpty())
+             {
+          binding.txtErrorOTP.setVisibility(View.VISIBLE);
+          binding.txtOTPTimer.setVisibility(View.INVISIBLE);
+          binding.labelResendOTP.setVisibility(View.INVISIBLE);
+
+          binding.btnVerifyOTP.setBackgroundColor(getResources().getColor(R.color.borderColor));
            return false;
         }
 
         return true;
     }
+
+
+    private void CustomTextWatcher(){
+
+        binding.edt1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(s.toString().length()==1){
+                    binding.txtErrorOTP.setVisibility(View.INVISIBLE);
+                    binding.txtOTPTimer.setVisibility(View.VISIBLE);
+                    binding.labelResendOTP.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(binding.edt4.getText().toString().isEmpty()){
+                binding.btnVerifyOTP.setBackgroundColor(getResources().getColor(R.color.borderColor));
+                }
+                else{
+                    binding.btnVerifyOTP.setBackgroundColor(getResources().getColor(R.color.textBlue));
+                }
+            }
+        });
+
+
+
+        binding.edt2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(s.toString().length()==1){
+                    binding.txtErrorOTP.setVisibility(View.INVISIBLE);
+                    binding.txtOTPTimer.setVisibility(View.VISIBLE);
+                    binding.labelResendOTP.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(binding.edt4.getText().toString().isEmpty()){
+                    binding.btnVerifyOTP.setBackgroundColor(getResources().getColor(R.color.borderColor));
+                }
+                else{
+                    binding.btnVerifyOTP.setBackgroundColor(getResources().getColor(R.color.textBlue));
+                }
+            }
+        });
+
+
+        binding.edt3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(s.toString().length()==1){
+                    binding.txtErrorOTP.setVisibility(View.INVISIBLE);
+                    binding.txtOTPTimer.setVisibility(View.VISIBLE);
+                    binding.labelResendOTP.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(binding.edt4.getText().toString().isEmpty()){
+                    binding.btnVerifyOTP.setBackgroundColor(getResources().getColor(R.color.borderColor));
+                }
+                else{
+                    binding.btnVerifyOTP.setBackgroundColor(getResources().getColor(R.color.textBlue));
+                }
+            }
+        });
+
+
+        //TextWatcher for otp verify button
+        // Verify button will be Enabled only when edt4 is NOT EMPTY
+
+        binding.edt4.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(s.toString().length()==1){
+                    binding.btnVerifyOTP.setBackgroundColor(getResources().getColor(R.color.textBlue));
+                    binding.txtErrorOTP.setVisibility(View.INVISIBLE);
+                    binding.txtOTPTimer.setVisibility(View.VISIBLE);
+                    binding.labelResendOTP.setVisibility(View.VISIBLE);
+                }
+                else{
+                    binding.btnVerifyOTP.setBackgroundColor(getResources().getColor(R.color.borderColor));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+    }
+
 
     @Override
     public void onBackPressed() {

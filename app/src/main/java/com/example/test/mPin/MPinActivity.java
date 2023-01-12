@@ -5,6 +5,8 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.example.test.R;
@@ -65,21 +67,74 @@ public class MPinActivity extends AppCompatActivity {
 
     private boolean validations(){
 
-        if(binding.edtSetPin.getText().toString().isEmpty()){
-            binding.edtSetPin.setError(getResources().getString(R.string.pin_cannot_be_empty));
+        // for Set New Pin
+        if(binding.edt1.getText().toString().isEmpty()){
+           binding.txtErrorPIN.setVisibility(View.VISIBLE);
             return false;
         }
 
-        if(binding.edtReEnterPin.getText().toString().isEmpty()){
-            binding.edtReEnterPin.setError(getResources().getString(R.string.pin_cannot_be_empty));
+        if(binding.edt2.getText().toString().isEmpty()){
+            binding.txtErrorPIN.setVisibility(View.VISIBLE);
             return false;
         }
 
-        if(!binding.edtReEnterPin.getText().toString().equals(binding.edtSetPin.getText().toString())){
-            binding.edtReEnterPin.setError(getResources().getString(R.string.pin_not_matching));
+        if(binding.edt3.getText().toString().isEmpty()){
+            binding.txtErrorPIN.setVisibility(View.VISIBLE);
             return false;
         }
 
+        if(binding.edt4.getText().toString().isEmpty()){
+            binding.txtErrorPIN.setVisibility(View.VISIBLE);
+            return false;
+        }
+
+       // for R-enter Pin
+        if(binding.edt5.getText().toString().isEmpty()){
+            binding.txtErrorPIN.setVisibility(View.VISIBLE);
+            return false;
+        }
+
+        if(binding.edt6.getText().toString().isEmpty()){
+            binding.txtErrorPIN.setVisibility(View.VISIBLE);
+            return false;
+        }
+
+        if(binding.edt7.getText().toString().isEmpty()){
+            binding.txtErrorPIN.setVisibility(View.VISIBLE);
+            return false;
+        }
+
+        if(binding.edt8.getText().toString().isEmpty()){
+            binding.txtErrorPIN.setVisibility(View.VISIBLE);
+            return false;
+        }
+
+
+
+        //for comparing the Set New PIn & Re-enter Pin
+        if(!binding.edt1.getText().toString().equals(binding.edt5.getText().toString())){
+            binding.txtErrorPIN.setText(getResources().getString(R.string.pin_not_matching));
+            return false;
+        }
+
+        if(!binding.edt2.getText().toString().equals(binding.edt6.getText().toString())){
+            binding.txtErrorPIN.setText(getResources().getString(R.string.pin_not_matching));
+            return false;
+        }
+
+        if(!binding.edt3.getText().toString().equals(binding.edt7.getText().toString())){
+            binding.txtErrorPIN.setText(getResources().getString(R.string.pin_not_matching));
+            return false;
+        }
+
+        if(!binding.edt4.getText().toString().equals(binding.edt8.getText().toString())){
+            binding.txtErrorPIN.setText(getResources().getString(R.string.pin_not_matching));
+            return false;
+        }
+
+        binding.txtErrorPIN.setVisibility(View.INVISIBLE);
         return true;
     }
+
+
 }
