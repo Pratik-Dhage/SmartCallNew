@@ -19,6 +19,8 @@ import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.register_password.RegisterPasswordActivity;
 import com.example.test.success.SuccessActivity;
 
+import java.util.Objects;
+
 public class MPinActivity extends AppCompatActivity {
 
     ActivityMpinBinding binding;
@@ -50,7 +52,7 @@ public class MPinActivity extends AppCompatActivity {
 
                 if(NetworkUtilities.getConnectivityStatus(MPinActivity.this)){
 
-                    if(validations()){
+                    if(validation()){
 
                         Intent i = new Intent(MPinActivity.this, SuccessActivity.class);
                         i.putExtra("isFromMPinActivity",isFromMPinActivity);
@@ -67,74 +69,16 @@ public class MPinActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validations(){
 
-        // for Set New Pin
-        if(binding.edt1.getText().toString().isEmpty()){
-           binding.txtErrorPIN.setVisibility(View.VISIBLE);
-            return false;
-        }
+    private boolean validation(){
 
-        if(binding.edt2.getText().toString().isEmpty()){
-            binding.txtErrorPIN.setVisibility(View.VISIBLE);
-            return false;
-        }
-
-        if(binding.edt3.getText().toString().isEmpty()){
-            binding.txtErrorPIN.setVisibility(View.VISIBLE);
-            return false;
-        }
-
-        if(binding.edt4.getText().toString().isEmpty()){
-            binding.txtErrorPIN.setVisibility(View.VISIBLE);
-            return false;
-        }
-
-       // for R-enter Pin
-        if(binding.edt5.getText().toString().isEmpty()){
-            binding.txtErrorPIN.setVisibility(View.VISIBLE);
-            return false;
-        }
-
-        if(binding.edt6.getText().toString().isEmpty()){
-            binding.txtErrorPIN.setVisibility(View.VISIBLE);
-            return false;
-        }
-
-        if(binding.edt7.getText().toString().isEmpty()){
-            binding.txtErrorPIN.setVisibility(View.VISIBLE);
-            return false;
-        }
-
-        if(binding.edt8.getText().toString().isEmpty()){
+        //means if Set New mPin != Re_enter Pin with Null safety
+        if(!Objects.equals(binding.setMpinView.getOTP(), binding.reEnterMpinView.getOTP())){
             binding.txtErrorPIN.setVisibility(View.VISIBLE);
             return false;
         }
 
 
-
-        //for comparing the Set New PIn & Re-enter Pin
-        if(!binding.edt1.getText().toString().equals(binding.edt5.getText().toString())){
-            binding.txtErrorPIN.setText(getResources().getString(R.string.pin_not_matching));
-            return false;
-        }
-
-        if(!binding.edt2.getText().toString().equals(binding.edt6.getText().toString())){
-            binding.txtErrorPIN.setText(getResources().getString(R.string.pin_not_matching));
-            return false;
-        }
-
-        if(!binding.edt3.getText().toString().equals(binding.edt7.getText().toString())){
-            binding.txtErrorPIN.setText(getResources().getString(R.string.pin_not_matching));
-            return false;
-        }
-
-        if(!binding.edt4.getText().toString().equals(binding.edt8.getText().toString())){
-            binding.txtErrorPIN.setText(getResources().getString(R.string.pin_not_matching));
-            return false;
-        }
-
-        binding.txtErrorPIN.setVisibility(View.INVISIBLE);
         return true;
     }
 
