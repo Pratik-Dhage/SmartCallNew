@@ -31,6 +31,8 @@ public class OTPVerifyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //This activity is made to check OTP manually
+
         initializeFields();
         onClickListener();
         CustomTextWatcher();

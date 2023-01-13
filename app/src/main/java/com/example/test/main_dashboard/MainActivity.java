@@ -2,6 +2,7 @@ package com.example.test.main_dashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private void initializeFields() {
      binding = DataBindingUtil.setContentView(this, R.layout.activity_main) ;
       view = binding.getRoot();
-      mainDashBoardViewModel = binding.getViewModel();
+      mainDashBoardViewModel = new ViewModelProvider(this).get(MainDashBoardViewModel.class);
+      binding.setViewModel(mainDashBoardViewModel);
     }
 
     private void onClickListener() {

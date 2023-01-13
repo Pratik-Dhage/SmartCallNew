@@ -3,6 +3,7 @@ package com.example.test.otp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
 
     ActivityOtpverificationBinding binding;
     View view;
+    OTPVerifyViewModel otpVerifyViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,9 @@ public class OTPVerificationActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this,R.layout.activity_otpverification);
         view = binding.getRoot();
+        otpVerifyViewModel = new ViewModelProvider(this).get(OTPVerifyViewModel.class);
+        binding.setViewModel(otpVerifyViewModel);
+
     }
 
     private void onClickListeners() {

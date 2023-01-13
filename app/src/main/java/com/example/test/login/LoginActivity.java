@@ -2,6 +2,7 @@ package com.example.test.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -35,7 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_login);
         view = binding.getRoot();
-        loginViewModel = binding.getViewModel();
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        binding.setViewModel(loginViewModel);
     }
 
     private void onClickListener() {

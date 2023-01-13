@@ -2,6 +2,7 @@ package com.example.test.mPin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,7 +38,8 @@ public class MPinActivity extends AppCompatActivity {
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_mpin);
         view = binding.getRoot();
-        mPinViewModel = binding.getViewModel();
+        mPinViewModel = new ViewModelProvider(this).get(MPinViewModel.class);
+        binding.setViewModel(mPinViewModel);
     }
 
     private void onClickListener() {

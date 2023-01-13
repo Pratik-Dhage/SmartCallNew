@@ -2,6 +2,7 @@ package com.example.test.register_password;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,7 +37,8 @@ public class RegisterPasswordActivity extends AppCompatActivity {
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_register_password);
         view = binding.getRoot();
-        registerPasswordViewModel = binding.getViewModel();
+        registerPasswordViewModel = new ViewModelProvider(this).get(RegisterPasswordViewModel.class);
+        binding.setViewModel(registerPasswordViewModel);
     }
 
     private void onClickListener() {
