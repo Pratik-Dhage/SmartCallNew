@@ -51,13 +51,13 @@ public class OTPActivity extends AppCompatActivity {
 
                         //if coming from RegisterPasswordActivity
                         if(getIntent().hasExtra("isFromRegisterPasswordActivity")){
-                            Intent i = new Intent(OTPActivity.this, OTPVerifyActivity.class);
+                            Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
                             i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
                             startActivity(i);
                         }
 
                         else{
-                            Intent i = new Intent(OTPActivity.this, OTPVerifyActivity.class);
+                            Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
                             startActivity(i);
                         }
                     }

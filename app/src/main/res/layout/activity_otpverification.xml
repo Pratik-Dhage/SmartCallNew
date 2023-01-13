@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/MainConstraintStyle"
+    tools:context=".otp.OTPVerificationActivity">
+
+    <TextView
+        android:id="@+id/label_OTP_Verification"
+        style="@style/heading_text_style"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:text="@string/otp_verification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/labelEnter_OTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="@string/enter_the_otp_sent_to_you_at"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_OTP_Verification" />
+
+    <TextView
+        android:id="@+id/txtMobileNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="+919876543210"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelEnter_OTP" />
+
+
+
+    <in.aabhasjindal.otptextview.OtpTextView
+        android:id="@+id/otp_view"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintTop_toBottomOf="@id/txtMobileNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textBlue"
+        app:height="@dimen/_40sdp"
+        app:width="@dimen/_40sdp"
+        app:bar_enabled="true"
+        app:bar_height="@dimen/_2sdp"
+        app:length="4"
+        app:otp_text_size="@dimen/_24sdp"/>
+
+    <TextView
+        android:id="@+id/txtOTPTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="00:30"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_50sdp"
+        app:layout_constraintTop_toBottomOf="@id/otp_view" />
+
+    <TextView
+        android:id="@+id/labelResendOTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="@string/resend_otp"
+        android:textColor="@color/textBlue"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@id/txtOTPTimer"
+        app:layout_constraintTop_toBottomOf="@id/otp_view" />
+
+
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/txtErrorOTP"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="@string/enter_valid_otp"
+        android:textColor="@color/textRed"
+        android:textStyle="normal"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintEnd_toEndOf="@id/btnVerifyOTP"
+        app:layout_constraintStart_toStartOf="@id/btnVerifyOTP"
+        app:layout_constraintBottom_toTopOf="@id/btnVerifyOTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnVerifyOTP"
+        style="@style/ButtonStyle"
+        android:backgroundTint="@color/borderColor"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:text="@string/verify_otp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelResendOTP" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
