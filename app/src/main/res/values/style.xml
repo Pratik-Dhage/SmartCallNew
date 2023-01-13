@@ -61,7 +61,6 @@
        <item name="android:layout_height">wrap_content</item>
        <item name="android:textSize">@dimen/_14ssp</item>
        <item name="android:textColor">@color/black</item>
-
        <item name="android:background">@drawable/edit_text_bottom_border</item>
    </style>
 
@@ -73,6 +72,20 @@
         <item name="android:textAlignment">center</item>
         <item name="textAllCaps">false</item>
         <item name="backgroundTint">@color/textBlue</item>
+        <item name="cornerRadius">@dimen/_10sdp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+    <style name="BigButtonStyle">
+        <item name="android:layout_marginStart">@dimen/_50sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_50sdp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_60sdp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="textAllCaps">false</item>
         <item name="cornerRadius">@dimen/_10sdp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">@dimen/_14ssp</item>
