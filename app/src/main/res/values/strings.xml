@@ -68,6 +68,10 @@
     <string name="lead_last_name_cannot_be_empty">Lead last name cannot be empty </string>
     <string name="lead_mobile_number_cannot_be_empty">Lead mobile number cannot be empty </string>
     <string name="please_select_lead_source">Please select lead source </string>
+    <string name="call_status">Call Status</string>
+    <string name="mobile_no">Mobile No.</string>
+    <string name="spoke_to_customer">Spoke To Customer</string>
+    <string name="did_not_speak_to_ncustomer">Did Not Speak To \nCustomer</string>
 
 
 </resources>

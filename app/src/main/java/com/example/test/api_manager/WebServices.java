@@ -24,6 +24,23 @@ public class WebServices {
     public static String Domain2 = "https://fakestoreapi.com"; //Base Url
       public static  String allProducts = "/products";
 
+      // SMART CALL APIs
+   // http://192.168.1.100:8080/lead/findLeads
+
+   // http://192.168.1.100:8080/security/generateUser?userId=admin
+
+   // http://192.168.1.100:8080/security/generateOtp?(user object in the request body)
+
+   // http://192.168.1.100:8080/security/validateOtp?(user object in the request body)
+
+      //for Lead List
+    public static String Leads_List_BaseURL = "http://192.168.1.100:8080/lead/";
+    public static String findLeads = "findLeads";
+
+    // for Generating User
+    public static String Generate_User_BaseURL = " http://192.168.1.100:8080/security/generateUser?";
+    public static String user = "userId=admin";
+
 
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
