@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    style="@style/MainConstraintStyle"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtDashBoardListName"
+        tools:text="Pratik Dhage"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/common_text_style"/>
+
+    <TextView
+        android:id="@+id/txtCompletedCalls"
+        tools:text="12"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_80sdp"
+        app:layout_constraintStart_toEndOf="@id/txtDashBoardListName"
+        style="@style/common_text_style"/>
+
+    <TextView
+        android:id="@+id/txtPendingCalls"
+        tools:text="22"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_60sdp"
+        app:layout_constraintStart_toEndOf="@id/txtCompletedCalls"
+        style="@style/common_text_style"/>
+
+
+    <View
+        android:id="@+id/viewBorder"
+        style="@style/viewBorderStyle"
+        android:layout_marginTop="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtDashBoardListName" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

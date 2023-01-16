@@ -1,7 +1,6 @@
-package com.example.test.adapter;
+package com.example.test.main_dashboard.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -9,19 +8,18 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
+import com.example.test.databinding.ItemDashboardBinding;
 import com.example.test.databinding.ItemLeadListBinding;
+import com.example.test.lead.adapter.LeadListAdapter;
 
-public class LeadListAdapter extends RecyclerView.Adapter<LeadListAdapter.MyViewHolderClass> {
-
+public class MainDashBoardAdapter extends RecyclerView.Adapter<MainDashBoardAdapter.MyViewHolderClass> {
 
 
     @NonNull
     @Override
     public MyViewHolderClass onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        ItemLeadListBinding view = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_lead_list, null, false) ;
+        ItemDashboardBinding view = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_dashboard, null, false) ;
         return new MyViewHolderClass(view);
-
     }
 
     @Override
@@ -36,9 +34,11 @@ public class LeadListAdapter extends RecyclerView.Adapter<LeadListAdapter.MyView
 
     class MyViewHolderClass extends RecyclerView.ViewHolder {
 
-        public MyViewHolderClass(ItemLeadListBinding binding) {
+        public MyViewHolderClass(ItemDashboardBinding binding) {
             super(binding.getRoot());
 
         }
+
     }
+
 }
