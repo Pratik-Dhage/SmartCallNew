@@ -41,6 +41,8 @@
     <string name="set_new_pin">Set New Pin</string>
     <string name="re_enter_pin">Re-enter Pin</string>
     <string name="check_internet_connection">Check your internet connection</string>
+    <string name="test_custom_dialog_title">Test Custom Dialog</string>
+    <string name="login_details_verified">Login Details Verified</string>
 
 
     <!--validations-->
@@ -53,6 +55,8 @@
     <string name="pin_not_matching">Pin not matching</string>
     <string name="enter_mpin">Enter mPin</string>
     <string name="forgot_mpin">Forgot mPin ?</string>
+    <string name="ok">OK</string>
+    <string name="this_is_a_custom_dialog_box_nwhere_text_will_be_displayed">This is a custom dialog box\nwhere text will be displayed</string>
 
 
 </resources>

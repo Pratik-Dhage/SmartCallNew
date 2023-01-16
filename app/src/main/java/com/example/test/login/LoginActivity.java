@@ -3,14 +3,21 @@ package com.example.test.login;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewbinding.ViewBinding;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityLoginBinding;
@@ -59,7 +66,25 @@ public class LoginActivity extends AppCompatActivity {
                if(NetworkUtilities.getConnectivityStatus(LoginActivity.this)){
 
                    if(validations()){
-                       Global.showToast(LoginActivity.this,"All Clear");
+                      // Global.showToast(LoginActivity.this,"All Clear");
+
+                       //Custom Dialog box
+                       Dialog dialog = new Dialog(LoginActivity.this);
+                       dialog.setContentView(R.layout.custom_dialog_box);
+                       dialog.setTitle("Test");
+                       dialog.setCancelable(false);
+                       dialog.show();
+
+                      TextView txt =  dialog.findViewById(R.id.txtCustomDialog);
+                      txt.setText(getString(R.string.login_details_verified));
+                       Button btn = (Button) dialog.findViewById(R.id.btnCustomDialog);
+                       btn.setOnClickListener(new View.OnClickListener() {
+                           @Override
+                           public void onClick(View v) {
+                               dialog.dismiss();
+                           }
+                       });
+
                    }
 
                }
