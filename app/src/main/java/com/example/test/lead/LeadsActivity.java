@@ -3,11 +3,13 @@ package com.example.test.lead;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityLeadsBinding;
+import com.example.test.login.LoginActivity;
 
 public class LeadsActivity extends AppCompatActivity {
 
@@ -29,5 +31,13 @@ public class LeadsActivity extends AppCompatActivity {
     }
 
     private void onClickListener() {
+        binding.leadFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent newLeadIntent = new Intent(LeadsActivity.this,NewLeadDetailsActivity.class);
+                startActivity(newLeadIntent);
+            }
+        });
     }
 }
