@@ -75,8 +75,10 @@ public class LoginActivity extends AppCompatActivity {
                        dialog.setCancelable(false);
                        dialog.show();
 
-                      TextView txt =  dialog.findViewById(R.id.txtCustomDialog);
-                      txt.setText(getString(R.string.login_details_verified));
+                     //  TextView txtTitle =  dialog.findViewById(R.id.txtCustomDialogTitle);
+                       //txtTitle.setText(getString(R.string.test_dialog_title));
+                      TextView txtMsg =  dialog.findViewById(R.id.txtCustomDialog);
+                      txtMsg.setText(getString(R.string.login_details_verified));
                        Button btn = (Button) dialog.findViewById(R.id.btnCustomDialog);
                        btn.setOnClickListener(new View.OnClickListener() {
                            @Override
