@@ -7,6 +7,11 @@ public class LeadModel {
     private String lastName;   //Lead Last Name
     private String phoneNumber; //Lead Mobile Number
 
+    public LeadModel(String firstName, String phoneNumber) {
+        this.firstName = firstName;
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getFirstName() {
         return firstName;
     }
