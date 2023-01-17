@@ -25,9 +25,17 @@ public class WebServices {
       public static  String allProducts = "/products";
 
       // SMART CALL APIs
+/*
+    The IP address and port has changed
+
+    For internal (lan access) the IP address is 192.168.1.101 and the port is 8081
+
+    For external (web access) the IP address is 43.239.52.151 and the port is 8081  // Access From Anywhere
+    */
+
    // http://192.168.1.100:8080/lead/findLeads
 
-    // http://192.168.1.101:8081/lead/findLeads   // ACCESS FROM ANYWHERE
+    // http://192.168.1.101:8081/lead/findLeads
 
    // http://192.168.1.100:8080/security/generateUser?userId=admin
 
@@ -36,7 +44,10 @@ public class WebServices {
    // http://192.168.1.100:8080/security/validateOtp?(user object in the request body)
 
     //Smart Call BaseURL
-    public static String SmartCall_BaseURL = "http://192.168.1.100:8080/";
+    public static String SmartCall_BaseURL = "http://192.168.1.101:8081/";
+
+    public static String SmartCall_BaseURL2 = "http://43.239.52.151:8081/";
+
 
     //for Lead List
     public static String find_Leads = "lead/findLeads";
@@ -71,34 +82,5 @@ public class WebServices {
         return retrofit.create(RestClient.class);
     }
 
-
-
-  /*  private static Retrofit retrofit = null;
-
-    public static RestClient create() {
-
-        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
-
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(); // Live
-        // logging.level = HttpLoggingInterceptor.Level.BODY; // Live
-        logging.level(HttpLoggingInterceptor.Level.BODY);
-
-        okHttpBuilder.connectTimeout(2, java.util.concurrent.TimeUnit.MINUTES);
-        okHttpBuilder.readTimeout(2, TimeUnit.MINUTES).build();
-        okHttpBuilder.writeTimeout(2, TimeUnit.MINUTES);
-        okHttpBuilder.addInterceptor(logging);// Live
-        //  val okHttpClient = okHttpBuilder.build();
-
-        Gson gson = new GsonBuilder().setLenient().create();
-
-        if (retrofit == null) {
-            Retrofit.Builder retrofit = new Retrofit.Builder().addCallAdapterFactory(RxJava2CallAdapterFactory.create());
-            retrofit.addConverterFactory(GsonConverterFactory.create(gson));
-            retrofit.baseUrl(WebServices.Domain2).client(okHttpBuilder.build()).build();
-
-        }
-
-        return retrofit.create(RestClient.class);
-    }*/
 
 }

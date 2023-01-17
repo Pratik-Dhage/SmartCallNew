@@ -1,6 +1,7 @@
 package com.example.test.api_manager;
 
 
+import com.example.test.lead.model.LeadListResponseModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -27,9 +28,8 @@ public interface RestClient {
     Observable<NewsResponse> getNews(@Url String url);
 */
 
-  /*  @GET
-    Observable<LeadListResponse> getLeadList(@Url String url);
-*/
+    @GET
+    Observable<LeadListResponseModel> getLeadList(@Url String url);
 
 
 }

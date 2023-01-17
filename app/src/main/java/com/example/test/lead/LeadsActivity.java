@@ -2,6 +2,7 @@ package com.example.test.lead;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -10,12 +11,16 @@ import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityLeadsBinding;
+import com.example.test.helper_classes.Global;
+import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.lead.adapter.LeadListAdapter;
 import com.example.test.login.LoginActivity;
 
 public class LeadsActivity extends AppCompatActivity {
 
     ActivityLeadsBinding binding;
     View view;
+    LeadsViewModel leadsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,7 @@ public class LeadsActivity extends AppCompatActivity {
 
         initializeFields();
         initObserver();
+        callAPi();
         onClickListener();
     }
 
@@ -30,16 +36,52 @@ public class LeadsActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_leads);
         view = binding.getRoot();
+        leadsViewModel =  new ViewModelProvider(this).get(LeadsViewModel.class);
+        binding.setLeadViewModel(leadsViewModel);
     }
 
     private void setUpRecyclerLeadListData(){
 
+        leadsViewModel.updateLeadListData();
       RecyclerView recyclerView =  binding.rvLeadActivity;
-      //recyclerView.setAdapter();
+      recyclerView.setAdapter(new LeadListAdapter(leadsViewModel.arrListLeadListData));
     }
 
+    private void callAPi(){
+        leadsViewModel.getLeads();
+    }
 
     private void initObserver(){
+
+        leadsViewModel.getMutLeadListResponseApi().observe(this,result->{
+
+            if(NetworkUtilities.getConnectivityStatus(this)) {
+
+               if(result.getAllLeadList()!=null){
+                   leadsViewModel.arrListLeadListData.clear();
+                   leadsViewModel.arrListLeadListData.addAll(result.getAllLeadList());
+
+                   Global.showToast(this,"Size of Lead List:"+result.getAllLeadList().size());
+
+                   setUpRecyclerLeadListData();
+               }
+
+
+            }
+            else Global.showSnackBar(view,getResources().getString(R.string.check_internet_connection));
+
+            });
+
+        //handle  error response
+        leadsViewModel.getMutErrorResponse().observe(this, error ->{
+
+            if (error != null && !error.isEmpty()) {
+                Global.showSnackBar(view, error);
+                System.out.println("Here: " + error);
+            } else {
+                Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+            }
+        });
 
     }
 

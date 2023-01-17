@@ -1,5 +1,7 @@
 package com.example.test.lead.adapter;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
 import com.example.test.databinding.ItemLeadListBinding;
+import com.example.test.lead.model.LeadModel;
+
+import java.util.ArrayList;
 
 public class LeadListAdapter extends RecyclerView.Adapter<LeadListAdapter.MyViewHolderClass> {
 
+    // Context context;
+    ArrayList<LeadModel> LeadModelClassArrayList;
+
+
+
+    // call this constructor in LeadsViewModel
+    public LeadListAdapter(ArrayList<LeadModel> arrListData) {
+        this.LeadModelClassArrayList = arrListData;
+    }
 
 
     @NonNull
@@ -27,29 +41,37 @@ public class LeadListAdapter extends RecyclerView.Adapter<LeadListAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolderClass holder, int position) {
 
+        LeadModel a = LeadModelClassArrayList.get(position);
+        Context context = holder.itemView.getContext();
+
+         holder.binding.txtLeadName.setText(a.getFirstName());
+         holder.binding.txtMobileNumber.setText(a.getPhoneNumber());
+
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return LeadModelClassArrayList.size();
     }
 
-   /* @SuppressLint("NotifyDataSetChanged")
-    public ArrayList setData( ArrayList<Products> data)  {
+    @SuppressLint("NotifyDataSetChanged")
+    public ArrayList setData(ArrayList<LeadModel> data)  {
         if (data.isEmpty()) {
-            ProductsModelClassArrayList =  new ArrayList();
+            LeadModelClassArrayList =  new ArrayList();
         }
-        ProductsModelClassArrayList = data;
+        LeadModelClassArrayList = data;
         notifyDataSetChanged();
 
-        return ProductsModelClassArrayList;
-    }*/
+        return LeadModelClassArrayList;
+    }
 
     class MyViewHolderClass extends RecyclerView.ViewHolder {
 
+        private   ItemLeadListBinding binding;
+
         public MyViewHolderClass(ItemLeadListBinding binding) {
             super(binding.getRoot());
-
+            this.binding = binding;
         }
     }
 }

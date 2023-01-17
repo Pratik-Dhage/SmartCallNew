@@ -6,6 +6,10 @@ import androidx.lifecycle.ViewModel;
 import com.example.test.api_manager.WebServices;
 import com.example.test.helper_classes.Global;
 import com.example.test.lead.adapter.LeadListAdapter;
+import com.example.test.lead.model.LeadListResponseModel;
+import com.example.test.lead.model.LeadModel;
+
+import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -17,23 +21,22 @@ public class LeadsViewModel extends ViewModel {
     private Disposable subscribtion; //Disposable Interface used to prevent observer from receiving items from Observer before all items are loaded.
 
 
-   // private final MutableLiveData<LeadListResponse> mutLeadListResponseApi = new MutableLiveData<>();
+    private final MutableLiveData<LeadListResponseModel> mutLeadListResponseApi = new MutableLiveData<>();
     private final MutableLiveData<String> mutErrorResponse = new MutableLiveData<>();
 
-    /*public MutableLiveData<LeadListResponse> getMutLeadListResponseApi() {
+    public MutableLiveData<LeadListResponseModel> getMutLeadListResponseApi() {
         return mutLeadListResponseApi;
-    }*/
+    }
 
     public MutableLiveData<String> getMutErrorResponse() {
         return mutErrorResponse;
     }
 
-   /* public  ArrayList<Products> arrListProductsData = new  ArrayList<Products>() ;
-    public LeadListAdapter leadListAdapter = new LeadListAdapter(arrListProductsData);
-*/
+    public ArrayList<LeadModel> arrListLeadListData = new  ArrayList<LeadModel>() ;
+    public LeadListAdapter leadListAdapter = new LeadListAdapter(arrListLeadListData);
 
     public void updateLeadListData(){
-     //   homeAdapter.setData(arrListProductsData);
+        leadListAdapter.setData(arrListLeadListData);
     }
 
 
@@ -44,18 +47,18 @@ public class LeadsViewModel extends ViewModel {
     public void getLeads()
 
     {
-       /* subscribtion = (Disposable) Global.apiService().getLeadList(WebServices.SmartCall_BaseURL + WebServices.find_Leads)
+        subscribtion = (Disposable) Global.apiService().getLeadList(WebServices.SmartCall_BaseURL + WebServices.find_Leads)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(
-                     //   this::onHomeApiSuccess, this::onApiError
-                );*/
+                        this::onHomeApiSuccess, this::onApiError
+                );
 
     }
-   /* private void onHomeApiSuccess(LeadListResponse result) {
-        mutHomeResponseApi.setValue(result);
-    }*/
+    private void onHomeApiSuccess(LeadListResponseModel result) {
+        mutLeadListResponseApi.setValue(result);
+    }
 
     private void onApiError(Throwable error) {
         mutErrorResponse.setValue(error.getLocalizedMessage());
