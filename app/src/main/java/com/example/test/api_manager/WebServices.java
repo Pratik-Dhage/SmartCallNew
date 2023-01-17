@@ -27,6 +27,8 @@ public class WebServices {
       // SMART CALL APIs
    // http://192.168.1.100:8080/lead/findLeads
 
+    // http://192.168.1.101:8081/lead/findLeads   // ACCESS FROM ANYWHERE
+
    // http://192.168.1.100:8080/security/generateUser?userId=admin
 
    // http://192.168.1.100:8080/security/generateOtp?(user object in the request body)
