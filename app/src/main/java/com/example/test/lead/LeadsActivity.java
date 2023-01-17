@@ -2,6 +2,7 @@ package com.example.test.lead;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ public class LeadsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         initializeFields();
+        initObserver();
         onClickListener();
     }
 
@@ -30,6 +32,18 @@ public class LeadsActivity extends AppCompatActivity {
         view = binding.getRoot();
     }
 
+    private void setUpRecyclerLeadListData(){
+
+      RecyclerView recyclerView =  binding.rvLeadActivity;
+      //recyclerView.setAdapter();
+    }
+
+
+    private void initObserver(){
+
+    }
+
+
     private void onClickListener() {
         binding.leadFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +51,13 @@ public class LeadsActivity extends AppCompatActivity {
 
                 Intent newLeadIntent = new Intent(LeadsActivity.this,NewLeadDetailsActivity.class);
                 startActivity(newLeadIntent);
+            }
+        });
+
+        binding.txtAddNewLead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.leadFloatingActionButton.performClick();
             }
         });
     }

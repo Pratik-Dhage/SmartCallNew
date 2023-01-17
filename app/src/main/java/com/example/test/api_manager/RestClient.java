@@ -27,7 +27,9 @@ public interface RestClient {
     Observable<NewsResponse> getNews(@Url String url);
 */
 
-
+  /*  @GET
+    Observable<LeadListResponse> getLeadList(@Url String url);
+*/
 
 
 }

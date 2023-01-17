@@ -33,13 +33,14 @@ public class WebServices {
 
    // http://192.168.1.100:8080/security/validateOtp?(user object in the request body)
 
-      //for Lead List
-    public static String Leads_List_BaseURL = "http://192.168.1.100:8080/lead/";
-    public static String findLeads = "findLeads";
+    //Smart Call BaseURL
+    public static String SmartCall_BaseURL = "http://192.168.1.100:8080/";
+
+    //for Lead List
+    public static String find_Leads = "lead/findLeads";
 
     // for Generating User
-    public static String Generate_User_BaseURL = " http://192.168.1.100:8080/security/generateUser?";
-    public static String user = "userId=admin";
+    public static String generate_User = "security/generateUser?userId=admin";
 
 
     public static RestClient create() {
@@ -60,7 +61,8 @@ public class WebServices {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 //.baseUrl(WebServices.Domain2)
-                .baseUrl(WebServices.Domain)
+                //.baseUrl(WebServices.Domain)
+                .baseUrl(SmartCall_BaseURL)
                 .client(okHttpClient)
                 .build();
 

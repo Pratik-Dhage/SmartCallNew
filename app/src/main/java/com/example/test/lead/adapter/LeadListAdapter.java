@@ -34,6 +34,17 @@ public class LeadListAdapter extends RecyclerView.Adapter<LeadListAdapter.MyView
         return 0;
     }
 
+   /* @SuppressLint("NotifyDataSetChanged")
+    public ArrayList setData( ArrayList<Products> data)  {
+        if (data.isEmpty()) {
+            ProductsModelClassArrayList =  new ArrayList();
+        }
+        ProductsModelClassArrayList = data;
+        notifyDataSetChanged();
+
+        return ProductsModelClassArrayList;
+    }*/
+
     class MyViewHolderClass extends RecyclerView.ViewHolder {
 
         public MyViewHolderClass(ItemLeadListBinding binding) {
