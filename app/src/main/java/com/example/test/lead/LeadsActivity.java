@@ -14,23 +14,88 @@ import com.example.test.databinding.ActivityLeadsBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.lead.adapter.LeadListAdapter;
+import com.example.test.lead.adapter.RawLeadListAdapter;
+import com.example.test.lead.model.LeadModel;
 import com.example.test.login.LoginActivity;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LeadsActivity extends AppCompatActivity {
 
     ActivityLeadsBinding binding;
     View view;
     LeadsViewModel leadsViewModel;
+    List<Object> rawLeadListItem = new ArrayList<>(); // for Fetching data from Json file stored locally in raw folder
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         initializeFields();
-        initObserver();
+      //  initObserver();
         callAPi();
+        callAPiFromRaw();
         onClickListener();
     }
+
+    private void callAPiFromRaw() {
+        setRawRecyclerView();
+
+        try {
+            String jsonString = readJsonFromRaw();
+            JSONArray jsonArray = new JSONArray(jsonString);
+
+            for(int i = 0 ; i<=jsonArray.length()-1 ; ++i){
+
+                JSONObject itemJsonObject = jsonArray.getJSONObject(i);
+                String firstName = itemJsonObject.getString("firstName");
+                String phoneNumber = itemJsonObject.getString("phoneNumber");
+
+
+                LeadModel leadModel = new LeadModel(firstName,phoneNumber);
+                rawLeadListItem.add(leadModel);
+
+            }
+
+
+        }
+        catch(Exception e){
+            Global.showSnackBar(view,e.toString());
+            System.out.println("Here :"+ e);
+        }
+
+    }
+
+    private String readJsonFromRaw() throws IOException {
+        InputStream inputStream = null;
+        String jsonString = null ;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        try{
+            inputStream = getResources().openRawResource(R.raw.lead_list_response);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
+
+            while((jsonString = bufferedReader.readLine()) !=null){
+                stringBuilder.append(jsonString);
+            }
+
+        }
+
+        finally {
+            if(inputStream!=null){ inputStream.close();  }
+        }
+
+        return new String(stringBuilder);
+    }
+
 
     private void initializeFields() {
 
@@ -46,6 +111,12 @@ public class LeadsActivity extends AppCompatActivity {
       RecyclerView recyclerView =  binding.rvLeadActivity;
       recyclerView.setAdapter(new LeadListAdapter(leadsViewModel.arrListLeadListData));
     }
+
+    private void setRawRecyclerView(){
+        RecyclerView recyclerView =  binding.rvLeadActivity;
+        recyclerView.setAdapter(new RawLeadListAdapter(rawLeadListItem));
+    }
+
 
     private void callAPi(){
         leadsViewModel.getLeads();
