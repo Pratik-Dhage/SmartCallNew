@@ -2,6 +2,7 @@ package com.example.test.lead.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
+import com.example.test.call_status.CallStatusActivity;
 import com.example.test.databinding.ItemLeadListBinding;
 import com.example.test.lead.model.LeadModel;
 
@@ -47,6 +49,17 @@ public class LeadListAdapter extends RecyclerView.Adapter<LeadListAdapter.MyView
 
          holder.binding.txtLeadName.setText(a.getFirstName());
          holder.binding.txtMobileNumber.setText(a.getPhoneNumber());
+
+         holder.itemView.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+
+                 Intent i = new Intent(context, CallStatusActivity.class);
+                 i.putExtra("firstName",a.getFirstName());
+                 i.putExtra("phoneNumber",a.getPhoneNumber());
+                 context.startActivity(i);
+             }
+         });
 
     }
 
