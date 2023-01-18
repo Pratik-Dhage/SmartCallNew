@@ -19,6 +19,7 @@ import com.example.test.lead.model.LeadModel;
 import com.example.test.login.LoginActivity;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class LeadsActivity extends AppCompatActivity {
@@ -40,9 +42,9 @@ public class LeadsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         initializeFields();
-      //  initObserver();
+       initObserver();
         callAPi();
-        callAPiFromRaw();
+       // callAPiFromRaw();
         onClickListener();
     }
 
@@ -53,7 +55,7 @@ public class LeadsActivity extends AppCompatActivity {
             String jsonString = readJsonFromRaw();
             JSONArray jsonArray = new JSONArray(jsonString);
 
-            for(int i = 0 ; i<=jsonArray.length()-1 ; ++i){
+            for(int i = 0 ; i<jsonArray.length() ; ++i){
 
                 JSONObject itemJsonObject = jsonArray.getJSONObject(i);
                 String firstName = itemJsonObject.getString("firstName");
@@ -128,13 +130,16 @@ public class LeadsActivity extends AppCompatActivity {
 
             if(NetworkUtilities.getConnectivityStatus(this)) {
 
-               if(result.getAllLeadList()!=null){
+               if(result!=null){
                    leadsViewModel.arrListLeadListData.clear();
-                   leadsViewModel.arrListLeadListData.addAll(result.getAllLeadList());
-
-                   Global.showToast(this,"Size of Lead List:"+result.getAllLeadList().size());
 
                    setUpRecyclerLeadListData();
+                  leadsViewModel.arrListLeadListData.addAll(result);
+
+
+                   Global.showToast(this,"Size of Lead List:"+result.size()); // size is getting 100
+
+
                }
 
 

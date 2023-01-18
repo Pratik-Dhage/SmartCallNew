@@ -15,6 +15,7 @@ import com.example.test.databinding.ItemLeadListBinding;
 import com.example.test.lead.model.LeadModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LeadListAdapter extends RecyclerView.Adapter<LeadListAdapter.MyViewHolderClass> {
 

@@ -30,10 +30,9 @@ public interface RestClient {
     Observable<NewsResponse> getNews(@Url String url);
 */
 
-    @GET
-    Observable<LeadListResponseModel> getLeadList(@Url String url);
    /* @GET
+    Observable<LeadListResponseModel> getLeadList(@Url String url);*/
+    @GET
     Observable<List<LeadModel>> getLeadList(@Url String url);
 
-*/
 }

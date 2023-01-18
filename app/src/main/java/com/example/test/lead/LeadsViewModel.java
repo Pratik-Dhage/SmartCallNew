@@ -10,6 +10,7 @@ import com.example.test.lead.model.LeadListResponseModel;
 import com.example.test.lead.model.LeadModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -21,10 +22,10 @@ public class LeadsViewModel extends ViewModel {
     private Disposable subscribtion; //Disposable Interface used to prevent observer from receiving items from Observer before all items are loaded.
 
 
-    private final MutableLiveData<LeadListResponseModel> mutLeadListResponseApi = new MutableLiveData<>();
+    private final MutableLiveData<List<LeadModel>> mutLeadListResponseApi = new MutableLiveData<>();
     private final MutableLiveData<String> mutErrorResponse = new MutableLiveData<>();
 
-    public MutableLiveData<LeadListResponseModel> getMutLeadListResponseApi() {
+    public MutableLiveData<List<LeadModel>> getMutLeadListResponseApi() {
         return mutLeadListResponseApi;
     }
 
@@ -56,7 +57,7 @@ public class LeadsViewModel extends ViewModel {
                 );
 
     }
-    private void onHomeApiSuccess(LeadListResponseModel result) {
+    private void onHomeApiSuccess(List<LeadModel> result) {
         mutLeadListResponseApi.setValue(result);
     }
 
