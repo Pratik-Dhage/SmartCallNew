@@ -2,10 +2,12 @@ package com.example.test.api_manager;
 
 
 import com.example.test.lead.model.LeadListResponseModel;
+import com.example.test.lead.model.LeadModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.sql.Time;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -30,6 +32,8 @@ public interface RestClient {
 
     @GET
     Observable<LeadListResponseModel> getLeadList(@Url String url);
+   /* @GET
+    Observable<List<LeadModel>> getLeadList(@Url String url);
 
-
+*/
 }
