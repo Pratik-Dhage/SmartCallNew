@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     style="@style/MainConstraintStyle"
@@ -7,19 +8,21 @@
 
     <TextView
         android:id="@+id/txtLeadName"
-        android:text="Pratik Dhage"
+        tools:text="Pratik D"
+        android:maxLines="1"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_2sdp"
         app:layout_constraintStart_toStartOf="parent"
        style="@style/common_text_style"/>
 
     <TextView
         android:id="@+id/txtMobileNumber"
-        android:text="123456789"
+        tools:text="123456789"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_60sdp"
-        app:layout_constraintStart_toEndOf="@id/txtLeadName"
+       app:layout_constraintEnd_toStartOf="@id/ivLeadList"
+        android:layout_marginEnd="@dimen/_50sdp"
        style="@style/common_text_style"/>
 
     <ImageView
@@ -29,7 +32,7 @@
         android:layout_width="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/_20sdp"
-       android:layout_marginEnd="@dimen/_30sdp"
+       android:layout_marginEnd="@dimen/_20sdp"
         android:layout_height="wrap_content"
         app:tint="@color/textBlue" />
 

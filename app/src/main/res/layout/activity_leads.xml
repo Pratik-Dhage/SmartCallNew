@@ -56,7 +56,7 @@
                 <TextView
                     android:id="@+id/labelLeadName"
                     style="@style/mid_text_style"
-                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_3sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:text="@string/lead_name"
                     app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,7 @@
                 <TextView
                     android:id="@+id/labelMobileNumber"
                     style="@style/mid_text_style"
-                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:text="@string/mobile_number"
                     app:layout_constraintEnd_toStartOf="@id/labelAttemptNumber"
@@ -76,7 +76,7 @@
                     android:id="@+id/labelAttemptNumber"
                     style="@style/mid_text_style"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_2sdp"
                     android:text="@string/attempt_no"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

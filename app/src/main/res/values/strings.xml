@@ -54,6 +54,7 @@
     <string name="enter_lead_mobile_number">Enter Lead Mobile Number</string>
     <string name="save">Save</string>
     <string name="back_to_lead_list">Back To Lead List</string>
+    <string name="permission_to_call_denied">Permission to make a call is denied</string>
 
 
     <!--validations-->
