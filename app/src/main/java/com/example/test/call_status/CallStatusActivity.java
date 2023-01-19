@@ -86,7 +86,12 @@ public class CallStatusActivity extends AppCompatActivity {
                     Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+phoneNumber));
                     startActivity(dial);
 
-                  getCallLogs();
+                    try {
+                        getCallRecordingAndCallLogs();
+                    } catch (IOException e) {
+                        Global.showSnackBar(view,"Call Error"+e);
+                        System.out.println("Here Error:"+e);
+                    }
                 }
 
             }
@@ -108,6 +113,7 @@ public class CallStatusActivity extends AppCompatActivity {
                     getCallRecordingAndCallLogs();
                 } catch (IOException e) {
                    System.out.println("Here Error:"+e);
+                    Global.showSnackBar(view,"Call Error"+e);
                 }
             } else {
                 // Permission is denied, show a message
