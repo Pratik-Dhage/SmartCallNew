@@ -1,29 +1,43 @@
 package com.example.test.roomDB.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.test.roomDB.model.LeadModel;
+import com.example.test.roomDB.model.LeadModelRoom;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
 public interface LeadDao {
 
 
-    @Insert
-    void insert(LeadModel leadModel);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(LeadModelRoom leadModelRoom);
 
     @Update
-    void update(LeadModel leadModel);
+    void update(LeadModelRoom leadModelRoom);
 
     @Delete
-    void delete(LeadModel leadModel);
+    void delete(LeadModelRoom leadModelRoom);
 
-    @Query("SELECT * FROM leadmodel")
+    @Query("SELECT DISTINCT * FROM lead_list_table")
     List<LeadModel> getAllLeadListFromRoomDB();
+   // LiveData<List<LeadModel>>  getAllLeadListFromRoomDB();
+
+    // to check if table already exists , otherwise it will create new table
+    @Query("SELECT name FROM sqlite_master WHERE type='table' AND name=:tableName")
+    String checkTableExists(String tableName);
+
+    //to check if Lead already exists
+    @Query("SELECT DISTINCT * fROM lead_list_table WHERE leadID =:lead_ID") //leadID is from table
+    LeadModel isExisting(String lead_ID); //lead_ID is variable
+
 
 }

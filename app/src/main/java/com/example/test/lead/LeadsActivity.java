@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +19,9 @@ import com.example.test.lead.adapter.LeadListAdapter;
 import com.example.test.lead.adapter.RawLeadListAdapter;
 import com.example.test.lead.model.LeadModel;
 import com.example.test.login.LoginActivity;
+import com.example.test.roomDB.dao.LeadDao;
+import com.example.test.roomDB.database.LeadListDB;
+import com.example.test.roomDB.model.LeadModelRoom;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -136,6 +141,28 @@ public class LeadsActivity extends AppCompatActivity {
                    setUpRecyclerLeadListData();
                   leadsViewModel.arrListLeadListData.addAll(result);
 
+                  /*
+                  // iterate from result and store in local String
+                     String first_name = result.iterator().next().getFirstName();
+                     String phone_number = result.iterator().next().getPhoneNumber();
+
+                   LeadModelRoom leadModelResponseForRoom = new LeadModelRoom(first_name,phone_number);
+
+                      //store this Lead List Response in Room DataBase
+
+                   storeInRoomDB_LeadListDB(this,leadModelResponseForRoom);
+*/
+                   for(int i = 1 ; i<= result.size() ; i++){
+
+                       String first_name = result.iterator().next().getFirstName();
+                       String phone_number = result.iterator().next().getPhoneNumber();
+
+                       LeadModelRoom leadModelResponseForRoom = new LeadModelRoom(first_name,phone_number);
+
+                       storeInRoomDB_LeadListDB(this,leadModelResponseForRoom);
+                   }
+
+
 
                    Global.showToast(this,"Size of Lead List:"+result.size()); // size is getting 100
 
@@ -178,5 +205,17 @@ public class LeadsActivity extends AppCompatActivity {
                 binding.leadFloatingActionButton.performClick();
             }
         });
+    }
+
+    private  void storeInRoomDB_LeadListDB(Context context , LeadModelRoom leadModelRoom){
+
+
+       LeadDao lead_Dao = LeadListDB.getInstance(this).leadDao();
+
+        lead_Dao.insert(leadModelRoom);
+
+      //Global.showToast(this,""+lead_Dao.isExisting("1"));
+      System.out.println("Lead ID:"+lead_Dao.getAllLeadListFromRoomDB().size());
+
     }
 }

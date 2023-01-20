@@ -4,9 +4,14 @@ package com.example.test.roomDB.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 @Entity(tableName = "lead_list_table")
-public class LeadModel {
+public class LeadModelRoom {
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "leadID")
+    private int leadID ;
 
     @ColumnInfo(name = "firstName")
     private String firstName;  //Lead First Name
@@ -15,9 +20,17 @@ public class LeadModel {
     @ColumnInfo(name = "phoneNumber")
     private String phoneNumber; //Lead Mobile Number
 
-    public LeadModel(String firstName, String phoneNumber) {
+    public LeadModelRoom(String firstName, String phoneNumber) {
         this.firstName = firstName;
         this.phoneNumber = phoneNumber;
+    }
+
+    public int getLeadID() {
+        return leadID;
+    }
+
+    public void setLeadID(int leadID) {
+        this.leadID = leadID;
     }
 
     public String getFirstName() {
