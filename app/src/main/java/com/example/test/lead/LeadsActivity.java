@@ -159,7 +159,13 @@ public class LeadsActivity extends AppCompatActivity {
 
                        LeadModelRoom leadModelResponseForRoom = new LeadModelRoom(first_name,phone_number);
 
-                       storeInRoomDB_LeadListDB(this,leadModelResponseForRoom);
+                       if(getRowCount() == 0) {
+                           storeInRoomDB_LeadListDB(this, leadModelResponseForRoom);
+                       }
+                       else
+                       {
+                          updateRoomDB_LeadListDB(this,leadModelResponseForRoom);
+                       }
                    }
 
 
@@ -209,13 +215,29 @@ public class LeadsActivity extends AppCompatActivity {
 
     private  void storeInRoomDB_LeadListDB(Context context , LeadModelRoom leadModelRoom){
 
-
-       LeadDao lead_Dao = LeadListDB.getInstance(this).leadDao();
+        LeadDao lead_Dao = LeadListDB.getInstance(this).leadDao();
 
         lead_Dao.insert(leadModelRoom);
 
-      //Global.showToast(this,""+lead_Dao.isExisting("1"));
       System.out.println("Lead ID:"+lead_Dao.getAllLeadListFromRoomDB().size());
 
     }
+
+    private void updateRoomDB_LeadListDB(Context context , LeadModelRoom leadModelRoom){
+
+        LeadDao lead_Dao = LeadListDB.getInstance(this).leadDao();
+
+        lead_Dao.update(leadModelRoom);
+
+        System.out.println("Lead ID:"+lead_Dao.getAllLeadListFromRoomDB().size());
+
+    }
+
+    private int getRowCount(){
+        LeadDao lead_Dao = LeadListDB.getInstance(this).leadDao();
+        int row_count =  lead_Dao.getRowCount();
+        return  row_count;
+    }
+
+
 }

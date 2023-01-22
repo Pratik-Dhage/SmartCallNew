@@ -1,6 +1,5 @@
 package com.example.test.roomDB.dao;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -11,14 +10,14 @@ import androidx.room.Update;
 import com.example.test.roomDB.model.LeadModel;
 import com.example.test.roomDB.model.LeadModelRoom;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Dao
 public interface LeadDao {
 
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(LeadModelRoom leadModelRoom);
 
     @Update
@@ -38,6 +37,11 @@ public interface LeadDao {
     //to check if Lead already exists
     @Query("SELECT DISTINCT * fROM lead_list_table WHERE leadID =:lead_ID") //leadID is from table
     LeadModel isExisting(String lead_ID); //lead_ID is variable
+
+
+    //to get count of rows in table
+    @Query("SELECT COUNT(*) FROM lead_list_table")
+    int getRowCount();
 
 
 }
