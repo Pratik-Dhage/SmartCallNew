@@ -17,7 +17,7 @@ import java.util.List;
 public interface LeadDao {
 
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(LeadModelRoom leadModelRoom);
 
     @Update
@@ -27,7 +27,7 @@ public interface LeadDao {
     void delete(LeadModelRoom leadModelRoom);
 
     @Query("SELECT DISTINCT * FROM lead_list_table")
-    List<LeadModel> getAllLeadListFromRoomDB();
+    List<LeadModelRoom> getAllLeadListFromRoomDB();
    // LiveData<List<LeadModel>>  getAllLeadListFromRoomDB();
 
     // to check if table already exists , otherwise it will create new table

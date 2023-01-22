@@ -17,6 +17,7 @@ import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.lead.adapter.LeadListAdapter;
 import com.example.test.lead.adapter.RawLeadListAdapter;
+import com.example.test.lead.adapter.Room_LeadListAdapter;
 import com.example.test.lead.model.LeadModel;
 import com.example.test.login.LoginActivity;
 import com.example.test.roomDB.dao.LeadDao;
@@ -47,10 +48,18 @@ public class LeadsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         initializeFields();
-       initObserver();
-        callAPi();
-       // callAPiFromRaw();
         onClickListener();
+
+        if(NetworkUtilities.getConnectivityStatus(this)){
+            initObserver();
+            callAPi();
+        }
+         else{
+             useOffLineLeadList();
+        }
+
+       // callAPiFromRaw();
+
     }
 
     private void callAPiFromRaw() {
@@ -141,17 +150,8 @@ public class LeadsActivity extends AppCompatActivity {
                    setUpRecyclerLeadListData();
                   leadsViewModel.arrListLeadListData.addAll(result);
 
-                  /*
-                  // iterate from result and store in local String
-                     String first_name = result.iterator().next().getFirstName();
-                     String phone_number = result.iterator().next().getPhoneNumber();
-
-                   LeadModelRoom leadModelResponseForRoom = new LeadModelRoom(first_name,phone_number);
-
                       //store this Lead List Response in Room DataBase
 
-                   storeInRoomDB_LeadListDB(this,leadModelResponseForRoom);
-*/
                    for(int i = 1 ; i<= result.size() ; i++){
 
                        String first_name = result.iterator().next().getFirstName();
@@ -239,5 +239,14 @@ public class LeadsActivity extends AppCompatActivity {
         return  row_count;
     }
 
+    private void useOffLineLeadList(){
+        LeadDao lead_Dao = LeadListDB.getInstance(this).leadDao();
+
+        ArrayList<LeadModelRoom> leadModelRoomArrayList = (ArrayList)lead_Dao.getAllLeadListFromRoomDB();
+
+        RecyclerView recyclerView =  binding.rvLeadActivity;
+        recyclerView.setAdapter(new Room_LeadListAdapter(leadModelRoomArrayList));
+
+    }
 
 }
