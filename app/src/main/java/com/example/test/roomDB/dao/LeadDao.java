@@ -38,10 +38,12 @@ public interface LeadDao {
     @Query("SELECT DISTINCT * fROM lead_list_table WHERE leadID =:lead_ID") //leadID is from table
     LeadModel isExisting(String lead_ID); //lead_ID is variable
 
-
     //to get count of rows in table
     @Query("SELECT COUNT(*) FROM lead_list_table")
     int getRowCount();
 
-
+    //to check if data (eg.phone number) is already existing in Table,
+    // if Not exists only then data(Api Response) will be added
+    @Query("SELECT COUNT(phoneNumber) FROM lead_list_table WHERE phoneNumber =:phone_Number")
+    int getCountByPhoneNumber(String phone_Number);
 }

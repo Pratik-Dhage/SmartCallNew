@@ -151,28 +151,21 @@ public class LeadsActivity extends AppCompatActivity {
                   leadsViewModel.arrListLeadListData.addAll(result);
 
                       //store this Lead List Response in Room DataBase
+                   for(LeadModel lead : result){
 
-                   for(int i = 1 ; i<= result.size() ; i++){
-
-                       String first_name = result.iterator().next().getFirstName();
-                       String phone_number = result.iterator().next().getPhoneNumber();
+                       String first_name = lead.getFirstName();
+                       String phone_number =lead.getPhoneNumber();
 
                        LeadModelRoom leadModelResponseForRoom = new LeadModelRoom(first_name,phone_number);
 
-                       if(getRowCount() == 0) {
+                       // to Check if Data(phoneNumber) already exists in the Table
+                       if(!checkIfDataExists(phone_number)) {
                            storeInRoomDB_LeadListDB(this, leadModelResponseForRoom);
                        }
-                       else
-                       {
-                          updateRoomDB_LeadListDB(this,leadModelResponseForRoom);
-                       }
+
                    }
 
-
-
                    Global.showToast(this,"Size of Lead List:"+result.size()); // size is getting 100
-
-
                }
 
 
@@ -247,6 +240,14 @@ public class LeadsActivity extends AppCompatActivity {
         RecyclerView recyclerView =  binding.rvLeadActivity;
         recyclerView.setAdapter(new Room_LeadListAdapter(leadModelRoomArrayList));
 
+        Global.showToast(this,"Offline Row Count:"+getRowCount());
+
+    }
+
+    private boolean checkIfDataExists(String phoneNumber) {
+        LeadDao lead_Dao = LeadListDB.getInstance(this).leadDao();
+        int count = lead_Dao.getCountByPhoneNumber(phoneNumber);
+        return count > 0;
     }
 
 }
