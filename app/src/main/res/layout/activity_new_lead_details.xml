@@ -88,6 +88,7 @@
                         android:id="@+id/edtLeadMobileNumber"
                         style="@style/editTextStyle"
                         android:digits="1234567890"
+                        android:maxLength="10"
                         android:hint="@string/enter_lead_mobile_number"
                         android:inputType="number"
                         app:layout_constraintEnd_toEndOf="parent"

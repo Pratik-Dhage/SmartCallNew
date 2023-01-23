@@ -3,6 +3,7 @@ package com.example.test.lead;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +15,9 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityNewLeadDetailsBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.roomDB.dao.LeadDao;
+import com.example.test.roomDB.database.LeadListDB;
+import com.example.test.roomDB.model.LeadModelRoom;
 
 import java.util.ArrayList;
 
@@ -88,12 +92,29 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
                 if(NetworkUtilities.getConnectivityStatus(NewLeadDetailsActivity.this)){
 
                     if(validations()){
+
                         Global.showToast(NewLeadDetailsActivity.this,getResources().getString(R.string.ok));
+
                     }
 
                 }
                 else{
-                    Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+
+                    // Store New Lead in Room Database for Offline Purpose
+
+                    String first_name = binding.edtLeadFirstName.getText().toString().trim();
+                    String phone_number = binding.edtLeadMobileNumber.getText().toString().trim();
+
+                    LeadModelRoom leadModelResponseForRoom = new LeadModelRoom(first_name,phone_number);
+
+                    // to Check if Data(phoneNumber) already exists in the Table
+                    if(!checkIfDataExists(phone_number)) {
+                        storeInRoomDB_LeadListDB(NewLeadDetailsActivity.this, leadModelResponseForRoom);
+
+                        Global.showToast(NewLeadDetailsActivity.this,getResources().getString(R.string.saved_in_room_db));
+                    }
+
+
                 }
 
 
@@ -176,5 +197,16 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private  void storeInRoomDB_LeadListDB(Context context , LeadModelRoom leadModelRoom){
+        LeadDao lead_Dao = LeadListDB.getInstance(this).leadDao();
+        lead_Dao.insert(leadModelRoom);
+    }
+
+    private boolean checkIfDataExists(String phoneNumber) {
+        LeadDao lead_Dao = LeadListDB.getInstance(this).leadDao();
+        int count = lead_Dao.getCountByPhoneNumber(phoneNumber);
+        return count > 0;
     }
 }
