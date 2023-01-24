@@ -7,10 +7,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.test.roomDB.model.LeadModel;
 import com.example.test.roomDB.model.LeadModelRoom;
 
-import java.util.Collection;
 import java.util.List;
 
 @Dao
@@ -36,7 +34,7 @@ public interface LeadDao {
 
     //to check if Lead already exists
     @Query("SELECT DISTINCT * fROM lead_list_table WHERE leadID =:lead_ID") //leadID is from table
-    LeadModel isExisting(String lead_ID); //lead_ID is variable
+    LeadModelRoom isExisting(String lead_ID); //lead_ID is variable
 
     //to get count of rows in table
     @Query("SELECT COUNT(*) FROM lead_list_table")

@@ -1,16 +1,12 @@
 package com.example.test.roomDB.database;
 
 import android.content.Context;
-import android.database.Cursor;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.test.roomDB.dao.LeadDao;
-import com.example.test.roomDB.model.LeadModel;
 import com.example.test.roomDB.model.LeadModelRoom;
 
 import kotlin.jvm.Synchronized;
