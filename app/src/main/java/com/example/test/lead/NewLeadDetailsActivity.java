@@ -102,17 +102,21 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
 
                     // Store New Lead in Room Database for Offline Purpose
 
-                    String first_name = binding.edtLeadFirstName.getText().toString().trim();
-                    String phone_number = binding.edtLeadMobileNumber.getText().toString().trim();
+                   if(validations()){
 
-                    LeadModelRoom leadModelResponseForRoom = new LeadModelRoom(first_name,phone_number);
+                       String first_name = binding.edtLeadFirstName.getText().toString().trim();
+                       String phone_number = binding.edtLeadMobileNumber.getText().toString().trim();
 
-                    // to Check if Data(phoneNumber) already exists in the Table
-                    if(!checkIfDataExists(phone_number)) {
-                        storeInRoomDB_LeadListDB(NewLeadDetailsActivity.this, leadModelResponseForRoom);
+                       LeadModelRoom leadModelResponseForRoom = new LeadModelRoom(first_name,phone_number);
 
-                        Global.showToast(NewLeadDetailsActivity.this,getResources().getString(R.string.saved_in_room_db));
-                    }
+                       // to Check if Data(phoneNumber) already exists in the Table
+                       if(!checkIfDataExists(phone_number)) {
+                           storeInRoomDB_LeadListDB(NewLeadDetailsActivity.this, leadModelResponseForRoom);
+
+                           Global.showToast(NewLeadDetailsActivity.this,getResources().getString(R.string.saved_in_room_db));
+                       }
+
+                   }
 
 
                 }
