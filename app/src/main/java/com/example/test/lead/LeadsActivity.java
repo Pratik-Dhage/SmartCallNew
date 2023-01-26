@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -202,6 +203,17 @@ public class LeadsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 binding.leadFloatingActionButton.performClick();
+            }
+        });
+
+        // for Swipe Refresh to Reload the RoomDB Lead List After New Lead is Added
+        binding.leadSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                useOffLineLeadList();
+                binding.leadSwipeRefresh.setColorSchemeResources(R.color.textBlue);
+                binding.leadSwipeRefresh.setRefreshing(false);
             }
         });
     }
