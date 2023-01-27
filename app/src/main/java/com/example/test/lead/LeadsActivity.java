@@ -4,10 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,13 +21,11 @@ import com.example.test.lead.adapter.LeadListAdapter;
 import com.example.test.lead.adapter.RawLeadListAdapter;
 import com.example.test.lead.adapter.Room_LeadListAdapter;
 import com.example.test.lead.model.LeadModel;
-import com.example.test.login.LoginActivity;
 import com.example.test.roomDB.dao.LeadDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.LeadModelRoom;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -34,7 +33,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class LeadsActivity extends AppCompatActivity {
@@ -50,6 +48,8 @@ public class LeadsActivity extends AppCompatActivity {
 
         initializeFields();
         onClickListener();
+        // for Swipe Refresh to Reload the RoomDB Lead List After New Lead is Added
+        onSwipeRefresh();
 
         if(NetworkUtilities.getConnectivityStatus(this)){
             initObserver();
@@ -206,7 +206,10 @@ public class LeadsActivity extends AppCompatActivity {
             }
         });
 
-        // for Swipe Refresh to Reload the RoomDB Lead List After New Lead is Added
+
+    }
+
+    private void onSwipeRefresh(){
         binding.leadSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -260,6 +263,38 @@ public class LeadsActivity extends AppCompatActivity {
         LeadDao lead_Dao = LeadListDB.getInstance(this).leadDao();
         int count = lead_Dao.getCountByPhoneNumber(phoneNumber);
         return count > 0;
+    }
+
+    public void onItemViewClick(int position, LeadModelRoom a) {
+        // Do something with the position of the itemView that was clicked
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete");
+        builder.setCancelable(true);
+        builder.setMessage("Do you want to delete this Lead?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                LeadModelRoom leadModelRoom = a; // a will give the position of selected Lead
+
+                // delete that particular lead
+                LeadDao lead_Dao = LeadListDB.getInstance(LeadsActivity.this).leadDao();
+                lead_Dao.delete(leadModelRoom);
+                // refresh the Lead List after Deletion
+                useOffLineLeadList();
+
+
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 }
