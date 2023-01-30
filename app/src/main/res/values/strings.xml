@@ -56,6 +56,8 @@
     <string name="saved_in_room_db">Successfully Saved in Room DB</string>
     <string name="back_to_lead_list">Back To Lead List</string>
     <string name="permission_to_call_denied">Permission to make a call is denied</string>
+    <string name="something_went_wrong">Something Went Wrong</string>
+    <string name="lead_number_already_exists">Lead Number Already Exists</string>
 
 
     <!--validations-->

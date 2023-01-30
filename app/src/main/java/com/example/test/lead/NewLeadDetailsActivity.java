@@ -93,7 +93,9 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
 
                     if(validations()){
 
-                        Global.showToast(NewLeadDetailsActivity.this,getResources().getString(R.string.ok));
+                      //  Global.showToast(NewLeadDetailsActivity.this,getResources().getString(R.string.ok));
+                        // for Test purpose Online Storage of Lead is also stored in RoomDB
+                        storageOfLeadOffline();
 
                     }
 
@@ -104,17 +106,7 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
 
                    if(validations()){
 
-                       String first_name = binding.edtLeadFirstName.getText().toString().trim();
-                       String phone_number = binding.edtLeadMobileNumber.getText().toString().trim();
-
-                       LeadModelRoom leadModelResponseForRoom = new LeadModelRoom(first_name,phone_number);
-
-                       // to Check if Data(phoneNumber) already exists in the Table
-                       if(!checkIfDataExists(phone_number)) {
-                           storeInRoomDB_LeadListDB(NewLeadDetailsActivity.this, leadModelResponseForRoom);
-
-                           Global.showToast(NewLeadDetailsActivity.this,getResources().getString(R.string.saved_in_room_db));
-                       }
+                      storageOfLeadOffline();
 
                    }
 
@@ -212,5 +204,28 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
         LeadDao lead_Dao = LeadListDB.getInstance(this).leadDao();
         int count = lead_Dao.getCountByPhoneNumber(phoneNumber);
         return count > 0;
+    }
+
+    private void storageOfLeadOffline(){
+
+
+        String first_name = binding.edtLeadFirstName.getText().toString().trim();
+        String phone_number = binding.edtLeadMobileNumber.getText().toString().trim();
+
+        LeadModelRoom leadModelResponseForRoom = new LeadModelRoom(first_name,phone_number);
+
+        // to Check if Data(phoneNumber) already exists in the Table
+        if(!checkIfDataExists(phone_number)) {
+            storeInRoomDB_LeadListDB(NewLeadDetailsActivity.this, leadModelResponseForRoom);
+
+            Global.showToast(NewLeadDetailsActivity.this,getResources().getString(R.string.saved_in_room_db));
+            Global.hideKeyboard(NewLeadDetailsActivity.this);
+        }
+        // Else Lead Already exists
+        else{
+            Global.showToast(NewLeadDetailsActivity.this,getResources().getString(R.string.lead_number_already_exists));
+        }
+
+
     }
 }
