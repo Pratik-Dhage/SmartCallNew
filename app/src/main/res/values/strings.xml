@@ -72,6 +72,7 @@
     <string name="lead_first_name_cannot_be_empty">Lead first name cannot be empty </string>
     <string name="lead_last_name_cannot_be_empty">Lead last name cannot be empty </string>
     <string name="lead_mobile_number_cannot_be_empty">Lead mobile number cannot be empty </string>
+    <string name="please_enter_proper_lead_number">Please enter proper lead mobile number </string>
     <string name="please_select_lead_source">Please select lead source </string>
     <string name="call_status">Call Status</string>
     <string name="mobile_no">Mobile No.</string>

@@ -136,6 +136,12 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
             return false;
         }
 
+        if(!binding.edtLeadMobileNumber.getText().toString().matches("^[1-9][0-9]{9}$")){
+            binding.inputLayoutMobileNumber.setError(getResources().getString(R.string.please_enter_proper_lead_number));
+            return false;
+        }
+
+
          if(binding.spinnerLeadSource.getSelectedItemPosition()==0){
              Global.showToast(this,getResources().getString(R.string.please_select_lead_source));
              return false;
