@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.test.R;
+import com.example.test.call_scheduled.CallScheduledActivity;
 import com.example.test.databinding.ActivityMainBinding;
 import com.example.test.databinding.ActivityMainUpdatedBinding;
 import com.example.test.lead.LeadsActivity;
@@ -54,6 +55,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void onClickListener() {
+
+
+        binding.clTotalCallScheduled.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(MainActivity.this, CallScheduledActivity.class);
+                startActivity(i);
+            }
+        });
+
+
         binding.labelMarketing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

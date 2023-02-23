@@ -15,17 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 //WebServices will store Domain(base url) and parameters required
 public class WebServices {
 
-    //for News Api
-    public static String Domain = "https://newsapi.org/v2/"; // Base Url
-    public static String api_key = "&apiKey=0964afd15f5d4897b36e8541e1f9ab7e";
-    public static String top_headlines = "top-headlines?";
-    public static String country_india = "country=in";
-
-    //for Fake Store Api
-    public static String Domain2 = "https://fakestoreapi.com"; //Base Url
-      public static  String allProducts = "/products";
-
-      // SMART CALL APIs
+    // SMART CALL APIs
 /*
     The IP address and port has changed
 
@@ -34,21 +24,32 @@ public class WebServices {
     For external (web access) the IP address is 43.239.52.151 and the port is 8081  // Access From Anywhere
     */
 
-   // http://192.168.1.100:8080/lead/findLeads
+    // http://192.168.1.100:8080/lead/findLeads
 
     // http://192.168.1.101:8081/lead/findLeads
 
-   // http://192.168.1.100:8080/security/generateUser?userId=admin
+    // http://192.168.1.100:8080/security/generateUser?userId=admin
 
-   // http://192.168.1.100:8080/security/generateOtp?(user object in the request body)
+    // http://192.168.1.100:8080/security/generateOtp?(user object in the request body)
 
-   // http://192.168.1.100:8080/security/validateOtp?(user object in the request body)
+    // http://192.168.1.100:8080/security/validateOtp?(user object in the request body)
 
     //Smart Call BaseURL
-    public static String SmartCall_BaseURL = "http://192.168.1.101:8081/";
+    public static String SmartCall_BaseURL = "https://192.168.1.101:8433/";
 
     public static String SmartCall_BaseURL2 = "http://43.239.52.151:8081/";
 
+    public static String SmartCall_BaseURL3 = "http://192.168.1.100:8081/";
+
+    //for Login Authentication
+    public static String Login_Authentication = "security/authenticateUser";
+    //you have to pass the User object as request body to the service
+    //the return type is also User object
+
+    //for Dashboard Data
+    public static String Dashboard_Data = "dashboard/getDashBoardForUser?";
+    //you have to send User as request body
+    //the api will return DashBoard object (attached)
 
     //for Lead List
     public static String find_Leads = "lead/findLeads";

@@ -80,6 +80,10 @@
     <string name="did_not_speak_to_ncustomer">Did Not Speak To \nCustomer</string>
     <string name="calls_scheduled_for_the_day">Calls Scheduled For The Day</string>
     <string name="total">Total</string>
+    <string name="calls_scheduled_for_today">Calls Scheduled For Today</string>
+    <string name="name">Name</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
 
 
 </resources>
