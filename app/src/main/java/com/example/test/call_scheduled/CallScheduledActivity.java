@@ -25,7 +25,7 @@ public class CallScheduledActivity extends AppCompatActivity {
         // Get the window of the activity
         Window window = getWindow();
 
-// Set the status bar color
+// for testing to Set the status bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.dark_grey));
         }

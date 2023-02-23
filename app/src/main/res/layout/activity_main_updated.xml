@@ -202,6 +202,19 @@
                     app:layout_constraintStart_toEndOf="@id/labelCompletedCalls"
                     app:layout_constraintTop_toBottomOf="@id/clTotalCallScheduled" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDashBoardMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:itemCount="3"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:visibility="invisible"
+                    tools:listitem="@layout/item_dashboard"
+                    app:layout_constraintTop_toBottomOf="@id/labelCompletedCalls"/>
+
                 <View
                     android:id="@+id/viewBorder1"
                     style="@style/viewBorderStyle"
