@@ -84,6 +84,9 @@
     <string name="name">Name</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
+    <string name="calls_scheduled_for_the_month">Calls Scheduled For The Month</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

@@ -1,13 +1,16 @@
 package com.example.test.user;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 
 public class UserModel {
-
+    @SerializedName("userId")
     private String userId;
     private String userName;
+    @SerializedName("password")
     private String password;
     private String mobileNumber;
     private Date dateOfBirth;
