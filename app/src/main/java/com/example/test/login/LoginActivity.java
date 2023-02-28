@@ -23,13 +23,19 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityLoginBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.main_dashboard.MainActivity;
 import com.example.test.otp.OTPActivity;
+
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
     ActivityLoginBinding binding;
     View view;
     LoginViewModel loginViewModel;
+
+    public String userId ;
+    public String userPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,10 @@ public class LoginActivity extends AppCompatActivity {
         initializeFields();
         onClickListener();
         CustomEditTextWatcher();
+
+       // callLoginAPi();
+
+
     }
 
     private void initializeFields() {
@@ -45,6 +55,18 @@ public class LoginActivity extends AppCompatActivity {
         view = binding.getRoot();
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         binding.setViewModel(loginViewModel);
+
+
+    }
+
+
+
+    private void callLoginApi(){
+
+        userId  = binding.edtUserID.getText().toString();
+        userPassword   = binding.edtUserPassword.getText().toString();
+
+        loginViewModel.callLoginApi(userId,userPassword);
     }
 
     private void onClickListener() {
@@ -65,8 +87,8 @@ public class LoginActivity extends AppCompatActivity {
 
                if(NetworkUtilities.getConnectivityStatus(LoginActivity.this)){
 
-                   if(validations()){
-                      // Global.showToast(LoginActivity.this,"All Clear");
+                 /*  if(validations()){
+
 
                        //Custom Dialog box
                        Dialog dialog = new Dialog(LoginActivity.this);
@@ -87,7 +109,44 @@ public class LoginActivity extends AppCompatActivity {
                            }
                        });
 
-                   }
+                   }*/
+
+
+
+
+                   callLoginApi();
+                       loginViewModel.getMutLoginResponseApi().observe(LoginActivity.this,result->{
+
+                           if(NetworkUtilities.getConnectivityStatus(LoginActivity.this)){
+
+
+
+                               if(Objects.equals(result.getAuthenticationResult(), "SUCCESS")){
+
+                                   Global.showToast(LoginActivity.this,"Login Result :"+result.getAuthenticationResult());
+
+                                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                         startActivity(i);
+                               }
+                           }
+
+                           else{
+                               Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+                           }
+
+                       });
+
+
+                   //handle  error response
+                   loginViewModel.getMutErrorResponse().observe(LoginActivity.this, error -> {
+
+                       if (error != null && !error.isEmpty()) {
+                           Global.showSnackBar(view, error);
+                           System.out.println("Here: " + error);
+                       } else {
+                           Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+                       }
+                   });
 
                }
 

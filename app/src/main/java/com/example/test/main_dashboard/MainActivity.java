@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
            if(NetworkUtilities.getConnectivityStatus(this)) {
                if (result != null) {
-                   Global.showToast(MainActivity.this, "Size:" + result.size());
+                //   Global.showToast(MainActivity.this, "Size:" + result.size());
 
                    mainDashBoardViewModel.arrListDashBoardData.clear();
 

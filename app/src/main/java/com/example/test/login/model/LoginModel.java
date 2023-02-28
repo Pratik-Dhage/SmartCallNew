@@ -1,4 +1,4 @@
-package com.example.test.login;
+package com.example.test.login.model;
 
 public class LoginModel {
 

@@ -3,6 +3,7 @@ package com.example.test.api_manager;
 
 import com.example.test.lead.model.LeadListResponseModel;
 import com.example.test.lead.model.LeadModel;
+import com.example.test.login.model.LoginResponseModel;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.user.UserModel;
 import com.google.gson.Gson;
@@ -35,12 +36,10 @@ public interface RestClient {
     @GET
     Observable<List<LeadModel>> getLeadList(@Url String url);
 
-   /* @POST
-    Observable<UserModelResponseModel> loginUserApi(
-            @Url String url,
+    @POST("security/authenticateUser")
+    Observable<LoginResponseModel> loginUserApi(
             @Body UserModel userModel
-    );*/
-
+    );
 
 
     //Only @POST request can have request @BODY
