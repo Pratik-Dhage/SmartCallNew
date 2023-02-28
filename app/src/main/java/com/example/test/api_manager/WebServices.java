@@ -68,6 +68,7 @@ public class WebServices {
         okHttpBuilder.readTimeout(2, TimeUnit.MINUTES).build();
         okHttpBuilder.writeTimeout(2, TimeUnit.MINUTES);
         okHttpBuilder.addInterceptor(logging);
+        //okHttpBuilder.addInterceptor(new AuthInterceptor("your-auth-token")) // to authenticate credential before calling the api
         OkHttpClient okHttpClient = okHttpBuilder.build();
 
         Gson gson = new GsonBuilder().setLenient().create();
