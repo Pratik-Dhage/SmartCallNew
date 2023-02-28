@@ -114,27 +114,25 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-                   callLoginApi();
-                       loginViewModel.getMutLoginResponseApi().observe(LoginActivity.this,result->{
+                   if(validations()) {
 
-                           if(NetworkUtilities.getConnectivityStatus(LoginActivity.this)){
+                       callLoginApi();
+
+                       loginViewModel.getMutLoginResponseApi().observe(LoginActivity.this, result -> {
 
 
+                           if (Objects.equals(result.getAuthenticationResult(), "SUCCESS")) {
 
-                               if(Objects.equals(result.getAuthenticationResult(), "SUCCESS")){
+                               Global.showToast(LoginActivity.this, "Login Result :" + result.getAuthenticationResult());
 
-                                   Global.showToast(LoginActivity.this,"Login Result :"+result.getAuthenticationResult());
-
-                                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                                         startActivity(i);
-                               }
-                           }
-
-                           else{
-                               Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+                               Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                               startActivity(i);
                            }
 
                        });
+
+                   }
+
 
 
                    //handle  error response

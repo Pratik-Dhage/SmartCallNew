@@ -273,7 +273,7 @@
                     android:id="@+id/clQueue_CompletedCalls_PendingCalls_Table"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -284,6 +284,7 @@
                         style="@style/semi_mid_text_style"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/queue"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -292,6 +293,7 @@
                         style="@style/semi_mid_text_style"
                         android:layout_marginStart="@dimen/_50sdp"
                         android:text="@string/completed_calls"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toStartOf="@id/labelPendingCalls"
                         app:layout_constraintStart_toEndOf="@id/labelQueue"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -301,23 +303,49 @@
                         style="@style/semi_mid_text_style"
                         android:layout_marginStart="@dimen/_30sdp"
                         android:text="@string/pending_calls"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/labelCompletedCalls"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvDashBoardMain"
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardViewRV"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_140sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:orientation="vertical"
-                        android:visibility="invisible"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        app:cardElevation="@dimen/_5sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/labelCompletedCalls"
-                        tools:itemCount="3"
-                        tools:listitem="@layout/item_dashboard" />
+                        app:layout_constraintTop_toBottomOf="@id/labelCompletedCalls">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvDashBoardMain"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_150sdp"
+                            android:orientation="vertical"
+                            android:visibility="invisible"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/labelCompletedCalls"
+                            tools:itemCount="3"
+                            tools:listitem="@layout/item_dashboard" />
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <View
+                        android:id="@+id/blankView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cardViewRV"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_height="@dimen/_10sdp"/>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -329,8 +357,8 @@
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:src="@drawable/notepad_icon"
                     android:layout_marginEnd="@dimen/_30sdp"
+                    android:src="@drawable/notepad_icon"
                     app:layout_constraintEnd_toEndOf="@id/clTotalCallScheduledForMonth"
                     app:layout_constraintTop_toBottomOf="@id/clTotalCallScheduledForMonth"
                     app:tint="@color/dark_grey" />
@@ -369,20 +397,35 @@
                     android:backgroundTint="@color/dark_grey"
                     android:text="@string/cancel"
                     android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@id/ivSlashArrow"
+                    app:layout_constraintEnd_toEndOf="@id/ivRightArrow"
                     app:layout_constraintTop_toBottomOf="@id/edtNotepad" />
 
 
-                <!--SlashArrow-->
+                <!--RightArrow-->
                 <ImageView
-                    android:id="@+id/ivSlashArrow"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:src="@drawable/slash_arrow"
-                    app:layout_constraintEnd_toEndOf="@id/clTotalCallScheduledForMonth"
-                    app:layout_constraintTop_toBottomOf="@id/clTotalCallScheduledForMonth"
-                    app:tint="@color/dark_grey" />
+                    android:id="@+id/ivRightArrow"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/right_arrow"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/clTotalCallScheduledForMonth"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/clTotalCallScheduledForMonth"
+                    app:tint="@color/white" />
+
+                <!--DownArrow-->
+                <ImageView
+                    android:id="@+id/ivDownArrow"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/down_arrow"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/clTotalCallScheduledForMonth"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    app:layout_constraintTop_toTopOf="@+id/clTotalCallScheduledForMonth"
+                    app:tint="@color/white" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

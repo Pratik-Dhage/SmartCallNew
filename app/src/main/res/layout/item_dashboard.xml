@@ -11,6 +11,8 @@
         tools:text="Pratik Dhage"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textColor="@color/textBlue"
         app:layout_constraintStart_toStartOf="parent"
         style="@style/common_text_style"/>
 
@@ -20,6 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/_20sdp"
        android:layout_marginEnd="@dimen/_90sdp"
+        android:textColor="@color/textBlue"
        app:layout_constraintEnd_toStartOf="@id/txtPendingCalls"
         style="@style/common_text_style"/>
 
@@ -30,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_30sdp"
-
+        android:textColor="@color/textBlue"
         style="@style/common_text_style"/>
 
 
@@ -39,6 +42,8 @@
         style="@style/viewBorderStyle"
         android:layout_marginTop="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtDashBoardListName" />
 

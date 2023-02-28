@@ -147,7 +147,8 @@ public class MainActivity extends AppCompatActivity {
                     binding.clQueueCompletedCallsPendingCallsTable.setVisibility(View.VISIBLE);
                     binding.rvDashBoardMain.setVisibility(View.VISIBLE);
 
-                    binding.ivSlashArrow.setVisibility(View.GONE);
+                    binding.ivRightArrow.setVisibility(View.GONE);
+                    binding.ivDownArrow.setVisibility(View.VISIBLE);
                     binding.ivAddNote.setVisibility(View.GONE);
                     binding.edtNotepad.setVisibility(View.GONE);
                     binding.btnAddNote.setVisibility(View.GONE);
@@ -155,8 +156,9 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     binding.clQueueCompletedCallsPendingCallsTable.setVisibility(View.GONE);
 
-                    binding.ivSlashArrow.setVisibility(View.VISIBLE);
+                    binding.ivRightArrow.setVisibility(View.VISIBLE);
                     binding.ivAddNote.setVisibility(View.VISIBLE);
+                    binding.ivDownArrow.setVisibility(View.GONE);
                 }
 
             }
@@ -166,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         binding.ivAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.ivSlashArrow.setVisibility(View.GONE);
+                binding.ivRightArrow.setVisibility(View.GONE);
                 binding.ivAddNote.setVisibility(View.GONE);
                 binding.edtNotepad.setVisibility(View.VISIBLE);
                 binding.btnAddNote.setVisibility(View.VISIBLE);
@@ -184,22 +186,13 @@ public class MainActivity extends AppCompatActivity {
                 binding.btnCancelNote.setVisibility(View.GONE);
                 binding.edtNotepad.setVisibility(View.GONE);
                 binding.ivAddNote.setVisibility(View.VISIBLE);
-                binding.ivSlashArrow.setVisibility(View.VISIBLE);
+                binding.ivRightArrow.setVisibility(View.VISIBLE);
 
 
             }
         });
 
-        //on SlashArrow Click goto LeadList Activity
-        binding.ivSlashArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, LeadsActivity.class);
-                startActivity(i);
 
-
-            }
-        });
 
     }
 
