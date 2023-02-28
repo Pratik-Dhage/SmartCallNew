@@ -11,19 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
 import com.example.test.databinding.ItemDashboardBinding;
-import com.example.test.databinding.ItemLeadListBinding;
-import com.example.test.lead.adapter.LeadListAdapter;
-import com.example.test.lead.model.LeadModel;
-import com.example.test.main_dashboard.model.DashBoardModel;
+import com.example.test.main_dashboard.model.DashBoardResponseModel;
 
 import java.util.ArrayList;
 
 public class MainDashBoardAdapter extends RecyclerView.Adapter<MainDashBoardAdapter.MyViewHolderClass> {
 
-    ArrayList<DashBoardModel> DashBoardModelClassList;
+    ArrayList<DashBoardResponseModel> dashBoardResponseModelArrayList;
 
-    public MainDashBoardAdapter(ArrayList<DashBoardModel> dashBoardModelClassList) {
-        DashBoardModelClassList = dashBoardModelClassList;
+    public MainDashBoardAdapter(ArrayList<DashBoardResponseModel> dashBoardResponseModelArrayList) {
+        this.dashBoardResponseModelArrayList = dashBoardResponseModelArrayList;
+
     }
 
     @NonNull
@@ -36,30 +34,30 @@ public class MainDashBoardAdapter extends RecyclerView.Adapter<MainDashBoardAdap
     @Override
     public void onBindViewHolder(@NonNull MyViewHolderClass holder, int position) {
 
-        DashBoardModel a = DashBoardModelClassList.get(position);
+        DashBoardResponseModel a = dashBoardResponseModelArrayList.get(position);
         Context context = holder.itemView.getContext();
 
         holder.binding.txtDashBoardListName.setText(a.getQueueName());
-        holder.binding.txtCompletedCalls.setText(a.getCompletedCalls());
-        holder.binding.txtPendingCalls.setText(a.getPendingCalls());
+       holder.binding.txtCompletedCalls.setText(a.getCompletedCalls().toString());
+        holder.binding.txtPendingCalls.setText(a.getPendingCalls().toString());
 
 
     }
 
     @Override
     public int getItemCount() {
-        return DashBoardModelClassList.size();
+        return dashBoardResponseModelArrayList.size();
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public ArrayList setData(ArrayList<DashBoardModel> data)  {
+    public ArrayList setData(ArrayList<DashBoardResponseModel> data)  {
         if (data.isEmpty()) {
-            DashBoardModelClassList =  new ArrayList();
+            dashBoardResponseModelArrayList =  new ArrayList();
         }
-        DashBoardModelClassList = data;
+        dashBoardResponseModelArrayList = data;
         notifyDataSetChanged();
 
-        return DashBoardModelClassList;
+        return dashBoardResponseModelArrayList;
     }
 
 

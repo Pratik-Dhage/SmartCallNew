@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.test.main_dashboard.MainDashBoardViewModel" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/MainConstraintStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".main_dashboard.MainActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/toolBarStyle"
+            android:background="@color/textBlue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/dashboard"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+            android:id="@+id/dashboardScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rootConstraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp">
+
+
+                <TextView
+                    android:id="@+id/txtWelcomeUser"
+                    style="@style/heading_text_style"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Welcome Tanisha!"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="italic"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtWelcomeUser"
+                    tools:text="22nd Feb 2023, Wednesday" />
+
+                <TextView
+                    android:id="@+id/labelCallScheduled"
+                    style="@style/heading_text_style"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:text="@string/calls_scheduled_for_the_day"
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_grey"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtDate" />
+
+                <TextView
+                    android:id="@+id/labelTotal"
+                    style="@style/semi_mid_text_style"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/total"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelCallScheduled" />
+
+
+                <TextView
+                    android:id="@+id/labelCompletedCallsTotal"
+                    style="@style/semi_mid_text_style"
+                    android:layout_marginStart="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/completed_calls"
+                    app:layout_constraintEnd_toStartOf="@id/labelPendingCallsTotal"
+                    app:layout_constraintStart_toEndOf="@id/labelTotal"
+                    app:layout_constraintTop_toBottomOf="@id/labelCallScheduled" />
+
+                <TextView
+                    android:id="@+id/labelPendingCallsTotal"
+                    style="@style/semi_mid_text_style"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/pending_calls"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/labelCompletedCallsTotal"
+                    app:layout_constraintTop_toBottomOf="@id/labelCallScheduled" />
+
+                <!--Constraint Custom Card Call For The Day start Here-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clTotalCallScheduled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/round_corner_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelCompletedCallsTotal">
+
+
+                    <TextView
+                        android:id="@+id/txtTotalCalls"
+                        style="@style/common_text_style"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp"
+                        android:text="100"
+                        android:textColor="@color/white"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/clTotalCallScheduled" />
+
+
+                    <TextView
+                        android:id="@+id/txtCompletedCallsTotal"
+                        style="@style/common_text_style"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_50sdp"
+                        android:text="60"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/txtTotalCalls"
+                        app:layout_constraintTop_toTopOf="@id/clTotalCallScheduled" />
+
+
+                    <TextView
+                        android:id="@+id/txtPendingCallsTotal"
+                        style="@style/common_text_style"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_30sdp"
+                        android:text="40"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/clTotalCallScheduled" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--Constraint Card Call for the Day End here-->
+
+                <TextView
+                    android:id="@+id/labelCallScheduledForMonth"
+                    style="@style/heading_text_style"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:text="@string/calls_scheduled_for_the_month"
+                    android:textAlignment="center"
+                    android:textColor="@color/textBlue"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clTotalCallScheduled" />
+
+                <TextView
+                    android:id="@+id/labelTotalMonth"
+                    style="@style/semi_mid_text_style"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/total"
+                    android:textColor="@color/dark_grey"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelCallScheduledForMonth" />
+
+
+                <TextView
+                    android:id="@+id/labelCompletedCallsTotalMonth"
+                    style="@style/semi_mid_text_style"
+                    android:layout_marginStart="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/completed_calls"
+                    android:textColor="@color/dark_grey"
+                    app:layout_constraintEnd_toStartOf="@id/labelPendingCallsTotalMonth"
+                    app:layout_constraintStart_toEndOf="@id/labelTotalMonth"
+                    app:layout_constraintTop_toBottomOf="@id/labelCallScheduledForMonth" />
+
+                <TextView
+                    android:id="@+id/labelPendingCallsTotalMonth"
+                    style="@style/semi_mid_text_style"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/pending_calls"
+                    android:textColor="@color/dark_grey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/labelCompletedCallsTotalMonth"
+                    app:layout_constraintTop_toBottomOf="@id/labelCallScheduledForMonth" />
+
+                <!--Constraint Custom Card Call For The Month start Here-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clTotalCallScheduledForMonth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/round_corner_bg"
+                    android:backgroundTint="@color/textBlue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelCompletedCallsTotalMonth">
+
+
+                    <TextView
+                        android:id="@+id/txtTotalCallsForMonth"
+                        style="@style/common_text_style"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_10sdp"
+                        android:text="200"
+                        android:textColor="@color/white"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/clTotalCallScheduledForMonth" />
+
+
+                    <TextView
+                        android:id="@+id/txtCompletedCallsTotalForMonth"
+                        style="@style/common_text_style"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_50sdp"
+                        android:text="50"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/txtTotalCallsForMonth"
+                        app:layout_constraintTop_toTopOf="@id/clTotalCallScheduledForMonth" />
+
+
+                    <TextView
+                        android:id="@+id/txtPendingCallsTotalForMonth"
+                        style="@style/common_text_style"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_30sdp"
+                        android:text="150"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/clTotalCallScheduledForMonth" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--Constraint Card Call for the Month End here-->
+
+
+                <!--Queue,Completed Calls , Pending Calls Table-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clQueue_CompletedCalls_PendingCalls_Table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clTotalCallScheduledForMonth">
+
+                    <TextView
+                        android:id="@+id/labelQueue"
+                        style="@style/semi_mid_text_style"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="@string/queue"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/labelCompletedCalls"
+                        style="@style/semi_mid_text_style"
+                        android:layout_marginStart="@dimen/_50sdp"
+                        android:text="@string/completed_calls"
+                        app:layout_constraintEnd_toStartOf="@id/labelPendingCalls"
+                        app:layout_constraintStart_toEndOf="@id/labelQueue"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/labelPendingCalls"
+                        style="@style/semi_mid_text_style"
+                        android:layout_marginStart="@dimen/_30sdp"
+                        android:text="@string/pending_calls"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/labelCompletedCalls"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvDashBoardMain"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_140sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="vertical"
+                        android:visibility="invisible"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/labelCompletedCalls"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/item_dashboard" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!--Notepad as Edit Text Box-->
+                <ImageView
+                    android:id="@+id/ivAddNote"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:src="@drawable/notepad_icon"
+                    android:layout_marginEnd="@dimen/_30sdp"
+                    app:layout_constraintEnd_toEndOf="@id/clTotalCallScheduledForMonth"
+                    app:layout_constraintTop_toBottomOf="@id/clTotalCallScheduledForMonth"
+                    app:tint="@color/dark_grey" />
+
+                <EditText
+                    android:id="@+id/edtNotepad"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:background="@drawable/round_corner_bg"
+                    android:backgroundTint="@color/skyBlue"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/clTotalCallScheduledForMonth"
+                    app:layout_constraintStart_toStartOf="@id/clTotalCallScheduledForMonth"
+                    app:layout_constraintTop_toBottomOf="@id/clTotalCallScheduledForMonth" />
+
+                <Button
+                    android:id="@+id/btnAddNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/add"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edtNotepad" />
+
+                <Button
+                    android:id="@+id/btnCancelNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_40sdp"
+                    android:backgroundTint="@color/dark_grey"
+                    android:text="@string/cancel"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/ivSlashArrow"
+                    app:layout_constraintTop_toBottomOf="@id/edtNotepad" />
+
+
+                <!--SlashArrow-->
+                <ImageView
+                    android:id="@+id/ivSlashArrow"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:src="@drawable/slash_arrow"
+                    app:layout_constraintEnd_toEndOf="@id/clTotalCallScheduledForMonth"
+                    app:layout_constraintTop_toBottomOf="@id/clTotalCallScheduledForMonth"
+                    app:tint="@color/dark_grey" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

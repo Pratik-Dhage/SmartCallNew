@@ -13,6 +13,12 @@ public class DashBoardResponseModel implements Serializable {
 
   private Integer completedCalls;
 
+  public DashBoardResponseModel(String queueName,  Integer completedCalls, Integer pendingCalls) {
+    this.queueName = queueName;
+    this.completedCalls = completedCalls;
+    this.pendingCalls = pendingCalls;
+  }
+
   public Integer getSequence() {
     return this.sequence;
   }

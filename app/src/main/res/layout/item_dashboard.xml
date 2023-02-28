@@ -19,8 +19,8 @@
         tools:text="12"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_75sdp"
-        app:layout_constraintStart_toEndOf="@id/txtDashBoardListName"
+       android:layout_marginEnd="@dimen/_90sdp"
+       app:layout_constraintEnd_toStartOf="@id/txtPendingCalls"
         style="@style/common_text_style"/>
 
     <TextView
@@ -29,8 +29,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_60sdp"
-        app:layout_constraintStart_toEndOf="@id/txtCompletedCalls"
+        android:layout_marginEnd="@dimen/_20sdp"
+
         style="@style/common_text_style"/>
 
 
