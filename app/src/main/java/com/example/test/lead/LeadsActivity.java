@@ -1,6 +1,7 @@
 package com.example.test.lead;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 
@@ -24,6 +26,7 @@ import com.example.test.lead.model.LeadModel;
 import com.example.test.roomDB.dao.LeadDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.LeadModelRoom;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -120,6 +123,9 @@ public class LeadsActivity extends AppCompatActivity {
         view = binding.getRoot();
         leadsViewModel =  new ViewModelProvider(this).get(LeadsViewModel.class);
         binding.setLeadViewModel(leadsViewModel);
+
+        FloatingActionButton fab = binding.leadFloatingActionButton; // Fab to be white color
+        fab.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(LeadsActivity.this,R.color.white)));
     }
 
     private void setUpRecyclerLeadListData(){
