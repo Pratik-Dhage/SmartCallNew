@@ -401,6 +401,7 @@
                     app:layout_constraintTop_toBottomOf="@id/edtNotepad" />
 
 
+                <!--For Calls Scheduled For Month-->
                 <!--RightArrow-->
                 <ImageView
                     android:id="@+id/ivRightArrow"
@@ -425,6 +426,35 @@
                     android:layout_marginEnd="@dimen/_5sdp"
                     app:layout_constraintTop_toTopOf="@+id/clTotalCallScheduledForMonth"
                     app:tint="@color/white" />
+
+
+                <!--For Calls Scheduled For Day-->
+                <!--RightArrow-->
+                <ImageView
+                    android:id="@+id/ivRightArrowDay"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/right_arrow"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/clTotalCallScheduled"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/clTotalCallScheduled"
+                    app:tint="@color/white" />
+
+                <!--DownArrow-->
+                <ImageView
+                    android:id="@+id/ivDownArrowDay"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/down_arrow"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/clTotalCallScheduled"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    app:layout_constraintTop_toTopOf="@+id/clTotalCallScheduled"
+                    app:tint="@color/white" />
+
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
