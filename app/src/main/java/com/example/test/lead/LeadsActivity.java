@@ -147,6 +147,7 @@ public class LeadsActivity extends AppCompatActivity {
 
     private void initObserver(){
 
+          binding.loadingProgressBar.setVisibility(View.VISIBLE);
         leadsViewModel.getMutLeadListResponseApi().observe(this,result->{
 
             if(NetworkUtilities.getConnectivityStatus(this)) {
@@ -156,6 +157,7 @@ public class LeadsActivity extends AppCompatActivity {
 
                    setUpRecyclerLeadListData();
                   leadsViewModel.arrListLeadListData.addAll(result);
+                   binding.loadingProgressBar.setVisibility(View.GONE);
 
                       //store this Lead List Response in Room DataBase
                    for(LeadModel lead : result){

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="leadViewModel"
             type="com.example.test.lead.LeadsViewModel" />
@@ -9,12 +11,11 @@
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+        style="@style/MainConstraintStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/MainConstraintStyle"
-        tools:context=".LeadsActivity">
+        tools:context=".lead.LeadsActivity">
 
 
         <androidx.appcompat.widget.Toolbar
@@ -55,7 +56,7 @@
 
                 <TextView
                     android:id="@+id/labelLeadName"
-                    style="@style/mid_text_style"
+                    style="@style/semi_mid_text_style"
                     android:layout_marginStart="@dimen/_3sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:text="@string/lead_name"
@@ -64,7 +65,7 @@
 
                 <TextView
                     android:id="@+id/labelMobileNumber"
-                    style="@style/mid_text_style"
+                    style="@style/semi_mid_text_style"
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:text="@string/mobile_number"
@@ -74,7 +75,7 @@
 
                 <TextView
                     android:id="@+id/labelAttemptNumber"
-                    style="@style/mid_text_style"
+                    style="@style/semi_mid_text_style"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_2sdp"
                     android:text="@string/attempt_no"
@@ -86,23 +87,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_420sdp"
                     android:layout_marginTop="@dimen/_20sdp"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/labelLeadName">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvLeadActivity"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_420sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/labelLeadName"
-                    tools:itemCount="8"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="vertical"
-                    tools:listitem="@layout/item_lead_list" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvLeadActivity"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_420sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/labelLeadName"
+                        tools:itemCount="8"
+                        tools:listitem="@layout/item_lead_list" />
 
 
                 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -112,6 +113,7 @@
 
         </ScrollView>
 
+        <!--made fab + color white programmatically-->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/leadFloatingActionButton"
             android:layout_width="wrap_content"
@@ -127,13 +129,28 @@
 
         <TextView
             android:id="@+id/txtAddNewLead"
-            style="@style/mid_text_style"
+            style="@style/semi_mid_text_style"
             android:layout_marginStart="@dimen/_5sdp"
             android:text="@string/add_new_lead"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="@id/leadFloatingActionButton"
             app:layout_constraintStart_toEndOf="@id/leadFloatingActionButton"
             app:layout_constraintTop_toTopOf="@id/leadFloatingActionButton" />
+
+          <!--Progress Bar-->
+        <ProgressBar
+            android:id="@+id/loadingProgressBar"
+            style="@style/CustomProgressDialog"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

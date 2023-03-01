@@ -29,8 +29,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/this_is_a_custom_dialog_box_nwhere_text_will_be_displayed" />
-
+            tools:text="This is a Custom Dialog Box"/>
         <Button
             android:id="@+id/btnCustomDialog"
             style="@style/ButtonStyle"
