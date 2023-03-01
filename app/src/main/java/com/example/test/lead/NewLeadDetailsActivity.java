@@ -58,10 +58,17 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                if(position!=0 && validations())
+                binding.btnSaveLead.setBackgroundColor(ContextCompat.getColor(NewLeadDetailsActivity.this,R.color.textBlue));
+                else
+                    binding.btnSaveLead.setBackgroundColor(ContextCompat.getColor(NewLeadDetailsActivity.this,R.color.borderColor));
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
+                binding.btnSaveLead.setBackgroundColor(ContextCompat.getColor(NewLeadDetailsActivity.this,R.color.borderColor));
 
             }
         });
@@ -77,7 +84,7 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
 
     private void enable_disable_Save_Button(){
 
-        if(validations() && binding.spinnerLeadSource.getSelectedItemPosition()!=0){
+        if(validations()){
             //if validations are true then enable Save Button
             binding.btnSaveLead.setEnabled(true);
             binding.btnSaveLead.setBackgroundColor(ContextCompat.getColor(NewLeadDetailsActivity.this,R.color.textBlue));
