@@ -118,6 +118,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/save"
+                    android:backgroundTint="@color/borderColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/spinnerLeadSource" />

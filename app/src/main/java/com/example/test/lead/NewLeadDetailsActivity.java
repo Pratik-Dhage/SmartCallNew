@@ -1,6 +1,7 @@
 package com.example.test.lead;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
@@ -74,6 +75,19 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
 
     }
 
+    private void enable_disable_Save_Button(){
+
+        if(validations() && binding.spinnerLeadSource.getSelectedItemPosition()!=0){
+            //if validations are true then enable Save Button
+            binding.btnSaveLead.setEnabled(true);
+            binding.btnSaveLead.setBackgroundColor(ContextCompat.getColor(NewLeadDetailsActivity.this,R.color.textBlue));
+        }
+        else{
+            binding.btnSaveLead.setEnabled(false);
+            binding.btnSaveLead.setBackgroundColor(ContextCompat.getColor(NewLeadDetailsActivity.this,R.color.borderColor));
+        }
+    }
+
     private void onClickListener() {
 
         //Back to Lead List
@@ -93,8 +107,9 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
 
                     if(validations()){
 
-                      //  Global.showToast(NewLeadDetailsActivity.this,getResources().getString(R.string.ok));
+
                         // for Test purpose Online Storage of Lead is also stored in RoomDB
+                        enable_disable_Save_Button();
                         storageOfLeadOffline();
 
                     }
@@ -105,8 +120,8 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
                     // Store New Lead in Room Database for Offline Purpose
 
                    if(validations()){
-
-                      storageOfLeadOffline();
+                       enable_disable_Save_Button();
+                       storageOfLeadOffline();
 
                    }
 
@@ -144,6 +159,7 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
 
          if(binding.spinnerLeadSource.getSelectedItemPosition()==0){
              Global.showToast(this,getResources().getString(R.string.please_select_lead_source));
+             binding.btnSaveLead.setBackgroundColor(ContextCompat.getColor(NewLeadDetailsActivity.this,R.color.borderColor));;
              return false;
          }
 
@@ -161,10 +177,12 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                  binding.inputLayoutFirstName.setError(null);
+               //  enable_disable_Save_Button();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                enable_disable_Save_Button();
             }
         });
 
@@ -176,10 +194,12 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 binding.inputLayoutLastName.setError(null);
+              //  enable_disable_Save_Button();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                enable_disable_Save_Button();
             }
         });
 
@@ -191,10 +211,12 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 binding.inputLayoutMobileNumber.setError(null);
+              //  enable_disable_Save_Button();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                enable_disable_Save_Button();
             }
         });
 
