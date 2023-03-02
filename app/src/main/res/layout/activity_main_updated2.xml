@@ -59,7 +59,7 @@
                     android:id="@+id/txtWelcomeUser"
                     style="@style/heading_text_style"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:text="Welcome Tanisha!"
+                    android:text="@string/welcome_User"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +93,7 @@
                 <TextView
                     android:id="@+id/labelTotal"
                     style="@style/semi_mid_text_style"
+                    android:textColor="@color/dark_grey"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/total"
@@ -103,6 +104,7 @@
                 <TextView
                     android:id="@+id/labelCompletedCallsTotal"
                     style="@style/semi_mid_text_style"
+                    android:textColor="@color/dark_grey"
                     android:layout_marginStart="@dimen/_50sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/completed_calls"
@@ -113,6 +115,7 @@
                 <TextView
                     android:id="@+id/labelPendingCallsTotal"
                     style="@style/semi_mid_text_style"
+                    android:textColor="@color/dark_grey"
                     android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/pending_calls"
@@ -188,7 +191,6 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/total"
-                    android:textColor="@color/dark_grey"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/labelCallScheduledForMonth" />
 
@@ -199,7 +201,6 @@
                     android:layout_marginStart="@dimen/_50sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/completed_calls"
-                    android:textColor="@color/dark_grey"
                     app:layout_constraintEnd_toStartOf="@id/labelPendingCallsTotalMonth"
                     app:layout_constraintStart_toEndOf="@id/labelTotalMonth"
                     app:layout_constraintTop_toBottomOf="@id/labelCallScheduledForMonth" />
@@ -210,7 +211,6 @@
                     android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/pending_calls"
-                    android:textColor="@color/dark_grey"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/labelCompletedCallsTotalMonth"
                     app:layout_constraintTop_toBottomOf="@id/labelCallScheduledForMonth" />
@@ -322,18 +322,42 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/labelCompletedCalls">
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rvDashBoardMain"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/clCardView"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_150sdp"
-                            android:orientation="vertical"
-                            android:visibility="invisible"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/labelCompletedCalls"
-                            tools:itemCount="3"
-                            tools:listitem="@layout/item_dashboard" />
+                            android:layout_height="match_parent">
+
+                            <!--Progress Bar-->
+                            <ProgressBar
+                                android:id="@+id/loadingProgressBar"
+                                style="@style/CustomProgressDialog"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_30sdp"
+                                android:indeterminate="true"
+                                android:visibility="invisible"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                />
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvDashBoardMain"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_150sdp"
+                                android:orientation="vertical"
+                                android:visibility="invisible"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                               app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                tools:itemCount="3"
+                                tools:listitem="@layout/item_dashboard" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                     </com.google.android.material.card.MaterialCardView>

@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initObserver() {
 
+        binding.loadingProgressBar.setVisibility(View.VISIBLE);
         mainDashBoardViewModel.getMutDashBoardResponseApi().observe(this, result -> {
 
            if(NetworkUtilities.getConnectivityStatus(this)) {
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
                    setUpDashBoardRecyclerView();
                    mainDashBoardViewModel.arrListDashBoardData.addAll(result);
-
+                   binding.loadingProgressBar.setVisibility(View.GONE);
 
                }
            }
