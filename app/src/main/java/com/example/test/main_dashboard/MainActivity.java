@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
                     binding.ivRightArrow.setVisibility(View.GONE);
                     binding.ivDownArrow.setVisibility(View.VISIBLE);
-                    binding.ivAddNote.setVisibility(View.GONE);
+                   // binding.ivAddNote.setVisibility(View.GONE);
                     binding.edtNotepad.setVisibility(View.GONE);
                     binding.btnAddNote.setVisibility(View.GONE);
                     binding.btnCancelNote.setVisibility(View.GONE);
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                     binding.clQueueCompletedCallsPendingCallsTable.setVisibility(View.GONE);
 
                     binding.ivRightArrow.setVisibility(View.VISIBLE);
-                    binding.ivAddNote.setVisibility(View.VISIBLE);
+                  //  binding.ivAddNote.setVisibility(View.VISIBLE);
                     binding.ivDownArrow.setVisibility(View.GONE);
                 }
 
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Display Edit Text as Notepad , Add and Cancel Buttons and Hide SlashArrow
-        binding.ivAddNote.setOnClickListener(new View.OnClickListener() {
+       /* binding.ivAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 binding.ivRightArrow.setVisibility(View.GONE);
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+*/
 
     }
 

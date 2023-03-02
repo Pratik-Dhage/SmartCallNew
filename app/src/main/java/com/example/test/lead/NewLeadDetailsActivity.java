@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -88,6 +89,10 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
             //if validations are true then enable Save Button
             binding.btnSaveLead.setEnabled(true);
             binding.btnSaveLead.setBackgroundColor(ContextCompat.getColor(NewLeadDetailsActivity.this,R.color.textBlue));
+
+           Intent i = new Intent(NewLeadDetailsActivity.this,LeadsActivity.class);
+           startActivity(i);
+
         }
         else{
             binding.btnSaveLead.setEnabled(false);
@@ -158,11 +163,15 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
             return false;
         }
 
+        if(binding.edtLeadMobileNumber.getText().toString().startsWith("0")){
+            binding.inputLayoutMobileNumber.setError(getResources().getString(R.string.mobile_number_cannot_begin_with_zero));
+            return false;
+        }
+
         if(!binding.edtLeadMobileNumber.getText().toString().matches("^[1-9][0-9]{9}$")){
             binding.inputLayoutMobileNumber.setError(getResources().getString(R.string.please_enter_proper_lead_number));
             return false;
         }
-
 
          if(binding.spinnerLeadSource.getSelectedItemPosition()==0){
              Global.showToast(this,getResources().getString(R.string.please_select_lead_source));
