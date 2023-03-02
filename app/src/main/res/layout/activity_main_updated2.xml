@@ -58,7 +58,7 @@
                 <TextView
                     android:id="@+id/txtWelcomeUser"
                     style="@style/heading_text_style"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:text="@string/welcome_User"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
