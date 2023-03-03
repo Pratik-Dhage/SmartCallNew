@@ -6,15 +6,21 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.LeadDao;
+import com.example.test.roomDB.dao.UserDao;
+import com.example.test.roomDB.model.LeadCallModelRoom;
 import com.example.test.roomDB.model.LeadModelRoom;
+import com.example.test.roomDB.model.UserLocationRoomModel;
 
 import kotlin.jvm.Synchronized;
 
-@Database(entities = {LeadModelRoom.class},version = 1)
+@Database(entities = {LeadModelRoom.class, LeadCallModelRoom.class, UserLocationRoomModel.class},version = 4)
 public abstract class LeadListDB extends RoomDatabase {
 
     public abstract LeadDao leadDao();
+    public abstract LeadCallDao leadCallDao();
+    public abstract UserDao userDao();
 
     private static LeadListDB leadListDBInstance= null; // the instance will be created only once
 

@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -59,6 +60,8 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                binding.txtCustomSpinner.setText(spinnerItems.get(position)); //for Custom Spinner
+
                 if(position!=0 && validations())
                 binding.btnSaveLead.setBackgroundColor(ContextCompat.getColor(NewLeadDetailsActivity.this,R.color.textBlue));
                 else
@@ -73,6 +76,17 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
 
             }
         });
+
+
+        //for Custom Spinner , because some devices wont display Spinner
+        binding.clCustomSpinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.spinnerLeadSource.performClick();
+            }
+        });
+
+
 
     }
 
@@ -89,9 +103,6 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
             //if validations are true then enable Save Button
             binding.btnSaveLead.setEnabled(true);
             binding.btnSaveLead.setBackgroundColor(ContextCompat.getColor(NewLeadDetailsActivity.this,R.color.textBlue));
-
-           Intent i = new Intent(NewLeadDetailsActivity.this,LeadsActivity.class);
-           startActivity(i);
 
         }
         else{
@@ -264,10 +275,22 @@ public class NewLeadDetailsActivity extends AppCompatActivity {
 
             Global.showToast(NewLeadDetailsActivity.this,getResources().getString(R.string.saved_in_room_db));
             Global.hideKeyboard(NewLeadDetailsActivity.this);
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    Global.hideKeyboard(NewLeadDetailsActivity.this);
+                    binding.btnBackToLeadList.performClick();
+                }
+            }, 3000); // 3000 milliseconds = 3 seconds
+
         }
         // Else Lead Already exists
         else{
             Global.showToast(NewLeadDetailsActivity.this,getResources().getString(R.string.lead_number_already_exists));
+            Global.hideKeyboard(NewLeadDetailsActivity.this);
         }
 
 

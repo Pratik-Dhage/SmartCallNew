@@ -15,6 +15,8 @@
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
 
     <application
         android:allowBackup="true"
@@ -29,14 +31,26 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".call_scheduled.CallScheduledActivity"
+            android:name=".location_gps.user_location.UserLocationActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
+        </activity>
+        <activity
+            android:name=".call_scheduled.CallScheduledActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
             android:name=".call_status.CallStatusActivity"
@@ -107,9 +121,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
-
-
         </activity>
         <activity
             android:name=".lead.LeadsActivity"
@@ -117,19 +128,11 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
-
-
         </activity>
         <activity
             android:name=".main_dashboard.MainActivity"
             android:exported="true">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
             <meta-data
                 android:name="android.app.lib_name"

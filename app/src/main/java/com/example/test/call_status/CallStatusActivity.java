@@ -6,14 +6,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.CallLog;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -21,10 +22,15 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.test.R;
+import com.example.test.broadcast_receiver.MyBroadCastReceiverClass;
 import com.example.test.databinding.ActivityCallStatusBinding;
 import com.example.test.helper_classes.Global;
+import com.example.test.roomDB.dao.LeadCallDao;
+import com.example.test.roomDB.database.LeadListDB;
+import com.example.test.roomDB.model.LeadCallModelRoom;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Date;
 
 public class CallStatusActivity extends AppCompatActivity {
@@ -83,12 +89,22 @@ public class CallStatusActivity extends AppCompatActivity {
                 } else {
                     // Permission has already been granted, make the call
                     String phoneNumber = getIntent().getStringExtra("phoneNumber");
-                    Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+phoneNumber));
+                    Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+phoneNumber));
                     startActivity(dial);
 
+                    //Store Call Count in RoomDB
+                    String firstName = binding.txtLeadName.getText().toString();
+                    storeCallCountInRoomDB(firstName,phoneNumber);
+
                     try {
-                        getCallRecordingAndCallLogs();
-                    } catch (IOException e) {
+
+                        // Register the broadcast receiver in your activity or service
+                        MyBroadCastReceiverClass receiver = new MyBroadCastReceiverClass();
+                        IntentFilter filter = new IntentFilter(Intent.ACTION_NEW_OUTGOING_CALL);
+                        registerReceiver(receiver, filter);
+
+                      //  getCallRecordingAndCallLogs();
+                    } catch (Exception e) {
                         Global.showSnackBar(view,"Call Error"+e);
                         System.out.println("Here Error:"+e);
                     }
@@ -106,12 +122,23 @@ public class CallStatusActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission is granted, make the call
                 String phoneNumber = getIntent().getStringExtra("phoneNumber");
-                Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+phoneNumber));
+                Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+phoneNumber));
                 startActivity(dial);
 
                 try {
-                    getCallRecordingAndCallLogs();
-                } catch (IOException e) {
+
+                    // Register the broadcast receiver in your activity or service
+                    MyBroadCastReceiverClass receiver = new MyBroadCastReceiverClass();
+                    IntentFilter filter = new IntentFilter(Intent.ACTION_NEW_OUTGOING_CALL);
+                    registerReceiver(receiver, filter);
+
+                    //getCallRecordingAndCallLogs();
+
+                    //Store Call Count in RoomDB
+                    String firstName = binding.txtLeadName.getText().toString();
+                    storeCallCountInRoomDB(firstName,phoneNumber);
+
+                } catch (Exception e) {
                    System.out.println("Here Error:"+e);
                     Global.showSnackBar(view,"Call Error"+e);
                 }
@@ -122,8 +149,23 @@ public class CallStatusActivity extends AppCompatActivity {
         }
     }
 
+    private void storeCallCountInRoomDB(String firstName,String phoneNumber){
 
-    private void getCallRecordingAndCallLogs() throws IOException {
+        LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
+        int callCount = leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
+        callCount++; //callCount+1
+        LeadCallModelRoom leadCallModelRoom = new LeadCallModelRoom(callCount, firstName, phoneNumber);
+
+        leadCallDao.insert(leadCallModelRoom);
+        leadCallDao.update(leadCallModelRoom);
+
+        Global.showToast(this, "Call Count for " + phoneNumber + " is: " + callCount);
+        System.out.println("Here Call Count for " + phoneNumber + " is: " + callCount);
+
+    }
+
+
+    public void getCallRecordingAndCallLogs() throws IOException {
 
         //for Call Recoding in Internal Storage (here Filename is call_recording.mp3)
         String filePath = getFilesDir().getAbsolutePath() + "/call_recording.mp3";

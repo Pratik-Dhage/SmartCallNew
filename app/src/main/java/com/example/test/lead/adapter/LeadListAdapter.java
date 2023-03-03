@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.test.R;
 import com.example.test.call_status.CallStatusActivity;
 import com.example.test.databinding.ItemLeadListBinding;
+import com.example.test.helper_classes.Global;
 import com.example.test.lead.model.LeadModel;
+import com.example.test.roomDB.dao.LeadCallDao;
+import com.example.test.roomDB.database.LeadListDB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +63,23 @@ public class LeadListAdapter extends RecyclerView.Adapter<LeadListAdapter.MyView
                  context.startActivity(i);
              }
          });
+
+        //for setting Call Attempts ImageView
+        LeadCallDao leadCallDao = LeadListDB.getInstance(context).leadCallDao();
+
+        String phoneNumber=a.getPhoneNumber(); // get Phone Number
+        int callCount =  leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
+
+        switch (callCount){
+
+            case 1:  holder.binding.ivLeadList.setImageResource(R.drawable.hand);
+                break;
+            case 2:holder.binding.ivLeadList.setImageResource(R.drawable.attempttwo);
+                break;
+            case 3 : holder.binding.ivLeadList.setImageResource(R.drawable.attemptthree);
+                break;
+
+        }
 
     }
 

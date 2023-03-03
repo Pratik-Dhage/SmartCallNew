@@ -61,7 +61,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutLastName"
                     style="@style/text_input_layout"
-                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/inputLayoutFirstName">
@@ -79,7 +79,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutMobileNumber"
                     style="@style/text_input_layout"
-                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/inputLayoutLastName">
@@ -88,9 +88,9 @@
                         android:id="@+id/edtLeadMobileNumber"
                         style="@style/editTextStyle"
                         android:digits="1234567890"
-                        android:maxLength="10"
                         android:hint="@string/enter_lead_mobile_number"
                         android:inputType="phone"
+                        android:maxLength="10"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
@@ -100,26 +100,65 @@
                 <Spinner
                     android:id="@+id/spinnerLeadSource"
                     android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@color/white"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_30sdp"
+                    android:spinnerMode="dropdown"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@id/inputLayoutMobileNumber"
+                    app:layout_constraintStart_toStartOf="@id/inputLayoutMobileNumber"
+                    app:layout_constraintTop_toBottomOf="@id/inputLayoutMobileNumber" />
+
+                <!--Custom Spinner starts here-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clCustomSpinner"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginEnd="@dimen/_30sdp"
-                    app:layout_constraintStart_toStartOf="@id/inputLayoutMobileNumber"
-                    app:layout_constraintEnd_toEndOf="@id/inputLayoutMobileNumber"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:spinnerMode="dropdown"
-                    android:visibility="visible"
-                    app:layout_constraintTop_toBottomOf="@id/inputLayoutMobileNumber" />
+                    app:layout_constraintBottom_toBottomOf="@id/spinnerLeadSource"
+                    app:layout_constraintEnd_toEndOf="@id/spinnerLeadSource"
+                    app:layout_constraintStart_toStartOf="@id/spinnerLeadSource"
+                    app:layout_constraintTop_toTopOf="@id/spinnerLeadSource">
 
+                    <TextView
+                        android:id="@+id/txtCustomSpinner"
+                        style="@style/common_text_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_lead_source"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <ImageView
+                        android:id="@+id/ivCustomSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:src="@drawable/custom_spinner_dropdown_arrow"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--Custom Spinner ends here-->
 
                 <Button
                     android:id="@+id/btnSaveLead"
                     style="@style/ButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:backgroundTint="@color/borderColor"
                     android:padding="@dimen/_10sdp"
                     android:text="@string/save"
-                    android:backgroundTint="@color/borderColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/spinnerLeadSource" />
