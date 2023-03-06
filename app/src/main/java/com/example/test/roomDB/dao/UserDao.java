@@ -23,4 +23,11 @@ public interface UserDao {
     @Query("SELECT longitude FROM user_location_table where phoneNumber=:phoneNumber ")
     String getUserLongitude(String phoneNumber);
 
+    @Query("SELECT firstName FROM user_location_table where phoneNumber=:phoneNumber ")
+    String getUserName(String phoneNumber);
+
+    @Query("SELECT phoneNumber FROM user_location_table where firstName=:firstName ")
+    String getUserPhone(String firstName);
+
+
 }

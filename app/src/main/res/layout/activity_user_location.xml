@@ -31,19 +31,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userLong"
         android:layout_marginTop="@dimen/_10sdp"
-        android:text="@string/get_user_location"
+        android:text="@string/get_location_and_save"
         style="@style/BigButtonStyle"/>
 
+
     <Button
-        android:id="@+id/btnSaveInRoomDB"
+        android:id="@+id/btnRetrieveFromRoomDB"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnLocation"
         android:layout_marginTop="@dimen/_10sdp"
-        android:text="@string/save_in_local_db"
+        android:text="@string/retrieve_from_local_db"
         style="@style/BigButtonStyle"/>
 
+     <!--for retrieving purpose-->
+    <TextView
+        android:id="@+id/userName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_40sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/name"
+        style="@style/common_text_style"/>
 
+    <TextView
+        android:id="@+id/userPhone"
+        app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/userName"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/mobile_number"
+        style="@style/common_text_style"/>
+
+    <TextView
+        android:id="@+id/userAddress"
+        app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/userPhone"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/address"
+        style="@style/common_text_style"/>
 
     <ProgressBar
             android:id="@+id/locationProgressBar"

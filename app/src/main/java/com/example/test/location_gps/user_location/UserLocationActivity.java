@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -15,6 +16,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Toast;
 
@@ -44,9 +46,33 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
 
     }
 
+    private void check_If_LocationTurnedOn(){
+
+        Global.showToast(this,"Location Access Needed");
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // Request the location permission if it is not granted
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            }
+
+            // Location services are disabled, prompt the user to turn them on
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        }
+
+    }
+
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_location);
         view = binding.getRoot();
+
+        //get the Location Permission first
+        check_If_LocationTurnedOn();
     }
 
     private void onClickListener() {
@@ -60,19 +86,31 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
             }
         });
 
+
+        binding.btnRetrieveFromRoomDB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retrieveLatLongFromRoomDB();
+            }
+        });
+
+
     }
 
     private void getCurrentLocation(){
 
-        if (locationManager == null) {
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        }
 
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+           && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ) {
             // Request the location permission if it is not granted
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         } else {
+
+            if (locationManager == null) {
+                locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            }
+
             // Get the device location
             locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, new LocationListener() {
                 @Override
@@ -125,7 +163,24 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
         UserLocationRoomModel userLocationRoomModel =
                 new UserLocationRoomModel("Pratik","D.","1234567890",Latitude,Longitude);
         userDao.insert(userLocationRoomModel);
+
+        Global.showToast(this,"Saved in LocalDB Successfully");
     }
+
+    private void retrieveLatLongFromRoomDB(){
+        UserDao userDao = LeadListDB.getInstance(this).userDao();
+             if(userDao.getUserLatitude("1234567890")!=null && userDao.getUserLongitude("1234567890")!=null)
+             {
+                 binding.userName.setText(userDao.getUserName("1234567890"));
+                 binding.userPhone.setText(userDao.getUserPhone("Pratik"));
+                binding.userAddress.setText(userDao.getUserLatitude("1234567890")+" "+userDao.getUserLongitude("1234567890"));
+             }
+         else{
+             Global.showToast(this,"No Data Found");
+             }
+
+    }
+
 
     //if Permission is Granted
     @Override
@@ -158,13 +213,36 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
     }
 
     @Override
-    public void onProviderDisabled(String provider) {}
+    public void onProviderDisabled(String provider) {
+
+        try{
+
+           check_If_LocationTurnedOn();
+        }
+        catch(Exception e){
+
+            Global.showToast(this,"Location Provider Error:"+provider);
+            System.out.println("Here Location Provider Error: "+provider);
+            System.out.println("Here Location Provider Exception: "+e);
+
+        }
+
+        System.out.println("Here Location Provider Error: "+provider);
+
+    }
 
     @Override
-    public void onProviderEnabled(String provider) {}
+    public void onProviderEnabled(String provider) {
+
+        getCurrentLocation();
+    }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {}
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        Global.showToast(this,"Network status Changed: "+provider+" status code: "+status);
+        System.out.println("Here Network status Changed: "+provider+" status code: "+status);
+    }
 }
 
 
