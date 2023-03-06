@@ -101,6 +101,10 @@
     <string name="customer_details">Customer Details</string>
     <string name="enter_customer_name">Enter Customer Name</string>
     <string name="enter_customer_mobile_no">Enter Customer Mobile No.</string>
-
+    <string name="get_customer_address">Get Customer Address &amp; Save</string>
+    <string name="store_in_local_db">Store in Local DB</string>
+  <string name="customer_name_cannot_be_empty">Customer name cannot be empty</string>
+  <string name="customer_phone_cannot_be_empty">Customer phone cannot be empty</string>
+    <string name="goto_customer_activity">Goto Customer Activity</string>
 
 </resources>

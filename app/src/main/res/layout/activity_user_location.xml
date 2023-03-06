@@ -45,6 +45,16 @@
         android:text="@string/retrieve_from_local_db"
         style="@style/BigButtonStyle"/>
 
+    <Button
+        android:id="@+id/btnGotoCustomerActivity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnRetrieveFromRoomDB"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/goto_customer_activity"
+        style="@style/BigButtonStyle"/>
+
+
      <!--for retrieving purpose-->
     <TextView
         android:id="@+id/userName"
@@ -86,6 +96,8 @@
             app:layout_constraintEnd_toEndOf="@id/userLong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

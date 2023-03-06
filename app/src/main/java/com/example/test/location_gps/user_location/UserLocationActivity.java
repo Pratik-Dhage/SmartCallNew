@@ -25,6 +25,8 @@ import android.widget.Toast;
 import com.example.test.R;
 import com.example.test.databinding.ActivityUserLocationBinding;
 import com.example.test.helper_classes.Global;
+import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.location_gps.customer_location.CustomerLocationActivity;
 import com.example.test.roomDB.dao.UserDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.UserLocationRoomModel;
@@ -47,9 +49,12 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        initializeFields();
-        onClickListener();
+          if(NetworkUtilities.getConnectivityStatus(this))
+          {initializeFields();
+        onClickListener();}
+          else{
+              Global.showToast(this,"No Internet Connection");
+          }
 
     }
 
@@ -102,6 +107,12 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
         });
 
 
+        binding.btnGotoCustomerActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserLocationActivity.this, CustomerLocationActivity.class));
+            }
+        });
     }
 
     private void getCurrentLocation() {
@@ -170,10 +181,18 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
 
         UserDao userDao = LeadListDB.getInstance(this).userDao();
 
-
         UserLocationRoomModel userLocationRoomModel =
                 new UserLocationRoomModel("Pratik", "D.", "1234567890", address);
-        userDao.insert(userLocationRoomModel);
+
+        if(userDao.getUserAddress("1234567890")!=null){
+           // userDao.update(userLocationRoomModel);
+            userDao.deleteUserData("1234567890");
+            userDao.insert(userLocationRoomModel);
+        }
+        else{
+            userDao.insert(userLocationRoomModel);
+        }
+
 
         Global.showToast(this, "Saved in LocalDB Successfully");
     }
@@ -209,6 +228,7 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
             e.printStackTrace();
         }
 
+        assert address != null;
         return address.getAddressLine(0);
     }
 

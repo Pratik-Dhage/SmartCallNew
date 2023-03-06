@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/MainConstraintStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".location_gps.customer_location.CustomerLocationActivity">
+
+        <TextView
+            android:id="@+id/labelCustomerDetails"
+            style="@style/heading_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@string/customer_details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutCustomerName"
+            style="@style/text_input_layout"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelCustomerDetails">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtCustomerName"
+                style="@style/editTextStyle"
+                android:hint="@string/enter_customer_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutCustomerPhoneNumber"
+            style="@style/text_input_layout"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputLayoutCustomerName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtCustomerPhoneNumber"
+                style="@style/editTextStyle"
+                android:digits="1234567890"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:hint="@string/enter_customer_mobile_no"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/txtCustomerAddress"
+            style="@style/common_text_style"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="@id/inputLayoutCustomerPhoneNumber"
+            app:layout_constraintStart_toStartOf="@id/inputLayoutCustomerPhoneNumber"
+            app:layout_constraintTop_toBottomOf="@id/inputLayoutCustomerPhoneNumber"
+            tools:text="Lodha Tower B" />
+
+
+        <ProgressBar
+            android:id="@+id/locationProgressBar"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@id/txtCustomerAddress"
+            app:layout_constraintBottom_toBottomOf="@id/txtCustomerAddress"
+            app:layout_constraintStart_toStartOf="@id/txtCustomerAddress"
+            app:layout_constraintEnd_toEndOf="@id/txtCustomerAddress"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"/>
+
+        <Button
+            android:id="@+id/btnGetCustomerAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@string/get_customer_address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtCustomerAddress" />
+
+
+        <Button
+            android:id="@+id/btnRetrieveCustomerData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@string/retrieve_from_local_db"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnGetCustomerAddress" />
+
+
+        <TextView
+            android:id="@+id/txtCustomerName"
+            style="@style/common_text_style"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:gravity="center"
+            tools:text="Pratik"
+            app:layout_constraintEnd_toEndOf="@id/inputLayoutCustomerPhoneNumber"
+            app:layout_constraintStart_toStartOf="@id/inputLayoutCustomerPhoneNumber"
+            app:layout_constraintTop_toBottomOf="@id/btnRetrieveCustomerData" />
+
+        <TextView
+            android:id="@+id/txtCustomerPhone"
+            style="@style/common_text_style"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            tools:text="123456789"
+            app:layout_constraintEnd_toEndOf="@id/inputLayoutCustomerPhoneNumber"
+            app:layout_constraintStart_toStartOf="@id/inputLayoutCustomerPhoneNumber"
+            app:layout_constraintTop_toBottomOf="@id/txtCustomerName" />
+
+        <TextView
+            android:id="@+id/txtCustomerAddressRetrieve"
+            style="@style/common_text_style"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            tools:text="Lodha Tower B"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="@id/inputLayoutCustomerPhoneNumber"
+            app:layout_constraintStart_toStartOf="@id/inputLayoutCustomerPhoneNumber"
+            app:layout_constraintTop_toBottomOf="@id/txtCustomerPhone" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
