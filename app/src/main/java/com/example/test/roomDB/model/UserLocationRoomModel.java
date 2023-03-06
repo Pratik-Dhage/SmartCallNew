@@ -3,6 +3,7 @@ package com.example.test.roomDB.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "user_location_table")
@@ -25,6 +26,10 @@ public class UserLocationRoomModel {
     @ColumnInfo(name = "longitude")
     private String longitude; //User Longitude
 
+    @ColumnInfo(name="address")
+    private String userAddress; // User Complete Address
+
+    @Ignore
     public UserLocationRoomModel(String firstName, String lastName, String phoneNumber,String latitude,String longitude) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,6 +37,21 @@ public class UserLocationRoomModel {
         this.latitude=latitude;
         this.longitude=longitude;
 
+    }
+
+    public UserLocationRoomModel(String firstName, String lastName, String phoneNumber, String userAddress) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.userAddress = userAddress;
+    }
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
     }
 
     public int getId() {

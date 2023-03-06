@@ -29,5 +29,7 @@ public interface UserDao {
     @Query("SELECT phoneNumber FROM user_location_table where firstName=:firstName ")
     String getUserPhone(String firstName);
 
+    @Query("SELECT address FROM user_location_table where phoneNumber=:phoneNumber")
+    String getUserAddress(String phoneNumber);
 
 }

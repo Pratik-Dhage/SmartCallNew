@@ -53,9 +53,9 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
 
     }
 
-    private void check_If_LocationTurnedOn(){
+    private void check_If_LocationTurnedOn() {
 
-        Global.showToast(this,"Location Access Needed");
+        Global.showToast(this, "Location Access Needed");
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
@@ -64,7 +64,7 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
                     && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
             ) {
                 // Request the location permission if it is not granted
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
             }
 
             // Location services are disabled, prompt the user to turn them on
@@ -88,7 +88,7 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
             @Override
             public void onClick(View v) {
 
-               getCurrentLocation();
+                getCurrentLocation();
 
             }
         });
@@ -104,14 +104,14 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
 
     }
 
-    private void getCurrentLocation(){
+    private void getCurrentLocation() {
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-           && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
         ) {
             // Request the location permission if it is not granted
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         } else {
 
             if (locationManager == null) {
@@ -126,16 +126,18 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
                     double latitude = location.getLatitude();
                     double longitude = location.getLongitude();
 
-                 //   Global.showToast(UserLocationActivity.this,Double.toString(latitude)+Double.toString(longitude));
+                    //   Global.showToast(UserLocationActivity.this,Double.toString(latitude)+Double.toString(longitude));
 
                     String Latitude = Double.toString(latitude);
                     String Longitude = Double.toString(longitude);
 
-                    //Store in RoomDB
-                   storeUserLatLongInRoomDB(Latitude,Longitude);
 
-                   //for getting complete address using latitude and longitude
-                    getCompleteAddress(latitude,longitude);
+                    //for getting complete address using latitude and longitude
+                    // getCompleteAddress(latitude,longitude);
+
+                    //Store in RoomDB
+                    storeUserLatLongInRoomDB(getCompleteAddress(latitude, longitude));
+
 
                     //Global.showToast(UserLocationActivity.this,Latitude+Longitude);
                     binding.locationProgressBar.setVisibility(View.VISIBLE);
@@ -151,11 +153,10 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
                             binding.userLat.setVisibility(View.VISIBLE);
                             binding.userLong.setVisibility(View.VISIBLE);
 
-                            binding.userLat.setText("Latitude:"+Latitude);
-                            binding.userLong.setText("Longitude:"+Longitude);
+                            binding.userLat.setText("Latitude:" + Latitude);
+                            binding.userLong.setText("Longitude:" + Longitude);
                         }
                     }, 4000); // 4000 milliseconds = 4 seconds delay
-
 
 
                 }
@@ -165,35 +166,33 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
 
     }
 
-    private void storeUserLatLongInRoomDB(String Latitude, String Longitude) {
+    private void storeUserLatLongInRoomDB(String address) {
 
         UserDao userDao = LeadListDB.getInstance(this).userDao();
 
 
         UserLocationRoomModel userLocationRoomModel =
-                new UserLocationRoomModel("Pratik","D.","1234567890",Latitude,Longitude);
+                new UserLocationRoomModel("Pratik", "D.", "1234567890", address);
         userDao.insert(userLocationRoomModel);
 
-        Global.showToast(this,"Saved in LocalDB Successfully");
+        Global.showToast(this, "Saved in LocalDB Successfully");
     }
 
-    private void retrieveLatLongFromRoomDB(){
+    private void retrieveLatLongFromRoomDB() {
         UserDao userDao = LeadListDB.getInstance(this).userDao();
-             if(userDao.getUserLatitude("1234567890")!=null && userDao.getUserLongitude("1234567890")!=null)
-             {
-                 binding.userName.setText(userDao.getUserName("1234567890"));
-                 binding.userPhone.setText(userDao.getUserPhone("Pratik"));
-               // binding.userAddress.setText(userDao.getUserLatitude("1234567890")+" "+userDao.getUserLongitude("1234567890"));
+        if (userDao.getUserAddress("1234567890") != null) {
+            binding.userName.setText(userDao.getUserName("1234567890"));
+            binding.userPhone.setText(userDao.getUserPhone("Pratik"));
+            binding.userAddress.setText(userDao.getUserAddress("1234567890"));
 
 
-             }
-         else{
-             Global.showToast(this,"No Data Found");
-             }
+        } else {
+            Global.showToast(this, "No Data Found");
+        }
 
     }
 
-    private void getCompleteAddress(Double latitude, Double longitude){
+    private String getCompleteAddress(Double latitude, Double longitude) {
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         Address address = null;
@@ -203,13 +202,14 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
             if (addresses != null && addresses.size() > 0) {
                 address = addresses.get(0);
 
-            binding.userAddress.setText(address.getAddressLine(0));
-            System.out.println("Here Address: "+address.toString());
+                //   binding.userAddress.setText(address.getAddressLine(0));
+                System.out.println("Here Address: " + address.toString());
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        return address.getAddressLine(0);
     }
 
 
@@ -217,11 +217,10 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode==1){
+        if (requestCode == 1) {
             getCurrentLocation();
-        }
-        else{
-            Global.showToast(this,"Permission Denied");
+        } else {
+            Global.showToast(this, "Permission Denied");
         }
     }
 
@@ -233,11 +232,11 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
         String Latitude = Double.toString(latitude);
         String Longitude = Double.toString(longitude);
 
-        Global.showToast(this,Latitude+Longitude);
+        Global.showToast(this, Latitude + Longitude);
 
         // Do something with the latitude and longitude, for example display them in a TextView
-           binding.userLat.setText(Latitude);
-           binding.userLong.setText(Longitude);
+        binding.userLat.setText(Latitude);
+        binding.userLong.setText(Longitude);
 
         // Stop listening for location updates after getting the location once
         locationManager.removeUpdates(this);
@@ -246,19 +245,18 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
     @Override
     public void onProviderDisabled(String provider) {
 
-        try{
+        try {
 
-           check_If_LocationTurnedOn();
+            check_If_LocationTurnedOn();
+        } catch (Exception e) {
+
+            Global.showToast(this, "Location Provider Error:" + provider);
+            System.out.println("Here Location Provider Error: " + provider);
+            System.out.println("Here Location Provider Exception: " + e);
+
         }
-        catch(Exception e){
 
-            Global.showToast(this,"Location Provider Error:"+provider);
-            System.out.println("Here Location Provider Error: "+provider);
-            System.out.println("Here Location Provider Exception: "+e);
-
-        }
-
-        System.out.println("Here Location Provider Error: "+provider);
+        System.out.println("Here Location Provider Error: " + provider);
 
     }
 
@@ -271,8 +269,8 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
 
-        Global.showToast(this,"Network status Changed: "+provider+" status code: "+status);
-        System.out.println("Here Network status Changed: "+provider+" status code: "+status);
+        Global.showToast(this, "Network status Changed: " + provider + " status code: " + status);
+        System.out.println("Here Network status Changed: " + provider + " status code: " + status);
     }
 }
 
