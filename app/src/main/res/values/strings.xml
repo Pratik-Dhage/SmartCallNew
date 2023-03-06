@@ -98,6 +98,9 @@
     <string name="retrieve_from_local_db">Retrieve from Local DB</string>
     <string name="address">Address</string>
     <string name="get_location_and_save">Get Location And Save</string>
+    <string name="customer_details">Customer Details</string>
+    <string name="enter_customer_name">Enter Customer Name</string>
+    <string name="enter_customer_mobile_no">Enter Customer Mobile No.</string>
 
 
 </resources>

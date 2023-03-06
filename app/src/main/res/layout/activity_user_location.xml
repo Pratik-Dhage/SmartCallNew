@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/MainConstraintStyle"
     tools:context=".location_gps.user_location.UserLocationActivity">
 
     <TextView
@@ -70,6 +71,9 @@
         android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/address"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:layout_width="@dimen/_150sdp"
         style="@style/common_text_style"/>
 
     <ProgressBar

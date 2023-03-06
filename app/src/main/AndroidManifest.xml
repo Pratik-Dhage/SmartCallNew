@@ -31,6 +31,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".location_gps.customer_location.CustomerLocationActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".location_gps.user_location.UserLocationActivity"
             android:exported="true">
             <meta-data
@@ -42,8 +49,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
         <activity
             android:name=".call_scheduled.CallScheduledActivity"
@@ -132,8 +137,6 @@
         <activity
             android:name=".main_dashboard.MainActivity"
             android:exported="true">
-
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

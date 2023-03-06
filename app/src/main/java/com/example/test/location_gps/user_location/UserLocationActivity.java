@@ -10,6 +10,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -27,7 +29,12 @@ import com.example.test.roomDB.dao.UserDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.UserLocationRoomModel;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class UserLocationActivity extends AppCompatActivity implements LocationListener {
 
@@ -127,6 +134,9 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
                     //Store in RoomDB
                    storeUserLatLongInRoomDB(Latitude,Longitude);
 
+                   //for getting complete address using latitude and longitude
+                    getCompleteAddress(latitude,longitude);
+
                     //Global.showToast(UserLocationActivity.this,Latitude+Longitude);
                     binding.locationProgressBar.setVisibility(View.VISIBLE);
                     binding.userLat.setVisibility(View.INVISIBLE);
@@ -173,11 +183,32 @@ public class UserLocationActivity extends AppCompatActivity implements LocationL
              {
                  binding.userName.setText(userDao.getUserName("1234567890"));
                  binding.userPhone.setText(userDao.getUserPhone("Pratik"));
-                binding.userAddress.setText(userDao.getUserLatitude("1234567890")+" "+userDao.getUserLongitude("1234567890"));
+               // binding.userAddress.setText(userDao.getUserLatitude("1234567890")+" "+userDao.getUserLongitude("1234567890"));
+
+
              }
          else{
              Global.showToast(this,"No Data Found");
              }
+
+    }
+
+    private void getCompleteAddress(Double latitude, Double longitude){
+
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        Address address = null;
+
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses != null && addresses.size() > 0) {
+                address = addresses.get(0);
+
+            binding.userAddress.setText(address.getAddressLine(0));
+            System.out.println("Here Address: "+address.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
