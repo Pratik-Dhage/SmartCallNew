@@ -21,5 +21,6 @@ public interface LeadCallDao {
     @Query("SELECT leadCalls FROM lead_call_table WHERE phoneNumber =:phone_Number")
     int getCallCountUsingPhoneNumber(String phone_Number);
 
-
+    @Query("UPDATE lead_call_table SET leadCalls=:leadsCount where phoneNumber =:phoneNumber")
+     void UpdateLeadCalls(int leadsCount,String phoneNumber);
 }

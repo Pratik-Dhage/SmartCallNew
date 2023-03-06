@@ -157,10 +157,11 @@ public class CallStatusActivity extends AppCompatActivity {
         LeadCallModelRoom leadCallModelRoom = new LeadCallModelRoom(callCount, firstName, phoneNumber);
 
         leadCallDao.insert(leadCallModelRoom);
-        leadCallDao.update(leadCallModelRoom);
+      //  leadCallDao.update(leadCallModelRoom);
+        leadCallDao.UpdateLeadCalls(callCount,phoneNumber);
 
-        Global.showToast(this, "Call Count for " + phoneNumber + " is: " + callCount);
-        System.out.println("Here Call Count for " + phoneNumber + " is: " + callCount);
+        Global.showToast(this, "Call Count for " + phoneNumber + " is: " + leadCallDao.getCallCountUsingPhoneNumber(phoneNumber));
+        System.out.println("Here Call Count for " + phoneNumber + " is: " + leadCallDao.getCallCountUsingPhoneNumber(phoneNumber));
 
     }
 
