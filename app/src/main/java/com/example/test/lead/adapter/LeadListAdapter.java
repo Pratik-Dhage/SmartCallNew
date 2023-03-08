@@ -69,11 +69,13 @@ public class LeadListAdapter extends RecyclerView.Adapter<LeadListAdapter.MyView
 
         String phoneNumber=a.getPhoneNumber(); // get Phone Number
 
-        if(leadCallDao.getCallCountUsingPhoneNumber(phoneNumber)>3){
-            leadCallDao.UpdateLeadCalls(0,phoneNumber); // if leadCallCount >3 make it back to zero
+        if(leadCallDao.getCallCountUsingPhoneNumber(phoneNumber)>2){
+            leadCallDao.UpdateLeadCalls(0,phoneNumber); // if leadCallCount >2 make it back to zero
         }
 
         int callCount =  leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
+
+        holder.setIsRecyclable(false); // to prevent ImageView from being disappeared when scrolled upwards
 
         switch (callCount){
 

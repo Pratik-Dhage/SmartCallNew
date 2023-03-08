@@ -1,5 +1,6 @@
 package com.example.test.lead;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -225,8 +226,6 @@ public class LeadsActivity extends AppCompatActivity {
 
                 if(NetworkUtilities.getConnectivityStatus(LeadsActivity.this)){
                     setUpRecyclerLeadListData();
-                    initObserver();
-                    callAPi();
                 }
 
                 else{

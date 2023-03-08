@@ -14,6 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginStart="@dimen/_2sdp"
+        android:maxLength="15"
         app:layout_constraintStart_toStartOf="parent"
        style="@style/common_text_style"/>
 
