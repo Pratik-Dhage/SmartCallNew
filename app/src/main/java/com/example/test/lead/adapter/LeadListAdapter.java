@@ -75,8 +75,6 @@ public class LeadListAdapter extends RecyclerView.Adapter<LeadListAdapter.MyView
 
         int callCount =  leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
 
-        holder.setIsRecyclable(false); // to prevent ImageView from being disappeared when scrolled upwards
-
         switch (callCount){
 
             case 0:  holder.binding.ivLeadList.setVisibility(View.INVISIBLE);
@@ -93,6 +91,18 @@ public class LeadListAdapter extends RecyclerView.Adapter<LeadListAdapter.MyView
     @Override
     public int getItemCount() {
         return LeadModelClassArrayList.size();
+    }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull MyViewHolderClass holder) {
+        super.onViewAttachedToWindow(holder);
+        holder.setIsRecyclable(true);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.setIsRecyclable(false); // to prevent ImageView from being disappeared when scrolled upwards
     }
 
     @SuppressLint("NotifyDataSetChanged")
