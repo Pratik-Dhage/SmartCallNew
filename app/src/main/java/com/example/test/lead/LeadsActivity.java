@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.test.R;
@@ -314,4 +315,24 @@ public class LeadsActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    private void autoSwipeRefresh(){
+        binding.leadSwipeRefresh.setRefreshing(true);
+        if(NetworkUtilities.getConnectivityStatus(LeadsActivity.this)){
+            setUpRecyclerLeadListData();
+        }
+        else{
+            useOffLineLeadList();
+        }
+        binding.leadSwipeRefresh.setColorSchemeResources(R.color.textBlue);
+        binding.leadSwipeRefresh.setRefreshing(false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("LeadsActivity", "onResume() called");
+
+        //Auto Swipe Refresh
+        autoSwipeRefresh();
+    }
 }
