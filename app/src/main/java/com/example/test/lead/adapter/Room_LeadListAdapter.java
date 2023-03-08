@@ -16,6 +16,7 @@ import com.example.test.R;
 import com.example.test.call_status.CallStatusActivity;
 import com.example.test.databinding.ItemLeadListBinding;
 import com.example.test.lead.LeadsActivity;
+import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.LeadDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.LeadModelRoom;
@@ -72,6 +73,29 @@ public class Room_LeadListAdapter extends RecyclerView.Adapter<Room_LeadListAdap
                 return false;
             }
         });
+
+
+        //for setting Call Attempts ImageView
+        LeadCallDao leadCallDao = LeadListDB.getInstance(context).leadCallDao();
+
+        String phoneNumber=a.getPhoneNumber(); // get Phone Number
+
+        if(leadCallDao.getCallCountUsingPhoneNumber(phoneNumber)>3){
+            leadCallDao.UpdateLeadCalls(0,phoneNumber); // if leadCallCount >3 make it back to zero
+        }
+
+        int callCount =  leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
+
+        switch (callCount){
+
+            case 0:  holder.binding.ivLeadList.setVisibility(View.INVISIBLE);
+                break;
+            case 1:holder.binding.ivLeadList.setImageResource(R.drawable.attempttwo);
+                break;
+            case 2 : holder.binding.ivLeadList.setImageResource(R.drawable.attemptthree);
+                break;
+
+        }
 
     }
 

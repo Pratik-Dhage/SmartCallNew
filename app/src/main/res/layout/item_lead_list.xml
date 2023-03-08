@@ -29,14 +29,14 @@
 
     <ImageView
         android:id="@+id/ivLeadList"
-        android:src="@drawable/hand"
+        tools:src="@drawable/hand"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_20sdp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/_20sdp"
        android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_height="wrap_content"
-        app:tint="@color/textBlue" />
+        android:layout_height="@dimen/_20sdp"
+         />
 
 
     <View

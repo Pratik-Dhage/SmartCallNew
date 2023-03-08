@@ -55,6 +55,7 @@ public class LeadsActivity extends AppCompatActivity {
         onSwipeRefresh();
 
         if(NetworkUtilities.getConnectivityStatus(this)){
+            setUpRecyclerLeadListData();
             initObserver();
             callAPi();
         }

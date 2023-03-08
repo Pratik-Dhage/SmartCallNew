@@ -68,15 +68,20 @@ public class LeadListAdapter extends RecyclerView.Adapter<LeadListAdapter.MyView
         LeadCallDao leadCallDao = LeadListDB.getInstance(context).leadCallDao();
 
         String phoneNumber=a.getPhoneNumber(); // get Phone Number
+
+        if(leadCallDao.getCallCountUsingPhoneNumber(phoneNumber)>3){
+            leadCallDao.UpdateLeadCalls(0,phoneNumber); // if leadCallCount >3 make it back to zero
+        }
+
         int callCount =  leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
 
         switch (callCount){
 
-            case 1:  holder.binding.ivLeadList.setImageResource(R.drawable.hand);
+            case 0:  holder.binding.ivLeadList.setVisibility(View.INVISIBLE);
                 break;
-            case 2:holder.binding.ivLeadList.setImageResource(R.drawable.attempttwo);
+            case 1:holder.binding.ivLeadList.setImageResource(R.drawable.attempttwo);
                 break;
-            case 3 : holder.binding.ivLeadList.setImageResource(R.drawable.attemptthree);
+            case 2 : holder.binding.ivLeadList.setImageResource(R.drawable.attemptthree);
                 break;
 
         }
