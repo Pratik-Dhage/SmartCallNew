@@ -223,7 +223,16 @@ public class LeadsActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
 
-                useOffLineLeadList();
+                if(NetworkUtilities.getConnectivityStatus(LeadsActivity.this)){
+                    setUpRecyclerLeadListData();
+                    initObserver();
+                    callAPi();
+                }
+
+                else{
+                    useOffLineLeadList();
+                }
+
                 binding.leadSwipeRefresh.setColorSchemeResources(R.color.textBlue);
                 binding.leadSwipeRefresh.setRefreshing(false);
             }
