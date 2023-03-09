@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/_20sdp"
            app:layout_constraintEnd_toStartOf="@id/txtCallDate"
-            app:layout_constraintStart_toEndOf="@id/txtQueue"
+           android:layout_marginEnd="@dimen/_40sdp"
             style="@style/common_text_style"/>
 
         <TextView
@@ -30,8 +30,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/_20sdp"
-
-            app:layout_constraintStart_toEndOf="@id/txtName"
+            android:layout_marginEnd="@dimen/_20sdp"
             app:layout_constraintEnd_toStartOf="@id/txtCallTime"
             style="@style/common_text_style"/>
 
