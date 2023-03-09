@@ -106,7 +106,7 @@
   <string name="customer_name_cannot_be_empty">Customer name cannot be empty</string>
   <string name="customer_phone_cannot_be_empty">Customer phone cannot be empty</string>
     <string name="goto_customer_activity">Goto Customer Activity</string>
-    <string name="make_time_12_hour">Make Timezone as 12 hour format</string>
-    <string name="make_time_24_hour">Make Timezone as 24 hour format</string>
+    <string name="timezone_12hr_format">Time is 12 hour format</string>
+    <string name="timezone_24hr_format">Time is 24 hour format</string>
 
 </resources>

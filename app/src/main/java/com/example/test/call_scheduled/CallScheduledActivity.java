@@ -57,11 +57,11 @@ public class CallScheduledActivity extends AppCompatActivity {
 
         if (isDevice24HourFormat()) {
 
-            Global.showToast(this, getResources().getString(R.string.make_time_12_hour));
-            Intent intent = new Intent(android.provider.Settings.ACTION_DATE_SETTINGS);
-            startActivity(intent);
+            Global.showToast(this, getResources().getString(R.string.timezone_24hr_format));
+          /*  Intent intent = new Intent(android.provider.Settings.ACTION_DATE_SETTINGS);
+            startActivity(intent);*/
         } else {
-            Global.showToast(this, getResources().getString(R.string.make_time_24_hour));
+            Global.showToast(this, getResources().getString(R.string.timezone_12hr_format));
         }
 
         setUpCallScheduledRecyclerView();
