@@ -80,6 +80,7 @@
     <string name="spoke_to_customer">Spoke To Customer</string>
     <string name="did_not_speak_to_ncustomer">Did Not Speak To \nCustomer</string>
     <string name="calls_scheduled_for_the_day">Calls Scheduled For The Day</string>
+    <string name="schedule_for_the_day">Schedule For The Day</string>
     <string name="total">Total</string>
     <string name="calls_scheduled_for_today">Calls Scheduled For Today</string>
     <string name="name">Name</string>
@@ -103,10 +104,20 @@
     <string name="enter_customer_mobile_no">Enter Customer Mobile No.</string>
     <string name="get_customer_address">Get Customer Address &amp; Save</string>
     <string name="store_in_local_db">Store in Local DB</string>
-  <string name="customer_name_cannot_be_empty">Customer name cannot be empty</string>
-  <string name="customer_phone_cannot_be_empty">Customer phone cannot be empty</string>
+    <string name="customer_name_cannot_be_empty">Customer name cannot be empty</string>
+    <string name="customer_phone_cannot_be_empty">Customer phone cannot be empty</string>
     <string name="goto_customer_activity">Goto Customer Activity</string>
     <string name="timezone_12hr_format">Time is 12 hour format</string>
     <string name="timezone_24hr_format">Time is 24 hour format</string>
+    <string name="completed">Completed</string>
+    <string name="pending">Pending</string>
+    <string name="visits">Visits</string>
+    <string name="calls">Calls</string>
+    <string name="schedule">Schedule</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="location">Location</string>
+    <string name="distance">Distance</string>
+    <string name="severity">Severity</string>
 
 </resources>
