@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.test.api_manager.CommonViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        style="@style/MainConstraintStyle"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/toolBarStyle"
+            android:background="@color/textBlue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/dashboard"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+            android:id="@+id/dashboardScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rootConstraintLayout"
+                style="@style/MainConstraintStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_12sdp"
+                android:paddingEnd="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/txtWelcomeUser"
+                    style="@style/heading_text_style"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:text="@string/welcome_User"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/labelCallScheduled"
+                    style="@style/heading_text_style"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:text="@string/schedule_for_the_day"
+                    android:textAlignment="center"
+                    android:textColor="@color/textBlue"
+                    android:textStyle="bold|italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtWelcomeUser" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    app:cardCornerRadius="@dimen/_5sdp"
+                    app:cardElevation="@dimen/_5sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelCallScheduled">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/labelTotalMonth"
+                            style="@style/semi_mid_text_style"
+                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="@string/total"
+                            app:layout_constraintEnd_toStartOf="@+id/labelCompletedCallsTotalMonth"
+                            app:layout_constraintTop_toTopOf="@id/clCardView" />
+
+
+                        <TextView
+                            android:id="@+id/labelCompletedCallsTotalMonth"
+                            style="@style/semi_mid_text_style"
+                            android:layout_marginStart="@dimen/_50sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="@string/completed"
+                            app:layout_constraintEnd_toStartOf="@id/labelPendingCallsTotalMonth"
+                            android:layout_marginEnd="@dimen/_20sdp"
+                            app:layout_constraintTop_toTopOf="@id/clCardView" />
+
+                        <TextView
+                            android:id="@+id/labelPendingCallsTotalMonth"
+                            style="@style/semi_mid_text_style"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="@string/pending"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/clCardView" />
+
+                        <TextView
+                            android:id="@+id/labelVisits"
+                            app:layout_constraintTop_toBottomOf="@id/labelTotalMonth"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="@string/visits"
+                            style="@style/common_text_style"
+                            android:textColor="@color/textBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/labelCalls"
+                            app:layout_constraintTop_toBottomOf="@id/labelVisits"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:text="@string/calls"
+                            style="@style/common_text_style"
+                            android:textColor="@color/textBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <View
+                            android:id="@+id/viewBorder"
+                            style="@style/viewBorderStyle"
+                            android:background="@color/textBlue"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/labelCalls" />
+
+                        <TextView
+                            android:id="@+id/labelSchedule"
+                            app:layout_constraintTop_toBottomOf="@id/viewBorder"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="@string/schedule"
+                            style="@style/common_text_style"
+                            android:paddingBottom="@dimen/_10sdp"
+                            android:textColor="@color/textBlue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <!--RightArrow Visits-->
+                        <ImageView
+                            android:id="@+id/ivRightArrowVisits"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:src="@drawable/right_arrow"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/labelPendingCallsTotalMonth"
+                            app:tint="@color/textBlue" />
+
+
+                        <!--RightArrow Calls-->
+                        <ImageView
+                            android:id="@+id/ivRightArrowCalls"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:src="@drawable/right_arrow"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/ivRightArrowVisits"
+                            app:tint="@color/textBlue" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <View
+                    android:id="@+id/blankView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cardView"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -119,5 +119,32 @@
     <string name="location">Location</string>
     <string name="distance">Distance</string>
     <string name="severity">Severity</string>
+    <string name="visited_the_customer">Visited The Customer</string>
+    <string name="did_not_visited_the_customer">Did Not Visit The Customer</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="details">Details</string>
+    <string name="scheduled_time">Scheduled Time</string>
+    <string name="aadhar_no">Aadhar No.</string>
+    <string name="dob">DOB</string>
+    <string name="father_s_name">Father\'s Name</string>
+    <string name="loan_acc_no">Loan Acc. No.</string>
+    <string name="dpd">DPD</string>
+    <string name="amt_due_as_on">Amt. due as on</string>
+    <string name="balance_interest">Balance Interest</string>
+    <string name="total_payable_as_on">Total Payable as on</string>
+    <string name="product">Product</string>
+    <string name="calculate">Calculate</string>
+    <string name="near_by">Near By</string>
+    <string name="total_amt_paid">Total Amt. Paid</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="full_amt_paid">Full Amt Paid</string>
+    <string name="will_pay_later">Will Pay Later</string>
+    <string name="needs_waiver">Needs Waiver</string>
+    <string name="others">Others</string>
+    <string name="please_specify">Please Specify</string>
+    <string name="reason_for_waiver">Reason for Waiver</string>
+    <string name="visit_complete_no_change">Visit Complete - No Change</string>
+    <string name="visit_complete_update_details">Visit Complete - Update Details</string>
+    <string name="visit_complete_escalate_to_bm">Visit Complete - Escalate To BM</string>
 
 </resources>

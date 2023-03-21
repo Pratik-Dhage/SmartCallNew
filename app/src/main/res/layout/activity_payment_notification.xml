@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/MainConstraintStyle"
+    tools:context=".fragments_activity.PaymentNotificationActivity">
+
+
+    <ScrollView
+        android:id="@+id/paymentNotificationScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootConstraintLayout"
+        style="@style/MainConstraintStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/btnFullAmountPaid"
+        android:text="@string/full_amt_paid"
+        android:textAllCaps="true"
+        android:background="@drawable/round_corner_bg"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_60sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:backgroundTint="@color/emeraldGreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/btnPartialAmountPaid"
+        android:text="Partial Amt Paid"
+        android:textAllCaps="true"
+        android:background="@drawable/round_corner_bg"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_60sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        android:padding="@dimen/_10sdp"
+        android:backgroundTint="@color/purple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:id="@+id/btnWillPayLater"
+        android:text="@string/will_pay_later"
+        android:textAllCaps="true"
+        android:background="@drawable/round_corner_bg"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/btnFullAmountPaid"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:backgroundTint="@color/brightOrange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:id="@+id/btnNeedsWaiver"
+        android:text="@string/needs_waiver"
+        android:textAllCaps="true"
+        android:background="@drawable/round_corner_bg"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_10sdp"
+       app:layout_constraintTop_toBottomOf="@id/btnPartialAmountPaid"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        android:padding="@dimen/_10sdp"
+        android:backgroundTint="@color/chilliRed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/edtReasonForWaiver"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnNeedsWaiver"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:hint="@string/reason_for_waiver"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/btnOthers"
+        android:text="@string/others"
+        android:textAllCaps="true"
+        android:background="@drawable/round_corner_bg"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtReasonForWaiver"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        android:padding="@dimen/_10sdp"
+        android:backgroundTint="@color/borderColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <EditText
+        android:id="@+id/edtPleaseSpecify"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnOthers"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:hint="@string/please_specify"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/ivNotesIcon"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:src="@drawable/icons8notepad65ver4"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/edtPleaseSpecify" />
+
+
+    <ImageView
+        android:id="@+id/ivHistory"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:src="@drawable/history"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtPleaseSpecify" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

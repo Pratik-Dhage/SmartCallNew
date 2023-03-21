@@ -16,124 +16,200 @@
 
 
             <TextView
-                android:id="@+id/labelName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:text="@string/name"
-                style="@style/semi_mid_text_style"
-                android:layout_marginStart="@dimen/_10sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="Sairaj"
+                android:id="@+id/txtName"
                 style="@style/common_text_style"
-                android:layout_marginStart="@dimen/_10sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/labelName" />
-
-
-            <TextView
-                android:id="@+id/labelLocation"
-                style="@style/semi_mid_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:text="@string/location"
-                android:layout_marginEnd="@dimen/_10sdp"
-                app:layout_constraintEnd_toStartOf="@id/labelDistance"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Sairaj Naidu"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <TextView
+                android:id="@+id/txtMobileNumber"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="987654321"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="@id/txtName"
+                app:layout_constraintTop_toBottomOf="@id/txtName" />
+
+            <ImageView
+                android:id="@+id/ivCall"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:src="@drawable/wifi_call"
+                app:layout_constraintStart_toEndOf="@id/txtMobileNumber"
+                app:layout_constraintTop_toTopOf="@id/txtMobileNumber" />
+
+
+            <TextView
+                android:id="@+id/txtLocation"
+                style="@style/common_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_50sdp"
                 android:text="Siddapur"
-                style="@style/common_text_style"
-                app:layout_constraintStart_toStartOf="@id/labelLocation"
-                app:layout_constraintEnd_toEndOf="@id/labelLocation"
-                app:layout_constraintTop_toBottomOf="@id/labelLocation" />
-
-            <TextView
-                android:id="@+id/labelDistance"
-                style="@style/semi_mid_text_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:text="@string/distance"
-                android:layout_marginEnd="@dimen/_10sdp"
-                app:layout_constraintEnd_toStartOf="@id/labelTime"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toStartOf="@+id/txtDistance"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="1:30 pm"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="@id/txtLocation"
+                app:layout_constraintTop_toBottomOf="@id/txtLocation" />
+
+            <TextView
+                android:id="@+id/txtDistance"
+                style="@style/common_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="3km"
-                style="@style/common_text_style"
-                app:layout_constraintStart_toStartOf="@id/labelDistance"
-                app:layout_constraintEnd_toEndOf="@id/labelDistance"
-                app:layout_constraintTop_toBottomOf="@id/labelDistance" />
-
-
-            <TextView
-                android:id="@+id/labelTime"
-                style="@style/semi_mid_text_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:text="@string/time"
-                app:layout_constraintEnd_toStartOf="@+id/labelSeverity"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="1:30pm"
-                style="@style/common_text_style"
-                app:layout_constraintStart_toStartOf="@id/labelTime"
-                app:layout_constraintEnd_toEndOf="@id/labelTime"
-                app:layout_constraintTop_toBottomOf="@id/labelTime" />
-
-
-            <TextView
-                android:id="@+id/labelSeverity"
-                style="@style/semi_mid_text_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:text="@string/severity"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="@id/txtDPD"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/ivToolTip"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:src="@drawable/tool_tip"
-                android:layout_width="@dimen/_20sdp"
-                app:layout_constraintTop_toTopOf="@id/txtSeverity"
-                app:layout_constraintBottom_toBottomOf="@id/txtSeverity"
-                android:layout_height="@dimen/_15sdp"
-                app:tint="@color/textBlue" />
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:src="@drawable/location"
+                app:layout_constraintEnd_toEndOf="@id/txtDPD"
+                app:layout_constraintTop_toTopOf="@id/txtDistance"
+                app:tint="@color/red" />
+
 
             <TextView
-                android:id="@+id/txtSeverity"
+                android:id="@+id/txtDPD"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:text="DPD 1-30"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtDistance" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/textBlue"
+                app:layout_constraintTop_toBottomOf="@id/txtMobileNumber" />
+
+
+            <TextView
+                android:id="@+id/txtName2"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Naidu Sairaj"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view1" />
+
+
+            <TextView
+                android:id="@+id/txtMobileNumber2"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="123456789"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="@id/txtName2"
+                app:layout_constraintTop_toBottomOf="@id/txtName2" />
+
+            <ImageView
+                android:id="@+id/ivCall2"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:src="@drawable/wifi_call"
+                app:layout_constraintStart_toEndOf="@id/txtMobileNumber2"
+                app:layout_constraintTop_toTopOf="@id/txtMobileNumber2" />
+
+            <TextView
+                android:id="@+id/txtLocation2"
+                style="@style/common_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="1"
+                android:layout_marginEnd="@dimen/_50sdp"
+                android:text="Tumkur"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toStartOf="@+id/txtDistance"
+                app:layout_constraintTop_toBottomOf="@id/view1" />
+
+            <TextView
                 style="@style/common_text_style"
-                app:layout_constraintStart_toStartOf="@id/labelSeverity"
-                app:layout_constraintEnd_toEndOf="@id/labelSeverity"
-                app:layout_constraintTop_toBottomOf="@id/labelSeverity" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="2:30 pm"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="@id/txtLocation2"
+                app:layout_constraintTop_toBottomOf="@id/txtLocation2" />
+
+            <TextView
+                android:id="@+id/txtDistance2"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="8km"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="@id/txtDPD2"
+                app:layout_constraintTop_toBottomOf="@id/view1" />
+
+            <ImageView
+                android:src="@drawable/location"
+                app:layout_constraintTop_toTopOf="@id/txtDistance2"
+                app:layout_constraintEnd_toEndOf="@id/txtDPD2"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_16sdp"
+                app:tint="@color/red" />
+
+
+            <TextView
+                android:id="@+id/txtDPD2"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:text="DPD 1-30"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtDistance2" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/textBlue"
+                app:layout_constraintTop_toBottomOf="@id/txtMobileNumber2" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

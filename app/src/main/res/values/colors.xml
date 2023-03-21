@@ -24,7 +24,12 @@
     <color name="textGreen">#2A872E</color>
     <color name="textYellow">#FFEB3B</color>
 
-
+   <!--Payment Notification Button colors-->
+    <color name="emeraldGreen">#086522</color>
+    <color name="purple">#A32CC4</color>
+    <color name="brightOrange">#FFA400</color>
+    <color name="barnRed">#7C0A03</color>
+    <color name="chilliRed">#C21807</color>
 
 
 

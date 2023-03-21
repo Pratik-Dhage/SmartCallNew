@@ -15,6 +15,10 @@
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintTop_toTopOf="parent"
        app:tabIndicatorHeight="@dimen/_1sdp"
+       app:tabMode="fixed"
+       app:tabSelectedTextAppearance="@style/heading_text_style"
+       android:layout_marginStart="@dimen/_10sdp"
+       android:layout_marginEnd="@dimen/_10sdp"
        android:layout_height="@dimen/_40sdp"/>
 
 

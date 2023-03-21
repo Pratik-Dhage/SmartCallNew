@@ -2,6 +2,7 @@ package com.example.test.fragments_activity.fragments;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.test.R;
 import com.example.test.databinding.FragmentLoanCollectionBinding;
+import com.example.test.fragments_activity.CustomerDetailsActivity;
 
 
 public class LoanCollectionFragment extends Fragment {
@@ -27,32 +29,14 @@ public class LoanCollectionFragment extends Fragment {
 
     private void onClickListener() {
 
-        binding.ivToolTip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Dialog dialog = new Dialog(getContext());
-                dialog.setContentView(R.layout.custom_dialog_box);
-                dialog.setTitle("Tool Tip");
-                dialog.setCancelable(true);
-                dialog.show();
-
-              TextView tv =  dialog.findViewById(R.id.txtCustomDialog);
-              tv.setText("Tool Tip");
-
-
-             Button btn = dialog.findViewById(R.id.btnCustomDialog);
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-
-            }
-        });
-
-
+        // on click each item of customer
+         binding.rootConstraintLayout.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent i = new Intent(getContext(), CustomerDetailsActivity.class);
+                 startActivity(i);
+             }
+         });
     }
 
     @Override
