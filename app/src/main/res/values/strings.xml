@@ -146,5 +146,9 @@
     <string name="visit_complete_no_change">Visit Complete - No Change</string>
     <string name="visit_complete_update_details">Visit Complete - Update Details</string>
     <string name="visit_complete_escalate_to_bm">Visit Complete - Escalate To BM</string>
+    <string name="loan_amount">Loan Amount</string>
+    <string name="interest_rate">Interest Rate</string>
+    <string name="balance_days">Balance Days</string>
+    <string name="d">D</string>
 
 </resources>

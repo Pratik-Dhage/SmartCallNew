@@ -40,6 +40,15 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             }
         });
 
+
+        binding.btnCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CustomerDetailsActivity.this,BalanceInterestCalculationActivity.class);
+                startActivity(i);
+            }
+        });
+
       /*  binding.ivRightArrowPersonalDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

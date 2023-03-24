@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/MainConstraintStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments_activity.BalanceInterestCalculationActivity">
+
+
+        <ScrollView
+            android:id="@+id/balanceInterestScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rootConstraintLayout"
+                style="@style/MainConstraintStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivRefreshClearData"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:src="@drawable/refresh_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/textBlue" />
+
+                <TextView
+                    android:id="@+id/labelLoanAmount"
+                    style="@style/heading_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_50sdp"
+                    android:text="@string/loan_amount"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <EditText
+                    android:id="@+id/edtLoanAmount"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_50sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:digits="0123456789,."
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_5sdp"
+                    app:layout_constraintBottom_toBottomOf="@id/labelLoanAmount"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/labelLoanAmount"
+                    app:layout_constraintTop_toTopOf="@id/labelLoanAmount" />
+
+
+                <ImageView
+                    android:id="@+id/ivRupeeIcon"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:layout_marginEnd="@dimen/_25sdp"
+                    android:src="@drawable/rupee_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/edtLoanAmount"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/edtLoanAmount"
+                    app:tint="@color/textBlue" />
+
+
+                <SeekBar
+                    android:id="@+id/rupeeSeekBarSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_40sdp"
+                    android:max="10"
+                    android:min="0"
+                    android:progress="0"
+                    android:stepSize="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelLoanAmount" />
+
+
+                <TextView
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="0"
+                    app:layout_constraintStart_toStartOf="@id/rupeeSeekBarSlider"
+                    app:layout_constraintTop_toBottomOf="@id/rupeeSeekBarSlider" />
+
+                <TextView
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="50,000"
+                    app:layout_constraintEnd_toEndOf="@id/rupeeSeekBarSlider"
+                    app:layout_constraintTop_toBottomOf="@id/rupeeSeekBarSlider" />
+
+
+                <TextView
+                    android:id="@+id/labelInterestRate"
+                    style="@style/heading_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_60sdp"
+                    android:text="@string/interest_rate"
+                    app:layout_constraintStart_toStartOf="@id/labelLoanAmount"
+                    app:layout_constraintTop_toBottomOf="@id/rupeeSeekBarSlider" />
+
+                <EditText
+                    android:id="@+id/edtInterestRate"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/labelInterestRate"
+                    app:layout_constraintEnd_toEndOf="@id/edtLoanAmount"
+                    app:layout_constraintStart_toStartOf="@id/edtLoanAmount"
+                    app:layout_constraintTop_toTopOf="@id/labelInterestRate" />
+
+                <ImageView
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:src="@drawable/percentage_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/edtInterestRate"
+                    app:layout_constraintEnd_toEndOf="@id/edtInterestRate"
+                    app:layout_constraintTop_toTopOf="@id/edtInterestRate"
+                    app:tint="@color/textBlue" />
+
+                <SeekBar
+                    android:id="@+id/interestSeekBarSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_40sdp"
+                    android:max="7"
+                    android:min="0"
+                    android:progress="0"
+                    android:stepSize="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelInterestRate" />
+
+                <TextView
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="0"
+                    app:layout_constraintStart_toStartOf="@id/interestSeekBarSlider"
+                    app:layout_constraintTop_toBottomOf="@id/interestSeekBarSlider" />
+
+                <TextView
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="8"
+                    app:layout_constraintEnd_toEndOf="@id/interestSeekBarSlider"
+                    app:layout_constraintTop_toBottomOf="@id/interestSeekBarSlider" />
+
+                <TextView
+                    android:id="@+id/labelBalanceDays"
+                    style="@style/heading_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_60sdp"
+                    android:text="@string/balance_days"
+                    app:layout_constraintStart_toStartOf="@id/labelInterestRate"
+                    app:layout_constraintTop_toBottomOf="@id/interestSeekBarSlider" />
+
+
+                <EditText
+                    android:id="@+id/edtBalanceDays"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@id/labelBalanceDays"
+                    app:layout_constraintTop_toBottomOf="@id/labelBalanceDays" />
+
+                <TextView
+                    style="@style/semi_mid_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/d"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/edtBalanceDays"
+                    app:layout_constraintEnd_toEndOf="@id/edtBalanceDays"
+                    app:layout_constraintTop_toTopOf="@id/edtBalanceDays" />
+
+                <SeekBar
+                    android:id="@+id/balanceDaysSeekBarSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_40sdp"
+                    android:max="29"
+                    android:min="0"
+                    android:progress="0"
+                    android:stepSize="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edtBalanceDays" />
+
+
+                <TextView
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="1"
+                    app:layout_constraintStart_toStartOf="@id/balanceDaysSeekBarSlider"
+                    app:layout_constraintTop_toBottomOf="@id/balanceDaysSeekBarSlider" />
+
+                <TextView
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="30"
+                    app:layout_constraintEnd_toEndOf="@id/balanceDaysSeekBarSlider"
+                    app:layout_constraintTop_toBottomOf="@id/balanceDaysSeekBarSlider" />
+
+
+                <Button
+                    android:id="@+id/btnCalculate"
+                    style="@style/BigButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_50sdp"
+                    android:text="@string/calculate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/balanceDaysSeekBarSlider" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
