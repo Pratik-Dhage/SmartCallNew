@@ -47,11 +47,11 @@ View view ;
    binding.ivRefreshClearData.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View v) {
-           binding.edtLoanAmount.setText("0");
+           binding.edtLoanAmount.setText("");
            binding.rupeeSeekBarSlider.setProgress(0);
-           binding.edtInterestRate.setText("0");
+           binding.edtInterestRate.setText("");
            binding.interestSeekBarSlider.setProgress(0);
-           binding.edtBalanceDays.setText("1");
+           binding.edtBalanceDays.setText("");
            binding.balanceDaysSeekBarSlider.setProgress(0);
        }
    });
