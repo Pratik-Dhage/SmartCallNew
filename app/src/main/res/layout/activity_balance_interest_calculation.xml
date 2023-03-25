@@ -52,10 +52,11 @@
                     android:layout_width="@dimen/_120sdp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_50sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
                     android:digits="0123456789,."
                     android:inputType="number"
-                    android:maxLength="10"
+                    android:maxLength="8"
+                    android:textSize="@dimen/_15ssp"
                     android:paddingStart="@dimen/_5sdp"
                     android:paddingEnd="@dimen/_5sdp"
                     app:layout_constraintBottom_toBottomOf="@id/labelLoanAmount"
@@ -66,14 +67,18 @@
 
                 <ImageView
                     android:id="@+id/ivRupeeIcon"
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
                     android:layout_marginEnd="@dimen/_25sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:background="@drawable/round_corner_bg"
+                    android:backgroundTint="@color/skyBlue"
+                    android:padding="@dimen/_3sdp"
                     android:src="@drawable/rupee_icon"
-                    app:layout_constraintBottom_toBottomOf="@id/edtLoanAmount"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/edtLoanAmount"
-                    app:tint="@color/textBlue" />
+
+                    app:tint="@color/white" />
 
 
                 <SeekBar
@@ -127,19 +132,24 @@
                     android:id="@+id/edtInterestRate"
                     android:layout_width="@dimen/_60sdp"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/_15ssp"
                     app:layout_constraintBottom_toBottomOf="@id/labelInterestRate"
                     app:layout_constraintEnd_toEndOf="@id/edtLoanAmount"
                     app:layout_constraintStart_toStartOf="@id/edtLoanAmount"
                     app:layout_constraintTop_toTopOf="@id/labelInterestRate" />
 
                 <ImageView
-                    android:layout_width="@dimen/_18sdp"
-                    android:layout_height="@dimen/_18sdp"
+                    android:id="@+id/ivPercentage"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:background="@drawable/round_corner_bg"
+                    android:backgroundTint="@color/skyBlue"
+                    android:padding="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:src="@drawable/percentage_icon"
-                    app:layout_constraintBottom_toBottomOf="@id/edtInterestRate"
                     app:layout_constraintEnd_toEndOf="@id/edtInterestRate"
                     app:layout_constraintTop_toTopOf="@id/edtInterestRate"
-                    app:tint="@color/textBlue" />
+                    app:tint="@color/white" />
 
                 <SeekBar
                     android:id="@+id/interestSeekBarSlider"
@@ -148,7 +158,7 @@
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_40sdp"
-                    android:max="7"
+                    android:max="19"
                     android:min="0"
                     android:progress="0"
                     android:stepSize="1"
@@ -162,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="0"
+                    android:text="1"
                     app:layout_constraintStart_toStartOf="@id/interestSeekBarSlider"
                     app:layout_constraintTop_toBottomOf="@id/interestSeekBarSlider" />
 
@@ -172,7 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:text="8"
+                    android:text="20"
                     app:layout_constraintEnd_toEndOf="@id/interestSeekBarSlider"
                     app:layout_constraintTop_toBottomOf="@id/interestSeekBarSlider" />
 
@@ -189,20 +199,27 @@
 
                 <EditText
                     android:id="@+id/edtBalanceDays"
-                    android:layout_width="@dimen/_100sdp"
+                    android:layout_width="@dimen/_60sdp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="@id/labelBalanceDays"
-                    app:layout_constraintTop_toBottomOf="@id/labelBalanceDays" />
+                    android:textSize="@dimen/_15ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/labelBalanceDays"
+                    app:layout_constraintEnd_toEndOf="@id/edtInterestRate"
+                    app:layout_constraintTop_toTopOf="@id/labelBalanceDays" />
 
                 <TextView
                     style="@style/semi_mid_text_style"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/round_corner_bg"
+                    android:backgroundTint="@color/skyBlue"
+                    android:padding="@dimen/_3sdp"
                     android:text="@string/d"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:textSize="@dimen/_14ssp"
-                    app:layout_constraintBottom_toBottomOf="@id/edtBalanceDays"
                     app:layout_constraintEnd_toEndOf="@id/edtBalanceDays"
                     app:layout_constraintTop_toTopOf="@id/edtBalanceDays" />
 

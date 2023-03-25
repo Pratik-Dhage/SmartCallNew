@@ -15,6 +15,7 @@ import com.example.test.api_manager.WebServices;
 import com.example.test.databinding.ActivityMainUpdated3Binding;
 import com.example.test.fragments_activity.ActivityOfFragments;
 import com.example.test.helper_classes.Global;
+import com.example.test.lead.LeadsActivity;
 import com.example.test.lead.model.LeadListResponseModel;
 import com.example.test.lead.model.LeadModel;
 
@@ -58,5 +59,35 @@ public class MainActivity3 extends AppCompatActivity {
              startActivity(i);
              }
          });
+
+         binding.labelMarketing.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent i = new Intent(MainActivity3.this, LeadsActivity.class);
+                 startActivity(i);
+             }
+         });
+
+         binding.labelNPA.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent i = new Intent(MainActivity3.this, DPDActivity.class);
+                 startActivity(i);
+             }
+         });
+
+         binding.labelRenewal.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Global.showToast(MainActivity3.this,"Renewal Clicked");
+             }
+         });
+
+        binding.labelWelcomeCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Global.showToast(MainActivity3.this,"Welcome Call Clicked");
+            }
+        });
     }
 }

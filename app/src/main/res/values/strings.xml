@@ -150,5 +150,8 @@
     <string name="interest_rate">Interest Rate</string>
     <string name="balance_days">Balance Days</string>
     <string name="d">D</string>
+    <string name="assigned">Assigned</string>
+    <string name="dpd_queue">DPD Queue</string>
+    <string name="no_of_members">No. Of \nMembers</string>
 
 </resources>
