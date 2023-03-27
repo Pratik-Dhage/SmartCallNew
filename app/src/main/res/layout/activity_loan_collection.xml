@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/MainConstraintStyle"
+        tools:context=".npa_flow.LoanCollectionActivity">
+
+    <ScrollView
+        android:id="@+id/loanCollectionScrollView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rootConstraintLayout"
+            style="@style/MainConstraintStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:id="@+id/ivBack"
+                android:src="@drawable/back_arrow"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                app:tint="@color/textBlue" />
+
+            <TextView
+                android:id="@+id/labelLoanCollection"
+                app:layout_constraintTop_toBottomOf="@id/ivBack"
+                android:layout_marginTop="@dimen/_20sdp"
+                app:layout_constraintStart_toStartOf="@id/ivBack"
+                android:layout_marginStart="@dimen/_30sdp"
+                style="@style/heading_text_style"
+                android:text="@string/loan_collection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:id="@+id/viewBorder"
+                app:layout_constraintTop_toBottomOf="@id/labelLoanCollection"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/textBlue"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clLoanCollectionData"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/viewBorder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txtName"
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Sairaj Naidu"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent"/>
+
+
+                <TextView
+                    android:id="@+id/txtScheduledTime1"
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="@string/Scheduled_Time"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="@id/txtName"
+                    app:layout_constraintTop_toBottomOf="@id/txtName" />
+
+                <ImageView
+                    android:id="@+id/ivCall"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:src="@drawable/wifi_call"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toEndOf="@id/txtScheduledTime1"
+                    app:layout_constraintTop_toTopOf="@id/txtScheduledTime1" />
+
+
+                <TextView
+                    android:id="@+id/txtLocation"
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_50sdp"
+                    android:text="Siddapur"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toStartOf="@+id/txtDistance"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="@string/AttemptNo"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="@id/txtLocation"
+                    app:layout_constraintTop_toBottomOf="@id/txtLocation" />
+
+                <TextView
+                    android:id="@+id/txtDistance"
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="3km"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="@id/txtDPD"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivMap1"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:src="@drawable/location"
+                    app:layout_constraintEnd_toEndOf="@id/txtDPD"
+                    app:layout_constraintTop_toTopOf="@id/txtDistance"
+                    app:tint="@color/red" />
+
+
+                <TextView
+                    android:id="@+id/txtDPD"
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="DPD 1-30"
+                    android:visibility="invisible"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtDistance" />
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:background="@color/textBlue"
+                    app:layout_constraintTop_toBottomOf="@id/txtScheduledTime1" />
+
+
+                <TextView
+                    android:id="@+id/txtName2"
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="Naidu Sairaj"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view1" />
+
+
+                <TextView
+                    android:id="@+id/txtScheduledTime2"
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="@string/Scheduled_Time"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="@id/txtName2"
+                    app:layout_constraintTop_toBottomOf="@id/txtName2" />
+
+                <ImageView
+                    android:id="@+id/ivCall2"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:src="@drawable/wifi_call"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toEndOf="@id/txtScheduledTime2"
+                    app:layout_constraintTop_toTopOf="@id/txtScheduledTime2" />
+
+                <TextView
+                    android:id="@+id/txtLocation2"
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_50sdp"
+                    android:text="Tumkur"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toStartOf="@+id/txtDistance"
+                    app:layout_constraintTop_toBottomOf="@id/view1" />
+
+                <TextView
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="@string/AttemptNo"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="@id/txtLocation2"
+                    app:layout_constraintTop_toBottomOf="@id/txtLocation2" />
+
+                <TextView
+                    android:id="@+id/txtDistance2"
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="8km"
+                    android:textStyle="normal"
+                    app:layout_constraintStart_toStartOf="@id/txtDPD2"
+                    app:layout_constraintTop_toBottomOf="@id/view1" />
+
+                <ImageView
+                    android:id="@+id/ivMap2"
+                    android:src="@drawable/location"
+                    app:layout_constraintTop_toTopOf="@id/txtDistance2"
+                    app:layout_constraintEnd_toEndOf="@id/txtDPD2"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    app:tint="@color/red" />
+
+
+                <TextView
+                    android:id="@+id/txtDPD2"
+                    style="@style/common_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="DPD 1-30"
+                    android:visibility="invisible"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtDistance2" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:background="@color/textBlue"
+                    app:layout_constraintTop_toBottomOf="@id/txtScheduledTime2" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

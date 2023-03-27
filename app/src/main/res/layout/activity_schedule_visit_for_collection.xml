@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/MainConstraintStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".npa_flow.ScheduleVisitForCollectionActivity">
+
+
+        <ScrollView
+            android:id="@+id/paymentModeScrollVIew"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rootConstraintLayout"
+                style="@style/MainConstraintStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/labelScheduleVisit"
+                    style="@style/heading_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:text="@string/schedule_visit"
+                    android:textAllCaps="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <DatePicker
+                    android:id="@+id/datePickerCalendarView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="calendar"
+                    android:spinnersShown="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/labelScheduleVisit" />
+
+                <TimePicker
+                    app:layout_constraintTop_toBottomOf="@id/datePickerCalendarView"
+                    android:id="@+id/timePicker"
+                    android:layout_width="@dimen/_200sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_height="@dimen/_120sdp"
+                    android:timePickerMode="spinner"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+
+                <Button
+                    android:id="@+id/btnUpdateSchedule"
+                    style="@style/BigButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_80sdp"
+                    android:text="@string/update_schedule"
+                    android:backgroundTint="@color/green"
+                    app:layout_constraintTop_toBottomOf="@id/timePicker"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -153,5 +153,20 @@
     <string name="assigned">Assigned</string>
     <string name="dpd_queue">DPD Queue</string>
     <string name="no_of_members">No. Of \nMembers</string>
+    <string name="loan_collection">Loan Collection</string>
+    <string name="AttemptNo">Attempt No. :</string>
+    <string name="Scheduled_Time">Scheduled Time :</string>
+    <string name="ready_to_pay">Ready To Pay</string>
+    <string name="not_ready_to_pay">Not Ready To Pay</string>
+    <string name="ask_to_call_back_later">Asked To \nCall Back Later</string>
+    <string name="send_link_for_online_payment">Send Link For Online Payment</string>
+    <string name="schedule_visit_for_collection">Schedule Visit For Collection</string>
+    <string name="complete_no_change">Complete - No change</string>
+    <string name="complete_need_to_update_details">Complete - Need To \nUpdate Details</string>
+    <string name="complete_escalate_to_bm">Complete - Escalate To BM</string>
+    <string name="schedule_visit">Schedule Visit</string>
+    <string name="update_schedule">Update Schedule</string>
+    <string name="schedule_update_successfully">Schedule Updated Successfully</string>
+
 
 </resources>

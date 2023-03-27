@@ -47,5 +47,19 @@ public class PaymentNotificationActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        binding.btnNeedsWaiver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.edtReasonForWaiver.setVisibility(View.VISIBLE);
+            }
+        });
+
+        binding.btnOthers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.edtPleaseSpecify.setVisibility(View.VISIBLE);
+            }
+        });
     }
 }
