@@ -216,53 +216,91 @@
                 <TextView
                     android:id="@+id/labelTotalAssigned"
                     style="@style/semi_mid_text_style"
-                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
                     android:text="@string/total"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/labelCompletedCallsAssigned"
                     app:layout_constraintTop_toBottomOf="@id/labelAssigned" />
 
                 <TextView
-                    android:id="@+id/labelTotalAssignedValue"
-                    style="@style/semi_mid_text_style"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:text="100"
+                    android:id="@+id/labelVisitsAssigned"
+                    style="@style/common_text_style"
+                   android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/visits"
+                    android:textColor="@color/textBlue"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/labelTotalAssigned" />
 
 
                 <TextView
+                    android:id="@+id/labelCallsAssigned"
+                    style="@style/common_text_style"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/calls"
+                    android:textColor="@color/textBlue"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelVisitsAssigned" />
+
+
+                <TextView
+                    android:id="@+id/labelTotalAssignedValue"
+                    style="@style/semi_mid_text_style"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="30"
+                    app:layout_constraintStart_toStartOf="@+id/labelTotalAssigned"
+                    app:layout_constraintEnd_toEndOf="@+id/labelTotalAssigned"
+                    app:layout_constraintTop_toBottomOf="@id/labelTotalAssigned" />
+
+
+                <TextView
+                    android:id="@+id/labelTotalAssignedValue2"
+                    style="@style/semi_mid_text_style"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="120"
+                    app:layout_constraintStart_toStartOf="@+id/labelTotalAssigned"
+                    app:layout_constraintEnd_toEndOf="@+id/labelTotalAssigned"
+                    app:layout_constraintTop_toBottomOf="@id/labelTotalAssignedValue" />
+
+
+                <TextView
                     android:id="@+id/labelCompletedCallsAssigned"
                     style="@style/semi_mid_text_style"
-                    android:layout_marginStart="@dimen/_50sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:text="@string/completed_calls"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:text="@string/completed"
                     app:layout_constraintEnd_toStartOf="@id/labelPendingCallsAssigned"
-                    app:layout_constraintStart_toEndOf="@id/labelTotalAssigned"
                     app:layout_constraintTop_toBottomOf="@id/labelAssigned" />
 
 
                 <TextView
                     android:id="@+id/labelCompletedCallsAssignedValue"
                     style="@style/semi_mid_text_style"
-                    android:layout_marginStart="@dimen/_50sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:text="0"
-                    app:layout_constraintEnd_toStartOf="@id/labelPendingCallsAssigned"
-                    app:layout_constraintStart_toEndOf="@id/labelTotalAssignedValue"
+                    android:text="8"
+                    app:layout_constraintEnd_toEndOf="@id/labelCompletedCallsAssigned"
+                    app:layout_constraintStart_toStartOf="@id/labelCompletedCallsAssigned"
                     app:layout_constraintTop_toBottomOf="@id/labelCompletedCallsAssigned" />
+
+                <TextView
+                    android:id="@+id/labelCompletedCallsAssignedValue2"
+                    style="@style/semi_mid_text_style"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="20"
+                    app:layout_constraintEnd_toEndOf="@id/labelCompletedCallsAssigned"
+                    app:layout_constraintStart_toStartOf="@id/labelCompletedCallsAssigned"
+                    app:layout_constraintTop_toBottomOf="@id/labelCompletedCallsAssignedValue" />
 
 
                 <TextView
                     android:id="@+id/labelPendingCallsAssigned"
                     style="@style/semi_mid_text_style"
-                    android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:text="@string/pending_calls"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:text="@string/pending"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/labelCompletedCallsAssigned"
+
                     app:layout_constraintTop_toBottomOf="@id/labelAssigned" />
 
                 <TextView
@@ -270,24 +308,59 @@
                     style="@style/semi_mid_text_style"
                     android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:text="100"
+                    android:text="22"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     app:layout_constraintStart_toEndOf="@id/labelCompletedCallsAssigned"
                     app:layout_constraintTop_toBottomOf="@id/labelPendingCallsAssigned" />
+
+                <!--RightArrow Visits Assigned-->
+                <ImageView
+                    android:id="@+id/ivRightArrowVisitsAssigned"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                   app:layout_constraintBottom_toBottomOf="@+id/labelPendingCallsAssignedValue"
+                    android:src="@drawable/right_arrow"
+                    app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintTop_toTopOf="@+id/labelPendingCallsAssignedValue"
+                    app:tint="@color/textBlue" />
+
+                <TextView
+                    android:id="@+id/labelPendingCallsAssignedValue2"
+                    style="@style/semi_mid_text_style"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="100"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    app:layout_constraintStart_toEndOf="@id/labelCompletedCallsAssigned"
+                    app:layout_constraintTop_toBottomOf="@id/labelPendingCallsAssignedValue" />
+
+                <!--RightArrow Calls Assigned-->
+                <ImageView
+                    android:id="@+id/ivRightArrowCallsAssigned"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/labelPendingCallsAssignedValue2"
+                    android:src="@drawable/right_arrow"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/labelPendingCallsAssignedValue2"
+                    app:tint="@color/textBlue" />
 
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     app:cardCornerRadius="@dimen/_5sdp"
                     app:cardElevation="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/labelCompletedCallsAssignedValue">
+                    app:layout_constraintTop_toBottomOf="@id/labelCallsAssigned">
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -338,9 +411,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_10sdp"
                             android:layout_marginTop="@dimen/_10sdp"
+                            android:paddingBottom="@dimen/_5sdp"
                             android:text="@string/welcome_call"
                             android:textColor="@color/textBlue"
-                            android:paddingBottom="@dimen/_5sdp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/labelRenewal" />
 

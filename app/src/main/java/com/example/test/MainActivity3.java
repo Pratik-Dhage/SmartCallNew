@@ -19,6 +19,7 @@ import com.example.test.lead.LeadsActivity;
 import com.example.test.lead.model.LeadListResponseModel;
 import com.example.test.lead.model.LeadModel;
 import com.example.test.npa_flow.DPDActivity;
+import com.example.test.npa_flow.LoanCollectionActivity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,6 +54,36 @@ public class MainActivity3 extends AppCompatActivity {
 
     private void onClickListener(){
 
+
+        binding.ivRightArrowVisitsAssigned.setOnClickListener(v -> {
+
+            if(binding.cardView2.getVisibility()==View.INVISIBLE) {
+                binding.ivRightArrowCallsAssigned.setImageResource(R.drawable.right_arrow); // by default right arrow of Calls Assigned
+                binding.cardView2.setVisibility(View.VISIBLE);
+                binding.ivRightArrowVisitsAssigned.setImageResource(R.drawable.down_arrow);
+            }
+            else{
+                binding.ivRightArrowCallsAssigned.setImageResource(R.drawable.right_arrow); // by default right arrow of Calls Assigned
+                binding.cardView2.setVisibility(View.INVISIBLE);
+                binding.ivRightArrowVisitsAssigned.setImageResource(R.drawable.right_arrow);
+            }
+
+        });
+
+        binding.ivRightArrowCallsAssigned.setOnClickListener(v -> {
+
+            if(binding.cardView2.getVisibility()==View.INVISIBLE) {
+                binding.ivRightArrowVisitsAssigned.setImageResource(R.drawable.right_arrow); // for default right arrow of Visits Assigned
+                binding.cardView2.setVisibility(View.VISIBLE);
+                binding.ivRightArrowCallsAssigned.setImageResource(R.drawable.down_arrow);
+            }
+            else {
+                binding.ivRightArrowVisitsAssigned.setImageResource(R.drawable.right_arrow); // for default right arrow of Visits Assigned
+                binding.cardView2.setVisibility(View.INVISIBLE);
+                binding.ivRightArrowCallsAssigned.setImageResource(R.drawable.right_arrow);
+            }
+        });
+
          binding.ivRightArrowVisits.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
@@ -60,6 +91,15 @@ public class MainActivity3 extends AppCompatActivity {
              startActivity(i);
              }
          });
+
+        binding.ivRightArrowCalls.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity3.this, LoanCollectionActivity.class);
+                i.putExtra("isFromCallsForTheDay","isFromCallsForTheDay");
+                startActivity(i);
+            }
+        });
 
          binding.labelMarketing.setOnClickListener(new View.OnClickListener() {
              @Override

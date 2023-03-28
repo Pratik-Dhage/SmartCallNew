@@ -73,5 +73,9 @@ public class LoanCollectionActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_loan_collection);
         view = binding.getRoot();
 
+        if(getIntent().hasExtra("isFromCallsForTheDay")){
+            binding.labelLoanCollection.setText(getResources().getString(R.string.calls_for_the_day));
+        }
+
     }
 }
