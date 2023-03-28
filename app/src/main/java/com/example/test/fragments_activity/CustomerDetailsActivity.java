@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityCustomerDetailsBinding;
+import com.example.test.npa_flow.NearByCustomersActivity;
 
 public class CustomerDetailsActivity extends AppCompatActivity {
 
@@ -47,6 +48,12 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                 Intent i = new Intent(CustomerDetailsActivity.this,BalanceInterestCalculationActivity.class);
                 startActivity(i);
             }
+        });
+
+
+        binding.btnNearBy.setOnClickListener(v->{
+            Intent i = new Intent(CustomerDetailsActivity.this, NearByCustomersActivity.class);
+            startActivity(i);
         });
 
       /*  binding.ivRightArrowPersonalDetails.setOnClickListener(new View.OnClickListener() {

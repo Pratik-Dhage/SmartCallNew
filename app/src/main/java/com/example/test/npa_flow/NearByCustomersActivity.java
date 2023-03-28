@@ -1,0 +1,82 @@
+package com.example.test.npa_flow;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+
+import com.example.test.MainActivity3;
+import com.example.test.R;
+import com.example.test.databinding.ActivityNearByCustomersBinding;
+
+public class NearByCustomersActivity extends AppCompatActivity {
+
+    ActivityNearByCustomersBinding binding;
+    View view;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_near_by_customers);
+
+        initializeFields();
+        onClickListener();
+    }
+
+    private void initializeFields() {
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_near_by_customers);
+        view = binding.getRoot();
+    }
+
+    private void onClickListener() {
+
+        binding.btnGotoDashBoard.setOnClickListener(v->{
+            Intent i = new Intent(NearByCustomersActivity.this, MainActivity3.class);
+            startActivity(i);
+        });
+
+        binding.btnVisitNearbyCustomers.setOnClickListener(v->{
+
+            if(binding.clLoanCollectionData.getVisibility()==View.INVISIBLE){
+
+                binding.btnGotoDashBoard.setVisibility(View.INVISIBLE);
+                binding.clLoanCollectionData.setVisibility(View.VISIBLE);
+            }
+
+            else{
+                binding.btnGotoDashBoard.setVisibility(View.VISIBLE);
+                binding.clLoanCollectionData.setVisibility(View.INVISIBLE);
+            }
+
+
+        });
+
+
+        //opens Google Maps
+        binding.ivMap1.setOnClickListener(v -> {
+
+            String location = "Mumbai";
+            Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + location);
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(mapIntent);
+            }
+        });
+
+        //opens Google Maps
+        binding.ivMap2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.ivMap1.performClick();
+            }
+        });
+
+
+    }
+
+
+}

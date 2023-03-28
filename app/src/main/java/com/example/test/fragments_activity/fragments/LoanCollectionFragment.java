@@ -3,6 +3,7 @@ package com.example.test.fragments_activity.fragments;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,26 @@ public class LoanCollectionFragment extends Fragment {
                  startActivity(i);
              }
          });
+
+        //opens Google Maps
+        binding.ivMap1.setOnClickListener(v -> {
+
+            String location = "Mumbai";
+            Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + location);
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivity(mapIntent);
+            }
+        });
+
+        //opens Google Maps
+        binding.ivMap2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.ivMap1.performClick();
+            }
+        });
     }
 
     @Override

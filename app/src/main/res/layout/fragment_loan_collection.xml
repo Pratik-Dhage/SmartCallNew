@@ -83,6 +83,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/ivMap1"
                 android:layout_width="@dimen/_18sdp"
                 android:layout_height="@dimen/_16sdp"
                 android:src="@drawable/location"
@@ -181,6 +182,7 @@
                 app:layout_constraintTop_toBottomOf="@id/view1" />
 
             <ImageView
+                android:id="@+id/ivMap2"
                 android:src="@drawable/location"
                 app:layout_constraintTop_toTopOf="@id/txtDistance2"
                 app:layout_constraintEnd_toEndOf="@id/txtDPD2"

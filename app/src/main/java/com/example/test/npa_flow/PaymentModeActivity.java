@@ -60,6 +60,11 @@ public class PaymentModeActivity extends AppCompatActivity {
             }
         });
 
+        binding.btnNearBy.setOnClickListener(v->{
+            Intent i = new Intent(this, NearByCustomersActivity.class);
+            startActivity(i);
+        });
+
 
     }
 }

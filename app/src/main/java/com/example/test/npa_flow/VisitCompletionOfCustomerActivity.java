@@ -3,6 +3,7 @@ package com.example.test.npa_flow;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -38,5 +39,27 @@ View view;
                 onBackPressed();
             }
         });
+
+      binding.btnCompleteNoChange.setOnClickListener(v -> {
+
+          Intent i = new Intent(VisitCompletionOfCustomerActivity.this,NearByCustomersActivity.class);
+          startActivity(i);
+      });
+
+        binding.btnCompleteNeedToUpdateDetails.setOnClickListener(v->{
+            binding.btnCompleteNoChange.performClick();
+        });
+
+
+        binding.btnCompleteEscalateToBM.setOnClickListener(v->{
+            binding.btnCompleteNoChange.performClick();
+        });
+
+
+        binding.btnNearBy.setOnClickListener(v->{
+            binding.btnCompleteNoChange.performClick();
+        });
+
+
     }
 }

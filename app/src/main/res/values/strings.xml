@@ -168,6 +168,8 @@
     <string name="update_schedule">Update Schedule</string>
     <string name="schedule_update_successfully">Schedule Updated Successfully</string>
     <string name="calls_for_the_day">Calls For The Day</string>
+    <string name="view_nearby_customers">View Nearby Customers</string>
+    <string name="goto_dashboard">Goto Dashboard</string>
 
 
 </resources>

@@ -58,5 +58,10 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
             }
         });
 
+        binding.btnNearBy.setOnClickListener(v->{
+            Intent i = new Intent(this, NearByCustomersActivity.class);
+            startActivity(i);
+        });
+
     }
 }
