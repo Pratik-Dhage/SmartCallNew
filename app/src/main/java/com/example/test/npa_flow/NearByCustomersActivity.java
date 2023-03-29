@@ -63,8 +63,9 @@ public class NearByCustomersActivity extends AppCompatActivity {
         //opens Google Maps
         binding.ivMap1.setOnClickListener(v -> {
 
-            String location = "Mumbai";
-            Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + location);
+            String location = "Navi Mumbai";
+            Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + location);  //geo:latitude,longitude?q=query  //geo:0,0?q=my+street+address
+          //  Uri gmmIntentUri = Uri.parse("geo:0,0?q=my+street+address"+ location);
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
             if (mapIntent.resolveActivity(getPackageManager()) != null) {

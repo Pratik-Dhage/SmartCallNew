@@ -41,6 +41,10 @@ public class DPDActivity extends AppCompatActivity {
 
             }
         });
+
+        binding.ivBack.setOnClickListener(v->{
+            onBackPressed();
+        });
     }
 
 

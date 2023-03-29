@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.DatePicker;
 
+import com.example.test.MainActivity3;
 import com.example.test.R;
 import com.example.test.databinding.ActivityScheduleVisitForCollectionBinding;
 import com.example.test.helper_classes.Global;
@@ -52,7 +53,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(ScheduleVisitForCollectionActivity.this, VisitCompletionOfCustomerActivity.class);
+                        Intent intent = new Intent(ScheduleVisitForCollectionActivity.this, MainActivity3 .class);
                         startActivity(intent);
                     }
                 }, 2000);

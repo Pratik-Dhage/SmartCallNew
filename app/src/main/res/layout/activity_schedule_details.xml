@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/MainConstraintStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".schedule_flow.ScheduleDetailsActivity">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/back_arrow"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            app:tint="@color/textBlue" />
+
+
+        <TextView
+            android:id="@+id/labelSceduleDetails"
+            style="@style/heading_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/schedule_details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--Calender 1 -->
+
+        <TextView
+            android:id="@+id/txtDate1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/round_corner_bg"
+            android:backgroundTint="@color/textBlue"
+            android:padding="@dimen/_4sdp"
+            android:text="30th March\nWednesday"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintBottom_toBottomOf="@id/viewBorder1" />
+
+
+        <TextView
+            android:id="@+id/txtMember1"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:text="Satya Thakur"
+            android:textStyle="normal"
+            android:layout_marginTop="@dimen/_40sdp"
+            app:layout_constraintTop_toBottomOf="@id/labelSceduleDetails"
+            app:layout_constraintStart_toEndOf="@id/txtDate1"
+           />
+
+        <TextView
+            android:id="@+id/txtScheduledTime1"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_70sdp"
+            android:text="9:30 pm"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@id/txtMember1"
+           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtMember1" />
+
+        <TextView
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:text="NPA"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@id/txtMember1"
+           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtMember1" />
+
+        <View
+            android:id="@+id/viewBorder1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_80sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@color/borderColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtMember1"
+            app:layout_constraintTop_toBottomOf="@id/txtMember1" />
+
+
+        <TextView
+            android:id="@+id/txtMember2"
+            style="@style/common_text_style"
+            android:textStyle="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Rajesh Parab"
+            app:layout_constraintStart_toEndOf="@id/txtDate1"
+            app:layout_constraintTop_toBottomOf="@id/viewBorder1" />
+
+        <TextView
+            android:id="@+id/txtScheduledTime2"
+            style="@style/common_text_style"
+            android:textStyle="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_70sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="10:30 am"
+           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewBorder1" />
+
+        <TextView
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="NPA"
+            android:textStyle="normal"
+           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewBorder1" />
+
+
+        <View
+            android:id="@+id/viewBorder2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_80sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@color/borderColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtMember1"
+            app:layout_constraintTop_toBottomOf="@id/txtMember2" />
+
+
+        <TextView
+            android:id="@+id/txtMember3"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Sairaj Naidu"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@id/txtDate1"
+            app:layout_constraintTop_toBottomOf="@id/viewBorder2" />
+
+        <TextView
+            android:id="@+id/txtScheduledTime3"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_70sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="1:30 pm"
+            android:textStyle="normal"
+           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewBorder2" />
+
+        <TextView
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="NPA"
+            android:textStyle="normal"
+           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewBorder2" />
+
+
+        <View
+            android:id="@+id/viewBorder3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_80sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@color/borderColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtMember1"
+            app:layout_constraintTop_toBottomOf="@id/txtMember3" />
+
+
+        <!--Calender 2-->
+
+        <TextView
+            android:id="@+id/txtDate2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/round_corner_bg"
+            android:backgroundTint="@color/textBlue"
+            android:padding="@dimen/_4sdp"
+            android:text="31st March\n  Thursday"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/viewBorder4" />
+
+
+        <TextView
+            android:id="@+id/txtMember4"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:text="Ameya Dixit"
+            android:textStyle="normal"
+           app:layout_constraintTop_toBottomOf="@id/viewBorder3"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintStart_toEndOf="@id/txtDate2"
+            />
+
+        <TextView
+            android:id="@+id/txtScheduledTime4"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_marginEnd="@dimen/_70sdp"
+            android:text="9:30 am"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@id/txtMember4"
+           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtMember4" />
+
+        <TextView
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:text="NPA"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@id/txtMember4"
+           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtMember4" />
+
+        <View
+            android:id="@+id/viewBorder4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_80sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@color/borderColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtMember4"
+            app:layout_constraintTop_toBottomOf="@id/txtMember4" />
+
+
+        <TextView
+            android:id="@+id/txtMember5"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Sanket Das"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@id/txtDate2"
+            app:layout_constraintTop_toBottomOf="@id/viewBorder4" />
+
+        <TextView
+            android:id="@+id/txtScheduledTime5"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_70sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="11:30 am"
+            android:textStyle="normal"
+           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewBorder4" />
+
+        <TextView
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="NPA"
+            android:textStyle="normal"
+           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewBorder4" />
+
+        <View
+            android:id="@+id/viewBorder5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_80sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@color/borderColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtMember5"
+            app:layout_constraintTop_toBottomOf="@id/txtMember5" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

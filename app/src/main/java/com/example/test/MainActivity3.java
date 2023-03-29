@@ -20,6 +20,7 @@ import com.example.test.lead.model.LeadListResponseModel;
 import com.example.test.lead.model.LeadModel;
 import com.example.test.npa_flow.DPDActivity;
 import com.example.test.npa_flow.LoanCollectionActivity;
+import com.example.test.schedule_flow.ScheduleDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -54,6 +55,10 @@ public class MainActivity3 extends AppCompatActivity {
 
     private void onClickListener(){
 
+        binding.ivSchedule.setOnClickListener(v->{
+            Intent i = new Intent(this, ScheduleDetailsActivity.class);
+            startActivity(i);
+        });
 
         binding.ivRightArrowVisitsAssigned.setOnClickListener(v -> {
 

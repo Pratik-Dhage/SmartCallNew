@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityPaymentNotificationOfCustomerBinding;
+import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 
 public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
@@ -60,6 +61,11 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
         binding.btnNearBy.setOnClickListener(v->{
             Intent i = new Intent(this, NearByCustomersActivity.class);
+            startActivity(i);
+        });
+
+        binding.btnCalculate.setOnClickListener(v->{
+            Intent i = new Intent(this, BalanceInterestCalculationActivity.class);
             startActivity(i);
         });
 

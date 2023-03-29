@@ -71,6 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_80sdp"
                     android:text="@string/update_schedule"
+                    android:textStyle="normal"
                     android:backgroundTint="@color/green"
                     app:layout_constraintTop_toBottomOf="@id/timePicker"
                     android:layout_marginTop="@dimen/_10sdp"

@@ -169,7 +169,9 @@
     <string name="schedule_update_successfully">Schedule Updated Successfully</string>
     <string name="calls_for_the_day">Calls For The Day</string>
     <string name="view_nearby_customers">View Nearby Customers</string>
-    <string name="goto_dashboard">Goto Dashboard</string>
+    <string name="goto_dashboard">Go to Dashboard</string>
+    <string name="schedule_details">Schedule Details</string>
+    <string name="members">Members</string>
 
 
 </resources>

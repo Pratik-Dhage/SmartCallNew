@@ -10,12 +10,24 @@
         android:layout_height="match_parent"
         tools:context=".DPDActivity">
 
+        <ImageView
+            android:id="@+id/ivBack"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/back_arrow"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            app:tint="@color/textBlue" />
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clDPD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_40sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:background="@drawable/round_corner_bg"
             android:backgroundTint="@color/textBlue"

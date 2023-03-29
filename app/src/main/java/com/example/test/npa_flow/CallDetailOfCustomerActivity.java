@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityCallDetailOfCustomerBinding;
+import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 
 public class CallDetailOfCustomerActivity extends AppCompatActivity {
 
@@ -55,6 +56,9 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
             }
         });
 
-
+        binding.btnCalculate.setOnClickListener(v->{
+            Intent i = new Intent(this, BalanceInterestCalculationActivity.class);
+            startActivity(i);
+        });
     }
 }

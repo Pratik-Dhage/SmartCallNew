@@ -220,6 +220,16 @@
                             app:layout_constraintStart_toEndOf="@id/labelLocation"
                             app:layout_constraintTop_toTopOf="@id/labelMobileNumber" />
 
+                        <ImageView
+                            android:src="@drawable/wifi_call"
+                            app:layout_constraintTop_toTopOf="@id/txtMobileNumber"
+                            app:layout_constraintBottom_toBottomOf="@id/txtMobileNumber"
+                            app:layout_constraintStart_toEndOf="@id/txtMobileNumber"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            app:tint="@color/textBlue" />
+
                         <TextView
                             android:id="@+id/labelAadharNumber"
                             style="@style/common_text_style"
@@ -408,7 +418,7 @@
                             style="@style/common_text_style"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="  20/02/2023"
+                            android:text="  28/02/2023"
                             app:layout_constraintStart_toEndOf="@id/labelLocation"
                             app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
                             app:layout_constraintTop_toBottomOf="@+id/labelAmountDueAsOn" />
@@ -449,6 +459,7 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12ssp"
                             android:textStyle="italic"
+                            android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="@id/labelBalanceInterest"
                             app:layout_constraintStart_toEndOf="@id/labelLocation"
                             app:layout_constraintTop_toTopOf="@id/labelBalanceInterest" />
@@ -489,7 +500,7 @@
                             style="@style/common_text_style"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="  21/03/2023"
+                            android:text="  30/03/2023"
                             app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
                             app:layout_constraintTop_toBottomOf="@+id/labelTotalPayable" />
 
@@ -502,6 +513,7 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12ssp"
                             android:textStyle="italic"
+                            android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="@id/txtTotalPayableDate"
                             app:layout_constraintStart_toEndOf="@id/labelLocation"
                             app:layout_constraintTop_toTopOf="@id/labelTotalPayable" />
@@ -516,6 +528,7 @@
                             android:paddingStart="@dimen/_5sdp"
                             android:paddingEnd="0dp"
                             android:text="@string/total_amt_paid"
+                            android:visibility="invisible"
                             app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
                             app:layout_constraintTop_toBottomOf="@id/txtTotalPayableDate" />
 
@@ -543,6 +556,7 @@
                             android:hint="@string/enter_amount"
                             android:inputType="number"
                             android:maxLength="8"
+                            android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="@id/labelTotalAmtPaid"
                             app:layout_constraintStart_toEndOf="@id/labelLocation"
                             app:layout_constraintTop_toTopOf="@id/labelTotalAmtPaid" />
@@ -555,6 +569,7 @@
                             android:src="@drawable/printer_icon"
                             app:layout_constraintBottom_toBottomOf="@+id/labelTotalAmtPaid"
                             app:layout_constraintEnd_toEndOf="parent"
+                            android:visibility="invisible"
                             app:layout_constraintTop_toTopOf="@+id/labelTotalAmtPaid"
                             app:tint="@color/textBlue" />
 
@@ -607,6 +622,7 @@
                     android:backgroundTint="@color/green"
                     android:text="@string/send_link_for_online_payment"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:textStyle="normal"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
 
@@ -618,6 +634,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:backgroundTint="@color/red"
+                    android:textStyle="normal"
                     android:text="@string/schedule_visit_for_collection"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

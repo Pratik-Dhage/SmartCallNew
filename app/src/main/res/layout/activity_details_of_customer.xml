@@ -219,6 +219,17 @@
                              app:layout_constraintStart_toEndOf="@id/labelLocation"
                              app:layout_constraintTop_toTopOf="@id/labelMobileNumber" />
 
+                         <ImageView
+                             android:src="@drawable/wifi_call"
+                             app:layout_constraintTop_toTopOf="@id/txtMobileNumber"
+                             app:layout_constraintBottom_toBottomOf="@id/txtMobileNumber"
+                             app:layout_constraintStart_toEndOf="@id/txtMobileNumber"
+                             android:layout_marginStart="@dimen/_5sdp"
+                             android:layout_width="@dimen/_20sdp"
+                             android:layout_height="@dimen/_20sdp"
+                             app:tint="@color/textBlue" />
+
+
                          <TextView
                              android:id="@+id/labelAadharNumber"
                              style="@style/common_text_style"
@@ -407,7 +418,7 @@
                              style="@style/common_text_style"
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
-                             android:text="  20/02/2023"
+                             android:text="  28/02/2023"
                              app:layout_constraintStart_toEndOf="@id/labelLocation"
                              app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
                              app:layout_constraintTop_toBottomOf="@+id/labelAmountDueAsOn" />
@@ -444,10 +455,11 @@
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:layout_marginStart="@dimen/_75sdp"
-                             android:text=": Rs 10,00,000.00"
+                             android:text=": Rs 450.00"
                              android:textColor="@color/black"
                              android:textSize="@dimen/_12ssp"
                              android:textStyle="italic"
+                             android:visibility="invisible"
                              app:layout_constraintBottom_toBottomOf="@id/labelBalanceInterest"
                              app:layout_constraintStart_toEndOf="@id/labelLocation"
                              app:layout_constraintTop_toTopOf="@id/labelBalanceInterest" />
@@ -488,7 +500,7 @@
                              style="@style/common_text_style"
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
-                             android:text="  21/03/2023"
+                             android:text="  30/03/2023"
                              app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
                              app:layout_constraintTop_toBottomOf="@+id/labelTotalPayable" />
 
@@ -497,10 +509,11 @@
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:layout_marginStart="@dimen/_75sdp"
-                             android:text=": Rs 10,000.00"
+                             android:text=": Rs 10,450.00"
                              android:textColor="@color/black"
                              android:textSize="@dimen/_12ssp"
                              android:textStyle="italic"
+                             android:visibility="invisible"
                              app:layout_constraintBottom_toBottomOf="@id/txtTotalPayableDate"
                              app:layout_constraintStart_toEndOf="@id/labelLocation"
                              app:layout_constraintTop_toTopOf="@id/labelTotalPayable" />
@@ -516,6 +529,7 @@
                              android:paddingStart="@dimen/_5sdp"
                              android:paddingEnd="0dp"
                              android:text="@string/total_amt_paid"
+                             android:visibility="invisible"
                              app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
                              app:layout_constraintTop_toBottomOf="@id/txtTotalPayableDate" />
 
@@ -545,6 +559,7 @@
                              android:inputType="number"
                              android:digits="0123456789,."
                              android:maxLength="8"
+                             android:visibility="invisible"
                              android:layout_height="wrap_content"/>
 
                          <ImageView
@@ -555,6 +570,7 @@
                              android:src="@drawable/printer_icon"
                              app:layout_constraintBottom_toBottomOf="@+id/labelTotalAmtPaid"
                              app:layout_constraintEnd_toEndOf="parent"
+                             android:visibility="invisible"
                              app:layout_constraintTop_toTopOf="@+id/labelTotalAmtPaid"
                              app:tint="@color/textBlue" />
 

@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityDetailsOfCustomerBinding;
+import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.fragments_activity.CustomerDetailsActivity;
 
 public class DetailsOfCustomerActivity extends AppCompatActivity {
@@ -53,6 +54,11 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
         binding.btnNearBy.setOnClickListener(v->{
             Intent i = new Intent(this, NearByCustomersActivity.class);
+            startActivity(i);
+        });
+
+        binding.btnCalculate.setOnClickListener(v->{
+            Intent i = new Intent(this, BalanceInterestCalculationActivity.class);
             startActivity(i);
         });
     }

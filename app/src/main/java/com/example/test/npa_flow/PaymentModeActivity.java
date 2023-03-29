@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityPaymentModeBinding;
+import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 
 public class PaymentModeActivity extends AppCompatActivity {
 
@@ -65,6 +66,10 @@ public class PaymentModeActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+        binding.btnCalculate.setOnClickListener(v->{
+            Intent i = new Intent(this, BalanceInterestCalculationActivity.class);
+            startActivity(i);
+        });
 
     }
 }

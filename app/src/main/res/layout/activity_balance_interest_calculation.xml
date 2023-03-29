@@ -37,12 +37,13 @@
 
                 <TextView
                     android:id="@+id/labelLoanAmount"
-                    style="@style/heading_text_style"
+                    style="@style/semi_mid_text_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_50sdp"
                     android:text="@string/loan_amount"
+                    android:textStyle="normal"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -120,11 +121,12 @@
 
                 <TextView
                     android:id="@+id/labelInterestRate"
-                    style="@style/heading_text_style"
+                    style="@style/semi_mid_text_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_60sdp"
                     android:text="@string/interest_rate"
+                    android:textStyle="normal"
                     app:layout_constraintStart_toStartOf="@id/labelLoanAmount"
                     app:layout_constraintTop_toBottomOf="@id/rupeeSeekBarSlider" />
 
@@ -134,8 +136,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_15ssp"
                     app:layout_constraintBottom_toBottomOf="@id/labelInterestRate"
-                    app:layout_constraintEnd_toEndOf="@id/edtLoanAmount"
-                    app:layout_constraintStart_toStartOf="@id/edtLoanAmount"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="@dimen/_30sdp"
                     app:layout_constraintTop_toTopOf="@id/labelInterestRate" />
 
                 <ImageView
@@ -188,11 +190,12 @@
 
                 <TextView
                     android:id="@+id/labelBalanceDays"
-                    style="@style/heading_text_style"
+                    style="@style/semi_mid_text_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_60sdp"
                     android:text="@string/balance_days"
+                    android:textStyle="normal"
                     app:layout_constraintStart_toStartOf="@id/labelInterestRate"
                     app:layout_constraintTop_toBottomOf="@id/interestSeekBarSlider" />
 
@@ -267,6 +270,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_50sdp"
                     android:text="@string/calculate"
+                    android:textStyle="normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/balanceDaysSeekBarSlider" />

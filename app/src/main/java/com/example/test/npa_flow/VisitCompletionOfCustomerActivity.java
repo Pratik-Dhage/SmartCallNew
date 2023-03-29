@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityVisitCompletionOfCustomerBinding;
+import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 
 public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
@@ -61,5 +62,9 @@ View view;
         });
 
 
+        binding.btnCalculate.setOnClickListener(v->{
+            Intent i = new Intent(this, BalanceInterestCalculationActivity.class);
+            startActivity(i);
+        });
     }
 }
