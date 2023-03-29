@@ -33,6 +33,11 @@ public class NearByCustomersActivity extends AppCompatActivity {
 
     private void onClickListener() {
 
+        binding.clLoanCollectionData.setOnClickListener(v->{
+            Intent i = new Intent(NearByCustomersActivity.this, DetailsOfCustomerActivity.class);
+            startActivity(i);
+        });
+
         binding.btnGotoDashBoard.setOnClickListener(v->{
             Intent i = new Intent(NearByCustomersActivity.this, MainActivity3.class);
             startActivity(i);
