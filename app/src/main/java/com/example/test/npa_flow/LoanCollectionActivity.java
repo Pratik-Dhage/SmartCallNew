@@ -41,14 +41,17 @@ public class LoanCollectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                String location = "Mumbai";
+              //Below commented code is working in my device but not in other devices
+               /* String location = "Mumbai";
                 Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + location);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 if (mapIntent.resolveActivity(getPackageManager()) != null) {
                     startActivity(mapIntent);
-                }
+                }*/
+
+                Intent googleMapsIntent = new Intent(LoanCollectionActivity.this, WebViewActivity.class);
+                startActivity(googleMapsIntent);
             }
         });
 

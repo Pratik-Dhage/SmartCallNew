@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.example.test.R;
 import com.example.test.databinding.FragmentLoanCollectionBinding;
 import com.example.test.fragments_activity.CustomerDetailsActivity;
+import com.example.test.npa_flow.NearByCustomersActivity;
+import com.example.test.npa_flow.WebViewActivity;
 
 
 public class LoanCollectionFragment extends Fragment {
@@ -42,13 +44,17 @@ public class LoanCollectionFragment extends Fragment {
         //opens Google Maps
         binding.ivMap1.setOnClickListener(v -> {
 
-            String location = "Mumbai";
+            //Below commented code is working in my device but not in Other devices
+           /* String location = "Mumbai";
             Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + location);
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
             if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                 startActivity(mapIntent);
-            }
+            }*/
+
+            Intent googleMapsIntent = new Intent(getContext(), WebViewActivity.class);
+            startActivity(googleMapsIntent);
         });
 
         //opens Google Maps
