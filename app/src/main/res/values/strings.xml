@@ -172,6 +172,10 @@
     <string name="goto_dashboard">Go to Dashboard</string>
     <string name="schedule_details">Schedule Details</string>
     <string name="members">Members</string>
+    <string name="enter_details_here">Enter details here</string>
+    <string name="lead_interaction">Lead Interaction</string>
+    <string name="lead_history">Lead History</string>
+    <string name="close">Close</string>
 
 
 </resources>
