@@ -13,28 +13,30 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.test.R;
-import com.example.test.databinding.ActivityCallDetailOfCustomerBinding;
+import com.example.test.databinding.ActivityNotSpokeToCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 
-public class CallDetailOfCustomerActivity extends AppCompatActivity {
+public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
-    ActivityCallDetailOfCustomerBinding binding;
-    View view ;
+    ActivityNotSpokeToCustomerBinding binding;
+    View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-     //   setContentView(R.layout.activity_call_detail_of_customer);
+        setContentView(R.layout.activity_not_spoke_to_customer);
 
 
         initializeFields();
         onClickListener();
+
     }
 
     private void initializeFields() {
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_call_detail_of_customer);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_not_spoke_to_customer);
         view = binding.getRoot();
+
     }
 
     private void onClickListener() {
@@ -51,17 +53,6 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        binding.btnSpokeToCustomer.setOnClickListener(v -> {
-
-            Intent i = new Intent(CallDetailOfCustomerActivity.this,PaymentNotificationOfCustomerActivity.class);
-            startActivity(i);
-
-        });
-
-        binding.btnNotSpokeToCustomer.setOnClickListener(v->{
-            Intent i = new Intent(CallDetailOfCustomerActivity.this,NotSpokeToCustomerActivity.class);
-            startActivity(i);
-        });
 
         binding.btnCalculate.setOnClickListener(v->{
             Intent i = new Intent(this, BalanceInterestCalculationActivity.class);
@@ -86,12 +77,7 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
             final AlertDialog dialog = builder.create();
             dialog.show();
 
-            customButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
+            customButton.setOnClickListener(v1 -> dialog.dismiss());
 
         });
 
@@ -105,7 +91,6 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
             TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
             txtCustom.setVisibility(View.VISIBLE);
 
-
             customText.setText(getResources().getString(R.string.lead_history));
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -114,16 +99,12 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
             dialog.show();
 
             customButton.setText(R.string.close);
-            customButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
+            customButton.setOnClickListener(v2 -> dialog.dismiss());
 
 
 
         });
+
 
     }
 }
