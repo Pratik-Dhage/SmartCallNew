@@ -106,5 +106,22 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         });
 
 
+        binding.btnNoResponseBusy.setOnClickListener(v->{
+            Intent i = new Intent(NotSpokeToCustomerActivity.this,LoanCollectionActivity.class);
+            startActivity(i);
+
+        });
+
+        binding.btnNotReachableSwitchedOff.setOnClickListener(v->{
+            Intent i = new Intent(NotSpokeToCustomerActivity.this,LoanCollectionActivity.class);
+            startActivity(i);
+
+        });
+
+        binding.btnNumberIsInvalid.setOnClickListener(v->{
+            Intent i = new Intent(NotSpokeToCustomerActivity.this,VisitCompletionOfCustomerActivity.class);
+            startActivity(i);
+        });
+
     }
 }
