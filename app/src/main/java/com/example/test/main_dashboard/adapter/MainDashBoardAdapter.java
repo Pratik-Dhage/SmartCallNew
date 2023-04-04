@@ -12,10 +12,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
+import com.example.test.databinding.ItemDashboard3ApiBinding;
 import com.example.test.databinding.ItemDashboardBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.lead.LeadsActivity;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
+import com.example.test.npa_flow.DPDActivity;
 
 import java.util.ArrayList;
 
@@ -31,7 +33,7 @@ public class MainDashBoardAdapter extends RecyclerView.Adapter<MainDashBoardAdap
     @NonNull
     @Override
     public MyViewHolderClass onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemDashboardBinding view = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_dashboard, null, false) ;
+        ItemDashboard3ApiBinding view = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_dashboard3_api, null, false) ;
         return new MyViewHolderClass(view);
     }
 
@@ -42,8 +44,9 @@ public class MainDashBoardAdapter extends RecyclerView.Adapter<MainDashBoardAdap
         Context context = holder.itemView.getContext();
 
         holder.binding.txtDashBoardListName.setText(a.getQueueName());
-       holder.binding.txtCompletedCalls.setText(a.getCompletedCalls().toString());
-        holder.binding.txtPendingCalls.setText(a.getPendingCalls().toString());
+
+       holder.binding.txtCompletedMembersAssigned.setText(a.getCompletedCalls().toString());
+        holder.binding.txtPendingMembersAssigned.setText(a.getPendingCalls().toString());
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -77,26 +80,25 @@ public class MainDashBoardAdapter extends RecyclerView.Adapter<MainDashBoardAdap
 
         switch (position) {
             case 0:
-                // Launch activity for item at position 0
+                // Launch activity for item at position 0 i.e. Marketing
                 Intent intent0 = new Intent(context, LeadsActivity.class);
                 context.startActivity(intent0);
                 break;
             case 1:
-                // Launch activity for item at position 1
-              /*  Intent intent1 = new Intent(context, Activity1.class);
-                context.startActivity(intent1);*/
-                Global.showToast(context,""+ dashBoardResponseModelArrayList.get(position).getQueueName());
+                // Launch activity for item at position 1 i.e. NPA (Collection)
+
+                Intent intent1 = new Intent(context, DPDActivity.class);
+                context.startActivity(intent1);
                 break;
 
             case 2:
-                // Launch activity for item at position 1
-              /*  Intent intent1 = new Intent(context, Activity1.class);
-                context.startActivity(intent1);*/
+                // Launch activity for item at position 2 i.e. Welcome Call
+
                 Global.showToast(context,""+ dashBoardResponseModelArrayList.get(position).getQueueName());
                 break;
 
             case 3:
-                // Launch activity for item at position 1
+                // Launch activity for item at position 3 i.e. Renewal
               /*  Intent intent1 = new Intent(context, Activity1.class);
                 context.startActivity(intent1);*/
                 Global.showToast(context,""+ dashBoardResponseModelArrayList.get(position).getQueueName());
@@ -114,9 +116,9 @@ public class MainDashBoardAdapter extends RecyclerView.Adapter<MainDashBoardAdap
 
     class MyViewHolderClass extends RecyclerView.ViewHolder {
 
-        private ItemDashboardBinding binding;
+        private ItemDashboard3ApiBinding binding;
 
-        public MyViewHolderClass(ItemDashboardBinding binding) {
+        public MyViewHolderClass(ItemDashboard3ApiBinding binding) {
             super(binding.getRoot());
                this.binding =binding;
         }

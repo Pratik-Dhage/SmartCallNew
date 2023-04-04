@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        style="@style/MainConstraintStyle"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txtDashBoardListName"
+            tools:text="Pratik Dhage"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/common_text_style"/>
+
+        <TextView
+            android:id="@+id/txtTotalMembersAssigned"
+            tools:text="90"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/_20sdp"
+           android:layout_marginStart="@dimen/_25sdp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+           app:layout_constraintStart_toEndOf="@id/txtDashBoardListName"
+            style="@style/common_text_style"/>
+
+
+
+        <TextView
+            android:id="@+id/txtCompletedMembersAssigned"
+            tools:text="0"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_55sdp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@id/txtPendingMembersAssigned"
+            style="@style/common_text_style"/>
+
+        <TextView
+            android:id="@+id/txtPendingMembersAssigned"
+            tools:text="90"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            style="@style/common_text_style"/>
+
+
+        <View
+            android:id="@+id/viewBorder"
+            style="@style/viewBorderStyle"
+            android:background="@color/borderColor"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtDashBoardListName" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
