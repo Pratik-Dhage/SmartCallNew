@@ -97,6 +97,7 @@ public class MainActivity3API extends AppCompatActivity {
 
                     // Total Members(Marketing+Collection(NPA)+Welcome Call+ Renewal)
                     binding.labelTotalAssignedValue.setText(String.valueOf(TotalMembersAssigned));
+                    binding.labelPendingMembersAssignedValue.setText(String.valueOf(TotalMembersAssigned)); // same value for Pending because Completed = 0
 
                 }
             }
