@@ -18,6 +18,7 @@ import com.example.test.fragments_activity.ActivityOfFragments;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.adapter.MainDashBoardAdapter;
+import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.LoanCollectionActivity;
 import com.example.test.schedule_flow.ScheduleDetailsActivity;
 
@@ -78,6 +79,24 @@ public class MainActivity3API extends AppCompatActivity {
                     setUpDashBoardRecyclerView();
                     mainDashBoardViewModel.arrListDashBoardData.addAll(result);
                     binding.loadingProgressBar.setVisibility(View.GONE);
+
+
+                    //to get TotalMembers Assigned value
+                    int totalCompletedCalls = 0;
+                    int totalPendingCalls = 0;
+                    int TotalMembersAssigned = 0;
+
+                    for(DashBoardResponseModel a : result){
+
+                        totalCompletedCalls += a.getCompletedCalls();
+                        totalPendingCalls += a.getPendingCalls();
+
+
+                         TotalMembersAssigned = totalCompletedCalls + totalPendingCalls;
+                    }
+
+                    // Total Members(Marketing+Collection(NPA)+Welcome Call+ Renewal)
+                    binding.labelTotalAssignedValue.setText(String.valueOf(TotalMembersAssigned));
 
                 }
             }

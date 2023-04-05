@@ -14,6 +14,7 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:textColor="@color/black"
             android:textStyle="normal"
+            android:maxLength="12"
             app:layout_constraintStart_toStartOf="parent"
             style="@style/common_text_style"/>
 
@@ -22,10 +23,10 @@
             tools:text="90"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/_20sdp"
-           android:layout_marginStart="@dimen/_25sdp"
+          android:layout_marginEnd="@dimen/_55sdp"
             android:textColor="@color/black"
             android:textStyle="normal"
-           app:layout_constraintStart_toEndOf="@id/txtDashBoardListName"
+          app:layout_constraintEnd_toStartOf="@+id/txtCompletedMembersAssigned"
             style="@style/common_text_style"/>
 
 

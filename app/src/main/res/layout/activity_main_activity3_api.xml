@@ -251,10 +251,10 @@
                             android:id="@+id/labelTotalAssigned"
                             style="@style/semi_mid_text_style"
                             android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginStart="@dimen/_30sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
                             android:text="@string/total"
                             android:textColor="@color/black"
-                            app:layout_constraintStart_toEndOf="@id/labelMembersAssigned"
+                           app:layout_constraintEnd_toStartOf="@+id/labelCompletedMembersAssigned"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
@@ -277,22 +277,12 @@
                             style="@style/semi_mid_text_style"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:text="90"
-                            android:layout_marginStart="@dimen/_42sdp"
+                            android:layout_marginEnd="@dimen/_55sdp"
                             android:textColor="@color/black"
                             android:textStyle="normal"
-                            app:layout_constraintStart_toEndOf="@id/labelMembersAssigned"
+                            app:layout_constraintEnd_toStartOf="@+id/labelCompletedMembersAssignedValue"
                             app:layout_constraintTop_toBottomOf="@id/labelTotalAssigned" />
 
-
-                        <TextView
-                            android:id="@+id/labelTotalAssignedValue2"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:text="120"
-                            android:visibility="gone"
-                            app:layout_constraintEnd_toEndOf="@+id/labelTotalAssigned"
-                            app:layout_constraintStart_toStartOf="@+id/labelTotalAssigned"
-                            app:layout_constraintTop_toBottomOf="@id/labelTotalAssignedValue" />
 
 
                         <TextView
@@ -301,7 +291,7 @@
                             android:layout_marginTop="@dimen/_10sdp"
                             android:text="@string/completed"
                             android:textColor="@color/black"
-                            app:layout_constraintStart_toEndOf="@id/labelTotalAssigned"
+                            android:layout_marginEnd="@dimen/_10sdp"
                             app:layout_constraintEnd_toStartOf="@id/labelPendingMembersAssigned"
                             app:layout_constraintTop_toTopOf="parent" />
 
