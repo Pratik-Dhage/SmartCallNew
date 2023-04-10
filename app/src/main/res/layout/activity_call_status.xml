@@ -170,7 +170,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ivWifiCall2" />
 
-                <Button
+              <!--  <Button
                     android:id="@+id/btnSpokeToCustomer"
                     style="@style/BigButtonStyle"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -193,7 +193,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btnSpokeToCustomer" />
-
+-->
                 <Button
                     android:id="@+id/btnBackToLeadList"
                     style="@style/BigButtonStyle"
