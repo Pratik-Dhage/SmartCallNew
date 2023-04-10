@@ -182,6 +182,7 @@
 
 
                          <ImageView
+                             android:id="@+id/ivEditTime"
                              android:layout_width="@dimen/_22sdp"
                              android:layout_height="@dimen/_15sdp"
                              android:layout_marginStart="@dimen/_10sdp"

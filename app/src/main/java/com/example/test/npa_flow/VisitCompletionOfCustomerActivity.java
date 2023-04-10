@@ -11,10 +11,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityVisitCompletionOfCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
@@ -71,6 +76,52 @@ View view;
             Intent i = new Intent(this, BalanceInterestCalculationActivity.class);
             startActivity(i);
         });
+
+        //for Editing Time
+        binding.ivEditTime.setOnClickListener(v->{
+
+            View customDialog2 = LayoutInflater.from(this).inflate(R.layout.custom_dialog_timepicker, null);
+            Button customButton = customDialog2.findViewById(R.id.btnOK);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(customDialog2);
+            final AlertDialog dialog = builder.create();
+            dialog.setCancelable(false);
+            dialog.show();
+
+            //on Clicking OK button
+            customButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // get a reference to the TimePicker
+                    TimePicker timePicker = customDialog2.findViewById(R.id.customDialogTimePicker);
+
+                    // get the selected hour and minute
+                    int hour = timePicker.getHour();
+                    int minute = timePicker.getMinute();
+
+                    // create a Date object with the selected time
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.HOUR_OF_DAY, hour);
+                    calendar.set(Calendar.MINUTE, minute);
+                    Date selectedTime = calendar.getTime();
+
+                    // create a SimpleDateFormat object with the desired format string
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+
+                    // format the time and store it in a string
+                    String formattedTime = dateFormat.format(selectedTime);
+
+                    // display the selected time
+                    binding.txtScheduledTime.setText(":"+formattedTime);
+
+                    dialog.dismiss();
+                }
+            });
+
+        });
+
 
 
         //for Notes
