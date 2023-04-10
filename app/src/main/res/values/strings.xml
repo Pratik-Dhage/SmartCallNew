@@ -77,7 +77,7 @@
     <string name="please_select_lead_source">Please select lead source </string>
     <string name="call_status">Call Status</string>
     <string name="mobile_no">Mobile No.</string>
-    <string name="spoke_to_customer">Spoke To Customer</string>
+    <string name="spoke_to_customer">Spoke To The\nCustomer</string>
     <string name="did_not_speak_to_ncustomer">Did Not Speak To \nCustomer</string>
     <string name="calls_scheduled_for_the_day">Calls Scheduled For The Day</string>
     <string name="schedule_for_the_day">Schedule For The Day</string>
@@ -180,6 +180,12 @@
     <string name="not_reachable_switched_off">Not Reachable/ \nSwitched Off</string>
     <string name="number_is_invalid">Number Is \nInvalid</string>
     <string name="spoke_to_friend_family_member">Spoke To Friend/ \nFamily Member</string>
+    <string name="source_of_lead">Source of Lead</string>
+    <string name="sir_madam">Sir/Madam,do you require any loan like \n\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0personal loan, home loan?</string>
+    <string name="view_products">View Products</string>
+    <string name="yes_the_lead_nis_interested">Yes, the lead \nis interested</string>
+    <string name="no_the_lead_nis_not_interested">No the lead \nis not interested</string>
+    <string name="which_products_are_you_interested_in">Which products are you interested in?</string>
 
 
 </resources>

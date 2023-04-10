@@ -31,6 +31,27 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".view_products.ViewProductsActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".call_status.CallStatusWithLeadInteractionActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".call_status.CallStatusWithProductsActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".main_dashboard.MainActivity3API"
             android:exported="true">
             <meta-data
@@ -42,7 +63,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".npa_flow.NotSpokeToCustomerActivity"
@@ -176,9 +196,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
-
-
         </activity>
         <activity
             android:name=".location_gps.customer_location.CustomerLocationActivity"

@@ -6,28 +6,9 @@
         style="@style/MainConstraintStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".call_status.CallStatusActivity">
+        tools:context=".call_status.CallStatusWithLeadInteractionActivity">
 
-        <!--  <androidx.appcompat.widget.Toolbar
-              android:id="@+id/toolbar"
-              style="@style/toolBarStyle"
-              android:background="@color/textBlue"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent">
 
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_gravity="center"
-                  android:text="@string/call_status"
-                  android:textAlignment="center"
-                  android:textColor="@color/white"
-                  android:textSize="@dimen/_12ssp"
-                  android:textStyle="bold" />
-
-          </androidx.appcompat.widget.Toolbar>
-  -->
         <ImageView
             android:id="@+id/ivBack"
             android:layout_width="@dimen/_20sdp"
@@ -133,66 +114,57 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/labelSourceOfLead" />
 
-                  <!--Only for Test purpose-->
-                <ImageView
-                    android:id="@+id/ivWifiCall2"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_100sdp"
-                    android:layout_marginTop="@dimen/_100sdp"
-                    android:src="@drawable/phonecall"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/labelSourceOfLead" />
-
-
-
-                <ImageView
-                    android:id="@+id/ivWifiCall"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_100sdp"
-                    android:layout_marginTop="@dimen/_100sdp"
-                    android:src="@drawable/phonecall"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/labelSourceOfLead" />
-
 
                 <TextView
                     android:id="@+id/txtSir_Madam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
                     android:text="@string/sir_madam"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold|italic"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ivWifiCall2" />
+                    app:layout_constraintTop_toBottomOf="@id/ivHistory" />
 
                 <Button
-                    android:id="@+id/btnSpokeToCustomer"
+                    android:id="@+id/btnViewProducts"
                     style="@style/BigButtonStyle"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:backgroundTint="@color/brightOrange"
+                    android:text="@string/view_products"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSir_Madam" />
+
+                <Button
+                    android:id="@+id/btnYesLeadInterested"
+                    style="@style/BigButtonStyle"
+                    android:layout_width="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:backgroundTint="@color/textGreen"
-                    android:text="@string/spoke_to_customer"
+                    android:text="@string/yes_the_lead_nis_interested"
                     android:textStyle="bold"
-                    android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:visibility="visible"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:textSize="@dimen/_10ssp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ivWifiCall" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnViewProducts" />
 
                 <Button
-                    android:id="@+id/btnNotSpokeToCustomer"
+                    android:id="@+id/btnNoLeadNotInterested"
                     style="@style/BigButtonStyle"
+                    android:textSize="@dimen/_10ssp"
+                    android:layout_width="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:backgroundTint="@color/textRed"
-                    android:text="@string/did_not_speak_to_ncustomer"
+                    android:text="@string/no_the_lead_nis_not_interested"
                     android:textStyle="bold"
-                    android:visibility="invisible"
+                    android:visibility="visible"
+                    android:layout_marginEnd="@dimen/_2sdp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnSpokeToCustomer" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnViewProducts" />
 
                 <Button
                     android:id="@+id/btnBackToLeadList"
@@ -202,7 +174,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtSir_Madam" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnNoLeadNotInterested" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

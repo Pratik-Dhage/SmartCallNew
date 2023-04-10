@@ -1,6 +1,7 @@
 package com.example.test.call_status;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
@@ -18,7 +19,11 @@ import android.os.Bundle;
 import android.provider.CallLog;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.test.R;
@@ -51,7 +56,7 @@ public class CallStatusActivity extends AppCompatActivity {
 
     private void initializeFields() {
 
-        binding = DataBindingUtil. setContentView(this,R.layout.activity_call_status);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_call_status);
         view = binding.getRoot();
     }
 
@@ -65,11 +70,25 @@ public class CallStatusActivity extends AppCompatActivity {
 
     private void onClickListener() {
 
-        binding.btnBackToLeadList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed(); // back to Lead List Activity
-            }
+        binding.btnBackToLeadList.setOnClickListener(v -> {
+            onBackPressed(); // back to Lead List Activity
+        });
+
+        binding.ivBack.setOnClickListener(v -> {
+            onBackPressed(); // back to Lead List Activity
+        });
+
+
+        //for test purpose
+        binding.ivWifiCall2.setOnClickListener(v->{
+            String firstName = binding.txtLeadName.getText().toString();
+            String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
+
+
+            Intent i = new Intent(CallStatusActivity.this,CallStatusWithProductsActivity.class) ;
+            i.putExtra("firstName",firstName);
+            i.putExtra("phoneNumber",phoneNumber);
+            startActivity(i);
         });
 
         binding.ivWifiCall.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +131,62 @@ public class CallStatusActivity extends AppCompatActivity {
 
             }
         });
+
+
+        //for Notes
+        binding.ivNotesIcon.setOnClickListener(v->{
+
+            View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
+
+            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
+            EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
+            customEditBox.setVisibility(View.VISIBLE);
+
+            customText.setText(getResources().getString(R.string.lead_interaction));
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(customDialog);
+            final AlertDialog dialog = builder.create();
+            dialog.show();
+
+            customButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+        });
+
+        //for History
+        binding.ivHistory.setOnClickListener(v->{
+
+            View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
+
+            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
+            TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
+            txtCustom.setVisibility(View.VISIBLE);
+
+            customText.setText(getResources().getString(R.string.lead_history));
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(customDialog);
+            final AlertDialog dialog = builder.create();
+            dialog.show();
+
+            customButton.setText(R.string.close);
+            customButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+        });
+
+
     }
 
 
