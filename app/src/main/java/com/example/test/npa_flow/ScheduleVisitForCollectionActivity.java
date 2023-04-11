@@ -13,6 +13,7 @@ import com.example.test.MainActivity3;
 import com.example.test.R;
 import com.example.test.databinding.ActivityScheduleVisitForCollectionBinding;
 import com.example.test.helper_classes.Global;
+import com.example.test.main_dashboard.MainActivity3API;
 
 import java.util.Calendar;
 
@@ -53,7 +54,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(ScheduleVisitForCollectionActivity.this, MainActivity3 .class);
+                        Intent intent = new Intent(ScheduleVisitForCollectionActivity.this, MainActivity3API.class);
                         startActivity(intent);
                     }
                 }, 2000);
