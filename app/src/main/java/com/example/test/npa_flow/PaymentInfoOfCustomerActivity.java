@@ -84,9 +84,11 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
             if(binding.edtPleaseSpecify.getVisibility()==View.INVISIBLE){
                binding.edtPleaseSpecify.setVisibility(View.VISIBLE);
+               binding.ivForwardArrowOthers.setVisibility(View.VISIBLE);
             }
             else{
                 binding.edtPleaseSpecify.setVisibility(View.INVISIBLE);
+                binding.ivForwardArrowOthers.setVisibility(View.INVISIBLE);
             }
 
         });
@@ -95,9 +97,11 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
             if(binding.edtPleaseSpecifyNameAndContact.getVisibility()==View.INVISIBLE){
                 binding.edtPleaseSpecifyNameAndContact.setVisibility(View.VISIBLE);
+                binding.ivForwardArrowNameAndContact.setVisibility(View.VISIBLE);
             }
             else{
                 binding.edtPleaseSpecifyNameAndContact.setVisibility(View.INVISIBLE);
+                binding.ivForwardArrowNameAndContact.setVisibility(View.INVISIBLE);
             }
 
         });

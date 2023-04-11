@@ -52,9 +52,11 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
             if(binding.edtPleaseSpecify.getVisibility()==View.INVISIBLE){
                 binding.edtPleaseSpecify.setVisibility(View.VISIBLE);
+                binding.ivForwardArrowOthers.setVisibility(View.VISIBLE);
             }
             else{
                 binding.edtPleaseSpecify.setVisibility(View.INVISIBLE);
+                binding.ivForwardArrowOthers.setVisibility(View.INVISIBLE);
             }
 
         });

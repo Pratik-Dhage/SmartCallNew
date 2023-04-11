@@ -711,6 +711,16 @@
                     app:layout_constraintTop_toBottomOf="@id/btnLoanTakenByRelative" />
 
 
+                <ImageView
+                    android:id="@+id/ivForwardArrowNameAndContact"
+                    app:layout_constraintTop_toTopOf="@+id/edtPleaseSpecifyNameAndContact"
+                    app:layout_constraintBottom_toBottomOf="@+id/edtPleaseSpecifyNameAndContact"
+                    app:layout_constraintStart_toEndOf="@+id/edtPleaseSpecifyNameAndContact"
+                    android:layout_width="@dimen/_20sdp"
+                    android:visibility="invisible"
+                    android:src="@drawable/forward_arrow"
+                    android:layout_height="@dimen/_20sdp"
+                    app:tint="@color/textBlue" />
 
                 <Button
                     android:id="@+id/btnOthers"
@@ -735,6 +745,18 @@
                     app:layout_constraintStart_toStartOf="@id/btnOthers"
                     app:layout_constraintEnd_toEndOf="@id/btnOthers"
                     app:layout_constraintTop_toBottomOf="@id/btnOthers" />
+
+
+                <ImageView
+                    android:id="@+id/ivForwardArrowOthers"
+                     app:layout_constraintTop_toTopOf="@+id/edtPleaseSpecify"
+                    app:layout_constraintBottom_toBottomOf="@+id/edtPleaseSpecify"
+                    app:layout_constraintStart_toEndOf="@+id/edtPleaseSpecify"
+                    android:layout_width="@dimen/_20sdp"
+                    android:visibility="invisible"
+                    android:src="@drawable/forward_arrow"
+                    android:layout_height="@dimen/_20sdp"
+                    app:tint="@color/textBlue" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
