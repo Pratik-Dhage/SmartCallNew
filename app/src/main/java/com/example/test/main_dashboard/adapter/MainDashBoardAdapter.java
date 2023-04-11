@@ -17,7 +17,7 @@ import com.example.test.databinding.ItemDashboardBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.lead.LeadsActivity;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
-import com.example.test.npa_flow.DPDActivity;
+import com.example.test.npa_flow.dpd.DPDActivity;
 
 import java.util.ArrayList;
 

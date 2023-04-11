@@ -149,7 +149,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".npa_flow.DPDActivity"
+            android:name=".npa_flow.dpd.DPDActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

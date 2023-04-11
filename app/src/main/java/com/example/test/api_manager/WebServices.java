@@ -4,6 +4,7 @@ import com.example.test.lead.model.LeadModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -34,6 +35,8 @@ public class WebServices {
 
     // http://192.168.1.100:8080/security/validateOtp?(user object in the request body)
 
+    //http://192.168.1.101:8081/transactionDataSet/getDpdQueues?branchCode=001  (DPD Queue - it will return a list of object of type DpdQueue in jSon format.)
+
     //Smart Call BaseURL
     public static String SmartCall_BaseURL = "https://192.168.1.101:8433/";
 
@@ -57,6 +60,8 @@ public class WebServices {
     // for Generating User
     public static String generate_User = "security/generateUser?userId=admin";
 
+    //for DPD queue
+    public static String dpd_queue = "transactionDataSet/getDpdQueues?branchCode=001";
 
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
@@ -71,7 +76,9 @@ public class WebServices {
         //okHttpBuilder.addInterceptor(new AuthInterceptor("your-auth-token")) // to authenticate credential before calling the api
         OkHttpClient okHttpClient = okHttpBuilder.build();
 
+        //Gson gson = new GsonBuilder().setLenient().registerTypeAdapter(Type.class,new TypeAdapter()).create();
         Gson gson = new GsonBuilder().setLenient().create();
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

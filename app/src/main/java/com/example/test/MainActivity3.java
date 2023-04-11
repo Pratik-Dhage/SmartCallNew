@@ -18,7 +18,7 @@ import com.example.test.helper_classes.Global;
 import com.example.test.lead.LeadsActivity;
 import com.example.test.lead.model.LeadListResponseModel;
 import com.example.test.lead.model.LeadModel;
-import com.example.test.npa_flow.DPDActivity;
+import com.example.test.npa_flow.dpd.DPDActivity;
 import com.example.test.npa_flow.LoanCollectionActivity;
 import com.example.test.schedule_flow.ScheduleDetailsActivity;
 

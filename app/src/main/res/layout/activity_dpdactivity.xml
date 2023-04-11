@@ -3,6 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.test.npa_flow.dpd.DPD_ViewModel" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/MainConstraintStyle"
         android:layout_width="match_parent"
@@ -53,13 +61,12 @@
                 style="@style/common_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/_20sdp"
+               android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
                 android:text="@string/no_of_members"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toStartOf="@+id/labelCompletedCalls"
-                app:layout_constraintStart_toEndOf="@id/labelDPDQueue"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -67,13 +74,12 @@
                 style="@style/common_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
                 android:text="@string/completed_calls"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@id/labelNoOfMembers"
-                app:layout_constraintEnd_toStartOf="@+id/labelPendingCalls"
+                app:layout_constraintEnd_toStartOf="@id/labelPendingCalls"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -90,198 +96,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <TextView
-            android:id="@+id/txtDPD1"
-            style="@style/common_text_style"
-            android:textColor="@color/black"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDPD"
             app:layout_constraintTop_toBottomOf="@id/clDPD"
             android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintStart_toStartOf="@id/clDPD"
-            android:text="1-30"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/txtMember1"
-            style="@style/common_text_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_80sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:text="50"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@id/txtDPD1"
-            app:layout_constraintTop_toBottomOf="@id/clDPD" />
-
-        <TextView
-            android:id="@+id/txtCompletedCalls1"
-            style="@style/common_text_style"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/clDPD"
-            android:layout_marginTop="@dimen/_10sdp"
-           app:layout_constraintEnd_toStartOf="@id/txtPendingCalls1"
-            android:layout_marginEnd="@dimen/_50sdp"
-            android:text="28"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/txtPendingCalls1"
-            style="@style/common_text_style"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/clDPD"
-            android:layout_marginTop="@dimen/_10sdp"
-           app:layout_constraintEnd_toEndOf="@id/clDPD"
-            android:layout_marginEnd="@dimen/_30sdp"
-            android:text="22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-         <View
-             android:id="@+id/viewBorder1"
-             app:layout_constraintStart_toStartOf="@id/clDPD"
-             app:layout_constraintEnd_toEndOf="@id/clDPD"
-             android:layout_marginStart="@dimen/_10sdp"
-             android:layout_marginEnd="@dimen/_10sdp"
-             android:layout_marginTop="@dimen/_5sdp"
-             app:layout_constraintTop_toBottomOf="@id/txtDPD1"
-             android:background="@color/borderColor"
-             android:layout_width="match_parent"
-             android:layout_height="@dimen/_1sdp"/>
-
-
-
-
-        <TextView
-            android:id="@+id/txtDPD2"
-            style="@style/common_text_style"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/viewBorder1"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintStart_toStartOf="@id/clDPD"
-            android:text="31-60"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/txtMember2"
-            style="@style/common_text_style"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/viewBorder1"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintStart_toEndOf="@id/txtDPD2"
-            android:layout_marginStart="@dimen/_75sdp"
-            android:text="20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/txtCompletedCalls2"
-            style="@style/common_text_style"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/viewBorder1"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintEnd_toStartOf="@id/txtPendingCalls2"
-            android:layout_marginEnd="@dimen/_50sdp"
-            android:text="05"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/txtPendingCalls2"
-            style="@style/common_text_style"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/viewBorder1"
-            android:layout_marginTop="@dimen/_10sdp"
-           app:layout_constraintEnd_toEndOf="@id/clDPD"
-            android:layout_marginEnd="@dimen/_30sdp"
-            android:text="15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-        <View
-            android:id="@+id/viewBorder2"
-            app:layout_constraintStart_toStartOf="@id/clDPD"
-            app:layout_constraintEnd_toEndOf="@id/clDPD"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:layout_constraintTop_toBottomOf="@id/txtDPD2"
-            android:background="@color/borderColor"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"/>
-
-
-        <TextView
-            android:id="@+id/txtDPD3"
-            style="@style/common_text_style"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/viewBorder2"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintStart_toStartOf="@id/clDPD"
-            android:text="Above 60 Days"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            tools:listitem="@layout/item_dpd"
+            tools:itemCount="3"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/txtMember3"
-            style="@style/common_text_style"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/viewBorder2"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintStart_toEndOf="@id/txtDPD3"
-            android:layout_marginStart="@dimen/_25sdp"
-            android:text="05"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/txtCompletedCalls3"
-            style="@style/common_text_style"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/viewBorder2"
-            android:layout_marginTop="@dimen/_10sdp"
-           app:layout_constraintEnd_toStartOf="@id/txtPendingCalls3"
-            android:layout_marginEnd="@dimen/_50sdp"
-            android:text="02"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/txtPendingCalls3"
-            style="@style/common_text_style"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/viewBorder2"
-            android:layout_marginTop="@dimen/_10sdp"
-           app:layout_constraintEnd_toEndOf="@id/clDPD"
-            android:layout_marginEnd="@dimen/_30sdp"
-            android:text="03"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-        <View
-            android:id="@+id/viewBorder3"
-            app:layout_constraintStart_toStartOf="@id/clDPD"
-            app:layout_constraintEnd_toEndOf="@id/clDPD"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:layout_constraintTop_toBottomOf="@id/txtDPD3"
-            android:background="@color/borderColor"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
