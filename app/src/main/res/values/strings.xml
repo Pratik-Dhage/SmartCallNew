@@ -186,6 +186,13 @@
     <string name="yes_the_lead_nis_interested">Yes, the lead \nis interested</string>
     <string name="no_the_lead_nis_not_interested">No the lead \nis not interested</string>
     <string name="which_products_are_you_interested_in">Which products are you interested in?</string>
+    <string name="will_pay_lumpsum">Will pay Lumpsum</string>
+    <string name="already_paid">Already Paid</string>
+    <string name="upload">Upload</string>
+    <string name="fo_not_attended_meeting">Fo not attended meeting</string>
+    <string name="not_taken_loan">Not taken Loan</string>
+    <string name="loan_taken_by_relative">Loan Taken By Relative</string>
+    <string name="please_specify_name_and_contact_number">Please Specify Name &amp; Contact No.</string>
 
 
 </resources>

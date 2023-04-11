@@ -14,63 +14,37 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.test.R;
-import com.example.test.databinding.ActivityPaymentNotificationOfCustomerBinding;
+import com.example.test.databinding.ActivityPaymentInfoOfCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
+public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
-    ActivityPaymentNotificationOfCustomerBinding binding;
-    View view;
+    ActivityPaymentInfoOfCustomerBinding binding;
+    View view ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_payment_notification_of_customer);
-
+       // setContentView(R.layout.activity_payment_info_of_customer);
 
         initializeFields();
         onClickListener();
-
     }
 
     private void initializeFields() {
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_notification_of_customer);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_info_of_customer);
         view = binding.getRoot();
     }
 
     private void onClickListener() {
 
         binding.ivBack.setOnClickListener(v -> onBackPressed());
-
-
-        binding.btnOthers.setOnClickListener(v->{
-
-            if(binding.edtPleaseSpecify.getVisibility()==View.INVISIBLE){
-                binding.edtPleaseSpecify.setVisibility(View.VISIBLE);
-            }
-            else{
-                binding.edtPleaseSpecify.setVisibility(View.INVISIBLE);
-            }
-
-        });
-
-        binding.btnReadyToPay.setOnClickListener(v -> {
-
-            Intent i = new Intent(PaymentNotificationOfCustomerActivity.this,PaymentModeActivity.class);
-            startActivity(i);
-        });
-
-        binding.btnNotReadyToPay.setOnClickListener(v->{
-
-            Intent i = new Intent(PaymentNotificationOfCustomerActivity.this,PaymentInfoOfCustomerActivity.class);
-            startActivity(i);
-        });
-
 
         binding.btnNearBy.setOnClickListener(v->{
             Intent i = new Intent(this, NearByCustomersActivity.class);
@@ -80,6 +54,52 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
         binding.btnCalculate.setOnClickListener(v->{
             Intent i = new Intent(this, BalanceInterestCalculationActivity.class);
             startActivity(i);
+        });
+
+        binding.btnWillPayLumpsum.setOnClickListener(v->{
+            startActivity(new Intent(PaymentInfoOfCustomerActivity.this,VisitCompletionOfCustomerActivity.class));
+        });
+
+        binding.btnFoNotAttendedMeeting.setOnClickListener(v->{
+            startActivity(new Intent(PaymentInfoOfCustomerActivity.this,VisitCompletionOfCustomerActivity.class));
+        });
+
+        binding.btnNotTakenLoan.setOnClickListener(v->{
+            startActivity(new Intent(PaymentInfoOfCustomerActivity.this,VisitCompletionOfCustomerActivity.class));
+        });
+
+        binding.btnAlreadyPaid.setOnClickListener(v->{
+            if(binding.txtUploadFile.getVisibility()==View.INVISIBLE){
+                binding.txtUploadFile.setVisibility(View.VISIBLE);
+                binding.ivUploadFile.setVisibility(View.VISIBLE);
+            }
+            else{
+                binding.txtUploadFile.setVisibility(View.INVISIBLE);
+                binding.ivUploadFile.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
+        binding.btnOthers.setOnClickListener(v->{
+
+            if(binding.edtPleaseSpecify.getVisibility()==View.INVISIBLE){
+               binding.edtPleaseSpecify.setVisibility(View.VISIBLE);
+            }
+            else{
+                binding.edtPleaseSpecify.setVisibility(View.INVISIBLE);
+            }
+
+        });
+
+        binding.btnLoanTakenByRelative.setOnClickListener(v->{
+
+            if(binding.edtPleaseSpecifyNameAndContact.getVisibility()==View.INVISIBLE){
+                binding.edtPleaseSpecifyNameAndContact.setVisibility(View.VISIBLE);
+            }
+            else{
+                binding.edtPleaseSpecifyNameAndContact.setVisibility(View.INVISIBLE);
+            }
+
         });
 
         //for Editing Time
@@ -180,9 +200,8 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
                 }
             });
 
-
-
         });
+
 
 
     }
