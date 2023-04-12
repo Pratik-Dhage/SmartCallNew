@@ -273,6 +273,20 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvLoanCollection"
+                app:layout_constraintTop_toBottomOf="@id/clLoanCollectionData"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                tools:listitem="@layout/item_loan_collection"
+                tools:itemCount="3"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_height="wrap_content"/>
 
 
 

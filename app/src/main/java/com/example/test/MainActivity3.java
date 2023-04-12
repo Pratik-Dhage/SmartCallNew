@@ -19,7 +19,7 @@ import com.example.test.lead.LeadsActivity;
 import com.example.test.lead.model.LeadListResponseModel;
 import com.example.test.lead.model.LeadModel;
 import com.example.test.npa_flow.dpd.DPDActivity;
-import com.example.test.npa_flow.LoanCollectionActivity;
+import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 import com.example.test.schedule_flow.ScheduleDetailsActivity;
 
 import java.util.ArrayList;

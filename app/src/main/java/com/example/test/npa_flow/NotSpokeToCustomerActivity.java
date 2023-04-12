@@ -16,6 +16,7 @@ import android.widget.TimePicker;
 import com.example.test.R;
 import com.example.test.databinding.ActivityNotSpokeToCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
+import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -157,7 +158,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
 
         binding.btnNoResponseBusy.setOnClickListener(v->{
-            Intent i = new Intent(NotSpokeToCustomerActivity.this,LoanCollectionActivity.class);
+            Intent i = new Intent(NotSpokeToCustomerActivity.this, LoanCollectionActivity.class);
             startActivity(i);
 
         });

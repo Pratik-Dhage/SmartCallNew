@@ -13,7 +13,7 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityDpdactivityBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
-import com.example.test.npa_flow.LoanCollectionActivity;
+import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 import com.example.test.npa_flow.dpd.DPD_ViewModel;
 import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
 

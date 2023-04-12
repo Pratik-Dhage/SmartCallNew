@@ -1,4 +1,4 @@
-package com.example.test.npa_flow;
+package com.example.test.npa_flow.loan_collection;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -10,6 +10,8 @@ import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityLoanCollectionBinding;
+import com.example.test.npa_flow.DetailsOfCustomerActivity;
+import com.example.test.npa_flow.WebViewActivity;
 
 public class LoanCollectionActivity extends AppCompatActivity {
 
@@ -30,7 +32,7 @@ public class LoanCollectionActivity extends AppCompatActivity {
         binding.clLoanCollectionData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoanCollectionActivity.this,DetailsOfCustomerActivity.class);
+                Intent i = new Intent(LoanCollectionActivity.this, DetailsOfCustomerActivity.class);
                 startActivity(i);
 
             }

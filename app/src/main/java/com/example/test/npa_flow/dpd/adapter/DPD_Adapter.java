@@ -16,7 +16,7 @@ import com.example.test.databinding.ItemDashboard3ApiBinding;
 import com.example.test.databinding.ItemDpdBinding;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.dpd.DPDActivity;
-import com.example.test.npa_flow.LoanCollectionActivity;
+import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 
 import java.util.ArrayList;

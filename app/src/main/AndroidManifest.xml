@@ -142,7 +142,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".npa_flow.LoanCollectionActivity"
+            android:name=".npa_flow.loan_collection.LoanCollectionActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
