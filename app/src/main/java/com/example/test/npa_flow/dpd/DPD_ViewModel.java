@@ -36,11 +36,11 @@ public class DPD_ViewModel extends ViewModel {
     public ArrayList<DPD_ResponseModel> arrList_DPD_Data = new ArrayList<>();
     public DPD_Adapter dpd_adapter = new DPD_Adapter(arrList_DPD_Data);
 
-    public void updateDashBoardData(){
+    public void updateDPDData(){
         dpd_adapter.setData(arrList_DPD_Data);
     }
 
-
+   //DPD Queue Api
     public void getDPD_Data(){
 
         subscribtion = (Disposable) Global.apiService().getDPD_QueueList(WebServices.SmartCall_BaseURL2+ WebServices.dpd_queue)

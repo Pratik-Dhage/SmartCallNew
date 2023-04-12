@@ -6,6 +6,7 @@ import com.example.test.lead.model.LeadModel;
 import com.example.test.login.model.LoginResponseModel;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
+import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
 import com.example.test.user.UserModel;
 
 import java.sql.Time;
@@ -21,7 +22,7 @@ import retrofit2.http.Url;
 public interface RestClient {
 
 
-
+     //LeadList
     @GET
     Observable<List<LeadModel>> getLeadList(@Url String url);
 
@@ -30,14 +31,19 @@ public interface RestClient {
             @Body UserModel userModel
     );
 
-
+   //DashBoard
     //Only @POST request can have request @BODY
  @POST("dashboard/getDashBoardForUser?")//@POST
  Observable<List<DashBoardResponseModel>> getDashBoardData(
          @Body UserModel userModel
  );
 
+ //DPD Queue
  @GET
     Observable<List<DPD_ResponseModel>> getDPD_QueueList(@Url String url);
+
+ //LoanCollectionList
+ @GET
+    Observable<List<LoanCollectionListResponseModel>> getLoanCollectionList(@Url String url);
 
 }

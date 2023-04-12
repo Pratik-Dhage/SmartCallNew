@@ -194,6 +194,7 @@
     <string name="not_taken_loan">Not taken Loan</string>
     <string name="loan_taken_by_relative">Loan Taken By Relative</string>
     <string name="please_specify_name_and_contact_number">Please Specify Name &amp; Contact No.</string>
+    <string name="km">km</string>
 
 
 </resources>

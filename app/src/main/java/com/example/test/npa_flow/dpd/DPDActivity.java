@@ -56,7 +56,7 @@ public class DPDActivity extends AppCompatActivity {
 
     private void setUpDPDRecyclerView(){
 
-        dpdViewModel.updateDashBoardData();
+        dpdViewModel.updateDPDData();
         RecyclerView recyclerView = binding.rvDPD;
         recyclerView.setAdapter(new DPD_Adapter(dpdViewModel.arrList_DPD_Data));
     }
