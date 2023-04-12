@@ -30,8 +30,9 @@ public class DPDActivity extends AppCompatActivity {
        // setContentView(R.layout.activity_dpdactivity);
 
         initializeFields();
+        initObserver();
         if(NetworkUtilities.getConnectivityStatus(this)){
-            initObserver();
+
             call_DPD_Api();
         }
         else{
@@ -62,6 +63,7 @@ public class DPDActivity extends AppCompatActivity {
 
     private void initObserver(){
 
+        binding.loadingProgressBar.setVisibility(View.VISIBLE);
        dpdViewModel.getMutDPD_ResponseApi().observe(this,result->{
 
            if(NetworkUtilities.getConnectivityStatus(this)){
@@ -71,6 +73,7 @@ public class DPDActivity extends AppCompatActivity {
                    dpdViewModel.arrList_DPD_Data.clear();
                    setUpDPDRecyclerView();
                    dpdViewModel.arrList_DPD_Data.addAll(result);
+                   binding.loadingProgressBar.setVisibility(View.GONE);
                }
 
            }

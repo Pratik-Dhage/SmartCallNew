@@ -98,6 +98,22 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!--Progress Bar-->
+        <ProgressBar
+            android:id="@+id/loadingProgressBar"
+            style="@style/CustomProgressDialog"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:indeterminate="true"
+            android:visibility="invisible"
+           app:layout_constraintStart_toStartOf="@id/clDPD"
+            app:layout_constraintEnd_toEndOf="@id/clDPD"
+            android:layout_marginTop="@dimen/_80sdp"
+            app:layout_constraintTop_toTopOf="@id/clDPD"
+
+            />
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDPD"

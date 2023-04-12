@@ -36,9 +36,11 @@ public class MainActivity3API extends AppCompatActivity {
         initializeFields();
         onClickListener();
 
+        initObserver();
+
         if(NetworkUtilities.getConnectivityStatus(this)){
             callDashBoardApi();
-            initObserver();
+
         }
        else{
             Global.showToast(this,getString(R.string.check_internet_connection));

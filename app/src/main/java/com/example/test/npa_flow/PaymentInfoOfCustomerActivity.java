@@ -69,16 +69,21 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
         });
 
         binding.btnAlreadyPaid.setOnClickListener(v->{
-            if(binding.txtUploadFile.getVisibility()==View.INVISIBLE){
-                binding.txtUploadFile.setVisibility(View.VISIBLE);
-                binding.ivUploadFile.setVisibility(View.VISIBLE);
+
+            if(binding.btnAlreadyPaid.getText()==getString(R.string.already_paid)){
+                binding.btnAlreadyPaid.setText(getString(R.string.upload_file));
+                binding.ivCancelFileUpload.setVisibility(View.VISIBLE);
             }
             else{
-                binding.txtUploadFile.setVisibility(View.INVISIBLE);
-                binding.ivUploadFile.setVisibility(View.INVISIBLE);
+                binding.btnAlreadyPaid.setText(getString(R.string.already_paid));
+                binding.ivCancelFileUpload.setVisibility(View.INVISIBLE);
             }
         });
 
+        binding.ivCancelFileUpload.setOnClickListener(v->{
+            binding.btnAlreadyPaid.setText(getString(R.string.already_paid));
+            binding.ivCancelFileUpload.setVisibility(View.INVISIBLE);
+        });
 
         binding.btnOthers.setOnClickListener(v->{
 

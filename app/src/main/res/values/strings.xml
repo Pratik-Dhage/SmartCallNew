@@ -189,6 +189,7 @@
     <string name="will_pay_lumpsum">Will pay Lumpsum</string>
     <string name="already_paid">Already Paid</string>
     <string name="upload">Upload</string>
+    <string name="upload_file">Upload File</string>
     <string name="fo_not_attended_meeting">Fo not attended meeting</string>
     <string name="not_taken_loan">Not taken Loan</string>
     <string name="loan_taken_by_relative">Loan Taken By Relative</string>

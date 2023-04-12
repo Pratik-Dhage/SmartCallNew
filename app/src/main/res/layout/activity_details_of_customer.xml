@@ -621,11 +621,11 @@
                      app:layout_constraintStart_toStartOf="parent"
                      app:layout_constraintEnd_toEndOf="parent"
                      android:layout_marginTop="@dimen/_10sdp"
-                     android:src="@drawable/wifi_call"
+                     android:src="@drawable/call_round_icon"
                      app:layout_constraintTop_toBottomOf="@id/blankView"
                      android:layout_width="@dimen/_50sdp"
                      android:layout_height="@dimen/_40sdp"
-                     app:tint="@color/textBlue" />
+                      />
 
              </androidx.constraintlayout.widget.ConstraintLayout>
 
