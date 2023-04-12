@@ -223,14 +223,14 @@
 
 
                     <ImageView
-                        android:src="@drawable/wifi_call"
+                        android:src="@drawable/call_round_icon"
                         app:layout_constraintTop_toTopOf="@id/txtMobileNumber"
                         app:layout_constraintBottom_toBottomOf="@id/txtMobileNumber"
                         app:layout_constraintStart_toEndOf="@id/txtMobileNumber"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        app:tint="@color/textBlue" />
+                        />
 
                     <TextView
                         android:id="@+id/labelAadharNumber"

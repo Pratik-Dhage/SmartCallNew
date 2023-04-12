@@ -224,11 +224,11 @@
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
                             android:layout_marginStart="@dimen/_5sdp"
-                            android:src="@drawable/wifi_call"
+                            android:src="@drawable/call_round_icon"
                             app:layout_constraintBottom_toBottomOf="@id/txtMobileNumber"
                             app:layout_constraintStart_toEndOf="@id/txtMobileNumber"
                             app:layout_constraintTop_toTopOf="@id/txtMobileNumber"
-                            app:tint="@color/textBlue" />
+                           />
 
                         <TextView
                             android:id="@+id/labelAadharNumber"
@@ -617,6 +617,8 @@
                 <Button
                     android:id="@+id/btnWillPayLumpsum"
                     style="@style/CustomButtonStyle"
+                    android:layout_width="@dimen/_132sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:backgroundTint="@color/blueButton"
                     android:text="@string/will_pay_lumpsum"
@@ -628,15 +630,42 @@
                 <Button
                     android:id="@+id/btnAlreadyPaid"
                     style="@style/CustomButtonStyle"
+                    android:layout_width="@dimen/_132sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:backgroundTint="@color/blueButton"
                     android:text="@string/already_paid"
                     android:textStyle="normal"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ivHistory" />
 
 
+                <TextView
+                    android:id="@+id/txtUploadFile"
+                    style="@style/common_text_style"
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:text="@string/upload_file"
+                    android:visibility="invisible"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toTopOf="@id/btnAlreadyPaid"
+                    app:layout_constraintBottom_toBottomOf="@id/btnAlreadyPaid"
+                    app:layout_constraintStart_toStartOf="@id/btnAlreadyPaid"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivUploadFile"
+                    app:layout_constraintTop_toTopOf="@id/txtUploadFile"
+                    android:src="@drawable/upload_file"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@id/txtUploadFile"
+                    app:layout_constraintStart_toEndOf="@id/txtUploadFile"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    app:tint="@color/textBlue" />
 
                 <ImageView
                     android:id="@+id/ivCancelFileUpload"
@@ -645,14 +674,17 @@
                     android:layout_height="@dimen/_20sdp"
                     android:src="@drawable/cancel_close"
                     android:visibility="invisible"
-                    app:layout_constraintStart_toStartOf="@id/btnAlreadyPaid"
+                   app:layout_constraintStart_toEndOf="@id/ivUploadFile"
                     android:layout_marginBottom="@dimen/_2sdp"
-                    app:layout_constraintBottom_toTopOf="@id/btnAlreadyPaid"
-                    app:tint="@color/textBlue" />
+                   app:layout_constraintTop_toTopOf="@id/ivUploadFile"
+                    app:layout_constraintBottom_toBottomOf="@id/ivUploadFile"
+                    app:tint="@color/red" />
 
                 <Button
                     android:id="@+id/btnFoNotAttendedMeeting"
                     style="@style/CustomButtonStyle"
+                    android:layout_width="@dimen/_132sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:backgroundTint="@color/blueButton"
@@ -664,6 +696,8 @@
                 <Button
                     android:id="@+id/btnNotTakenLoan"
                     style="@style/CustomButtonStyle"
+                    android:layout_width="@dimen/_132sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:backgroundTint="@color/blueButton"
                     android:text="@string/not_taken_loan"
@@ -677,6 +711,8 @@
                 <Button
                     android:id="@+id/btnLoanTakenByRelative"
                     style="@style/CustomButtonStyle"
+                    android:layout_width="@dimen/_132sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:backgroundTint="@color/blueButton"
@@ -712,6 +748,8 @@
                 <Button
                     android:id="@+id/btnOthers"
                     style="@style/CustomButtonStyle"
+                    android:layout_width="@dimen/_132sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:backgroundTint="@color/blueButton"
                     android:text="@string/others"
