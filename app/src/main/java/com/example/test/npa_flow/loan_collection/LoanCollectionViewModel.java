@@ -1,5 +1,7 @@
 package com.example.test.npa_flow.loan_collection;
 
+import android.content.Context;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -17,6 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class LoanCollectionViewModel extends ViewModel {
 
+    Context context;
     private Disposable subscribtion; //Disposable Interface used to prevent observer from receiving items from Observer before all items are loaded.
 
     private final MutableLiveData<List<LoanCollectionListResponseModel>> mutLoanCollectionList_ResponseApi = new MutableLiveData<>();
@@ -39,15 +42,49 @@ public class LoanCollectionViewModel extends ViewModel {
 
 
     //Loan Collection List Api
-    public void getLoanCollectionList_Data(){
+    public void getLoanCollectionList_Data(int DPD_row_position){
 
-        subscribtion = (Disposable) Global.apiService().getLoanCollectionList(WebServices.SmartCall_BaseURL2+ WebServices.loan_collection_list)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io())
-                .subscribe(
-                        this::onHomeApiSuccess, this::onApiError
-                );
+
+            //According to Row Position of DPD Queue in DPD Activity , the respective Api Response will be Called
+        switch(DPD_row_position){
+            case 0:
+                subscribtion = (Disposable) Global.apiService().getLoanCollectionList(WebServices.SmartCall_BaseURL2+ WebServices.loan_collection_list_30Days)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(
+                                this::onHomeApiSuccess, this::onApiError
+                        );
+                break;
+            case 1:
+                subscribtion = (Disposable) Global.apiService().getLoanCollectionList(WebServices.SmartCall_BaseURL2+ WebServices.loan_collection_list_60Days)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(
+                                this::onHomeApiSuccess, this::onApiError
+                        );
+                break;
+            case 2:
+                subscribtion = (Disposable) Global.apiService().getLoanCollectionList(WebServices.SmartCall_BaseURL2+ WebServices.loan_collection_list_90Days)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(
+                                this::onHomeApiSuccess, this::onApiError
+                        );
+                break;
+            default:
+               /* subscribtion = (Disposable) Global.apiService().getLoanCollectionList(WebServices.SmartCall_BaseURL2+ WebServices.loan_collection_list_30Days)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(
+                                this::onHomeApiSuccess, this::onApiError
+                        );
+*/
+        }
+
     }
 
 

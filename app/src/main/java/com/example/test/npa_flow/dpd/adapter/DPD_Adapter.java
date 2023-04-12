@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,12 +11,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
-import com.example.test.databinding.ItemDashboard3ApiBinding;
 import com.example.test.databinding.ItemDpdBinding;
-import com.example.test.main_dashboard.model.DashBoardResponseModel;
-import com.example.test.npa_flow.dpd.DPDActivity;
-import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
+import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 
 import java.util.ArrayList;
 
@@ -49,9 +45,15 @@ public class DPD_Adapter extends RecyclerView.Adapter<DPD_Adapter.MyViewHolderCl
         holder.binding.txtPending.setText(a.getPending().toString());
 
 
+        // to show Respective list of LoanCollectionList of Customers according to Row Position Of DPD Queue in DPD Activity
         holder.itemView.setOnClickListener(v->{
-            Intent i = new Intent(context, LoanCollectionActivity.class);
-            context.startActivity(i);
+
+            int DPD_row_position = holder.getAdapterPosition();
+
+                Intent i = new Intent(context, LoanCollectionActivity.class);
+                i.putExtra("DPD_row_position",DPD_row_position);
+                context.startActivity(i);
+
         });
 
     }

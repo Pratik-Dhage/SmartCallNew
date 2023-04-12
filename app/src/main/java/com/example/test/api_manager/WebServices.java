@@ -67,11 +67,11 @@ public class WebServices {
     //http://43.239.52.151:8081/transactionDataSet/getDpdQueueList?branchCode=001&queue=3738 //for 30 Days
     //http://43.239.52.151:8081/transactionDataSet/getDpdQueueList?branchCode=001&queue=3739 //for 60 Days
     //http://43.239.52.151:8081/transactionDataSet/getDpdQueueList?branchCode=001&queue=3740 //for 90 Days
-    public static String queue_30_days = "3738";
-    public static String queue_60_days = "3739";
-    public static String queue_90_days = "3740";
+
   //  public static String loan_collection_list = dpd_queue+"&queue="+queue_30_days;
-    public static String loan_collection_list = "transactionDataSet/getDpdQueueList?branchCode=001&queue=3738";
+    public static String loan_collection_list_30Days = "transactionDataSet/getDpdQueueList?branchCode=001&queue=3738";
+    public static String loan_collection_list_60Days = "transactionDataSet/getDpdQueueList?branchCode=001&queue=3739";
+    public static String loan_collection_list_90Days = "transactionDataSet/getDpdQueueList?branchCode=001&queue=3740";
 
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();

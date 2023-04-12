@@ -5,8 +5,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -14,8 +12,6 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityLoanCollectionBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
-import com.example.test.npa_flow.DetailsOfCustomerActivity;
-import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 
 public class LoanCollectionActivity extends AppCompatActivity {
@@ -34,7 +30,8 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         initObserver();
         if(NetworkUtilities.getConnectivityStatus(this)){
-            call_LoanCollectionList_Api();
+            int DPD_row_position = getIntent().getIntExtra("DPD_row_position",0);
+            call_LoanCollectionList_Api(DPD_row_position); // using row position from DPD Activity and pass in LoanCollectionViewModel
         }
         else{
             Global.showToast(this,getString(R.string.check_internet_connection));
@@ -54,8 +51,8 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
     }
 
-    private void call_LoanCollectionList_Api() {
-        loanCollectionViewModel.getLoanCollectionList_Data();
+    private void call_LoanCollectionList_Api(int DPD_row_position) {
+        loanCollectionViewModel.getLoanCollectionList_Data(DPD_row_position);
     }
 
     private void setUpLoanCollectionList_RecyclerView(){
