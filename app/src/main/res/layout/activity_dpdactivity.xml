@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:id="@+id/MainConstraint"
         android:layout_height="match_parent"
-        tools:context=".DPDActivity">
+        tools:context=".npa_flow.dpd.DPDActivity">
 
         <ImageView
             android:id="@+id/ivBack"

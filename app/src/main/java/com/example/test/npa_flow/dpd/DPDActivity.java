@@ -100,13 +100,6 @@ public class DPDActivity extends AppCompatActivity {
 
     private void onClickListener() {
 
-        binding.MainConstraint.setOnClickListener(v -> {
-
-            Intent i = new Intent(DPDActivity.this, LoanCollectionActivity.class);
-            startActivity(i);
-
-        });
-
         binding.ivBack.setOnClickListener(v->{
             onBackPressed();
         });
