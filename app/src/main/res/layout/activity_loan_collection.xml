@@ -2,6 +2,7 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.test.npa_flow.loan_collection.LoanCollectionViewModel" />
@@ -10,98 +11,139 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        style="@style/MainConstraintStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/MainConstraintStyle"
         tools:context=".npa_flow.LoanCollectionActivity">
 
-    <ScrollView
-        android:id="@+id/loanCollectionScrollView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:fillViewport="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/rootConstraintLayout"
-            style="@style/MainConstraintStyle"
+        <ScrollView
+            android:id="@+id/loanCollectionScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:id="@+id/ivBack"
-                android:src="@drawable/back_arrow"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                app:tint="@color/textBlue" />
-
-            <TextView
-                android:id="@+id/labelLoanCollection"
-                app:layout_constraintTop_toBottomOf="@id/ivBack"
-                android:layout_marginTop="@dimen/_20sdp"
-                app:layout_constraintStart_toStartOf="@id/ivBack"
-                android:layout_marginStart="@dimen/_30sdp"
-                style="@style/heading_text_style"
-                android:text="@string/loan_collection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <View
-                android:id="@+id/viewBorder"
-                app:layout_constraintTop_toBottomOf="@id/labelLoanCollection"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="@dimen/_10sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rootConstraintLayout"
+                style="@style/MainConstraintStyle"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:background="@color/textBlue"/>
+                android:layout_height="wrap_content">
 
-            <!--Progress Bar-->
-            <ProgressBar
-                android:id="@+id/loadingProgressBar"
-                style="@style/CustomProgressDialog"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:indeterminate="true"
-                android:visibility="invisible"
-               app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    style="@style/toolBarStyle"
+                    android:background="@color/textBlue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvLoanCollection"
-                app:layout_constraintTop_toBottomOf="@id/viewBorder"
-                android:layout_marginTop="@dimen/_5sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                tools:listitem="@layout/item_loan_collection"
-                tools:itemCount="3"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/txtToolbarHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp"
+                        android:textStyle="bold"
+                        tools:text="Calling-Above 30 DPD" />
 
+                </androidx.appcompat.widget.Toolbar>
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/ivFilterSort"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:src="@drawable/filter_sort"
+                    app:layout_constraintBottom_toBottomOf="@id/toolbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/toolbar"
+                    app:tint="@color/white" />
 
 
+                <ImageView
+                    android:id="@+id/ivSearchIcon"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_40sdp"
+                    android:src="@drawable/search_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/toolbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/toolbar"
+                    app:tint="@color/white" />
 
-    </ScrollView>
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:src="@drawable/back_arrow"
+                    app:layout_constraintBottom_toBottomOf="@id/toolbar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/toolbar"
+                    app:tint="@color/white" />
+
+                <!-- <TextView
+                     android:id="@+id/labelLoanCollection"
+                     app:layout_constraintTop_toBottomOf="@id/ivBack"
+                     android:layout_marginTop="@dimen/_20sdp"
+                     app:layout_constraintStart_toStartOf="@id/ivBack"
+                     android:layout_marginStart="@dimen/_30sdp"
+                     style="@style/heading_text_style"
+                     android:text="@string/loan_collection"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"/>-->
+
+                <!-- <View
+                     android:id="@+id/viewBorder"
+                     app:layout_constraintTop_toBottomOf="@id/toolbar"
+                     app:layout_constraintStart_toStartOf="parent"
+                     android:layout_marginTop="@dimen/_10sdp"
+                     app:layout_constraintEnd_toEndOf="parent"
+                     android:layout_marginStart="@dimen/_10sdp"
+                     android:layout_marginEnd="@dimen/_10sdp"
+                     android:layout_width="match_parent"
+                     android:layout_height="@dimen/_1sdp"
+                     android:background="@color/textBlue"/>-->
+
+                <!--Progress Bar-->
+                <ProgressBar
+                    android:id="@+id/loadingProgressBar"
+                    style="@style/CustomProgressDialog"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:indeterminate="true"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvLoanCollection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/toolbar"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_loan_collection" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

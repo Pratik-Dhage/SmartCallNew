@@ -16,6 +16,8 @@ import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 
 public class LoanCollectionActivity extends AppCompatActivity {
 
+    //This Activity Contains List of Members
+
     ActivityLoanCollectionBinding binding;
     View view;
     LoanCollectionViewModel loanCollectionViewModel;
@@ -45,8 +47,28 @@ public class LoanCollectionActivity extends AppCompatActivity {
         loanCollectionViewModel = new ViewModelProvider(this).get(LoanCollectionViewModel.class);
         binding.setViewModel(loanCollectionViewModel);
 
-        if(getIntent().hasExtra("isFromCallsForTheDay")){
+       /* if(getIntent().hasExtra("isFromCallsForTheDay")){
             binding.labelLoanCollection.setText(getResources().getString(R.string.calls_for_the_day));
+        }*/
+        setToolbarTitle();
+
+    }
+
+    private void setToolbarTitle(){
+        int DPD_row_position = getIntent().getIntExtra("DPD_row_position",0);
+
+        if(DPD_row_position==0){
+            binding.txtToolbarHeading.setText(getString(R.string.calling_1_30_dpd));
+        }
+        if(DPD_row_position ==1){
+            binding.txtToolbarHeading.setText(getString(R.string.calling_31_60_dpd));
+        }
+        if(DPD_row_position==2){
+            binding.txtToolbarHeading.setText(getString(R.string.calling_above_60_dpd));
+        }
+
+        if(getIntent().hasExtra("isFromCallsForTheDay")){
+            binding.txtToolbarHeading.setText(getResources().getString(R.string.calls_for_the_day));
         }
 
     }

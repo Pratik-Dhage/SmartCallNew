@@ -98,12 +98,13 @@
 
         <ImageView
             android:id="@+id/ivMap"
-            android:layout_width="@dimen/_18sdp"
-            android:layout_height="@dimen/_16sdp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_5sdp"
             android:src="@drawable/location"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/txtDistance"
+            app:layout_constraintBottom_toBottomOf="@id/txtDistance"
             app:tint="@color/red" />
 
 
