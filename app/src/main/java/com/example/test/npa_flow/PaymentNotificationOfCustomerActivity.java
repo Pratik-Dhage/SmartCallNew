@@ -47,6 +47,13 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
         binding.ivBack.setOnClickListener(v -> onBackPressed());
 
+        binding.btnAskedToCallBackLater.setOnClickListener(v->{
+
+            Intent i = new Intent(PaymentNotificationOfCustomerActivity.this,ScheduleVisitForCollectionActivity.class);
+            i.putExtra("isFromPaymentNotificationOfCustomerActivity","isFromPaymentNotificationOfCustomerActivity");
+            startActivity(i);
+
+        });
 
         binding.btnOthers.setOnClickListener(v->{
 

@@ -48,7 +48,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_13ssp"
-                        android:textStyle="bold"
+                        android:textStyle="normal"
                         tools:text="Calling-Above 30 DPD" />
 
                 </androidx.appcompat.widget.Toolbar>

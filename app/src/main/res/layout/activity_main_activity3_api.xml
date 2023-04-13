@@ -30,7 +30,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
-                android:textStyle="bold" />
+                android:textStyle="normal" />
 
         </androidx.appcompat.widget.Toolbar>
 
