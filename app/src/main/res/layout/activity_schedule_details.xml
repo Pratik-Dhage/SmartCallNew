@@ -8,28 +8,40 @@
         android:layout_height="match_parent"
         tools:context=".schedule_flow.ScheduleDetailsActivity">
 
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/toolBarStyle"
+            android:background="@color/textBlue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/labelScheduleDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/schedule_details"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="normal" />
+
+        </androidx.appcompat.widget.Toolbar>
+
         <ImageView
             android:id="@+id/ivBack"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/toolbar"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:src="@drawable/back_arrow"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            app:tint="@color/textBlue" />
+            app:tint="@color/white" />
 
-
-        <TextView
-            android:id="@+id/labelSceduleDetails"
-            style="@style/heading_text_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:text="@string/schedule_details"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <!--Calender 1 -->
 
@@ -57,8 +69,8 @@
             android:layout_marginStart="@dimen/_20sdp"
             android:text="Satya Thakur"
             android:textStyle="normal"
-            android:layout_marginTop="@dimen/_40sdp"
-            app:layout_constraintTop_toBottomOf="@id/labelSceduleDetails"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toEndOf="@id/txtDate1"
            />
 

@@ -33,10 +33,21 @@
                 android:text="@string/list_of_leads"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="normal" />
 
         </androidx.appcompat.widget.Toolbar>
+
+        <ImageView
+            android:id="@+id/ivBack"
+            app:layout_constraintTop_toTopOf="@id/toolbar"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:src="@drawable/back_arrow"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            app:tint="@color/white" />
 
         <ScrollView
             android:id="@+id/LeadsScrollView"

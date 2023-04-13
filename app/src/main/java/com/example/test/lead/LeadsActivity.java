@@ -201,6 +201,9 @@ public class LeadsActivity extends AppCompatActivity {
 
 
     private void onClickListener() {
+
+        binding.ivBack.setOnClickListener(v->{ onBackPressed();});
+
         binding.leadFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
