@@ -17,6 +17,26 @@ public class LoanCollectionListResponseModel implements Serializable {
 
   private String location;
 
+  private Double lattitute;
+
+  private Double longitute;
+
+  public Double getLattitute() {
+    return lattitute;
+  }
+
+  public void setLattitute(Double lattitute) {
+    this.lattitute = lattitute;
+  }
+
+  public Double getLongitute() {
+    return longitute;
+  }
+
+  public void setLongitute(Double longitute) {
+    this.longitute = longitute;
+  }
+
   public Integer getDataSetId() {
     return this.dataSetId;
   }

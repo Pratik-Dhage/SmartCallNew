@@ -52,7 +52,14 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
         //opens Google Maps
         holder.binding.ivMap.setOnClickListener(v->{
+
+            // Pass LatLong to Google Maps in WebViewActivity
+             String latitude = a.getLattitute().toString();
+             String longitude = a.getLongitute().toString();
+
             Intent googleMapsIntent = new Intent(context, WebViewActivity.class);
+            googleMapsIntent.putExtra("latitude",latitude);
+            googleMapsIntent.putExtra("longitude",longitude);
             context.startActivity(googleMapsIntent);
         });
 

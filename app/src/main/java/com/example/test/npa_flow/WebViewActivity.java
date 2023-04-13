@@ -44,10 +44,25 @@ public class WebViewActivity extends AppCompatActivity {
        WebView webView = binding.webView;
        webView.getSettings().setJavaScriptEnabled(true); // enable JavaScript
        webView.setWebViewClient(new WebViewClient()); //  WebViewClient to handle page loading
-       String location = "Navi Mumbai";
-       String url = "https://www.google.com/maps?q=" + location;
-       webView.loadUrl(url); // load the Google Maps URL with the location
 
+       if(getIntent().hasExtra("latitude") && getIntent().hasExtra("longitude"))
+       {
+
+           String latitude = getIntent().getStringExtra("latitude");
+           String longitude = getIntent().getStringExtra("longitude");
+           // String location = "Navi Mumbai";
+           String location = latitude + "," + longitude;  // set LatLong as location
+           String url = "https://www.google.com/maps?q=" + location;
+           webView.loadUrl(url); // load the Google Maps URL with the location
+
+       }
+
+       else{
+            String location = "Navi Mumbai";
+           String url = "https://www.google.com/maps?q=" + location;
+           webView.loadUrl(url); // load the Google Maps URL with the location
+
+       }
 
    }
 }
