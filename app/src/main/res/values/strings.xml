@@ -194,12 +194,17 @@
     <string name="not_taken_loan">Not taken Loan</string>
     <string name="loan_taken_by_relative">Loan Taken By Relative</string>
     <string name="please_specify_name_and_contact_number">Please Specify Name &amp; Contact No.</string>
+    <string name="please_specify_name">Please Specify Name</string>
+    <string name="please_specify_contact">Please Specify Contact</string>
     <string name="km">km</string>
     <string name="schedule_call">Schedule Call</string>
     <string name="update">Update</string>
     <string name="calling_1_30_dpd">Calling-1 to 30 DPD</string>
     <string name="calling_31_60_dpd">Calling-31 to 60 DPD</string>
     <string name="calling_above_60_dpd">Calling-Above 60 DPD</string>
+    <string name="member_details">Member Details</string>
+    <string name="contact">Contact No.</string>
+    <string name="status">Status :</string>
 
 
 </resources>

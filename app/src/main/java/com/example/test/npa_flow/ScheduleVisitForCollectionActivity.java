@@ -50,6 +50,10 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
            binding.labelScheduleVisit.setText(getString(R.string.schedule_call));
            binding.btnUpdateSchedule.setText(getString(R.string.update));
         }
+
+        if(getIntent().hasExtra("isFromPaymentInfoOfCustomerActivity")){
+            binding.btnWillPayLumpsum.setVisibility(View.VISIBLE);
+        }
     }
 
     private void onClickListener() {

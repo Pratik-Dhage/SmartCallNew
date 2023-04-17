@@ -80,6 +80,24 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
 
+                <!--This button will be displayed when coming from PaymentInfoOfCustomer-->
+                <Button
+                    android:id="@+id/btnWillPayLumpsum"
+                    style="@style/BigButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_80sdp"
+                    android:text="@string/will_pay_lumpsum"
+                    android:textStyle="normal"
+                    android:visibility="gone"
+                    android:backgroundTint="@color/brightOrange"
+                    app:layout_constraintTop_toBottomOf="@id/btnUpdateSchedule"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>

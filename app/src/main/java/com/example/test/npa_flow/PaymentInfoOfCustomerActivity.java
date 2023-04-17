@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.test.R;
+import com.example.test.databinding.ActivityPaymentInfoOfCustomer2Binding;
+import com.example.test.databinding.ActivityPaymentInfoOfCustomer3Binding;
 import com.example.test.databinding.ActivityPaymentInfoOfCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 
@@ -23,7 +25,7 @@ import java.util.Date;
 
 public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
-    ActivityPaymentInfoOfCustomerBinding binding;
+    ActivityPaymentInfoOfCustomer3Binding binding;
     View view ;
 
 
@@ -33,12 +35,12 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
        // setContentView(R.layout.activity_payment_info_of_customer);
 
         initializeFields();
-        onClickListener();
+       onClickListener();
     }
 
     private void initializeFields() {
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_info_of_customer);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_info_of_customer3);
         view = binding.getRoot();
     }
 
@@ -56,8 +58,11 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        binding.btnWillPayLumpsum.setOnClickListener(v->{
-            startActivity(new Intent(PaymentInfoOfCustomerActivity.this,VisitCompletionOfCustomerActivity.class));
+        binding.btnWillPayLater.setOnClickListener(v->{
+            Intent i = new Intent(PaymentInfoOfCustomerActivity.this,ScheduleVisitForCollectionActivity.class);
+            i.putExtra("isFromPaymentInfoOfCustomerActivity","isFromPaymentInfoOfCustomerActivity");
+            startActivity(i);
+
         });
 
         binding.btnFoNotAttendedMeeting.setOnClickListener(v->{
@@ -72,42 +77,53 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
             binding.btnAlreadyPaid.setVisibility(View.INVISIBLE);
             binding.txtUploadFile.setVisibility(View.VISIBLE);
-            binding.ivCancelFileUpload.setVisibility(View.VISIBLE);
+            binding.ivGoBack.setVisibility(View.VISIBLE);
             binding.ivUploadFile.setVisibility(View.VISIBLE);
 
         });
 
-        binding.ivCancelFileUpload.setOnClickListener(v->{
+        binding.ivGoBack.setOnClickListener(v->{
             binding.btnAlreadyPaid.setVisibility(View.VISIBLE);
-            binding.ivCancelFileUpload.setVisibility(View.INVISIBLE);
+            binding.ivGoBack.setVisibility(View.INVISIBLE);
             binding.ivUploadFile.setVisibility(View.INVISIBLE);
             binding.txtUploadFile.setVisibility(View.INVISIBLE);
         });
 
         binding.btnOthers.setOnClickListener(v->{
 
-            if(binding.edtPleaseSpecify.getVisibility()==View.INVISIBLE){
+            if(binding.edtPleaseSpecify.getVisibility()==View.GONE){
                binding.edtPleaseSpecify.setVisibility(View.VISIBLE);
                binding.ivForwardArrowOthers.setVisibility(View.VISIBLE);
             }
             else{
-                binding.edtPleaseSpecify.setVisibility(View.INVISIBLE);
-                binding.ivForwardArrowOthers.setVisibility(View.INVISIBLE);
+                binding.edtPleaseSpecify.setVisibility(View.GONE);
+                binding.ivForwardArrowOthers.setVisibility(View.GONE);
             }
 
         });
 
         binding.btnLoanTakenByRelative.setOnClickListener(v->{
 
-            if(binding.edtPleaseSpecifyNameAndContact.getVisibility()==View.INVISIBLE){
-                binding.edtPleaseSpecifyNameAndContact.setVisibility(View.VISIBLE);
-                binding.ivForwardArrowNameAndContact.setVisibility(View.VISIBLE);
+            if(binding.edtPleaseSpecifyName.getVisibility()==View.GONE && binding.edtPleaseSpecifyContact.getVisibility()==View.GONE){
+                binding.btnLoanTakenByRelative.setVisibility(View.INVISIBLE);
+                binding.edtPleaseSpecifyName.setVisibility(View.VISIBLE);
+                binding.edtPleaseSpecifyContact.setVisibility(View.VISIBLE);
+                binding.ivGoBack2.setVisibility(View.VISIBLE);
             }
             else{
-                binding.edtPleaseSpecifyNameAndContact.setVisibility(View.INVISIBLE);
-                binding.ivForwardArrowNameAndContact.setVisibility(View.INVISIBLE);
+                binding.btnLoanTakenByRelative.setVisibility(View.VISIBLE);
+                binding.edtPleaseSpecifyName.setVisibility(View.GONE);
+                binding.edtPleaseSpecifyContact.setVisibility(View.GONE);
+                binding.ivGoBack2.setVisibility(View.GONE);
             }
 
+        });
+
+        binding.ivGoBack2.setOnClickListener(v->{
+            binding.ivGoBack2.setVisibility(View.GONE);
+            binding.btnLoanTakenByRelative.setVisibility(View.VISIBLE);
+            binding.edtPleaseSpecifyName.setVisibility(View.GONE);
+            binding.edtPleaseSpecifyContact.setVisibility(View.GONE);
         });
 
         //for Editing Time
