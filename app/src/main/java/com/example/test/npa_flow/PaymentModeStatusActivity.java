@@ -14,31 +14,31 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.test.R;
-import com.example.test.databinding.ActivityPaymentModeBinding;
+import com.example.test.databinding.ActivityPaymentModeStatusBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class PaymentModeActivity extends AppCompatActivity {
+public class PaymentModeStatusActivity extends AppCompatActivity {
 
-    ActivityPaymentModeBinding binding;
+    ActivityPaymentModeStatusBinding binding;
     View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment_mode);
+      //  setContentView(R.layout.activity_payment_mode_status);
 
         initializeFields();
         onClickListener();
     }
 
     private void initializeFields() {
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_mode);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_payment_mode_status);
         view = binding.getRoot();
+
     }
 
     private void onClickListener() {
@@ -50,25 +50,61 @@ public class PaymentModeActivity extends AppCompatActivity {
             }
         });
 
-        binding.btnSendLinkForOnlinePayment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        binding.btnWillPayLater.setOnClickListener(v -> {
 
-                Intent i = new Intent(PaymentModeActivity.this,PaymentModeStatusActivity.class);
-                startActivity(i);
+            Intent i = new Intent(this,ScheduleVisitForCollectionActivity.class);
+            i.putExtra("isFromPaymentModeStatusActivity","isFromPaymentModeStatusActivity");
+            startActivity(i);
 
-            }
         });
 
+        binding.btnPartialAmountPaid.setOnClickListener(v -> {
 
-        binding.btnScheduleVisitForCollection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(PaymentModeActivity.this,ScheduleVisitForCollectionActivity.class);
-                startActivity(i);
-
+            if(binding.txtUploadFile.getVisibility()==View.INVISIBLE){
+                binding.btnPartialAmountPaid.setVisibility(View.INVISIBLE);
+                binding.txtUploadFile.setVisibility(View.VISIBLE);
+                binding.ivGoBack.setVisibility(View.VISIBLE);
+                binding.ivUploadFile.setVisibility(View.VISIBLE);
             }
+
+        });
+
+        binding.ivGoBack.setOnClickListener(v -> {
+            binding.btnPartialAmountPaid.setVisibility(View.VISIBLE);
+            binding.txtUploadFile.setVisibility(View.INVISIBLE);
+            binding.ivGoBack.setVisibility(View.INVISIBLE);
+            binding.ivUploadFile.setVisibility(View.INVISIBLE);
+
+
+        });
+
+        binding.btnFullAmountPaid.setOnClickListener(v -> {
+
+            if(binding.txtUploadFile2.getVisibility()==View.INVISIBLE){
+                binding.btnFullAmountPaid.setVisibility(View.INVISIBLE);
+                binding.txtUploadFile2.setVisibility(View.VISIBLE);
+                binding.ivGoBack2.setVisibility(View.VISIBLE);
+                binding.ivUploadFile2.setVisibility(View.VISIBLE);
+            }
+
+        });
+
+        binding.ivGoBack2.setOnClickListener(v->{
+            binding.btnFullAmountPaid.setVisibility(View.VISIBLE);
+            binding.txtUploadFile2.setVisibility(View.INVISIBLE);
+            binding.ivGoBack2.setVisibility(View.INVISIBLE);
+            binding.ivUploadFile2.setVisibility(View.INVISIBLE);
+
+        });
+
+        //for test/temporary purpose
+
+        binding.txtUploadFile.setOnClickListener(v -> {
+            startActivity(new Intent(this,SchedulerActivity.class));
+        });
+
+        binding.txtUploadFile2.setOnClickListener(v -> {
+            startActivity(new Intent(this,VisitCompletionOfCustomerActivity.class));
         });
 
         binding.btnNearBy.setOnClickListener(v->{
@@ -165,7 +201,6 @@ public class PaymentModeActivity extends AppCompatActivity {
             TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
             txtCustom.setVisibility(View.VISIBLE);
 
-
             customText.setText(getResources().getString(R.string.lead_history));
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -181,9 +216,11 @@ public class PaymentModeActivity extends AppCompatActivity {
                 }
             });
 
-
-
         });
 
     }
+
+
+
+
 }

@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         style="@style/MainConstraintStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".npa_flow.PaymentInfoOfCustomerActivity">
+        tools:context=".npa_flow.PaymentModeStatusActivity">
+
 
         <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/toolbar"
+            style="@style/toolBarStyle"
             android:background="@color/textBlue"
-          style="@style/toolBarStyle">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <TextView
                 android:id="@+id/txtToolbarHeading"
-                android:textSize="@dimen/_13ssp"
-                android:text="@string/member_details"
-                android:layout_gravity="center"
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Payment Status"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp" />
 
 
         </androidx.appcompat.widget.Toolbar>
@@ -35,9 +37,9 @@
             android:layout_height="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:src="@drawable/back_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-             app:layout_constraintBottom_toBottomOf="@id/toolbar"
             app:tint="@color/white" />
 
 
@@ -46,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@id/clSecondHalf"
-           app:layout_constraintTop_toBottomOf="@id/toolbar">
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <ScrollView
                 android:id="@+id/paymentInfoOfCustomerScrollView"
@@ -65,7 +67,6 @@
                     android:layout_height="wrap_content">
 
 
-
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardViewPersonalDetails"
                         android:layout_width="match_parent"
@@ -78,7 +79,7 @@
                         app:cardElevation="@dimen/_5sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                       app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/clCardView"
@@ -176,9 +177,9 @@
                                 android:gravity="center"
                                 android:padding="@dimen/_5sdp"
                                 android:text="@string/near_by"
-                                android:textSize="@dimen/_11ssp"
                                 android:textAlignment="center"
                                 android:textColor="@color/white"
+                                android:textSize="@dimen/_11ssp"
                                 app:layout_constraintBottom_toBottomOf="@id/labelLocation"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/labelLocation" />
@@ -503,11 +504,11 @@
                                 android:background="@drawable/round_corner_bg"
                                 android:backgroundTint="@color/textBlue"
                                 android:gravity="center"
-                                android:textSize="@dimen/_11ssp"
                                 android:padding="@dimen/_5sdp"
                                 android:text="@string/calculate"
                                 android:textAlignment="center"
                                 android:textColor="@color/white"
+                                android:textSize="@dimen/_11ssp"
                                 app:layout_constraintBottom_toBottomOf="@id/labelBalanceInterest"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/labelBalanceInterest" />
@@ -636,10 +637,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:paddingBottom="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@id/clFirstHalf">
 
 
@@ -668,44 +669,30 @@
 
 
             <Button
-                android:id="@+id/btnWillPayLater"
-                style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:backgroundTint="@color/blueButton"
-                android:text="@string/will_pay_later"
-                android:textStyle="normal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btnAlreadyPaid" />
-
-
-            <Button
-                android:id="@+id/btnAlreadyPaid"
-                style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:backgroundTint="@color/blueButton"
-                android:text="@string/already_paid"
+                android:id="@+id/btnPartialAmountPaid"
+                style="@style/BigButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/brightOrange"
+                android:text="@string/partial_amount_paid"
                 android:textStyle="normal"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivHistory" />
-
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
 
             <TextView
                 android:id="@+id/txtUploadFile"
                 style="@style/common_text_style"
-                android:layout_marginStart="@dimen/_10sdp"
                 android:text="@string/upload_file"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_13ssp"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/btnAlreadyPaid"
-                app:layout_constraintStart_toStartOf="@id/btnAlreadyPaid"
-                app:layout_constraintTop_toTopOf="@id/btnAlreadyPaid" />
+                app:layout_constraintBottom_toBottomOf="@id/btnPartialAmountPaid"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btnPartialAmountPaid" />
 
             <ImageView
                 android:id="@+id/ivUploadFile"
@@ -746,140 +733,89 @@
                 app:layout_constraintTop_toTopOf="@id/ivUploadFile"
                 app:tint="@color/textBlue" />
 
+
             <Button
-                android:id="@+id/btnFoNotAttendedMeeting"
-                style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_marginStart="@dimen/_5sdp"
+                android:id="@+id/btnFullAmountPaid"
+                style="@style/BigButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:backgroundTint="@color/blueButton"
-                android:text="@string/fo_not_attended_meeting"
-                android:textStyle="normal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnWillPayLater" />
-
-            <Button
-                android:id="@+id/btnNotTakenLoan"
-                style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:backgroundTint="@color/blueButton"
-                android:text="@string/not_taken_loan"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="@+id/btnFoNotAttendedMeeting"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btnFoNotAttendedMeeting" />
-
-
-            <Button
-                android:id="@+id/btnLoanTakenByRelative"
-                style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:backgroundTint="@color/blueButton"
-                android:text="@string/loan_taken_by_relative"
+                android:backgroundTint="@color/green"
+                android:text="@string/full_amount_paid"
                 android:textStyle="normal"
                 android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnFoNotAttendedMeeting" />
+                app:layout_constraintTop_toBottomOf="@id/btnPartialAmountPaid" />
 
-            <EditText
-                android:id="@+id/edtPleaseSpecifyName"
-                android:layout_width="@dimen/_140sdp"
-                android:inputType="text"
-                android:maxLength="20"
+            <TextView
+                android:id="@+id/txtUploadFile2"
+                style="@style/common_text_style"
+                android:text="@string/upload_file"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_13ssp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:backgroundTint="@color/grey"
-                android:hint="@string/please_specify_name"
-                app:layout_constraintStart_toStartOf="@id/btnFoNotAttendedMeeting"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/btnFoNotAttendedMeeting" />
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/btnFullAmountPaid"
+                app:layout_constraintStart_toStartOf="@id/txtUploadFile"
+                app:layout_constraintTop_toTopOf="@id/btnFullAmountPaid" />
 
-            <EditText
-                android:id="@+id/edtPleaseSpecifyContact"
-                android:layout_width="wrap_content"
-                android:inputType="number"
-                android:maxLength="10"
-                android:textSize="@dimen/_13ssp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:backgroundTint="@color/grey"
-                android:hint="@string/contact"
-                app:layout_constraintStart_toStartOf="@id/btnFoNotAttendedMeeting"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/edtPleaseSpecifyName" />
+            <ImageView
+                android:id="@+id/ivUploadFile2"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:src="@drawable/upload_file"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/txtUploadFile2"
+                app:layout_constraintStart_toEndOf="@id/txtUploadFile2"
+                app:layout_constraintTop_toTopOf="@id/txtUploadFile2"
+                app:tint="@color/textBlue" />
 
+            <!--This Icon will Appear after file has been uploaded-->
+            <ImageView
+                android:id="@+id/ivCancelFileUpload2"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:src="@drawable/cancel_close"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/ivUploadFile2"
+                app:layout_constraintStart_toEndOf="@id/ivUploadFile2"
+                app:layout_constraintTop_toTopOf="@id/ivUploadFile2"
+                app:tint="@color/red" />
 
             <ImageView
                 android:id="@+id/ivGoBack2"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
                 android:src="@drawable/refresh_go_back"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/edtPleaseSpecifyContact"
-                app:layout_constraintStart_toEndOf="@+id/edtPleaseSpecifyContact"
-                app:layout_constraintTop_toTopOf="@+id/edtPleaseSpecifyContact"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/ivUploadFile2"
+                app:layout_constraintStart_toEndOf="@id/ivUploadFile2"
+                app:layout_constraintTop_toTopOf="@id/ivUploadFile2"
                 app:tint="@color/textBlue" />
 
-   <!--This icon will appear when Name and Contact validations are fulfilled-->
-            <ImageView
-                android:id="@+id/ivForwardArrowNameAndContact"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/forward_arrow"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/edtPleaseSpecifyContact"
-                app:layout_constraintStart_toEndOf="@+id/edtPleaseSpecifyContact"
-                app:layout_constraintTop_toTopOf="@+id/edtPleaseSpecifyContact"
-                app:tint="@color/textBlue" />
 
             <Button
-                android:id="@+id/btnOthers"
-                style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:backgroundTint="@color/blueButton"
-                android:text="@string/others"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="@+id/btnLoanTakenByRelative"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btnLoanTakenByRelative" />
-
-            <EditText
-                android:id="@+id/edtPleaseSpecify"
-                android:layout_width="@dimen/_100sdp"
+                android:id="@+id/btnWillPayLater"
+                style="@style/BigButtonStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:backgroundTint="@color/grey"
-                android:hint="@string/please_specify"
-                android:textSize="@dimen/_13ssp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@id/btnOthers"
-                app:layout_constraintStart_toStartOf="@id/btnOthers"
-                app:layout_constraintTop_toBottomOf="@id/btnOthers" />
-
-
-            <ImageView
-                android:id="@+id/ivForwardArrowOthers"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/forward_arrow"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/edtPleaseSpecify"
-                app:layout_constraintStart_toEndOf="@+id/edtPleaseSpecify"
-                app:layout_constraintTop_toTopOf="@+id/edtPleaseSpecify"
-                app:tint="@color/textBlue" />
+                android:layout_marginTop="@dimen/_10sdp"
+                android:backgroundTint="@color/skyBlue"
+                android:text="@string/will_pay_later"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnFullAmountPaid" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

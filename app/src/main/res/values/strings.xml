@@ -205,6 +205,9 @@
     <string name="member_details">Member Details</string>
     <string name="contact">Contact No.</string>
     <string name="status">Status :</string>
+    <string name="partial_amount_paid">Partial Amount Paid</string>
+    <string name="full_amount_paid">Full Amount Paid</string>
+    <string name="scheduler">Scheduler</string>
 
 
 </resources>

@@ -46,7 +46,11 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
     private void setUpTitleAndButtonText(){
 
-        if(getIntent().hasExtra("isFromPaymentNotificationOfCustomerActivity")){
+        if(getIntent().hasExtra("isFromPaymentNotificationOfCustomerActivity")
+                || getIntent().hasExtra("isFromPaymentModeStatusActivity")
+        || getIntent().hasExtra("isCall")
+
+        ){
            binding.labelScheduleVisit.setText(getString(R.string.schedule_call));
            binding.btnUpdateSchedule.setText(getString(R.string.update));
         }
