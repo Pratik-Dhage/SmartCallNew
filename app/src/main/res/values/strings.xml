@@ -208,6 +208,9 @@
     <string name="partial_amount_paid">Partial Amount Paid</string>
     <string name="full_amount_paid">Full Amount Paid</string>
     <string name="scheduler">Scheduler</string>
+    <string name="skip_and_proceed">Skip and Proceed</string>
+    <string name="upload_receipt">Upload Receipt</string>
+    <string name="proceed">Proceed</string>
 
 
 </resources>

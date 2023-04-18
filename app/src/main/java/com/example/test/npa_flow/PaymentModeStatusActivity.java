@@ -1,21 +1,29 @@
 package com.example.test.npa_flow;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityPaymentModeStatusBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
+import com.example.test.helper_classes.Global;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -25,6 +33,9 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
 
     ActivityPaymentModeStatusBinding binding;
     View view;
+    View customDialogImagePicker;
+    private ActivityResultLauncher<Intent> pickImageLauncher;
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +44,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
 
         initializeFields();
         onClickListener();
+        setUpImagePicker();
     }
 
     private void initializeFields() {
@@ -40,6 +52,54 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
         view = binding.getRoot();
 
     }
+
+    private void setUpImagePicker(){
+        // Initialize the ActivityResultLauncher
+        pickImageLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                // Get the file URI and file name
+                Uri uri = result.getData().getData();
+                String fileName = getFileNameFromUri(uri);
+
+                // Set the file name on the TextView
+                TextView txtUploadReceipt = customDialogImagePicker.findViewById(R.id.txtUploadReceipt);
+                TextView txtProceed = customDialogImagePicker.findViewById(R.id.txtProceed);
+                TextView txtSkipAndProceed = customDialogImagePicker.findViewById(R.id.txtSkipAndProceed);
+
+                txtUploadReceipt.setText(fileName);
+                txtProceed.setVisibility(View.VISIBLE);
+                txtSkipAndProceed.setVisibility(View.GONE);
+
+            }
+        });
+    }
+
+    // Get the file name from the file URI
+    private String getFileNameFromUri(Uri uri) {
+        String fileName = null;
+        String scheme = uri.getScheme();
+        if (scheme != null && scheme.equals("content")) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                if (columnIndex != -1) {
+                    fileName = cursor.getString(columnIndex);
+                }
+                cursor.close();
+            }
+        }
+        if (fileName == null) {
+            fileName = uri.getPath();
+            int cut = fileName.lastIndexOf('/');
+            if (cut != -1) {
+                fileName = fileName.substring(cut + 1);
+            }
+        }
+        return fileName;
+    }
+
+
+
 
     private void onClickListener() {
 
@@ -60,52 +120,77 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
 
         binding.btnPartialAmountPaid.setOnClickListener(v -> {
 
-            if(binding.txtUploadFile.getVisibility()==View.INVISIBLE){
-                binding.btnPartialAmountPaid.setVisibility(View.INVISIBLE);
-                binding.txtUploadFile.setVisibility(View.VISIBLE);
-                binding.ivGoBack.setVisibility(View.VISIBLE);
-                binding.ivUploadFile.setVisibility(View.VISIBLE);
-            }
+             customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
+           ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivClose);
+           TextView txtUploadReceipt = customDialogImagePicker.findViewById(R.id.txtUploadReceipt);
+            TextView txtCancel = customDialogImagePicker.findViewById(R.id.txtCancel);
+
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(customDialogImagePicker);
+            final AlertDialog dialog = builder.create();
+            dialog.setCancelable(true);
+            dialog.show();
+
+
+            txtUploadReceipt.setOnClickListener(v2->{
+
+                // Open gallery to pick an image
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                pickImageLauncher.launch(Intent.createChooser(intent, "Select File"));
+
+
+            });
+
+            ivCancel.setOnClickListener(v1->{
+                dialog.dismiss();
+            });
+
+            txtCancel.setOnClickListener(v1->{
+                dialog.dismiss();
+            });
 
         });
 
-        binding.ivGoBack.setOnClickListener(v -> {
-            binding.btnPartialAmountPaid.setVisibility(View.VISIBLE);
-            binding.txtUploadFile.setVisibility(View.INVISIBLE);
-            binding.ivGoBack.setVisibility(View.INVISIBLE);
-            binding.ivUploadFile.setVisibility(View.INVISIBLE);
-
-
-        });
 
         binding.btnFullAmountPaid.setOnClickListener(v -> {
 
-            if(binding.txtUploadFile2.getVisibility()==View.INVISIBLE){
-                binding.btnFullAmountPaid.setVisibility(View.INVISIBLE);
-                binding.txtUploadFile2.setVisibility(View.VISIBLE);
-                binding.ivGoBack2.setVisibility(View.VISIBLE);
-                binding.ivUploadFile2.setVisibility(View.VISIBLE);
-            }
+            customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
+            ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivClose);
+            TextView txtUploadReceipt = customDialogImagePicker.findViewById(R.id.txtUploadReceipt);
+            TextView txtCancel = customDialogImagePicker.findViewById(R.id.txtCancel);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(customDialogImagePicker);
+            final AlertDialog dialog = builder.create();
+            dialog.setCancelable(true);
+            dialog.show();
+
+
+            txtUploadReceipt.setOnClickListener(v2->{
+
+                // Open gallery to pick an image
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                pickImageLauncher.launch(Intent.createChooser(intent, "Select File"));
+
+
+            });
+
+            ivCancel.setOnClickListener(v1->{
+                dialog.dismiss();
+            });
+
+            txtCancel.setOnClickListener(v1->{
+                dialog.dismiss();
+            });
 
         });
 
-        binding.ivGoBack2.setOnClickListener(v->{
-            binding.btnFullAmountPaid.setVisibility(View.VISIBLE);
-            binding.txtUploadFile2.setVisibility(View.INVISIBLE);
-            binding.ivGoBack2.setVisibility(View.INVISIBLE);
-            binding.ivUploadFile2.setVisibility(View.INVISIBLE);
 
-        });
 
-        //for test/temporary purpose
 
-        binding.txtUploadFile.setOnClickListener(v -> {
-            startActivity(new Intent(this,SchedulerActivity.class));
-        });
-
-        binding.txtUploadFile2.setOnClickListener(v -> {
-            startActivity(new Intent(this,VisitCompletionOfCustomerActivity.class));
-        });
 
         binding.btnNearBy.setOnClickListener(v->{
             Intent i = new Intent(this, NearByCustomersActivity.class);
