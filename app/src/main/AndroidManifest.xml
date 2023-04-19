@@ -149,7 +149,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".npa_flow.DetailsOfCustomerActivity"
+            android:name=".npa_flow.details_of_customer.DetailsOfCustomerActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

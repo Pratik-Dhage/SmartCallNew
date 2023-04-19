@@ -211,6 +211,7 @@
     <string name="skip_and_proceed">Skip and Proceed</string>
     <string name="upload_receipt">Upload Receipt</string>
     <string name="proceed">Proceed</string>
+    <string name="details_not_found">Details Not Found</string>
 
 
 </resources>

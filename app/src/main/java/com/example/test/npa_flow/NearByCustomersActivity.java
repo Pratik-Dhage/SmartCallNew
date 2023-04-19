@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.test.MainActivity3;
 import com.example.test.R;
 import com.example.test.databinding.ActivityNearByCustomersBinding;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 
 public class NearByCustomersActivity extends AppCompatActivity {
 

@@ -12,6 +12,7 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityLoanCollectionBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 
 public class LoanCollectionActivity extends AppCompatActivity {
@@ -75,6 +76,9 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
     private void call_LoanCollectionList_Api(int DPD_row_position) {
         loanCollectionViewModel.getLoanCollectionList_Data(DPD_row_position);
+
+        DetailsOfCustomerViewModel detailsOfCustomerViewModel = new DetailsOfCustomerViewModel();
+        detailsOfCustomerViewModel.dpd_row_position = DPD_row_position; // to call DetailsOfCustomer api according to position
     }
 
     private void setUpLoanCollectionList_RecyclerView(){
@@ -87,9 +91,12 @@ public class LoanCollectionActivity extends AppCompatActivity {
     private void initObserver(){
 
         binding.loadingProgressBar.setVisibility(View.VISIBLE);
+
+        if(NetworkUtilities.getConnectivityStatus(this)){
+
         loanCollectionViewModel.getMutLoanCollectionList_ResponseApi().observe(this,result->{
 
-            if(NetworkUtilities.getConnectivityStatus(this)){
+
 
                 if(result!=null){
 
@@ -99,12 +106,25 @@ public class LoanCollectionActivity extends AppCompatActivity {
                     binding.loadingProgressBar.setVisibility(View.GONE);
 
                 }
-            }
-            else{
-                Global.showToast(this,getString(R.string.check_internet_connection));
-            }
+
 
         });
+
+        //handle  error response
+        loanCollectionViewModel.getMutErrorResponse().observe(this, error -> {
+
+            if (error != null && !error.isEmpty()) {
+                Global.showSnackBar(view, error);
+                System.out.println("Here: " + error);
+            } else {
+                Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+            }
+        });
+
+        }
+            else{
+            Global.showToast(this,getString(R.string.check_internet_connection));
+        }
 
     }
 

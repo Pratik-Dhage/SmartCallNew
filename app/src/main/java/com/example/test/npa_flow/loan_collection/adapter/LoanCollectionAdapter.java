@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.test.R;
 import com.example.test.databinding.ItemDpdBinding;
 import com.example.test.databinding.ItemLoanCollectionBinding;
-import com.example.test.npa_flow.DetailsOfCustomerActivity;
+import com.example.test.helper_classes.Global;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.WebViewActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
@@ -24,7 +26,13 @@ import java.util.List;
 
 public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAdapter.MyViewHolderClass> {
 
-  ArrayList<LoanCollectionListResponseModel> loanCollectionListResponseModelArrayList;
+
+
+    public LoanCollectionAdapter() {
+        //to use dataSetId in DetailsOfCustomerViewModel
+    }
+
+    ArrayList<LoanCollectionListResponseModel> loanCollectionListResponseModelArrayList;
 
     public LoanCollectionAdapter(ArrayList<LoanCollectionListResponseModel> loanCollectionListResponseModelArrayList) {
         this.loanCollectionListResponseModelArrayList = loanCollectionListResponseModelArrayList;
@@ -64,7 +72,10 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
         });
 
         holder.itemView.setOnClickListener(v->{
+
+            String dataSetId = a.getDataSetId().toString();
             Intent i = new Intent(context, DetailsOfCustomerActivity.class);
+            i.putExtra("dataSetId",dataSetId);
             context.startActivity(i);
         });
     }
