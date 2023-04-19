@@ -25,6 +25,19 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:src="@drawable/back_arrow"
+                   android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/textBlue" />
+
+
+
+                <ImageView
                     android:id="@+id/ivRefreshClearData"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_18sdp"

@@ -36,6 +36,10 @@ View view ;
 
     private void onClickListener() {
 
+        binding.ivBack.setOnClickListener(v->{
+            onBackPressed();
+        });
+
    binding.btnCalculate.setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View v) {
