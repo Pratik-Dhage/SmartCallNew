@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -82,10 +84,12 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 TextView txtUploadReceipt = customDialogImagePicker.findViewById(R.id.txtUploadReceipt);
                 TextView txtProceed = customDialogImagePicker.findViewById(R.id.txtProceed);
                 TextView txtSkipAndProceed = customDialogImagePicker.findViewById(R.id.txtSkipAndProceed);
+                Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
 
                 txtUploadReceipt.setText(fileName);
                 txtProceed.setVisibility(View.VISIBLE);
                 txtSkipAndProceed.setVisibility(View.GONE);
+                btnUploadReceipt.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -182,19 +186,22 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
         binding.txtUploadFile.setOnClickListener(v -> {
 
             customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
-            ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivClose);
-            TextView txtUploadReceipt = customDialogImagePicker.findViewById(R.id.txtUploadReceipt);
-            TextView txtCancel = customDialogImagePicker.findViewById(R.id.txtCancel);
+            ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivCancel);
+
+            Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
+
 
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(customDialogImagePicker);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
             dialog.show();
 
 
-            txtUploadReceipt.setOnClickListener(v2->{
+            btnUploadReceipt.setOnClickListener(v2->{
 
                 // Open gallery to pick an image
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -208,9 +215,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 dialog.dismiss();
             });
 
-            txtCancel.setOnClickListener(v1->{
-                dialog.dismiss();
-            });
+
 
         });
 
