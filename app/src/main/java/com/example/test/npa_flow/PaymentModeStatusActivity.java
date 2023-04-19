@@ -43,6 +43,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
       //  setContentView(R.layout.activity_payment_mode_status);
 
         initializeFields();
+        getDetailsOfCustomerFromIntent();
         onClickListener();
         setUpImagePicker();
     }
@@ -50,6 +51,22 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_payment_mode_status);
         view = binding.getRoot();
+
+    }
+
+    private void getDetailsOfCustomerFromIntent(){
+
+        binding.txtName.setText(getIntent().getStringExtra("name"));
+        binding.txtMobileNumber.setText(getIntent().getStringExtra("mobile_no"));
+        binding.txtAadharNumber.setText(getIntent().getStringExtra("aadhaar_no"));
+        binding.txtDOB.setText(getIntent().getStringExtra("dob"));
+        binding.txtFatherName.setText(getIntent().getStringExtra("father_name"));
+        binding.txtLoanAccountNumber.setText(getIntent().getStringExtra("loan_acc_no"));
+        binding.txtProduct.setText(getIntent().getStringExtra("product"));
+        binding.txtAmountDueAsOnAmount.setText(getIntent().getStringExtra("amt_due"));
+        binding.txtTotalAmountPaid.setText(getIntent().getStringExtra("total_amt_paid"));
+        binding.txtBalanceInterest.setText(getIntent().getStringExtra("balance_interest"));
+        binding.txtTotalPayableAmount.setText(getIntent().getStringExtra("total_payable_amt"));
 
     }
 

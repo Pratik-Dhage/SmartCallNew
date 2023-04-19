@@ -42,7 +42,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
         initializeFields();
         onClickListener();
-         getDetailsOfCustomerDataFromApi();
+         getDetailsOfCustomerDataFromApi(); // will act as initObserver
 
 
     }
@@ -98,7 +98,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                             }
 
                             if(it.getSequence()==12){
-                                binding.txtTotalAmountPaid.setText(it.getValue()); //Amount Paid
+                                binding.txtTotalAmountPaid.setText(it.getValue()); // Total Amount Paid
                             }
 
                             if(it.getSequence()==13){
@@ -148,6 +148,24 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
     }
 
+    private void sendDetailsOfCustomer(){
+
+        Intent i = new Intent(DetailsOfCustomerActivity.this, CallDetailOfCustomerActivity.class);
+        i.putExtra("name",binding.txtName.getText().toString());
+        i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
+        i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
+        i.putExtra("dob",binding.txtDOB.getText().toString());
+        i.putExtra("father_name",binding.txtFatherName.getText().toString());
+        i.putExtra("loan_acc_no",binding.txtLoanAccountNumber.getText().toString());
+        i.putExtra("product",binding.txtProduct.getText().toString());
+        i.putExtra("amt_due",binding.txtAmountDueAsOnAmount.getText().toString());
+        i.putExtra("total_amt_paid",binding.txtTotalAmountPaid.getText().toString());
+        i.putExtra("balance_interest",binding.txtBalanceInterest.getText().toString());
+        i.putExtra("total_payable_amt",binding.txtTotalPayableAmount.getText().toString());
+        startActivity(i);
+
+    }
+
     private void onClickListener() {
 
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
@@ -161,8 +179,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(DetailsOfCustomerActivity.this, CallDetailOfCustomerActivity.class);
-                startActivity(i);
+                sendDetailsOfCustomer();
 
             }
         });

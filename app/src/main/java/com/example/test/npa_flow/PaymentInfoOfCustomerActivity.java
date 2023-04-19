@@ -43,6 +43,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
        // setContentView(R.layout.activity_payment_info_of_customer);
 
         initializeFields();
+        getDetailsOfCustomerFromIntent();
        onClickListener();
         setUpImagePicker();
     }
@@ -51,6 +52,22 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_info_of_customer3);
         view = binding.getRoot();
+    }
+
+    private void getDetailsOfCustomerFromIntent(){
+
+        binding.txtName.setText(getIntent().getStringExtra("name"));
+        binding.txtMobileNumber.setText(getIntent().getStringExtra("mobile_no"));
+        binding.txtAadharNumber.setText(getIntent().getStringExtra("aadhaar_no"));
+        binding.txtDOB.setText(getIntent().getStringExtra("dob"));
+        binding.txtFatherName.setText(getIntent().getStringExtra("father_name"));
+        binding.txtLoanAccountNumber.setText(getIntent().getStringExtra("loan_acc_no"));
+        binding.txtProduct.setText(getIntent().getStringExtra("product"));
+        binding.txtAmountDueAsOnAmount.setText(getIntent().getStringExtra("amt_due"));
+        binding.txtTotalAmountPaid.setText(getIntent().getStringExtra("total_amt_paid"));
+        binding.txtBalanceInterest.setText(getIntent().getStringExtra("balance_interest"));
+        binding.txtTotalPayableAmount.setText(getIntent().getStringExtra("total_payable_amt"));
+
     }
 
     private void setUpImagePicker(){
@@ -121,11 +138,35 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
         });
 
         binding.btnFoNotAttendedMeeting.setOnClickListener(v->{
-            startActivity(new Intent(PaymentInfoOfCustomerActivity.this,VisitCompletionOfCustomerActivity.class));
+           Intent i = new Intent(PaymentInfoOfCustomerActivity.this,VisitCompletionOfCustomerActivity.class);
+            i.putExtra("name",binding.txtName.getText().toString());
+            i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
+            i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
+            i.putExtra("dob",binding.txtDOB.getText().toString());
+            i.putExtra("father_name",binding.txtFatherName.getText().toString());
+            i.putExtra("loan_acc_no",binding.txtLoanAccountNumber.getText().toString());
+            i.putExtra("product",binding.txtProduct.getText().toString());
+            i.putExtra("amt_due",binding.txtAmountDueAsOnAmount.getText().toString());
+            i.putExtra("total_amt_paid",binding.txtTotalAmountPaid.getText().toString());
+            i.putExtra("balance_interest",binding.txtBalanceInterest.getText().toString());
+            i.putExtra("total_payable_amt",binding.txtTotalPayableAmount.getText().toString());
+            startActivity(i);
         });
 
         binding.btnNotTakenLoan.setOnClickListener(v->{
-            startActivity(new Intent(PaymentInfoOfCustomerActivity.this,VisitCompletionOfCustomerActivity.class));
+            Intent i = new Intent(PaymentInfoOfCustomerActivity.this,VisitCompletionOfCustomerActivity.class);
+            i.putExtra("name",binding.txtName.getText().toString());
+            i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
+            i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
+            i.putExtra("dob",binding.txtDOB.getText().toString());
+            i.putExtra("father_name",binding.txtFatherName.getText().toString());
+            i.putExtra("loan_acc_no",binding.txtLoanAccountNumber.getText().toString());
+            i.putExtra("product",binding.txtProduct.getText().toString());
+            i.putExtra("amt_due",binding.txtAmountDueAsOnAmount.getText().toString());
+            i.putExtra("total_amt_paid",binding.txtTotalAmountPaid.getText().toString());
+            i.putExtra("balance_interest",binding.txtBalanceInterest.getText().toString());
+            i.putExtra("total_payable_amt",binding.txtTotalPayableAmount.getText().toString());
+            startActivity(i);
         });
 
         binding.btnAlreadyPaid.setOnClickListener(v->{

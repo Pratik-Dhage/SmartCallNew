@@ -16,6 +16,7 @@ import android.widget.TimePicker;
 import com.example.test.R;
 import com.example.test.databinding.ActivityCallDetailOfCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,13 +34,49 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
 
 
         initializeFields();
+        getDetailsOfCustomerFromIntent();
         onClickListener();
+
     }
 
     private void initializeFields() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_call_detail_of_customer);
         view = binding.getRoot();
+    }
+
+    private void getDetailsOfCustomerFromIntent(){
+
+        binding.txtName.setText(getIntent().getStringExtra("name"));
+        binding.txtMobileNumber.setText(getIntent().getStringExtra("mobile_no"));
+        binding.txtAadharNumber.setText(getIntent().getStringExtra("aadhaar_no"));
+        binding.txtDOB.setText(getIntent().getStringExtra("dob"));
+        binding.txtFatherName.setText(getIntent().getStringExtra("father_name"));
+        binding.txtLoanAccountNumber.setText(getIntent().getStringExtra("loan_acc_no"));
+        binding.txtProduct.setText(getIntent().getStringExtra("product"));
+        binding.txtAmountDueAsOnAmount.setText(getIntent().getStringExtra("amt_due"));
+        binding.txtTotalAmountPaid.setText(getIntent().getStringExtra("total_amt_paid"));
+        binding.txtBalanceInterest.setText(getIntent().getStringExtra("balance_interest"));
+        binding.txtTotalPayableAmount.setText(getIntent().getStringExtra("total_payable_amt"));
+
+    }
+
+    private void sendDetailsOfCustomer(){
+
+        Intent i = new Intent(this, PaymentNotificationOfCustomerActivity.class);
+        i.putExtra("name",binding.txtName.getText().toString());
+        i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
+        i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
+        i.putExtra("dob",binding.txtDOB.getText().toString());
+        i.putExtra("father_name",binding.txtFatherName.getText().toString());
+        i.putExtra("loan_acc_no",binding.txtLoanAccountNumber.getText().toString());
+        i.putExtra("product",binding.txtProduct.getText().toString());
+        i.putExtra("amt_due",binding.txtAmountDueAsOnAmount.getText().toString());
+        i.putExtra("total_amt_paid",binding.txtTotalAmountPaid.getText().toString());
+        i.putExtra("balance_interest",binding.txtBalanceInterest.getText().toString());
+        i.putExtra("total_payable_amt",binding.txtTotalPayableAmount.getText().toString());
+        startActivity(i);
+
     }
 
     private void onClickListener() {
@@ -58,13 +95,23 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
 
         binding.btnSpokeToCustomer.setOnClickListener(v -> {
 
-            Intent i = new Intent(CallDetailOfCustomerActivity.this,PaymentNotificationOfCustomerActivity.class);
-            startActivity(i);
+            sendDetailsOfCustomer();
 
         });
 
         binding.btnNotSpokeToCustomer.setOnClickListener(v->{
             Intent i = new Intent(CallDetailOfCustomerActivity.this,NotSpokeToCustomerActivity.class);
+            i.putExtra("name",binding.txtName.getText().toString());
+            i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
+            i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
+            i.putExtra("dob",binding.txtDOB.getText().toString());
+            i.putExtra("father_name",binding.txtFatherName.getText().toString());
+            i.putExtra("loan_acc_no",binding.txtLoanAccountNumber.getText().toString());
+            i.putExtra("product",binding.txtProduct.getText().toString());
+            i.putExtra("amt_due",binding.txtAmountDueAsOnAmount.getText().toString());
+            i.putExtra("total_amt_paid",binding.txtTotalAmountPaid.getText().toString());
+            i.putExtra("balance_interest",binding.txtBalanceInterest.getText().toString());
+            i.putExtra("total_payable_amt",binding.txtTotalPayableAmount.getText().toString());
             startActivity(i);
         });
 
