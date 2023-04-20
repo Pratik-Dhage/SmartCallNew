@@ -124,8 +124,9 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
         });
 
 
+        //NearBy==Capture Button
         binding.btnNearBy.setOnClickListener(v->{
-            Intent i = new Intent(this, NearByCustomersActivity.class);
+            Intent i = new Intent(this, WebViewActivity.class);
             startActivity(i);
         });
 
