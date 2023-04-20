@@ -22,6 +22,7 @@ import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.npa_flow.CallDetailOfCustomerActivity;
 import com.example.test.npa_flow.NearByCustomersActivity;
+import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 
 import java.text.ParseException;
@@ -190,8 +191,9 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             }
         });
 
+        // NearBy == Capture Button
         binding.btnNearBy.setOnClickListener(v->{
-            Intent i = new Intent(this, NearByCustomersActivity.class);
+            Intent i = new Intent(this, WebViewActivity.class);
             startActivity(i);
         });
 

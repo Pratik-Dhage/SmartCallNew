@@ -222,6 +222,7 @@
     <string name="payment_mode">Payment Mode</string>
     <string name="call_complete">Call Complete</string>
     <string name="payment_status">Payment Status</string>
+    <string name="payment_information">Payment Information</string>
 
 
 </resources>
