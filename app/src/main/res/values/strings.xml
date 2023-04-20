@@ -215,6 +215,7 @@
     <string name="village">Village</string>
     <string name="capture">Capture</string>
     <string name="details_of_customer">Details Of Customer</string>
+    <string name="call_details_of_customer">Call Details Of Customer</string>
 
 
 </resources>
