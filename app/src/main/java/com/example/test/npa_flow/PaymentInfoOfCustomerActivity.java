@@ -23,7 +23,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.test.R;
-import com.example.test.databinding.ActivityPaymentInfoOfCustomer2Binding;
+
 import com.example.test.databinding.ActivityPaymentInfoOfCustomer3Binding;
 import com.example.test.databinding.ActivityPaymentInfoOfCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
@@ -34,7 +34,7 @@ import java.util.Date;
 
 public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
-    ActivityPaymentInfoOfCustomer3Binding binding;
+    ActivityPaymentInfoOfCustomerBinding binding;
     View view ;
     View customDialogImagePicker;
     private ActivityResultLauncher<Intent> pickImageLauncher;
@@ -52,7 +52,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
     private void initializeFields() {
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_info_of_customer3);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_info_of_customer);
         view = binding.getRoot();
     }
 
