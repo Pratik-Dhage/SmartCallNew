@@ -37,6 +37,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
     ActivityPaymentInfoOfCustomerBinding binding;
     View view ;
     View customDialogImagePicker;
+    View customDialogEditable;
     private ActivityResultLauncher<Intent> pickImageLauncher;
 
     @Override
@@ -221,31 +222,66 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
         binding.btnOthers.setOnClickListener(v->{
 
-            if(binding.edtPleaseSpecify.getVisibility()==View.GONE){
-               binding.edtPleaseSpecify.setVisibility(View.VISIBLE);
-               binding.ivForwardArrowOthers.setVisibility(View.VISIBLE);
-            }
-            else{
-                binding.edtPleaseSpecify.setVisibility(View.GONE);
-                binding.ivForwardArrowOthers.setVisibility(View.GONE);
-            }
+            customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
+            ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
+
+            Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
+            EditText edtPleaseSpecify = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
+            EditText edtPleaseSpecifyContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
+            edtPleaseSpecify.setHint(getString(R.string.please_specify));
+            edtPleaseSpecifyContact.setVisibility(View.GONE);
+
+
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(customDialogEditable);
+            final AlertDialog dialog = builder.create();
+            dialog.setCancelable(true);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            dialog.show();
+
+
+            btnProceed.setOnClickListener(v2->{
+
+
+            });
+
+            ivCancel.setOnClickListener(v1->{
+                dialog.dismiss();
+            });
+
 
         });
 
         binding.btnLoanTakenByRelative.setOnClickListener(v->{
 
-            if(binding.edtPleaseSpecifyName.getVisibility()==View.GONE && binding.edtPleaseSpecifyContact.getVisibility()==View.GONE){
-                binding.btnLoanTakenByRelative.setVisibility(View.INVISIBLE);
-                binding.edtPleaseSpecifyName.setVisibility(View.VISIBLE);
-                binding.edtPleaseSpecifyContact.setVisibility(View.VISIBLE);
-                binding.ivGoBack2.setVisibility(View.VISIBLE);
-            }
-            else{
-                binding.btnLoanTakenByRelative.setVisibility(View.VISIBLE);
-                binding.edtPleaseSpecifyName.setVisibility(View.GONE);
-                binding.edtPleaseSpecifyContact.setVisibility(View.GONE);
-                binding.ivGoBack2.setVisibility(View.GONE);
-            }
+            customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
+            ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
+
+            Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
+
+
+
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(customDialogEditable);
+            final AlertDialog dialog = builder.create();
+            dialog.setCancelable(true);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            dialog.show();
+
+
+            btnProceed.setOnClickListener(v2->{
+
+
+            });
+
+            ivCancel.setOnClickListener(v1->{
+                dialog.dismiss();
+            });
+
 
         });
 

@@ -63,7 +63,7 @@
             app:layout_constraintStart_toEndOf="@id/btnUploadReceipt"
             app:layout_constraintTop_toTopOf="@id/btnUploadReceipt"
             app:layout_constraintBottom_toBottomOf="@id/btnUploadReceipt"
-            android:layout_width="@dimen/_30sdp"
+            android:layout_width="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_1sdp"
             android:src="@drawable/refresh_go_back"
             android:layout_height="@dimen/_30sdp"
