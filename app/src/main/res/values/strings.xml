@@ -219,6 +219,7 @@
     <string name="not_spoke_to_customer">Not Spoke To Customer</string>
     <string name="visit_complete">Visit Complete</string>
     <string name="payment_notification">Payment Notification</string>
+    <string name="payment_mode">Payment Mode</string>
 
 
 </resources>

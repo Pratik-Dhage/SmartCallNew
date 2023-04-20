@@ -21,21 +21,21 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            style="@style/toolBarStyle"
             android:background="@color/textBlue"
-            style="@style/toolBarStyle">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <TextView
                 android:id="@+id/txtToolbarHeading"
-                android:textSize="@dimen/_13ssp"
-                android:text="@string/details_of_customer"
-                android:layout_gravity="center"
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/details_of_customer"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp" />
 
 
         </androidx.appcompat.widget.Toolbar>
@@ -46,11 +46,10 @@
             android:layout_height="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:src="@drawable/back_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/toolbar"
             app:tint="@color/white" />
-
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,7 +60,7 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <ScrollView
-                android:id="@+id/paymentInfoOfCustomerScrollView"
+                android:id="@+id/detailsOfCustomerScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fillViewport="true"
@@ -100,12 +99,12 @@
 
                             <ProgressBar
                                 android:id="@+id/loadingProgressBar"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
                                 android:layout_width="@dimen/_20sdp"
-                                android:layout_height="@dimen/_20sdp"/>
+                                android:layout_height="@dimen/_20sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
 
                             <TextView
@@ -668,28 +667,26 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clSecondHalf"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
             android:paddingBottom="@dimen/_40sdp"
-            app:layout_constraintTop_toBottomOf="@id/clFirstHalf"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_height="wrap_content">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clFirstHalf">
 
             <ImageView
                 android:id="@+id/ivNotesIcon"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_1sdp"
                 android:src="@drawable/icons8notepad65ver4"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -698,7 +695,7 @@
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_1sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:src="@drawable/history"
                 android:visibility="visible"
@@ -706,17 +703,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-
             <ImageView
                 android:id="@+id/ivCall"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:src="@drawable/call_round_icon"
-                app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_40sdp"
-                />
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:src="@drawable/call_round_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
