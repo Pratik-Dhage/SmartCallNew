@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:backgroundTint="@color/white"
     android:layout_marginStart="@dimen/_20sdp"
     android:layout_marginEnd="@dimen/_20sdp"
@@ -32,10 +33,9 @@
 
         <TextView
             android:id="@+id/txtUploadReceipt"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:text="Image 100.jpg"
+            tools:text="Image 100.jpg"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_13ssp"
             android:maxLength="15"
             android:textAlignment="center"
             app:layout_constraintStart_toStartOf="@id/btnUploadReceipt"
@@ -56,6 +56,19 @@
             android:src="@drawable/upload_file"
             android:layout_height="@dimen/_30sdp"
             app:tint="@color/textBlue" />
+
+        <ImageView
+            android:id="@+id/ivRefreshCancel"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@id/btnUploadReceipt"
+            app:layout_constraintTop_toTopOf="@id/btnUploadReceipt"
+            app:layout_constraintBottom_toBottomOf="@id/btnUploadReceipt"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:src="@drawable/refresh_go_back"
+            android:layout_height="@dimen/_30sdp"
+            app:tint="@color/textBlue" />
+
 
         <Button
             android:id="@+id/txtProceed"

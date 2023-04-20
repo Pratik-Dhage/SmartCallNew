@@ -85,12 +85,20 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 TextView txtProceed = customDialogImagePicker.findViewById(R.id.txtProceed);
                 TextView txtSkipAndProceed = customDialogImagePicker.findViewById(R.id.txtSkipAndProceed);
                 Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
+                ImageView ivRefreshCancel = customDialogImagePicker.findViewById(R.id.ivRefreshCancel);
+                ImageView ivFileUpload = customDialogImagePicker.findViewById(R.id.ivFileUpload);
 
                 txtUploadReceipt.setText(fileName);
                 txtProceed.setVisibility(View.VISIBLE);
+                ivRefreshCancel.setVisibility(View.VISIBLE);
                 txtSkipAndProceed.setVisibility(View.GONE);
+                ivFileUpload.setVisibility(View.GONE);
                 btnUploadReceipt.setVisibility(View.INVISIBLE);
 
+
+                ivRefreshCancel.setOnClickListener(v->{
+                    btnUploadReceipt.performClick();
+                });
             }
         });
     }
@@ -175,16 +183,6 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
         binding.btnAlreadyPaid.setOnClickListener(v->{
 
-            binding.btnAlreadyPaid.setVisibility(View.INVISIBLE);
-            binding.txtUploadFile.setVisibility(View.VISIBLE);
-            binding.ivGoBack.setVisibility(View.VISIBLE);
-            binding.ivUploadFile.setVisibility(View.VISIBLE);
-
-        });
-
-        //for image file as attachment
-        binding.txtUploadFile.setOnClickListener(v -> {
-
             customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
             ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivCancel);
 
@@ -219,12 +217,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
         });
 
-        binding.ivGoBack.setOnClickListener(v->{
-            binding.btnAlreadyPaid.setVisibility(View.VISIBLE);
-            binding.ivGoBack.setVisibility(View.INVISIBLE);
-            binding.ivUploadFile.setVisibility(View.INVISIBLE);
-            binding.txtUploadFile.setVisibility(View.INVISIBLE);
-        });
+
 
         binding.btnOthers.setOnClickListener(v->{
 

@@ -714,56 +714,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ivHistory" />
 
 
-            <TextView
-                android:id="@+id/txtUploadFile"
-                style="@style/common_text_style"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:text="@string/upload_file"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/btnAlreadyPaid"
-                app:layout_constraintStart_toStartOf="@id/btnAlreadyPaid"
-                app:layout_constraintTop_toTopOf="@id/btnAlreadyPaid" />
 
-            <ImageView
-                android:id="@+id/ivUploadFile"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_3sdp"
-                android:src="@drawable/upload_file"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/txtUploadFile"
-                app:layout_constraintStart_toEndOf="@id/txtUploadFile"
-                app:layout_constraintTop_toTopOf="@id/txtUploadFile"
-                app:tint="@color/textBlue" />
-
-            <!--This Icon will Appear after file has been uploaded-->
-            <ImageView
-                android:id="@+id/ivCancelFileUpload"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_2sdp"
-                android:src="@drawable/cancel_close"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/ivUploadFile"
-                app:layout_constraintStart_toEndOf="@id/ivUploadFile"
-                app:layout_constraintTop_toTopOf="@id/ivUploadFile"
-                app:tint="@color/red" />
-
-            <ImageView
-                android:id="@+id/ivGoBack"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_2sdp"
-                android:src="@drawable/refresh_go_back"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/ivUploadFile"
-                app:layout_constraintStart_toEndOf="@id/ivUploadFile"
-                app:layout_constraintTop_toTopOf="@id/ivUploadFile"
-                app:tint="@color/textBlue" />
 
             <Button
                 android:id="@+id/btnFoNotAttendedMeeting"

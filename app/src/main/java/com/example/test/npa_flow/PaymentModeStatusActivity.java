@@ -85,12 +85,20 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                 TextView txtProceed = customDialogImagePicker.findViewById(R.id.txtProceed);
                 TextView txtSkipAndProceed = customDialogImagePicker.findViewById(R.id.txtSkipAndProceed);
                 Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
+                ImageView ivRefreshCancel = customDialogImagePicker.findViewById(R.id.ivRefreshCancel);
+                ImageView ivFileUpload = customDialogImagePicker.findViewById(R.id.ivFileUpload);
 
                 txtUploadReceipt.setText(fileName);
                 txtProceed.setVisibility(View.VISIBLE);
+                ivRefreshCancel.setVisibility(View.VISIBLE);
                 txtSkipAndProceed.setVisibility(View.GONE);
+                ivFileUpload.setVisibility(View.GONE);
                 btnUploadReceipt.setVisibility(View.INVISIBLE);
 
+
+                ivRefreshCancel.setOnClickListener(v->{
+                    btnUploadReceipt.performClick();
+                });
             }
         });
     }
@@ -177,7 +185,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
 
         binding.btnFullAmountPaid.setOnClickListener(v -> {
 
-            customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_test2, null);
+            customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
             ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivCancel);
 
             Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
