@@ -49,6 +49,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
     private void getDetailsOfCustomerFromIntent(){
 
         binding.txtName.setText(getIntent().getStringExtra("name"));
+        binding.txtVillageName.setText(getIntent().getStringExtra("village_name"));
         binding.txtMobileNumber.setText(getIntent().getStringExtra("mobile_no"));
         binding.txtAadharNumber.setText(getIntent().getStringExtra("aadhaar_no"));
         binding.txtDOB.setText(getIntent().getStringExtra("dob"));
@@ -189,6 +190,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         binding.btnNumberIsInvalid.setOnClickListener(v->{
             Intent i = new Intent(NotSpokeToCustomerActivity.this,VisitCompletionOfCustomerActivity.class);
             i.putExtra("name",binding.txtName.getText().toString());
+            i.putExtra("village_name",binding.txtVillageName.getText().toString());
             i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
             i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
             i.putExtra("dob",binding.txtDOB.getText().toString());

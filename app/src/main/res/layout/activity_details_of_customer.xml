@@ -55,16 +55,16 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clFirstHalf"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/clSecondHalf"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <ScrollView
-                android:id="@+id/detailsOfCustomerScrollVIew"
+                android:id="@+id/paymentInfoOfCustomerScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fillViewport="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,9 +75,6 @@
                     style="@style/MainConstraintStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
-
-
 
 
                     <com.google.android.material.card.MaterialCardView
@@ -92,7 +89,7 @@
                         app:cardElevation="@dimen/_5sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                       app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/clCardView"
@@ -100,15 +97,15 @@
                             android:layout_height="wrap_content"
                             android:paddingBottom="@dimen/_10sdp">
 
+
                             <ProgressBar
                                 android:id="@+id/loadingProgressBar"
-                                android:layout_width="@dimen/_20sdp"
-                                android:layout_height="@dimen/_20sdp"
-                                android:visibility="invisible"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"/>
 
 
                             <TextView
@@ -154,13 +151,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_90sdp"
-                                tools:text=": Sairaj Naidu"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelName"
                                 app:layout_constraintStart_toEndOf="@id/labelName"
-                                app:layout_constraintTop_toTopOf="@id/labelName" />
+                                app:layout_constraintTop_toTopOf="@id/labelName"
+                                tools:text=": Sairaj Naidu" />
+
 
                             <!--Village==Location-->
                             <TextView
@@ -181,14 +179,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": Turuvekere"
                                 android:maxLength="12"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelLocation"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelLocation" />
+                                app:layout_constraintTop_toTopOf="@id/labelLocation"
+                                tools:text=": Turuvekere" />
 
                             <!--Distance-->
                             <TextView
@@ -196,14 +194,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_10sdp"
-                                tools:text=" 3km"
                                 android:maxLength="12"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelLocation"
                                 app:layout_constraintStart_toEndOf="@id/txtVillageName"
-                                app:layout_constraintTop_toTopOf="@id/labelLocation" />
+                                app:layout_constraintTop_toTopOf="@id/labelLocation"
+                                tools:text=" 3km" />
 
 
                             <!--Capture==NearBy-->
@@ -242,13 +240,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": 1:30 pm"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelScheduledTime"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelScheduledTime" />
+                                app:layout_constraintTop_toTopOf="@id/labelScheduledTime"
+                                tools:text=": 1:30 pm" />
 
 
                             <ImageView
@@ -282,13 +280,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": 9876543210"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelMobileNumber"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelMobileNumber" />
+                                app:layout_constraintTop_toTopOf="@id/labelMobileNumber"
+                                tools:text=": 9876543210" />
+
 
                             <ImageView
                                 android:layout_width="@dimen/_20sdp"
@@ -298,7 +297,6 @@
                                 app:layout_constraintBottom_toBottomOf="@id/txtMobileNumber"
                                 app:layout_constraintStart_toEndOf="@id/txtMobileNumber"
                                 app:layout_constraintTop_toTopOf="@id/txtMobileNumber" />
-
 
                             <TextView
                                 android:id="@+id/labelAadharNumber"
@@ -318,13 +316,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": ********4321"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelAadharNumber"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelAadharNumber" />
+                                app:layout_constraintTop_toTopOf="@id/labelAadharNumber"
+                                tools:text=": ********4321" />
 
 
                             <TextView
@@ -344,14 +342,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:maxLength="10"
-                                tools:text=": 1/10/2023"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelDOB"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelDOB" />
+                                app:layout_constraintTop_toTopOf="@id/labelDOB"
+                                tools:text=": 1/10/2023" />
 
 
                             <TextView
@@ -371,13 +368,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": Krishna Naidu"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelFatherName"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelFatherName" />
+                                app:layout_constraintTop_toTopOf="@id/labelFatherName"
+                                tools:text=": Krishna Naidu" />
 
 
                             <View
@@ -410,13 +407,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": 65489712345"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelLoanAccountNumber"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelLoanAccountNumber" />
+                                app:layout_constraintTop_toTopOf="@id/labelLoanAccountNumber"
+                                tools:text=": 65489712345" />
 
 
                             <TextView
@@ -436,13 +433,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": Personal Loan"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelProduct"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelProduct" />
+                                app:layout_constraintTop_toTopOf="@id/labelProduct"
+                                tools:text=": Personal Loan" />
 
 
                             <TextView
@@ -463,13 +460,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": 10 days"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelDPD"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelDPD" />
+                                app:layout_constraintTop_toTopOf="@id/labelDPD"
+                                tools:text=": 10 days" />
 
 
                             <TextView
@@ -500,13 +497,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": Rs 10,000.00"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/txtAmountDueAsOnDate"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelAmountDueAsOn" />
+                                app:layout_constraintTop_toTopOf="@id/labelAmountDueAsOn"
+                                tools:text=": Rs 10,000.00" />
 
 
                             <TextView
@@ -526,14 +523,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": Rs 450.00"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
-                                android:visibility="invisible"
+                                android:visibility="visible"
                                 app:layout_constraintBottom_toBottomOf="@id/labelBalanceInterest"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelBalanceInterest" />
+                                app:layout_constraintTop_toTopOf="@id/labelBalanceInterest"
+                                tools:text=": Rs 10,00,000.00" />
 
 
                             <TextView
@@ -548,6 +545,7 @@
                                 android:text="@string/calculate"
                                 android:textAlignment="center"
                                 android:textColor="@color/white"
+                                android:textSize="@dimen/_11ssp"
                                 app:layout_constraintBottom_toBottomOf="@id/labelBalanceInterest"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/labelBalanceInterest" />
@@ -571,23 +569,23 @@
                                 style="@style/common_text_style"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="  30/03/2023"
                                 app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@+id/labelTotalPayable" />
+                                app:layout_constraintTop_toBottomOf="@+id/labelTotalPayable"
+                                tools:text="  30/03/2023" />
 
                             <TextView
                                 android:id="@+id/txtTotalPayableAmount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": Rs 10,450.00"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
-                                android:visibility="invisible"
+                                android:visibility="visible"
                                 app:layout_constraintBottom_toBottomOf="@id/txtTotalPayableDate"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelTotalPayable" />
+                                app:layout_constraintTop_toTopOf="@id/labelTotalPayable"
+                                tools:text=": Rs 10,000.00" />
 
 
                             <TextView
@@ -608,14 +606,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": Rs 40,000.00"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
-                                android:visibility="visible"
+                                android:visibility="invisible"
                                 app:layout_constraintBottom_toBottomOf="@id/labelTotalAmtPaid"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelTotalAmtPaid" />
+                                app:layout_constraintTop_toTopOf="@id/labelTotalAmtPaid"
+                                tools:text=": Rs 40,000.00" />
 
 
                             <EditText
@@ -627,7 +625,7 @@
                                 android:hint="@string/enter_amount"
                                 android:inputType="number"
                                 android:maxLength="8"
-                                android:visibility="invisible"
+                                android:visibility="visible"
                                 app:layout_constraintBottom_toBottomOf="@id/labelTotalAmtPaid"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
                                 app:layout_constraintTop_toTopOf="@id/labelTotalAmtPaid" />
@@ -654,12 +652,11 @@
                     <View
                         android:id="@+id/blankView"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_5sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_height="@dimen/_3sdp"
+                        android:layout_marginTop="@dimen/_1sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cardViewPersonalDetails" />
-
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -667,7 +664,9 @@
 
             </ScrollView>
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 
@@ -676,6 +675,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_40sdp"
             app:layout_constraintTop_toBottomOf="@id/clFirstHalf"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_height="wrap_content">

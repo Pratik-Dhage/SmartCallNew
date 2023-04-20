@@ -47,15 +47,17 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clFirstHalf"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/clSecondHalf"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <ScrollView
-                android:id="@+id/callDetailOfCustomerScrollVIew"
+                android:id="@+id/paymentInfoOfCustomerScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fillViewport="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,16 +89,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingBottom="@dimen/_10sdp">
-
-                            <ProgressBar
-                                android:id="@+id/loadingProgressBar"
-                                android:layout_width="@dimen/_20sdp"
-                                android:layout_height="@dimen/_20sdp"
-                                android:visibility="invisible"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
 
 
                             <TextView
@@ -149,6 +141,7 @@
                                 app:layout_constraintStart_toEndOf="@id/labelName"
                                 app:layout_constraintTop_toTopOf="@id/labelName"
                                 tools:text=": Sairaj Naidu" />
+
 
                             <!--Village==Location-->
                             <TextView
@@ -278,6 +271,7 @@
                                 app:layout_constraintTop_toTopOf="@id/labelMobileNumber"
                                 tools:text=": 9876543210" />
 
+
                             <ImageView
                                 android:layout_width="@dimen/_20sdp"
                                 android:layout_height="@dimen/_20sdp"
@@ -286,7 +280,6 @@
                                 app:layout_constraintBottom_toBottomOf="@id/txtMobileNumber"
                                 app:layout_constraintStart_toEndOf="@id/txtMobileNumber"
                                 app:layout_constraintTop_toTopOf="@id/txtMobileNumber" />
-
 
                             <TextView
                                 android:id="@+id/labelAadharNumber"
@@ -332,7 +325,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:maxLength="10"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
@@ -517,11 +509,11 @@
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
-                                android:visibility="invisible"
+                                android:visibility="visible"
                                 app:layout_constraintBottom_toBottomOf="@id/labelBalanceInterest"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
                                 app:layout_constraintTop_toTopOf="@id/labelBalanceInterest"
-                                tools:text=": Rs 450.00" />
+                                tools:text=": Rs 10,00,000.00" />
 
 
                             <TextView
@@ -536,6 +528,7 @@
                                 android:text="@string/calculate"
                                 android:textAlignment="center"
                                 android:textColor="@color/white"
+                                android:textSize="@dimen/_11ssp"
                                 app:layout_constraintBottom_toBottomOf="@id/labelBalanceInterest"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/labelBalanceInterest" />
@@ -559,9 +552,9 @@
                                 style="@style/common_text_style"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="  30/03/2023"
                                 app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@+id/labelTotalPayable" />
+                                app:layout_constraintTop_toBottomOf="@+id/labelTotalPayable"
+                                tools:text="  30/03/2023" />
 
                             <TextView
                                 android:id="@+id/txtTotalPayableAmount"
@@ -571,11 +564,11 @@
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
-                                android:visibility="invisible"
+                                android:visibility="visible"
                                 app:layout_constraintBottom_toBottomOf="@id/txtTotalPayableDate"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
                                 app:layout_constraintTop_toTopOf="@id/labelTotalPayable"
-                                tools:text=": Rs 10,450.00" />
+                                tools:text=": Rs 10,000.00" />
 
 
                             <TextView
@@ -599,7 +592,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
-                                android:visibility="visible"
+                                android:visibility="invisible"
                                 app:layout_constraintBottom_toBottomOf="@id/labelTotalAmtPaid"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
                                 app:layout_constraintTop_toTopOf="@id/labelTotalAmtPaid"
@@ -615,7 +608,7 @@
                                 android:hint="@string/enter_amount"
                                 android:inputType="number"
                                 android:maxLength="8"
-                                android:visibility="invisible"
+                                android:visibility="visible"
                                 app:layout_constraintBottom_toBottomOf="@id/labelTotalAmtPaid"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
                                 app:layout_constraintTop_toTopOf="@id/labelTotalAmtPaid" />
@@ -642,8 +635,8 @@
                     <View
                         android:id="@+id/blankView"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_5sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_height="@dimen/_3sdp"
+                        android:layout_marginTop="@dimen/_1sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cardViewPersonalDetails" />
@@ -653,6 +646,7 @@
 
 
             </ScrollView>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
