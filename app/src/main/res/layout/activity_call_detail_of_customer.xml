@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/call_details_of_customer"
+                android:text="@string/calling_npa_customer"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp" />
 
@@ -239,6 +239,7 @@
                                 android:layout_marginStart="@dimen/_10sdp"
                                 android:layout_marginEnd="@dimen/_10sdp"
                                 android:src="@drawable/edit_icon"
+                                android:visibility="invisible"
                                 app:layout_constraintBottom_toBottomOf="@id/txtScheduledTime"
                                 app:layout_constraintStart_toEndOf="@id/txtScheduledTime"
                                 app:layout_constraintTop_toTopOf="@id/txtScheduledTime"
@@ -277,6 +278,7 @@
                                 android:layout_height="@dimen/_20sdp"
                                 android:layout_marginStart="@dimen/_5sdp"
                                 android:src="@drawable/call_round_icon"
+                                android:visibility="invisible"
                                 app:layout_constraintBottom_toBottomOf="@id/txtMobileNumber"
                                 app:layout_constraintStart_toEndOf="@id/txtMobileNumber"
                                 app:layout_constraintTop_toTopOf="@id/txtMobileNumber" />
@@ -659,7 +661,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:paddingBottom="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_25sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/clFirstHalf">
 
@@ -690,7 +692,7 @@
             <Button
                 android:id="@+id/btnSpokeToCustomer"
                 style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/_45sdp"
                 android:backgroundTint="@color/green"
                 android:text="@string/spoke_to_customer"
@@ -704,7 +706,7 @@
             <Button
                 android:id="@+id/btnNotSpokeToCustomer"
                 style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:backgroundTint="@color/red"
