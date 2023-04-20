@@ -78,7 +78,7 @@
     <string name="call_status">Call Status</string>
     <string name="mobile_no">Mobile No.</string>
     <string name="spoke_to_customer">Spoke To The\nCustomer</string>
-    <string name="did_not_speak_to_ncustomer">Did Not Speak To \nCustomer</string>
+    <string name="did_not_speak_to_ncustomer">Did Not Speak To Customer</string>
     <string name="calls_scheduled_for_the_day">Calls Scheduled For The Day</string>
     <string name="schedule_for_the_day">Schedule For The Day</string>
     <string name="total">Total</string>
