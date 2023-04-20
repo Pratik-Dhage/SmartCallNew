@@ -97,6 +97,10 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 btnUploadReceipt.setVisibility(View.INVISIBLE);
 
 
+                txtProceed.setOnClickListener(v->{
+                    startActivity(new Intent(this,VisitCompletionOfCustomerActivity.class));
+                });
+
                 ivRefreshCancel.setOnClickListener(v->{
                     btnUploadReceipt.performClick();
                 });
@@ -187,7 +191,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
             customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
             ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivCancel);
-
+            TextView txtSkipAndProceed = customDialogImagePicker.findViewById(R.id.txtSkipAndProceed);
             Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
 
 
@@ -209,6 +213,10 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 pickImageLauncher.launch(Intent.createChooser(intent, "Select File"));
 
 
+            });
+
+            txtSkipAndProceed.setOnClickListener(v1->{
+                startActivity(new Intent(this,VisitCompletionOfCustomerActivity.class));
             });
 
             ivCancel.setOnClickListener(v1->{
@@ -244,8 +252,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
 
             btnProceed.setOnClickListener(v2->{
-
-
+                startActivity(new Intent(this,VisitCompletionOfCustomerActivity.class));
             });
 
             ivCancel.setOnClickListener(v1->{
@@ -275,8 +282,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
 
             btnProceed.setOnClickListener(v2->{
-
-
+                    startActivity(new Intent(this,VisitCompletionOfCustomerActivity.class));
             });
 
             ivCancel.setOnClickListener(v1->{
