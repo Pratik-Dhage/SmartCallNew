@@ -692,10 +692,25 @@
             <Button
                 android:id="@+id/btnPartialAmountPaid"
                 style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/_45sdp"
                 android:backgroundTint="@color/brightOrange"
                 android:text="@string/partial_amount_paid"
+                android:textStyle="normal"
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnFullAmountPaid" />
+
+
+            <Button
+                android:id="@+id/btnFullAmountPaid"
+                style="@style/CustomButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_45sdp"
+                android:backgroundTint="@color/green"
+                android:text="@string/full_amount_paid"
                 android:textStyle="normal"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -704,24 +719,9 @@
 
 
             <Button
-                android:id="@+id/btnFullAmountPaid"
-                style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
-                android:layout_height="@dimen/_45sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:backgroundTint="@color/green"
-                android:text="@string/full_amount_paid"
-                android:textStyle="normal"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnPartialAmountPaid" />
-
-
-            <Button
                 android:id="@+id/btnWillPayLater"
                 style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:backgroundTint="@color/skyBlue"
@@ -729,7 +729,7 @@
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnFullAmountPaid" />
+                app:layout_constraintTop_toBottomOf="@id/btnPartialAmountPaid" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

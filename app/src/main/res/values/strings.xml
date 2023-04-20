@@ -138,7 +138,7 @@
     <string name="total_amt_paid">Total Amt. Paid</string>
     <string name="enter_amount">Enter Amount</string>
     <string name="full_amt_paid">Full Amt Paid</string>
-    <string name="will_pay_later">Will Pay Later</string>
+    <string name="will_pay_later">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Will Pay Later\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="needs_waiver">Needs Waiver</string>
     <string name="others">Others</string>
     <string name="please_specify">Please Specify</string>
@@ -206,7 +206,7 @@
     <string name="contact">Contact No.</string>
     <string name="status">Status :</string>
     <string name="partial_amount_paid">Partial Amount Paid</string>
-    <string name="full_amount_paid">Full Amount Paid</string>
+    <string name="full_amount_paid">\u00A0\u00A0\u00A0Full Amount Paid\u00A0\u00A0\u00A0</string>
     <string name="scheduler">Scheduler</string>
     <string name="skip_and_proceed">Skip and Proceed</string>
     <string name="upload_receipt">Upload Receipt</string>

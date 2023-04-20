@@ -690,7 +690,7 @@
             <Button
                 android:id="@+id/btnSendLinkForOnlinePayment"
                 style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/_45sdp"
                 android:backgroundTint="@color/green"
                 android:text="@string/send_link_for_online_payment"
@@ -703,7 +703,7 @@
             <Button
                 android:id="@+id/btnScheduleVisitForCollection"
                 style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:backgroundTint="@color/red"
