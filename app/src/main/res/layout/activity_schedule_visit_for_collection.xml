@@ -9,98 +9,118 @@
         android:layout_height="match_parent"
         tools:context=".npa_flow.ScheduleVisitForCollectionActivity">
 
-
-        <ScrollView
-            android:id="@+id/paymentModeScrollVIew"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clFirstHalf"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/clSecondHalf"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rootConstraintLayout"
-                style="@style/MainConstraintStyle"
+            <ScrollView
+                android:id="@+id/paymentModeScrollVIew"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
-                <TextView
-                    android:id="@+id/labelScheduleVisit"
-                    style="@style/heading_text_style"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:text="@string/schedule_visit"
-                    android:textAllCaps="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/rootConstraintLayout"
+                    style="@style/MainConstraintStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
 
-                <DatePicker
-                    android:id="@+id/datePickerCalendarView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:calendarViewShown="false"
-                    android:datePickerMode="calendar"
-                    android:spinnersShown="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/labelScheduleVisit" />
-
-                <TimePicker
-                    app:layout_constraintTop_toBottomOf="@id/datePickerCalendarView"
-                    android:id="@+id/timePicker"
-                    android:layout_width="@dimen/_200sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_height="@dimen/_120sdp"
-                    android:timePickerMode="spinner"
-                    android:layout_marginTop="@dimen/_10sdp"/>
+                    <TextView
+                        android:id="@+id/labelScheduleVisit"
+                        style="@style/semi_mid_text_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/schedule_visit"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-                <Button
-                    android:id="@+id/btnUpdateSchedule"
-                    style="@style/BigButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_80sdp"
-                    android:text="@string/update_schedule"
-                    android:textStyle="normal"
-                    android:backgroundTint="@color/green"
-                    app:layout_constraintTop_toBottomOf="@id/timePicker"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    <DatePicker
+                        android:id="@+id/datePickerCalendarView"
+                        android:layout_width="@dimen/_250sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:calendarViewShown="false"
+                        android:datePickerMode="calendar"
+                        android:spinnersShown="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/labelScheduleVisit" />
+
+                    <TimePicker
+                        android:id="@+id/timePicker"
+                        android:layout_width="@dimen/_200sdp"
+                        android:layout_height="@dimen/_120sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:timePickerMode="spinner"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/datePickerCalendarView" />
 
 
-                <!--This button will be displayed when coming from PaymentInfoOfCustomer-->
-                <Button
-                    android:id="@+id/btnWillPayLumpsum"
-                    style="@style/BigButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_80sdp"
-                    android:text="@string/will_pay_lumpsum"
-                    android:textStyle="normal"
-                    android:visibility="gone"
-                    android:backgroundTint="@color/brightOrange"
-                    app:layout_constraintTop_toBottomOf="@id/btnUpdateSchedule"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clSecondHalf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_40sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <Button
+                android:id="@+id/btnUpdateSchedule"
+                style="@style/CustomButtonStyle"
+                android:layout_width="@dimen/_136sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:backgroundTint="@color/green"
+                android:text="@string/update_schedule"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <!--This button will be displayed when coming from PaymentInfoOfCustomer-->
+            <Button
+                android:id="@+id/btnWillPayLumpsum"
+                style="@style/CustomButtonStyle"
+                android:layout_width="@dimen/_136sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:backgroundTint="@color/brightOrange"
+                android:text="@string/will_pay_lumpsum"
+                android:textStyle="normal"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnUpdateSchedule" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

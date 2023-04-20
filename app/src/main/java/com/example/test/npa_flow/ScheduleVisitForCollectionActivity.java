@@ -14,6 +14,7 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityScheduleVisitForCollectionBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 
 import java.util.Calendar;
 
@@ -48,7 +49,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
         if(getIntent().hasExtra("isFromPaymentNotificationOfCustomerActivity")
                 || getIntent().hasExtra("isFromPaymentModeStatusActivity")
-        || getIntent().hasExtra("isCall")
+        || getIntent().hasExtra("isCall") || getIntent().hasExtra("isFromPaymentInfoOfCustomerActivity")
 
         ){
            binding.labelScheduleVisit.setText(getString(R.string.schedule_call));
@@ -62,22 +63,23 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
     private void onClickListener() {
 
-        binding.btnUpdateSchedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        binding.btnUpdateSchedule.setOnClickListener(v -> {
 
-                Global.showToast(ScheduleVisitForCollectionActivity.this,getResources().getString(R.string.schedule_update_successfully));
+            Global.showToast(ScheduleVisitForCollectionActivity.this,getResources().getString(R.string.schedule_update_successfully));
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(ScheduleVisitForCollectionActivity.this, MainActivity3API.class);
-                        startActivity(intent);
-                    }
-                }, 2000);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(ScheduleVisitForCollectionActivity.this, LoanCollectionActivity.class);
+                    startActivity(intent);
+                }
+            }, 2000);
 
 
-            }
+        });
+
+        binding.btnWillPayLumpsum.setOnClickListener(v->{
+            startActivity(new Intent(this,VisitCompletionOfCustomerActivity.class));
         });
 
     }
