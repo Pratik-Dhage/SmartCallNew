@@ -5,6 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         style="@style/MainConstraintStyle"
+        android:id="@+id/MainConstraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".npa_flow.PaymentModeStatusActivity">
@@ -24,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Payment Status"
+                android:text="@string/payment_status"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp" />
 
@@ -47,6 +48,8 @@
             android:id="@+id/clFirstHalf"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/clSecondHalf"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
@@ -131,15 +134,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_90sdp"
-                                android:text=": Sairaj Naidu"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelName"
                                 app:layout_constraintStart_toEndOf="@id/labelName"
-                                app:layout_constraintTop_toTopOf="@id/labelName" />
+                                app:layout_constraintTop_toTopOf="@id/labelName"
+                                tools:text=": Sairaj Naidu" />
 
 
+                            <!--Village==Location-->
                             <TextView
                                 android:id="@+id/labelLocation"
                                 style="@style/common_text_style"
@@ -148,25 +152,42 @@
                                 android:layout_marginTop="@dimen/_10sdp"
                                 android:paddingStart="@dimen/_5sdp"
                                 android:paddingEnd="0dp"
-                                android:text="@string/location"
+                                android:text="@string/village"
                                 app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
                                 app:layout_constraintTop_toBottomOf="@id/labelName" />
 
 
                             <TextView
-                                android:id="@+id/txtLocation"
+                                android:id="@+id/txtVillageName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:text=": 3km"
+                                android:maxLength="12"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelLocation"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelLocation" />
+                                app:layout_constraintTop_toTopOf="@id/labelLocation"
+                                tools:text=": Turuvekere" />
+
+                            <!--Distance-->
+                            <TextView
+                                android:id="@+id/txtDistance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:maxLength="12"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp"
+                                android:textStyle="italic"
+                                app:layout_constraintBottom_toBottomOf="@id/labelLocation"
+                                app:layout_constraintStart_toEndOf="@id/txtVillageName"
+                                app:layout_constraintTop_toTopOf="@id/labelLocation"
+                                tools:text=" 3km" />
 
 
+                            <!--Capture==NearBy-->
                             <TextView
                                 android:id="@+id/btnNearBy"
                                 android:layout_width="wrap_content"
@@ -176,10 +197,9 @@
                                 android:backgroundTint="@color/textBlue"
                                 android:gravity="center"
                                 android:padding="@dimen/_5sdp"
-                                android:text="@string/near_by"
+                                android:text="@string/capture"
                                 android:textAlignment="center"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/_11ssp"
                                 app:layout_constraintBottom_toBottomOf="@id/labelLocation"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/labelLocation" />
@@ -203,13 +223,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:text=": 1:30 pm"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelScheduledTime"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelScheduledTime" />
+                                app:layout_constraintTop_toTopOf="@id/labelScheduledTime"
+                                tools:text=": 1:30 pm" />
 
 
                             <ImageView
@@ -243,13 +263,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:text=": 9876543210"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelMobileNumber"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelMobileNumber" />
+                                app:layout_constraintTop_toTopOf="@id/labelMobileNumber"
+                                tools:text=": 9876543210" />
 
 
                             <ImageView
@@ -279,13 +299,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:text=": ********4321"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelAadharNumber"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelAadharNumber" />
+                                app:layout_constraintTop_toTopOf="@id/labelAadharNumber"
+                                tools:text=": ********4321" />
 
 
                             <TextView
@@ -305,13 +325,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:text=": 1/10/2023"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
+                                android:maxLength="10"
                                 app:layout_constraintBottom_toBottomOf="@id/labelDOB"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelDOB" />
+                                app:layout_constraintTop_toTopOf="@id/labelDOB"
+                                tools:text=":1/10/2023" />
 
 
                             <TextView
@@ -331,13 +352,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:text=": Krishna Naidu"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelFatherName"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelFatherName" />
+                                app:layout_constraintTop_toTopOf="@id/labelFatherName"
+                                tools:text=": Krishna Naidu" />
 
 
                             <View
@@ -370,13 +391,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:text=": 65489712345"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelLoanAccountNumber"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelLoanAccountNumber" />
+                                app:layout_constraintTop_toTopOf="@id/labelLoanAccountNumber"
+                                tools:text=": 65489712345" />
 
 
                             <TextView
@@ -396,13 +417,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:text=": Personal Loan"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelProduct"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelProduct" />
+                                app:layout_constraintTop_toTopOf="@id/labelProduct"
+                                tools:text=": Personal Loan" />
 
 
                             <TextView
@@ -423,13 +444,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:text=": 10 days"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/labelDPD"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelDPD" />
+                                app:layout_constraintTop_toTopOf="@id/labelDPD"
+                                tools:text=": 10 days" />
 
 
                             <TextView
@@ -460,13 +481,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:text=": Rs 10,000.00"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 app:layout_constraintBottom_toBottomOf="@id/txtAmountDueAsOnDate"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelAmountDueAsOn" />
+                                app:layout_constraintTop_toTopOf="@id/labelAmountDueAsOn"
+                                tools:text=": Rs 10,000.00" />
 
 
                             <TextView
@@ -486,14 +507,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:text=": Rs 10,00,000.00"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
-                                android:visibility="invisible"
+                                android:visibility="visible"
                                 app:layout_constraintBottom_toBottomOf="@id/labelBalanceInterest"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelBalanceInterest" />
+                                app:layout_constraintTop_toTopOf="@id/labelBalanceInterest"
+                                tools:text=": Rs 10,00,000.00" />
 
 
                             <TextView
@@ -532,23 +553,23 @@
                                 style="@style/common_text_style"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="  30/03/2023"
                                 app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@+id/labelTotalPayable" />
+                                app:layout_constraintTop_toBottomOf="@+id/labelTotalPayable"
+                                tools:text="  30/03/2023" />
 
                             <TextView
                                 android:id="@+id/txtTotalPayableAmount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:text=": Rs 10,000.00"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
-                                android:visibility="invisible"
+                                android:visibility="visible"
                                 app:layout_constraintBottom_toBottomOf="@id/txtTotalPayableDate"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelTotalPayable" />
+                                app:layout_constraintTop_toTopOf="@id/labelTotalPayable"
+                                tools:text=": Rs 10,000.00" />
 
 
                             <TextView
@@ -560,7 +581,7 @@
                                 android:paddingStart="@dimen/_5sdp"
                                 android:paddingEnd="0dp"
                                 android:text="@string/total_amt_paid"
-                                android:visibility="invisible"
+                                android:visibility="visible"
                                 app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
                                 app:layout_constraintTop_toBottomOf="@id/txtTotalPayableDate" />
 
@@ -569,14 +590,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_75sdp"
-                                android:text=": Rs 40,000.00"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
                                 android:visibility="invisible"
                                 app:layout_constraintBottom_toBottomOf="@id/labelTotalAmtPaid"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelTotalAmtPaid" />
+                                app:layout_constraintTop_toTopOf="@id/labelTotalAmtPaid"
+                                tools:text=": Rs 40,000.00" />
 
 
                             <EditText
@@ -588,7 +609,7 @@
                                 android:hint="@string/enter_amount"
                                 android:inputType="number"
                                 android:maxLength="8"
-                                android:visibility="invisible"
+                                android:visibility="visible"
                                 app:layout_constraintBottom_toBottomOf="@id/labelTotalAmtPaid"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
                                 app:layout_constraintTop_toTopOf="@id/labelTotalAmtPaid" />
@@ -599,7 +620,7 @@
                                 android:layout_height="@dimen/_20sdp"
                                 android:layout_marginEnd="@dimen/_10sdp"
                                 android:src="@drawable/printer_icon"
-                                android:visibility="invisible"
+                                android:visibility="visible"
                                 app:layout_constraintBottom_toBottomOf="@+id/labelTotalAmtPaid"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/labelTotalAmtPaid"
@@ -670,9 +691,9 @@
 
             <Button
                 android:id="@+id/btnPartialAmountPaid"
-                style="@style/BigButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/CustomButtonStyle"
+                android:layout_width="@dimen/_136sdp"
+                android:layout_height="@dimen/_45sdp"
                 android:backgroundTint="@color/brightOrange"
                 android:text="@string/partial_amount_paid"
                 android:textStyle="normal"
@@ -681,64 +702,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
 
-            <TextView
-                android:id="@+id/txtUploadFile"
-                style="@style/common_text_style"
-                android:text="@string/upload_file"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/btnPartialAmountPaid"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="@dimen/_10sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btnPartialAmountPaid" />
-
-            <ImageView
-                android:id="@+id/ivUploadFile"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_3sdp"
-                android:src="@drawable/upload_file"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/txtUploadFile"
-                app:layout_constraintStart_toEndOf="@id/txtUploadFile"
-                app:layout_constraintTop_toTopOf="@id/txtUploadFile"
-                app:tint="@color/textBlue" />
-
-            <!--This Icon will Appear after file has been uploaded-->
-            <ImageView
-                android:id="@+id/ivCancelFileUpload"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_2sdp"
-                android:src="@drawable/cancel_close"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/ivUploadFile"
-                app:layout_constraintStart_toEndOf="@id/ivUploadFile"
-                app:layout_constraintTop_toTopOf="@id/ivUploadFile"
-                app:tint="@color/red" />
-
-            <ImageView
-                android:id="@+id/ivGoBack"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_2sdp"
-                android:src="@drawable/refresh_go_back"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/ivUploadFile"
-                app:layout_constraintStart_toEndOf="@id/ivUploadFile"
-                app:layout_constraintTop_toTopOf="@id/ivUploadFile"
-                app:tint="@color/textBlue" />
-
 
             <Button
                 android:id="@+id/btnFullAmountPaid"
-                style="@style/BigButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/CustomButtonStyle"
+                android:layout_width="@dimen/_136sdp"
+                android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:backgroundTint="@color/green"
                 android:text="@string/full_amount_paid"
@@ -748,62 +717,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnPartialAmountPaid" />
 
-            <TextView
-                android:id="@+id/txtUploadFile2"
-                style="@style/common_text_style"
-                android:text="@string/upload_file"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/btnFullAmountPaid"
-                app:layout_constraintStart_toStartOf="@id/txtUploadFile"
-                app:layout_constraintTop_toTopOf="@id/btnFullAmountPaid" />
-
-            <ImageView
-                android:id="@+id/ivUploadFile2"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_3sdp"
-                android:src="@drawable/upload_file"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/txtUploadFile2"
-                app:layout_constraintStart_toEndOf="@id/txtUploadFile2"
-                app:layout_constraintTop_toTopOf="@id/txtUploadFile2"
-                app:tint="@color/textBlue" />
-
-            <!--This Icon will Appear after file has been uploaded-->
-            <ImageView
-                android:id="@+id/ivCancelFileUpload2"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_2sdp"
-                android:src="@drawable/cancel_close"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/ivUploadFile2"
-                app:layout_constraintStart_toEndOf="@id/ivUploadFile2"
-                app:layout_constraintTop_toTopOf="@id/ivUploadFile2"
-                app:tint="@color/red" />
-
-            <ImageView
-                android:id="@+id/ivGoBack2"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_2sdp"
-                android:src="@drawable/refresh_go_back"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@id/ivUploadFile2"
-                app:layout_constraintStart_toEndOf="@id/ivUploadFile2"
-                app:layout_constraintTop_toTopOf="@id/ivUploadFile2"
-                app:tint="@color/textBlue" />
-
 
             <Button
                 android:id="@+id/btnWillPayLater"
-                style="@style/BigButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/CustomButtonStyle"
+                android:layout_width="@dimen/_136sdp"
+                android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:backgroundTint="@color/skyBlue"
                 android:text="@string/will_pay_later"

@@ -344,6 +344,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_12ssp"
                                 android:textStyle="italic"
+                                android:maxLength="10"
                                 app:layout_constraintBottom_toBottomOf="@id/labelDOB"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
                                 app:layout_constraintTop_toTopOf="@id/labelDOB"

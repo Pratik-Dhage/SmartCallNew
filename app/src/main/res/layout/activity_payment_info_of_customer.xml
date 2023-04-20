@@ -274,10 +274,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_75sdp"
-                            android:text=": 1/10/2023"
+                            tools:text=":1/10/2023"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12ssp"
                             android:textStyle="italic"
+                            android:maxLength="10"
                             app:layout_constraintBottom_toBottomOf="@id/labelDOB"
                             app:layout_constraintStart_toEndOf="@id/labelLocation"
                             app:layout_constraintTop_toTopOf="@id/labelDOB" />
