@@ -161,9 +161,9 @@
     <string name="ask_to_call_back_later">Asked To \nCall Back Later</string>
     <string name="send_link_for_online_payment">Send Link For Online Payment</string>
     <string name="schedule_visit_for_collection">Schedule Visit For Collection</string>
-    <string name="complete_no_change">Complete - No change</string>
-    <string name="complete_need_to_update_details">Complete - Need To \nUpdate Details</string>
-    <string name="complete_escalate_to_bm">Complete - Escalate To BM</string>
+    <string name="complete_no_change">No change</string>
+    <string name="complete_need_to_update_details">Need To Update Details</string>
+    <string name="complete_escalate_to_bm">Escalate To BM</string>
     <string name="schedule_visit">Schedule Visit</string>
     <string name="update_schedule">Update Schedule</string>
     <string name="schedule_update_successfully">Schedule Updated Successfully</string>
@@ -217,6 +217,7 @@
     <string name="details_of_customer">Details Of Customer</string>
     <string name="call_details_of_customer">Call Details Of Customer</string>
     <string name="not_spoke_to_customer">Not Spoke To Customer</string>
+    <string name="visit_complete">Visit Complete</string>
 
 
 </resources>
