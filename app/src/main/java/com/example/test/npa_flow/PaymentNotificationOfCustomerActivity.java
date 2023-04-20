@@ -47,6 +47,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
     private void getDetailsOfCustomerFromIntent(){
 
         binding.txtName.setText(getIntent().getStringExtra("name"));
+        binding.txtVillageName.setText(getIntent().getStringExtra("village_name"));
         binding.txtMobileNumber.setText(getIntent().getStringExtra("mobile_no"));
         binding.txtAadharNumber.setText(getIntent().getStringExtra("aadhaar_no"));
         binding.txtDOB.setText(getIntent().getStringExtra("dob"));
@@ -75,12 +76,12 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
         binding.btnOthers.setOnClickListener(v->{
 
-            if(binding.edtPleaseSpecify.getVisibility()==View.INVISIBLE){
+            if(binding.edtPleaseSpecify.getVisibility()==View.GONE){
                 binding.edtPleaseSpecify.setVisibility(View.VISIBLE);
                 binding.ivForwardArrowOthers.setVisibility(View.VISIBLE);
             }
             else{
-                binding.edtPleaseSpecify.setVisibility(View.INVISIBLE);
+                binding.edtPleaseSpecify.setVisibility(View.GONE);
                 binding.ivForwardArrowOthers.setVisibility(View.INVISIBLE);
             }
 
@@ -90,6 +91,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
             Intent i = new Intent(PaymentNotificationOfCustomerActivity.this,PaymentModeActivity.class);
             i.putExtra("name",binding.txtName.getText().toString());
+            i.putExtra("village_name",binding.txtVillageName.getText().toString());
             i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
             i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
             i.putExtra("dob",binding.txtDOB.getText().toString());
@@ -107,6 +109,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
             Intent i = new Intent(PaymentNotificationOfCustomerActivity.this,PaymentInfoOfCustomerActivity.class);
             i.putExtra("name",binding.txtName.getText().toString());
+            i.putExtra("village_name",binding.txtVillageName.getText().toString());
             i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
             i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
             i.putExtra("dob",binding.txtDOB.getText().toString());

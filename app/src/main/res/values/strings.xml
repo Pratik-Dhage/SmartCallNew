@@ -218,6 +218,7 @@
     <string name="call_details_of_customer">Call Details Of Customer</string>
     <string name="not_spoke_to_customer">Not Spoke To Customer</string>
     <string name="visit_complete">Visit Complete</string>
+    <string name="payment_notification">Payment Notification</string>
 
 
 </resources>
