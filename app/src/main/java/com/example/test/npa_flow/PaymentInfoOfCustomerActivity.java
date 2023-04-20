@@ -133,8 +133,9 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
         binding.ivBack.setOnClickListener(v -> onBackPressed());
 
+        //NearBy==Capture Button
         binding.btnNearBy.setOnClickListener(v->{
-            Intent i = new Intent(this, NearByCustomersActivity.class);
+            Intent i = new Intent(this, WebViewActivity.class);
             startActivity(i);
         });
 

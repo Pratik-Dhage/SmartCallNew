@@ -236,6 +236,7 @@
                                 android:layout_marginStart="@dimen/_10sdp"
                                 android:layout_marginEnd="@dimen/_10sdp"
                                 android:src="@drawable/edit_icon"
+                                android:visibility="invisible"
                                 app:layout_constraintBottom_toBottomOf="@id/txtScheduledTime"
                                 app:layout_constraintStart_toEndOf="@id/txtScheduledTime"
                                 app:layout_constraintTop_toTopOf="@id/txtScheduledTime"
@@ -274,6 +275,7 @@
                                 android:layout_height="@dimen/_20sdp"
                                 android:layout_marginStart="@dimen/_5sdp"
                                 android:src="@drawable/call_round_icon"
+                                android:visibility="invisible"
                                 app:layout_constraintBottom_toBottomOf="@id/txtMobileNumber"
                                 app:layout_constraintStart_toEndOf="@id/txtMobileNumber"
                                 app:layout_constraintTop_toTopOf="@id/txtMobileNumber" />
@@ -578,7 +580,7 @@
                                 android:paddingStart="@dimen/_5sdp"
                                 android:paddingEnd="0dp"
                                 android:text="@string/total_amt_paid"
-                                android:visibility="visible"
+                                android:visibility="invisible"
                                 app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
                                 app:layout_constraintTop_toBottomOf="@id/txtTotalPayableDate" />
 
@@ -606,7 +608,7 @@
                                 android:hint="@string/enter_amount"
                                 android:inputType="number"
                                 android:maxLength="8"
-                                android:visibility="visible"
+                                android:visibility="invisible"
                                 app:layout_constraintBottom_toBottomOf="@id/labelTotalAmtPaid"
                                 app:layout_constraintStart_toEndOf="@id/labelLocation"
                                 app:layout_constraintTop_toTopOf="@id/labelTotalAmtPaid" />
@@ -617,7 +619,7 @@
                                 android:layout_height="@dimen/_20sdp"
                                 android:layout_marginEnd="@dimen/_10sdp"
                                 android:src="@drawable/printer_icon"
-                                android:visibility="visible"
+                                android:visibility="invisible"
                                 app:layout_constraintBottom_toBottomOf="@+id/labelTotalAmtPaid"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@+id/labelTotalAmtPaid"
