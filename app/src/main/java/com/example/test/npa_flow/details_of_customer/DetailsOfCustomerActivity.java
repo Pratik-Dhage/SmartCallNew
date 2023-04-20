@@ -69,6 +69,11 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                                 binding.txtName.setText(it.getValue()); //Name
                             }
 
+                            if(it.getSequence()==2){
+                                binding.txtVillageName.setText(it.getValue()); //Village Name
+                            }
+
+
                             if(it.getSequence()==4){
                                 binding.txtMobileNumber.setText(it.getValue()); //Mobile No.
                             }
@@ -152,6 +157,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
         Intent i = new Intent(DetailsOfCustomerActivity.this, CallDetailOfCustomerActivity.class);
         i.putExtra("name",binding.txtName.getText().toString());
+        i.putExtra("village_name",binding.txtVillageName.getText().toString());
         i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
         i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
         i.putExtra("dob",binding.txtDOB.getText().toString());

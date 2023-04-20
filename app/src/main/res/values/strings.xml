@@ -212,6 +212,9 @@
     <string name="upload_receipt">Upload Receipt</string>
     <string name="proceed">Proceed</string>
     <string name="details_not_found">Details Not Found</string>
+    <string name="village">Village</string>
+    <string name="capture">Capture</string>
+    <string name="details_of_customer">Details Of Customer</string>
 
 
 </resources>
