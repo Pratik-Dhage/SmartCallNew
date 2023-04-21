@@ -57,9 +57,9 @@
             android:id="@+id/clFirstHalf"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/clSecondHalf"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <ScrollView
@@ -126,18 +126,17 @@
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rvDetailsOfCustomer"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                app:layout_constraintTop_toBottomOf="@+id/txtPersonalDetails"
-                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                                android:orientation="vertical"
-                                tools:listitem="@layout/item_details_of_customer"
-                                tools:itemCount="3"
-                                app:layout_constraintBottom_toBottomOf="parent"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:orientation="vertical"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/txtPersonalDetails"
+                                tools:itemCount="3"
+                                tools:listitem="@layout/item_details_of_customer" />
 
 
                         </androidx.constraintlayout.widget.ConstraintLayout>

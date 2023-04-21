@@ -3,6 +3,8 @@ package com.example.test.npa_flow;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,10 @@ import android.widget.TimePicker;
 import com.example.test.R;
 import com.example.test.databinding.ActivityVisitCompletionOfCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
+import com.example.test.helper_classes.Global;
+import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
+import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,40 +30,82 @@ import java.util.Date;
 public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
 
-ActivityVisitCompletionOfCustomerBinding binding;
-View view;
+    ActivityVisitCompletionOfCustomerBinding binding;
+    View view;
+    DetailsOfCustomerViewModel detailsOfCustomerViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  setContentView(R.layout.activity_visit_completion_of_customer);
+        //  setContentView(R.layout.activity_visit_completion_of_customer);
 
         initializeFields();
-        getDetailsOfCustomerFromIntent();
+        initObserver();
+        if (NetworkUtilities.getConnectivityStatus(this)) {
+            callDetailsOfCustomerApi();
+        } else {
+            Global.showToast(this, getString(R.string.check_internet_connection));
+        }
         onClickListener();
     }
 
     private void initializeFields() {
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_visit_completion_of_customer);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_visit_completion_of_customer);
         view = binding.getRoot();
+        detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
+        binding.setViewModel(detailsOfCustomerViewModel);
     }
 
-    private void getDetailsOfCustomerFromIntent(){
+    private void callDetailsOfCustomerApi() {
 
-        binding.txtName.setText(getIntent().getStringExtra("name"));
-        binding.txtMobileNumber.setText(getIntent().getStringExtra("mobile_no"));
-        binding.txtAadharNumber.setText(getIntent().getStringExtra("aadhaar_no"));
-        binding.txtDOB.setText(getIntent().getStringExtra("dob"));
-        binding.txtFatherName.setText(getIntent().getStringExtra("father_name"));
-        binding.txtLoanAccountNumber.setText(getIntent().getStringExtra("loan_acc_no"));
-        binding.txtProduct.setText(getIntent().getStringExtra("product"));
-        binding.txtAmountDueAsOnAmount.setText(getIntent().getStringExtra("amt_due"));
-        binding.txtTotalAmountPaid.setText(getIntent().getStringExtra("total_amt_paid"));
-        binding.txtBalanceInterest.setText(getIntent().getStringExtra("balance_interest"));
-        binding.txtTotalPayableAmount.setText(getIntent().getStringExtra("total_payable_amt"));
+        String dataSetId = getIntent().getStringExtra("dataSetId");
+        detailsOfCustomerViewModel.getDetailsOfCustomer_Data(dataSetId); // call Details Of Customer API
+    }
+
+
+    private void setUpDetailsOfCustomerRecyclerView() {
+
+        detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
+        RecyclerView recyclerView = binding.rvDetailsOfCustomer;
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
+    }
+
+    private void initObserver() {
+
+        if (NetworkUtilities.getConnectivityStatus(this)) {
+
+            binding.loadingProgressBar.setVisibility(View.VISIBLE);
+
+            detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this, result -> {
+
+                if (result != null) {
+
+                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
+                    setUpDetailsOfCustomerRecyclerView();
+                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.addAll(result);
+                    binding.loadingProgressBar.setVisibility(View.INVISIBLE);
+
+
+                }
+            });
+
+            //handle  error response
+            detailsOfCustomerViewModel.getMutErrorResponse().observe(this, error -> {
+
+                if (error != null && !error.isEmpty()) {
+                    Global.showSnackBar(view, error);
+                    System.out.println("Here: " + error);
+                } else {
+                    Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+                }
+            });
+        } else {
+            Global.showToast(this, getString(R.string.check_internet_connection));
+        }
 
     }
+
 
     private void onClickListener() {
 
@@ -68,85 +116,28 @@ View view;
             }
         });
 
-      binding.btnCompleteNoChange.setOnClickListener(v -> {
+        binding.btnCompleteNoChange.setOnClickListener(v -> {
 
-          Intent i = new Intent(VisitCompletionOfCustomerActivity.this,NearByCustomersActivity.class);
-          startActivity(i);
-      });
-
-        binding.btnCompleteNeedToUpdateDetails.setOnClickListener(v->{
-            binding.btnCompleteNoChange.performClick();
-        });
-
-
-        binding.btnCompleteEscalateToBM.setOnClickListener(v->{
-            binding.btnCompleteNoChange.performClick();
-        });
-
-
-        binding.btnNearBy.setOnClickListener(v->{
-            binding.btnCompleteNoChange.performClick();
-        });
-
-
-        binding.btnCalculate.setOnClickListener(v->{
-            Intent i = new Intent(this, BalanceInterestCalculationActivity.class);
+            Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
             startActivity(i);
         });
 
-        //for Editing Time
-        binding.ivEditTime.setOnClickListener(v->{
-
-            View customDialog2 = LayoutInflater.from(this).inflate(R.layout.custom_dialog_timepicker, null);
-            Button customButton = customDialog2.findViewById(R.id.btnOK);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialog2);
-            final AlertDialog dialog = builder.create();
-            dialog.setCancelable(false);
-            dialog.show();
-
-            //on Clicking OK button
-            customButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    // get a reference to the TimePicker
-                    TimePicker timePicker = customDialog2.findViewById(R.id.customDialogTimePicker);
-
-                    // get the selected hour and minute
-                    int hour = timePicker.getHour();
-                    int minute = timePicker.getMinute();
-
-                    // create a Date object with the selected time
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, hour);
-                    calendar.set(Calendar.MINUTE, minute);
-                    Date selectedTime = calendar.getTime();
-
-                    // create a SimpleDateFormat object with the desired format string
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-
-                    // format the time and store it in a string
-                    String formattedTime = dateFormat.format(selectedTime);
-
-                    // display the selected time
-                    binding.txtScheduledTime.setText(":"+formattedTime);
-
-                    dialog.dismiss();
-                }
-            });
-
+        binding.btnCompleteNeedToUpdateDetails.setOnClickListener(v -> {
+            binding.btnCompleteNoChange.performClick();
         });
 
 
+        binding.btnCompleteEscalateToBM.setOnClickListener(v -> {
+            binding.btnCompleteNoChange.performClick();
+        });
+
 
         //for Notes
-        binding.ivNotesIcon.setOnClickListener(v->{
+        binding.ivNotesIcon.setOnClickListener(v -> {
 
             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
             EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
             customEditBox.setVisibility(View.VISIBLE);
@@ -168,11 +159,11 @@ View view;
         });
 
         //for History
-        binding.ivHistory.setOnClickListener(v->{
+        binding.ivHistory.setOnClickListener(v -> {
 
             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
             TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
             txtCustom.setVisibility(View.VISIBLE);
@@ -191,7 +182,6 @@ View view;
                     dialog.dismiss();
                 }
             });
-
 
 
         });

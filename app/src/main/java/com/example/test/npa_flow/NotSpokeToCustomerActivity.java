@@ -42,11 +42,10 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
         initializeFields();
         initObserver();
-        if(NetworkUtilities.getConnectivityStatus(this)){
+        if (NetworkUtilities.getConnectivityStatus(this)) {
             callDetailsOfCustomerApi();
-        }
-        else{
-            Global.showToast(this,getString(R.string.check_internet_connection));
+        } else {
+            Global.showToast(this, getString(R.string.check_internet_connection));
         }
         onClickListener();
 
@@ -54,41 +53,40 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
     private void initializeFields() {
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_not_spoke_to_customer);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_not_spoke_to_customer);
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
     }
 
-    private void callDetailsOfCustomerApi(){
+    private void callDetailsOfCustomerApi() {
 
         String dataSetId = getIntent().getStringExtra("dataSetId");
         detailsOfCustomerViewModel.getDetailsOfCustomer_Data(dataSetId); // call Details Of Customer API
     }
 
 
-    private void setUpDetailsOfCustomerRecyclerView(){
+    private void setUpDetailsOfCustomerRecyclerView() {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
         recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
     }
 
-    private void initObserver(){
+    private void initObserver() {
 
-        if(NetworkUtilities.getConnectivityStatus(this)){
+        if (NetworkUtilities.getConnectivityStatus(this)) {
 
             binding.loadingProgressBar.setVisibility(View.VISIBLE);
 
-            detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this,result->{
+            detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this, result -> {
 
-                if(result!=null) {
+                if (result != null) {
 
                     detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
                     setUpDetailsOfCustomerRecyclerView();
                     detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.addAll(result);
                     binding.loadingProgressBar.setVisibility(View.INVISIBLE);
-
 
 
                 }
@@ -104,9 +102,8 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                     Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
                 }
             });
-        }
-        else{
-            Global.showToast(this,getString(R.string.check_internet_connection));
+        } else {
+            Global.showToast(this, getString(R.string.check_internet_connection));
         }
 
     }
@@ -121,16 +118,12 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
         //for Notes
-        binding.ivNotesIcon.setOnClickListener(v->{
+        binding.ivNotesIcon.setOnClickListener(v -> {
 
             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
             EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
             customEditBox.setVisibility(View.VISIBLE);
@@ -147,11 +140,11 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         });
 
         //for History
-        binding.ivHistory.setOnClickListener(v->{
+        binding.ivHistory.setOnClickListener(v -> {
 
             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
             TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
             txtCustom.setVisibility(View.VISIBLE);
@@ -167,25 +160,24 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
             customButton.setOnClickListener(v2 -> dialog.dismiss());
 
 
-
         });
 
 
-        binding.btnNoResponseBusy.setOnClickListener(v->{
+        binding.btnNoResponseBusy.setOnClickListener(v -> {
             Intent i = new Intent(NotSpokeToCustomerActivity.this, LoanCollectionActivity.class);
             startActivity(i);
 
         });
 
-        binding.btnNotReachableSwitchedOff.setOnClickListener(v->{
-            Intent i = new Intent(NotSpokeToCustomerActivity.this,LoanCollectionActivity.class);
+        binding.btnNotReachableSwitchedOff.setOnClickListener(v -> {
+            Intent i = new Intent(NotSpokeToCustomerActivity.this, LoanCollectionActivity.class);
             startActivity(i);
 
         });
 
-        binding.btnNumberIsInvalid.setOnClickListener(v->{
-            Intent i = new Intent(NotSpokeToCustomerActivity.this,VisitCompletionOfCustomerActivity.class);
-            i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
+        binding.btnNumberIsInvalid.setOnClickListener(v -> {
+            Intent i = new Intent(NotSpokeToCustomerActivity.this, VisitCompletionOfCustomerActivity.class);
+            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             startActivity(i);
         });
 
