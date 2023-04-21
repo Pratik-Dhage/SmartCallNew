@@ -79,7 +79,23 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
         });
 
         binding.btnWillPayLumpsum.setOnClickListener(v->{
-            startActivity(new Intent(this,VisitCompletionOfCustomerActivity.class));
+
+            //get Details from PaymentInfoOfCustomerActivity and Pass To VisitCompletionOfCustomerActivity
+
+            Intent i = new Intent(this,VisitCompletionOfCustomerActivity.class);
+            i.putExtra("name",getIntent().getStringExtra("name"));
+            i.putExtra("village_name",getIntent().getStringExtra("village_name"));
+            i.putExtra("mobile_no", getIntent().getStringExtra("mobile_no"));
+            i.putExtra("aadhaar_no",getIntent().getStringExtra("aadhaar_no"));
+            i.putExtra("dob",  getIntent().getStringExtra("dob"));
+            i.putExtra("father_name", getIntent().getStringExtra("father_name"));
+            i.putExtra("loan_acc_no", getIntent().getStringExtra("loan_acc_no"));
+            i.putExtra("product", getIntent().getStringExtra("product"));
+            i.putExtra("amt_due", getIntent().getStringExtra("amt_due"));
+            i.putExtra("total_amt_paid", getIntent().getStringExtra("total_amt_paid"));
+            i.putExtra("balance_interest",getIntent().getStringExtra("balance_interest"));
+            i.putExtra("total_payable_amt",getIntent().getStringExtra("total_payable_amt"));
+            startActivity(i);
         });
 
     }

@@ -60,6 +60,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
     private void getDetailsOfCustomerFromIntent(){
 
         binding.txtName.setText(getIntent().getStringExtra("name"));
+        binding.txtVillageName.setText(getIntent().getStringExtra("village_name"));
         binding.txtMobileNumber.setText(getIntent().getStringExtra("mobile_no"));
         binding.txtAadharNumber.setText(getIntent().getStringExtra("aadhaar_no"));
         binding.txtDOB.setText(getIntent().getStringExtra("dob"));
@@ -151,6 +152,19 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
         binding.btnWillPayLater.setOnClickListener(v->{
             Intent i = new Intent(PaymentInfoOfCustomerActivity.this,ScheduleVisitForCollectionActivity.class);
             i.putExtra("isFromPaymentInfoOfCustomerActivity","isFromPaymentInfoOfCustomerActivity");
+
+            i.putExtra("name",binding.txtName.getText().toString());
+            i.putExtra("village_name",binding.txtVillageName.getText().toString());
+            i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
+            i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
+            i.putExtra("dob",binding.txtDOB.getText().toString());
+            i.putExtra("father_name",binding.txtFatherName.getText().toString());
+            i.putExtra("loan_acc_no",binding.txtLoanAccountNumber.getText().toString());
+            i.putExtra("product",binding.txtProduct.getText().toString());
+            i.putExtra("amt_due",binding.txtAmountDueAsOnAmount.getText().toString());
+            i.putExtra("total_amt_paid",binding.txtTotalAmountPaid.getText().toString());
+            i.putExtra("balance_interest",binding.txtBalanceInterest.getText().toString());
+            i.putExtra("total_payable_amt",binding.txtTotalPayableAmount.getText().toString());
             startActivity(i);
 
         });
@@ -158,6 +172,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
         binding.btnFoNotAttendedMeeting.setOnClickListener(v->{
            Intent i = new Intent(PaymentInfoOfCustomerActivity.this,VisitCompletionOfCustomerActivity.class);
             i.putExtra("name",binding.txtName.getText().toString());
+            i.putExtra("village_name",binding.txtVillageName.getText().toString());
             i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
             i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
             i.putExtra("dob",binding.txtDOB.getText().toString());
@@ -174,6 +189,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
         binding.btnNotTakenLoan.setOnClickListener(v->{
             Intent i = new Intent(PaymentInfoOfCustomerActivity.this,VisitCompletionOfCustomerActivity.class);
             i.putExtra("name",binding.txtName.getText().toString());
+            i.putExtra("village_name",binding.txtVillageName.getText().toString());
             i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
             i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
             i.putExtra("dob",binding.txtDOB.getText().toString());
