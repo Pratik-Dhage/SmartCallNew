@@ -26,7 +26,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  setContentView(R.layout.activity_schedule_visit_for_collection);
+        //  setContentView(R.layout.activity_schedule_visit_for_collection);
 
         initializeFields();
         onClickListener();
@@ -34,7 +34,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
     private void initializeFields() {
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_schedule_visit_for_collection);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_schedule_visit_for_collection);
         view = binding.getRoot();
 
         //for current date
@@ -45,18 +45,18 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
         setUpTitleAndButtonText();
     }
 
-    private void setUpTitleAndButtonText(){
+    private void setUpTitleAndButtonText() {
 
-        if(getIntent().hasExtra("isFromPaymentNotificationOfCustomerActivity")
+        if (getIntent().hasExtra("isFromPaymentNotificationOfCustomerActivity")
                 || getIntent().hasExtra("isFromPaymentModeStatusActivity")
-        || getIntent().hasExtra("isCall") || getIntent().hasExtra("isFromPaymentInfoOfCustomerActivity")
+                || getIntent().hasExtra("isCall") || getIntent().hasExtra("isFromPaymentInfoOfCustomerActivity")
 
-        ){
-           binding.labelScheduleVisit.setText(getString(R.string.schedule_call));
-           binding.btnUpdateSchedule.setText(getString(R.string.update));
+        ) {
+            binding.labelScheduleVisit.setText(getString(R.string.schedule_call));
+            binding.btnUpdateSchedule.setText(getString(R.string.update));
         }
 
-        if(getIntent().hasExtra("isFromPaymentInfoOfCustomerActivity")){
+        if (getIntent().hasExtra("isFromPaymentInfoOfCustomerActivity")) {
             binding.btnWillPayLumpsum.setVisibility(View.VISIBLE);
         }
     }
@@ -65,7 +65,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
         binding.btnUpdateSchedule.setOnClickListener(v -> {
 
-            Global.showToast(ScheduleVisitForCollectionActivity.this,getResources().getString(R.string.schedule_update_successfully));
+            Global.showToast(ScheduleVisitForCollectionActivity.this, getResources().getString(R.string.schedule_update_successfully));
 
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -78,23 +78,12 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
         });
 
-        binding.btnWillPayLumpsum.setOnClickListener(v->{
+        binding.btnWillPayLumpsum.setOnClickListener(v -> {
 
             //get Details from PaymentInfoOfCustomerActivity and Pass To VisitCompletionOfCustomerActivity
 
-            Intent i = new Intent(this,VisitCompletionOfCustomerActivity.class);
-            i.putExtra("name",getIntent().getStringExtra("name"));
-            i.putExtra("village_name",getIntent().getStringExtra("village_name"));
-            i.putExtra("mobile_no", getIntent().getStringExtra("mobile_no"));
-            i.putExtra("aadhaar_no",getIntent().getStringExtra("aadhaar_no"));
-            i.putExtra("dob",  getIntent().getStringExtra("dob"));
-            i.putExtra("father_name", getIntent().getStringExtra("father_name"));
-            i.putExtra("loan_acc_no", getIntent().getStringExtra("loan_acc_no"));
-            i.putExtra("product", getIntent().getStringExtra("product"));
-            i.putExtra("amt_due", getIntent().getStringExtra("amt_due"));
-            i.putExtra("total_amt_paid", getIntent().getStringExtra("total_amt_paid"));
-            i.putExtra("balance_interest",getIntent().getStringExtra("balance_interest"));
-            i.putExtra("total_payable_amt",getIntent().getStringExtra("total_payable_amt"));
+            Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             startActivity(i);
         });
 

@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel" />
+
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         style="@style/MainConstraintStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/skyBlue"
         tools:context=".npa_flow.PaymentInfoOfCustomerActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            style="@style/toolBarStyle"
             android:background="@color/textBlue"
-            style="@style/toolBarStyle">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <TextView
                 android:id="@+id/txtToolbarHeading"
-                android:textSize="@dimen/_13ssp"
-                android:text="@string/payment_information"
-                android:layout_gravity="center"
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/payment_information"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp" />
 
 
         </androidx.appcompat.widget.Toolbar>
@@ -35,9 +45,9 @@
             android:layout_height="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:src="@drawable/back_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/toolbar"
             app:tint="@color/white" />
 
 
@@ -46,14 +56,17 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@id/clSecondHalf"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <ScrollView
-                android:id="@+id/paymentInfoOfCustomerScrollView"
+                android:id="@+id/detailsOfCustomerScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fillViewport="true"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:nestedScrollingEnabled="true"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -63,7 +76,6 @@
                     style="@style/MainConstraintStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
 
 
                     <com.google.android.material.card.MaterialCardView
@@ -87,6 +99,16 @@
                             android:paddingBottom="@dimen/_10sdp">
 
 
+                            <ProgressBar
+                                android:id="@+id/loadingProgressBar"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_30sdp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
                             <TextView
                                 android:id="@+id/txtPersonalDetails"
                                 style="@style/semi_mid_text_style"
@@ -100,530 +122,19 @@
                                 app:layout_constraintTop_toTopOf="@id/clCardView" />
 
 
-                            <!--DownArrow-->
-                            <ImageView
-                                android:id="@+id/ivDownArrowPersonalDetails"
-                                android:layout_width="@dimen/_20sdp"
-                                android:layout_height="@dimen/_20sdp"
-                                android:layout_marginEnd="@dimen/_5sdp"
-                                android:src="@drawable/down_arrow"
-                                android:visibility="invisible"
-                                app:layout_constraintBottom_toBottomOf="@id/txtPersonalDetails"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/txtPersonalDetails"
-                                app:tint="@color/textBlue" />
-
-                            <TextView
-                                android:id="@+id/labelName"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingEnd="0dp"
-                                android:text="@string/name"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@id/txtPersonalDetails" />
-
-                            <TextView
-                                android:id="@+id/txtName"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_90sdp"
-                                tools:text=": Sairaj Naidu"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                app:layout_constraintBottom_toBottomOf="@id/labelName"
-                                app:layout_constraintStart_toEndOf="@id/labelName"
-                                app:layout_constraintTop_toTopOf="@id/labelName" />
-
-
-                            <!--Village==Location-->
-                            <TextView
-                                android:id="@+id/labelLocation"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingEnd="0dp"
-                                android:text="@string/village"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@id/labelName" />
-
-
-                            <TextView
-                                android:id="@+id/txtVillageName"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_75sdp"
-                                android:maxLength="12"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                app:layout_constraintBottom_toBottomOf="@id/labelLocation"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelLocation"
-                                tools:text=": Turuvekere" />
-
-                            <!--Distance-->
-                            <TextView
-                                android:id="@+id/txtDistance"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_10sdp"
-                                android:maxLength="12"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                app:layout_constraintBottom_toBottomOf="@id/labelLocation"
-                                app:layout_constraintStart_toEndOf="@id/txtVillageName"
-                                app:layout_constraintTop_toTopOf="@id/labelLocation"
-                                tools:text=" 3km" />
-
-
-                            <!--Capture==NearBy-->
-                            <TextView
-                                android:id="@+id/btnNearBy"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/_3sdp"
-                                android:background="@drawable/round_corner_bg"
-                                android:backgroundTint="@color/textBlue"
-                                android:gravity="center"
-                                android:padding="@dimen/_5sdp"
-                                android:text="@string/capture"
-                                android:textAlignment="center"
-                                android:textColor="@color/white"
-                                app:layout_constraintBottom_toBottomOf="@id/labelLocation"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/labelLocation" />
-
-
-
-                            <TextView
-                                android:id="@+id/labelScheduledTime"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingEnd="0dp"
-                                android:text="@string/scheduled_time"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@id/labelLocation" />
-
-
-                            <TextView
-                                android:id="@+id/txtScheduledTime"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": 1:30 pm"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                app:layout_constraintBottom_toBottomOf="@id/labelScheduledTime"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelScheduledTime" />
-
-
-                            <ImageView
-                                android:id="@+id/ivEditTime"
-                                android:layout_width="@dimen/_22sdp"
-                                android:layout_height="@dimen/_15sdp"
-                                android:layout_marginStart="@dimen/_10sdp"
-                                android:layout_marginEnd="@dimen/_10sdp"
-                                android:src="@drawable/edit_icon"
-                                android:visibility="invisible"
-                                app:layout_constraintBottom_toBottomOf="@id/txtScheduledTime"
-                                app:layout_constraintStart_toEndOf="@id/txtScheduledTime"
-                                app:layout_constraintTop_toTopOf="@id/txtScheduledTime"
-                                app:tint="@color/textBlue" />
-
-
-                            <TextView
-                                android:id="@+id/labelMobileNumber"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingEnd="0dp"
-                                android:text="@string/mobile_no"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@id/labelScheduledTime" />
-
-
-                            <TextView
-                                android:id="@+id/txtMobileNumber"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": 9876543210"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                app:layout_constraintBottom_toBottomOf="@id/labelMobileNumber"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelMobileNumber" />
-
-
-                            <ImageView
-                                android:layout_width="@dimen/_20sdp"
-                                android:layout_height="@dimen/_20sdp"
-                                android:layout_marginStart="@dimen/_5sdp"
-                                android:src="@drawable/call_round_icon"
-                                android:visibility="invisible"
-                                app:layout_constraintBottom_toBottomOf="@id/txtMobileNumber"
-                                app:layout_constraintStart_toEndOf="@id/txtMobileNumber"
-                                app:layout_constraintTop_toTopOf="@id/txtMobileNumber" />
-
-                            <TextView
-                                android:id="@+id/labelAadharNumber"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingEnd="0dp"
-                                android:text="@string/aadhar_no"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@id/labelMobileNumber" />
-
-
-                            <TextView
-                                android:id="@+id/txtAadharNumber"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": ********4321"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                app:layout_constraintBottom_toBottomOf="@id/labelAadharNumber"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelAadharNumber" />
-
-
-                            <TextView
-                                android:id="@+id/labelDOB"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingEnd="0dp"
-                                android:text="@string/dob"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@id/labelAadharNumber" />
-
-                            <TextView
-                                android:id="@+id/txtDOB"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=":1/10/2023"
-                                android:maxLength="10"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                app:layout_constraintBottom_toBottomOf="@id/labelDOB"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelDOB" />
-
-
-                            <TextView
-                                android:id="@+id/labelFatherName"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingEnd="0dp"
-                                android:text="@string/father_s_name"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@id/labelDOB" />
-
-                            <TextView
-                                android:id="@+id/txtFatherName"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": Krishna Naidu"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                app:layout_constraintBottom_toBottomOf="@id/labelFatherName"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelFatherName" />
-
-
-                            <View
-                                android:id="@+id/viewBorder"
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvDetailsOfCustomer"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_1sdp"
-                                android:layout_marginStart="@dimen/_5sdp"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:layout_marginEnd="@dimen/_5sdp"
-                                android:background="@color/textBlue"
-                                app:layout_constraintTop_toBottomOf="@id/txtFatherName" />
-
-
-                            <!--Account Details-->
-                            <TextView
-                                android:id="@+id/labelLoanAccountNumber"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingEnd="0dp"
-                                android:text="@string/loan_acc_no"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@id/labelFatherName" />
-
-
-                            <TextView
-                                android:id="@+id/txtLoanAccountNumber"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": 65489712345"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                app:layout_constraintBottom_toBottomOf="@id/labelLoanAccountNumber"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelLoanAccountNumber" />
-
-
-                            <TextView
-                                android:id="@+id/labelProduct"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingEnd="0dp"
-                                android:text="@string/product"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@id/labelLoanAccountNumber" />
-
-                            <TextView
-                                android:id="@+id/txtProduct"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": Personal Loan"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                app:layout_constraintBottom_toBottomOf="@id/labelProduct"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelProduct" />
-
-
-                            <TextView
-                                android:id="@+id/labelDPD"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingEnd="0dp"
-                                android:text="@string/dpd"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@id/labelProduct" />
-
-
-                            <TextView
-                                android:id="@+id/txtDPD"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": 10 days"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                app:layout_constraintBottom_toBottomOf="@id/labelDPD"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelDPD" />
-
-
-                            <TextView
-                                android:id="@+id/labelAmountDueAsOn"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingEnd="0dp"
-                                android:text="@string/amt_due_as_on"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@id/labelDPD" />
-
-                            <TextView
-                                android:id="@+id/txtAmountDueAsOnDate"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                tools:text="  28/02/2023"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@+id/labelAmountDueAsOn" />
-
-
-                            <TextView
-                                android:id="@+id/txtAmountDueAsOnAmount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": Rs 10,000.00"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                app:layout_constraintBottom_toBottomOf="@id/txtAmountDueAsOnDate"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelAmountDueAsOn" />
-
-
-                            <TextView
-                                android:id="@+id/labelBalanceInterest"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingEnd="0dp"
-                                android:text="@string/balance_interest"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@id/txtAmountDueAsOnDate" />
-
-                            <TextView
-                                android:id="@+id/txtBalanceInterest"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": Rs 10,00,000.00"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                android:visibility="visible"
-                                app:layout_constraintBottom_toBottomOf="@id/labelBalanceInterest"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelBalanceInterest" />
-
-
-                            <TextView
-                                android:id="@+id/btnCalculate"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/_3sdp"
-                                android:background="@drawable/round_corner_bg"
-                                android:backgroundTint="@color/textBlue"
-                                android:gravity="center"
-                                android:textSize="@dimen/_11ssp"
-                                android:padding="@dimen/_5sdp"
-                                android:text="@string/calculate"
-                                android:textAlignment="center"
-                                android:textColor="@color/white"
-                                app:layout_constraintBottom_toBottomOf="@id/labelBalanceInterest"
+                                android:orientation="vertical"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/labelBalanceInterest" />
-
-
-                            <TextView
-                                android:id="@+id/labelTotalPayable"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingEnd="0dp"
-                                android:text="@string/total_payable_as_on"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@id/labelBalanceInterest" />
-
-
-                            <TextView
-                                android:id="@+id/txtTotalPayableDate"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                tools:text="  30/03/2023"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@+id/labelTotalPayable" />
-
-                            <TextView
-                                android:id="@+id/txtTotalPayableAmount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": Rs 10,000.00"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                android:visibility="visible"
-                                app:layout_constraintBottom_toBottomOf="@id/txtTotalPayableDate"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelTotalPayable" />
-
-
-                            <TextView
-                                android:id="@+id/labelTotalAmtPaid"
-                                style="@style/common_text_style"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:paddingEnd="0dp"
-                                android:text="@string/total_amt_paid"
-                                android:visibility="invisible"
-                                app:layout_constraintStart_toStartOf="@id/txtPersonalDetails"
-                                app:layout_constraintTop_toBottomOf="@id/txtTotalPayableDate" />
-
-                            <TextView
-                                android:id="@+id/txtTotalAmountPaid"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_75sdp"
-                                tools:text=": Rs 40,000.00"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                android:textStyle="italic"
-                                android:visibility="invisible"
-                                app:layout_constraintBottom_toBottomOf="@id/labelTotalAmtPaid"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelTotalAmtPaid" />
-
-
-                            <EditText
-                                android:id="@+id/edtTotalAmountPaid"
-                                android:layout_width="@dimen/_100sdp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_75sdp"
-                                android:digits="0123456789,."
-                                android:hint="@string/enter_amount"
-                                android:inputType="number"
-                                android:maxLength="8"
-                                android:visibility="invisible"
-                                app:layout_constraintBottom_toBottomOf="@id/labelTotalAmtPaid"
-                                app:layout_constraintStart_toEndOf="@id/labelLocation"
-                                app:layout_constraintTop_toTopOf="@id/labelTotalAmtPaid" />
-
-                            <ImageView
-                                android:id="@+id/ivPrintIcon"
-                                android:layout_width="@dimen/_22sdp"
-                                android:layout_height="@dimen/_20sdp"
-                                android:layout_marginEnd="@dimen/_10sdp"
-                                android:src="@drawable/printer_icon"
-                                android:visibility="invisible"
-                                app:layout_constraintBottom_toBottomOf="@+id/labelTotalAmtPaid"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/labelTotalAmtPaid"
-                                app:tint="@color/textBlue" />
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/txtPersonalDetails"
+                                tools:itemCount="3"
+                                tools:listitem="@layout/item_details_of_customer" />
 
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -657,10 +168,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:paddingBottom="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@id/clFirstHalf">
 
 
@@ -716,8 +227,6 @@
                 app:layout_constraintTop_toBottomOf="@id/ivHistory" />
 
 
-
-
             <Button
                 android:id="@+id/btnFoNotAttendedMeeting"
                 style="@style/CustomButtonStyle"
@@ -762,54 +271,31 @@
             <EditText
                 android:id="@+id/edtPleaseSpecifyName"
                 android:layout_width="@dimen/_140sdp"
-                android:inputType="text"
-                android:maxLength="20"
-                android:textSize="@dimen/_13ssp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:backgroundTint="@color/grey"
                 android:hint="@string/please_specify_name"
-                app:layout_constraintStart_toStartOf="@id/btnFoNotAttendedMeeting"
+                android:inputType="text"
+                android:maxLength="20"
+                android:textSize="@dimen/_13ssp"
                 android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@id/btnFoNotAttendedMeeting"
                 app:layout_constraintTop_toBottomOf="@id/btnFoNotAttendedMeeting" />
 
             <EditText
                 android:id="@+id/edtPleaseSpecifyContact"
                 android:layout_width="wrap_content"
-                android:inputType="number"
-                android:maxLength="10"
-                android:textSize="@dimen/_13ssp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:backgroundTint="@color/grey"
                 android:hint="@string/contact"
-                app:layout_constraintStart_toStartOf="@id/btnFoNotAttendedMeeting"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textSize="@dimen/_13ssp"
                 android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@id/btnFoNotAttendedMeeting"
                 app:layout_constraintTop_toBottomOf="@id/edtPleaseSpecifyName" />
 
-
-            <ImageView
-                android:id="@+id/ivGoBack2"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/refresh_go_back"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/edtPleaseSpecifyContact"
-                app:layout_constraintStart_toEndOf="@+id/edtPleaseSpecifyContact"
-                app:layout_constraintTop_toTopOf="@+id/edtPleaseSpecifyContact"
-                app:tint="@color/textBlue" />
-
-            <!--This icon will appear when Name and Contact validations are fulfilled-->
-            <ImageView
-                android:id="@+id/ivForwardArrowNameAndContact"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/forward_arrow"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/edtPleaseSpecifyContact"
-                app:layout_constraintStart_toEndOf="@+id/edtPleaseSpecifyContact"
-                app:layout_constraintTop_toTopOf="@+id/edtPleaseSpecifyContact"
-                app:tint="@color/textBlue" />
 
             <Button
                 android:id="@+id/btnOthers"
@@ -823,8 +309,6 @@
                 app:layout_constraintBottom_toBottomOf="@+id/btnLoanTakenByRelative"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/btnLoanTakenByRelative" />
-
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

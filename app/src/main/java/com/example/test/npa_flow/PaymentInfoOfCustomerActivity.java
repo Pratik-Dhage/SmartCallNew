@@ -5,6 +5,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -27,6 +29,10 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityPaymentInfoOfCustomer3Binding;
 import com.example.test.databinding.ActivityPaymentInfoOfCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
+import com.example.test.helper_classes.Global;
+import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
+import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,19 +41,25 @@ import java.util.Date;
 public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
     ActivityPaymentInfoOfCustomerBinding binding;
-    View view ;
+    View view;
     View customDialogImagePicker;
     View customDialogEditable;
     private ActivityResultLauncher<Intent> pickImageLauncher;
+    DetailsOfCustomerViewModel detailsOfCustomerViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_payment_info_of_customer);
+        // setContentView(R.layout.activity_payment_info_of_customer);
 
         initializeFields();
-        getDetailsOfCustomerFromIntent();
-       onClickListener();
+        initObserver();
+        if (NetworkUtilities.getConnectivityStatus(this)) {
+            callDetailsOfCustomerApi();
+        } else {
+            Global.showToast(this, getString(R.string.check_internet_connection));
+        }
+        onClickListener();
         setUpImagePicker();
     }
 
@@ -55,26 +67,61 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_info_of_customer);
         view = binding.getRoot();
+        detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
+        binding.setViewModel(detailsOfCustomerViewModel);
     }
 
-    private void getDetailsOfCustomerFromIntent(){
+    private void callDetailsOfCustomerApi() {
 
-        binding.txtName.setText(getIntent().getStringExtra("name"));
-        binding.txtVillageName.setText(getIntent().getStringExtra("village_name"));
-        binding.txtMobileNumber.setText(getIntent().getStringExtra("mobile_no"));
-        binding.txtAadharNumber.setText(getIntent().getStringExtra("aadhaar_no"));
-        binding.txtDOB.setText(getIntent().getStringExtra("dob"));
-        binding.txtFatherName.setText(getIntent().getStringExtra("father_name"));
-        binding.txtLoanAccountNumber.setText(getIntent().getStringExtra("loan_acc_no"));
-        binding.txtProduct.setText(getIntent().getStringExtra("product"));
-        binding.txtAmountDueAsOnAmount.setText(getIntent().getStringExtra("amt_due"));
-        binding.txtTotalAmountPaid.setText(getIntent().getStringExtra("total_amt_paid"));
-        binding.txtBalanceInterest.setText(getIntent().getStringExtra("balance_interest"));
-        binding.txtTotalPayableAmount.setText(getIntent().getStringExtra("total_payable_amt"));
+        String dataSetId = getIntent().getStringExtra("dataSetId");
+        detailsOfCustomerViewModel.getDetailsOfCustomer_Data(dataSetId); // call Details Of Customer API
+    }
+
+
+    private void setUpDetailsOfCustomerRecyclerView() {
+
+        detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
+        RecyclerView recyclerView = binding.rvDetailsOfCustomer;
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
+    }
+
+
+    private void initObserver() {
+
+        if (NetworkUtilities.getConnectivityStatus(this)) {
+
+            binding.loadingProgressBar.setVisibility(View.VISIBLE);
+
+            detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this, result -> {
+
+                if (result != null) {
+
+                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
+                    setUpDetailsOfCustomerRecyclerView();
+                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.addAll(result);
+                    binding.loadingProgressBar.setVisibility(View.INVISIBLE);
+
+
+                }
+            });
+
+            //handle  error response
+            detailsOfCustomerViewModel.getMutErrorResponse().observe(this, error -> {
+
+                if (error != null && !error.isEmpty()) {
+                    Global.showSnackBar(view, error);
+                    System.out.println("Here: " + error);
+                } else {
+                    Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+                }
+            });
+        } else {
+            Global.showToast(this, getString(R.string.check_internet_connection));
+        }
 
     }
 
-    private void setUpImagePicker(){
+    private void setUpImagePicker() {
         // Initialize the ActivityResultLauncher
         pickImageLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
@@ -98,11 +145,13 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 btnUploadReceipt.setVisibility(View.INVISIBLE);
 
 
-                txtProceed.setOnClickListener(v->{
-                    startActivity(new Intent(this,VisitCompletionOfCustomerActivity.class));
+                txtProceed.setOnClickListener(v -> {
+                    Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    startActivity(i);
                 });
 
-                ivRefreshCancel.setOnClickListener(v->{
+                ivRefreshCancel.setOnClickListener(v -> {
                     btnUploadReceipt.performClick();
                 });
             }
@@ -138,78 +187,33 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
         binding.ivBack.setOnClickListener(v -> onBackPressed());
 
-        //NearBy==Capture Button
-        binding.btnNearBy.setOnClickListener(v->{
-            Intent i = new Intent(this, WebViewActivity.class);
-            startActivity(i);
-        });
 
-        binding.btnCalculate.setOnClickListener(v->{
-            Intent i = new Intent(this, BalanceInterestCalculationActivity.class);
-            startActivity(i);
-        });
-
-        binding.btnWillPayLater.setOnClickListener(v->{
-            Intent i = new Intent(PaymentInfoOfCustomerActivity.this,ScheduleVisitForCollectionActivity.class);
-            i.putExtra("isFromPaymentInfoOfCustomerActivity","isFromPaymentInfoOfCustomerActivity");
-
-            i.putExtra("name",binding.txtName.getText().toString());
-            i.putExtra("village_name",binding.txtVillageName.getText().toString());
-            i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
-            i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
-            i.putExtra("dob",binding.txtDOB.getText().toString());
-            i.putExtra("father_name",binding.txtFatherName.getText().toString());
-            i.putExtra("loan_acc_no",binding.txtLoanAccountNumber.getText().toString());
-            i.putExtra("product",binding.txtProduct.getText().toString());
-            i.putExtra("amt_due",binding.txtAmountDueAsOnAmount.getText().toString());
-            i.putExtra("total_amt_paid",binding.txtTotalAmountPaid.getText().toString());
-            i.putExtra("balance_interest",binding.txtBalanceInterest.getText().toString());
-            i.putExtra("total_payable_amt",binding.txtTotalPayableAmount.getText().toString());
+        binding.btnWillPayLater.setOnClickListener(v -> {
+            Intent i = new Intent(PaymentInfoOfCustomerActivity.this, ScheduleVisitForCollectionActivity.class);
+            i.putExtra("isFromPaymentInfoOfCustomerActivity", "isFromPaymentInfoOfCustomerActivity");
+            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             startActivity(i);
 
         });
 
-        binding.btnFoNotAttendedMeeting.setOnClickListener(v->{
-           Intent i = new Intent(PaymentInfoOfCustomerActivity.this,VisitCompletionOfCustomerActivity.class);
-            i.putExtra("name",binding.txtName.getText().toString());
-            i.putExtra("village_name",binding.txtVillageName.getText().toString());
-            i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
-            i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
-            i.putExtra("dob",binding.txtDOB.getText().toString());
-            i.putExtra("father_name",binding.txtFatherName.getText().toString());
-            i.putExtra("loan_acc_no",binding.txtLoanAccountNumber.getText().toString());
-            i.putExtra("product",binding.txtProduct.getText().toString());
-            i.putExtra("amt_due",binding.txtAmountDueAsOnAmount.getText().toString());
-            i.putExtra("total_amt_paid",binding.txtTotalAmountPaid.getText().toString());
-            i.putExtra("balance_interest",binding.txtBalanceInterest.getText().toString());
-            i.putExtra("total_payable_amt",binding.txtTotalPayableAmount.getText().toString());
+        binding.btnFoNotAttendedMeeting.setOnClickListener(v -> {
+            Intent i = new Intent(PaymentInfoOfCustomerActivity.this, VisitCompletionOfCustomerActivity.class);
+            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             startActivity(i);
         });
 
-        binding.btnNotTakenLoan.setOnClickListener(v->{
-            Intent i = new Intent(PaymentInfoOfCustomerActivity.this,VisitCompletionOfCustomerActivity.class);
-            i.putExtra("name",binding.txtName.getText().toString());
-            i.putExtra("village_name",binding.txtVillageName.getText().toString());
-            i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
-            i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
-            i.putExtra("dob",binding.txtDOB.getText().toString());
-            i.putExtra("father_name",binding.txtFatherName.getText().toString());
-            i.putExtra("loan_acc_no",binding.txtLoanAccountNumber.getText().toString());
-            i.putExtra("product",binding.txtProduct.getText().toString());
-            i.putExtra("amt_due",binding.txtAmountDueAsOnAmount.getText().toString());
-            i.putExtra("total_amt_paid",binding.txtTotalAmountPaid.getText().toString());
-            i.putExtra("balance_interest",binding.txtBalanceInterest.getText().toString());
-            i.putExtra("total_payable_amt",binding.txtTotalPayableAmount.getText().toString());
+        binding.btnNotTakenLoan.setOnClickListener(v -> {
+            Intent i = new Intent(PaymentInfoOfCustomerActivity.this, VisitCompletionOfCustomerActivity.class);
+            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             startActivity(i);
         });
 
-        binding.btnAlreadyPaid.setOnClickListener(v->{
+        binding.btnAlreadyPaid.setOnClickListener(v -> {
 
             customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
             ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivCancel);
             TextView txtSkipAndProceed = customDialogImagePicker.findViewById(R.id.txtSkipAndProceed);
             Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
-
 
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -221,7 +225,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             dialog.show();
 
 
-            btnUploadReceipt.setOnClickListener(v2->{
+            btnUploadReceipt.setOnClickListener(v2 -> {
 
                 // Open gallery to pick an image
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -231,21 +235,21 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
             });
 
-            txtSkipAndProceed.setOnClickListener(v1->{
-                startActivity(new Intent(this,VisitCompletionOfCustomerActivity.class));
+            txtSkipAndProceed.setOnClickListener(v1 -> {
+                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                startActivity(i);
             });
 
-            ivCancel.setOnClickListener(v1->{
+            ivCancel.setOnClickListener(v1 -> {
                 dialog.dismiss();
             });
-
 
 
         });
 
 
-
-        binding.btnOthers.setOnClickListener(v->{
+        binding.btnOthers.setOnClickListener(v -> {
 
             customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
             ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
@@ -257,7 +261,6 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             edtPleaseSpecifyContact.setVisibility(View.GONE);
 
 
-
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(customDialogEditable);
             final AlertDialog dialog = builder.create();
@@ -267,40 +270,26 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             dialog.show();
 
 
-            btnProceed.setOnClickListener(v2->{
-                Intent i = new Intent(this,VisitCompletionOfCustomerActivity.class);
-                i.putExtra("name",binding.txtName.getText().toString());
-                i.putExtra("village_name",binding.txtVillageName.getText().toString());
-                i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
-                i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
-                i.putExtra("dob",binding.txtDOB.getText().toString());
-                i.putExtra("father_name",binding.txtFatherName.getText().toString());
-                i.putExtra("loan_acc_no",binding.txtLoanAccountNumber.getText().toString());
-                i.putExtra("product",binding.txtProduct.getText().toString());
-                i.putExtra("amt_due",binding.txtAmountDueAsOnAmount.getText().toString());
-                i.putExtra("total_amt_paid",binding.txtTotalAmountPaid.getText().toString());
-                i.putExtra("balance_interest",binding.txtBalanceInterest.getText().toString());
-                i.putExtra("total_payable_amt",binding.txtTotalPayableAmount.getText().toString());
+            btnProceed.setOnClickListener(v2 -> {
+                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 startActivity(i);
             });
 
-            ivCancel.setOnClickListener(v1->{
+            ivCancel.setOnClickListener(v1 -> {
                 dialog.dismiss();
             });
 
 
         });
 
-        binding.btnLoanTakenByRelative.setOnClickListener(v->{
+        binding.btnLoanTakenByRelative.setOnClickListener(v -> {
 
             customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
             ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
 
             Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
 
-
-
-
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(customDialogEditable);
             final AlertDialog dialog = builder.create();
@@ -310,76 +299,26 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             dialog.show();
 
 
-            btnProceed.setOnClickListener(v2->{
-                    startActivity(new Intent(this,VisitCompletionOfCustomerActivity.class));
+            btnProceed.setOnClickListener(v2 -> {
+                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                startActivity(i);
             });
 
-            ivCancel.setOnClickListener(v1->{
+            ivCancel.setOnClickListener(v1 -> {
                 dialog.dismiss();
             });
 
 
         });
 
-        binding.ivGoBack2.setOnClickListener(v->{
-            binding.ivGoBack2.setVisibility(View.GONE);
-            binding.btnLoanTakenByRelative.setVisibility(View.VISIBLE);
-            binding.edtPleaseSpecifyName.setVisibility(View.GONE);
-            binding.edtPleaseSpecifyContact.setVisibility(View.GONE);
-        });
-
-        //for Editing Time
-        binding.ivEditTime.setOnClickListener(v->{
-
-            View customDialog2 = LayoutInflater.from(this).inflate(R.layout.custom_dialog_timepicker, null);
-            Button customButton = customDialog2.findViewById(R.id.btnOK);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialog2);
-            final AlertDialog dialog = builder.create();
-            dialog.setCancelable(false);
-            dialog.show();
-
-            //on Clicking OK button
-            customButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    // get a reference to the TimePicker
-                    TimePicker timePicker = customDialog2.findViewById(R.id.customDialogTimePicker);
-
-                    // get the selected hour and minute
-                    int hour = timePicker.getHour();
-                    int minute = timePicker.getMinute();
-
-                    // create a Date object with the selected time
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, hour);
-                    calendar.set(Calendar.MINUTE, minute);
-                    Date selectedTime = calendar.getTime();
-
-                    // create a SimpleDateFormat object with the desired format string
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-
-                    // format the time and store it in a string
-                    String formattedTime = dateFormat.format(selectedTime);
-
-                    // display the selected time
-                    binding.txtScheduledTime.setText(":"+formattedTime);
-
-                    dialog.dismiss();
-                }
-            });
-
-        });
-
 
         //for Notes
-        binding.ivNotesIcon.setOnClickListener(v->{
+        binding.ivNotesIcon.setOnClickListener(v -> {
 
             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
             EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
             customEditBox.setVisibility(View.VISIBLE);
@@ -401,11 +340,11 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
         });
 
         //for History
-        binding.ivHistory.setOnClickListener(v->{
+        binding.ivHistory.setOnClickListener(v -> {
 
             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
             TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
             txtCustom.setVisibility(View.VISIBLE);
@@ -427,7 +366,6 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             });
 
         });
-
 
 
     }
