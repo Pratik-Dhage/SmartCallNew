@@ -741,31 +741,9 @@
                 app:layout_constraintEnd_toEndOf="@id/btnNotReadyToPay"
                 app:layout_constraintStart_toStartOf="@id/btnNotReadyToPay"
                 app:layout_constraintTop_toBottomOf="@id/btnNotReadyToPay"
-
                 app:layout_constraintTop_toTopOf="@id/btnAskedToCallBackLater" />
 
-            <EditText
-                android:id="@+id/edtPleaseSpecify"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:backgroundTint="@color/grey"
-                android:hint="@string/please_specify"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@id/btnOthers"
-                app:layout_constraintStart_toStartOf="@id/btnOthers"
-                app:layout_constraintTop_toBottomOf="@id/btnOthers" />
 
-            <ImageView
-                android:id="@+id/ivForwardArrowOthers"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/forward_arrow"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/edtPleaseSpecify"
-                app:layout_constraintStart_toEndOf="@+id/edtPleaseSpecify"
-                app:layout_constraintTop_toTopOf="@+id/edtPleaseSpecify"
-                app:tint="@color/textBlue" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

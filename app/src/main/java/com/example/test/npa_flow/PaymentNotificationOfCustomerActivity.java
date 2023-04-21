@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -25,6 +28,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
     ActivityPaymentNotificationOfCustomerBinding binding;
     View view;
+    View customDialogEditable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,14 +80,34 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
         binding.btnOthers.setOnClickListener(v->{
 
-            if(binding.edtPleaseSpecify.getVisibility()==View.GONE){
-                binding.edtPleaseSpecify.setVisibility(View.VISIBLE);
-                binding.ivForwardArrowOthers.setVisibility(View.VISIBLE);
-            }
-            else{
-                binding.edtPleaseSpecify.setVisibility(View.GONE);
-                binding.ivForwardArrowOthers.setVisibility(View.INVISIBLE);
-            }
+            customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
+            ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
+
+            Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
+            EditText edtPleaseSpecify = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
+            EditText edtPleaseSpecifyContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
+            edtPleaseSpecify.setHint(getString(R.string.please_specify));
+            edtPleaseSpecifyContact.setVisibility(View.GONE);
+
+
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(customDialogEditable);
+            final AlertDialog dialog = builder.create();
+            dialog.setCancelable(true);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            dialog.show();
+
+
+            btnProceed.setOnClickListener(v2->{
+                startActivity(new Intent(this,VisitCompletionOfCustomerActivity.class));
+            });
+
+            ivCancel.setOnClickListener(v1->{
+                dialog.dismiss();
+            });
+
 
         });
 
