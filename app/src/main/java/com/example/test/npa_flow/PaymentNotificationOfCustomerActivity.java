@@ -41,7 +41,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_payment_notification_of_customer);
+        // setContentView(R.layout.activity_payment_notification_of_customer);
 
 
         initializeFields();
@@ -117,15 +117,15 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
         binding.ivBack.setOnClickListener(v -> onBackPressed());
 
-        binding.btnAskedToCallBackLater.setOnClickListener(v->{
+        binding.btnAskedToCallBackLater.setOnClickListener(v -> {
 
-            Intent i = new Intent(PaymentNotificationOfCustomerActivity.this,ScheduleVisitForCollectionActivity.class);
-            i.putExtra("isFromPaymentNotificationOfCustomerActivity","isFromPaymentNotificationOfCustomerActivity");
+            Intent i = new Intent(PaymentNotificationOfCustomerActivity.this, ScheduleVisitForCollectionActivity.class);
+            i.putExtra("isFromPaymentNotificationOfCustomerActivity", "isFromPaymentNotificationOfCustomerActivity");
             startActivity(i);
 
         });
 
-        binding.btnOthers.setOnClickListener(v->{
+        binding.btnOthers.setOnClickListener(v -> {
 
             customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
             ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
@@ -137,7 +137,6 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
             edtPleaseSpecifyContact.setVisibility(View.GONE);
 
 
-
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(customDialogEditable);
             final AlertDialog dialog = builder.create();
@@ -147,13 +146,13 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
             dialog.show();
 
 
-            btnProceed.setOnClickListener(v2->{
-                Intent i = new Intent(this,VisitCompletionOfCustomerActivity.class);
+            btnProceed.setOnClickListener(v2 -> {
+                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 startActivity(i);
             });
 
-            ivCancel.setOnClickListener(v1->{
+            ivCancel.setOnClickListener(v1 -> {
                 dialog.dismiss();
             });
 
@@ -162,28 +161,25 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
         binding.btnReadyToPay.setOnClickListener(v -> {
 
-            Intent i = new Intent(PaymentNotificationOfCustomerActivity.this,PaymentModeActivity.class);
+            Intent i = new Intent(PaymentNotificationOfCustomerActivity.this, PaymentModeActivity.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             startActivity(i);
         });
 
-        binding.btnNotReadyToPay.setOnClickListener(v->{
+        binding.btnNotReadyToPay.setOnClickListener(v -> {
 
-            Intent i = new Intent(PaymentNotificationOfCustomerActivity.this,PaymentInfoOfCustomerActivity.class);
+            Intent i = new Intent(PaymentNotificationOfCustomerActivity.this, PaymentInfoOfCustomerActivity.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             startActivity(i);
         });
-
-
-
 
 
         //for Notes
-        binding.ivNotesIcon.setOnClickListener(v->{
+        binding.ivNotesIcon.setOnClickListener(v -> {
 
             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
             EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
             customEditBox.setVisibility(View.VISIBLE);
@@ -205,11 +201,11 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
         });
 
         //for History
-        binding.ivHistory.setOnClickListener(v->{
+        binding.ivHistory.setOnClickListener(v -> {
 
             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
             TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
             txtCustom.setVisibility(View.VISIBLE);
@@ -229,7 +225,6 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
                     dialog.dismiss();
                 }
             });
-
 
 
         });
