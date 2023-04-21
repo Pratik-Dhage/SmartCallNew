@@ -3,6 +3,8 @@ package com.example.test.npa_flow;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,6 +21,10 @@ import android.widget.TimePicker;
 import com.example.test.R;
 import com.example.test.databinding.ActivityPaymentNotificationOfCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
+import com.example.test.helper_classes.Global;
+import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
+import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,6 +35,8 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
     ActivityPaymentNotificationOfCustomerBinding binding;
     View view;
     View customDialogEditable;
+    DetailsOfCustomerViewModel detailsOfCustomerViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +45,12 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
 
         initializeFields();
-        getDetailsOfCustomerFromIntent();
+        initObserver();
+        if (NetworkUtilities.getConnectivityStatus(this)) {
+            callDetailsOfCustomerApi();
+        } else {
+            Global.showToast(this, getString(R.string.check_internet_connection));
+        }
         onClickListener();
 
     }
@@ -46,25 +59,59 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_notification_of_customer);
         view = binding.getRoot();
+        detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
+        binding.setViewModel(detailsOfCustomerViewModel);
     }
 
-    private void getDetailsOfCustomerFromIntent(){
+    private void callDetailsOfCustomerApi() {
 
-        binding.txtName.setText(getIntent().getStringExtra("name"));
-        binding.txtVillageName.setText(getIntent().getStringExtra("village_name"));
-        binding.txtMobileNumber.setText(getIntent().getStringExtra("mobile_no"));
-        binding.txtAadharNumber.setText(getIntent().getStringExtra("aadhaar_no"));
-        binding.txtDOB.setText(getIntent().getStringExtra("dob"));
-        binding.txtFatherName.setText(getIntent().getStringExtra("father_name"));
-        binding.txtLoanAccountNumber.setText(getIntent().getStringExtra("loan_acc_no"));
-        binding.txtProduct.setText(getIntent().getStringExtra("product"));
-        binding.txtAmountDueAsOnAmount.setText(getIntent().getStringExtra("amt_due"));
-        binding.txtTotalAmountPaid.setText(getIntent().getStringExtra("total_amt_paid"));
-        binding.txtBalanceInterest.setText(getIntent().getStringExtra("balance_interest"));
-        binding.txtTotalPayableAmount.setText(getIntent().getStringExtra("total_payable_amt"));
-
+        String dataSetId = getIntent().getStringExtra("dataSetId");
+        detailsOfCustomerViewModel.getDetailsOfCustomer_Data(dataSetId); // call Details Of Customer API
     }
 
+
+    private void setUpDetailsOfCustomerRecyclerView() {
+
+        detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
+        RecyclerView recyclerView = binding.rvDetailsOfCustomer;
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
+    }
+
+
+    private void initObserver() {
+
+        if (NetworkUtilities.getConnectivityStatus(this)) {
+
+            binding.loadingProgressBar.setVisibility(View.VISIBLE);
+
+            detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this, result -> {
+
+                if (result != null) {
+
+                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
+                    setUpDetailsOfCustomerRecyclerView();
+                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.addAll(result);
+                    binding.loadingProgressBar.setVisibility(View.INVISIBLE);
+
+
+                }
+            });
+
+            //handle  error response
+            detailsOfCustomerViewModel.getMutErrorResponse().observe(this, error -> {
+
+                if (error != null && !error.isEmpty()) {
+                    Global.showSnackBar(view, error);
+                    System.out.println("Here: " + error);
+                } else {
+                    Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+                }
+            });
+        } else {
+            Global.showToast(this, getString(R.string.check_internet_connection));
+        }
+
+    }
 
     private void onClickListener() {
 
@@ -102,18 +149,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
             btnProceed.setOnClickListener(v2->{
                 Intent i = new Intent(this,VisitCompletionOfCustomerActivity.class);
-                i.putExtra("name",binding.txtName.getText().toString());
-                i.putExtra("village_name",binding.txtVillageName.getText().toString());
-                i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
-                i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
-                i.putExtra("dob",binding.txtDOB.getText().toString());
-                i.putExtra("father_name",binding.txtFatherName.getText().toString());
-                i.putExtra("loan_acc_no",binding.txtLoanAccountNumber.getText().toString());
-                i.putExtra("product",binding.txtProduct.getText().toString());
-                i.putExtra("amt_due",binding.txtAmountDueAsOnAmount.getText().toString());
-                i.putExtra("total_amt_paid",binding.txtTotalAmountPaid.getText().toString());
-                i.putExtra("balance_interest",binding.txtBalanceInterest.getText().toString());
-                i.putExtra("total_payable_amt",binding.txtTotalPayableAmount.getText().toString());
+                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 startActivity(i);
             });
 
@@ -127,95 +163,19 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
         binding.btnReadyToPay.setOnClickListener(v -> {
 
             Intent i = new Intent(PaymentNotificationOfCustomerActivity.this,PaymentModeActivity.class);
-            i.putExtra("name",binding.txtName.getText().toString());
-            i.putExtra("village_name",binding.txtVillageName.getText().toString());
-            i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
-            i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
-            i.putExtra("dob",binding.txtDOB.getText().toString());
-            i.putExtra("father_name",binding.txtFatherName.getText().toString());
-            i.putExtra("loan_acc_no",binding.txtLoanAccountNumber.getText().toString());
-            i.putExtra("product",binding.txtProduct.getText().toString());
-            i.putExtra("amt_due",binding.txtAmountDueAsOnAmount.getText().toString());
-            i.putExtra("total_amt_paid",binding.txtTotalAmountPaid.getText().toString());
-            i.putExtra("balance_interest",binding.txtBalanceInterest.getText().toString());
-            i.putExtra("total_payable_amt",binding.txtTotalPayableAmount.getText().toString());
+            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             startActivity(i);
         });
 
         binding.btnNotReadyToPay.setOnClickListener(v->{
 
             Intent i = new Intent(PaymentNotificationOfCustomerActivity.this,PaymentInfoOfCustomerActivity.class);
-            i.putExtra("name",binding.txtName.getText().toString());
-            i.putExtra("village_name",binding.txtVillageName.getText().toString());
-            i.putExtra("mobile_no",binding.txtMobileNumber.getText().toString());
-            i.putExtra("aadhaar_no",binding.txtAadharNumber.getText().toString());
-            i.putExtra("dob",binding.txtDOB.getText().toString());
-            i.putExtra("father_name",binding.txtFatherName.getText().toString());
-            i.putExtra("loan_acc_no",binding.txtLoanAccountNumber.getText().toString());
-            i.putExtra("product",binding.txtProduct.getText().toString());
-            i.putExtra("amt_due",binding.txtAmountDueAsOnAmount.getText().toString());
-            i.putExtra("total_amt_paid",binding.txtTotalAmountPaid.getText().toString());
-            i.putExtra("balance_interest",binding.txtBalanceInterest.getText().toString());
-            i.putExtra("total_payable_amt",binding.txtTotalPayableAmount.getText().toString());
+            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             startActivity(i);
         });
 
 
-        //NearBy==Capture Button
-        binding.btnNearBy.setOnClickListener(v->{
-            Intent i = new Intent(this, WebViewActivity.class);
-            startActivity(i);
-        });
 
-        binding.btnCalculate.setOnClickListener(v->{
-            Intent i = new Intent(this, BalanceInterestCalculationActivity.class);
-            startActivity(i);
-        });
-
-        //for Editing Time
-        binding.ivEditTime.setOnClickListener(v->{
-
-            View customDialog2 = LayoutInflater.from(this).inflate(R.layout.custom_dialog_timepicker, null);
-            Button customButton = customDialog2.findViewById(R.id.btnOK);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialog2);
-            final AlertDialog dialog = builder.create();
-            dialog.setCancelable(false);
-            dialog.show();
-
-            //on Clicking OK button
-            customButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    // get a reference to the TimePicker
-                    TimePicker timePicker = customDialog2.findViewById(R.id.customDialogTimePicker);
-
-                    // get the selected hour and minute
-                    int hour = timePicker.getHour();
-                    int minute = timePicker.getMinute();
-
-                    // create a Date object with the selected time
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, hour);
-                    calendar.set(Calendar.MINUTE, minute);
-                    Date selectedTime = calendar.getTime();
-
-                    // create a SimpleDateFormat object with the desired format string
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-
-                    // format the time and store it in a string
-                    String formattedTime = dateFormat.format(selectedTime);
-
-                    // display the selected time
-                    binding.txtScheduledTime.setText(":"+formattedTime);
-
-                    dialog.dismiss();
-                }
-            });
-
-        });
 
 
         //for Notes
