@@ -2,6 +2,8 @@ package com.example.test.npa_flow.details_of_customer.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.test.R;
 import com.example.test.databinding.ItemDetailsOfCustomerBinding;
 import com.example.test.databinding.ItemDpdBinding;
+import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
+import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
@@ -45,6 +49,39 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
         holder.binding.labelDetailName.setText(a.getLable());
         holder.binding.txtDetailName.setText(a.getValue());
+
+
+        //for Button
+        if(Objects.equals(a.getButton(), "Y")){
+              holder.binding.btnDetail.setVisibility(View.VISIBLE);
+              holder.binding.btnDetail.setText(a.getButtonLable().toString());
+
+
+
+        }
+
+        //Button Clicks
+        holder.binding.btnDetail.setOnClickListener(v->{
+
+            if(a.getButtonLable().toString().equals("Capture")){
+                Intent i = new Intent(context,WebViewActivity.class);
+                context.startActivity(i);
+            }
+
+            if(a.getButtonLable().toString().equals("Calculate")){
+                Intent i = new Intent(context,BalanceInterestCalculationActivity.class);
+                context.startActivity(i);
+            }
+
+        });
+
+
+
+        // for EditText
+        if(Objects.equals(a.getEditable(), "Y")){
+           holder.binding.edtDetail.setVisibility(View.VISIBLE);
+           holder.binding.txtDetailName.setVisibility(View.INVISIBLE);
+        }
 
         //for separation line between Personal and Account Details
         if(Objects.equals(a.getLable(), "Father's Name")){
