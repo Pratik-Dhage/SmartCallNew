@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.test.R;
+import com.example.test.databinding.ActivityDetailsOfCustomer2Binding;
 import com.example.test.databinding.ActivityDetailsOfCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.fragments_activity.CustomerDetailsActivity;
@@ -24,6 +26,8 @@ import com.example.test.npa_flow.CallDetailOfCustomerActivity;
 import com.example.test.npa_flow.NearByCustomersActivity;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
+import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,7 +36,7 @@ import java.util.Date;
 
 public class DetailsOfCustomerActivity extends AppCompatActivity {
 
-    ActivityDetailsOfCustomerBinding binding;
+    ActivityDetailsOfCustomer2Binding binding;
     View view;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
 
@@ -43,8 +47,59 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
         initializeFields();
         onClickListener();
-         getDetailsOfCustomerDataFromApi(); // will act as initObserver
+       //  getDetailsOfCustomerDataFromApi(); // will act as initObserver
 
+        initObserver();
+        if(NetworkUtilities.getConnectivityStatus(this)){
+            callDetailsOfCustomerApi();
+        }
+        else{
+            Global.showToast(this,getString(R.string.check_internet_connection));
+        }
+
+
+    }
+
+    private void callDetailsOfCustomerApi(){
+
+        String dataSetId = getIntent().getStringExtra("dataSetId");
+        detailsOfCustomerViewModel.getDetailsOfCustomer_Data(dataSetId); // call Details Of Customer API
+    }
+
+    private void initObserver(){
+
+        if(NetworkUtilities.getConnectivityStatus(this)){
+
+            binding.loadingProgressBar.setVisibility(View.VISIBLE);
+
+            detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this,result->{
+
+                if(result!=null) {
+
+                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
+                    setUpDetailsOfCustomerRecyclerView();
+                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.addAll(result);
+                    binding.loadingProgressBar.setVisibility(View.INVISIBLE);
+
+
+
+                }
+            });
+
+            //handle  error response
+            detailsOfCustomerViewModel.getMutErrorResponse().observe(this, error -> {
+
+                if (error != null && !error.isEmpty()) {
+                    Global.showSnackBar(view, error);
+                    System.out.println("Here: " + error);
+                } else {
+                    Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+                }
+            });
+        }
+        else{
+            Global.showToast(this,getString(R.string.check_internet_connection));
+        }
 
     }
 
@@ -64,7 +119,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
                         binding.loadingProgressBar.setVisibility(View.INVISIBLE);
 
-                        result.iterator().forEachRemaining(it->{
+                      /*  result.iterator().forEachRemaining(it->{
 
                             if(it.getSequence()==1){
                                 binding.txtName.setText(it.getValue()); //Name
@@ -115,7 +170,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                                 binding.txtTotalPayableAmount.setText(it.getValue()); //Total Payable Amount
                             }
 
-                        });
+                        });*/
 
                     }
 
@@ -147,14 +202,88 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
 
     private void initializeFields() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_details_of_customer);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_details_of_customer2);
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
 
     }
 
-    private void sendDetailsOfCustomer(){
+    private void setUpDetailsOfCustomerRecyclerView(){
+
+        detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
+        RecyclerView recyclerView = binding.rvDetailsOfCustomer;
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
+    }
+
+
+    private void onClickListener(){
+        binding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        //for Notes
+        binding.ivNotesIcon.setOnClickListener(v->{
+
+            View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
+
+            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
+            EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
+            customEditBox.setVisibility(View.VISIBLE);
+
+            customText.setText(getResources().getString(R.string.lead_interaction));
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(customDialog);
+            final AlertDialog dialog = builder.create();
+            dialog.show();
+
+            customButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+        });
+
+        //for History
+        binding.ivHistory.setOnClickListener(v->{
+
+            View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
+
+            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
+            TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
+            txtCustom.setVisibility(View.VISIBLE);
+
+            customText.setText(getResources().getString(R.string.lead_history));
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(customDialog);
+            final AlertDialog dialog = builder.create();
+            dialog.show();
+
+            customButton.setText(R.string.close);
+            customButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+
+
+        });
+
+
+    }
+
+   /* private void sendDetailsOfCustomer(){
 
         Intent i = new Intent(DetailsOfCustomerActivity.this, CallDetailOfCustomerActivity.class);
         i.putExtra("name",binding.txtName.getText().toString());
@@ -172,7 +301,9 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         startActivity(i);
 
     }
+*/
 
+    /*
     private void onClickListener() {
 
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
@@ -186,7 +317,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                sendDetailsOfCustomer();
+              //  sendDetailsOfCustomer();
 
             }
         });
@@ -304,29 +435,6 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         });
 
     }
+*/
 
-   /* private boolean checkTimeFormat(){
-        // get the text from the EditText
-        String text = binding.edtScheduledTime.getText().toString();
-
-// create a SimpleDateFormat object with the desired format string
-        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-
-        try {
-            // try to parse the text as a time
-            Date parsedTime = dateFormat.parse(text);
-
-            // if parsing was successful, the text is in the proper time format
-            Global.showToast(this,"Text is in proper time format");
-            binding.txtScheduledTime.setText(parsedTime.toString());
-
-            return true;
-        } catch (ParseException e) {
-            // if parsing failed, the text is not in the proper time format
-            Global.showToast(this,"Text is not in proper time format");
-            return false;
-        }
-
-
-    }*/
 }

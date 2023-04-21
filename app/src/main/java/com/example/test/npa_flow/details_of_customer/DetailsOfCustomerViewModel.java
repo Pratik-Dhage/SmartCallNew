@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.test.api_manager.WebServices;
 import com.example.test.helper_classes.Global;
+import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,8 @@ public class DetailsOfCustomerViewModel extends ViewModel {
 
 
     public ArrayList<DetailsOfCustomer_ResponseModel> arrList_DetailsOfCustomer_Data = new ArrayList<>();
+    public DetailsOfCustomerAdapter detailsOfCustomerAdapter = new DetailsOfCustomerAdapter(arrList_DetailsOfCustomer_Data);
+    public void updateDetailsOfCustomer_Data() {  detailsOfCustomerAdapter.setData(arrList_DetailsOfCustomer_Data); }
 
 
  public int dpd_row_position ; //this will set queue according to position

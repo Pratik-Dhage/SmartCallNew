@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    style="@style/MainConstraintStyle"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/labelDetailName"
+        style="@style/common_text_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+       android:layout_marginStart="@dimen/_10sdp"
+        tools:text="@string/name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtDetailName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="italic"
+        android:ellipsize="end"
+        android:maxLength="15"
+        app:layout_constraintBottom_toBottomOf="@id/labelDetailName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/labelDetailName"
+        tools:text=": Sairaj Naidu" />
+
+    <View
+        android:id="@+id/viewLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtDetailName"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:background="@color/textBlue"
+        android:visibility="invisible"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
