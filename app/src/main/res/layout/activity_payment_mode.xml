@@ -14,9 +14,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/MainConstraint"
         style="@style/MainConstraintStyle"
-        android:background="@color/skyBlue"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/skyBlue"
         tools:context=".npa_flow.PaymentModeActivity">
 
         <androidx.appcompat.widget.Toolbar
