@@ -91,4 +91,8 @@ dependencies {
     //volley
     implementation 'com.android.volley:volley:1.2.1'
 
+    //Google Places Api for getting Pinned Location Lat Long from Google Maps
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
+
+
 }
