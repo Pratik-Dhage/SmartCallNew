@@ -225,6 +225,7 @@
     <string name="payment_status">Payment Status</string>
     <string name="payment_information">Payment Information</string>
     <string name="calling_npa_customer">Calling - NPA Customer</string>
+    <string name="google_maps">Google Maps</string>
 
 
 </resources>
