@@ -80,7 +80,11 @@ String TotalDue,InterestRate,BalanceDays; // for BalanceInterestCalculation
 
         Global.showToast(this,"Balance Interest:"+result);
 
+        Global.saveStringInSharedPref(this,"BalanceInterestResult",result.toString()); //save in SharedPreference
+
         return result.toString();
+
+
     }
 
     private void onClickListener() {
@@ -98,6 +102,7 @@ String TotalDue,InterestRate,BalanceDays; // for BalanceInterestCalculation
            InterestRate = binding.txtInterestRate.getText().toString();
            BalanceDays = binding.edtBalanceDays.getText().toString();
 
+           calculateBalanceInterest(TotalDue,InterestRate,BalanceDays);
            onBackPressed();
 
        }
@@ -118,18 +123,6 @@ String TotalDue,InterestRate,BalanceDays; // for BalanceInterestCalculation
 
     }
 
-
-    @Override
-    public void onBackPressed() {
-
-        String BalanceInterestResult = calculateBalanceInterest(TotalDue,InterestRate,BalanceDays);
-
-        Intent intent = new Intent();
-        intent.putExtra("BalanceInterestResult", BalanceInterestResult);
-        setResult(RESULT_OK, intent);
-        super.onBackPressed();
-
-    }
 
     private void setRupeeSeekBarSlider(){
 

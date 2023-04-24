@@ -18,6 +18,7 @@ import com.example.test.databinding.ItemDpdBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.npa_flow.WebViewActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
@@ -65,8 +66,6 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
               holder.binding.btnDetail.setVisibility(View.VISIBLE);
               holder.binding.btnDetail.setText(a.getButtonLable().toString());
 
-
-
         }
 
         //For Total Due and Interest Rate to Calculate in Balance Interest Calculation Activity
@@ -78,10 +77,17 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         if(a.getLable().contentEquals("Interest Rate") || a.getSequence()==13){
             Interest_rate = Double.parseDouble(a.getValue());
             InterestRate = Interest_rate.toString();
-
+            holder.binding.btnDetail.setVisibility(View.GONE);
         }
 
 
+        //for Balance Interest Result
+        if(a.getLable().contentEquals("Balance Interest as on") || a.getSequence()==14){
+
+          String BalanceInterestResult =  Global.getStringFromSharedPref(context,"BalanceInterestResult");
+             holder.binding.txtDetailName.setText( BalanceInterestResult);
+
+                    }
 
         //Button Clicks
         holder.binding.btnDetail.setOnClickListener(v->{
