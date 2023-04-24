@@ -29,12 +29,11 @@
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:src="@drawable/back_arrow"
-                   android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:tint="@color/textBlue" />
-
 
 
                 <ImageView
@@ -57,8 +56,35 @@
                     android:layout_marginTop="@dimen/_50sdp"
                     android:text="@string/loan_amount"
                     android:textStyle="normal"
+                    android:visibility="invisible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <!--Total due-->
+                <TextView
+                    android:id="@+id/labelTotalDue"
+                    style="@style/semi_mid_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_50sdp"
+                    android:text="@string/total_due"
+                    android:textStyle="normal"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtTotalDue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/labelLoanAmount"
+                    app:layout_constraintEnd_toStartOf="@id/ivRupeeIcon"
+                    app:layout_constraintTop_toTopOf="@id/labelLoanAmount"
+                    tools:text="7106.00" />
 
 
                 <EditText
@@ -70,9 +96,10 @@
                     android:digits="0123456789,."
                     android:inputType="number"
                     android:maxLength="8"
-                    android:textSize="@dimen/_15ssp"
                     android:paddingStart="@dimen/_5sdp"
                     android:paddingEnd="@dimen/_5sdp"
+                    android:textSize="@dimen/_15ssp"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@id/labelLoanAmount"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/labelLoanAmount"
@@ -83,8 +110,8 @@
                     android:id="@+id/ivRupeeIcon"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
-                    android:layout_marginEnd="@dimen/_25sdp"
                     android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginEnd="@dimen/_25sdp"
                     android:background="@drawable/round_corner_bg"
                     android:backgroundTint="@color/skyBlue"
                     android:padding="@dimen/_3sdp"
@@ -106,6 +133,7 @@
                     android:min="0"
                     android:progress="0"
                     android:stepSize="1"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/labelLoanAmount" />
@@ -118,6 +146,7 @@
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:text="0"
+                    android:visibility="invisible"
                     app:layout_constraintStart_toStartOf="@id/rupeeSeekBarSlider"
                     app:layout_constraintTop_toBottomOf="@id/rupeeSeekBarSlider" />
 
@@ -128,6 +157,7 @@
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:text="50,000"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="@id/rupeeSeekBarSlider"
                     app:layout_constraintTop_toBottomOf="@id/rupeeSeekBarSlider" />
 
@@ -137,30 +167,44 @@
                     style="@style/semi_mid_text_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_60sdp"
+                    android:layout_marginTop="@dimen/_50sdp"
                     android:text="@string/interest_rate"
                     android:textStyle="normal"
                     app:layout_constraintStart_toStartOf="@id/labelLoanAmount"
                     app:layout_constraintTop_toBottomOf="@id/rupeeSeekBarSlider" />
 
+
+                <!-- Interest Rate-->
+                <TextView
+                    android:id="@+id/txtInterestRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_3sdp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/labelInterestRate"
+                    app:layout_constraintEnd_toStartOf="@id/ivPercentage"
+                    app:layout_constraintTop_toTopOf="@id/labelInterestRate"
+                    tools:text="7.50" />
+
                 <EditText
                     android:id="@+id/edtInterestRate"
                     android:layout_width="@dimen/_60sdp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_30sdp"
                     android:textSize="@dimen/_15ssp"
                     app:layout_constraintBottom_toBottomOf="@id/labelInterestRate"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="@dimen/_30sdp"
                     app:layout_constraintTop_toTopOf="@id/labelInterestRate" />
 
                 <ImageView
                     android:id="@+id/ivPercentage"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:background="@drawable/round_corner_bg"
                     android:backgroundTint="@color/skyBlue"
                     android:padding="@dimen/_3sdp"
-                    android:layout_marginTop="@dimen/_3sdp"
                     android:src="@drawable/percentage_icon"
                     app:layout_constraintEnd_toEndOf="@id/edtInterestRate"
                     app:layout_constraintTop_toTopOf="@id/edtInterestRate"
@@ -227,6 +271,7 @@
                     style="@style/semi_mid_text_style"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:background="@drawable/round_corner_bg"
                     android:backgroundTint="@color/skyBlue"
@@ -234,7 +279,6 @@
                     android:text="@string/d"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:layout_marginTop="@dimen/_3sdp"
                     android:textSize="@dimen/_14ssp"
                     app:layout_constraintEnd_toEndOf="@id/edtBalanceDays"
                     app:layout_constraintTop_toTopOf="@id/edtBalanceDays" />

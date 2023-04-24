@@ -16,6 +16,7 @@ import com.example.test.R;
 import com.example.test.databinding.ItemDetailsOfCustomerBinding;
 import com.example.test.databinding.ItemDpdBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
+import com.example.test.helper_classes.Global;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
@@ -31,6 +32,14 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
     public DetailsOfCustomerAdapter(ArrayList<DetailsOfCustomer_ResponseModel> detailsOfCustomer_responseModelArrayList) {
         this.detailsOfCustomer_responseModelArrayList = detailsOfCustomer_responseModelArrayList;
     }
+
+    //For Calculating Balance Interest
+    Double Total_due;
+    Double Interest_rate;
+
+    String TotalDue;
+    String InterestRate;
+
 
     @NonNull
     @Override
@@ -60,6 +69,20 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
         }
 
+        //For Total Due and Interest Rate to Calculate in Balance Interest Calculation Activity
+        if(a.getLable().contentEquals("Total Due") ||a.getSequence()==12){
+            Total_due = Double.parseDouble(a.getValue());
+            TotalDue = Total_due.toString();
+        }
+
+        if(a.getLable().contentEquals("Interest Rate") || a.getSequence()==13){
+            Interest_rate = Double.parseDouble(a.getValue());
+            InterestRate = Interest_rate.toString();
+
+        }
+
+
+
         //Button Clicks
         holder.binding.btnDetail.setOnClickListener(v->{
 
@@ -69,7 +92,12 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
             }
 
             if(a.getButtonLable().toString().equals("Calculate")){
+
+                //Pass Total Due and Interest Rate to Calculate Balance Interest
+
                 Intent i = new Intent(context,BalanceInterestCalculationActivity.class);
+                i.putExtra("TotalDue",TotalDue);
+                i.putExtra("InterestRate",InterestRate);
                 context.startActivity(i);
             }
 
