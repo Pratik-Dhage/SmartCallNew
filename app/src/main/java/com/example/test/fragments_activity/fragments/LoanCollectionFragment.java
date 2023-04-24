@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,51 +22,22 @@ import android.widget.TextView;
 import com.example.test.R;
 import com.example.test.databinding.FragmentLoanCollectionBinding;
 import com.example.test.fragments_activity.CustomerDetailsActivity;
+import com.example.test.fragments_activity.fragments.adapter.LoanCollectionFragmentAdapter;
+import com.example.test.helper_classes.Global;
+import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.npa_flow.NearByCustomersActivity;
 import com.example.test.npa_flow.WebViewActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
+import com.example.test.npa_flow.loan_collection.LoanCollectionViewModel;
+import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 
 
 public class LoanCollectionFragment extends Fragment {
 
 
     FragmentLoanCollectionBinding binding;
+    LoanCollectionViewModel loanCollectionViewModel;
 
-
-    private void onClickListener() {
-
-        // on click each item of customer
-         binding.rootConstraintLayout.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent i = new Intent(getContext(), CustomerDetailsActivity.class);
-                 startActivity(i);
-             }
-         });
-
-        //opens Google Maps
-        binding.ivMap1.setOnClickListener(v -> {
-
-            //Below commented code is working in my device but not in Other devices
-           /* String location = "Mumbai";
-            Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + location);
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
-            if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                startActivity(mapIntent);
-            }*/
-
-            Intent googleMapsIntent = new Intent(getContext(), WebViewActivity.class);
-            startActivity(googleMapsIntent);
-        });
-
-        //opens Google Maps
-        binding.ivMap2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.ivMap1.performClick();
-            }
-        });
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,6 +46,19 @@ public class LoanCollectionFragment extends Fragment {
        // return inflater.inflate(R.layout.fragment_loan_collection, container, false);
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_loan_collection, container, false);
+        loanCollectionViewModel = new ViewModelProvider(this).get(LoanCollectionViewModel.class);
+        binding.setViewModel(loanCollectionViewModel);
+
+
+        initObserver();
+        if(NetworkUtilities.getConnectivityStatus(getContext())){
+            int DPD_row_position = 0; //test purpose
+            call_LoanCollectionList_Api(DPD_row_position); // using row position from DPD Activity and pass in LoanCollectionViewModel
+        }
+        else{
+            Global.showToast(getContext(),getString(R.string.check_internet_connection));
+        }
+
         onClickListener();
         return binding.getRoot();
 
@@ -84,4 +70,75 @@ public class LoanCollectionFragment extends Fragment {
 
 
     }
+
+
+
+    private void call_LoanCollectionList_Api(int DPD_row_position) {
+        loanCollectionViewModel.getLoanCollectionList_Data(DPD_row_position);
+
+        DetailsOfCustomerViewModel detailsOfCustomerViewModel = new DetailsOfCustomerViewModel();
+        detailsOfCustomerViewModel.dpd_row_position = DPD_row_position; // to call DetailsOfCustomer api according to position
+    }
+
+    private void setUpLoanCollectionList_RecyclerView(){
+
+        loanCollectionViewModel.updateLoanCollectionFragmentData();
+        RecyclerView recyclerView = binding.rvLoanCollection;
+        recyclerView.setAdapter(new LoanCollectionFragmentAdapter(loanCollectionViewModel.arrList_LoanCollectionList));
+    }
+
+    private void initObserver(){
+
+        binding.loadingProgressBar.setVisibility(View.VISIBLE);
+
+        if(NetworkUtilities.getConnectivityStatus(getContext())){
+
+            loanCollectionViewModel.getMutLoanCollectionList_ResponseApi().observe(getViewLifecycleOwner(),result->{
+
+
+
+                if(result!=null){
+
+                    loanCollectionViewModel.arrList_LoanCollectionList.clear();
+                    setUpLoanCollectionList_RecyclerView();
+                    loanCollectionViewModel.arrList_LoanCollectionList.addAll(result);
+                    binding.loadingProgressBar.setVisibility(View.GONE);
+
+                }
+
+
+            });
+
+            //handle  error response
+            loanCollectionViewModel.getMutErrorResponse().observe(getViewLifecycleOwner(), error -> {
+
+                if (error != null && !error.isEmpty()) {
+                    Global.showToast(getContext(), error);
+                    System.out.println("Here: " + error);
+                } else {
+                    Global.showToast(getContext(), getResources().getString(R.string.check_internet_connection));
+                }
+            });
+
+        }
+        else{
+            Global.showToast(getContext(),getString(R.string.check_internet_connection));
+        }
+
+    }
+
+    private void onClickListener() {
+
+        // on click each item of customer
+        binding.rvLoanCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), CustomerDetailsActivity.class);
+                startActivity(i);
+            }
+        });
+
+    }
+
+
 }

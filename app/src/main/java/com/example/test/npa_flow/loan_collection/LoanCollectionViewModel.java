@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.test.api_manager.WebServices;
+import com.example.test.fragments_activity.fragments.adapter.LoanCollectionFragmentAdapter;
 import com.example.test.helper_classes.Global;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
@@ -36,9 +37,17 @@ public class LoanCollectionViewModel extends ViewModel {
 
 
     public ArrayList<LoanCollectionListResponseModel> arrList_LoanCollectionList = new ArrayList<>();
+    // for LoanCollectionActivity
     public LoanCollectionAdapter loanCollectionAdapter = new LoanCollectionAdapter(arrList_LoanCollectionList);
 
     public void updateLoanCollectionData(){ loanCollectionAdapter.setData(arrList_LoanCollectionList);  }
+
+    //for LoanCollectionFragment
+    public LoanCollectionFragmentAdapter loanCollectionFragmentAdapter = new LoanCollectionFragmentAdapter(arrList_LoanCollectionList);
+
+    public void updateLoanCollectionFragmentData(){ loanCollectionFragmentAdapter.setData(arrList_LoanCollectionList);  }
+
+
 
 
     //Loan Collection List Api

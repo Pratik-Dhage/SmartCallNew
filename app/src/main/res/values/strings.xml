@@ -102,6 +102,7 @@
     <string name="address">Address</string>
     <string name="get_location_and_save">Get Location And Save</string>
     <string name="customer_details">Customer Details</string>
+    <string name="customer_details_visited">Visited - Customer Details</string>
     <string name="enter_customer_name">Enter Customer Name</string>
     <string name="enter_customer_mobile_no">Enter Customer Mobile No.</string>
     <string name="get_customer_address">Get Customer Address &amp; Save</string>
