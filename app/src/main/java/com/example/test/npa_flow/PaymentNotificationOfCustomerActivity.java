@@ -231,4 +231,14 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
 
     }
+
+    // For Getting Calculated Balance Interest Result back from SharedPreference
+    @Override
+    protected void onResume() {
+        initializeFields();
+        onClickListener();
+        initObserver();
+        callDetailsOfCustomerApi();
+        super.onResume();
+    }
 }
