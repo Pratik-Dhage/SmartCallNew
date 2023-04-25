@@ -34,7 +34,14 @@ public class ActivityOfFragments extends AppCompatActivity {
 
         initializeFields();
         setFragments();
-       // onClickListener();
+        onClickListener();
+    }
+
+    private void onClickListener() {
+
+        binding.ivBack.setOnClickListener(v->{
+            onBackPressed();
+        });
     }
 
     private void initializeFields() {

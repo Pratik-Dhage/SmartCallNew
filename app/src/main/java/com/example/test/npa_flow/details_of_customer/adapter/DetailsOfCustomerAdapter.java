@@ -60,9 +60,15 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         holder.binding.labelDetailName.setText(a.getLable());
         holder.binding.txtDetailName.setText(a.getValue());
 
+          //for Name
+        if(a.getLable().contentEquals("Name") || a.getSequence()==1){
+            holder.binding.edtDetail.setVisibility(View.GONE);
+        }
 
         //for Total Payable as on (Total Due + Balance Interest)
         if(a.getLable().contentEquals("Total Payable as on") || a.getSequence()==15){
+
+            holder.binding.edtDetail.setVisibility(View.GONE);
 
             if(TotalDue!=null && BalanceInterestResult!=null && !BalanceInterestResult.isEmpty() && !TotalDue.isEmpty()){
                 Double TotalPayableAsOn = (double) (Double.parseDouble(TotalDue) + Double.parseDouble(BalanceInterestResult));
@@ -88,6 +94,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         if(a.getLable().contentEquals("Total Due") ||a.getSequence()==12){
             Total_due = Double.parseDouble(a.getValue());
             TotalDue = Total_due.toString();
+            holder.binding.btnDetail.setVisibility(View.GONE);
         }
 
         if(a.getLable().contentEquals("Interest Rate") || a.getSequence()==13){

@@ -213,13 +213,13 @@
 
 
             <Button
-                android:id="@+id/btnDidNotVisitedTheCustomer"
+                android:id="@+id/btnNotVisitedTheCustomer"
                 style="@style/CustomButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:backgroundTint="@color/red"
-                android:text="@string/did_not_speak_to_ncustomer"
+                android:text="@string/not_visited_the_customer"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
