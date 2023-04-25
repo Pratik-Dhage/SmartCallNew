@@ -40,7 +40,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
     String TotalDue;
     String InterestRate;
-
+    String BalanceInterestResult;
 
     @NonNull
     @Override
@@ -59,6 +59,22 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
         holder.binding.labelDetailName.setText(a.getLable());
         holder.binding.txtDetailName.setText(a.getValue());
+
+
+        //for Total Payable as on (Total Due + Balance Interest)
+        if(a.getLable().contentEquals("Total Payable as on") || a.getSequence()==15){
+
+            if(TotalDue!=null && BalanceInterestResult!=null && !BalanceInterestResult.isEmpty() && !TotalDue.isEmpty()){
+                Double TotalPayableAsOn = (double) (Double.parseDouble(TotalDue) + Double.parseDouble(BalanceInterestResult));
+                holder.binding.txtDetailName.setText(String.valueOf(TotalPayableAsOn));
+            }
+
+            if(BalanceInterestResult==null || TotalDue==null)
+            {
+                holder.binding.txtDetailName.setText("-");
+            }
+        }
+
 
 
         //for Button
@@ -84,8 +100,12 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         //for Balance Interest Result
         if(a.getLable().contentEquals("Balance Interest as on") || a.getSequence()==14){
 
-          String BalanceInterestResult =  Global.getStringFromSharedPref(context,"BalanceInterestResult");
-             holder.binding.txtDetailName.setText( BalanceInterestResult);
+            if(Global.getStringFromSharedPref(context,"BalanceInterestResult")!=null){
+
+                BalanceInterestResult =  Global.getStringFromSharedPref(context,"BalanceInterestResult");
+                holder.binding.txtDetailName.setText( BalanceInterestResult);
+
+            }
 
                     }
 

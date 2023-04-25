@@ -48,9 +48,9 @@ public class LoanCollectionActivity extends AppCompatActivity {
         loanCollectionViewModel = new ViewModelProvider(this).get(LoanCollectionViewModel.class);
         binding.setViewModel(loanCollectionViewModel);
 
-       /* if(getIntent().hasExtra("isFromCallsForTheDay")){
-            binding.labelLoanCollection.setText(getResources().getString(R.string.calls_for_the_day));
-        }*/
+        //Whenever List is Loaded Remove BalanceInterestResult from SharedPreferences
+       Global.removeStringInSharedPref(this,"BalanceInterestResult");
+
         setToolbarTitle();
 
     }
@@ -167,5 +167,19 @@ public class LoanCollectionActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
 
+        //Whenever List is Loaded Remove BalanceInterestResult from SharedPreferences
+        Global.removeStringInSharedPref(this,"BalanceInterestResult");
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        //Whenever List is Loaded Remove BalanceInterestResult from SharedPreferences
+        Global.removeStringInSharedPref(this,"BalanceInterestResult");
+        super.onDestroy();
+    }
 }
