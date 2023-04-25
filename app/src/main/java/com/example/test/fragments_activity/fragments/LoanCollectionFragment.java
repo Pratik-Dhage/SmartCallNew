@@ -140,5 +140,15 @@ public class LoanCollectionFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        Global.removeStringInSharedPref(getContext(),"BalanceInterestResult");
+        super.onResume();
+    }
 
+    @Override
+    public void onDestroy() {
+        Global.removeStringInSharedPref(getContext(),"BalanceInterestResult");
+        super.onDestroy();
+    }
 }
