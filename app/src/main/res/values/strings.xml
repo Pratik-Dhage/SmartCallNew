@@ -233,6 +233,9 @@
     <string name="total_due">Total Due</string>
     <string name="visit_npa_list">Visit - NPA List</string>
     <string name="visit_npa_details">Visit - NPA Details</string>
+    <string name="visit_npa_status">Visit - NPA Status</string>
+    <string name="asked_to_visit_later">Asked To Visit Later</string>
+    <string name="payment_already_made">Payment Already Made</string>
 
 
 </resources>

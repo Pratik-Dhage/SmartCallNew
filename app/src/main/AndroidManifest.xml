@@ -30,7 +30,13 @@
         android:theme="@style/Theme.Test"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".fragment_visits_flow.Visit_NPA_StatusActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <meta-data
             android:name="com.google.android.maps.v3.API_KEY"
@@ -90,7 +96,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".npa_flow.NotSpokeToCustomerActivity"
@@ -224,9 +229,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
-
-
         </activity>
         <activity
             android:name=".location_gps.customer_location.CustomerLocationActivity"
@@ -234,9 +236,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
-
-
         </activity>
         <activity
             android:name=".location_gps.user_location.UserLocationActivity"
