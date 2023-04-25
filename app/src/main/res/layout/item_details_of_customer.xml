@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_20sdp"
             android:ellipsize="end"
-           android:maxLength="15"
+            android:maxLength="15"
             android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
             android:textStyle="italic"
@@ -43,12 +43,23 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:digits="0123456789,."
             android:hint="@string/enter_amount"
-            android:maxLength="10"
             android:inputType="number"
+            android:maxLength="10"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/labelDetailName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/labelDetailName" />
+
+
+        <ImageView
+            android:id="@+id/ivCallLogo"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/call_round_icon"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/labelDetailName"
+            app:layout_constraintStart_toStartOf="@id/btnDetail"
+            app:layout_constraintTop_toTopOf="@+id/labelDetailName" />
 
 
         <!--Capture / Calculate Button-->
@@ -82,8 +93,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtDetailName" />
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
