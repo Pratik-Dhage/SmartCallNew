@@ -26,6 +26,11 @@ View view ;
 
 String TotalDue,InterestRate,BalanceDays; // for BalanceInterestCalculation
 
+    //for Interest Rate
+    private static final double PERFECT_NUMBER_INCREMENT = 1.0;
+    private static final double MAXIMUM_VALUE_BEFORE_PERFECT_NUMBER = 0.9;
+    private double currentValue = 0.0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,26 +163,28 @@ String TotalDue,InterestRate,BalanceDays; // for BalanceInterestCalculation
 
         }
 
-
+              //for Interest Rate
         if(fromUser && seekBar == binding.interestSeekBarSlider){
 
             int interestValue = progress+1;
             String formattedValue3 = String.format(Locale.getDefault(), "%d", interestValue);
             binding.edtInterestRate.setText(formattedValue3);
-
             binding.txtInterestRate.setVisibility(View.INVISIBLE); // hide Interest Rate TextView when changed using seekBar
+
+            /*seekBar.setMax(100); // for 0.0 to 10.0
+            double progressValue = ((double) progress) / 10.0;
+            if (progressValue <= MAXIMUM_VALUE_BEFORE_PERFECT_NUMBER) {
+                currentValue = progressValue;
+            } else {
+                currentValue = Math.ceil(currentValue / PERFECT_NUMBER_INCREMENT) * PERFECT_NUMBER_INCREMENT;
+            }
+
+            String formattedValue = String.format(Locale.getDefault(), "%.1f", currentValue);
+            binding.edtInterestRate.setText(formattedValue);
+            binding.txtInterestRate.setVisibility(View.INVISIBLE); // hide Interest Rate TextView when changed using seekBar
+*/
+
         }
-
-       /* ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) binding.txtRupeeSeekSliderValue.getLayoutParams();
-        params.topMargin = seekBar.getBottom() + getResources().getDimensionPixelSize(com.intuit.sdp.R.dimen._5sdp);
-        binding.txtRupeeSeekSliderValue.setLayoutParams(params);*/
-
-       /* int seekBarWidth = seekBar.getWidth() - seekBar.getPaddingLeft() - seekBar.getPaddingRight();
-        int thumbOffset = seekBar.getThumbOffset();
-        int seekBarValue = seekBar.getMax() * progress / 100;
-        float x = (seekBarWidth * progress / 100) + seekBar.getPaddingLeft() - thumbOffset + (thumbOffset * 2 - binding.txtRupeeSeekSliderValue.getWidth()) / 2;
-        binding.txtRupeeSeekSliderValue.setX(x);
-        binding.txtRupeeSeekSliderValue.setText(String.valueOf(seekBarValue));*/
 
     }
 

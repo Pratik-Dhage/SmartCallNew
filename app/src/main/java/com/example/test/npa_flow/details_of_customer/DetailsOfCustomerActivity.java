@@ -76,6 +76,14 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
                 if(result!=null) {
 
+                    //for Hiding Amount Paid ONLY in Details Of Customer Activity
+                    result.iterator().forEachRemaining(it->{
+                        if(it.getSequence()==16 || it.getLable().contentEquals("Amount Paid")){
+                             it.setLable("");
+                            it.setEditable("");
+                        }
+                    });
+
                     detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
                     setUpDetailsOfCustomerRecyclerView();
                     detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.addAll(result);
