@@ -28,12 +28,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
+            <!-- Visited Customer Details-->
             <TextView
                 android:id="@+id/txtToolbarHeading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/customer_details_visited"
+                android:text="@string/visit_npa_details"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp" />
 
@@ -55,9 +56,9 @@
             android:id="@+id/clFirstHalf"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/clSecondHalf"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <ScrollView
@@ -124,18 +125,17 @@
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rvDetailsOfCustomer"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                app:layout_constraintTop_toBottomOf="@+id/txtPersonalDetails"
-                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                                android:orientation="vertical"
-                                tools:listitem="@layout/item_details_of_customer"
-                                tools:itemCount="3"
-                                app:layout_constraintBottom_toBottomOf="parent"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:orientation="vertical"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/txtPersonalDetails"
+                                tools:itemCount="3"
+                                tools:listitem="@layout/item_details_of_customer" />
 
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -198,44 +198,32 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <TextView
+            <Button
                 android:id="@+id/btnVisitedTheCustomer"
+                style="@style/CustomButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:background="@drawable/round_corner_bg"
                 android:backgroundTint="@color/green"
-                android:padding="@dimen/_8sdp"
-                android:text="@string/visited_the_customer"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="bold"
-                android:visibility="visible"
-
+                android:text="@string/visited_the_customer_space"
+                android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
 
 
-            <TextView
+            <Button
                 android:id="@+id/btnDidNotVisitedTheCustomer"
+                style="@style/CustomButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:background="@drawable/round_corner_bg"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:backgroundTint="@color/red"
-                android:padding="@dimen/_8sdp"
-                android:text="@string/did_not_visited_the_customer"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="bold"
-                android:visibility="visible"
-                android:layout_marginTop="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@+id/btnVisitedTheCustomer"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/did_not_speak_to_ncustomer"
+                android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnVisitedTheCustomer" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

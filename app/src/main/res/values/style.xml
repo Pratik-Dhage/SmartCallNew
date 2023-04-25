@@ -29,6 +29,14 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="heading_text_style_normal">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="android:textColor">@color/textBlue</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
     <style name="mid_text_style">
         <item name="android:textSize">@dimen/_14ssp</item>
         <item name="android:textColor">@color/textBlue</item>

@@ -123,6 +123,7 @@
     <string name="distance">Distance</string>
     <string name="severity">Severity</string>
     <string name="visited_the_customer">Visited The Customer</string>
+    <string name="visited_the_customer_space">\u00A0\u00A0\u00A0\u00A0Visited The Customer\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="did_not_visited_the_customer">Did Not Visit The Customer</string>
     <string name="personal_details">Personal Details</string>
     <string name="details">Details</string>
@@ -230,6 +231,8 @@
     <string name="calling_npa_customer">Calling - NPA Customer</string>
     <string name="google_maps">Google Maps</string>
     <string name="total_due">Total Due</string>
+    <string name="visit_npa_list">Visit - NPA List</string>
+    <string name="visit_npa_details">Visit - NPA Details</string>
 
 
 </resources>
