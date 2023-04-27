@@ -61,7 +61,12 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
         }
     }
 
+
     private void onClickListener() {
+
+        binding.ivBack.setOnClickListener(v->{
+            onBackPressed();
+        });
 
         binding.btnUpdateSchedule.setOnClickListener(v -> {
 
@@ -70,7 +75,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(ScheduleVisitForCollectionActivity.this, LoanCollectionActivity.class);
+                    Intent intent = new Intent(ScheduleVisitForCollectionActivity.this, NearByCustomersActivity.class);
                     startActivity(intent);
                 }
             }, 2000);

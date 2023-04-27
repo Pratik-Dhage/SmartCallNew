@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.test.MainActivity3;
 import com.example.test.R;
 import com.example.test.databinding.ActivityNearByCustomersBinding;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 
 public class NearByCustomersActivity extends AppCompatActivity {
@@ -40,7 +41,7 @@ public class NearByCustomersActivity extends AppCompatActivity {
         });
 
         binding.btnGotoDashBoard.setOnClickListener(v->{
-            Intent i = new Intent(NearByCustomersActivity.this, MainActivity3.class);
+            Intent i = new Intent(NearByCustomersActivity.this, MainActivity3API.class);
             startActivity(i);
         });
 
