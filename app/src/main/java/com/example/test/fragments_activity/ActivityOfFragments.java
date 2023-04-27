@@ -57,7 +57,7 @@ public class ActivityOfFragments extends AppCompatActivity {
     private void setFragments() {
         // List of Fragment objects to be displayed in the ViewPager2
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new LoanCollectionFragment());
+        fragmentList.add(new LoanCollectionFragment());  //NPA Fragment
         fragmentList.add(new RenewalFragment());
 
         //  FragmentStateAdapter to handle the fragments in the ViewPager2
@@ -84,7 +84,7 @@ public class ActivityOfFragments extends AppCompatActivity {
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 switch (position) {
                     case 0:
-                        tab.setText("Loan Collection");
+                        tab.setText("NPA");  //Loan Collection
                         break;
                     case 1:
                         tab.setText("Renewal");
