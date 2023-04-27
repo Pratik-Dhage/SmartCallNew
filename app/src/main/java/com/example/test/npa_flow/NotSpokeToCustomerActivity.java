@@ -164,7 +164,12 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
 
         binding.btnNoResponseBusy.setOnClickListener(v -> {
+
+            // Get DPD_row_position saved in SharedPreference in DPD_Adapter Class
+            int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this,"DPD_row_position"));
+
             Intent i = new Intent(NotSpokeToCustomerActivity.this, LoanCollectionActivity.class);
+            i.putExtra("DPD_row_position",DPD_row_position);
             startActivity(i);
 
         });

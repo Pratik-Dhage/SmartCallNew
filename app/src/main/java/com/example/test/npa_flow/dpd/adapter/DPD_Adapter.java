@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
 import com.example.test.databinding.ItemDpdBinding;
+import com.example.test.helper_classes.Global;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 
@@ -53,6 +54,9 @@ public class DPD_Adapter extends RecyclerView.Adapter<DPD_Adapter.MyViewHolderCl
                 Intent i = new Intent(context, LoanCollectionActivity.class);
                 i.putExtra("DPD_row_position",DPD_row_position);
                 context.startActivity(i);
+
+                //Store DPD_row_position and use in Not Spoke To Customer Activity when No Response/Busy button is clicked
+            Global.saveStringInSharedPref(context,"DPD_row_position", String.valueOf(DPD_row_position));
 
         });
 
