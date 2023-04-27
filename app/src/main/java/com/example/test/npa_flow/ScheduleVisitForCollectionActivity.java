@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import com.example.test.MainActivity3;
 import com.example.test.R;
 import com.example.test.databinding.ActivityScheduleVisitForCollectionBinding;
+import com.example.test.fragments_activity.ActivityOfFragments;
 import com.example.test.helper_classes.Global;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
@@ -88,8 +89,18 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(ScheduleVisitForCollectionActivity.this, NearByCustomersActivity.class);
-                    startActivity(intent);
+
+                    if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity")){
+                        Intent i = new Intent(ScheduleVisitForCollectionActivity.this, ActivityOfFragments.class);
+                        startActivity(i);
+                    }
+
+                    else{
+
+                        Intent intent = new Intent(ScheduleVisitForCollectionActivity.this, NearByCustomersActivity.class);
+                        startActivity(intent);
+                    }
+
                 }
             }, 2000);
 

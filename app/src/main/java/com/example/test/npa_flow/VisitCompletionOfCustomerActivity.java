@@ -51,7 +51,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
     private void setUpToolbarTitle(){
 
-        if(getIntent().hasExtra("isFromVisitNPANotificationActivity")
+        if( getIntent().hasExtra("isFromVisitNPAStatusActivity") || getIntent().hasExtra("isFromVisitNPANotificationActivity")
                 || getIntent().hasExtra("isFromVisitNPARescheduleActivity")
         || getIntent().hasExtra("isFromVisitNPANotAvailableActivity")
 
