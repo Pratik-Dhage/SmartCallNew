@@ -123,7 +123,7 @@
     <string name="distance">Distance</string>
     <string name="severity">Severity</string>
     <string name="visited_the_customer">Visited The Customer</string>
-    <string name="visited_the_customer_space">\u00A0\u00A0\u00A0\u00A0Visited The Customer\u00A0\u00A0\u00A0\u00A0\u00A0</string>
+    <string name="visited_the_customer_space">\u00A0\u00A0\u00A0\u00A0\u00A0Visited The Customer\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="did_not_visited_the_customer">Did Not Visit The Customer</string>
     <string name="personal_details">Personal Details</string>
     <string name="details">Details</string>
@@ -242,7 +242,7 @@
     <string name="cheque_payment_space">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Cheque Payment\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="send_link_for_online_payment_break">Send Link For \nOnline Payment</string>
     <string name="visit_npa_payment_mode">Visit - NPA Payment Mode</string>
-    <string name="not_visited_the_customer">Not Visited The Customer</string>
+    <string name="not_visited_the_customer">Did Not Visit The Customer</string>
     <string name="please_enter_cheque_date">Please Enter Cheque Date</string>
     <string name="please_enter_cheque_no">Please Enter Cheque No.</string>
     <string name="please_enter_bank_name">Please Enter Bank Name</string>
@@ -251,5 +251,8 @@
     <string name="visit_npa_notification">Visit - NPA Notification</string>
     <string name="lack_of_funds">Lack Of Funds</string>
     <string name="claims_payment_made">Claims Payment Made</string>
+    <string name="visit_npa_reschedule">Visit - NPA Reschedule</string>
+    <string name="visit_rescheduled_space">\u00A0\u00A0\u00A0\u00A0Visit Rescheduled\u00A0\u00A0\u00A0\u00A0</string>
+    <string name="others_space">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Others\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
 
 </resources>

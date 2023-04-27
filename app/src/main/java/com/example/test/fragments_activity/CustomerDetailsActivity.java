@@ -16,10 +16,10 @@ import android.widget.TextView;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityCustomerDetailsBinding;
+import com.example.test.fragment_visits_flow.Visit_NPA_RescheduledActivity;
 import com.example.test.fragment_visits_flow.Visit_NPA_StatusActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
-import com.example.test.npa_flow.NearByCustomersActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 
@@ -117,6 +117,13 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
     private void onClickListener() {
 
+        binding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         binding.btnVisitedTheCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,12 +134,13 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             }
         });
 
-        binding.ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+      binding.btnDidNotVisitTheCustomer.setOnClickListener(v->{
+          Intent i = new Intent(CustomerDetailsActivity.this, Visit_NPA_RescheduledActivity.class);
+          String dataSetId = getIntent().getStringExtra("dataSetId");
+          i.putExtra("dataSetId",dataSetId);
+          startActivity(i);
+
+      });
 
 
 
