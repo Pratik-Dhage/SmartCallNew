@@ -49,12 +49,21 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
         onClickListener();
     }
 
+    private void setUpToolbarTitle(){
+
+        if(getIntent().hasExtra("isFromVisitNPANotificationActivity")){
+            binding.txtToolbarHeading.setText(getString(R.string.visit_complete));
+        }
+    }
+
     private void initializeFields() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_visit_completion_of_customer);
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
+
+        setUpToolbarTitle();
     }
 
     private void callDetailsOfCustomerApi() {

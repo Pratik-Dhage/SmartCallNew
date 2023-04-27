@@ -246,5 +246,8 @@
     <string name="please_enter_bank_name">Please Enter Bank Name</string>
     <string name="please_enter_ifsc_code">Please Enter IFSC Code</string>
     <string name="generate_receipt">Generate Receipt</string>
+    <string name="visit_npa_notification">Visit - NPA Notification</string>
+    <string name="lack_of_funds">Lack Of Funds</string>
+    <string name="claims_payment_made">Claims Payment Made</string>
 
 </resources>

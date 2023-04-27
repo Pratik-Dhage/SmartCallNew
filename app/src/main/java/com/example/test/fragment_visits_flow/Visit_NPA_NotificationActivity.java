@@ -23,29 +23,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.test.R;
-import com.example.test.databinding.ActivityVisitNpaStatusBinding;
+import com.example.test.databinding.ActivityVisitNpaNotificationBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
-import com.example.test.npa_flow.ScheduleVisitForCollectionActivity;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 
-public class Visit_NPA_StatusActivity extends AppCompatActivity {
+public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
-
-    ActivityVisitNpaStatusBinding binding;
+    ActivityVisitNpaNotificationBinding binding;
     View view;
     View customDialogImagePicker;
     private ActivityResultLauncher<Intent> pickImageLauncher;
 
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_visit_npa_status);
-
+        setContentView(R.layout.activity_visit_npa_notification);
 
         initializeFields();
         initObserver();
@@ -62,7 +60,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
     private void initializeFields() {
 
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_visit_npa_status);
+        binding= DataBindingUtil.setContentView(this,R.layout.activity_visit_npa_notification);
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
@@ -146,6 +144,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
                 txtProceed.setOnClickListener(v -> {
                     Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
                     startActivity(i);
                 });
 
@@ -180,39 +179,15 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
         return fileName;
     }
 
+     private void onClickListener(){
 
-    private void onClickListener(){
-
-
-        binding.ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
+        binding.ivBack.setOnClickListener(v->{
+            onBackPressed();
         });
 
-        binding.btnReadyToPay.setOnClickListener(v->{
 
-            Intent i = new Intent(this, Visit_NPA_PaymentModeActivity.class);
-            String dataSetId = getIntent().getStringExtra("dataSetId");
-            i.putExtra("dataSetId",dataSetId);
-            startActivity(i);
-        });
 
-        binding.btnNotReadyToPay.setOnClickListener(v->{
-
-            Intent i = new Intent(this,Visit_NPA_NotificationActivity.class);
-            String dataSetId = getIntent().getStringExtra("dataSetId");
-            i.putExtra("dataSetId",dataSetId);
-            startActivity(i);
-        });
-
-        binding.btnAskedToVisitLater.setOnClickListener(v->{
-            Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
-            startActivity(i);
-        });
-
-        binding.btnPaymentAlreadyMade.setOnClickListener(v->{
+        binding.btnClaimsPaymentMade.setOnClickListener(v->{
 
             customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
             ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivCancel);
@@ -242,6 +217,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
             txtSkipAndProceed.setOnClickListener(v1 -> {
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
                 startActivity(i);
             });
 
@@ -249,21 +225,25 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
                 dialog.dismiss();
             });
 
+        });
 
+
+        binding.btnNotTakenLoan.setOnClickListener(v->{
+
+            Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+            i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
+            startActivity(i);
 
         });
 
-        binding.btnOthers.setOnClickListener(v -> {
 
-           View customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
+        binding.btnLoanTakenByRelative.setOnClickListener(v->{
+
+          View customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
             ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
 
             Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
-            EditText edtPleaseSpecify = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
-            EditText edtPleaseSpecifyContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
-            edtPleaseSpecify.setHint(getString(R.string.please_specify));
-            edtPleaseSpecifyContact.setVisibility(View.GONE);
-
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(customDialogEditable);
@@ -277,6 +257,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
             btnProceed.setOnClickListener(v2 -> {
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
                 startActivity(i);
             });
 
@@ -287,64 +268,103 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
         });
 
-        //for Notes
-        binding.ivNotesIcon.setOnClickListener(v->{
+         binding.btnOthers.setOnClickListener(v -> {
 
-            View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
+           View customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
+             ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
-            Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
-            EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
-            customEditBox.setVisibility(View.VISIBLE);
-
-            customText.setText(getResources().getString(R.string.lead_interaction));
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialog);
-            final AlertDialog dialog = builder.create();
-            dialog.show();
-
-            customButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-
-        });
-
-        //for History
-        binding.ivHistory.setOnClickListener(v->{
-
-            View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
-
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
-            Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
-            TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
-            txtCustom.setVisibility(View.VISIBLE);
+             Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
+             EditText edtPleaseSpecify = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
+             EditText edtPleaseSpecifyContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
+             edtPleaseSpecify.setHint(getString(R.string.please_specify));
+             edtPleaseSpecifyContact.setVisibility(View.GONE);
 
 
-            customText.setText(getResources().getString(R.string.lead_history));
+             AlertDialog.Builder builder = new AlertDialog.Builder(this);
+             builder.setView(customDialogEditable);
+             final AlertDialog dialog = builder.create();
+             dialog.setCancelable(true);
+             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialog);
-            final AlertDialog dialog = builder.create();
-            dialog.show();
-
-            customButton.setText(R.string.close);
-            customButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
+             dialog.show();
 
 
+             btnProceed.setOnClickListener(v2 -> {
+                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                 i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
+                 startActivity(i);
+             });
 
-        });
+             ivCancel.setOnClickListener(v1 -> {
+                 dialog.dismiss();
+             });
 
 
-    }
+         });
+
+         //for Notes
+         binding.ivNotesIcon.setOnClickListener(v->{
+
+             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
+
+             TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
+             EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
+             customEditBox.setVisibility(View.VISIBLE);
+
+             customText.setText(getResources().getString(R.string.lead_interaction));
+
+             AlertDialog.Builder builder = new AlertDialog.Builder(this);
+             builder.setView(customDialog);
+             final AlertDialog dialog = builder.create();
+             dialog.show();
+
+             customButton.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     dialog.dismiss();
+                 }
+             });
+
+         });
+
+         //for History
+         binding.ivHistory.setOnClickListener(v->{
+
+             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
+
+             TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
+             TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
+             txtCustom.setVisibility(View.VISIBLE);
+
+
+             customText.setText(getResources().getString(R.string.lead_history));
+
+             AlertDialog.Builder builder = new AlertDialog.Builder(this);
+             builder.setView(customDialog);
+             final AlertDialog dialog = builder.create();
+             dialog.show();
+
+             customButton.setText(R.string.close);
+             customButton.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     dialog.dismiss();
+                 }
+             });
+
+
+
+         });
+
+
+
+     }
+
+
+
 
     // For Getting Calculated Balance Interest Result back from SharedPreference
     @Override
