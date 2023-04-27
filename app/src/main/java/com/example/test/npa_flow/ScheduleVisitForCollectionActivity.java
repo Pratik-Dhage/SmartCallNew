@@ -60,13 +60,15 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
             binding.btnWillPayLumpsum.setVisibility(View.VISIBLE);
         }
 
-        if(getIntent().hasExtra("isFromVisitNPANotificationActivity")){
+        if(getIntent().hasExtra("isFromVisitNPANotificationActivity") || getIntent().hasExtra("isFromVisitNPANotAvailableActivity")){
             binding.btnSkipAndProceed.setVisibility(View.VISIBLE);
 
             binding.btnSkipAndProceed.setOnClickListener(v->{
 
                 Intent i = new Intent(this,VisitCompletionOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+
+                i.putExtra("isFromVisitNPANotAvailableActivity","isFromVisitNPANotAvailableActivity");
                 startActivity(i);
             });
         }

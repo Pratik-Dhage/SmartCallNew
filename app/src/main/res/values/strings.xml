@@ -147,6 +147,7 @@
     <string name="needs_waiver">Needs Waiver</string>
     <string name="others">Others</string>
     <string name="please_specify">Please Specify</string>
+    <string name="please_specify_reason">Please Specify Reason</string>
     <string name="reason_for_waiver">Reason for Waiver</string>
     <string name="visit_complete_no_change">Visit Complete - No Change</string>
     <string name="visit_complete_update_details">Visit Complete - Update Details</string>
@@ -254,5 +255,9 @@
     <string name="visit_npa_reschedule">Visit - NPA Reschedule</string>
     <string name="visit_rescheduled_space">\u00A0\u00A0\u00A0\u00A0Visit Rescheduled\u00A0\u00A0\u00A0\u00A0</string>
     <string name="others_space">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Others\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
+    <string name="visit_npa_notavailable">Visit - NPA Not Available</string>
+    <string name="customer_not_available">Customer Not Available</string>
+    <string name="late_for_visit_space">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Late for Visit\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
+    <string name="others_space2">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Others\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
 
 </resources>
