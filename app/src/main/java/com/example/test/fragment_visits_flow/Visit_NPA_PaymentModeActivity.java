@@ -7,11 +7,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.test.R;
@@ -120,6 +123,61 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
             i.putExtra("dataSetId",dataSetId);
             startActivity(i);
         });
+
+        //for Cash Payment
+        binding.btnCash.setOnClickListener(v->{
+
+            View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_cash, null);
+            ImageView ivCancel = customDialog.findViewById(R.id.ivCancel);
+            Button btnGenerateReceipt = customDialog.findViewById(R.id.btnGenerateReceipt);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(customDialog);
+            final AlertDialog dialog = builder.create();
+            dialog.setCancelable(true);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+
+            btnGenerateReceipt.setOnClickListener(v2->{
+
+            });
+
+            ivCancel.setOnClickListener(v1->{
+                dialog.dismiss();
+            });
+
+        });
+
+
+            //for Cheque Payment
+          binding.btnCheque.setOnClickListener(v->{
+
+              View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_cheque, null);
+              ImageView ivCancel = customDialog.findViewById(R.id.ivCancel);
+              Button btnProceed = customDialog.findViewById(R.id.btnProceed);
+              EditText edtPleaseEnterChequeDate = customDialog.findViewById(R.id.edtPleaseEnterChequeDate);
+              EditText edtPleaseEnterChequeNumber = customDialog.findViewById(R.id.edtPleaseEnterChequeNumber);
+              EditText edtPleaseEnterBankName = customDialog.findViewById(R.id.edtPleaseEnterBankName);
+              EditText edtPleaseEnterIfscCode = customDialog.findViewById(R.id.edtPleaseEnterIfscCode);
+
+
+              AlertDialog.Builder builder = new AlertDialog.Builder(this);
+              builder.setView(customDialog);
+              final AlertDialog dialog = builder.create();
+              dialog.setCancelable(true);
+              dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+              dialog.show();
+
+              btnProceed.setOnClickListener(v2->{
+
+              });
+
+              ivCancel.setOnClickListener(v1->{
+                  dialog.dismiss();
+              });
+          });
+
+
 
         //for Notes
         binding.ivNotesIcon.setOnClickListener(v->{
