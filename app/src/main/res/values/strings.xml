@@ -166,11 +166,12 @@
     <string name="ask_to_call_back_later">Asked To \nCall Back Later</string>
     <string name="send_link_for_online_payment">Send Link For Online Payment</string>
     <string name="schedule_visit_for_collection">Schedule Visit For Collection</string>
-    <string name="complete_no_change">No change</string>
-    <string name="complete_need_to_update_details">Need To Update Details</string>
-    <string name="complete_escalate_to_bm">Escalate To BM</string>
+    <string name="complete_no_change">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Complete-No change\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
+    <string name="complete_need_to_update_details">Complete-Need To Update Details</string>
+    <string name="complete_escalate_to_bm">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Complete-Escalate To BM\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="schedule_visit">Schedule Visit</string>
     <string name="update_schedule">Update Schedule</string>
+    <string name="update_schedule_space">\u00A0\u00A0Update Schedule\u00A0\u00A0</string>
     <string name="schedule_update_successfully">Schedule Updated Successfully</string>
     <string name="calls_for_the_day">Calls For The Day</string>
     <string name="view_nearby_customers">View Nearby Customers</string>
@@ -191,7 +192,7 @@
     <string name="yes_the_lead_nis_interested">Yes, the lead \nis interested</string>
     <string name="no_the_lead_nis_not_interested">No the lead \nis not interested</string>
     <string name="which_products_are_you_interested_in">Which products are you interested in?</string>
-    <string name="will_pay_lumpsum">Will pay Lumpsum</string>
+    <string name="will_pay_lumpsum">\u00A0Will pay Lumpsum\u00A0</string>
     <string name="already_paid">Already Paid</string>
     <string name="upload">Upload</string>
     <string name="upload_file">Upload File</string>
@@ -214,6 +215,7 @@
     <string name="full_amount_paid">\u00A0\u00A0\u00A0Full Amount Paid\u00A0\u00A0\u00A0</string>
     <string name="scheduler">Scheduler</string>
     <string name="skip_and_proceed">Skip and Proceed</string>
+    <string name="skip_and_proceed_space">\u00A0\u00A0Skip and Proceed\u00A0\u00A0</string>
     <string name="upload_receipt">Upload Receipt</string>
     <string name="proceed">Proceed</string>
     <string name="details_not_found">Details Not Found</string>

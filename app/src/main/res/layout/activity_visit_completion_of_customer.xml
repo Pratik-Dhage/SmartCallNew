@@ -201,7 +201,7 @@
             <Button
                 android:id="@+id/btnCompleteNoChange"
                 style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:backgroundTint="@color/barnRed"
@@ -215,12 +215,13 @@
             <Button
                 android:id="@+id/btnCompleteNeedToUpdateDetails"
                 style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:backgroundTint="@color/green"
                 android:text="@string/complete_need_to_update_details"
                 android:textStyle="normal"
+                android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnCompleteNoChange" />
@@ -229,12 +230,13 @@
             <Button
                 android:id="@+id/btnCompleteEscalateToBM"
                 style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:backgroundTint="@color/brightOrange"
                 android:text="@string/complete_escalate_to_bm"
                 android:textStyle="normal"
+                android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnCompleteNeedToUpdateDetails" />

@@ -104,11 +104,11 @@
             <Button
                 android:id="@+id/btnUpdateSchedule"
                 style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:backgroundTint="@color/green"
-                android:text="@string/update_schedule"
+                android:text="@string/update_schedule_space"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +119,7 @@
             <Button
                 android:id="@+id/btnWillPayLumpsum"
                 style="@style/CustomButtonStyle"
-                android:layout_width="@dimen/_136sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:backgroundTint="@color/brightOrange"
@@ -129,6 +129,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnUpdateSchedule" />
+
+            <!--This button will be displayed when coming from Visit-NPANotificationActivity-->
+            <Button
+                android:id="@+id/btnSkipAndProceed"
+                style="@style/CustomButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:backgroundTint="@color/brightOrange"
+                android:text="@string/skip_and_proceed_space"
+                android:textStyle="normal"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnUpdateSchedule" />
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
