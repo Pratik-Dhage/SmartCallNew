@@ -68,17 +68,25 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         //for Total Payable as on (Total Due + Balance Interest)
         if(a.getLable().contentEquals("Total Payable as on") || a.getSequence()==15){
 
-            holder.binding.edtDetail.setVisibility(View.GONE);
-
-            if(TotalDue!=null && BalanceInterestResult!=null && !BalanceInterestResult.isEmpty() && !TotalDue.isEmpty()){
-                Double TotalPayableAsOn = (double) (Double.parseDouble(TotalDue) + Double.parseDouble(BalanceInterestResult));
-                holder.binding.txtDetailName.setText(String.valueOf(TotalPayableAsOn));
+            if(a.getValue()!=null || !a.getValue().isEmpty()){  //if Total Payable is Coming from API
+                holder.binding.txtDetailName.setText(a.getValue());
+                holder.binding.edtDetail.setVisibility(View.GONE);
             }
 
-            if(BalanceInterestResult==null || TotalDue==null)
-            {
-                holder.binding.txtDetailName.setText("-");
+            if(a.getValue().isEmpty() || a.getValue().contentEquals("") || a.getValue()==null){ // If Total Payable not coming from API
+
+                if(TotalDue!=null && BalanceInterestResult!=null && !BalanceInterestResult.isEmpty() && !TotalDue.isEmpty()){
+                    Double TotalPayableAsOn = Double.parseDouble(TotalDue) + Double.parseDouble(BalanceInterestResult);
+                    holder.binding.txtDetailName.setText(String.valueOf(TotalPayableAsOn));
+                }
+
+                if(BalanceInterestResult==null || TotalDue==null)
+                {
+                    holder.binding.txtDetailName.setText("");//Empty
+                }
+
             }
+
         }
 
 
@@ -107,10 +115,19 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         //for Balance Interest Result
         if(a.getLable().contentEquals("Balance Interest as on") || a.getSequence()==14){
 
-            if(Global.getStringFromSharedPref(context,"BalanceInterestResult")!=null){
+            if(a.getValue()!=null || !a.getValue().isEmpty()){  // if BalanceInterest is coming from API
+                holder.binding.txtDetailName.setText(a.getValue());
+            }
 
-                BalanceInterestResult =  Global.getStringFromSharedPref(context,"BalanceInterestResult");
-                holder.binding.txtDetailName.setText( BalanceInterestResult);
+
+            if(a.getValue().contentEquals("") || a.getValue()==null){ //if BalanceInterest Not coming from API
+
+                if(Global.getStringFromSharedPref(context,"BalanceInterestResult")!=null){
+
+                    BalanceInterestResult =  Global.getStringFromSharedPref(context,"BalanceInterestResult");
+                    holder.binding.txtDetailName.setText( BalanceInterestResult);
+
+                }
 
             }
 

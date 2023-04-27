@@ -143,7 +143,7 @@
     <string name="enter_amount">Enter Amount</string>
     <string name="full_amt_paid">Full Amt Paid</string>
     <string name="will_pay_later">Will Pay Later</string>
-    <string name="will_pay_later_space">\u00A0\u00A0\u00A0\u00A0\u00A0Will Pay Later\u00A0\u00A0\u00A0\u00A0\u00A0</string>
+    <string name="will_pay_later_space">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Will Pay Later\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="needs_waiver">Needs Waiver</string>
     <string name="others">Others</string>
     <string name="please_specify">Please Specify</string>
