@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityVisitNpaPaymentModeBinding;
+import com.example.test.fragment_visits_flow.generate_receipt.WebViewGenerateReceiptActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.npa_flow.PaymentModeStatusActivity;
@@ -140,6 +141,10 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
             btnGenerateReceipt.setOnClickListener(v2->{
 
+                Intent i = new Intent(this, WebViewGenerateReceiptActivity.class);
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                i.putExtra("dataSetId",dataSetId);
+                startActivity(i);
             });
 
             ivCancel.setOnClickListener(v1->{
