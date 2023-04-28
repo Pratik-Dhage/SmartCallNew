@@ -54,11 +54,18 @@ public class MainDashBoardViewModel extends ViewModel {
     //DashBoard Api
 
     //for making @GET request
+    // Changes Now Use userId and branchCode as Parameters( 28/04/2023) in UserModel to get DashBoard Data
+    String userId_new = "CA_01_001";
+    String userBranchCode = "001";
+
+    //for making @GET request
     String userId = "admin"; //send User Id and password as Request Body in RestClient
     String password = "123456";
 
     //for making @POST request
-    UserModel userModel = new UserModel(userId,password);
+    //UserModel userModel = new UserModel(userId,password);
+    UserModel userModel = new UserModel("CA_01_001","001"); // Changes UserModel userModel = new UserModel(userId_new,userBranchCode);
+
 
     public void getDashBoardData()
 

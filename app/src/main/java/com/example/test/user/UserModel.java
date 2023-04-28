@@ -66,9 +66,15 @@ public class UserModel {
     private BigDecimal genericNumber10;
     private String authenticationResult;
 
-    public UserModel(String userId, String password) {
+  /*  public UserModel(String userId, String password) {
         this.userId = userId;
         this.password = password;
+    }*/
+
+    //Changes (28/04/2023) now use userId and branchCode as parameters to get DashBoard Data
+    public UserModel(String userId, String branchCode) {
+        this.userId = userId;
+        this.branchCode = branchCode;
     }
 
     public String getUserId() {
