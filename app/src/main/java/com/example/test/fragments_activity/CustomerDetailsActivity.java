@@ -84,6 +84,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                         if(it.getSequence()==16 || it.getLable().contentEquals("Amount Paid")){
                             it.setLable("");
                             it.setEditable("");
+                            Global.removeStringInSharedPref(this,"Amount_Paid"); // remove Amount Paid from SharePreferences for next activities to have New value
                         }
                     });
 

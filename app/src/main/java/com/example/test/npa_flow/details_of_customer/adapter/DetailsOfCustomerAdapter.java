@@ -46,7 +46,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
     @Override
     public MyViewHolderClass onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        ItemDetailsOfCustomerBinding view = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_details_of_customer,parent,false);
+        ItemDetailsOfCustomerBinding view = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_details_of_customer, parent, false);
         return new MyViewHolderClass(view);
     }
 
@@ -60,28 +60,57 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         holder.binding.labelDetailName.setText(a.getLable());
         holder.binding.txtDetailName.setText(a.getValue());
 
-          //for Name
-        if(a.getLable().contentEquals("Name") || a.getSequence()==1){
+        //for Name
+        if (a.getLable().contentEquals("Name") || a.getSequence() == 1) {
             holder.binding.edtDetail.setVisibility(View.GONE);
         }
 
-        //for Total Payable as on (Total Due + Balance Interest)
-        if(a.getLable().contentEquals("Total Payable as on") || a.getSequence()==15){
+        //for Amount Paid
+        if (a.getLable().contentEquals("Amount Paid") || a.getSequence() == 16) {
 
-            if(a.getValue()!=null || !a.getValue().isEmpty()){  //if Total Payable is Coming from API
+            holder.binding.txtDetailName.setVisibility(View.VISIBLE);
+            holder.binding.edtDetail.setOnFocusChangeListener((v, hasFocus) -> {
+
+                holder.binding.btnDetail.setVisibility(View.VISIBLE);
+                holder.binding.btnDetail.setText(R.string.save);
+
+            });
+
+            holder.binding.btnDetail.setOnClickListener(v -> {
+
+                   String Amount_Paid = holder.binding.edtDetail.getText().toString();
+
+                   Global.saveStringInSharedPref(context, "Amount_Paid", Amount_Paid); //save Amount Paid in SharedPreference
+
+
+            });
+
+
+            if (!Global.getStringFromSharedPref(context, "Amount_Paid").isEmpty()) {
+
+                String Amount_Paid_From_SharedPreference = Global.getStringFromSharedPref(context, "Amount_Paid");
+                holder.binding.edtDetail.setText(Amount_Paid_From_SharedPreference);
+
+            }
+
+        }
+
+        //for Total Payable as on (Total Due + Balance Interest)
+        if (a.getLable().contentEquals("Total Payable as on") || a.getSequence() == 15) {
+
+            if (a.getValue() != null || !a.getValue().isEmpty()) {  //if Total Payable is Coming from API
                 holder.binding.txtDetailName.setText(a.getValue());
                 holder.binding.edtDetail.setVisibility(View.GONE);
             }
 
-            if(a.getValue().isEmpty() || a.getValue().contentEquals("") || a.getValue()==null){ // If Total Payable not coming from API
+            if (a.getValue().isEmpty() || a.getValue().contentEquals("") || a.getValue() == null) { // If Total Payable not coming from API
 
-                if(TotalDue!=null && BalanceInterestResult!=null && !BalanceInterestResult.isEmpty() && !TotalDue.isEmpty()){
+                if (TotalDue != null && BalanceInterestResult != null && !BalanceInterestResult.isEmpty() && !TotalDue.isEmpty()) {
                     Double TotalPayableAsOn = Double.parseDouble(TotalDue) + Double.parseDouble(BalanceInterestResult);
                     holder.binding.txtDetailName.setText(String.valueOf(TotalPayableAsOn));
                 }
 
-                if(BalanceInterestResult==null || TotalDue==null)
-                {
+                if (BalanceInterestResult == null || TotalDue == null) {
                     holder.binding.txtDetailName.setText("");//Empty
                 }
 
@@ -90,22 +119,21 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         }
 
 
-
         //for Button
-        if(Objects.equals(a.getButton(), "Y")){
-              holder.binding.btnDetail.setVisibility(View.VISIBLE);
-              holder.binding.btnDetail.setText(a.getButtonLable().toString());
+        if (Objects.equals(a.getButton(), "Y")) {
+            holder.binding.btnDetail.setVisibility(View.VISIBLE);
+            holder.binding.btnDetail.setText(a.getButtonLable().toString());
 
         }
 
         //For Total Due and Interest Rate to Calculate in Balance Interest Calculation Activity
-        if(a.getLable().contentEquals("Total Due") ||a.getSequence()==12){
+        if (a.getLable().contentEquals("Total Due") || a.getSequence() == 12) {
             Total_due = Double.parseDouble(a.getValue());
             TotalDue = Total_due.toString();
             holder.binding.btnDetail.setVisibility(View.GONE);
         }
 
-        if(a.getLable().contentEquals("Interest Rate") || a.getSequence()==13){
+        if (a.getLable().contentEquals("Interest Rate") || a.getSequence() == 13) {
             Interest_rate = Double.parseDouble(a.getValue());
             InterestRate = Interest_rate.toString();
             holder.binding.btnDetail.setVisibility(View.GONE);
@@ -113,35 +141,36 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
 
         //for Balance Interest Result
-        if(a.getLable().contentEquals("Balance Interest as on") || a.getSequence()==14){
+        if (a.getLable().contentEquals("Balance Interest as on") || a.getSequence() == 14) {
 
-            if(a.getValue()!=null || !a.getValue().isEmpty()){  // if BalanceInterest is coming from API
+            if (a.getValue() != null || !a.getValue().isEmpty()) {  // if BalanceInterest is coming from API
                 holder.binding.txtDetailName.setText(a.getValue());
             }
 
 
-            if(a.getValue().contentEquals("") || a.getValue()==null){ //if BalanceInterest Not coming from API
+            if (a.getValue().contentEquals("") || a.getValue() == null) { //if BalanceInterest Not coming from API
 
-                if(Global.getStringFromSharedPref(context,"BalanceInterestResult")!=null){
+                if (Global.getStringFromSharedPref(context, "BalanceInterestResult") != null) {
 
-                    BalanceInterestResult =  Global.getStringFromSharedPref(context,"BalanceInterestResult");
-                    holder.binding.txtDetailName.setText( BalanceInterestResult);
+                    BalanceInterestResult = Global.getStringFromSharedPref(context, "BalanceInterestResult");
+                    holder.binding.txtDetailName.setText(BalanceInterestResult);
 
                 }
 
             }
 
-                    }
+        }
 
+     /*
         //Button Clicks
         holder.binding.btnDetail.setOnClickListener(v->{
 
-            if(a.getButtonLable().toString().equals("Capture")){
+            if(a.getButtonLable().toString().contentEquals("Capture")){
                 Intent i = new Intent(context,WebViewActivity.class);
                 context.startActivity(i);
             }
 
-            if(a.getButtonLable().toString().equals("Calculate")){
+            if(a.getButtonLable().toString().contentEquals("Calculate")){
 
                 //Pass Total Due and Interest Rate to Calculate Balance Interest
 
@@ -153,16 +182,16 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
         });
 
-
+*/
 
         // for EditText
-        if(Objects.equals(a.getEditable(), "Y")){
-           holder.binding.edtDetail.setVisibility(View.VISIBLE);
-           holder.binding.txtDetailName.setVisibility(View.INVISIBLE);
+        if (Objects.equals(a.getEditable(), "Y")) {
+            holder.binding.edtDetail.setVisibility(View.VISIBLE);
+            holder.binding.txtDetailName.setVisibility(View.INVISIBLE);
         }
 
         //for separation line between Personal and Account Details
-        if(Objects.equals(a.getLable(), "Father's Name")){
+        if (Objects.equals(a.getLable(), "Father's Name")) {
             holder.binding.viewLine.setVisibility(View.VISIBLE);
         }
 
@@ -175,9 +204,9 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
 
     @SuppressLint("NotifyDataSetChanged")
-    public ArrayList setData(ArrayList<DetailsOfCustomer_ResponseModel> data)  {
+    public ArrayList setData(ArrayList<DetailsOfCustomer_ResponseModel> data) {
         if (data.isEmpty()) {
-            detailsOfCustomer_responseModelArrayList =  new ArrayList();
+            detailsOfCustomer_responseModelArrayList = new ArrayList();
         }
         detailsOfCustomer_responseModelArrayList = data;
         notifyDataSetChanged();
@@ -186,14 +215,13 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
     }
 
 
-
     class MyViewHolderClass extends RecyclerView.ViewHolder {
 
         private ItemDetailsOfCustomerBinding binding;
 
         public MyViewHolderClass(ItemDetailsOfCustomerBinding binding) {
             super(binding.getRoot());
-            this.binding =binding;
+            this.binding = binding;
         }
 
     }

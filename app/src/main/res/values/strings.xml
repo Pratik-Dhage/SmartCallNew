@@ -53,6 +53,7 @@
     <string name="enter_lead_last_name">Enter Lead Last Name</string>
     <string name="enter_lead_mobile_number">Enter Lead Mobile Number</string>
     <string name="save">Save</string>
+    <string name="edit">Edit</string>
     <string name="saved_in_room_db">Successfully Saved in Room DB</string>
     <string name="back_to_lead_list">Back To Lead List</string>
     <string name="permission_to_call_denied">Permission to make a call is denied</string>

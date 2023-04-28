@@ -68,7 +68,12 @@ public class WebServices {
 
 
     //for DPD queue
-    public static String dpd_queue = "transactionDataSet/getDpdQueues?branchCode=001";
+
+    static String  userId_new = "CA_01_001";
+    static String userBranchCode = "001";
+
+  //  public static String dpd_queue = "transactionDataSet/getDpdQueues?branchCode=001";
+    public static String dpd_queue = "transactionDataSet/getDpdQueues?userId=CA_01_001&branchCode=001"; //Changes 28/4/2023 use userId along with branchCode
 
     //for Loan Collection List that comes after DPD Activity
     //http://43.239.52.151:8081/transactionDataSet/getDpdQueueList?branchCode=001&queue=3738 //for 30 Days
