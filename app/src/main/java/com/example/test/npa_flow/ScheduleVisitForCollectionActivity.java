@@ -41,6 +41,8 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
         //for current date
         DatePicker datePicker = binding.datePickerCalendarView;
         Calendar calendar = Calendar.getInstance();
+        long today = calendar.getTimeInMillis(); //for min date
+        datePicker.setMinDate(today);
         datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), null);
 
         setUpTitleAndButtonText();
