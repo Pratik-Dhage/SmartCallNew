@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -141,10 +142,23 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
             btnGenerateReceipt.setOnClickListener(v2->{
 
-                Intent i = new Intent(this, WebViewGenerateReceiptActivity.class);
                 String dataSetId = getIntent().getStringExtra("dataSetId");
-                i.putExtra("dataSetId",dataSetId);
-                startActivity(i);
+                String userId = "CA_01_001";
+                String username = "CallingAgent1";
+                String amount_paid = Global.getStringFromSharedPref(this,"Amount_Paid");
+
+                //original URL
+                String generateReceiptUrl = "http://43.239.52.151:8081/report/Receipt?output=PDF&dataSetId=238624&amtPaid=1645&userId=CA_01_001&userName=CallingAgent1";
+
+                String generateReceiptUrl2 = "http://43.239.52.151:8081/report/Receipt?output=PDF&dataSetId=" + dataSetId + "&amtPaid=" + amount_paid + "&userId=" + userId + "&userName=" + username;
+
+
+                Uri uri = Uri.parse(generateReceiptUrl2);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                intent.setDataAndType(uri,"application/pdf");
+                startActivity(intent);
+
+
             });
 
             ivCancel.setOnClickListener(v1->{
