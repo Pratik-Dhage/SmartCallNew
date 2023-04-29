@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +28,8 @@ import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.npa_flow.PaymentModeStatusActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+
+import java.util.Calendar;
 
 public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
@@ -187,6 +191,12 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
               dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
               dialog.show();
 
+
+              //for Cheque Date
+              edtPleaseEnterChequeDate.setOnFocusChangeListener((v1, hasFocus) -> {
+                  showDatePickerDialogAndSetDate(edtPleaseEnterChequeDate);
+              });
+
               btnProceed.setOnClickListener(v2->{
 
               });
@@ -256,6 +266,32 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
 
     }
+
+    private void showDatePickerDialogAndSetDate(EditText editText) {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        // Set the selected date to the EditText
+                       // String selectedDate = (month + 1) + "/" + dayOfMonth + "/" + year;
+                        String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
+                        editText.setText(selectedDate);
+                    }
+                }, year, month, dayOfMonth);
+
+        // Set the minimum and maximum dates allowed
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+      //  datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + (1000*60*60*24*7));
+
+        datePickerDialog.show();
+    }
+
+
 
     // For Getting Calculated Balance Interest Result back from SharedPreference
     @Override

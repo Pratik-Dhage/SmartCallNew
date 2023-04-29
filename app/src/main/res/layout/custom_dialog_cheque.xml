@@ -16,7 +16,7 @@
 
         <EditText
             android:id="@+id/edtPleaseEnterChequeDate"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_170sdp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:hint="@string/please_enter_cheque_date"
@@ -29,7 +29,7 @@
 
         <EditText
             android:id="@+id/edtPleaseEnterChequeNumber"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_170sdp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:digits="0123456789"
@@ -44,7 +44,7 @@
 
         <EditText
             android:id="@+id/edtPleaseEnterBankName"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_170sdp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:hint="@string/please_enter_bank_name"
@@ -58,7 +58,7 @@
 
         <EditText
             android:id="@+id/edtPleaseEnterIfscCode"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_170sdp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:digits="0123456789"
