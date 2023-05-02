@@ -20,6 +20,7 @@ import com.example.test.databinding.ActivityCallDetailOfCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
@@ -123,7 +124,9 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
             }
         });
 
-
+        binding.ivHome.setOnClickListener(v->{
+            startActivity(new Intent(this, MainActivity3API.class));
+        });
 
         binding.btnSpokeToCustomer.setOnClickListener(v -> {
 
