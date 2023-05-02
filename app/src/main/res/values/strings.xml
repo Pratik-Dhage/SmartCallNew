@@ -189,7 +189,7 @@
     <string name="number_is_invalid">Number Is \nInvalid</string>
     <string name="spoke_to_friend_family_member">Spoke To Friend/ \nFamily Member</string>
     <string name="source_of_lead">Source of Lead</string>
-    <string name="sir_madam">Sir/Madam,do you require any loan like \n\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0personal loan, home loan?</string>
+    <string name="sir_madam">Sir/Madam,are you interested in any loan such as personal loan, home loan etc?</string>
     <string name="view_products">View Products</string>
     <string name="yes_the_lead_nis_interested">Yes, the lead \nis interested</string>
     <string name="no_the_lead_nis_not_interested">No the lead \nis not interested</string>
@@ -260,5 +260,9 @@
     <string name="customer_not_available">Customer Not Available</string>
     <string name="late_for_visit_space">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Late for Visit\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="others_space2">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Others\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
+    <string name="credit_card">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Credit Card\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
+    <string name="personal_loan">\u00A0\u00A0\u00A0\u00A0Personal Loan\u00A0\u00A0\u00A0\u00A0</string>
+    <string name="pre_approved_offer">Pre Approved Offers!</string>
+    <string name="there_are_no_pre_approved_offers">There are no pre-approved offers</string>
 
 </resources>

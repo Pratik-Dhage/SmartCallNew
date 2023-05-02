@@ -30,6 +30,7 @@ import com.example.test.R;
 import com.example.test.broadcast_receiver.MyBroadCastReceiverClass;
 import com.example.test.databinding.ActivityCallStatusBinding;
 import com.example.test.helper_classes.Global;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.LeadCallModelRoom;
@@ -70,16 +71,15 @@ public class CallStatusActivity extends AppCompatActivity {
 
     private void onClickListener() {
 
-        binding.btnBackToLeadList.setOnClickListener(v -> {
-            onBackPressed(); // back to Lead List Activity
-        });
-
         binding.ivBack.setOnClickListener(v -> {
             onBackPressed(); // back to Lead List Activity
         });
 
+        binding.ivHome.setOnClickListener(v->{
+            startActivity(new Intent(this, MainActivity3API.class));
+        });
 
-        //for test purpose
+        //for test purpose to move to next activity
         binding.ivWifiCall2.setOnClickListener(v->{
             String firstName = binding.txtLeadName.getText().toString();
             String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
@@ -91,6 +91,7 @@ public class CallStatusActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+        //will make Actual Call to Lead
         binding.ivWifiCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
