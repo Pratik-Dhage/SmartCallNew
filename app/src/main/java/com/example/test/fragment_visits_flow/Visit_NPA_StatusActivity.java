@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.OpenableColumns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,10 +27,14 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityVisitNpaStatusBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.ScheduleVisitForCollectionActivity;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
@@ -40,6 +45,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> pickImageLauncher;
 
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
+    DetailsOfCustomerAdapter detailsOfCustomerAdapter = new DetailsOfCustomerAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,6 +196,10 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
             public void onClick(View v) {
                 onBackPressed();
             }
+        });
+
+        binding.ivHome.setOnClickListener(v->{
+            startActivity(new Intent(this, MainActivity3API.class));
         });
 
         binding.btnReadyToPay.setOnClickListener(v->{
