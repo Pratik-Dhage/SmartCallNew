@@ -260,8 +260,8 @@
     <string name="customer_not_available">Customer Not Available</string>
     <string name="late_for_visit_space">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Late for Visit\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="others_space2">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Others\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
-    <string name="credit_card">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Credit Card\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
-    <string name="personal_loan">\u00A0\u00A0\u00A0\u00A0Personal Loan\u00A0\u00A0\u00A0\u00A0</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="personal_loan">Personal Loan</string>
     <string name="pre_approved_offer">Pre Approved Offers!</string>
     <string name="there_are_no_pre_approved_offers">There are no pre-approved offers</string>
 
