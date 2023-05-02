@@ -59,10 +59,10 @@
             android:id="@+id/pdfView"
             pdfview:layout_constraintStart_toStartOf="parent"
             pdfview:layout_constraintEnd_toEndOf="parent"
-            pdfview:layout_constraintTop_toTopOf="parent"
+            pdfview:layout_constraintTop_toBottomOf="@id/toolbar"
             pdfview:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="0dp"/>
 
 
 
