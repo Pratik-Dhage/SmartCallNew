@@ -20,6 +20,7 @@ import com.example.test.databinding.ActivityNotSpokeToCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
@@ -117,6 +118,9 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
             }
         });
 
+        binding.ivHome.setOnClickListener(v->{
+            startActivity(new Intent(this, MainActivity3API.class));
+        });
 
         //for Notes
         binding.ivNotesIcon.setOnClickListener(v -> {
