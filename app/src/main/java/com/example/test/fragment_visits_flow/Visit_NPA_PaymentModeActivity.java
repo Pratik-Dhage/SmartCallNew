@@ -25,6 +25,7 @@ import com.example.test.databinding.ActivityVisitNpaPaymentModeBinding;
 import com.example.test.fragment_visits_flow.generate_receipt.WebViewGenerateReceiptActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.PaymentModeStatusActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
@@ -121,6 +122,9 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
             }
         });
 
+        binding.ivHome.setOnClickListener(v->{
+            startActivity(new Intent(this, MainActivity3API.class));
+        });
 
         binding.btnSendLinkForOnlinePayment.setOnClickListener(v->{
 
