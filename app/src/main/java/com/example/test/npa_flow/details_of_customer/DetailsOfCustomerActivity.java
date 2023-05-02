@@ -216,6 +216,8 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
 
+        Global.removeStringInSharedPref(this,"Amount_Paid");
+
     }
 
     private void setUpDetailsOfCustomerRecyclerView(){
