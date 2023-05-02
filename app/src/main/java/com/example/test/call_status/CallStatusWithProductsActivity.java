@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.test.R;
 import com.example.test.databinding.ActivityCallStatusWithProductsBinding;
 import com.example.test.lead.LeadsActivity;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.view_products.ViewProductsActivity;
 
 public class CallStatusWithProductsActivity extends AppCompatActivity {
@@ -52,6 +53,10 @@ public class CallStatusWithProductsActivity extends AppCompatActivity {
 
         binding.ivBack.setOnClickListener(v -> {
             onBackPressed();
+        });
+
+        binding.ivHome.setOnClickListener(v->{
+            startActivity(new Intent(this, MainActivity3API.class));
         });
 
         binding.btnViewProducts.setOnClickListener(v->{
