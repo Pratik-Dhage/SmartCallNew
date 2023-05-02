@@ -50,6 +50,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white" />
 
+        <ImageView
+            android:id="@+id/ivHome"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:src="@drawable/home_icon"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clFirstHalf"
