@@ -21,6 +21,7 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityVisitNpaNotAvailableBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.ScheduleVisitForCollectionActivity;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
@@ -113,6 +114,10 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
 
         binding.ivBack.setOnClickListener(v->{
             onBackPressed();
+        });
+
+        binding.ivHome.setOnClickListener(v->{
+            startActivity(new Intent(this, MainActivity3API.class));
         });
 
         binding.btnCustomerNotAvailable.setOnClickListener(v->{
