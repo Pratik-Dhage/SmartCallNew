@@ -264,5 +264,6 @@
     <string name="personal_loan">Personal Loan</string>
     <string name="pre_approved_offer">Pre Approved Offers!</string>
     <string name="there_are_no_pre_approved_offers">There are no pre-approved offers</string>
+    <string name="pdf_receipt">PDF - Receipt</string>
 
 </resources>

@@ -160,12 +160,15 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
                 String generateReceiptUrl2 = "http://43.239.52.151:8081/report/Receipt?output=PDF&dataSetId=" + dataSetId + "&amtPaid=" + amount_paid + "&userId=" + userId + "&userName=" + username;
 
-
-                Uri uri = Uri.parse(generateReceiptUrl2);
+                //for Navigating to PDF Viewer app installed in Device
+              /*  Uri uri = Uri.parse(generateReceiptUrl2);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 intent.setDataAndType(uri,"application/pdf");
                 startActivity(intent);
-
+*/
+                Intent i = new Intent(this,WebViewGenerateReceiptActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                startActivity(i);
 
             });
 
