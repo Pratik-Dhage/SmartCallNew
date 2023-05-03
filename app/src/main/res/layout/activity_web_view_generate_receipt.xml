@@ -55,7 +55,7 @@
 
         <!--PDF Viewer to display our PDF-->
 
-        <com.github.barteksc.pdfviewer.PDFView
+     <!--   <com.github.barteksc.pdfviewer.PDFView
             android:id="@+id/pdfView"
             pdfview:layout_constraintStart_toStartOf="parent"
             pdfview:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"/>
 
-
+-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

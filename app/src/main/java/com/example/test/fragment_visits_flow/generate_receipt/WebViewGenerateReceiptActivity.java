@@ -19,7 +19,7 @@ import com.example.test.databinding.ActivityWebViewGenerateReceiptBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
-import com.github.barteksc.pdfviewer.PDFView;
+//import com.github.barteksc.pdfviewer.PDFView;
 
 
 import org.w3c.dom.DocumentType;
@@ -125,9 +125,6 @@ as for userId and username we will get this from the ui once we implement login 
         startActivity(intent);
 */
 
-        PDFView pdfView = binding.pdfView;
-        pdfView.fromUri(Uri.parse(generateReceiptUrl))
-                .load();
 
 
 
@@ -166,7 +163,8 @@ as for userId and username we will get this from the ui once we implement login 
         protected void onPostExecute(InputStream inputStream) {
             // after the execution of our async
             // task we are loading our pdf in our pdf view.
-            binding.pdfView.fromStream(inputStream)
+
+        /*    binding.pdfView.fromStream(inputStream)
                     .defaultPage(0)
                     .enableSwipe(true)
                     .swipeHorizontal(false)
@@ -175,8 +173,7 @@ as for userId and username we will get this from the ui once we implement login 
                     .pageFling(false)
                     .nightMode(false)
                     .load();
-
-
+*/
         }
     }
 
