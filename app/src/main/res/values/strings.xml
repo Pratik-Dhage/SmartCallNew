@@ -139,6 +139,7 @@
     <string name="balance_interest">Balance Interest</string>
     <string name="total_payable_as_on">Total Payable as on</string>
     <string name="product">Product</string>
+    <string name="products">Products</string>
     <string name="calculate">Calculate</string>
     <string name="near_by">Near By</string>
     <string name="total_amt_paid">Total Amt. Paid</string>
@@ -268,5 +269,9 @@
     <string name="there_are_no_pre_approved_offers">There are no pre-approved offers</string>
     <string name="pdf_receipt">PDF - Receipt</string>
     <string name="call_status_view_products">Call Status - View Products</string>
+    <string name="products_info">Products Info</string>
+    <string name="interested_and_eligible">Interested And Eligible</string>
+    <string name="interested_not_eligible">Interested Not Eligible</string>
+    <string name="product_interest_status">Product Interest Status</string>
 
 </resources>

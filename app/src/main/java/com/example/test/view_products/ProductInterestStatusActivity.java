@@ -1,4 +1,4 @@
-package com.example.test.call_status;
+package com.example.test.view_products;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,40 +13,30 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.test.R;
-import com.example.test.databinding.ActivityCallStatusWithProductsBinding;
-import com.example.test.lead.LeadsActivity;
+import com.example.test.databinding.ActivityProductInterestStatusBinding;
 import com.example.test.main_dashboard.MainActivity3API;
-import com.example.test.view_products.ViewProductsActivity;
 
-public class CallStatusWithProductsActivity extends AppCompatActivity {
+public class ProductInterestStatusActivity extends AppCompatActivity {
 
-    ActivityCallStatusWithProductsBinding binding;
-    View view;
-
+   ActivityProductInterestStatusBinding binding;
+   View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_call_status_with_products);
+        setContentView(R.layout.activity_product_interest_status);
 
         initializeFields();
-        setUpData();
         onClickListener();
-    }
 
-    private void setUpData(){
-        String firstName = getIntent().getStringExtra("firstName");
-        String phoneNumber = getIntent().getStringExtra("phoneNumber");
-
-        binding.txtLeadName.setText(firstName);
-        binding.txtLeadMobileNumber.setText(phoneNumber);
     }
 
     private void initializeFields() {
-
-        binding = DataBindingUtil. setContentView(this,R.layout.activity_call_status_with_products);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_product_interest_status);
         view = binding.getRoot();
 
+        binding.txtLeadName.setText(getIntent().getStringExtra("firstName"));
+        binding.txtLeadMobileNumber.setText(getIntent().getStringExtra("phoneNumber"));
     }
 
     private void onClickListener() {
@@ -58,35 +48,6 @@ public class CallStatusWithProductsActivity extends AppCompatActivity {
         binding.ivHome.setOnClickListener(v->{
             startActivity(new Intent(this, MainActivity3API.class));
         });
-
-        binding.btnViewProducts.setOnClickListener(v->{
-
-            String firstName = binding.txtLeadName.getText().toString();
-            String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
-
-
-            Intent i = new Intent(CallStatusWithProductsActivity.this,ViewProductsActivity.class) ;
-            i.putExtra("firstName",firstName);
-            i.putExtra("phoneNumber",phoneNumber);
-            startActivity(i);
-        });
-
-        binding.btnBackToLeadList.setOnClickListener(v->{
-            startActivity(new Intent(CallStatusWithProductsActivity.this, LeadsActivity.class));
-        });
-
-        binding.btnSpokeToCustomer.setOnClickListener(v->{
-
-            String firstName = binding.txtLeadName.getText().toString();
-            String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
-
-
-            Intent i = new Intent(CallStatusWithProductsActivity.this,CallStatusWithLeadInteractionActivity.class) ;
-            i.putExtra("firstName",firstName);
-            i.putExtra("phoneNumber",phoneNumber);
-            startActivity(i);
-        });
-
 
         //for Notes
         binding.ivNotesIcon.setOnClickListener(v->{
@@ -140,7 +101,6 @@ public class CallStatusWithProductsActivity extends AppCompatActivity {
             });
 
         });
-
 
     }
 }

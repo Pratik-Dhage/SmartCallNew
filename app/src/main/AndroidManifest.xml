@@ -31,6 +31,22 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".view_products.ProductInterestStatusActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".view_products.Document_Eligibility_ProductInfoActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+
+
+        </activity>
+        <activity
             android:name=".fragment_visits_flow.generate_receipt.WebViewGenerateReceiptActivity"
             android:exported="false">
             <meta-data
@@ -72,11 +88,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-        <meta-data
-            android:name="com.google.android.maps.v3.API_KEY"
-            android:value="AIzaSyDymn9B6l2_MnHSr6dI_jjZaXEeFWPn5vU" />
-
         <activity
             android:name=".npa_flow.SchedulerActivity"
             android:exported="false">
@@ -131,6 +142,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".npa_flow.NotSpokeToCustomerActivity"
@@ -258,9 +270,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-
-
         <activity
             android:name=".location_gps.customer_location.CustomerLocationActivity"
             android:exported="true">
@@ -360,8 +369,9 @@
                 android:value="" />
         </activity>
 
-
-
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDymn9B6l2_MnHSr6dI_jjZaXEeFWPn5vU" />
     </application>
 
 </manifest>
