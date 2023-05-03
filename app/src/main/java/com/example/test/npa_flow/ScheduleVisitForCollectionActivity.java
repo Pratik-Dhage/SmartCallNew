@@ -9,13 +9,10 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.DatePicker;
 
-import com.example.test.MainActivity3;
 import com.example.test.R;
 import com.example.test.databinding.ActivityScheduleVisitForCollectionBinding;
 import com.example.test.fragments_activity.ActivityOfFragments;
 import com.example.test.helper_classes.Global;
-import com.example.test.main_dashboard.MainActivity3API;
-import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 
 import java.util.Calendar;
 

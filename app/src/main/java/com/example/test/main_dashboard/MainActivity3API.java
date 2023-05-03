@@ -9,11 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.test.MainActivity3;
 import com.example.test.R;
-import com.example.test.api_manager.CommonViewModel;
 import com.example.test.databinding.ActivityMainActivity3ApiBinding;
-import com.example.test.databinding.ActivityMainUpdated3Binding;
 import com.example.test.fragments_activity.ActivityOfFragments;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;

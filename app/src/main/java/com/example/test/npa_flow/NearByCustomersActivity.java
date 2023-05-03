@@ -4,11 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.test.MainActivity3;
 import com.example.test.R;
 import com.example.test.databinding.ActivityNearByCustomersBinding;
 import com.example.test.main_dashboard.MainActivity3API;

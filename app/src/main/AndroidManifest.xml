@@ -258,13 +258,9 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".MainActivity3"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
+
+
         <activity
             android:name=".location_gps.customer_location.CustomerLocationActivity"
             android:exported="true">
@@ -363,13 +359,9 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".main_dashboard.MainActivity"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
+
+
     </application>
 
 </manifest>
