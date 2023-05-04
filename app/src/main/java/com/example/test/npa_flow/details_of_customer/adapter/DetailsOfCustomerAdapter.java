@@ -3,7 +3,8 @@ package com.example.test.npa_flow.details_of_customer.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.text.InputFilter;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
 import com.example.test.databinding.ItemDetailsOfCustomerBinding;
-import com.example.test.databinding.ItemDpdBinding;
-import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.npa_flow.WebViewActivity;
-import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
-import com.example.test.npa_flow.dpd.DPD_ResponseModel;
-import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCustomerAdapter.MyViewHolderClass> {
@@ -32,6 +29,11 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
     public DetailsOfCustomerAdapter(ArrayList<DetailsOfCustomer_ResponseModel> detailsOfCustomer_responseModelArrayList) {
         this.detailsOfCustomer_responseModelArrayList = detailsOfCustomer_responseModelArrayList;
+    }
+
+
+    public DetailsOfCustomerAdapter() {
+        //to access getList() Or Amount entered
     }
 
     //For Calculating Balance Interest
@@ -81,8 +83,8 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                    String Amount_Paid = holder.binding.edtDetail.getText().toString();
 
                    Global.saveStringInSharedPref(context, "Amount_Paid", Amount_Paid); //save Amount Paid in SharedPreference
-
-
+                   // Global.showToast(context,"Saved");
+                    holder.binding.btnDetail.setVisibility(View.GONE);
             });
 
 
@@ -161,6 +163,15 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
         }
 
+        //for Capture Button
+        holder.binding.btnDetail.setOnClickListener(v-> {
+
+                    if (a.getButtonLable().toString().contentEquals("Capture")) {
+                        Intent i = new Intent(context, WebViewActivity.class);
+                        context.startActivity(i);
+                    }
+                });
+
      /*
         //Button Clicks
         holder.binding.btnDetail.setOnClickListener(v->{
@@ -211,6 +222,10 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         detailsOfCustomer_responseModelArrayList = data;
         notifyDataSetChanged();
 
+        return detailsOfCustomer_responseModelArrayList;
+    }
+
+    public List getList(){
         return detailsOfCustomer_responseModelArrayList;
     }
 

@@ -93,8 +93,10 @@ dependencies {
 
     //Google Places Api for getting Pinned Location Lat Long from Google Maps
     implementation 'com.google.android.gms:play-services-places:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 
-   //for PDF  view
+
+    //for PDF  view
    // implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
 
 
