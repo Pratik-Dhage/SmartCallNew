@@ -273,5 +273,7 @@
     <string name="interested_and_eligible">Interested And Eligible</string>
     <string name="interested_not_eligible">Interested Not Eligible</string>
     <string name="product_interest_status">Product Interest Status</string>
+    <string name="is_interested">Is Interested</string>
+    <string name="not_interested">Not Interested</string>
 
 </resources>

@@ -1,287 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    style="@style/MainConstraintStyle"
-    tools:context=".view_products.ProductInterestStatusActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/toolBarStyle"
-        android:background="@color/textBlue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/txtToolbarHeading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/product_interest_status"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp" />
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <ImageView
-        android:id="@+id/ivBack"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:src="@drawable/back_arrow"
-        app:layout_constraintBottom_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white" />
-
-    <ImageView
-        android:id="@+id/ivHome"
-        android:layout_width="@dimen/_22sdp"
-        android:layout_height="@dimen/_22sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:src="@drawable/home_icon"
-        app:layout_constraintBottom_toBottomOf="@id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clFirstHalf"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/MainConstraintStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        tools:context=".view_products.ProductInterestStatusActivity">
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:fillViewport="true"
-            android:nestedScrollingEnabled="true"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/toolBarStyle"
+            android:background="@color/textBlue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clScrollView"
+            <TextView
+                android:id="@+id/txtToolbarHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/product_interest_status"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:src="@drawable/back_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/ivHome"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:src="@drawable/home_icon"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clFirstHalf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:fillViewport="true"
+                android:nestedScrollingEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/labelLeadName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lead_name"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    android:textStyle="normal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/labelMobileNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:text="@string/mobile_no"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    android:textStyle="normal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/labelLeadName" />
+                    <TextView
+                        android:id="@+id/labelLeadName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lead_name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textStyle="normal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/labelSourceOfLead"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:text="@string/source_of_lead"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    android:textStyle="normal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/labelMobileNumber" />
+                    <TextView
+                        android:id="@+id/labelMobileNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:text="@string/mobile_no"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textStyle="normal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/labelLeadName" />
 
-
-                <TextView
-                    android:id="@+id/txtLeadName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/labelLeadName"
-                    tools:text="Pratik D." />
-
-                <TextView
-                    android:id="@+id/txtLeadMobileNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/labelMobileNumber"
-                    tools:text="9876543210" />
-
-                <TextView
-                    android:id="@+id/txtLeadSource"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/labelSourceOfLead"
-                    tools:text="Lead Source 1" />
-
-              <!--  <ImageView
-                    android:id="@+id/ivPreApprovedOffer"
-                    app:layout_constraintEnd_toStartOf="@id/labelPreApprovedOffer"
-                    app:layout_constraintTop_toTopOf="@id/labelPreApprovedOffer"
-                    app:layout_constraintBottom_toBottomOf="@id/labelPreApprovedOffer"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:src="@drawable/offers_icon"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    app:tint="@color/textBlue" />
-
-                <TextView
-                    android:id="@+id/labelPreApprovedOffer"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/labelSourceOfLead"
-                    android:layout_marginTop="@dimen/_30sdp"
-                    android:text="@string/pre_approved_offer"
-                    android:textColor="@color/black"
-                    android:textStyle="normal"
-                    android:textSize="@dimen/_13ssp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/labelNoPreApprovedOffer"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/labelPreApprovedOffer"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="@string/there_are_no_pre_approved_offers"
-                    android:textColor="@color/chilliRed"
-                    android:textStyle="normal"
-                    android:textSize="@dimen/_13ssp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
--->
+                    <TextView
+                        android:id="@+id/labelSourceOfLead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:text="@string/source_of_lead"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textStyle="normal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/labelMobileNumber" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/txtLeadName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/labelLeadName"
+                        tools:text="Pratik D." />
 
-        </ScrollView>
+                    <TextView
+                        android:id="@+id/txtLeadMobileNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/labelMobileNumber"
+                        tools:text="9876543210" />
+
+                    <TextView
+                        android:id="@+id/txtLeadSource"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/labelSourceOfLead"
+                        tools:text="Lead Source 1" />
+
+                    <!--  <ImageView
+                          android:id="@+id/ivPreApprovedOffer"
+                          app:layout_constraintEnd_toStartOf="@id/labelPreApprovedOffer"
+                          app:layout_constraintTop_toTopOf="@id/labelPreApprovedOffer"
+                          app:layout_constraintBottom_toBottomOf="@id/labelPreApprovedOffer"
+                          android:layout_marginEnd="@dimen/_5sdp"
+                          android:src="@drawable/offers_icon"
+                          android:layout_width="@dimen/_20sdp"
+                          android:layout_height="@dimen/_20sdp"
+                          app:tint="@color/textBlue" />
+
+                      <TextView
+                          android:id="@+id/labelPreApprovedOffer"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintEnd_toEndOf="parent"
+                          app:layout_constraintTop_toBottomOf="@id/labelSourceOfLead"
+                          android:layout_marginTop="@dimen/_30sdp"
+                          android:text="@string/pre_approved_offer"
+                          android:textColor="@color/black"
+                          android:textStyle="normal"
+                          android:textSize="@dimen/_13ssp"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"/>
+
+                      <TextView
+                          android:id="@+id/labelNoPreApprovedOffer"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintEnd_toEndOf="parent"
+                          app:layout_constraintTop_toBottomOf="@id/labelPreApprovedOffer"
+                          android:layout_marginTop="@dimen/_10sdp"
+                          android:text="@string/there_are_no_pre_approved_offers"
+                          android:textColor="@color/chilliRed"
+                          android:textStyle="normal"
+                          android:textSize="@dimen/_13ssp"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"/>
+      -->
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clSecondHalf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_80sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <ImageView
+                android:id="@+id/ivNotesIcon"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:src="@drawable/icons8notepad65ver4"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivHistory"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:src="@drawable/history"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <Button
+                android:id="@+id/btnIsInterested"
+                style="@style/CustomButtonStyle"
+                android:layout_width="@dimen/_136sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:backgroundTint="@color/green"
+                android:text="@string/is_interested"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
+
+
+            <Button
+                android:id="@+id/btnNotInterested"
+                style="@style/CustomButtonStyle"
+                android:layout_width="@dimen/_136sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:backgroundTint="@color/barnRed"
+                android:text="@string/not_interested"
+                android:textStyle="normal"
+                android:layout_marginEnd="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnIsInterested"
+                app:layout_constraintTop_toTopOf="@id/btnIsInterested" />
+
+
+            <Button
+                android:id="@+id/btnOthers"
+                style="@style/CustomButtonStyle"
+                android:layout_width="@dimen/_136sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:backgroundTint="@color/grey"
+                android:text="@string/others"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnIsInterested" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clSecondHalf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:paddingBottom="@dimen/_20sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-       >
-
-
-        <ImageView
-            android:id="@+id/ivNotesIcon"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:src="@drawable/icons8notepad65ver4"
-            android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/ivHistory"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:src="@drawable/history"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <Button
-            android:id="@+id/btnInterestedAndELigible"
-            style="@style/CustomButtonStyle"
-            android:layout_width="@dimen/_136sdp"
-            android:layout_height="@dimen/_45sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:backgroundTint="@color/green"
-            android:text="@string/interested_and_eligible"
-            android:textStyle="normal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btnInterestedNotEligible" />
-
-
-        <Button
-            android:id="@+id/btnInterestedNotEligible"
-            style="@style/CustomButtonStyle"
-            android:layout_width="@dimen/_136sdp"
-            android:layout_height="@dimen/_45sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:backgroundTint="@color/brightOrange"
-            android:text="@string/interested_not_eligible"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivHistory" />
-
-
-        <Button
-            android:id="@+id/btnNotInterested"
-            style="@style/CustomButtonStyle"
-            android:layout_width="@dimen/_136sdp"
-            android:layout_height="@dimen/_45sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:backgroundTint="@color/barnRed"
-            android:text="Not Interested"
-            android:textStyle="normal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnInterestedAndELigible" />
-
-
-        <Button
-            android:id="@+id/btnOthers"
-            style="@style/CustomButtonStyle"
-            android:layout_width="@dimen/_136sdp"
-            android:layout_height="@dimen/_45sdp"
-            android:backgroundTint="@color/grey"
-            android:text="@string/others"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="@id/btnInterestedNotEligible"
-            app:layout_constraintStart_toStartOf="@id/btnInterestedNotEligible"
-            app:layout_constraintTop_toBottomOf="@id/btnInterestedNotEligible"
-            app:layout_constraintTop_toTopOf="@id/btnNotInterested" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
