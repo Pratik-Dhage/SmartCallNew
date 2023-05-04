@@ -106,14 +106,7 @@ public class Document_Eligibility_ProductInfoActivity extends AppCompatActivity 
         });
 
         binding.btnOK.setOnClickListener(v->{
-            String firstName = getIntent().getStringExtra("firstName");
-            String phoneNumber = getIntent().getStringExtra("phoneNumber");
-
-
-            Intent i = new Intent(this, ProductInterestStatusActivity.class) ;
-            i.putExtra("firstName",firstName);
-            i.putExtra("phoneNumber",phoneNumber);
-            startActivity(i);
+           onBackPressed();
         });
     }
 }
