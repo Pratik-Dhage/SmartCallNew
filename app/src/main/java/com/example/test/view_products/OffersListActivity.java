@@ -1,4 +1,4 @@
-package com.example.test.call_status;
+package com.example.test.view_products;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,26 +13,27 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.test.R;
-import com.example.test.databinding.ActivityCallStatusWithProductsBinding;
-import com.example.test.lead.LeadsActivity;
+import com.example.test.databinding.ActivityOffersListBinding;
 import com.example.test.main_dashboard.MainActivity3API;
-import com.example.test.view_products.OffersListActivity;
-import com.example.test.view_products.ViewProductsActivity;
 
-public class CallStatusWithProductsActivity extends AppCompatActivity {
+public class OffersListActivity extends AppCompatActivity {
 
-    ActivityCallStatusWithProductsBinding binding;
+    ActivityOffersListBinding binding;
     View view;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_call_status_with_products);
+        setContentView(R.layout.activity_offers_list);
 
         initializeFields();
         setUpData();
         onClickListener();
+    }
+
+    private void initializeFields() {
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_offers_list);
+        view = binding.getRoot();
     }
 
     private void setUpData(){
@@ -41,13 +42,6 @@ public class CallStatusWithProductsActivity extends AppCompatActivity {
 
         binding.txtLeadName.setText(firstName);
         binding.txtLeadMobileNumber.setText(phoneNumber);
-    }
-
-    private void initializeFields() {
-
-        binding = DataBindingUtil. setContentView(this,R.layout.activity_call_status_with_products);
-        view = binding.getRoot();
-
     }
 
     private void onClickListener() {
@@ -60,44 +54,29 @@ public class CallStatusWithProductsActivity extends AppCompatActivity {
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
-        binding.labelPreApprovedOffer.setOnClickListener(v->{
+
+        binding.checkboxCreditCard.setOnClickListener(v->{
 
             String firstName = binding.txtLeadName.getText().toString();
             String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
 
-            Intent i = new Intent(this, OffersListActivity.class);
+            Intent i = new Intent(this, ProductInterestStatusActivity.class);
             i.putExtra("firstName",firstName);
             i.putExtra("phoneNumber",phoneNumber);
             startActivity(i);
+
         });
 
-        binding.btnViewProducts.setOnClickListener(v->{
+        binding.checkboxPersonalLoan.setOnClickListener(v->{
 
             String firstName = binding.txtLeadName.getText().toString();
             String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
 
-            Intent i = new Intent(CallStatusWithProductsActivity.this,ViewProductsActivity.class) ;
+            Intent i = new Intent(this, ProductInterestStatusActivity.class);
             i.putExtra("firstName",firstName);
             i.putExtra("phoneNumber",phoneNumber);
             startActivity(i);
         });
-
-        binding.btnBackToLeadList.setOnClickListener(v->{
-            startActivity(new Intent(CallStatusWithProductsActivity.this, LeadsActivity.class));
-        });
-
-        binding.btnSpokeToCustomer.setOnClickListener(v->{
-
-            String firstName = binding.txtLeadName.getText().toString();
-            String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
-
-
-            Intent i = new Intent(CallStatusWithProductsActivity.this,CallStatusWithLeadInteractionActivity.class) ;
-            i.putExtra("firstName",firstName);
-            i.putExtra("phoneNumber",phoneNumber);
-            startActivity(i);
-        });
-
 
         //for Notes
         binding.ivNotesIcon.setOnClickListener(v->{
@@ -153,5 +132,8 @@ public class CallStatusWithProductsActivity extends AppCompatActivity {
         });
 
 
+
     }
+
+
 }

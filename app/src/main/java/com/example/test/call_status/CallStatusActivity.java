@@ -34,6 +34,7 @@ import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.LeadCallModelRoom;
+import com.example.test.view_products.OffersListActivity;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -77,6 +78,17 @@ public class CallStatusActivity extends AppCompatActivity {
 
         binding.ivHome.setOnClickListener(v->{
             startActivity(new Intent(this, MainActivity3API.class));
+        });
+
+        binding.labelPreApprovedOffer.setOnClickListener(v->{
+
+            String firstName = binding.txtLeadName.getText().toString();
+            String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
+
+            Intent i = new Intent(this, OffersListActivity.class);
+            i.putExtra("firstName",firstName);
+            i.putExtra("phoneNumber",phoneNumber);
+            startActivity(i);
         });
 
         //for test purpose to move to next activity

@@ -275,5 +275,6 @@
     <string name="product_interest_status">Product Interest Status</string>
     <string name="is_interested">Is Interested</string>
     <string name="not_interested">Not Interested</string>
+    <string name="view_other_offers">View Other Offers</string>
 
 </resources>

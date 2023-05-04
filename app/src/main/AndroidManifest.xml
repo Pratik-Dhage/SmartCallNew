@@ -36,6 +36,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".view_products.OffersListActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".view_products.ProductInterestStatusActivity"
             android:exported="false">
             <meta-data
@@ -48,8 +55,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
-
         </activity>
         <activity
             android:name=".fragment_visits_flow.generate_receipt.WebViewGenerateReceiptActivity"
@@ -147,7 +152,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".npa_flow.NotSpokeToCustomerActivity"
