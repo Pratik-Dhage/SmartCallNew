@@ -55,7 +55,7 @@ public class OffersListActivity extends AppCompatActivity {
         });
 
 
-        binding.checkboxCreditCard.setOnClickListener(v->{
+        binding.labelCreditCard.setOnClickListener(v->{
 
             String firstName = binding.txtLeadName.getText().toString();
             String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
@@ -67,7 +67,7 @@ public class OffersListActivity extends AppCompatActivity {
 
         });
 
-        binding.checkboxPersonalLoan.setOnClickListener(v->{
+        binding.labelPersonalLoan.setOnClickListener(v->{
 
             String firstName = binding.txtLeadName.getText().toString();
             String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
