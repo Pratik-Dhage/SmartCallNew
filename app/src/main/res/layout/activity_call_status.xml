@@ -52,7 +52,6 @@
             app:tint="@color/white" />
 
 
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,8 +59,8 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:fillViewport="true"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -138,168 +137,240 @@
                     tools:text="Lead Source 1" />
 
 
-                <ImageView
-                    android:id="@+id/ivPreApprovedOffer"
-                    app:layout_constraintEnd_toStartOf="@id/labelPreApprovedOffer"
-                    app:layout_constraintTop_toTopOf="@id/labelPreApprovedOffer"
-                    app:layout_constraintBottom_toBottomOf="@id/labelPreApprovedOffer"
-                    android:layout_marginEnd="@dimen/_5sdp"
-                    android:src="@drawable/offers_icon"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    app:tint="@color/textBlue" />
-
-                 <TextView
-                     android:id="@+id/labelPreApprovedOffer"
-                     app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintEnd_toEndOf="parent"
-                     app:layout_constraintTop_toBottomOf="@id/labelSourceOfLead"
-                     android:layout_marginTop="@dimen/_30sdp"
-                     android:text="@string/pre_approved_offer"
-                     android:textColor="@color/black"
-                     android:textStyle="normal"
-                     android:textSize="@dimen/_13ssp"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/labelNoPreApprovedOffer"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/labelPreApprovedOffer"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="@string/there_are_no_pre_approved_offers"
-                    android:textColor="@color/chilliRed"
-                    android:textStyle="normal"
-                    android:textSize="@dimen/_13ssp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clPreApprovedOffer"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-
-                <ImageView
-                    android:id="@+id/ivNotesIcon"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_25sdp"
-                    android:src="@drawable/icons8notepad65ver4"
-                    android:visibility="visible"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/labelNoPreApprovedOffer" />
-
-                <ImageView
-                    android:id="@+id/ivHistory"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:src="@drawable/history"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                   app:layout_constraintTop_toTopOf="@id/ivNotesIcon" />
-
-                <TextView
-                    android:id="@+id/btnCreditCard"
-                     android:background="@drawable/round_corner_bg"
-                    android:layout_width="@dimen/_150sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/borderColor"
-                    android:text="@string/credit_card"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/_11ssp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:textAllCaps="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
-
-                <ImageView
-                    android:id="@+id/ivForwardArrowCreditCard"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
-                    android:src="@drawable/forward_icon"
-                    app:layout_constraintTop_toTopOf="@id/btnCreditCard"
-                    app:layout_constraintBottom_toBottomOf="@id/btnCreditCard"
-                    app:layout_constraintEnd_toEndOf="@id/btnCreditCard"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    app:tint="@color/white" />
-
-                <TextView
-                    android:id="@+id/btnPersonalLoan"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:background="@drawable/round_corner_bg"
-                    android:layout_width="@dimen/_150sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/borderColor"
-                    android:text="@string/personal_loan"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/_11ssp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:textAllCaps="true"
+                    android:backgroundTint="@color/emeraldGreen"
+                    android:padding="@dimen/_5sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btnCreditCard" />
+                    app:layout_constraintTop_toBottomOf="@id/labelSourceOfLead">
 
-                <ImageView
-                    android:id="@+id/ivForwardArrowPersonalLoan"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
-                    android:src="@drawable/forward_icon"
-                    app:layout_constraintTop_toTopOf="@id/btnPersonalLoan"
-                    app:layout_constraintBottom_toBottomOf="@id/btnPersonalLoan"
-                    app:layout_constraintEnd_toEndOf="@id/btnPersonalLoan"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    app:tint="@color/white" />
+                    <ImageView
+                        android:id="@+id/ivPreApprovedOffer"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/offer_icon2"
+                        app:layout_constraintBottom_toTopOf="@id/labelPreApprovedOffer"
+                        app:layout_constraintEnd_toEndOf="@id/labelPreApprovedOffer"
+                        app:layout_constraintStart_toStartOf="@+id/labelPreApprovedOffer" />
 
+                    <TextView
+                        android:id="@+id/labelPreApprovedOffer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="@string/pre_approved_offer_break"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivPreApprovedOffer" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!--Later add Recyclerview to show Offers List here-->
+                <!-- Credit Card Offer-->
                 <TextView
-                    android:id="@+id/txtSir_Madam"
+                    android:id="@+id/labelCreditCard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:text="@string/sir_madam"
+                    android:text="@string/credit_card"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold|italic"
+                    android:textStyle="bold"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btnPersonalLoan" />
+                    app:layout_constraintTop_toBottomOf="@id/clPreApprovedOffer" />
 
-                <!--Only for Test purpose to move to next Activity without Call-->
-                <ImageView
-                    android:id="@+id/ivWifiCall2"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_100sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:src="@drawable/phonecall"
+                <TextView
+                    android:id="@+id/labelCreditCardOfferDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="Credit Limit of Rs 80,000"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="normal"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txtSir_Madam" />
+                    app:layout_constraintTop_toBottomOf="@id/labelCreditCard" />
 
-
-                  <!--To make Actual Call-->
-                <ImageView
-                    android:id="@+id/ivWifiCall"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_100sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:src="@drawable/phonecall"
+                <!--Personal Loan-->
+                <TextView
+                    android:id="@+id/labelPersonalLoan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/personal_loan"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txtSir_Madam" />
+                    app:layout_constraintTop_toBottomOf="@id/labelCreditCardOfferDetails" />
+
+                <TextView
+                    android:id="@+id/labelPersonalLoanOfferDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="Get Personal Loan of Rs 10 lacs"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="normal"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelPersonalLoan" />
 
 
+                <TextView
+                    android:id="@+id/labelNoPreApprovedOffer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/there_are_no_pre_approved_offers"
+                    android:textColor="@color/chilliRed"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="normal"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clPreApprovedOffer" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clViewOtherOffer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/round_corner_bg"
+                    android:backgroundTint="@color/textBlue"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_15sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelPersonalLoanOfferDetails">
+
+                    <ImageView
+                        android:id="@+id/ivViewOtherOffer"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/offer_icon2"
+                        app:layout_constraintBottom_toTopOf="@id/labelViewOtherOffer"
+                        app:layout_constraintEnd_toEndOf="@id/labelViewOtherOffer"
+                        app:layout_constraintStart_toStartOf="@+id/labelViewOtherOffer" />
+
+                    <TextView
+                        android:id="@+id/labelViewOtherOffer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:text="@string/view_other_offers_break"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivViewOtherOffer" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clSecondHalf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <ImageView
+                android:id="@+id/ivNotesIcon"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:src="@drawable/icons8notepad65ver4"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivHistory"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:src="@drawable/history"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ivNotesIcon" />
+
+
+            <TextView
+                android:id="@+id/txtSir_Madam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/sir_madam"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold|italic"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
+
+
+            <!--Only for Test purpose to move to next Activity without Call-->
+            <ImageView
+                android:id="@+id/ivWifiCall2"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:src="@drawable/phonecall"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtSir_Madam" />
+
+
+            <!--To make Actual Call-->
+            <ImageView
+                android:id="@+id/ivWifiCall"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:src="@drawable/phonecall"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtSir_Madam" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

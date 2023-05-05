@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/pre_approved_offer"
+            android:text="@string/pre_approved_offers"
             android:textColor="@color/white"
             android:textSize="@dimen/_13ssp" />
 
@@ -223,7 +223,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_40sdp"
                     android:backgroundTint="@color/textBlue"
-                    android:text="@string/view_other_offers"
+                    android:text="@string/view_other_offers_break"
                     android:textStyle="normal"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

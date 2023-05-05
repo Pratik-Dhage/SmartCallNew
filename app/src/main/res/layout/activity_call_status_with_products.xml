@@ -163,7 +163,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/labelSourceOfLead"
                         android:layout_marginTop="@dimen/_30sdp"
-                        android:text="@string/pre_approved_offer"
+                        android:text="@string/pre_approved_offers"
                         android:textColor="@color/black"
                         android:textStyle="normal"
                         android:textSize="@dimen/_13ssp"

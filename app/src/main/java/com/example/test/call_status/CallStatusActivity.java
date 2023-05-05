@@ -80,7 +80,7 @@ public class CallStatusActivity extends AppCompatActivity {
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
-        binding.labelPreApprovedOffer.setOnClickListener(v->{
+       /* binding.labelPreApprovedOffer.setOnClickListener(v->{
 
             String firstName = binding.txtLeadName.getText().toString();
             String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
@@ -89,6 +89,20 @@ public class CallStatusActivity extends AppCompatActivity {
             i.putExtra("firstName",firstName);
             i.putExtra("phoneNumber",phoneNumber);
             startActivity(i);
+        });*/
+
+        binding.clPreApprovedOffer.setOnClickListener(v->{
+            binding.labelNoPreApprovedOffer.setVisibility(View.INVISIBLE);
+            binding.labelCreditCard.setVisibility(View.VISIBLE);
+            binding.labelCreditCardOfferDetails.setVisibility(View.VISIBLE);
+
+            binding.labelPersonalLoan.setVisibility(View.VISIBLE);
+            binding.labelPersonalLoanOfferDetails.setVisibility(View.VISIBLE);
+
+        });
+
+        binding.clViewOtherOffer.setOnClickListener(v->{
+            binding.txtSirMadam.setVisibility(View.VISIBLE);
         });
 
         //for test purpose to move to next activity
