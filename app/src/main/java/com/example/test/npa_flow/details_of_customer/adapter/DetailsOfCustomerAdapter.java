@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
 import com.example.test.databinding.ItemDetailsOfCustomerBinding;
+import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
@@ -167,7 +168,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         holder.binding.btnDetail.setOnClickListener(v-> {
 
                     if (a.getButtonLable().toString().contentEquals("Capture")) {
-                        Intent i = new Intent(context, WebViewActivity.class);
+                        Intent i = new Intent(context, GoogleMapsActivity.class); //for Google Maps
                         context.startActivity(i);
                     }
                 });
