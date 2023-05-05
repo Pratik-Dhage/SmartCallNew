@@ -92,17 +92,46 @@ public class CallStatusActivity extends AppCompatActivity {
         });*/
 
         binding.clPreApprovedOffer.setOnClickListener(v->{
-            binding.labelNoPreApprovedOffer.setVisibility(View.INVISIBLE);
-            binding.labelCreditCard.setVisibility(View.VISIBLE);
-            binding.labelCreditCardOfferDetails.setVisibility(View.VISIBLE);
+            if(binding.labelCreditCard.getVisibility()==View.INVISIBLE){
 
-            binding.labelPersonalLoan.setVisibility(View.VISIBLE);
-            binding.labelPersonalLoanOfferDetails.setVisibility(View.VISIBLE);
+                binding.labelNoPreApprovedOffer.setVisibility(View.INVISIBLE);
+                binding.labelCreditCard.setVisibility(View.VISIBLE);
+                binding.labelCreditCardOfferDetails.setVisibility(View.VISIBLE);
+
+                binding.labelPersonalLoan.setVisibility(View.VISIBLE);
+                binding.labelPersonalLoanOfferDetails.setVisibility(View.VISIBLE);
+
+                binding.txtSirMadam.setVisibility(View.INVISIBLE);
+
+            }
+
+            else{
+
+                binding.labelNoPreApprovedOffer.setVisibility(View.VISIBLE);
+                binding.labelCreditCard.setVisibility(View.INVISIBLE);
+                binding.labelCreditCardOfferDetails.setVisibility(View.INVISIBLE);
+
+                binding.labelPersonalLoan.setVisibility(View.GONE);
+                binding.labelPersonalLoanOfferDetails.setVisibility(View.GONE);
+
+               // binding.txtSirMadam.setVisibility(View.VISIBLE);
+
+            }
+
 
         });
 
         binding.clViewOtherOffer.setOnClickListener(v->{
-            binding.txtSirMadam.setVisibility(View.VISIBLE);
+
+            if(binding.labelCreditCard.getVisibility()==View.VISIBLE){
+                binding.txtSirMadam.setVisibility(View.INVISIBLE);
+            }
+           else{
+                binding.txtSirMadam.setVisibility(View.VISIBLE);
+
+            }
+
+
         });
 
         //for test purpose to move to next activity
