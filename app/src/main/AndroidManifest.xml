@@ -35,6 +35,11 @@
         android:theme="@style/Theme.Test"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDymn9B6l2_MnHSr6dI_jjZaXEeFWPn5vU" />
+
         <activity
             android:name=".view_products.OffersListActivity"
             android:exported="false">
@@ -378,9 +383,7 @@
                 android:value="" />
         </activity>
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDymn9B6l2_MnHSr6dI_jjZaXEeFWPn5vU" />
+
     </application>
 
 </manifest>
