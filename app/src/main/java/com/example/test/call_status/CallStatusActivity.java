@@ -35,6 +35,7 @@ import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.LeadCallModelRoom;
 import com.example.test.view_products.OffersListActivity;
+import com.example.test.view_products.ViewProductsActivity;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -136,14 +137,22 @@ public class CallStatusActivity extends AppCompatActivity {
 
         //for test purpose to move to next activity
         binding.ivWifiCall2.setOnClickListener(v->{
-            String firstName = binding.txtLeadName.getText().toString();
-            String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
+
+            if(binding.labelCreditCard.getVisibility()==View.VISIBLE){
+                String firstName = binding.txtLeadName.getText().toString();
+                String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
 
 
-            Intent i = new Intent(CallStatusActivity.this,CallStatusWithProductsActivity.class) ;
-            i.putExtra("firstName",firstName);
-            i.putExtra("phoneNumber",phoneNumber);
-            startActivity(i);
+                Intent i = new Intent(CallStatusActivity.this,OffersListActivity.class) ;
+                i.putExtra("firstName",firstName);
+                i.putExtra("phoneNumber",phoneNumber);
+                startActivity(i);
+            }
+
+            if(binding.txtSirMadam.getVisibility()==View.VISIBLE){
+                startActivity(new Intent(this, ViewProductsActivity.class));
+            }
+
         });
 
         //will make Actual Call to Lead
