@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,7 +69,24 @@ public class ViewProductsActivity extends AppCompatActivity {
             }
 
             else{
-                Global.showToast(this,getString(R.string.kindly_select_at_least_one_product));
+
+                     // for Custom Dialog Product
+                View customDialogProduct = LayoutInflater.from(this).inflate(R.layout.custom_dialog_product, null);
+                Button customButton = customDialogProduct.findViewById(R.id.btnOKProduct);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setView(customDialogProduct);
+                final AlertDialog dialog = builder.create();
+               // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.show();
+
+                customButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
             }
 
         });

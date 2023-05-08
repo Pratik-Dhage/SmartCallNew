@@ -279,5 +279,8 @@
     <string name="view_other_offers">View Other Offers</string>
     <string name="view_other_offers_break">View Other \nOffers</string>
     <string name="kindly_select_at_least_one_product">Kindly select at least one product</string>
+    <string name="location_access_needed">Device Location access needed</string>
+    <string name="please_select_a_product">Please select a product</string>
+    <string name="capture_mandatory_info">Capture Mandatory Info</string>
 
 </resources>
