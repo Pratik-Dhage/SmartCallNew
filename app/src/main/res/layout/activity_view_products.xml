@@ -55,136 +55,147 @@
 
 
     <!--Add recyclerview here to get data from API-->
-
-    <CheckBox
-        android:id="@+id/checkboxHomeLoan"
-        app:layout_constraintEnd_toStartOf="@id/txtHomeLoan"
-        app:layout_constraintTop_toTopOf="@id/txtHomeLoan"
-        app:layout_constraintBottom_toBottomOf="@id/txtHomeLoan"
-        android:layout_marginEnd="@dimen/_5sdp"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"/>
-
-
-    <TextView
-        android:id="@+id/txtHomeLoan"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clProducts"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        android:layout_marginStart="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_30sdp"
-        android:text="Home Loan"
-        android:textStyle="bold"
-        android:textSize="@dimen/_12ssp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <View
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtHomeLoan"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@color/borderColor"
         android:layout_width="match_parent"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_height="@dimen/_2sdp"/>
+        android:layout_height="wrap_content">
 
-    <CheckBox
-        android:id="@+id/checkboxPersonalLoan"
-        app:layout_constraintEnd_toStartOf="@id/txtPersonalLoan"
-        app:layout_constraintTop_toTopOf="@id/txtPersonalLoan"
-        app:layout_constraintBottom_toBottomOf="@id/txtPersonalLoan"
-        android:layout_marginEnd="@dimen/_5sdp"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"/>
-
-    <TextView
-        android:id="@+id/txtPersonalLoan"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtHomeLoan"
-        android:layout_marginStart="@dimen/_40sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:text="Personal Loan"
-        android:textStyle="bold"
-        android:textSize="@dimen/_12ssp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <View
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPersonalLoan"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@color/borderColor"
-        android:layout_width="match_parent"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_height="@dimen/_2sdp"/>
-
-    <CheckBox
-        android:id="@+id/checkboxVehicleLoan"
-        app:layout_constraintEnd_toStartOf="@id/txtVehicleLoan"
-        app:layout_constraintTop_toTopOf="@id/txtVehicleLoan"
-        app:layout_constraintBottom_toBottomOf="@id/txtVehicleLoan"
-        android:layout_marginEnd="@dimen/_5sdp"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"/>
+        <CheckBox
+            android:id="@+id/checkboxHomeLoan"
+            app:layout_constraintEnd_toStartOf="@id/txtHomeLoan"
+            app:layout_constraintTop_toTopOf="@id/txtHomeLoan"
+            app:layout_constraintBottom_toBottomOf="@id/txtHomeLoan"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"/>
 
 
-    <TextView
-        android:id="@+id/txtVehicleLoan"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtPersonalLoan"
-        android:layout_marginStart="@dimen/_40sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:text="Vehicle Loan"
-        android:textStyle="bold"
-        android:textSize="@dimen/_12ssp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txtHomeLoan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:text="Home Loan"
+            android:textStyle="bold"
+            android:textSize="@dimen/_12ssp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    <View
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtVehicleLoan"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@color/borderColor"
-        android:layout_width="match_parent"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_height="@dimen/_2sdp"/>
+        <View
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtHomeLoan"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/borderColor"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_height="@dimen/_2sdp"/>
 
-    <CheckBox
-        android:id="@+id/checkboxGoldLoan"
-        app:layout_constraintEnd_toStartOf="@id/txtGoldLoan"
-        app:layout_constraintTop_toTopOf="@id/txtGoldLoan"
-        app:layout_constraintBottom_toBottomOf="@id/txtGoldLoan"
-        android:layout_marginEnd="@dimen/_5sdp"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"/>
+        <CheckBox
+            android:id="@+id/checkboxPersonalLoan"
+            app:layout_constraintEnd_toStartOf="@id/txtPersonalLoan"
+            app:layout_constraintTop_toTopOf="@id/txtPersonalLoan"
+            app:layout_constraintBottom_toBottomOf="@id/txtPersonalLoan"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"/>
 
-    <TextView
-        android:id="@+id/txtGoldLoan"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtVehicleLoan"
-        android:layout_marginStart="@dimen/_40sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:text="Gold Loan"
-        android:textStyle="bold"
-        android:textSize="@dimen/_12ssp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txtPersonalLoan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtHomeLoan"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:text="Personal Loan"
+            android:textStyle="bold"
+            android:textSize="@dimen/_12ssp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    <View
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtGoldLoan"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@color/borderColor"
-        android:layout_width="match_parent"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:layout_height="@dimen/_2sdp"/>
+        <View
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtPersonalLoan"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/borderColor"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_height="@dimen/_2sdp"/>
+
+        <CheckBox
+            android:id="@+id/checkboxVehicleLoan"
+            app:layout_constraintEnd_toStartOf="@id/txtVehicleLoan"
+            app:layout_constraintTop_toTopOf="@id/txtVehicleLoan"
+            app:layout_constraintBottom_toBottomOf="@id/txtVehicleLoan"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"/>
+
+
+        <TextView
+            android:id="@+id/txtVehicleLoan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtPersonalLoan"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:text="Vehicle Loan"
+            android:textStyle="bold"
+            android:textSize="@dimen/_12ssp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtVehicleLoan"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/borderColor"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_height="@dimen/_2sdp"/>
+
+        <CheckBox
+            android:id="@+id/checkboxGoldLoan"
+            app:layout_constraintEnd_toStartOf="@id/txtGoldLoan"
+            app:layout_constraintTop_toTopOf="@id/txtGoldLoan"
+            app:layout_constraintBottom_toBottomOf="@id/txtGoldLoan"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"/>
+
+        <TextView
+            android:id="@+id/txtGoldLoan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtVehicleLoan"
+            android:layout_marginStart="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:text="Gold Loan"
+            android:textStyle="bold"
+            android:textSize="@dimen/_12ssp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtGoldLoan"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/borderColor"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_height="@dimen/_2sdp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clSecondHalf"

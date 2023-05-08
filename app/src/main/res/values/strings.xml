@@ -278,5 +278,6 @@
     <string name="not_interested">Not Interested</string>
     <string name="view_other_offers">View Other Offers</string>
     <string name="view_other_offers_break">View Other \nOffers</string>
+    <string name="kindly_select_at_least_one_product">Kindly select at least one product</string>
 
 </resources>

@@ -16,6 +16,7 @@ import com.example.test.R;
 import com.example.test.call_status.CallStatusWithLeadInteractionActivity;
 import com.example.test.call_status.CallStatusWithProductsActivity;
 import com.example.test.databinding.ActivityViewProductsBinding;
+import com.example.test.helper_classes.Global;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.view_products.fragments.DocumentCheckListFragment;
 
@@ -50,24 +51,25 @@ public class ViewProductsActivity extends AppCompatActivity {
         });
 
         //for Test purpose (Later Products will come from API)
-        binding.txtHomeLoan.setOnClickListener(v->{
+        binding.clProducts.setOnClickListener(v->{
             startActivity(new Intent(this,Document_Eligibility_ProductInfoActivity.class));
         });
 
-        binding.txtPersonalLoan.setOnClickListener(v->{
-                startActivity(new Intent(this,Document_Eligibility_ProductInfoActivity.class));
-        });
-
-        binding.txtVehicleLoan.setOnClickListener(v->{
-            startActivity(new Intent(this,Document_Eligibility_ProductInfoActivity.class));
-        });
-
-        binding.txtGoldLoan.setOnClickListener(v->{
-            startActivity(new Intent(this,Document_Eligibility_ProductInfoActivity.class));
-        });
 
 
         binding.btnInterestedAndELigible.setOnClickListener(v->{
+
+            // At least One CheckBox of the Product List must be checked , only then btnInterestedAndEligible is Clickable
+            if(binding.checkboxHomeLoan.isChecked() || binding.checkboxPersonalLoan.isChecked()
+                    || binding.checkboxVehicleLoan.isChecked() || binding.checkboxGoldLoan.isChecked()  )
+            {
+                Global.showToast(this,"Checked");
+
+            }
+
+            else{
+                Global.showToast(this,getString(R.string.kindly_select_at_least_one_product));
+            }
 
         });
 
