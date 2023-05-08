@@ -49,13 +49,30 @@ public class ViewProductsActivity extends AppCompatActivity {
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
-
-        binding.btnInterestedAndELigible.setOnClickListener(v->{
+        //for Test purpose (Later Products will come from API)
+        binding.txtHomeLoan.setOnClickListener(v->{
             startActivity(new Intent(this,Document_Eligibility_ProductInfoActivity.class));
         });
 
+        binding.txtPersonalLoan.setOnClickListener(v->{
+                startActivity(new Intent(this,Document_Eligibility_ProductInfoActivity.class));
+        });
+
+        binding.txtVehicleLoan.setOnClickListener(v->{
+            startActivity(new Intent(this,Document_Eligibility_ProductInfoActivity.class));
+        });
+
+        binding.txtGoldLoan.setOnClickListener(v->{
+            startActivity(new Intent(this,Document_Eligibility_ProductInfoActivity.class));
+        });
+
+
+        binding.btnInterestedAndELigible.setOnClickListener(v->{
+
+        });
+
         binding.btnInterestedNotEligible.setOnClickListener(v->{
-            binding.btnInterestedAndELigible.performClick();
+
         });
 
         //for Notes

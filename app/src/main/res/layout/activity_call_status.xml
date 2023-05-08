@@ -139,8 +139,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clPreApprovedOffer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_80sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:background="@drawable/round_corner_bg"
                     android:backgroundTint="@color/emeraldGreen"
@@ -153,7 +153,7 @@
                         android:id="@+id/ivPreApprovedOffer"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/offer_icon3"
+                        android:src="@drawable/offers_icon4_64px"
                         app:layout_constraintBottom_toTopOf="@id/labelPreApprovedOffer"
                         app:layout_constraintEnd_toEndOf="@id/labelPreApprovedOffer"
                         app:layout_constraintStart_toStartOf="@+id/labelPreApprovedOffer" />
@@ -162,11 +162,11 @@
                         android:id="@+id/labelPreApprovedOffer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/pre_approved_offer_break"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_13ssp"
+                        android:textSize="@dimen/_11ssp"
                         android:textStyle="normal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -201,7 +201,7 @@
                     android:textSize="@dimen/_12ssp"
                     android:textStyle="normal"
                     android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/labelCreditCard" />
 
@@ -249,9 +249,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clViewOtherOffer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
                     android:background="@drawable/round_corner_bg"
                     android:backgroundTint="@color/textBlue"
                     android:paddingStart="@dimen/_15sdp"
@@ -266,7 +266,7 @@
                         android:id="@+id/ivViewOtherOffer"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/offer_icon3"
+                        android:src="@drawable/offers_icon4_64px"
                         app:layout_constraintBottom_toTopOf="@id/labelViewOtherOffer"
                         app:layout_constraintEnd_toEndOf="@id/labelViewOtherOffer"
                         app:layout_constraintStart_toStartOf="@+id/labelViewOtherOffer" />
@@ -275,11 +275,11 @@
                         android:id="@+id/labelViewOtherOffer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:text="@string/view_other_offers_break"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_13ssp"
+                        android:textSize="@dimen/_11ssp"
                         android:textStyle="normal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

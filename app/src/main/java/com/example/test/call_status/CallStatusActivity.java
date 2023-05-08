@@ -106,7 +106,7 @@ public class CallStatusActivity extends AppCompatActivity {
 
             }
 
-            else{
+            else if(binding.labelCreditCard.getVisibility()==View.VISIBLE){
 
                 binding.labelNoPreApprovedOffer.setVisibility(View.VISIBLE);
                 binding.labelCreditCard.setVisibility(View.INVISIBLE);
@@ -125,13 +125,19 @@ public class CallStatusActivity extends AppCompatActivity {
         binding.clViewOtherOffer.setOnClickListener(v->{
 
             if(binding.labelCreditCard.getVisibility()==View.VISIBLE){
-                binding.txtSirMadam.setVisibility(View.INVISIBLE);
-            }
-           else{
+
+                binding.labelCreditCard.setVisibility(View.INVISIBLE);
+                binding.labelCreditCardOfferDetails.setVisibility(View.INVISIBLE);
+                binding.labelPersonalLoan.setVisibility(View.GONE);
+                binding.labelPersonalLoanOfferDetails.setVisibility(View.GONE);
+
                 binding.txtSirMadam.setVisibility(View.VISIBLE);
 
             }
 
+           if(binding.labelNoPreApprovedOffer.getVisibility()==View.VISIBLE){
+               binding.txtSirMadam.setVisibility(View.VISIBLE);
+           }
 
         });
 
