@@ -282,5 +282,18 @@
     <string name="location_access_needed">Device Location access needed</string>
     <string name="please_select_a_product">Please select a product</string>
     <string name="capture_mandatory_info">Capture Mandatory Info</string>
+    <string name="salaried">Salaried</string>
+    <string name="self_employed">Self Employed</string>
+    <string name="age">Age</string>
+    <string name="age_should_be_min_21_and_max_68">Age should be min. 21 and max.68</string>
+    <string name="years">years</string>
+    <string name="required_loan_amount">Required Loan Amount</string>
+    <string name="net_monthly_income">Net Monthly Income</string>
+    <string name="income_after_deducting_taxes">Income after deducting taxes</string>
+    <string name="other_emi_s">Other EMI\'s</string>
+    <string name="tenure">Tenure</string>
+    <string name="months">Months</string>
+    <string name="roi">ROI</string>
+    <string name="check_eligibility">Check Eligibility</string>
 
 </resources>
