@@ -389,7 +389,7 @@
         <!--Google Maps Api key-->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDymn9B6l2_MnHSr6dI_jjZaXEeFWPn5vU" />
+            android:value="AIzaSyDsqxiDX4Pqfn7NUYzKFS2Nn2H4W5ywtaQ" />
 
 
     </application>
