@@ -204,10 +204,17 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
         binding.btnReadyToPay.setOnClickListener(v->{
 
+            List detailsOfCustomerData = detailsOfCustomerAdapter.getList();
+            Bundle bundleDetailsOfCustomer = new Bundle();
+            bundleDetailsOfCustomer.putParcelableArrayList("detailsOfCustomerData", (ArrayList<? extends Parcelable>) detailsOfCustomerData);
+
             Intent i = new Intent(this, Visit_NPA_PaymentModeActivity.class);
             String dataSetId = getIntent().getStringExtra("dataSetId");
             i.putExtra("dataSetId",dataSetId);
+            i.putExtra("bundleDetailsOfCustomer",bundleDetailsOfCustomer);
+//             System.out.println("Size:"+detailsOfCustomerData.size());
             startActivity(i);
+
         });
 
         binding.btnNotReadyToPay.setOnClickListener(v->{

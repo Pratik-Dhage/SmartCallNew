@@ -17,6 +17,7 @@ import com.example.test.helper_classes.Global;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +96,24 @@ public class CallScheduledAdapter extends RecyclerView.Adapter<CallScheduledAdap
             holder.binding.txtCallTime.setTextColor(Color.RED);
         }
 
+/*
+
+        // Convert the time string to a LocalTime object
+        LocalTime time = LocalTime.parse(a.getTime(), DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+        // Calculate the time difference in minutes
+        long timeDiffMinutes = Duration.between(LocalTime.now(), time).toMinutes();
+
+        // Define the different colors for the text view based on the time difference
+        int yellowColor = Color.parseColor("#FFFF00"); // Yellow
+        int greenColor = Color.parseColor("#00FF00"); // Green
+        int redColor = Color.parseColor("#FF0000"); // Red
+        int textColor = timeDiffMinutes > 15 ? greenColor : timeDiffMinutes > 0 ? yellowColor : redColor;
+
+        // Set the text color of the text view
+        holder.binding.txtCallTime.setTextColor(textColor);
+*/
+
     }
 
     @Override
@@ -115,10 +134,7 @@ public class CallScheduledAdapter extends RecyclerView.Adapter<CallScheduledAdap
         Duration timeDifference = Duration.between(apiTime, deviceTime);
 
 // Get the time difference in seconds
-        long timeDifferenceSeconds=0;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-             timeDifferenceSeconds = timeDifference.toSeconds();
-        }
+        long timeDifferenceSeconds=timeDifference.toMillis();
 
      return timeDifferenceSeconds;
     }
