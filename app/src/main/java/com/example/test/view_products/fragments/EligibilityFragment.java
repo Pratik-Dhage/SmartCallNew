@@ -38,6 +38,26 @@ public class EligibilityFragment extends Fragment {
                binding.radioButtonSelfEmployed.setChecked(true);
                binding.radioButtonSalaried.setChecked(false);
            });
+
+           //Age Notification
+           binding.ivAgeNotify.setOnClickListener(v->{
+               if(binding.txtAgeNotify.getVisibility()==View.INVISIBLE){
+                   binding.txtAgeNotify.setVisibility(View.VISIBLE);
+               }
+               else{
+                   binding.txtAgeNotify.setVisibility(View.INVISIBLE);
+               }
+           });
+
+           //Net Monthly Income Notification
+        binding.ivMonthlyIncomeNotify.setOnClickListener(v->{
+            if(binding.txtMonthlyIncomeNotify.getVisibility()==View.INVISIBLE){
+                binding.txtMonthlyIncomeNotify.setVisibility(View.VISIBLE);
+            }
+            else{
+                binding.txtMonthlyIncomeNotify.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
 

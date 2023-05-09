@@ -153,7 +153,7 @@
                         android:id="@+id/ivPreApprovedOffer"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/offers_icon4_64px"
+                        android:src="@drawable/offers_icon_pre_approved"
                         app:layout_constraintBottom_toTopOf="@id/labelPreApprovedOffer"
                         app:layout_constraintEnd_toEndOf="@id/labelPreApprovedOffer"
                         app:layout_constraintStart_toStartOf="@+id/labelPreApprovedOffer" />

@@ -55,6 +55,10 @@ public class OffersListActivity extends AppCompatActivity {
         });
 
 
+        binding.clViewOtherOffer.setOnClickListener(v->{
+            startActivity(new Intent(this,ViewProductsActivity.class));
+        });
+
         binding.labelCreditCard.setOnClickListener(v->{
 
             String firstName = binding.txtLeadName.getText().toString();

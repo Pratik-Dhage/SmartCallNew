@@ -215,19 +215,47 @@
                     android:layout_height="wrap_content"/>
 
 
-                <Button
-                    android:id="@+id/btnViewOtherOffers"
-                    style="@style/CustomButtonStyle"
-                    android:layout_width="@dimen/_136sdp"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_40sdp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clViewOtherOffer"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:background="@drawable/round_corner_bg"
                     android:backgroundTint="@color/textBlue"
-                    android:text="@string/view_other_offers_break"
-                    android:textStyle="normal"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingEnd="@dimen/_15sdp"
+                    android:paddingBottom="@dimen/_5sdp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/labelPersonalLoanOfferDetails" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelPersonalLoanOfferDetails">
+
+                    <ImageView
+                        android:id="@+id/ivViewOtherOffer"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/offers_icon4_64px"
+                        app:layout_constraintBottom_toTopOf="@id/labelViewOtherOffer"
+                        app:layout_constraintEnd_toEndOf="@id/labelViewOtherOffer"
+                        app:layout_constraintStart_toStartOf="@+id/labelViewOtherOffer" />
+
+                    <TextView
+                        android:id="@+id/labelViewOtherOffer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/view_other_offers_break"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11ssp"
+                        android:textStyle="normal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivViewOtherOffer" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
