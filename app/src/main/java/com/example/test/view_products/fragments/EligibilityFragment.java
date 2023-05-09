@@ -73,6 +73,7 @@ public class EligibilityFragment extends Fragment {
                 if(Integer.parseInt(age)<21 || Integer.parseInt(age)>68){
                     Global.showSnackBar(binding.getRoot()," Age must be min.21 and max.68 ");
                     return;
+
                 }
 
                 if (emiRatio < 0.35) {
