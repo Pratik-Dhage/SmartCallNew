@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SmartCall</string>
+    <string name="app_name">Test</string>
     <string name="queue">Queue</string>
     <string name="completed_calls">Completed\n\u0020\u0020\u0020\u0020\u0020Calls</string>
     <string name="pending_calls">Pending\n\u0020\u0020\u0020Calls</string>
