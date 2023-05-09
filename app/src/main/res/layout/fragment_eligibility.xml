@@ -280,7 +280,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_40sdp"
-                    android:paddingBottom="@dimen/_2sdp"
+                    android:paddingBottom="@dimen/_3sdp"
                     android:text="@string/tenure"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp"
@@ -294,6 +294,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="@id/labelTenure"
                     app:layout_constraintStart_toEndOf="@id/labelTenure" />
 
@@ -304,7 +307,7 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:background="@drawable/round_corner_bg"
                     android:backgroundTint="@color/white"
-                    android:padding="@dimen/_3sdp"
+                    android:paddingBottom="@dimen/_2sdp"
                     app:layout_constraintBottom_toBottomOf="@id/edtTenure"
                     app:layout_constraintStart_toEndOf="@id/edtTenure">
 
@@ -314,6 +317,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:text="@string/months"
+                        android:visibility="gone"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp"
                         android:textStyle="normal"
@@ -324,6 +328,7 @@
                         android:id="@+id/spinnerTenureMonths"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:entries="@array/tenure_array"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/labelMonths" />
 
@@ -337,7 +342,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_30sdp"
-                    android:paddingBottom="@dimen/_2sdp"
+                    android:paddingBottom="@dimen/_3sdp"
                     android:text="@string/roi"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp"
@@ -350,9 +355,10 @@
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:digits="0123456789"
+                    android:digits="0123456789."
                     android:inputType="number"
                     android:maxLines="1"
+                    android:maxLength="8"
                     android:textAlignment="center"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintBottom_toBottomOf="@id/labelRateOfInterest"

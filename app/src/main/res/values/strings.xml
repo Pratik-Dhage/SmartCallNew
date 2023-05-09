@@ -300,4 +300,17 @@
     <string name="lead_is_eligible">Lead is Eligible</string>
     <string name="lead_is_not_eligible">Lead is not Eligible</string>
 
+    <!--for Tenure-->
+    <string-array name="tenure_array">
+        <item>1 Month</item>
+        <item>2 Months</item>
+        <item>3 Months</item>
+        <item>6 Months</item>
+        <item>1 Year</item>
+        <item>2 Years</item>
+        <item>3 Years</item>
+        <item>5 Years</item>
+    </string-array>
+
+
 </resources>

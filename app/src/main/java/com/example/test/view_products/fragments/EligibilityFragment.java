@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.example.test.R;
 import com.example.test.databinding.FragmentEligibilityBinding;
@@ -52,6 +53,25 @@ public class EligibilityFragment extends Fragment {
        String net_monthly_income_toolTip = getString(R.string.income_after_deducting_taxes);
        TooltipCompat.setTooltipText(binding.ivMonthlyIncomeNotify,net_monthly_income_toolTip);
 
+
+       //for Tenure
+        binding.spinnerTenureMonths.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedValue = adapterView.getItemAtPosition(i).toString();
+                binding.edtTenure.setText(selectedValue);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // do nothing
+            }
+        });
+
+
+
+
+        // Check Eligibility
         binding.btnCheckEligibility.setOnClickListener(v->{
             try {
                 String age = binding.edtAge.getText().toString().trim();
