@@ -99,5 +99,7 @@ dependencies {
     //for PDF  view
    // implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
 
+    //for Tool tip
+    implementation "com.github.skydoves:balloon:1.4.7"
 
 }

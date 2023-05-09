@@ -2,6 +2,7 @@ package com.example.test.view_products.fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -39,25 +40,15 @@ public class EligibilityFragment extends Fragment {
                binding.radioButtonSalaried.setChecked(false);
            });
 
-           //Age Notification
-           binding.ivAgeNotify.setOnClickListener(v->{
-               if(binding.txtAgeNotify.getVisibility()==View.INVISIBLE){
-                   binding.txtAgeNotify.setVisibility(View.VISIBLE);
-               }
-               else{
-                   binding.txtAgeNotify.setVisibility(View.INVISIBLE);
-               }
-           });
+           //Age ToolTip
+        String age_toolTip = getString(R.string.age_should_be_min_21_and_max_68);
+        TooltipCompat.setTooltipText(binding.ivAgeNotify,age_toolTip);
 
-           //Net Monthly Income Notification
-        binding.ivMonthlyIncomeNotify.setOnClickListener(v->{
-            if(binding.txtMonthlyIncomeNotify.getVisibility()==View.INVISIBLE){
-                binding.txtMonthlyIncomeNotify.setVisibility(View.VISIBLE);
-            }
-            else{
-                binding.txtMonthlyIncomeNotify.setVisibility(View.INVISIBLE);
-            }
-        });
+
+
+           //Net Monthly Income ToolTip
+       String net_monthly_income_toolTip = getString(R.string.income_after_deducting_taxes);
+       TooltipCompat.setTooltipText(binding.ivMonthlyIncomeNotify,net_monthly_income_toolTip);
     }
 
 
