@@ -170,8 +170,24 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                     if (a.getButtonLable().toString().contentEquals("Capture")) {
                         Intent i = new Intent(context, GoogleMapsActivity.class); //for Google Maps
                         context.startActivity(i);
+
+                        Global.removeStringInSharedPref(context,"formattedDistanceInKm"); // Remove previously stored distance
                     }
                 });
+
+        // for Distance between User and Village
+        if(a.getLable().contentEquals("Village")){
+
+            if(Global.getStringFromSharedPref(context,"formattedDistanceInKm").isEmpty()){
+                holder.binding.txtDetailName.setText(a.getValue());
+            }
+
+            else{
+                String savedDistance = Global.getStringFromSharedPref(context,"formattedDistanceInKm");
+                holder.binding.txtDetailName.setText(a.getValue()+", "+savedDistance+"Km");
+            }
+
+        }
 
      /*
         //Button Clicks

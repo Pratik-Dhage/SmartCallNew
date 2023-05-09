@@ -295,5 +295,6 @@
     <string name="months">Months</string>
     <string name="roi">ROI</string>
     <string name="check_eligibility">Check Eligibility</string>
+    <string name="location_not_found">Location not found</string>
 
 </resources>

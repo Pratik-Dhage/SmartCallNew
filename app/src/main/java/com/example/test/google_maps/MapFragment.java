@@ -95,6 +95,7 @@ public class MapFragment extends Fragment {
                     // If we were not able to obtain the coordinates, log an error
                     Log.e("MapsActivity", "Unable to geocode address: " + addressString);
                     System.out.println("Unable to geocode address: " + addressString);
+                    Global.showToast(getContext(),getString(R.string.location_not_found));
                 }
 
 
@@ -121,7 +122,7 @@ public class MapFragment extends Fragment {
     private void check_If_LocationTurnedOn() {
 
 
-        Global.showToast(getContext(), getString(R.string.location_access_needed));
+       // Global.showToast(getContext(), getString(R.string.location_access_needed));
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
@@ -180,12 +181,17 @@ public class MapFragment extends Fragment {
                     String formattedDistanceInKm = String.format("%.2f", distanceInKm);
 
                     TextView txtDistance = getActivity().findViewById(R.id.txtDistance);
-                    txtDistance.setText(formattedDistanceInKm);
+
+                    if(!formattedDistanceInKm.isEmpty()){
+                        txtDistance.setText(formattedDistanceInKm);
+                    }
+
                     System.out.println("Distance in Km:" + distanceInKm);
                     // Log the distance
                     Log.d("MapsActivity", "Distance from user to Lodha Xperia Mall: " + distanceInKm + " km");
 
-
+                    //Save Distance in SharedPreference
+                     Global.saveStringInSharedPref(getContext(),"formattedDistanceInKm",formattedDistanceInKm);
                 }
 
             }, null);
