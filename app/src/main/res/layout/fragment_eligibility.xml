@@ -1,379 +1,387 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view_products.fragments.EligibilityFragment">
 
-    <ScrollView
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true"
-        android:nestedScrollingEnabled="true">
+        android:layout_height="match_parent"
+        tools:context=".view_products.fragments.EligibilityFragment">
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clScrollViewEligibilityFragment"
-            style="@style/MainConstraintStyle"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/_20sdp">
+            android:fillViewport="true"
+            android:nestedScrollingEnabled="true">
 
-
-            <!--Salaried-->
-            <RadioButton
-                android:id="@+id/radioButtonSalaried"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_60sdp"
-                app:layout_constraintBottom_toBottomOf="@id/labelSalaried"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/labelSalaried" />
-
-            <TextView
-                android:id="@+id/labelSalaried"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:text="@string/salaried"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="normal"
-                android:visibility="visible"
-                app:layout_constraintStart_toEndOf="@id/radioButtonSalaried"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!--Self Employed-->
-            <RadioButton
-                android:id="@+id/radioButtonSelfEmployed"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                app:layout_constraintBottom_toBottomOf="@id/labelSelfEmployed"
-                app:layout_constraintStart_toEndOf="@id/labelSalaried"
-                app:layout_constraintTop_toTopOf="@id/labelSelfEmployed" />
-
-            <TextView
-                android:id="@+id/labelSelfEmployed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:text="@string/self_employed"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="normal"
-                android:visibility="visible"
-                app:layout_constraintStart_toEndOf="@id/radioButtonSelfEmployed"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!--Age-->
-            <TextView
-                android:id="@+id/labelAge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:text="@string/age"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/radioButtonSalaried" />
-
-            <ImageView
-                android:id="@+id/ivAgeNotify"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:src="@drawable/info_icon"
-                app:layout_constraintBottom_toBottomOf="@id/labelAge"
-                app:layout_constraintStart_toEndOf="@id/labelAge"
-                app:layout_constraintTop_toTopOf="@id/labelAge"
-                app:tint="@color/textBlue" />
-
-            <TextView
-                android:id="@+id/txtAgeNotify"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:text="@string/age_should_be_min_21_and_max_68"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_11ssp"
-                android:textStyle="normal|italic"
-                app:layout_constraintBottom_toBottomOf="@id/ivAgeNotify"
-                app:layout_constraintStart_toEndOf="@id/ivAgeNotify"
-                app:layout_constraintTop_toTopOf="@id/ivAgeNotify" />
-
-            <EditText
-                android:id="@+id/edtAge"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:digits="0123456789"
-                android:inputType="number"
-                android:textAlignment="center"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintStart_toStartOf="@id/labelAge"
-                app:layout_constraintTop_toBottomOf="@id/labelAge" />
-
-            <TextView
-                android:id="@+id/labelYears"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/years"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="@id/edtAge"
-                app:layout_constraintStart_toEndOf="@id/edtAge"
-                app:layout_constraintTop_toTopOf="@id/edtAge" />
-
-            <!--Loan Amount-->
-            <TextView
-                android:id="@+id/labelRequiredLoanAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:text="@string/required_loan_amount"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edtAge" />
-
-            <ImageView
-                android:id="@+id/ivRupeeIconLoan"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/rupee_icon"
-                app:layout_constraintBottom_toBottomOf="@id/edtRequiredLoanAmount"
-                app:layout_constraintStart_toStartOf="@id/labelRequiredLoanAmount"
-                app:layout_constraintTop_toTopOf="@id/edtRequiredLoanAmount" />
-
-            <EditText
-                android:id="@+id/edtRequiredLoanAmount"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:digits="0123456789"
-                android:inputType="number"
-                android:textAlignment="center"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintStart_toStartOf="@id/ivRupeeIconLoan"
-                app:layout_constraintTop_toBottomOf="@id/labelRequiredLoanAmount" />
-
-            <!--Net Monthly Income-->
-            <TextView
-                android:id="@+id/labelNetMonthlyIncome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:text="@string/net_monthly_income"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivRupeeIconLoan" />
-
-            <ImageView
-                android:id="@+id/ivMonthlyIncomeNotify"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:src="@drawable/info_icon"
-                app:layout_constraintBottom_toBottomOf="@id/labelNetMonthlyIncome"
-                app:layout_constraintStart_toEndOf="@id/labelNetMonthlyIncome"
-                app:layout_constraintTop_toTopOf="@id/labelNetMonthlyIncome"
-                app:tint="@color/textBlue" />
-
-            <TextView
-                android:id="@+id/txtMonthlyIncomeNotify"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:text="@string/income_after_deducting_taxes"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_11ssp"
-                android:textStyle="normal|italic"
-                app:layout_constraintBottom_toBottomOf="@id/ivMonthlyIncomeNotify"
-                app:layout_constraintStart_toEndOf="@id/ivMonthlyIncomeNotify"
-                app:layout_constraintTop_toTopOf="@id/ivMonthlyIncomeNotify" />
-
-
-            <ImageView
-                android:id="@+id/ivRupeeIconMonthlyIncome"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/rupee_icon"
-                app:layout_constraintBottom_toBottomOf="@id/edtMonthlyIncome"
-                app:layout_constraintStart_toStartOf="@id/labelNetMonthlyIncome"
-                app:layout_constraintTop_toTopOf="@id/edtMonthlyIncome" />
-
-            <EditText
-                android:id="@+id/edtMonthlyIncome"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:digits="0123456789"
-                android:inputType="number"
-                android:textAlignment="center"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintStart_toStartOf="@id/ivRupeeIconLoan"
-                app:layout_constraintTop_toBottomOf="@id/labelNetMonthlyIncome" />
-
-            <!--Other EMI's-->
-            <TextView
-                android:id="@+id/labelOtherEmi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:text="@string/other_emi_s"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivRupeeIconMonthlyIncome" />
-
-            <ImageView
-                android:id="@+id/ivRupeeIconOtherEmi"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/rupee_icon"
-                app:layout_constraintBottom_toBottomOf="@id/edtOtherEmi"
-                app:layout_constraintStart_toStartOf="@id/labelOtherEmi"
-                app:layout_constraintTop_toTopOf="@id/edtOtherEmi" />
-
-            <EditText
-                android:id="@+id/edtOtherEmi"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:digits="0123456789"
-                android:inputType="number"
-                android:textAlignment="center"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintStart_toStartOf="@id/ivRupeeIconLoan"
-                app:layout_constraintTop_toBottomOf="@id/labelOtherEmi" />
-
-            <!--Tenure-->
-            <TextView
-                android:id="@+id/labelTenure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_40sdp"
-                android:text="@string/tenure"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivRupeeIconOtherEmi" />
-
-            <EditText
-                android:id="@+id/edtTenure"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="@id/labelTenure"
-                app:layout_constraintStart_toEndOf="@id/labelTenure" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clTenureMonthlySpinner"
-                android:layout_width="wrap_content"
-                android:background="@drawable/round_corner_bg"
-                android:backgroundTint="@color/white"
+                android:id="@+id/clScrollViewEligibilityFragment"
+                style="@style/MainConstraintStyle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_3sdp"
-                app:layout_constraintBottom_toBottomOf="@id/edtTenure"
-                app:layout_constraintStart_toEndOf="@id/edtTenure">
+                android:paddingTop="@dimen/_20sdp">
+
+
+                <!--Salaried-->
+                <RadioButton
+                    android:id="@+id/radioButtonSalaried"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_50sdp"
+                    app:layout_constraintBottom_toBottomOf="@id/labelSalaried"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/labelSalaried" />
 
                 <TextView
-                    android:id="@+id/labelMonths"
+                    android:id="@+id/labelSalaried"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/months"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:text="@string/salaried"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp"
                     android:textStyle="normal"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    android:visibility="visible"
+                    app:layout_constraintStart_toEndOf="@id/radioButtonSalaried"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <Spinner
-                    android:id="@+id/spinnerTenureMonths"
+                <!--Self Employed-->
+                <RadioButton
+                    android:id="@+id/radioButtonSelfEmployed"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    app:layout_constraintBottom_toBottomOf="@id/labelSelfEmployed"
+                    app:layout_constraintStart_toEndOf="@id/labelSalaried"
+                    app:layout_constraintTop_toTopOf="@id/labelSelfEmployed" />
+
+                <TextView
+                    android:id="@+id/labelSelfEmployed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/labelMonths"
-                   />
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:text="@string/self_employed"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="normal"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toEndOf="@id/radioButtonSelfEmployed"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!--Age-->
+                <TextView
+                    android:id="@+id/labelAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:text="@string/age"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/radioButtonSalaried" />
+
+                <ImageView
+                    android:id="@+id/ivAgeNotify"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:src="@drawable/info_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/labelAge"
+                    app:layout_constraintStart_toEndOf="@id/labelAge"
+                    app:layout_constraintTop_toTopOf="@id/labelAge"
+                    app:tint="@color/textBlue" />
+
+                <TextView
+                    android:id="@+id/txtAgeNotify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:text="@string/age_should_be_min_21_and_max_68"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="normal|italic"
+                    app:layout_constraintBottom_toBottomOf="@id/ivAgeNotify"
+                    app:layout_constraintStart_toEndOf="@id/ivAgeNotify"
+                    app:layout_constraintTop_toTopOf="@id/ivAgeNotify" />
+
+                <EditText
+                    android:id="@+id/edtAge"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:digits="0123456789"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toStartOf="@id/labelAge"
+                    app:layout_constraintTop_toBottomOf="@id/labelAge" />
+
+                <TextView
+                    android:id="@+id/labelYears"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/years"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="@id/edtAge"
+                    app:layout_constraintStart_toEndOf="@id/edtAge"
+                    app:layout_constraintTop_toTopOf="@id/edtAge" />
+
+                <!--Loan Amount-->
+                <TextView
+                    android:id="@+id/labelRequiredLoanAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:text="@string/required_loan_amount"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edtAge" />
+
+                <ImageView
+                    android:id="@+id/ivRupeeIconLoan"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/rupee_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/edtRequiredLoanAmount"
+                    app:layout_constraintStart_toStartOf="@id/labelRequiredLoanAmount"
+                    app:layout_constraintTop_toTopOf="@id/edtRequiredLoanAmount" />
+
+                <EditText
+                    android:id="@+id/edtRequiredLoanAmount"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:digits="0123456789"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toStartOf="@id/ivRupeeIconLoan"
+                    app:layout_constraintTop_toBottomOf="@id/labelRequiredLoanAmount" />
+
+                <!--Net Monthly Income-->
+                <TextView
+                    android:id="@+id/labelNetMonthlyIncome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:text="@string/net_monthly_income"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivRupeeIconLoan" />
+
+                <ImageView
+                    android:id="@+id/ivMonthlyIncomeNotify"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:src="@drawable/info_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/labelNetMonthlyIncome"
+                    app:layout_constraintStart_toEndOf="@id/labelNetMonthlyIncome"
+                    app:layout_constraintTop_toTopOf="@id/labelNetMonthlyIncome"
+                    app:tint="@color/textBlue" />
+
+                <TextView
+                    android:id="@+id/txtMonthlyIncomeNotify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:text="@string/income_after_deducting_taxes"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11ssp"
+                    android:textStyle="normal|italic"
+                    app:layout_constraintBottom_toBottomOf="@id/ivMonthlyIncomeNotify"
+                    app:layout_constraintStart_toEndOf="@id/ivMonthlyIncomeNotify"
+                    app:layout_constraintTop_toTopOf="@id/ivMonthlyIncomeNotify" />
+
+
+                <ImageView
+                    android:id="@+id/ivRupeeIconMonthlyIncome"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/rupee_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/edtMonthlyIncome"
+                    app:layout_constraintStart_toStartOf="@id/labelNetMonthlyIncome"
+                    app:layout_constraintTop_toTopOf="@id/edtMonthlyIncome" />
+
+                <EditText
+                    android:id="@+id/edtMonthlyIncome"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:digits="0123456789"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toStartOf="@id/ivRupeeIconLoan"
+                    app:layout_constraintTop_toBottomOf="@id/labelNetMonthlyIncome" />
+
+                <!--Other EMI's-->
+                <TextView
+                    android:id="@+id/labelOtherEmi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:text="@string/other_emi_s"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivRupeeIconMonthlyIncome" />
+
+                <ImageView
+                    android:id="@+id/ivRupeeIconOtherEmi"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/rupee_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/edtOtherEmi"
+                    app:layout_constraintStart_toStartOf="@id/labelOtherEmi"
+                    app:layout_constraintTop_toTopOf="@id/edtOtherEmi" />
+
+                <EditText
+                    android:id="@+id/edtOtherEmi"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:digits="0123456789"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toStartOf="@id/ivRupeeIconLoan"
+                    app:layout_constraintTop_toBottomOf="@id/labelOtherEmi" />
+
+                <!--Tenure-->
+                <TextView
+                    android:id="@+id/labelTenure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:paddingBottom="@dimen/_2sdp"
+                    android:text="@string/tenure"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivRupeeIconOtherEmi" />
+
+                <EditText
+                    android:id="@+id/edtTenure"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:maxLines="1"
+                    app:layout_constraintBottom_toBottomOf="@id/labelTenure"
+                    app:layout_constraintStart_toEndOf="@id/labelTenure" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clTenureMonthlySpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:background="@drawable/round_corner_bg"
+                    android:backgroundTint="@color/white"
+                    android:padding="@dimen/_3sdp"
+                    app:layout_constraintBottom_toBottomOf="@id/edtTenure"
+                    app:layout_constraintStart_toEndOf="@id/edtTenure">
+
+                    <TextView
+                        android:id="@+id/labelMonths"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:text="@string/months"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Spinner
+                        android:id="@+id/spinnerTenureMonths"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/labelMonths" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!--Rate of Interest ROI-->
+                <TextView
+                    android:id="@+id/labelRateOfInterest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:paddingBottom="@dimen/_2sdp"
+                    android:text="@string/roi"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelTenure" />
+
+                <EditText
+                    android:id="@+id/edtRateOfInterest"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:digits="0123456789"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/labelRateOfInterest"
+                    app:layout_constraintStart_toEndOf="@id/labelRateOfInterest" />
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/percentage_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/edtRateOfInterest"
+                    app:layout_constraintStart_toEndOf="@id/edtRateOfInterest"
+                    app:layout_constraintTop_toTopOf="@id/edtRateOfInterest" />
+
+
+                <Button
+                    android:id="@+id/btnSpokeToCustomer"
+                    style="@style/CustomButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:backgroundTint="@color/textBlue"
+                    android:text="@string/check_eligibility"
+                    android:textStyle="normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelRateOfInterest" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <!--Rate of Interest ROI-->
-            <TextView
-                android:id="@+id/labelRateOfInterest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:text="@string/roi"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/labelTenure" />
-
-            <EditText
-                android:id="@+id/edtRateOfInterest"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="wrap_content"
-                android:digits="0123456789"
-                android:inputType="number"
-                android:textAlignment="center"
-                android:textSize="@dimen/_12ssp"
-                android:layout_marginStart="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="@id/labelRateOfInterest"
-                app:layout_constraintStart_toEndOf="@id/labelRateOfInterest"
-                />
-
-                 <ImageView
-                     app:layout_constraintStart_toEndOf="@id/edtRateOfInterest"
-                     app:layout_constraintBottom_toBottomOf="@id/edtRateOfInterest"
-                     app:layout_constraintTop_toTopOf="@id/edtRateOfInterest"
-                     android:src="@drawable/percentage_icon"
-                     android:layout_width="@dimen/_20sdp"
-                     android:layout_height="@dimen/_20sdp"/>
+        </ScrollView>
 
 
-            <Button
-                android:id="@+id/btnSpokeToCustomer"
-                style="@style/CustomButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_45sdp"
-                android:backgroundTint="@color/textBlue"
-                android:text="@string/check_eligibility"
-                android:textStyle="normal"
-                android:layout_marginTop="@dimen/_30sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/labelRateOfInterest" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </ScrollView>
-
-
-</FrameLayout>
+    </FrameLayout>
 </layout>
