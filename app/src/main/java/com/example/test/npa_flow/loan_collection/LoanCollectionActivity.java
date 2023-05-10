@@ -48,8 +48,10 @@ public class LoanCollectionActivity extends AppCompatActivity {
         loanCollectionViewModel = new ViewModelProvider(this).get(LoanCollectionViewModel.class);
         binding.setViewModel(loanCollectionViewModel);
 
-        //Whenever List is Loaded Remove BalanceInterestResult from SharedPreferences
+        //Whenever List is Loaded Remove BalanceInterestResult, Distance between User & Destination from SharedPreferences
        Global.removeStringInSharedPref(this,"BalanceInterestResult");
+
+       Global.removeStringInSharedPref(this,"formattedDistanceInKm");
 
         setToolbarTitle();
 
