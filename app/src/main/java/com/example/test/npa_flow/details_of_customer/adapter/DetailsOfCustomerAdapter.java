@@ -20,6 +20,8 @@ import com.example.test.helper_classes.Global;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -68,8 +70,32 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
             holder.binding.edtDetail.setVisibility(View.GONE);
         }
 
+        //for  Last Interest Paid On
+        if(a.getLable().contentEquals("Last Interest Paid On") ){
+
+            String input = a.getValue();
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+            LocalDateTime dateTime = LocalDateTime.parse(input, inputFormatter);
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String output = dateTime.format(outputFormatter);
+            holder.binding.txtDetailName.setText(output);
+        }
+
+        //for DOB
+        if(a.getLable().contentEquals("DOB") ){
+
+            String input = a.getValue();
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+            LocalDateTime dateTime = LocalDateTime.parse(input, inputFormatter);
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String output = dateTime.format(outputFormatter);
+            holder.binding.txtDetailName.setText(output);
+        }
+
+
+
         //for Amount Paid
-        if (a.getLable().contentEquals("Amount Paid") || a.getSequence() == 16) {
+        if (a.getLable().contentEquals("Amount Paid") ) {
 
             holder.binding.txtDetailName.setVisibility(View.VISIBLE);
             holder.binding.edtDetail.setOnFocusChangeListener((v, hasFocus) -> {
@@ -99,7 +125,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         }
 
         //for Total Payable as on (Total Due + Balance Interest)
-        if (a.getLable().contentEquals("Total Payable as on") || a.getSequence() == 15) {
+        if (a.getLable().contentEquals("Total Payable as on") ) {
 
             if (a.getValue() != null || !a.getValue().isEmpty()) {  //if Total Payable is Coming from API
                 holder.binding.txtDetailName.setText(a.getValue());
@@ -130,13 +156,13 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         }
 
         //For Total Due and Interest Rate to Calculate in Balance Interest Calculation Activity
-        if (a.getLable().contentEquals("Total Due") || a.getSequence() == 12) {
+        if (a.getLable().contentEquals("Total Due") ) {
             Total_due = Double.parseDouble(a.getValue());
             TotalDue = Total_due.toString();
             holder.binding.btnDetail.setVisibility(View.GONE);
         }
 
-        if (a.getLable().contentEquals("Interest Rate") || a.getSequence() == 13) {
+        if (a.getLable().contentEquals("Interest Rate") ) {
             Interest_rate = Double.parseDouble(a.getValue());
             InterestRate = Interest_rate.toString();
             holder.binding.btnDetail.setVisibility(View.GONE);
@@ -144,7 +170,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
 
         //for Balance Interest Result
-        if (a.getLable().contentEquals("Balance Interest as on") || a.getSequence() == 14) {
+        if (a.getLable().contentEquals("Balance Interest as on") ) {
 
             if (a.getValue() != null || !a.getValue().isEmpty()) {  // if BalanceInterest is coming from API
                 holder.binding.txtDetailName.setText(a.getValue());
