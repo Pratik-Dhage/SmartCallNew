@@ -100,18 +100,18 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
             holder.binding.txtDetailName.setVisibility(View.VISIBLE);
             holder.binding.edtDetail.setOnFocusChangeListener((v, hasFocus) -> {
 
-                holder.binding.btnDetail.setVisibility(View.VISIBLE);
-                holder.binding.btnDetail.setText(R.string.save);
+                holder.binding.btnSaveAmountPaid.setVisibility(View.VISIBLE);
+               // holder.binding.btnDetail.setText(R.string.save);
 
             });
 
-            holder.binding.btnDetail.setOnClickListener(v -> {
+            holder.binding.btnSaveAmountPaid.setOnClickListener(v -> {
 
                    String Amount_Paid = holder.binding.edtDetail.getText().toString();
 
                    Global.saveStringInSharedPref(context, "Amount_Paid", Amount_Paid); //save Amount Paid in SharedPreference
                    // Global.showToast(context,"Saved");
-                    holder.binding.btnDetail.setVisibility(View.GONE);
+                    holder.binding.btnSaveAmountPaid.setVisibility(View.GONE);
             });
 
 
@@ -125,7 +125,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         }
 
         //for Total Payable as on (Total Due + Balance Interest)
-        if (a.getLable().contentEquals("Total Payable as on") ) {
+        if (a.getLable().contentEquals("Total payable as on") ) {
 
             if (a.getValue() != null || !a.getValue().isEmpty()) {  //if Total Payable is Coming from API
                 holder.binding.txtDetailName.setText(a.getValue());
@@ -194,11 +194,14 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         //for Capture Button
         holder.binding.btnDetail.setOnClickListener(v-> {
 
-                    if (a.getButtonLable().toString().contentEquals("Capture")) {
+                    if ( a.getLable().contentEquals("Village")) {
                         Intent i = new Intent(context, GoogleMapsActivity.class); //for Google Maps
                         context.startActivity(i);
 
-                        Global.removeStringInSharedPref(context,"formattedDistanceInKm"); // Remove previously stored distance
+                        if(Global.getStringFromSharedPref(context,"formattedDistanceInKm")!=null){
+                            Global.removeStringInSharedPref(context,"formattedDistanceInKm"); // Remove previously stored distance
+                        }
+
                     }
                 });
 

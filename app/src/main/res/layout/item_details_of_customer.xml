@@ -40,7 +40,7 @@
             android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_75sdp"
-            android:layout_marginEnd="@dimen/_3sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:digits="0123456789,."
             android:hint="@string/enter_amount"
             android:inputType="number"
@@ -48,7 +48,7 @@
             android:textAlignment="center"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/labelDetailName"
-           app:layout_constraintEnd_toStartOf="@id/btnDetail"
+            app:layout_constraintEnd_toStartOf="@id/btnSaveAmountPaid"
             app:layout_constraintTop_toTopOf="@id/labelDetailName" />
 
 
@@ -80,6 +80,24 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/labelDetailName"
             tools:text="@string/capture" />
+
+        <!-- Save Button for Amount Paid-->
+        <TextView
+            android:id="@+id/btnSaveAmountPaid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_corner_bg"
+            android:backgroundTint="@color/textBlue"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/labelDetailName"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="@+id/labelDetailName"
+            android:text="@string/save" />
 
 
         <View
