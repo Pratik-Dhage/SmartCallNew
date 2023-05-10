@@ -32,11 +32,11 @@ public class OffersListActivity extends AppCompatActivity {
     }
 
     private void initializeFields() {
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_offers_list);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_offers_list);
         view = binding.getRoot();
     }
 
-    private void setUpData(){
+    private void setUpData() {
         String firstName = getIntent().getStringExtra("firstName");
         String phoneNumber = getIntent().getStringExtra("phoneNumber");
 
@@ -50,44 +50,35 @@ public class OffersListActivity extends AppCompatActivity {
             onBackPressed();
         });
 
-        binding.ivHome.setOnClickListener(v->{
+        binding.ivHome.setOnClickListener(v -> {
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
 
-        binding.clViewOtherOffer.setOnClickListener(v->{
-            startActivity(new Intent(this,ViewProductsActivity.class));
+        binding.clViewOtherOffer.setOnClickListener(v -> {
+            startActivity(new Intent(this, ViewProductsActivity.class));
         });
 
-        binding.labelCreditCard.setOnClickListener(v->{
 
-            String firstName = binding.txtLeadName.getText().toString();
-            String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
+        binding.btnSpokeToCustomer.setOnClickListener(v -> {
 
-            Intent i = new Intent(this, ProductInterestStatusActivity.class);
-            i.putExtra("firstName",firstName);
-            i.putExtra("phoneNumber",phoneNumber);
-            startActivity(i);
+            if (binding.checkboxCreditCard.isChecked() || binding.checkboxPersonalLoan.isChecked()) {
+                String firstName = binding.txtLeadName.getText().toString();
+                String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
 
-        });
-
-        binding.labelPersonalLoan.setOnClickListener(v->{
-
-            String firstName = binding.txtLeadName.getText().toString();
-            String phoneNumber = binding.txtLeadMobileNumber.getText().toString();
-
-            Intent i = new Intent(this, ProductInterestStatusActivity.class);
-            i.putExtra("firstName",firstName);
-            i.putExtra("phoneNumber",phoneNumber);
-            startActivity(i);
+                Intent i = new Intent(this, ProductInterestStatusActivity.class);
+                i.putExtra("firstName", firstName);
+                i.putExtra("phoneNumber", phoneNumber);
+                startActivity(i);
+            }
         });
 
         //for Notes
-        binding.ivNotesIcon.setOnClickListener(v->{
+        binding.ivNotesIcon.setOnClickListener(v -> {
 
             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
             EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
             customEditBox.setVisibility(View.VISIBLE);
@@ -109,11 +100,11 @@ public class OffersListActivity extends AppCompatActivity {
         });
 
         //for History
-        binding.ivHistory.setOnClickListener(v->{
+        binding.ivHistory.setOnClickListener(v -> {
 
             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
             TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
             txtCustom.setVisibility(View.VISIBLE);
@@ -134,7 +125,6 @@ public class OffersListActivity extends AppCompatActivity {
             });
 
         });
-
 
 
     }

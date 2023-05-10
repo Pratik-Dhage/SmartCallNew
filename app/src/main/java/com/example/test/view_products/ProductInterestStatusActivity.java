@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityProductInterestStatusBinding;
+import com.example.test.lead.LeadsActivity;
 import com.example.test.main_dashboard.MainActivity3API;
 
 public class ProductInterestStatusActivity extends AppCompatActivity {
@@ -47,6 +48,11 @@ public class ProductInterestStatusActivity extends AppCompatActivity {
 
         binding.ivHome.setOnClickListener(v->{
             startActivity(new Intent(this, MainActivity3API.class));
+        });
+
+        binding.btnIsInterested.setOnClickListener(v->{
+            Intent i = new Intent(this, LeadsActivity.class);
+            startActivity(i);
         });
 
         //for Notes
