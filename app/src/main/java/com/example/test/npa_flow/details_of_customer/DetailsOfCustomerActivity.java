@@ -79,7 +79,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
                     //for Hiding Amount Paid ONLY in Details Of Customer Activity
                     result.iterator().forEachRemaining(it->{
-                        if(it.getSequence()==16 || it.getLable().contentEquals("Amount Paid")){
+                        if( it.getLable().contentEquals("Amount Paid")){
                              it.setLable("");
                             it.setEditable("");
                         }
