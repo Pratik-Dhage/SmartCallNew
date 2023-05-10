@@ -147,6 +147,43 @@
                             app:layout_constraintTop_toBottomOf="@id/labelTotalMonth" />
 
                         <TextView
+                            android:id="@+id/txtTotalVisitsValue"
+                            style="@style/semi_mid_text_style"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="5"
+                            android:layout_marginEnd="@dimen/_55sdp"
+                            android:textColor="@color/textBlue"
+                            android:textStyle="normal"
+                            android:layout_marginStart="@dimen/_45sdp"
+                            app:layout_constraintStart_toEndOf="@+id/labelVisits"
+                            app:layout_constraintTop_toBottomOf="@id/labelTotalMonth" />
+
+                        <TextView
+                            android:id="@+id/txtCompletedVisitsValue"
+                            style="@style/semi_mid_text_style"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="2"
+                            android:layout_marginEnd="@dimen/_55sdp"
+                            android:textColor="@color/textBlue"
+                            android:textStyle="normal"
+                            android:layout_marginStart="@dimen/_60sdp"
+                            app:layout_constraintStart_toEndOf="@+id/txtTotalVisitsValue"
+                            app:layout_constraintTop_toBottomOf="@id/labelTotalMonth" />
+
+                        <TextView
+                            android:id="@+id/txtPendingVisitsValue"
+                            style="@style/semi_mid_text_style"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="3"
+                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:textColor="@color/textBlue"
+                            android:textStyle="normal"
+                            app:layout_constraintEnd_toStartOf="@+id/ivRightArrowVisits"
+                            app:layout_constraintTop_toBottomOf="@id/labelTotalMonth" />
+
+
+
+                        <TextView
                             android:id="@+id/labelCalls"
                             style="@style/common_text_style"
                             android:layout_width="wrap_content"
@@ -157,6 +194,39 @@
                             android:textColor="@color/textBlue"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/labelVisits" />
+
+                        <TextView
+                            android:id="@+id/txtTotalCallsValue"
+                            style="@style/semi_mid_text_style"
+                            android:text="26"
+                            android:layout_marginEnd="@dimen/_55sdp"
+                            android:textColor="@color/textBlue"
+                            android:textStyle="normal"
+                            android:layout_marginStart="@dimen/_40sdp"
+                            app:layout_constraintStart_toEndOf="@+id/labelVisits"
+                            app:layout_constraintTop_toTopOf="@id/labelCalls" />
+
+                        <TextView
+                            android:id="@+id/txtCompletedCallsValue"
+                            style="@style/semi_mid_text_style"
+                            android:text="14"
+                            android:layout_marginEnd="@dimen/_55sdp"
+                            android:textColor="@color/textBlue"
+                            android:textStyle="normal"
+                            android:layout_marginStart="@dimen/_50sdp"
+                            app:layout_constraintStart_toEndOf="@+id/txtTotalCallsValue"
+                            app:layout_constraintTop_toTopOf="@id/labelCalls" />
+
+                        <TextView
+                            android:id="@+id/txtPendingCallsValue"
+                            style="@style/semi_mid_text_style"
+                            android:text="12"
+                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:textColor="@color/textBlue"
+                            android:textStyle="normal"
+                            app:layout_constraintEnd_toStartOf="@+id/ivRightArrowCalls"
+                            app:layout_constraintTop_toTopOf="@id/labelCalls" />
+
 
                         <View
                             android:id="@+id/viewBorder"
