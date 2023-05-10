@@ -82,7 +82,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
                     //for Hiding Amount Paid ONLY in Details Of Customer Activity and Customer Details Activity
                     result.iterator().forEachRemaining(it->{
-                        if(it.getSequence()==16 || it.getLable().contentEquals("Amount Paid")){
+                        if(  it.getLable().contentEquals("Amount Paid")){
                             it.setLable("");
                             it.setEditable("");
                             Global.removeStringInSharedPref(this,"Amount_Paid"); // remove Amount Paid from SharePreferences for next activities to have New value

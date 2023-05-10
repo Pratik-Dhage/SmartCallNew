@@ -174,6 +174,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
             if (a.getValue() != null || !a.getValue().isEmpty()) {  // if BalanceInterest is coming from API
                 holder.binding.txtDetailName.setText(a.getValue());
+                holder.binding.edtDetail.setVisibility(View.GONE);
             }
 
 
