@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        style="@style/MainConstraintStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view_products.fragments.EligibilityFragment">
@@ -12,7 +13,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true"
-            android:nestedScrollingEnabled="true">
+            android:nestedScrollingEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -102,8 +106,8 @@
                     android:text="@string/age_should_be_min_21_and_max_68"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp"
-                    android:visibility="invisible"
                     android:textStyle="normal|italic"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@id/ivAgeNotify"
                     app:layout_constraintStart_toEndOf="@id/ivAgeNotify"
                     app:layout_constraintTop_toTopOf="@id/ivAgeNotify" />
@@ -204,8 +208,8 @@
                     android:text="@string/income_after_deducting_taxes"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_11ssp"
-                    android:visibility="invisible"
                     android:textStyle="normal|italic"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@id/ivMonthlyIncomeNotify"
                     app:layout_constraintStart_toEndOf="@id/ivMonthlyIncomeNotify"
                     app:layout_constraintTop_toTopOf="@id/ivMonthlyIncomeNotify" />
@@ -228,8 +232,8 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:digits="0123456789."
                     android:inputType="number"
-                    android:maxLines="1"
                     android:maxLength="8"
+                    android:maxLines="1"
                     android:textAlignment="center"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintStart_toStartOf="@id/ivRupeeIconLoan"
@@ -266,8 +270,8 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:digits="0123456789."
                     android:inputType="number"
-                    android:maxLines="1"
                     android:maxLength="8"
+                    android:maxLines="1"
                     android:textAlignment="center"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintStart_toStartOf="@id/ivRupeeIconLoan"
@@ -293,10 +297,10 @@
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textAlignment="center"
                     android:gravity="center"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="@id/labelTenure"
                     app:layout_constraintStart_toEndOf="@id/labelTenure" />
 
@@ -317,10 +321,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:text="@string/months"
-                        android:visibility="gone"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12ssp"
                         android:textStyle="normal"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
@@ -357,8 +361,8 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:digits="0123456789."
                     android:inputType="number"
-                    android:maxLines="1"
                     android:maxLength="8"
+                    android:maxLines="1"
                     android:textAlignment="center"
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintBottom_toBottomOf="@id/labelRateOfInterest"
@@ -393,5 +397,5 @@
         </ScrollView>
 
 
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
