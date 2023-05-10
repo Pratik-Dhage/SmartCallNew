@@ -18,6 +18,7 @@ import com.example.test.call_status.CallStatusWithLeadInteractionActivity;
 import com.example.test.call_status.CallStatusWithProductsActivity;
 import com.example.test.databinding.ActivityViewProductsBinding;
 import com.example.test.helper_classes.Global;
+import com.example.test.lead.LeadsActivity;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.view_products.fragments.DocumentCheckListFragment;
 
@@ -60,11 +61,11 @@ public class ViewProductsActivity extends AppCompatActivity {
 
         binding.btnInterestedAndELigible.setOnClickListener(v->{
 
-            // At least One CheckBox of the Product List must be checked , only then btnInterestedAndEligible is Clickable
+            // At least One CheckBox of the Product List must be checked , only then btnInterestedAndEligible will navigate to LeadList
             if(binding.checkboxHomeLoan.isChecked() || binding.checkboxPersonalLoan.isChecked()
                     || binding.checkboxVehicleLoan.isChecked() || binding.checkboxGoldLoan.isChecked()  )
             {
-                Global.showToast(this,"Checked");
+               startActivity(new Intent(this, LeadsActivity.class));
 
             }
 
