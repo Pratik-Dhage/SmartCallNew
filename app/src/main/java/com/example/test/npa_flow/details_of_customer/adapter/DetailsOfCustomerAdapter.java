@@ -17,6 +17,7 @@ import com.example.test.R;
 import com.example.test.databinding.ItemDetailsOfCustomerBinding;
 import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.helper_classes.Global;
+import com.example.test.lead.adapter.LeadListAdapter;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
 
@@ -65,9 +66,11 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         holder.binding.labelDetailName.setText(a.getLable());
         holder.binding.txtDetailName.setText(a.getValue());
 
-        //for Name
-        if (a.getLable().contentEquals("Name") || a.getSequence() == 1) {
+        //for Name And Loan A/c No. Creating conflicts
+        if (a.getLable().contentEquals("Name") || a.getLable().contentEquals("Loan A/c No.")) {
+            holder.binding.txtDetailName.setVisibility(View.VISIBLE);
             holder.binding.edtDetail.setVisibility(View.GONE);
+            holder.binding.viewLine.setVisibility(View.INVISIBLE);
         }
 
         //for  Last Interest Paid On
@@ -260,6 +263,17 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         return detailsOfCustomer_responseModelArrayList.size();
     }
 
+    @Override
+    public void onViewAttachedToWindow(@NonNull MyViewHolderClass holder) {
+        super.onViewAttachedToWindow(holder);
+        holder.setIsRecyclable(true);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.setIsRecyclable(false); // to prevent data from being disappeared when scrolled upwards
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     public ArrayList setData(ArrayList<DetailsOfCustomer_ResponseModel> data) {
