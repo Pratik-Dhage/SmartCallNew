@@ -63,6 +63,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <ProgressBar
+        android:id="@+id/progressBarDistance"
+        app:layout_constraintStart_toStartOf="@id/txtDistance"
+        app:layout_constraintEnd_toEndOf="@id/txtDistance"
+        app:layout_constraintTop_toTopOf="@id/txtDistance"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/txtDistance"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"/>
+
+
     <TextView
         android:id="@+id/txtDistance"
         tools:text="3km"

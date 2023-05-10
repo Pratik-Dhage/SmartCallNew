@@ -42,7 +42,8 @@ public class MapFragment extends Fragment {
     LocationManager locationManager;
     double userLatitude;
     double userLongitude;
-
+    double userMarkerLatitude; //for when user clicks on new locations
+    double userMarkerLongitude; //for when user clicks on new locations
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,12 +104,22 @@ public class MapFragment extends Fragment {
                     @Override
                     public void onMapClick(LatLng latLng) {
 
+                        getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE); //Show Progress bar
+                        getActivity().findViewById(R.id.txtDistance).setVisibility(View.INVISIBLE);
+
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.position(latLng);
                         markerOptions.title("Here LatLong:" + latLng.latitude + "," + latLng.longitude);
                         googleMap.clear();
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
                         googleMap.addMarker(markerOptions);
+
+                        // Assign New Marker position's Latitude and Longitude to calculate Distance of Marker And User's Device
+                        userMarkerLatitude = latLng.latitude;
+                        userMarkerLongitude = latLng.longitude;
+
+                        //Calculate Distance between New Marker position and User's Device
+                        getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
                     }
                 });
             }
@@ -172,11 +183,11 @@ public class MapFragment extends Fragment {
                     // Create a LatLng object for the user's location
                     LatLng userLatLng = new LatLng(userLatitude, userLongitude);
 
-                    // Calculate the distance between the user's location and the marker using Location.distanceBetween()
+                    // Calculate the distance between the user's location and the marker using Location.distanceBetween() in Meters
                     float[] distance = new float[1];
                     Location.distanceBetween(userLatLng.latitude, userLatLng.longitude, lodhaMallLatLng.latitude, lodhaMallLatLng.longitude, distance);
 
-                    // Convert the distance to kilometers
+                    // Convert the distance from Meters To Kilometers
                     float distanceInKm = distance[0] / 1000;
                     String formattedDistanceInKm = String.format("%.2f", distanceInKm);
 
@@ -188,7 +199,7 @@ public class MapFragment extends Fragment {
 
                     System.out.println("Distance in Km:" + distanceInKm);
                     // Log the distance
-                    Log.d("MapsActivity", "Distance from user to Lodha Xperia Mall: " + distanceInKm + " km");
+                   // Log.d("MapsActivity", "Distance from user to Lodha Xperia Mall: " + distanceInKm + " km");
 
                     //Save Distance in SharedPreference
                      Global.saveStringInSharedPref(getContext(),"formattedDistanceInKm",formattedDistanceInKm);
@@ -199,4 +210,63 @@ public class MapFragment extends Fragment {
 
 
     }
+
+    private void getDistanceBetweenMarkerAndUser(double userMarkerLatitude, double userMarkerLongitude){
+
+
+        if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Request the location permission if it is not granted
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        } else {
+
+            if (locationManager == null) {
+                locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            }
+
+            // Get the device location
+            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, new LocationListener() {
+                @Override
+                public void onLocationChanged(@NonNull Location location) {
+                    // Do something with the location
+                    double latitude = location.getLatitude();
+                    double longitude = location.getLongitude();
+
+                    userLatitude = latitude;
+                    userLongitude = longitude;
+
+
+                    // Create a LatLng object for the user's location
+                    LatLng userLatLng = new LatLng(userLatitude, userLongitude);
+
+                    // Calculate the distance between the user's location and the marker using Location.distanceBetween() in Meters
+                    float[] distance = new float[1];
+                    Location.distanceBetween(userLatLng.latitude, userLatLng.longitude, userMarkerLatitude, userMarkerLongitude, distance);
+
+                    // Convert the distance from Meters To Kilometers
+                    float distanceInKm = distance[0] / 1000;
+                    String formattedDistanceInKm = String.format("%.2f", distanceInKm);
+
+                    TextView txtDistance = getActivity().findViewById(R.id.txtDistance);
+
+                    if(!formattedDistanceInKm.isEmpty()){
+                        getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.GONE); //Dismiss ProgressBar
+                        txtDistance.setVisibility(View.VISIBLE);
+                        txtDistance.setText(formattedDistanceInKm);
+                    }
+
+                    System.out.println("Marker Distance in Km:" + distanceInKm);
+                    // Log the distance
+                    // Log.d("MapsActivity", "Distance from user to Lodha Xperia Mall: " + distanceInKm + " km");
+
+                    //Save Distance in SharedPreference
+                    Global.saveStringInSharedPref(getContext(),"formattedDistanceInKm",formattedDistanceInKm);
+                }
+
+            }, null);
+        }
+
+    }
+
 }
