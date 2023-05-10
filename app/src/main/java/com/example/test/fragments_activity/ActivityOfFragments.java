@@ -15,6 +15,7 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityOfFragmentsBinding;
 import com.example.test.fragments_activity.fragments.LoanCollectionFragment;
 import com.example.test.fragments_activity.fragments.RenewalFragment;
+import com.example.test.helper_classes.Global;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -48,8 +49,8 @@ public class ActivityOfFragments extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_of_fragments);
         view = binding.getRoot();
-        // navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
+        Global.removeStringInSharedPref(this,"formattedDistanceInKm"); // Remove previously stored distance
     }
 
 
