@@ -54,7 +54,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
         if( getIntent().hasExtra("isFromVisitNPAStatusActivity") || getIntent().hasExtra("isFromVisitNPANotificationActivity")
                 || getIntent().hasExtra("isFromVisitNPARescheduleActivity")
-        || getIntent().hasExtra("isFromVisitNPANotAvailableActivity")
+        || getIntent().hasExtra("isFromVisitNPANotAvailableActivity") || getIntent().hasExtra("isFromVisitNPAPaymentModeActivity")
 
         ){
             binding.txtToolbarHeading.setText(getString(R.string.visit_complete));

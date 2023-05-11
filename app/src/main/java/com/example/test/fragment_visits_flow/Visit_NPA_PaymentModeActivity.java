@@ -27,6 +27,7 @@ import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.PaymentModeStatusActivity;
+import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 
@@ -206,7 +207,10 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
               });
 
               btnProceed.setOnClickListener(v2->{
-
+                  Intent i = new Intent(this,VisitCompletionOfCustomerActivity.class);
+                  i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                  i.putExtra("isFromVisitNPAPaymentModeActivity","isFromVisitNPAPaymentModeActivity");
+                startActivity(i);
               });
 
               ivCancel.setOnClickListener(v1->{

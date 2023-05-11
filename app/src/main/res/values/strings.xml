@@ -302,6 +302,7 @@
     <string name="eligibility_details">Eligibility Details</string>
     <string name="calculate_emi">Calculate EMI</string>
     <string name="pls_fill_required_fields">Please fill required fields</string>
+    <string name="please_enter_amount">Please Enter Amount</string>
 
     <!--for Tenure-->
     <string-array name="tenure_array">

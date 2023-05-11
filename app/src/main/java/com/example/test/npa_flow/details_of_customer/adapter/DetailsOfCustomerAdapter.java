@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ import com.example.test.lead.adapter.LeadListAdapter;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -76,14 +79,20 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         //for  Last Interest Paid On
         if(a.getLable().contentEquals("Last Interest Paid On") ){
 
-            String input = a.getValue();
+           /* String input = a.getValue();
+            Log.d("Date from response",input);
             DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
             LocalDateTime dateTime = LocalDateTime.parse(input, inputFormatter);
             DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             String output = dateTime.format(outputFormatter);
-            holder.binding.txtDetailName.setText(output);
+//            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+//            try {
+//                Date output = sdf.parse(input);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }*/
+            holder.binding.txtDetailName.setText(a.getValue());
         }
-
         //for DOB
         if(a.getLable().contentEquals("DOB") ){
 
