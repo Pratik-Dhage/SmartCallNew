@@ -1,20 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:backgroundTint="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/_20sdp"
     android:layout_marginEnd="@dimen/_20sdp"
-    android:background="@drawable/rounded_dialog_corner">
-
+    android:background="@drawable/rounded_dialog_corner"
+    android:backgroundTint="@color/white">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:paddingBottom="@dimen/_10sdp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_10sdp">
+
+        <TextView
+            android:id="@+id/txtViewUploadedReceipt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:text="@string/view"
+            android:textColor="@color/textBlue"
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold|italic"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/btnUploadReceipt"
+            app:layout_constraintEnd_toStartOf="@id/btnUploadReceipt"
+            app:layout_constraintTop_toTopOf="@id/btnUploadReceipt" />
+
+        <TextView
+            android:id="@+id/txtCloseUploadedReceipt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/close"
+            android:textColor="@color/textBlue"
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold|italic"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivViewUploadedReceipt"
+            android:layout_width="@dimen/_300sdp"
+            android:layout_height="@dimen/_300sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtCloseUploadedReceipt" />
 
         <Button
             android:id="@+id/btnUploadReceipt"
@@ -27,46 +66,46 @@
             android:text="@string/upload_receipt"
             android:textStyle="normal"
             android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtUploadReceipt"
-            tools:text="Image 100.jpg"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_13ssp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:maxLength="15"
             android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="@id/btnUploadReceipt"
-            app:layout_constraintEnd_toEndOf="@id/btnUploadReceipt"
-            app:layout_constraintTop_toTopOf="@id/btnUploadReceipt"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_13ssp"
             app:layout_constraintBottom_toBottomOf="@id/btnUploadReceipt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintEnd_toEndOf="@id/btnUploadReceipt"
+            app:layout_constraintStart_toStartOf="@id/btnUploadReceipt"
+            app:layout_constraintTop_toTopOf="@id/btnUploadReceipt"
+            tools:text="Image 100.jpg" />
 
 
         <ImageView
             android:id="@+id/ivFileUpload"
-            app:layout_constraintStart_toEndOf="@id/btnUploadReceipt"
-            app:layout_constraintTop_toTopOf="@id/btnUploadReceipt"
-            app:layout_constraintBottom_toBottomOf="@id/btnUploadReceipt"
             android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_marginStart="@dimen/_1sdp"
             android:src="@drawable/upload_file"
-            android:layout_height="@dimen/_30sdp"
+            app:layout_constraintBottom_toBottomOf="@id/btnUploadReceipt"
+            app:layout_constraintStart_toEndOf="@id/btnUploadReceipt"
+            app:layout_constraintTop_toTopOf="@id/btnUploadReceipt"
             app:tint="@color/textBlue" />
 
         <ImageView
             android:id="@+id/ivRefreshCancel"
-            android:visibility="invisible"
-            app:layout_constraintStart_toEndOf="@id/btnUploadReceipt"
-            app:layout_constraintTop_toTopOf="@id/btnUploadReceipt"
-            app:layout_constraintBottom_toBottomOf="@id/btnUploadReceipt"
             android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_marginStart="@dimen/_1sdp"
             android:src="@drawable/refresh_go_back"
-            android:layout_height="@dimen/_30sdp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/btnUploadReceipt"
+            app:layout_constraintStart_toEndOf="@id/btnUploadReceipt"
+            app:layout_constraintTop_toTopOf="@id/btnUploadReceipt"
             app:tint="@color/textBlue" />
 
 
@@ -81,8 +120,8 @@
             android:text="@string/proceed"
             android:textStyle="normal"
             android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnUploadReceipt" />
 
         <Button
@@ -96,8 +135,8 @@
             android:text="@string/skip_and_proceed"
             android:textStyle="normal"
             android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnUploadReceipt" />
 
 
@@ -107,11 +146,11 @@
         android:id="@+id/ivCancel"
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
-        android:src="@drawable/cancel_close"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:clickable="true"
+        android:src="@drawable/cancel_close"
         app:tint="@color/red" />
 
 </RelativeLayout>
