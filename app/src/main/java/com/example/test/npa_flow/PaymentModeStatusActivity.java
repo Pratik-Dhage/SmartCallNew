@@ -33,10 +33,12 @@ import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -48,6 +50,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> pickImageLauncher;
     private static final int PICK_IMAGE_REQUEST = 1;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
+    ArrayList<DetailsOfCustomerResponseModel> detailsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +58,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
         //  setContentView(R.layout.activity_payment_mode_status);
 
         initializeFields();
-        initObserver();
-        if (NetworkUtilities.getConnectivityStatus(this)) {
-            callDetailsOfCustomerApi();
-        } else {
-            Global.showToast(this, getString(R.string.check_internet_connection));
-        }
+        setUpDetailsOfCustomerRecyclerView();
         onClickListener();
         setUpImagePicker();
     }
@@ -71,12 +69,9 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
 
-    }
+        //get detailsList
+        detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
 
-    private void callDetailsOfCustomerApi() {
-
-        String dataSetId = getIntent().getStringExtra("dataSetId");
-        detailsOfCustomerViewModel.getDetailsOfCustomer_Data(dataSetId); // call Details Of Customer API
     }
 
 
@@ -84,42 +79,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
-    }
-
-    private void initObserver() {
-
-        if (NetworkUtilities.getConnectivityStatus(this)) {
-
-            binding.loadingProgressBar.setVisibility(View.VISIBLE);
-
-            detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this, result -> {
-
-                if (result != null) {
-
-                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
-                    setUpDetailsOfCustomerRecyclerView();
-                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.addAll(result);
-                    binding.loadingProgressBar.setVisibility(View.INVISIBLE);
-
-
-                }
-            });
-
-            //handle  error response
-            detailsOfCustomerViewModel.getMutErrorResponse().observe(this, error -> {
-
-                if (error != null && !error.isEmpty()) {
-                    Global.showSnackBar(view, error);
-                    System.out.println("Here: " + error);
-                } else {
-                    Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
-                }
-            });
-        } else {
-            Global.showToast(this, getString(R.string.check_internet_connection));
-        }
-
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsList));
     }
 
 
@@ -128,7 +88,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
         pickImageLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
 
-                try{
+                try {
 
                     // Get the file URI and file name
                     Uri uri = result.getData().getData();
@@ -157,6 +117,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                     txtProceed.setOnClickListener(v -> {
                         Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                         i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                        i.putExtra("detailsList", detailsList);
                         startActivity(i);
                     });
 
@@ -169,13 +130,13 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                             ivViewUploadedReceipt.setVisibility(View.VISIBLE);
                             txtCloseUploadedReceipt.setVisibility(View.VISIBLE);
                             Glide.with(this).load(uri).into(ivViewUploadedReceipt); //set selected Image of Receipt
-                           // Picasso.get().load(uri).into(ivViewUploadedReceipt);
+                            // Picasso.get().load(uri).into(ivViewUploadedReceipt);
                             txtViewUploadedReceipt.setVisibility(View.GONE);
                             txtProceed.setVisibility(View.GONE);
                             txtUploadReceipt.setVisibility(View.GONE);
                             ivRefreshCancel.setVisibility(View.GONE);
 
-                            if(ivViewUploadedReceipt.getVisibility()==View.VISIBLE){
+                            if (ivViewUploadedReceipt.getVisibility() == View.VISIBLE) {
                                 ivCancel.setVisibility(View.INVISIBLE);
                             }
 
@@ -183,7 +144,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                         }
                     });
 
-                    txtCloseUploadedReceipt.setOnClickListener(v->{
+                    txtCloseUploadedReceipt.setOnClickListener(v -> {
                         txtViewUploadedReceipt.setVisibility(View.VISIBLE);
                         ivCancel.setVisibility(View.VISIBLE);
                         txtProceed.setVisibility(View.VISIBLE);
@@ -195,14 +156,11 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                     });
 
 
+                } catch (Exception e) {
+
+                    Log.d("File Receipt Exception", "File Receipt Exception:" + e);
+                    //  Global.showToast(this,"File Receipt Exception:"+e.getLocalizedMessage());
                 }
-
-               catch(Exception e){
-
-                    Log.d("File Receipt Exception","File Receipt Exception:"+e);
-                 //  Global.showToast(this,"File Receipt Exception:"+e.getLocalizedMessage());
-               }
-
 
 
             }
@@ -285,6 +243,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
             txtSkipAndProceed.setOnClickListener(v1 -> {
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("detailsList", detailsList);
                 startActivity(i);
             });
 
@@ -326,6 +285,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
             txtSkipAndProceed.setOnClickListener(v1 -> {
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("detailsList", detailsList);
                 startActivity(i);
             });
 
@@ -397,8 +357,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
     protected void onResume() {
         initializeFields();
         onClickListener();
-        initObserver();
-        callDetailsOfCustomerApi();
+        setUpDetailsOfCustomerRecyclerView();
         super.onResume();
     }
 }
