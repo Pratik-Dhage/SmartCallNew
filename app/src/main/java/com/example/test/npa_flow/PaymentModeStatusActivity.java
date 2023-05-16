@@ -141,6 +141,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                     Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
                     ImageView ivRefreshCancel = customDialogImagePicker.findViewById(R.id.ivRefreshCancel);
                     ImageView ivFileUpload = customDialogImagePicker.findViewById(R.id.ivFileUpload);
+                    ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivCancel);
                     ImageView ivViewUploadedReceipt = customDialogImagePicker.findViewById(R.id.ivViewUploadedReceipt);
                     TextView txtViewUploadedReceipt = customDialogImagePicker.findViewById(R.id.txtViewUploadedReceipt);
                     TextView txtCloseUploadedReceipt = customDialogImagePicker.findViewById(R.id.txtCloseUploadedReceipt);
@@ -174,11 +175,17 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                             txtUploadReceipt.setVisibility(View.GONE);
                             ivRefreshCancel.setVisibility(View.GONE);
 
+                            if(ivViewUploadedReceipt.getVisibility()==View.VISIBLE){
+                                ivCancel.setVisibility(View.INVISIBLE);
+                            }
+
+
                         }
                     });
 
                     txtCloseUploadedReceipt.setOnClickListener(v->{
                         txtViewUploadedReceipt.setVisibility(View.VISIBLE);
+                        ivCancel.setVisibility(View.VISIBLE);
                         txtProceed.setVisibility(View.VISIBLE);
                         txtUploadReceipt.setVisibility(View.VISIBLE);
                         ivRefreshCancel.setVisibility(View.VISIBLE);
