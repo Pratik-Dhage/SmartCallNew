@@ -216,7 +216,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
 
-        Global.removeStringInSharedPref(this,"Amount_Paid");
+        Global.removeStringInSharedPref(this,"Amount_Paid"); // remove Amount Paid from SharePreferences for next activities to have New value
 
     }
 
