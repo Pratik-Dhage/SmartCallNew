@@ -48,7 +48,7 @@ public class LoanCollectionFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_loan_collection, container, false);
         loanCollectionViewModel = new ViewModelProvider(this).get(LoanCollectionViewModel.class);
         binding.setViewModel(loanCollectionViewModel);
-
+        Global.removeStringInSharedPref(getContext(),"formattedDistanceInKm");
 
         initObserver();
         if(NetworkUtilities.getConnectivityStatus(getContext())){
@@ -143,12 +143,14 @@ public class LoanCollectionFragment extends Fragment {
     @Override
     public void onResume() {
         Global.removeStringInSharedPref(getContext(),"BalanceInterestResult");
+        Global.removeStringInSharedPref(getContext(),"formattedDistanceInKm");
         super.onResume();
     }
 
     @Override
     public void onDestroy() {
         Global.removeStringInSharedPref(getContext(),"BalanceInterestResult");
+        Global.removeStringInSharedPref(getContext(),"formattedDistanceInKm");
         super.onDestroy();
     }
 }
