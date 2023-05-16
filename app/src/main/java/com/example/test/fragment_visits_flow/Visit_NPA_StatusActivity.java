@@ -46,7 +46,6 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> pickImageLauncher;
 
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
-    DetailsOfCustomerAdapter detailsOfCustomerAdapter = new DetailsOfCustomerAdapter();
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
 
     @Override

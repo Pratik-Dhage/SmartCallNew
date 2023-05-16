@@ -42,10 +42,6 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
     }
 
 
-    public DetailsOfCustomerAdapter() {
-        //to access getList() Or Amount entered
-    }
-
     //For Calculating Balance Interest
     Double Total_due;
     Double Interest_rate;
@@ -326,10 +322,6 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         detailsOfCustomer_responseModelArrayList = data;
         notifyDataSetChanged();
 
-        return detailsOfCustomer_responseModelArrayList;
-    }
-
-    public List getList() {
         return detailsOfCustomer_responseModelArrayList;
     }
 
