@@ -28,8 +28,11 @@ import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+
+import java.util.ArrayList;
 
 public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
 
@@ -38,7 +41,7 @@ public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
     View customDialogImagePicker;
     private ActivityResultLauncher<Intent> pickImageLauncher;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
-
+    ArrayList<DetailsOfCustomerResponseModel> detailsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +91,8 @@ public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
             detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this,result->{
 
                 if(result!=null) {
+
+                    detailsList = (ArrayList<DetailsOfCustomerResponseModel>) result;
 
                     detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
                     setUpDetailsOfCustomerRecyclerView();
@@ -190,6 +195,7 @@ public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
         binding.btnVisitRescheduled.setOnClickListener(v->{
             Intent i = new Intent(this,Visit_NPA_NotAvailableActivity.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+            i.putExtra("detailsList",detailsList);
             startActivity(i);
         });
 

@@ -24,15 +24,18 @@ import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.ScheduleVisitForCollectionActivity;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+
+import java.util.ArrayList;
 
 public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
 
     ActivityVisitNpaNotAvailableBinding binding;
     View view;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
-
+    ArrayList<DetailsOfCustomerResponseModel> detailsList;
 
 
     @Override
@@ -41,95 +44,52 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_visit_npa_not_available);
 
         initializeFields();
-        initObserver();
-        if(NetworkUtilities.getConnectivityStatus(this)){
-            callDetailsOfCustomerApi();
-        }
-        else{
-            Global.showToast(this,getString(R.string.check_internet_connection));
-        }
+        setUpDetailsOfCustomerRecyclerView();
         onClickListener();
 
     }
 
     private void initializeFields() {
 
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_visit_npa_not_available);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_visit_npa_not_available);
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
+
+        //get detailsList
+        detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
+
     }
 
-    private void callDetailsOfCustomerApi(){
 
-        String dataSetId = getIntent().getStringExtra("dataSetId");
-        detailsOfCustomerViewModel.getDetailsOfCustomer_Data(dataSetId); // call Details Of Customer API
-    }
-
-
-    private void setUpDetailsOfCustomerRecyclerView(){
+    private void setUpDetailsOfCustomerRecyclerView() {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsList));
     }
 
-    private void initObserver(){
 
-        if(NetworkUtilities.getConnectivityStatus(this)){
+    private void onClickListener() {
 
-            binding.loadingProgressBar.setVisibility(View.VISIBLE);
-
-            detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this,result->{
-
-                if(result!=null) {
-
-                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
-                    setUpDetailsOfCustomerRecyclerView();
-                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.addAll(result);
-                    binding.loadingProgressBar.setVisibility(View.INVISIBLE);
-
-
-                }
-            });
-
-            //handle  error response
-            detailsOfCustomerViewModel.getMutErrorResponse().observe(this, error -> {
-
-                if (error != null && !error.isEmpty()) {
-                    Global.showSnackBar(view, error);
-                    System.out.println("Here: " + error);
-                } else {
-                    Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
-                }
-            });
-        }
-        else{
-            Global.showToast(this,getString(R.string.check_internet_connection));
-        }
-
-    }
-
-    private void onClickListener(){
-
-        binding.ivBack.setOnClickListener(v->{
+        binding.ivBack.setOnClickListener(v -> {
             onBackPressed();
         });
 
-        binding.ivHome.setOnClickListener(v->{
+        binding.ivHome.setOnClickListener(v -> {
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
-        binding.btnCustomerNotAvailable.setOnClickListener(v->{
+        binding.btnCustomerNotAvailable.setOnClickListener(v -> {
 
             Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-            i.putExtra("isFromVisitNPANotAvailableActivity","isFromVisitNPANotAvailableActivity");
+            i.putExtra("isFromVisitNPANotAvailableActivity", "isFromVisitNPANotAvailableActivity");
             startActivity(i);
 
         });
 
-        binding.btnLateForVisit.setOnClickListener(v->{
+        binding.btnLateForVisit.setOnClickListener(v -> {
 
             View customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
             ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
@@ -153,15 +113,13 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
             btnProceed.setOnClickListener(v2 -> {
                 Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                i.putExtra("isFromVisitNPANotAvailableActivity","isFromVisitNPANotAvailableActivity");
+                i.putExtra("isFromVisitNPANotAvailableActivity", "isFromVisitNPANotAvailableActivity");
                 startActivity(i);
             });
 
             ivCancel.setOnClickListener(v1 -> {
                 dialog.dismiss();
             });
-
-
 
 
         });
@@ -190,7 +148,7 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
             btnProceed.setOnClickListener(v2 -> {
                 Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                i.putExtra("isFromVisitNPANotAvailableActivity","isFromVisitNPANotAvailableActivity");
+                i.putExtra("isFromVisitNPANotAvailableActivity", "isFromVisitNPANotAvailableActivity");
                 startActivity(i);
             });
 
@@ -202,11 +160,11 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
         });
 
         //for Notes
-        binding.ivNotesIcon.setOnClickListener(v->{
+        binding.ivNotesIcon.setOnClickListener(v -> {
 
             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
             EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
             customEditBox.setVisibility(View.VISIBLE);
@@ -228,11 +186,11 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
         });
 
         //for History
-        binding.ivHistory.setOnClickListener(v->{
+        binding.ivHistory.setOnClickListener(v -> {
 
             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
             TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
             txtCustom.setVisibility(View.VISIBLE);
@@ -263,8 +221,7 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
     protected void onResume() {
         initializeFields();
         onClickListener();
-        initObserver();
-        callDetailsOfCustomerApi();
+        setUpDetailsOfCustomerRecyclerView();
         super.onResume();
     }
 
