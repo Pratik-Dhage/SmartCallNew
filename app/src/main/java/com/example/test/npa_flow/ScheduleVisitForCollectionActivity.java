@@ -13,13 +13,16 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityScheduleVisitForCollectionBinding;
 import com.example.test.fragments_activity.ActivityOfFragments;
 import com.example.test.helper_classes.Global;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
     ActivityScheduleVisitForCollectionBinding binding;
     View view;
+    ArrayList<DetailsOfCustomerResponseModel> detailsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,9 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
         long today = calendar.getTimeInMillis(); //for min date
         datePicker.setMinDate(today);
         datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), null);
+
+        //get detailsList
+        detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
 
         setUpTitleAndButtonText();
     }
@@ -112,6 +118,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
             Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+            i.putExtra("detailsList",detailsList);
             startActivity(i);
         });
 

@@ -22,10 +22,12 @@ import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -34,6 +36,8 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
     ActivityCallDetailOfCustomerBinding binding;
     View view ;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
+    ArrayList<DetailsOfCustomerResponseModel> detailsList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +89,8 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
 
                 if(result!=null) {
 
+                    detailsList = (ArrayList<DetailsOfCustomerResponseModel>) result;
+
                     detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
                     setUpDetailsOfCustomerRecyclerView();
                     detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.addAll(result);
@@ -132,12 +138,14 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
 
             Intent i = new Intent(this, PaymentNotificationOfCustomerActivity.class);
             i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
+            i.putExtra("detailsList",detailsList);
             startActivity(i);
         });
 
         binding.btnNotSpokeToCustomer.setOnClickListener(v->{
             Intent i = new Intent(CallDetailOfCustomerActivity.this,NotSpokeToCustomerActivity.class);
             i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
+            i.putExtra("detailsList",detailsList);
             startActivity(i);
         });
 

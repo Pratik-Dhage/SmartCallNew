@@ -24,10 +24,12 @@ import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -37,7 +39,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
     View view;
     View customDialogEditable;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
-
+    ArrayList<DetailsOfCustomerResponseModel> detailsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +48,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
 
         initializeFields();
-        initObserver();
-        if (NetworkUtilities.getConnectivityStatus(this)) {
-            callDetailsOfCustomerApi();
-        } else {
-            Global.showToast(this, getString(R.string.check_internet_connection));
-        }
+        setUpDetailsOfCustomerRecyclerView();
         onClickListener();
 
     }
@@ -62,12 +59,10 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
-    }
 
-    private void callDetailsOfCustomerApi() {
+        //get detailsList
+        detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
 
-        String dataSetId = getIntent().getStringExtra("dataSetId");
-        detailsOfCustomerViewModel.getDetailsOfCustomer_Data(dataSetId); // call Details Of Customer API
     }
 
 
@@ -75,50 +70,15 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsList));
     }
 
-
-    private void initObserver() {
-
-        if (NetworkUtilities.getConnectivityStatus(this)) {
-
-            binding.loadingProgressBar.setVisibility(View.VISIBLE);
-
-            detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this, result -> {
-
-                if (result != null) {
-
-                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
-                    setUpDetailsOfCustomerRecyclerView();
-                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.addAll(result);
-                    binding.loadingProgressBar.setVisibility(View.INVISIBLE);
-
-
-                }
-            });
-
-            //handle  error response
-            detailsOfCustomerViewModel.getMutErrorResponse().observe(this, error -> {
-
-                if (error != null && !error.isEmpty()) {
-                    Global.showSnackBar(view, error);
-                    System.out.println("Here: " + error);
-                } else {
-                    Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
-                }
-            });
-        } else {
-            Global.showToast(this, getString(R.string.check_internet_connection));
-        }
-
-    }
 
     private void onClickListener() {
 
         binding.ivBack.setOnClickListener(v -> onBackPressed());
 
-        binding.ivHome.setOnClickListener(v->{
+        binding.ivHome.setOnClickListener(v -> {
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
@@ -154,6 +114,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
             btnProceed.setOnClickListener(v2 -> {
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("detailsList",detailsList);
                 startActivity(i);
             });
 
@@ -168,6 +129,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
             Intent i = new Intent(PaymentNotificationOfCustomerActivity.this, PaymentModeActivity.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+            i.putExtra("detailsList",detailsList);
             startActivity(i);
         });
 
@@ -175,6 +137,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
             Intent i = new Intent(PaymentNotificationOfCustomerActivity.this, PaymentInfoOfCustomerActivity.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+            i.putExtra("detailsList",detailsList);
             startActivity(i);
         });
 
@@ -242,8 +205,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
     protected void onResume() {
         initializeFields();
         onClickListener();
-        initObserver();
-        callDetailsOfCustomerApi();
+        setUpDetailsOfCustomerRecyclerView();
         super.onResume();
     }
 }
