@@ -33,14 +33,14 @@
             android:id="@+id/txtCloseUploadedReceipt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/close"
             android:textColor="@color/textBlue"
             android:textSize="@dimen/_13ssp"
             android:textStyle="bold|italic"
             android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
