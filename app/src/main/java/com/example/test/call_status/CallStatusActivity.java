@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.provider.CallLog;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,8 @@ import com.example.test.roomDB.model.LeadCallModelRoom;
 import com.example.test.view_products.OffersListActivity;
 import com.example.test.view_products.ViewProductsActivity;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Date;
@@ -318,7 +321,7 @@ public class CallStatusActivity extends AppCompatActivity {
 
     public void getCallRecordingAndCallLogs() throws IOException {
 
-        //for Call Recoding in Internal Storage (here Filename is call_recording.mp3)
+        //for Call Recoding in Internal Storage (here Filename is call_recording.mp3) (Convert to Byte Array and Send to Server)
         String filePath = getFilesDir().getAbsolutePath() + "/call_recording.mp3";
 
         //fro Call Recording in External Storage
@@ -349,6 +352,12 @@ public class CallStatusActivity extends AppCompatActivity {
                         recorder.stop();
                         recorder.reset();
                         recorder.release();
+                        try {
+                          byte[] bytes_array = convertFileToByteArray(filePath); // convert Audio to Byte Array and Send to Server
+                        } catch (Exception e) {
+                            Log.d("Call Recording Exception:",e.getLocalizedMessage());
+                            e.printStackTrace();
+                        }
                         break;
                 }
             }
@@ -412,5 +421,20 @@ public class CallStatusActivity extends AppCompatActivity {
         }
     }
 
+    // for Converting Audio(Call Recording(.mp3 format) to Byte Array)
+    public byte[] convertFileToByteArray(String path) throws IOException {
+
+        FileInputStream fis = new FileInputStream(path);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] b = new byte[1024];
+
+        for (int readNum; (readNum = fis.read(b)) != -1;) {
+            bos.write(b, 0, readNum);
+        }
+
+        byte[] bytesArray = bos.toByteArray();
+
+        return bytesArray;
+    }
 
 }
