@@ -5,6 +5,7 @@ import com.example.test.lead.model.LeadListResponseModel;
 import com.example.test.lead.model.LeadModel;
 import com.example.test.login.model.LoginResponseModel;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
@@ -49,6 +50,6 @@ public interface RestClient {
 
  //Details of Customer
     @GET
-    Observable<List<DetailsOfCustomer_ResponseModel>> getDetailsOfCustomerList(@Url String url);
+    Observable<List<DetailsOfCustomerResponseModel>> getDetailsOfCustomerList(@Url String url);
 
 }

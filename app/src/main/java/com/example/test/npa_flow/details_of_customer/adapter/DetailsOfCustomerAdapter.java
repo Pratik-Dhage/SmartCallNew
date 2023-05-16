@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -20,8 +21,10 @@ import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.lead.adapter.LeadListAdapter;
 import com.example.test.npa_flow.WebViewActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -32,9 +35,9 @@ import java.util.Objects;
 
 public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCustomerAdapter.MyViewHolderClass> {
 
-    ArrayList<DetailsOfCustomer_ResponseModel> detailsOfCustomer_responseModelArrayList;
+    ArrayList<DetailsOfCustomerResponseModel> detailsOfCustomer_responseModelArrayList;
 
-    public DetailsOfCustomerAdapter(ArrayList<DetailsOfCustomer_ResponseModel> detailsOfCustomer_responseModelArrayList) {
+    public DetailsOfCustomerAdapter(ArrayList<DetailsOfCustomerResponseModel> detailsOfCustomer_responseModelArrayList) {
         this.detailsOfCustomer_responseModelArrayList = detailsOfCustomer_responseModelArrayList;
     }
 
@@ -63,11 +66,41 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
     @Override
     public void onBindViewHolder(@NonNull MyViewHolderClass holder, int position) {
 
-        DetailsOfCustomer_ResponseModel a = detailsOfCustomer_responseModelArrayList.get(position);
+        DetailsOfCustomerResponseModel a = detailsOfCustomer_responseModelArrayList.get(position);
         Context context = holder.itemView.getContext();
 
-        holder.binding.labelDetailName.setText(a.getLable());
-        holder.binding.txtDetailName.setText(a.getValue());
+        if (a.getLable() != null) {
+            holder.binding.labelDetailName.setText(a.getLable());
+        }
+
+        if (a.getValue() != null) {
+
+            Object value = a.getValue();
+            if (value instanceof Number) {
+                // value is a Long or a Double
+                Number numberValue = (Number) value;
+
+                if (numberValue instanceof Long) {
+                    // value is a Long
+                    long longValue = numberValue.longValue();
+                    DecimalFormat df = new DecimalFormat("#.00"); //after decimal 2 digits
+                    holder.binding.txtDetailName.setText(df.format(longValue));
+                }
+                if (numberValue instanceof Double) {
+                    // value is a Double
+                    double doubleValue = numberValue.doubleValue();
+                    DecimalFormat df = new DecimalFormat("#.00"); //after decimal 2 digits
+                    holder.binding.txtDetailName.setText(df.format(doubleValue));
+                }
+            } else {
+                // value is not a Number(i.e String)
+                holder.binding.txtDetailName.setText(String.valueOf(a.getValue()));
+            }
+
+        }
+
+
+/*
 
         //for Name And Loan A/c No. Creating conflicts
         if (a.getLable().contentEquals("Name") || a.getLable().contentEquals("Loan A/c No.")) {
@@ -79,7 +112,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         //for  Last Interest Paid On
         if(a.getLable().contentEquals("Last Interest Paid On") ){
 
-           /* String input = a.getValue();
+            String input = a.getValue();
             Log.d("Date from response",input);
             DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
             LocalDateTime dateTime = LocalDateTime.parse(input, inputFormatter);
@@ -90,7 +123,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 //                Date output = sdf.parse(input);
 //            } catch (ParseException e) {
 //                e.printStackTrace();
-//            }*/
+//            }
             holder.binding.txtDetailName.setText(a.getValue());
         }
         //for DOB
@@ -160,12 +193,6 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         }
 
 
-        //for Button
-        if (Objects.equals(a.getButton(), "Y")) {
-            holder.binding.btnDetail.setVisibility(View.VISIBLE);
-            holder.binding.btnDetail.setText(a.getButtonLable().toString());
-
-        }
 
         //For Total Due and Interest Rate to Calculate in Balance Interest Calculation Activity
         if (a.getLable().contentEquals("Total Due") ) {
@@ -203,61 +230,68 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
         }
 
+*/
         //for Capture Button
-        holder.binding.btnDetail.setOnClickListener(v-> {
+        holder.binding.btnDetail.setOnClickListener(v -> {
 
-                    if ( a.getLable().contentEquals("Village")) {
-                        Intent i = new Intent(context, GoogleMapsActivity.class); //for Google Maps
-                        context.startActivity(i);
+            //if ( a.getLable().contentEquals("Village"))
+            if (a.getButtonLable().contentEquals("Capture")) {
+                Intent i = new Intent(context, GoogleMapsActivity.class); //for Google Maps
+                context.startActivity(i);
 
-                        if(Global.getStringFromSharedPref(context,"formattedDistanceInKm")!=null){
-                            Global.removeStringInSharedPref(context,"formattedDistanceInKm"); // Remove previously stored distance
-                        }
+                if (Global.getStringFromSharedPref(context, "formattedDistanceInKm") != null) {
+                    Global.removeStringInSharedPref(context, "formattedDistanceInKm"); // Remove previously stored distance
+                }
 
-                    }
-                });
+            }
+        });
 
         // for Distance between User and Village
-        if(a.getLable().contentEquals("Village")){
+        if (a.getLable().contentEquals("Village")) {
 
-            if(Global.getStringFromSharedPref(context,"formattedDistanceInKm").isEmpty()){
-                holder.binding.txtDetailName.setText(a.getValue());
-            }
-
-            else{
-                String savedDistance = Global.getStringFromSharedPref(context,"formattedDistanceInKm");
-                holder.binding.txtDetailName.setText(a.getValue()+", "+savedDistance+"Km");
+            if (Global.getStringFromSharedPref(context, "formattedDistanceInKm").isEmpty()) {
+                //  holder.binding.txtDetailName.setText(a.getValue());
+            } else {
+                String savedDistance = Global.getStringFromSharedPref(context, "formattedDistanceInKm");
+                holder.binding.txtDetailName.setText(a.getValue() + ", " + savedDistance + "Km");
             }
 
         }
 
-     /*
-        //Button Clicks
-        holder.binding.btnDetail.setOnClickListener(v->{
+        //for Button
+        if (Objects.equals(a.getButton(), "Y")) {
+            holder.binding.btnDetail.setVisibility(View.VISIBLE);
+            holder.binding.btnDetail.setText(a.getButtonLable().toString());
 
-            if(a.getButtonLable().toString().contentEquals("Capture")){
-                Intent i = new Intent(context,WebViewActivity.class);
-                context.startActivity(i);
-            }
+        }
 
-            if(a.getButtonLable().toString().contentEquals("Calculate")){
-
-                //Pass Total Due and Interest Rate to Calculate Balance Interest
-
-                Intent i = new Intent(context,BalanceInterestCalculationActivity.class);
-                i.putExtra("TotalDue",TotalDue);
-                i.putExtra("InterestRate",InterestRate);
-                context.startActivity(i);
-            }
-
-        });
-
-*/
 
         // for EditText
         if (Objects.equals(a.getEditable(), "Y")) {
             holder.binding.edtDetail.setVisibility(View.VISIBLE);
             holder.binding.txtDetailName.setVisibility(View.INVISIBLE);
+
+            //for Amount Paid
+            holder.binding.edtDetail.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    Global.saveStringInSharedPref(context, "Amount_Paid", s.toString()); //save Amount Paid in SharedPreference
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                }
+            });
+
+            if(!Global.getStringFromSharedPref(context,"Amount_Paid").isEmpty()){
+                String Amount_Paid = Global.getStringFromSharedPref(context,"Amount_Paid");
+                 holder.binding.edtDetail.setText(Amount_Paid);
+            }
+
         }
 
         //for separation line between Personal and Account Details
@@ -285,7 +319,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public ArrayList setData(ArrayList<DetailsOfCustomer_ResponseModel> data) {
+    public ArrayList setData(ArrayList<DetailsOfCustomerResponseModel> data) {
         if (data.isEmpty()) {
             detailsOfCustomer_responseModelArrayList = new ArrayList();
         }
@@ -295,7 +329,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         return detailsOfCustomer_responseModelArrayList;
     }
 
-    public List getList(){
+    public List getList() {
         return detailsOfCustomer_responseModelArrayList;
     }
 

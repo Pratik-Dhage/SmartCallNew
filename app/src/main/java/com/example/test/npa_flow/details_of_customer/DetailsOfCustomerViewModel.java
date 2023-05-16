@@ -18,11 +18,11 @@ public class DetailsOfCustomerViewModel extends ViewModel {
 
     private Disposable subscribtion; //Disposable Interface used to prevent observer from receiving items from Observer before all items are loaded.
 
-    private final MutableLiveData<List<DetailsOfCustomer_ResponseModel>> mutDetailsOfCustomer_ResponseApi = new MutableLiveData<>();
+    private final MutableLiveData<List<DetailsOfCustomerResponseModel>> mutDetailsOfCustomer_ResponseApi = new MutableLiveData<>();
     private final MutableLiveData<String> mutErrorResponse = new MutableLiveData<>();
 
 
-    public MutableLiveData<List<DetailsOfCustomer_ResponseModel>> getMutDetailsOfCustomer_ResponseApi() {
+    public MutableLiveData<List<DetailsOfCustomerResponseModel>> getMutDetailsOfCustomer_ResponseApi() {
         return mutDetailsOfCustomer_ResponseApi;
     }
 
@@ -31,7 +31,7 @@ public class DetailsOfCustomerViewModel extends ViewModel {
     }
 
 
-    public ArrayList<DetailsOfCustomer_ResponseModel> arrList_DetailsOfCustomer_Data = new ArrayList<>();
+    public ArrayList<DetailsOfCustomerResponseModel> arrList_DetailsOfCustomer_Data = new ArrayList<>();
     public DetailsOfCustomerAdapter detailsOfCustomerAdapter = new DetailsOfCustomerAdapter(arrList_DetailsOfCustomer_Data);
     public void updateDetailsOfCustomer_Data() {  detailsOfCustomerAdapter.setData(arrList_DetailsOfCustomer_Data); }
 
@@ -85,7 +85,7 @@ public class DetailsOfCustomerViewModel extends ViewModel {
     }
 
 
-    private void onHomeApiSuccess(List<DetailsOfCustomer_ResponseModel> result) {
+    private void onHomeApiSuccess(List<DetailsOfCustomerResponseModel> result) {
         mutDetailsOfCustomer_ResponseApi.setValue(result);
     }
 
