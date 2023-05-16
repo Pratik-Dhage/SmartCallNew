@@ -28,9 +28,11 @@ import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.PaymentModeStatusActivity;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
@@ -39,6 +41,8 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
     View view;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
 
+    ArrayList<DetailsOfCustomerResponseModel> detailsList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,13 +50,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
 
         initializeFields();
-        initObserver();
-        if(NetworkUtilities.getConnectivityStatus(this)){
-            callDetailsOfCustomerApi();
-        }
-        else{
-            Global.showToast(this,getString(R.string.check_internet_connection));
-        }
+        setUpDetailsOfCustomerRecyclerView();
         onClickListener();
     }
 
@@ -62,57 +60,21 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
+
+        //get detailsList
+        detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
+
     }
 
-    private void callDetailsOfCustomerApi(){
-
-        String dataSetId = getIntent().getStringExtra("dataSetId");
-        detailsOfCustomerViewModel.getDetailsOfCustomer_Data(dataSetId); // call Details Of Customer API
-    }
 
     private void setUpDetailsOfCustomerRecyclerView(){
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsList));
     }
 
-    private void initObserver(){
 
-        if(NetworkUtilities.getConnectivityStatus(this)){
-
-            binding.loadingProgressBar.setVisibility(View.VISIBLE);
-
-            detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this,result->{
-
-                if(result!=null) {
-
-                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
-                    setUpDetailsOfCustomerRecyclerView();
-                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.addAll(result);
-                    binding.loadingProgressBar.setVisibility(View.INVISIBLE);
-
-
-
-                }
-            });
-
-            //handle  error response
-            detailsOfCustomerViewModel.getMutErrorResponse().observe(this, error -> {
-
-                if (error != null && !error.isEmpty()) {
-                    Global.showSnackBar(view, error);
-                    System.out.println("Here: " + error);
-                } else {
-                    Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
-                }
-            });
-        }
-        else{
-            Global.showToast(this,getString(R.string.check_internet_connection));
-        }
-
-    }
 
     private void onClickListener(){
 
@@ -310,8 +272,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
     protected void onResume() {
         initializeFields();
         onClickListener();
-        initObserver();
-        callDetailsOfCustomerApi();
+        setUpDetailsOfCustomerRecyclerView();
         super.onResume();
     }
 

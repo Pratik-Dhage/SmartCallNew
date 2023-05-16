@@ -30,6 +30,7 @@ import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.ScheduleVisitForCollectionActivity;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 
@@ -46,6 +47,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
     DetailsOfCustomerAdapter detailsOfCustomerAdapter = new DetailsOfCustomerAdapter();
+    ArrayList<DetailsOfCustomerResponseModel> detailsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +99,8 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
             detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this,result->{
 
                 if(result!=null) {
+
+                    detailsList = (ArrayList<DetailsOfCustomerResponseModel>) result;
 
                     detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
                     setUpDetailsOfCustomerRecyclerView();
@@ -204,15 +208,10 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
         binding.btnReadyToPay.setOnClickListener(v->{
 
-            List detailsOfCustomerData = detailsOfCustomerAdapter.getList();
-            Bundle bundleDetailsOfCustomer = new Bundle();
-            bundleDetailsOfCustomer.putParcelableArrayList("detailsOfCustomerData", (ArrayList<? extends Parcelable>) detailsOfCustomerData);
-
             Intent i = new Intent(this, Visit_NPA_PaymentModeActivity.class);
             String dataSetId = getIntent().getStringExtra("dataSetId");
             i.putExtra("dataSetId",dataSetId);
-            i.putExtra("bundleDetailsOfCustomer",bundleDetailsOfCustomer);
-//             System.out.println("Size:"+detailsOfCustomerData.size());
+            i.putExtra("detailsList",detailsList);
             startActivity(i);
 
         });
@@ -222,6 +221,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
             Intent i = new Intent(this,Visit_NPA_NotificationActivity.class);
             String dataSetId = getIntent().getStringExtra("dataSetId");
             i.putExtra("dataSetId",dataSetId);
+            i.putExtra("detailsList",detailsList);
             startActivity(i);
         });
 

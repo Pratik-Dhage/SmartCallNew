@@ -21,10 +21,12 @@ import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -34,6 +36,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
     ActivityVisitCompletionOfCustomerBinding binding;
     View view;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
+    ArrayList<DetailsOfCustomerResponseModel> detailsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,22 +44,17 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
         //  setContentView(R.layout.activity_visit_completion_of_customer);
 
         initializeFields();
-        initObserver();
-        if (NetworkUtilities.getConnectivityStatus(this)) {
-            callDetailsOfCustomerApi();
-        } else {
-            Global.showToast(this, getString(R.string.check_internet_connection));
-        }
+        setUpDetailsOfCustomerRecyclerView();
         onClickListener();
     }
 
-    private void setUpToolbarTitle(){
+    private void setUpToolbarTitle() {
 
-        if( getIntent().hasExtra("isFromVisitNPAStatusActivity") || getIntent().hasExtra("isFromVisitNPANotificationActivity")
+        if (getIntent().hasExtra("isFromVisitNPAStatusActivity") || getIntent().hasExtra("isFromVisitNPANotificationActivity")
                 || getIntent().hasExtra("isFromVisitNPARescheduleActivity")
-        || getIntent().hasExtra("isFromVisitNPANotAvailableActivity") || getIntent().hasExtra("isFromVisitNPAPaymentModeActivity")
+                || getIntent().hasExtra("isFromVisitNPANotAvailableActivity") || getIntent().hasExtra("isFromVisitNPAPaymentModeActivity")
 
-        ){
+        ) {
             binding.txtToolbarHeading.setText(getString(R.string.visit_complete));
         }
     }
@@ -68,13 +66,9 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
 
+        //get detailsList
+        detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
         setUpToolbarTitle();
-    }
-
-    private void callDetailsOfCustomerApi() {
-
-        String dataSetId = getIntent().getStringExtra("dataSetId");
-        detailsOfCustomerViewModel.getDetailsOfCustomer_Data(dataSetId); // call Details Of Customer API
     }
 
 
@@ -82,42 +76,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
-    }
-
-    private void initObserver() {
-
-        if (NetworkUtilities.getConnectivityStatus(this)) {
-
-            binding.loadingProgressBar.setVisibility(View.VISIBLE);
-
-            detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this, result -> {
-
-                if (result != null) {
-
-                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
-                    setUpDetailsOfCustomerRecyclerView();
-                    detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.addAll(result);
-                    binding.loadingProgressBar.setVisibility(View.INVISIBLE);
-
-
-                }
-            });
-
-            //handle  error response
-            detailsOfCustomerViewModel.getMutErrorResponse().observe(this, error -> {
-
-                if (error != null && !error.isEmpty()) {
-                    Global.showSnackBar(view, error);
-                    System.out.println("Here: " + error);
-                } else {
-                    Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
-                }
-            });
-        } else {
-            Global.showToast(this, getString(R.string.check_internet_connection));
-        }
-
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsList));
     }
 
 
@@ -130,7 +89,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             }
         });
 
-        binding.ivHome.setOnClickListener(v->{
+        binding.ivHome.setOnClickListener(v -> {
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
@@ -211,8 +170,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
     protected void onResume() {
         initializeFields();
         onClickListener();
-        initObserver();
-        callDetailsOfCustomerApi();
+        setUpDetailsOfCustomerRecyclerView();
         super.onResume();
     }
 }
