@@ -172,16 +172,18 @@ public class LoanCollectionActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
 
-        //Whenever List is Loaded Remove BalanceInterestResult from SharedPreferences
+        //Whenever List is Loaded Remove BalanceInterestResult,  Distance between User & Destination from SharedPreferences
         Global.removeStringInSharedPref(this,"BalanceInterestResult");
+        Global.removeStringInSharedPref(this,"formattedDistanceInKm");
         super.onResume();
     }
 
     @Override
     protected void onDestroy() {
 
-        //Whenever List is Loaded Remove BalanceInterestResult from SharedPreferences
+        //Whenever List is Loaded Remove BalanceInterestResult,  Distance between User & Destination from SharedPreferences
         Global.removeStringInSharedPref(this,"BalanceInterestResult");
+        Global.removeStringInSharedPref(this,"formattedDistanceInKm");
         super.onDestroy();
     }
 }
