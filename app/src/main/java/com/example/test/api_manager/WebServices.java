@@ -85,6 +85,25 @@ public class WebServices {
     public static String loan_collection_list_60Days = "transactionDataSet/getDpdQueueList?userId=CA_01_001&branchCode=001&queue=3739";
     public static String loan_collection_list_90Days = "transactionDataSet/getDpdQueueList?userId=CA_01_001&branchCode=001&queue=3740";
 
+
+    //for Call Details (Use Post Method)
+
+    //Below is the API for call submit. It is a post method.
+    //  http://43.239.52.151:8081/activity/submitcall?flow=<call flow as discussed>&dataSetId=<the records dataSetId>&callingAgent=<userId>
+   // in addition to this you need to send the call details in the request body
+
+    //FOR FULL AMOUNT PAID
+    public static String call_details_complete_no_change_full_amt_paid="activity/submitcall?flow=STTC-RTP-SLFOP-FAP-UR-P-CNC";
+    public static String call_details_complete_need_to_update_details_full_amt_paid="activity/submitcall?flow=STTC-RTP-SLFOP-FAP-UR-P-CNTUD";
+    public static String call_details_complete_escalate_to_bm_full_amt_paid="activity/submitcall?flow=STTC-RTP-SLFOP-FAP-UR-P-CETBM";
+
+    //FOR PARTIAL AMOUNT PAID
+    public static String call_details_complete_no_change_partial_amt_paid="activity/submitcall?flow=STTC-RTP-SLFOP-PAP-UR-P-CNC";
+    public static String call_details_complete_need_to_update_details_partial_amt_paid="activity/submitcall?flow=STTC-RTP-SLFOP-PAP-UR-P-CNTUD";
+    public static String call_details_complete_escalate_to_bm_partial_amt_paid="activity/submitcall?flow=STTC-RTP-SLFOP-PAP-UR-P-CETBM";
+
+
+
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 
