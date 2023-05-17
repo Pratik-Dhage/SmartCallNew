@@ -118,6 +118,8 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                         Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                         i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                         i.putExtra("detailsList", detailsList);
+                        i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
+                        i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
                         startActivity(i);
                     });
 
@@ -244,6 +246,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
+                i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
                 startActivity(i);
             });
 
@@ -286,6 +289,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
+                i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
                 startActivity(i);
             });
 
