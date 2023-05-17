@@ -26,51 +26,50 @@ public class LoanCollectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_loan_collection);
+        // setContentView(R.layout.activity_loan_collection);
 
         initializeFields();
         onClickListener();
 
         initObserver();
-        if(NetworkUtilities.getConnectivityStatus(this)){
-            int DPD_row_position = getIntent().getIntExtra("DPD_row_position",0);
+        if (NetworkUtilities.getConnectivityStatus(this)) {
+            int DPD_row_position = getIntent().getIntExtra("DPD_row_position", 0);
             call_LoanCollectionList_Api(DPD_row_position); // using row position from DPD Activity and pass in LoanCollectionViewModel
-        }
-        else{
-            Global.showToast(this,getString(R.string.check_internet_connection));
+        } else {
+            Global.showToast(this, getString(R.string.check_internet_connection));
         }
 
     }
 
     private void initializeFields() {
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_loan_collection);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_loan_collection);
         view = binding.getRoot();
         loanCollectionViewModel = new ViewModelProvider(this).get(LoanCollectionViewModel.class);
         binding.setViewModel(loanCollectionViewModel);
 
         //Whenever List is Loaded Remove BalanceInterestResult, Distance between User & Destination from SharedPreferences
-       Global.removeStringInSharedPref(this,"BalanceInterestResult");
+        Global.removeStringInSharedPref(this, "BalanceInterestResult");
 
-       Global.removeStringInSharedPref(this,"formattedDistanceInKm");
+        Global.removeStringInSharedPref(this, "formattedDistanceInKm");
 
         setToolbarTitle();
 
     }
 
-    private void setToolbarTitle(){
-        int DPD_row_position = getIntent().getIntExtra("DPD_row_position",0);
+    private void setToolbarTitle() {
+        int DPD_row_position = getIntent().getIntExtra("DPD_row_position", 0);
 
-        if(DPD_row_position==0){
+        if (DPD_row_position == 0) {
             binding.txtToolbarHeading.setText(getString(R.string.calling_1_30_dpd));
         }
-        if(DPD_row_position ==1){
+        if (DPD_row_position == 1) {
             binding.txtToolbarHeading.setText(getString(R.string.calling_31_60_dpd));
         }
-        if(DPD_row_position==2){
+        if (DPD_row_position == 2) {
             binding.txtToolbarHeading.setText(getString(R.string.calling_above_60_dpd));
         }
 
-        if(getIntent().hasExtra("isFromCallsForTheDay")){
+        if (getIntent().hasExtra("isFromCallsForTheDay")) {
             binding.txtToolbarHeading.setText(getResources().getString(R.string.calls_for_the_day));
         }
 
@@ -83,49 +82,47 @@ public class LoanCollectionActivity extends AppCompatActivity {
         detailsOfCustomerViewModel.dpd_row_position = DPD_row_position; // to call DetailsOfCustomer api according to position
     }
 
-    private void setUpLoanCollectionList_RecyclerView(){
+    private void setUpLoanCollectionList_RecyclerView() {
 
         loanCollectionViewModel.updateLoanCollectionData();
         RecyclerView recyclerView = binding.rvLoanCollection;
         recyclerView.setAdapter(new LoanCollectionAdapter(loanCollectionViewModel.arrList_LoanCollectionList));
     }
 
-    private void initObserver(){
+    private void initObserver() {
 
         binding.loadingProgressBar.setVisibility(View.VISIBLE);
 
-        if(NetworkUtilities.getConnectivityStatus(this)){
+        if (NetworkUtilities.getConnectivityStatus(this)) {
 
-        loanCollectionViewModel.getMutLoanCollectionList_ResponseApi().observe(this,result->{
+            loanCollectionViewModel.getMutLoanCollectionList_ResponseApi().observe(this, result -> {
 
 
-
-                if(result!=null){
+                if (result != null) {
 
                     loanCollectionViewModel.arrList_LoanCollectionList.clear();
-                     setUpLoanCollectionList_RecyclerView();
-                     loanCollectionViewModel.arrList_LoanCollectionList.addAll(result);
+                    setUpLoanCollectionList_RecyclerView();
+                    loanCollectionViewModel.arrList_LoanCollectionList.addAll(result);
                     binding.loadingProgressBar.setVisibility(View.GONE);
 
                 }
 
 
-        });
+            });
 
-        //handle  error response
-        loanCollectionViewModel.getMutErrorResponse().observe(this, error -> {
+            //handle  error response
+            loanCollectionViewModel.getMutErrorResponse().observe(this, error -> {
 
-            if (error != null && !error.isEmpty()) {
-                Global.showSnackBar(view, error);
-                System.out.println("Here: " + error);
-            } else {
-                Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
-            }
-        });
+                if (error != null && !error.isEmpty()) {
+                    Global.showSnackBar(view, error);
+                    System.out.println("Here: " + error);
+                } else {
+                    Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+                }
+            });
 
-        }
-            else{
-            Global.showToast(this,getString(R.string.check_internet_connection));
+        } else {
+            Global.showToast(this, getString(R.string.check_internet_connection));
         }
 
     }
@@ -173,8 +170,9 @@ public class LoanCollectionActivity extends AppCompatActivity {
     protected void onResume() {
 
         //Whenever List is Loaded Remove BalanceInterestResult,  Distance between User & Destination from SharedPreferences
-        Global.removeStringInSharedPref(this,"BalanceInterestResult");
-        Global.removeStringInSharedPref(this,"formattedDistanceInKm");
+        Global.removeStringInSharedPref(this, "BalanceInterestResult");
+        Global.removeStringInSharedPref(this, "formattedDistanceInKm");
+        setUpLoanCollectionList_RecyclerView(); // acts as refresh to show correct Attempt No.
         super.onResume();
     }
 
@@ -182,8 +180,8 @@ public class LoanCollectionActivity extends AppCompatActivity {
     protected void onDestroy() {
 
         //Whenever List is Loaded Remove BalanceInterestResult,  Distance between User & Destination from SharedPreferences
-        Global.removeStringInSharedPref(this,"BalanceInterestResult");
-        Global.removeStringInSharedPref(this,"formattedDistanceInKm");
+        Global.removeStringInSharedPref(this, "BalanceInterestResult");
+        Global.removeStringInSharedPref(this, "formattedDistanceInKm");
         super.onDestroy();
     }
 }

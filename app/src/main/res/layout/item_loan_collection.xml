@@ -60,6 +60,7 @@
             tools:text="Siddapur" />
 
         <TextView
+            android:id="@+id/labelAttemptNumber"
             style="@style/common_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -108,17 +109,15 @@
             app:tint="@color/red" />
 
 
-        <TextView
-            android:id="@+id/txtAttemptNo"
-            style="@style/common_text_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:textStyle="normal"
-            android:visibility="visible"
+        <ImageView
+            android:id="@+id/ivLoanCollectionAttempt"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="@id/txtDistance"
-            app:layout_constraintTop_toBottomOf="@id/txtDistance"
-            tools:text="0" />
+           app:layout_constraintTop_toTopOf="@id/labelAttemptNumber"
+            app:layout_constraintBottom_toBottomOf="@id/labelAttemptNumber"
+            tools:src="@drawable/hand" />
 
         <View
             android:id="@+id/view"
