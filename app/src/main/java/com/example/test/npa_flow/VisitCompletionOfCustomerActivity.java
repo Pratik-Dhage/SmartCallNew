@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.call_details.CallDetailsViewModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
@@ -37,6 +39,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
     View view;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
+    CallDetailsViewModel callDetailsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,9 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
+
+        callDetailsViewModel = new ViewModelProvider(this).get(CallDetailsViewModel.class);
+
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
@@ -95,17 +101,162 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
         binding.btnCompleteNoChange.setOnClickListener(v -> {
 
-            Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
-            startActivity(i);
+            // Call Details Flow
+            if(binding.txtToolbarHeading.getText()==getString(R.string.call_complete)){
+
+                if(NetworkUtilities.getConnectivityStatus(this)){
+
+
+                    if(getIntent().hasExtra("from_payment_status_partial_amt_paid")){
+
+                        //Call Call Details API for Partial Amount Paid
+                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                        String from_payment_status_partial_amt_paid = getIntent().getStringExtra("from_payment_status_partial_amt_paid");
+                        String complete_no_change = "complete_no_change";
+
+                        try{
+                            callDetailsViewModel.postCallDetails(dataSetId,from_payment_status_partial_amt_paid,complete_no_change);
+                        }catch(Exception e){
+                            Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
+                        }
+
+                        Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
+                        startActivity(i);
+                    }
+
+                    if(getIntent().hasExtra("from_payment_status_full_amt_paid")){
+
+                        //Call Call Details API for Full Amount Paid
+                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                        String from_payment_status_full_amt_paid = getIntent().getStringExtra("from_payment_status_full_amt_paid");
+                        String complete_no_change = "complete_no_change";
+
+                        try{
+                            callDetailsViewModel.postCallDetails(dataSetId,from_payment_status_full_amt_paid,complete_no_change);
+                        }catch(Exception e){
+                            Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
+                        }
+
+                    }
+
+                    Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
+                    startActivity(i);
+
+                }
+                else{
+
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+
+            }
+
+
+
+
         });
 
         binding.btnCompleteNeedToUpdateDetails.setOnClickListener(v -> {
-            binding.btnCompleteNoChange.performClick();
+
+            // Call Details Flow
+            if(binding.txtToolbarHeading.getText()==getString(R.string.call_complete)){
+
+                if(NetworkUtilities.getConnectivityStatus(this)){
+
+                    //Call Call Details API
+                    if(getIntent().hasExtra("from_payment_status_partial_amt_paid")){
+
+                        //Call Call Details API for Partial Amount Paid
+                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                        String from_payment_status_partial_amt_paid = getIntent().getStringExtra("from_payment_status_partial_amt_paid");
+                        String complete_need_to_update_details = "complete_need_to_update_details";
+
+                        try{
+                            callDetailsViewModel.postCallDetails(dataSetId,from_payment_status_partial_amt_paid,complete_need_to_update_details);
+                        }catch(Exception e){
+                            Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
+                        }
+
+                        Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
+                        startActivity(i);
+                    }
+
+                    if(getIntent().hasExtra("from_payment_status_full_amt_paid")){
+
+                        //Call Call Details API for Full Amount Paid
+                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                        String from_payment_status_full_amt_paid = getIntent().getStringExtra("from_payment_status_full_amt_paid");
+                        String complete_need_to_update_details = "complete_need_to_update_details";
+
+                        try{
+                            callDetailsViewModel.postCallDetails(dataSetId,from_payment_status_full_amt_paid,complete_need_to_update_details);
+                        }catch(Exception e){
+                            Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
+                        }
+
+                    }
+
+                    Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
+                    startActivity(i);
+                }
+                else{
+
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+
+            }
+
         });
 
 
         binding.btnCompleteEscalateToBM.setOnClickListener(v -> {
-            binding.btnCompleteNoChange.performClick();
+
+            // Call Details Flow
+            if(binding.txtToolbarHeading.getText()==getString(R.string.call_complete)){
+
+                if(NetworkUtilities.getConnectivityStatus(this)){
+
+                    //Call Call Details API
+                    if(getIntent().hasExtra("from_payment_status_partial_amt_paid")){
+
+                        //Call Call Details API for Partial Amount Paid
+                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                        String from_payment_status_partial_amt_paid = getIntent().getStringExtra("from_payment_status_partial_amt_paid");
+                        String complete_escalate_to_bm = "complete_escalate_to_bm";
+
+                        try{
+                            callDetailsViewModel.postCallDetails(dataSetId,from_payment_status_partial_amt_paid,complete_escalate_to_bm);
+                        }catch(Exception e){
+                            Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
+                        }
+
+                        Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
+                        startActivity(i);
+                    }
+
+                    if(getIntent().hasExtra("from_payment_status_full_amt_paid")){
+
+                        //Call Call Details API for Full Amount Paid
+                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                        String from_payment_status_full_amt_paid = getIntent().getStringExtra("from_payment_status_full_amt_paid");
+                        String complete_escalate_to_bm = "complete_escalate_to_bm";
+
+                        try{
+                            callDetailsViewModel.postCallDetails(dataSetId,from_payment_status_full_amt_paid,complete_escalate_to_bm);
+                        }catch(Exception e){
+                            Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
+                        }
+
+                    }
+
+                    Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
+                    startActivity(i);
+                }
+                else{
+
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+
+            }
         });
 
 

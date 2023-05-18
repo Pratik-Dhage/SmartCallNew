@@ -5,6 +5,7 @@ import com.example.test.lead.model.LeadListResponseModel;
 import com.example.test.lead.model.LeadModel;
 import com.example.test.login.model.LoginResponseModel;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
+import com.example.test.npa_flow.call_details.CallDetails;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
@@ -24,7 +25,7 @@ import retrofit2.http.Url;
 public interface RestClient {
 
 
-     //LeadList
+    //LeadList
     @GET
     Observable<List<LeadModel>> getLeadList(@Url String url);
 
@@ -33,22 +34,33 @@ public interface RestClient {
             @Body UserModel userModel
     );
 
-   //DashBoard
+    //DashBoard
     //Only @POST request can have request @BODY
- @POST("dashboard/getDashBoardForUser?")//@POST
- Observable<List<DashBoardResponseModel>> getDashBoardData(
-         @Body UserModel userModel
- );
+    @POST("dashboard/getDashBoardForUser?")
+//@POST
+    Observable<List<DashBoardResponseModel>> getDashBoardData(
+            @Body UserModel userModel
+    );
 
- //DPD Queue
- @GET
+    //for Call Details
+ /*@POST
+ Observable<List<CallDetails>> post_call_details(@Url String url,
+   @Body List<CallDetails> callDetails
+ );*/
+    //for Call Details
+    @POST
+    Observable<String> post_call_details(@Url String url, @Body List<CallDetails> callDetails);
+
+
+    //DPD Queue
+    @GET
     Observable<List<DPD_ResponseModel>> getDPD_QueueList(@Url String url);
 
- //LoanCollectionList
- @GET
+    //LoanCollectionList
+    @GET
     Observable<List<LoanCollectionListResponseModel>> getLoanCollectionList(@Url String url);
 
- //Details of Customer
+    //Details of Customer
     @GET
     Observable<List<DetailsOfCustomerResponseModel>> getDetailsOfCustomerList(@Url String url);
 

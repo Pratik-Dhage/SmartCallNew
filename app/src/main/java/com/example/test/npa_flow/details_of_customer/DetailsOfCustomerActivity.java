@@ -1,21 +1,37 @@
 package com.example.test.npa_flow.details_of_customer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CallLog;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.test.R;
+import com.example.test.broadcast_receiver.MyBroadCastReceiverClass;
+import com.example.test.call_status.CallStatusActivity;
 import com.example.test.databinding.ActivityDetailsOfCustomer2Binding;
 import com.example.test.databinding.ActivityDetailsOfCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
@@ -26,20 +42,42 @@ import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.CallDetailOfCustomerActivity;
 import com.example.test.npa_flow.NearByCustomersActivity;
 import com.example.test.npa_flow.WebViewActivity;
+import com.example.test.npa_flow.call_details.CallDetails;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
+import com.example.test.roomDB.dao.LeadCallDao;
+import com.example.test.roomDB.database.LeadListDB;
+import com.example.test.roomDB.model.LeadCallModelRoom;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class DetailsOfCustomerActivity extends AppCompatActivity {
 
     ActivityDetailsOfCustomer2Binding binding;
     View view;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
+    public static String FullName; //for storing call attempts
+    public static String Mobile_Number; //for calling purpose
+    int REQUEST_CALL = 1; // can use any integer value
+
+    //To Send to Backend Using Post Method
+    public static String send_callDateTime;
+    public static String send_callDuration;
+    public static String send_callRecording;
+    public static byte[] send_callRecordingInByteArray;
+    public static String send_callNotes;
+    public static int send_callAttemptNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,48 +86,105 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
         initializeFields();
         onClickListener();
-       //  getDetailsOfCustomerDataFromApi(); // will act as initObserver
+        //  getDetailsOfCustomerDataFromApi(); // will act as initObserver
 
         initObserver();
-        if(NetworkUtilities.getConnectivityStatus(this)){
+        if (NetworkUtilities.getConnectivityStatus(this)) {
             callDetailsOfCustomerApi();
-        }
-        else{
-            Global.showToast(this,getString(R.string.check_internet_connection));
+        } else {
+            Global.showToast(this, getString(R.string.check_internet_connection));
         }
 
-
+        sendCallLogDetailsList();
     }
 
-    private void callDetailsOfCustomerApi(){
+
+    public static  List<CallDetails> sendCallLogDetailsList() {
+        String pattern = "dd-MM-yyyy HH:mm:ss"; // Pattern to match the date format
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+
+        List<CallDetails> callDetailsList = new ArrayList<>(); //List to hold CallDetails Object
+        CallDetails callDetails = new CallDetails();    //CallDetails Object
+
+        if (send_callDateTime != null) {
+            try {
+                Date date = dateFormat.parse(send_callDateTime);
+
+                   //CallDetails Object
+                callDetails.setCallDateTime(date);
+
+            } catch (ParseException e) {
+                Log.d("Here Date Parse Exception", e.getLocalizedMessage());
+                e.printStackTrace();
+            }
+        }
+
+        if (send_callDuration != null) {
+            callDetails.setCallDuration(Integer.parseInt(send_callDuration));
+        }
+
+        if (send_callRecording != null) {
+            callDetails.setCallRecording(send_callRecordingInByteArray);
+        }
+
+        if(send_callNotes!=null){
+            callDetails.setNotes(send_callNotes);
+        }
+
+        if(String.valueOf(send_callAttemptNo)!=null){
+            callDetails.setAttemptNo(send_callAttemptNo);
+        }
+
+        return callDetailsList;
+    }
+
+    private void callDetailsOfCustomerApi() {
 
         String dataSetId = getIntent().getStringExtra("dataSetId");
         detailsOfCustomerViewModel.getDetailsOfCustomer_Data(dataSetId); // call Details Of Customer API
     }
 
-    private void initObserver(){
+    private void initObserver() {
 
-        if(NetworkUtilities.getConnectivityStatus(this)){
+        if (NetworkUtilities.getConnectivityStatus(this)) {
 
             binding.loadingProgressBar.setVisibility(View.VISIBLE);
 
-            detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this,result->{
+            detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this, result -> {
 
-                if(result!=null) {
+                if (result != null) {
 
                     //for Hiding Amount Paid ONLY in Details Of Customer Activity
-                    result.iterator().forEachRemaining(it->{
-                        if( it.getLable().contentEquals("Amount Paid")){
-                             it.setLable("");
+                    result.iterator().forEachRemaining(it -> {
+                        if (it.getLable().contentEquals("Amount Paid")) {
+                            it.setLable("");
                             it.setEditable("");
                         }
+                    });
+
+                    //Get Name and Mobile Number for Calling Purpose and Storing Call Attempts
+                    result.iterator().forEachRemaining(it -> {
+                        String lowercase_label = String.valueOf(it.getLable()).toLowerCase(); //make labels lowercase
+
+                        if (lowercase_label.contains("name")) {
+                            FullName = String.valueOf(it.getValue()); //store name
+                            Global.saveStringInSharedPref(this,"FullName",FullName); //save in SharedPreference fro checking Call Attempt No.
+                        }
+
+                        if (lowercase_label.contains("mobile") || lowercase_label.contains("phone")) {
+
+                            //test purpose as Mobile number from back end is Long/Double
+                            DecimalFormat decimalFormat = new DecimalFormat("#");
+                            String mobile_number = decimalFormat.format(it.getValue());
+                            Mobile_Number = String.valueOf(mobile_number); //store mobile_no
+                        }
+
                     });
 
                     detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
                     setUpDetailsOfCustomerRecyclerView();
                     detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.addAll(result);
                     binding.loadingProgressBar.setVisibility(View.INVISIBLE);
-
 
 
                 }
@@ -105,26 +200,25 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                     Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
                 }
             });
-        }
-        else{
-            Global.showToast(this,getString(R.string.check_internet_connection));
+        } else {
+            Global.showToast(this, getString(R.string.check_internet_connection));
         }
 
     }
 
-    private void getDetailsOfCustomerDataFromApi(){
-        if(getIntent().hasExtra("dataSetId")){
+    private void getDetailsOfCustomerDataFromApi() {
+        if (getIntent().hasExtra("dataSetId")) {
 
             String dataSetId = getIntent().getStringExtra("dataSetId");
 
-            if(NetworkUtilities.getConnectivityStatus(this)){
+            if (NetworkUtilities.getConnectivityStatus(this)) {
 
                 binding.loadingProgressBar.setVisibility(View.VISIBLE);
                 detailsOfCustomerViewModel.getDetailsOfCustomer_Data(dataSetId); // call Details Of Customer API
 
-                detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this,result->{
+                detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this, result -> {
 
-                    if(result!=null){
+                    if (result != null) {
 
                         binding.loadingProgressBar.setVisibility(View.INVISIBLE);
 
@@ -198,14 +292,12 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                     }
                 });
 
-            }
-            else{
-                Global.showToast(this,getString(R.string.check_internet_connection));
+            } else {
+                Global.showToast(this, getString(R.string.check_internet_connection));
             }
 
-        }
-        else{
-            Global.showToast(this,getString(R.string.details_not_found));
+        } else {
+            Global.showToast(this, getString(R.string.details_not_found));
         }
     }
 
@@ -216,11 +308,11 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
 
-        Global.removeStringInSharedPref(this,"Amount_Paid"); // remove Amount Paid from SharePreferences for next activities to have New value
+        Global.removeStringInSharedPref(this, "Amount_Paid"); // remove Amount Paid from SharePreferences for next activities to have New value
 
     }
 
-    private void setUpDetailsOfCustomerRecyclerView(){
+    private void setUpDetailsOfCustomerRecyclerView() {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
@@ -228,7 +320,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
     }
 
 
-    private void onClickListener(){
+    private void onClickListener() {
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,23 +328,64 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             }
         });
 
-        binding.ivHome.setOnClickListener(v->{
+        binding.ivHome.setOnClickListener(v -> {
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
-        binding.ivCall.setOnClickListener(v->{
-            Intent i = new Intent(this,CallDetailOfCustomerActivity.class);
-            i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
-            startActivity(i);
+        binding.ivCall.setOnClickListener(v -> {
+
+            //make an actual call
+            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED ||
+                    ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED ||
+                    ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
+
+            ) {
+                // Permission is not granted, request the permission
+                ActivityCompat.requestPermissions(this, new String[]{
+                        Manifest.permission.CALL_PHONE,
+                        Manifest.permission.READ_CALL_LOG,
+                        Manifest.permission.RECORD_AUDIO}, REQUEST_CALL);
+            } else {
+                // Permission has already been granted, make the call
+                String phoneNumber = Mobile_Number; //use mobile number fetched from result(API Response)
+                Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+              //  Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+                startActivity(dial);
+
+                //Store Call Count in RoomDB
+                storeCallCountInRoomDB(FullName, Mobile_Number);
+
+                try {
+
+                   /* // Register the broadcast receiver in your activity or service
+                    MyBroadCastReceiverClass receiver = new MyBroadCastReceiverClass();
+                    IntentFilter filter = new IntentFilter(Intent.ACTION_NEW_OUTGOING_CALL);
+                    registerReceiver(receiver, filter);*/
+
+                   getCallRecordingAndCallLogs();
+
+                   //   getCallRecordingAndCallLogs();
+                } catch (Exception e) {
+                    Global.showSnackBar(view, "Call Error" + e);
+                    System.out.println("Here Call Error:" + e);
+                }
+
+                // While Call is going , Move the User to Next Activity
+                Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
+                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                startActivity(i);
+
+            }
+
         });
 
 
         //for Notes
-        binding.ivNotesIcon.setOnClickListener(v->{
+        binding.ivNotesIcon.setOnClickListener(v -> {
 
             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
             EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
             customEditBox.setVisibility(View.VISIBLE);
@@ -263,6 +396,8 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             builder.setView(customDialog);
             final AlertDialog dialog = builder.create();
             dialog.show();
+
+          send_callNotes = customEditBox.getText().toString();
 
             customButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -275,11 +410,11 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
 
         //for History
-        binding.ivHistory.setOnClickListener(v->{
+        binding.ivHistory.setOnClickListener(v -> {
 
             View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
 
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
             Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
             TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
             txtCustom.setVisibility(View.VISIBLE);
@@ -300,11 +435,218 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             });
 
 
-
         });
 
 
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CALL) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted, make the call
+                String phoneNumber = Mobile_Number; //use mobile number fetched from result(API Response)
+                Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+                startActivity(dial);
+
+                try {
+
+                    // Register the broadcast receiver in your activity or service
+                    /*MyBroadCastReceiverClass receiver = new MyBroadCastReceiverClass();
+                    IntentFilter filter = new IntentFilter(Intent.ACTION_NEW_OUTGOING_CALL);
+                    registerReceiver(receiver, filter);
+*/
+                    getCallRecordingAndCallLogs();
+
+                    //Store Call Count in RoomDB
+                    storeCallCountInRoomDB(FullName, Mobile_Number);
+
+                } catch (Exception e) {
+                    System.out.println("Here Error:" + e);
+                    Global.showSnackBar(view, "Call Error" + e);
+                }
+
+
+                // While Call is going , Move the User to Next Activity
+                Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
+                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                startActivity(i);
+
+            } else {
+                // Permission is denied, show a message
+                Global.showSnackBar(view, getResources().getString(R.string.permission_to_call_denied));
+            }
+        }
+    }
+
+
+    private void storeCallCountInRoomDB(String firstName, String phoneNumber) {
+
+        LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
+        int callCount = leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
+        callCount++; //callCount+1
+        LeadCallModelRoom leadCallModelRoom = new LeadCallModelRoom(callCount, firstName, phoneNumber);
+
+        leadCallDao.insert(leadCallModelRoom);
+        //  if Call Count >2 then make it to zero
+
+        if (callCount > 2) {
+            callCount = 0;
+        }
+
+        leadCallDao.UpdateLeadCalls(callCount, phoneNumber);
+
+        Global.showToast(this, "Call Count for " + phoneNumber + " is: " + leadCallDao.getCallCountUsingPhoneNumber(phoneNumber));
+        System.out.println("Here Call Count for " + phoneNumber + " is: " + leadCallDao.getCallCountUsingPhoneNumber(phoneNumber));
+
+        send_callAttemptNo = callCount;
+    }
+
+
+    public void getCallRecordingAndCallLogs() throws IOException {
+
+        //for Call Recoding in Internal Storage (here Filename is call_recording.mp3) (Convert to Byte Array and Send to Server)
+        String filePath = getFilesDir().getAbsolutePath() + "/call_recording.mp3";
+
+        //fro Call Recording in External Storage
+        //  String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/call_recording.mp3";
+
+        //to get Call Recording
+    final  MediaRecorder recorder = new MediaRecorder();
+       // recorder.setAudioSource(MediaRecorder.AudioSource.VOICE_CALL);
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        recorder.setOutputFile(filePath);
+
+        recorder.prepare();
+        recorder.start();
+
+
+        PhoneStateListener phoneStateListener = new PhoneStateListener() {
+            @Override
+            public void onCallStateChanged(int state, String incomingNumber) {
+                super.onCallStateChanged(state, incomingNumber);
+                switch (state) {
+                    case TelephonyManager.CALL_STATE_IDLE:
+                        // The call has ended
+                        getCallLogs();
+                     //   retrieveCallLog();
+                        // Stop recording after the call has ended
+                        try {
+                       // recorder.stop(); //getting Exception for stop (Media Recorder not able to stop so using pause())
+                            recorder.pause();
+                        recorder.reset();
+                        //recorder.release();
+
+                            byte[] bytes_array = convertFileToByteArray(filePath); // convert Audio to Byte Array and Send to Server
+                           System.out.println("Here byte_array:" + Arrays.toString(bytes_array)); ;
+                            send_callRecording = Arrays.toString(bytes_array);
+                            send_callRecordingInByteArray = bytes_array;
+
+                           Log.d("Here byte_array to String:", bytes_array.toString()) ;
+                        } catch (Exception e) {
+                            Log.d("Here Call Recording Exception:", e.getLocalizedMessage());
+                            e.printStackTrace();
+                        }
+                        finally {
+                            // Release the MediaRecorder
+                            recorder.release();
+
+                        }
+
+                        break;
+                }
+            }
+        };
+
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+
+    }
+
+    private void getCallLogs() {
+
+        ContentResolver cr = getBaseContext().getContentResolver();
+        Cursor c = cr.query(CallLog.Calls.CONTENT_URI, null, null, null, null);
+
+        int totalCall;
+        String phNumber, callDate, callDuration, callDayTimes;
+        Date dateFormat;
+
+        if (c != null) {
+            totalCall = 1; // integer call log limit
+
+            if (c.moveToLast()) { //starts pulling logs from last - you can use moveToFirst() for first logs , moveToLast() for last logs
+                for (int j = 0; j < totalCall; j++) {
+
+
+                    // phNumber = c.getString(c.getColumnIndexOrThrow(CallLog.Calls.NUMBER));
+                    //phNumber = getIntent().getStringExtra("phoneNumber"); // for getting current phoneNumber
+                    phNumber = Mobile_Number; //Customer/Member Mobile Number
+                    callDate = c.getString(c.getColumnIndexOrThrow(CallLog.Calls.DATE));
+                    callDuration = c.getString(c.getColumnIndexOrThrow(CallLog.Calls.DURATION));
+                    dateFormat = new Date(Long.valueOf(callDate));
+                    callDayTimes = String.valueOf(dateFormat);
+
+                    String direction = null;
+                    switch (Integer.parseInt(c.getString(c.getColumnIndexOrThrow(CallLog.Calls.TYPE)))) {
+                        case CallLog.Calls.OUTGOING_TYPE:
+                            direction = "OUTGOING";
+                            break;
+                        case CallLog.Calls.INCOMING_TYPE:
+                            direction = "INCOMING";
+                            break;
+                        case CallLog.Calls.MISSED_TYPE:
+                            direction = "MISSED";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    c.moveToPrevious(); // if you used moveToFirst() for first logs, you should this line to moveToNext
+
+
+                    Toast.makeText(getBaseContext(), phNumber + callDuration + callDayTimes + direction, Toast.LENGTH_LONG).show(); // you can use strings in this line
+                    System.out.println("CallLog: Phone Number" + phNumber + "\nDuration" + callDuration + "\nDate_n_Time" + callDayTimes + "\nType" + direction);
+
+               // To send to backend
+                    send_callDateTime = callDayTimes;
+                    send_callDuration = callDuration;
+
+
+                }
+
+
+            }
+            c.close();
+
+
+        }
+    }
+
+
+
+
+
+    // for Converting Audio(Call Recording(.mp3 format) to Byte Array)
+    public byte[] convertFileToByteArray(String path) throws IOException {
+
+        FileInputStream fis = new FileInputStream(path);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] b = new byte[1024];
+
+        for (int readNum; (readNum = fis.read(b)) != -1; ) {
+            bos.write(b, 0, readNum);
+        }
+
+        byte[] bytesArray = bos.toByteArray();
+
+        return bytesArray;
+    }
+
 
     // For Getting Calculated Balance Interest Result back from SharedPreference
     @Override
@@ -316,138 +658,5 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         super.onResume();
     }
 
-  /*
-    private void onClickListener() {
-
-        binding.ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
-        binding.ivCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-              //  sendDetailsOfCustomer();
-
-            }
-        });
-
-        // NearBy == Capture Button
-        binding.btnNearBy.setOnClickListener(v->{
-            Intent i = new Intent(this, WebViewActivity.class);
-            startActivity(i);
-        });
-
-        binding.btnCalculate.setOnClickListener(v->{
-            Intent i = new Intent(this, BalanceInterestCalculationActivity.class);
-            startActivity(i);
-        });
-
-
-        //for Editing Time
-        binding.ivEditTime.setOnClickListener(v->{
-
-            View customDialog2 = LayoutInflater.from(this).inflate(R.layout.custom_dialog_timepicker, null);
-            Button customButton = customDialog2.findViewById(R.id.btnOK);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialog2);
-            final AlertDialog dialog = builder.create();
-            dialog.setCancelable(false);
-            dialog.show();
-
-            //on Clicking OK button
-            customButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    // get a reference to the TimePicker
-                    TimePicker timePicker = customDialog2.findViewById(R.id.customDialogTimePicker);
-
-                // get the selected hour and minute
-                    int hour = timePicker.getHour();
-                    int minute = timePicker.getMinute();
-
-              // create a Date object with the selected time
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, hour);
-                    calendar.set(Calendar.MINUTE, minute);
-                    Date selectedTime = calendar.getTime();
-
-             // create a SimpleDateFormat object with the desired format string
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-
-               // format the time and store it in a string
-                    String formattedTime = dateFormat.format(selectedTime);
-
-                  // display the selected time
-                       binding.txtScheduledTime.setText(":"+formattedTime);
-
-                    dialog.dismiss();
-                }
-            });
-
-        });
-
-        //for Notes
-       binding.ivNotesIcon.setOnClickListener(v->{
-
-           View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
-
-         TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
-         Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
-           EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
-           customEditBox.setVisibility(View.VISIBLE);
-
-         customText.setText(getResources().getString(R.string.lead_interaction));
-
-           AlertDialog.Builder builder = new AlertDialog.Builder(this);
-           builder.setView(customDialog);
-           final AlertDialog dialog = builder.create();
-           dialog.show();
-
-           customButton.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   dialog.dismiss();
-               }
-           });
-
-       });
-
-       //for History
-        binding.ivHistory.setOnClickListener(v->{
-
-            View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
-
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
-            Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
-            TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
-             txtCustom.setVisibility(View.VISIBLE);
-
-            customText.setText(getResources().getString(R.string.lead_history));
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialog);
-            final AlertDialog dialog = builder.create();
-            dialog.show();
-
-            customButton.setText(R.string.close);
-            customButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-
-
-
-        });
-
-    }
-*/
 
 }
