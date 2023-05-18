@@ -3,7 +3,9 @@ package com.example.test.npa_flow.loan_collection.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -14,15 +16,19 @@ import com.example.test.R;
 import com.example.test.databinding.ItemDpdBinding;
 import com.example.test.databinding.ItemLoanCollectionBinding;
 import com.example.test.helper_classes.Global;
+import com.example.test.lead.adapter.LeadListAdapter;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
+import com.example.test.roomDB.dao.LeadCallDao;
+import com.example.test.roomDB.database.LeadListDB;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAdapter.MyViewHolderClass> {
 
@@ -73,17 +79,74 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
         holder.itemView.setOnClickListener(v->{
 
+            //on Item Click save Name of Member
+          Global.saveStringInSharedPref(context,"FullNameFromAdapter",String.valueOf(a.getMemberName()));
+
             String dataSetId = a.getDataSetId().toString();
             Intent i = new Intent(context, DetailsOfCustomerActivity.class);
             i.putExtra("dataSetId",dataSetId);
             context.startActivity(i);
+
         });
+
+
+        //for setting Call Attempts ImageView to Selected Item(Member) for Calling
+        LeadCallDao leadCallDao = LeadListDB.getInstance(context).leadCallDao();
+
+        // get mobile Number and Name from DetailsOfCustomerActivity
+        if(DetailsOfCustomerActivity.Mobile_Number!=null ){
+
+            String phoneNumber=DetailsOfCustomerActivity.Mobile_Number; // get Phone Number from DetailsOfCustomerActivity
+            String first_Name = DetailsOfCustomerActivity.FullName;
+
+            if(leadCallDao.getCallCountUsingPhoneNumber(phoneNumber)>2){
+                leadCallDao.UpdateLeadCalls(0,phoneNumber); // if leadCallCount >2 make it back to zero
+            }
+
+         //   int callCount =  leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
+            int callCount =  leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
+
+            // match Name coming from api list  and name stored in SharedPreferences in this Adapter on ItemView Click
+               String FullNameFromAdapter = Global.getStringFromSharedPref(context,"FullNameFromAdapter");
+
+            if(FullNameFromAdapter.contains(String.valueOf(a.getMemberName()))){
+
+
+                switch (callCount){
+
+                    case 0:  holder.binding.ivLoanCollectionAttempt.setVisibility(View.INVISIBLE);
+                        break;
+                    case 1:holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attempttwo);
+                        break;
+                    case 2 : holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptthree);
+                        break;
+
+                }
+            }
+
+
+
+
+        }
     }
 
     @Override
     public int getItemCount() {
         return loanCollectionListResponseModelArrayList.size();
     }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull MyViewHolderClass holder) {
+        super.onViewAttachedToWindow(holder);
+        holder.setIsRecyclable(true);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.setIsRecyclable(false); // to prevent ImageView from being disappeared when scrolled upwards
+    }
+
 
     @SuppressLint("NotifyDataSetChanged")
     public ArrayList setData(ArrayList<LoanCollectionListResponseModel> data)  {
