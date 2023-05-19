@@ -49,6 +49,8 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
         initializeFields();
         setUpDetailsOfCustomerRecyclerView();
         onClickListener();
+
+       initObserver();
     }
 
     private void setUpToolbarTitle() {
@@ -86,6 +88,35 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
     }
 
 
+    private void initObserver(){
+
+        if(NetworkUtilities.getConnectivityStatus(this)) {
+            callDetailsViewModel.getMutCallDetailsResponseApi().observe(this, result -> {
+
+                    if(result!=null){
+                        Global.showToast(this,"Server Response:"+result);
+                    }
+                    if(result==null){
+                        Global.showToast(this,"Server Response: Null");
+                    }
+
+            });
+
+            //to handle error
+            callDetailsViewModel.getMutErrorResponse().observe(this,error->{
+                if (error != null && !error.isEmpty()) {
+                    Global.showSnackBar(view, error);
+                    System.out.println("Here error : " + error);
+                    //Here error : End of input at line 1 column 1 path $ (if Server response body is empty, we get this error)
+                }
+            });
+
+        }
+        else{
+            Global.showSnackBar(view,getString(R.string.check_internet_connection));
+        }
+    }
+
     private void onClickListener() {
 
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
@@ -120,8 +151,8 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                             Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                         }
 
-                        Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
-                        startActivity(i);
+                      /*  Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
+                        startActivity(i);*/
                     }
 
                     if(getIntent().hasExtra("from_payment_status_full_amt_paid")){
@@ -139,8 +170,8 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
                     }
 
-                    Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
-                    startActivity(i);
+                   /* Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
+                    startActivity(i);*/
 
                 }
                 else{
@@ -176,8 +207,8 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                             Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                         }
 
-                        Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
-                        startActivity(i);
+                       /* Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
+                        startActivity(i);*/
                     }
 
                     if(getIntent().hasExtra("from_payment_status_full_amt_paid")){
@@ -195,8 +226,8 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
                     }
 
-                    Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
-                    startActivity(i);
+                   /* Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
+                    startActivity(i);*/
                 }
                 else{
 
@@ -229,8 +260,8 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                             Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                         }
 
-                        Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
-                        startActivity(i);
+                        /*Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
+                        startActivity(i);*/
                     }
 
                     if(getIntent().hasExtra("from_payment_status_full_amt_paid")){
@@ -248,8 +279,8 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
                     }
 
-                    Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
-                    startActivity(i);
+                   /* Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
+                    startActivity(i);*/
                 }
                 else{
 
