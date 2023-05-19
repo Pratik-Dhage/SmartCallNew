@@ -56,13 +56,27 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
     public void onBindViewHolder(@NonNull MyViewHolderClass holder, int position) {
 
 
-        LoanCollectionListResponseModel a = (LoanCollectionListResponseModel) loanCollectionListResponseModelArrayList.get(position);
+        LoanCollectionListResponseModel a = loanCollectionListResponseModelArrayList.get(position);
         Context context = holder.itemView.getContext();
 
-        holder.binding.txtName.setText(a.getMemberName());
-        holder.binding.txtLocation.setText(a.getLocation());
-        holder.binding.txtDistance.setText(a.getDistance().toString());
+        if(a.getMemberName()!=null){
+            holder.binding.txtName.setText(a.getMemberName());
+        }
+
+        if(a.getLocation()!=null){
+            holder.binding.txtLocation.setText(a.getLocation());
+        }
+
+        if(String.valueOf(a.getDistance())!=null){
+            holder.binding.txtDistance.setText(String.valueOf(a.getDistance()));
+        }
+
+        if(a.getActionStatus()!=null){
+            holder.binding.txtStatus.setText(a.getActionStatus());
+        }
+
 //        holder.binding.txtScheduledTime.setText(a.getScheduleDateTime().toString()); //Note: in API Response Scheduled Time is null
+
 
         //opens Google Maps
         holder.binding.ivMap.setOnClickListener(v->{
@@ -77,15 +91,19 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
             context.startActivity(googleMapsIntent);
         });
 
+
         holder.itemView.setOnClickListener(v->{
 
-            //on Item Click save Name of Member
-          Global.saveStringInSharedPref(context,"FullNameFromAdapter",String.valueOf(a.getMemberName()));
+            if(a.getActionStatus().contains("Pending")){
 
-            String dataSetId = a.getDataSetId().toString();
-            Intent i = new Intent(context, DetailsOfCustomerActivity.class);
-            i.putExtra("dataSetId",dataSetId);
-            context.startActivity(i);
+                //on Item Click save Name of Member
+                Global.saveStringInSharedPref(context,"FullNameFromAdapter",String.valueOf(a.getMemberName()));
+
+                String dataSetId = a.getDataSetId().toString();
+                Intent i = new Intent(context, DetailsOfCustomerActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                context.startActivity(i);
+            }
 
         });
 

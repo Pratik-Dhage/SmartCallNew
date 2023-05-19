@@ -11,31 +11,17 @@ public class LoanCollectionListResponseModel implements Serializable {
 
   private BigDecimal distance;
 
+  private String actionStatus;
+
   private Object scheduleDateTime;
+
+  private BigDecimal lattitute;
 
   private String memberName;
 
   private String location;
 
-  private Double lattitute;
-
-  private Double longitute;
-
-  public Double getLattitute() {
-    return lattitute;
-  }
-
-  public void setLattitute(Double lattitute) {
-    this.lattitute = lattitute;
-  }
-
-  public Double getLongitute() {
-    return longitute;
-  }
-
-  public void setLongitute(Double longitute) {
-    this.longitute = longitute;
-  }
+  private BigDecimal longitute;
 
   public Integer getDataSetId() {
     return this.dataSetId;
@@ -53,12 +39,28 @@ public class LoanCollectionListResponseModel implements Serializable {
     this.distance = distance;
   }
 
+  public String getActionStatus() {
+    return this.actionStatus;
+  }
+
+  public void setActionStatus(String actionStatus) {
+    this.actionStatus = actionStatus;
+  }
+
   public Object getScheduleDateTime() {
     return this.scheduleDateTime;
   }
 
   public void setScheduleDateTime(Object scheduleDateTime) {
     this.scheduleDateTime = scheduleDateTime;
+  }
+
+  public BigDecimal getLattitute() {
+    return this.lattitute;
+  }
+
+  public void setLattitute(BigDecimal lattitute) {
+    this.lattitute = lattitute;
   }
 
   public String getMemberName() {
@@ -75,5 +77,13 @@ public class LoanCollectionListResponseModel implements Serializable {
 
   public void setLocation(String location) {
     this.location = location;
+  }
+
+  public BigDecimal getLongitute() {
+    return this.longitute;
+  }
+
+  public void setLongitute(BigDecimal longitute) {
+    this.longitute = longitute;
   }
 }
