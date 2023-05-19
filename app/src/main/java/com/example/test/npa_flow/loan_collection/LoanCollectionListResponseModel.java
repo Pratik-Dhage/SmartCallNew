@@ -7,7 +7,7 @@ import java.lang.String;
 import java.math.BigDecimal;
 
 public class LoanCollectionListResponseModel implements Serializable {
-  private Integer dataSetId;
+  private Long dataSetId;
 
   private BigDecimal distance;
 
@@ -23,11 +23,11 @@ public class LoanCollectionListResponseModel implements Serializable {
 
   private BigDecimal longitute;
 
-  public Integer getDataSetId() {
+  public Long getDataSetId() {
     return this.dataSetId;
   }
 
-  public void setDataSetId(Integer dataSetId) {
+  public void setDataSetId(Long dataSetId) {
     this.dataSetId = dataSetId;
   }
 
