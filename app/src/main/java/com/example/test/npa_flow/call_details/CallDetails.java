@@ -16,6 +16,7 @@ public class CallDetails implements Serializable {
     private Integer callDuration;
     private String notes;
     private byte[] callRecording;
+    private String scheduledCallDateTime;
     public Integer getAttemptNo() {
         return attemptNo;
     }
@@ -45,5 +46,13 @@ public class CallDetails implements Serializable {
     }
     public void setCallRecording(byte[] callRecording) {
         this.callRecording = callRecording;
+    }
+
+    public String getScheduledCallDateTime() {
+        return scheduledCallDateTime;
+    }
+
+    public void setScheduledCallDateTime(String scheduledCallDateTime) {
+        this.scheduledCallDateTime = scheduledCallDateTime;
     }
 }
