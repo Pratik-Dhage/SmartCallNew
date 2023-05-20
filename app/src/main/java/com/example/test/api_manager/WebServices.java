@@ -103,7 +103,8 @@ public class WebServices {
     public static String call_details_complete_need_to_update_details_partial_amt_paid="activity/submitcall?flow=STTC-RTP-SLFOP-PAP-UR-P-CNTUD";
     public static String call_details_complete_escalate_to_bm_partial_amt_paid="activity/submitcall?flow=STTC-RTP-SLFOP-PAP-UR-P-CETBM";
 
-
+   //FOR WILL PAY LATER
+    public static String call_details_will_pay_later="activity/submitcall?flow=STTC-RTP-SLFOP-WPL";
 
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
