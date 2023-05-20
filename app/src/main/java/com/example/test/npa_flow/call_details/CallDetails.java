@@ -1,5 +1,9 @@
 package com.example.test.npa_flow.call_details;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.gson.annotations.JsonAdapter;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,7 +12,7 @@ public class CallDetails implements Serializable {
 
     private static final long serialVersionUID = 8756372923692891750L;
     private Integer attemptNo;
-    private Date callDateTime;
+    private String callDateTime;
     private Integer callDuration;
     private String notes;
     private byte[] callRecording;
@@ -18,10 +22,10 @@ public class CallDetails implements Serializable {
     public void setAttemptNo(Integer attemptNo) {
         this.attemptNo = attemptNo;
     }
-    public Date getCallDateTime() {
+    public String getCallDateTime() {
         return callDateTime;
     }
-    public void setCallDateTime(Date callDateTime) {
+    public void setCallDateTime(String callDateTime) {
         this.callDateTime = callDateTime;
     }
     public Integer getCallDuration() {

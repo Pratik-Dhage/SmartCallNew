@@ -304,6 +304,7 @@
     <string name="pls_fill_required_fields">Please fill required fields</string>
     <string name="please_enter_amount">Please Enter Amount</string>
     <string name="view">View</string>
+    <string name="search_member">Search Member</string>
 
     <!--for Tenure-->
     <string-array name="tenure_array">
