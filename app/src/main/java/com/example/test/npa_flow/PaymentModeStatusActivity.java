@@ -211,6 +211,8 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
 
             Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
             i.putExtra("isFromPaymentModeStatusActivity", "isFromPaymentModeStatusActivity");
+            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+            i.putExtra("isWillPayLater","isWillPayLater");
             startActivity(i);
 
         });
