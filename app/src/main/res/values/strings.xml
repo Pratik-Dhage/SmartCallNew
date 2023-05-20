@@ -305,6 +305,12 @@
     <string name="please_enter_amount">Please Enter Amount</string>
     <string name="view">View</string>
     <string name="search_member">Search Member</string>
+    <string name="status_">Status</string>
+    <string name="search_by_name">Search By Name</string>
+    <string name="search_by_location">Search By Location</string>
+    <string name="search_by_status">Search By Status</string>
+
+
 
     <!--for Tenure-->
     <string-array name="tenure_array">
