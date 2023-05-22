@@ -44,6 +44,8 @@ public class WebServices {
 
     public static String SmartCall_BaseURL3 = "http://192.168.1.100:8081/";
 
+    public static String SmartCall_BaseURL4 = "http://45.117.0.12:8081/";
+
     //for Login Authentication
     public static String Login_Authentication = "security/authenticateUser";
     //you have to pass the User object as request body to the service
@@ -71,10 +73,10 @@ public class WebServices {
 
     static String  userId_new = "CA_01_001";
     static String userBranchCode = "001";
-    static String newBranchCode ="00048"; // changed on 18/05/2023
+    static String newBranchCode ="00048"; // changed on 18/05/2023 (used in DPDQueue,LoanCollection)
 
   //  public static String dpd_queue = "transactionDataSet/getDpdQueues?branchCode=001";
-    public static String dpd_queue = "transactionDataSet/getDpdQueues?userId=CA_01_001&branchCode=001"; //Changes 28/4/2023 use userId along with branchCode
+    public static String dpd_queue = "transactionDataSet/getDpdQueues?userId=CA_01_001&branchCode="+newBranchCode; //Changes 28/4/2023 use userId along with branchCode
 
     //for Loan Collection List that comes after DPD Activity
     //http://43.239.52.151:8081/transactionDataSet/getDpdQueueList?branchCode=001&queue=3738 //for 30 Days
@@ -82,9 +84,9 @@ public class WebServices {
     //http://43.239.52.151:8081/transactionDataSet/getDpdQueueList?branchCode=001&queue=3740 //for 90 Days
 
   //  public static String loan_collection_list = dpd_queue+"&queue="+queue_30_days;
-    public static String loan_collection_list_30Days = "transactionDataSet/getDpdQueueList?userId=CA_01_001&branchCode=00048&queue=3738";
-    public static String loan_collection_list_60Days = "transactionDataSet/getDpdQueueList?userId=CA_01_001&branchCode=00048&queue=3739";
-    public static String loan_collection_list_90Days = "transactionDataSet/getDpdQueueList?userId=CA_01_001&branchCode=00048&queue=3740";
+    public static String loan_collection_list_30Days = "transactionDataSet/getDpdQueueList?userId=CA_01_001&branchCode="+newBranchCode+"&queue=3738";
+    public static String loan_collection_list_60Days = "transactionDataSet/getDpdQueueList?userId=CA_01_001&branchCode="+newBranchCode+"&queue=3739";
+    public static String loan_collection_list_90Days = "transactionDataSet/getDpdQueueList?userId=CA_01_001&branchCode="+newBranchCode+"&queue=3740";
 
 
     //for Call Details (Use Post Method)
