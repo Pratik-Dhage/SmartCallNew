@@ -189,6 +189,8 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         binding.ivSearchIcon.setOnClickListener(v->{
 
+            binding.ivSearchCancelIcon.setVisibility(View.VISIBLE);
+            binding.ivSearchIcon.setVisibility(View.INVISIBLE);
             binding.edtSearchFromList.setVisibility(View.VISIBLE);
             binding.clChip.setVisibility(View.VISIBLE);
             binding.txtToolbarHeading.setVisibility(View.INVISIBLE);
@@ -201,8 +203,7 @@ public class LoanCollectionActivity extends AppCompatActivity {
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     // Perform the search operation
                     performSearch(s.toString());
-                   binding.ivSearchCancelIcon.setVisibility(View.VISIBLE);
-                   binding.ivSearchIcon.setVisibility(View.INVISIBLE);
+
                 }
 
                 @Override
