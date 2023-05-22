@@ -50,7 +50,7 @@ public class DetailsOfCustomerViewModel extends ViewModel {
 
             case 0:
 
-                subscribtion = (Disposable) Global.apiService().getDetailsOfCustomerList(WebServices.SmartCall_BaseURL2+ WebServices.detail_of_customer_common+"dataSetId="+ dataSetId +queue_0)
+                subscribtion = (Disposable) Global.apiService().getDetailsOfCustomerList( WebServices.detail_of_customer_common+"dataSetId="+ dataSetId +queue_0)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .unsubscribeOn(Schedulers.io())
@@ -61,7 +61,7 @@ public class DetailsOfCustomerViewModel extends ViewModel {
                 break;
             case 1:
 
-                subscribtion = (Disposable) Global.apiService().getDetailsOfCustomerList(WebServices.SmartCall_BaseURL2+ WebServices.detail_of_customer_common+ "dataSetId="+dataSetId +queue_1)
+                subscribtion = (Disposable) Global.apiService().getDetailsOfCustomerList( WebServices.detail_of_customer_common+ "dataSetId="+dataSetId +queue_1)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .unsubscribeOn(Schedulers.io())
@@ -72,7 +72,7 @@ public class DetailsOfCustomerViewModel extends ViewModel {
                 break;
             case 2:
 
-                subscribtion = (Disposable) Global.apiService().getDetailsOfCustomerList(WebServices.SmartCall_BaseURL2+ WebServices.detail_of_customer_common+"dataSetId="+ dataSetId +queue_2)
+                subscribtion = (Disposable) Global.apiService().getDetailsOfCustomerList( WebServices.detail_of_customer_common+"dataSetId="+ dataSetId +queue_2)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .unsubscribeOn(Schedulers.io())

@@ -57,7 +57,7 @@ public class LoanCollectionViewModel extends ViewModel {
             //According to Row Position of DPD Queue in DPD Activity , the respective Api Response will be Called
         switch(DPD_row_position){
             case 0:
-                subscribtion = (Disposable) Global.apiService().getLoanCollectionList(WebServices.SmartCall_BaseURL2+ WebServices.loan_collection_list_30Days)
+                subscribtion = (Disposable) Global.apiService().getLoanCollectionList( WebServices.loan_collection_list_30Days)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .unsubscribeOn(Schedulers.io())
@@ -66,7 +66,7 @@ public class LoanCollectionViewModel extends ViewModel {
                         );
                 break;
             case 1:
-                subscribtion = (Disposable) Global.apiService().getLoanCollectionList(WebServices.SmartCall_BaseURL2+ WebServices.loan_collection_list_60Days)
+                subscribtion = (Disposable) Global.apiService().getLoanCollectionList( WebServices.loan_collection_list_60Days)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .unsubscribeOn(Schedulers.io())
@@ -75,7 +75,7 @@ public class LoanCollectionViewModel extends ViewModel {
                         );
                 break;
             case 2:
-                subscribtion = (Disposable) Global.apiService().getLoanCollectionList(WebServices.SmartCall_BaseURL2+ WebServices.loan_collection_list_90Days)
+                subscribtion = (Disposable) Global.apiService().getLoanCollectionList( WebServices.loan_collection_list_90Days)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .unsubscribeOn(Schedulers.io())

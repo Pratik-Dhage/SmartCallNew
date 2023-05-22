@@ -48,7 +48,7 @@ public class LeadsViewModel extends ViewModel {
     public void getLeads()
 
     {
-        subscribtion = (Disposable) Global.apiService().getLeadList(WebServices.SmartCall_BaseURL2 + WebServices.find_Leads)
+        subscribtion = (Disposable) Global.apiService().getLeadList( WebServices.find_Leads)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

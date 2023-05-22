@@ -43,7 +43,7 @@ public class DPD_ViewModel extends ViewModel {
    //DPD Queue Api
     public void getDPD_Data(){
 
-        subscribtion = (Disposable) Global.apiService().getDPD_QueueList(WebServices.SmartCall_BaseURL2+ WebServices.dpd_queue)
+        subscribtion = (Disposable) Global.apiService().getDPD_QueueList( WebServices.dpd_queue)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
