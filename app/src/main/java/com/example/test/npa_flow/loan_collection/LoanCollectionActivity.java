@@ -6,14 +6,19 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityLoanCollectionBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
+
+import java.util.ArrayList;
 
 public class LoanCollectionActivity extends AppCompatActivity {
 
@@ -30,6 +35,12 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         initializeFields();
         onClickListener();
+
+        if(getIntent().hasExtra("isFromFull_Partial_AmountPaid_CompleteNoChange")){
+            int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this,"DPD_row_position"));
+            call_LoanCollectionList_Api(DPD_row_position); // coming from Full/Partial Amt Paid Flow
+            initObserver();
+        }
 
         initObserver();
         if (NetworkUtilities.getConnectivityStatus(this)) {
@@ -130,41 +141,96 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
     private void onClickListener() {
 
-       /*  //opens Google Maps
-        binding.ivMap1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-              //Below commented code is working in my device but not in other devices
-               *//* String location = "Mumbai";
-                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + location);
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                if (mapIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(mapIntent);
-                }*//*
-
-                Intent googleMapsIntent = new Intent(LoanCollectionActivity.this, WebViewActivity.class);
-                startActivity(googleMapsIntent);
-            }
-        });
-*/
-       /* //opens Google Maps
-        binding.ivMap2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.ivMap1.performClick();
-            }
-        });*/
-
-
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
+
+        binding.ivSearchCancelIcon.setOnClickListener(v->{
+            binding.ivSearchIcon.setVisibility(View.VISIBLE);
+            binding.txtToolbarHeading.setVisibility(View.VISIBLE);
+            binding.edtSearchFromList.setVisibility(View.INVISIBLE);
+            binding.ivSearchCancelIcon.setVisibility(View.GONE);
+            binding.clChip.setVisibility(View.GONE);
+            setUpLoanCollectionList_RecyclerView();
+
+        });
+
+        //for Chips(Name/Location/Status)
+        binding.chipName.setOnClickListener(v->{
+            binding.edtSearchFromList.setHint(getString(R.string.search));
+            binding.edtSearchFromList.setText("");
+            binding.edtSearchFromList.setVisibility(View.VISIBLE);
+            binding.txtToolbarHeading.setVisibility(View.INVISIBLE);
+            binding.ivSearchIcon.performClick();
+        });
+        binding.chipLocation.setOnClickListener(v->{
+            binding.edtSearchFromList.setHint(getString(R.string.search));
+            binding.edtSearchFromList.setText("");
+            binding.edtSearchFromList.setVisibility(View.VISIBLE);
+            binding.txtToolbarHeading.setVisibility(View.INVISIBLE);
+            binding.ivSearchIcon.performClick();
+        });
+        binding.chipStatus.setOnClickListener(v->{
+            binding.edtSearchFromList.setHint(getString(R.string.search));
+            binding.edtSearchFromList.setText("");
+            binding.edtSearchFromList.setVisibility(View.VISIBLE);
+            binding.txtToolbarHeading.setVisibility(View.INVISIBLE);
+            binding.ivSearchIcon.performClick();
+        });
+
+        binding.ivSearchIcon.setOnClickListener(v->{
+
+            binding.edtSearchFromList.setVisibility(View.VISIBLE);
+            binding.clChip.setVisibility(View.VISIBLE);
+            binding.txtToolbarHeading.setVisibility(View.INVISIBLE);
+            binding.edtSearchFromList.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    // Perform the search operation
+                    performSearch(s.toString());
+                   binding.ivSearchCancelIcon.setVisibility(View.VISIBLE);
+                   binding.ivSearchIcon.setVisibility(View.INVISIBLE);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                }
+            });
+
+        });
     }
+
+    private void performSearch(String userSearchedText) {
+
+        // Create a new ArrayList to hold the search results
+        ArrayList<LoanCollectionListResponseModel> searchResults = new ArrayList<>();
+
+        // Iterate through the original ArrayList(LoanCollectionResponseModel) and check if matcher with userSearchedText
+        for (LoanCollectionListResponseModel item : loanCollectionViewModel.arrList_LoanCollectionList) {
+            if (item.getMemberName().toLowerCase().contains(userSearchedText.toLowerCase())
+                    || item.getLocation().toLowerCase().contains(userSearchedText.toLowerCase())
+                    || item.getActionStatus().toLowerCase().contains(userSearchedText.toLowerCase())
+            ) {
+                searchResults.add(item);
+            }
+        }
+
+        // Use the searchResults ArrayList to update  UI
+       // updateUI(searchResults);
+        RecyclerView recyclerView = binding.rvLoanCollection;
+        recyclerView.setAdapter(new LoanCollectionAdapter(searchResults));
+    }
+
+
+
+
 
     @Override
     protected void onResume() {

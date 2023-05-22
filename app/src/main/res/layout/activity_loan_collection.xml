@@ -77,6 +77,39 @@
                     app:tint="@color/white" />
 
                 <ImageView
+                    android:id="@+id/ivSearchCancelIcon"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_40sdp"
+                    android:src="@drawable/close_icon"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/toolbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/toolbar"
+                    app:tint="@color/white" />
+
+
+                <EditText
+                    android:id="@+id/edtSearchFromList"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/round_corner_bg"
+                    android:backgroundTint="@color/white"
+                    android:hint="@string/search"
+                    android:padding="@dimen/_3sdp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/borderColor"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="normal"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@id/toolbar"
+                    app:layout_constraintEnd_toStartOf="@id/ivSearchIcon"
+                    app:layout_constraintStart_toEndOf="@id/ivBack"
+                    app:layout_constraintTop_toTopOf="@id/toolbar" />
+
+                <ImageView
                     android:id="@+id/ivBack"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
@@ -123,18 +156,83 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <!--For Chip-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clChip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/rvLoanCollection"
+                    app:layout_constraintStart_toStartOf="@id/rvLoanCollection"
+                    app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="@string/name"
+                        app:chipBackgroundColor="@color/skyBlue"
+                        app:chipCornerRadius="@dimen/_16sdp"
+                        app:chipEndPadding="@dimen/_8sdp"
+                        app:chipIconSize="@dimen/_10sdp"
+                        app:chipIconTint="@color/green"
+                        app:chipStartPadding="@dimen/_8sdp"
+                        app:chipStrokeColor="@color/textBlue"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="@string/location"
+                        app:chipBackgroundColor="@color/skyBlue"
+                        app:chipCornerRadius="@dimen/_16sdp"
+                        app:chipEndPadding="@dimen/_8sdp"
+                        app:chipIconSize="@dimen/_10sdp"
+                        app:chipIconTint="@color/green"
+                        app:chipStartPadding="@dimen/_8sdp"
+                        app:chipStrokeColor="@color/textBlue"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:layout_constraintStart_toEndOf="@id/chipName"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="@string/status_"
+                        app:chipBackgroundColor="@color/skyBlue"
+                        app:chipCornerRadius="@dimen/_16sdp"
+                        app:chipEndPadding="@dimen/_8sdp"
+                        app:chipIconSize="@dimen/_10sdp"
+                        app:chipIconTint="@color/green"
+                        app:chipStartPadding="@dimen/_8sdp"
+                        app:chipStrokeColor="@color/textBlue"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:layout_constraintStart_toEndOf="@id/chipLocation"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvLoanCollection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/toolbar"
+                    app:layout_constraintTop_toBottomOf="@id/clChip"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_loan_collection" />
 
