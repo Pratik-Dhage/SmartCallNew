@@ -41,6 +41,7 @@ import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.CallDetailOfCustomerActivity;
 import com.example.test.npa_flow.NearByCustomersActivity;
+import com.example.test.npa_flow.ScheduleVisitForCollectionActivity;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.call_details.CallDetails;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
@@ -73,11 +74,13 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
     //To Send to Backend Using Post Method
     public static String send_callDateTime;
+    public static Date send_callDateTime_asDate;
     public static String send_callDuration;
     public static String send_callRecording;
     public static byte[] send_callRecordingInByteArray;
     public static String send_callNotes;
     public static int send_callAttemptNo;
+    public static String send_callScheduledTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,36 +98,35 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             Global.showToast(this, getString(R.string.check_internet_connection));
         }
 
-        sendCallLogDetailsList();
+       // sendCallLogDetailsList();
     }
 
-
-    public static  List<CallDetails> sendCallLogDetailsList() {
-        String pattern = "dd-MM-yyyy HH:mm:ss"; // Pattern to match the date format
+    //for Full/Partial Amount Paid
+    public  List<CallDetails> sendCallLogDetailsList_FullPartialAmountPaid() {
+        // String pattern = "dd-MM-yyyy HH:mm:ss"; // Pattern to match the date format
+        String pattern = "yyyy-MM-dd HH:mm:ss"; // Pattern to match the date format
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
 
         List<CallDetails> callDetailsList = new ArrayList<>(); //List to hold CallDetails Object
         CallDetails callDetails = new CallDetails();    //CallDetails Object
 
         if (send_callDateTime != null) {
-            try {
-                Date date = dateFormat.parse(send_callDateTime);
 
-                   //CallDetails Object
-                callDetails.setCallDateTime(date);
+            Date date = new Date();
+            String callDateTime = dateFormat.format(date);
+            //CallDetails Object
+            callDetails.setCallDateTime(callDateTime);
 
-            } catch (ParseException e) {
-                Log.d("Here Date Parse Exception", e.getLocalizedMessage());
-                e.printStackTrace();
-            }
         }
+
+        callDetails.setScheduledCallDateTime(""); // scheduleDateTime will be null for Full/Partial Amount Paid
 
         if (send_callDuration != null) {
             callDetails.setCallDuration(Integer.parseInt(send_callDuration));
         }
 
         if (send_callRecording != null) {
-            callDetails.setCallRecording(send_callRecordingInByteArray);
+            //  callDetails.setCallRecording(send_callRecordingInByteArray);
         }
 
         if(send_callNotes!=null){
@@ -135,6 +137,52 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             callDetails.setAttemptNo(send_callAttemptNo);
         }
 
+        callDetailsList.add(callDetails);
+        return callDetailsList;
+    }
+
+//for Will Pay Later
+    public  List<CallDetails> sendCallLogDetailsList_WillPayLater() {
+       // String pattern = "dd-MM-yyyy HH:mm:ss"; // Pattern to match the date format
+        String pattern = "yyyy-MM-dd HH:mm:ss"; // Pattern to match the date format
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+
+        List<CallDetails> callDetailsList = new ArrayList<>(); //List to hold CallDetails Object
+        CallDetails callDetails = new CallDetails();    //CallDetails Object
+
+        if (send_callDateTime != null) {
+
+                Date date = new Date();
+                String callDateTime = dateFormat.format(date);
+                   //CallDetails Object
+                callDetails.setCallDateTime(callDateTime);
+
+
+        }
+
+        send_callScheduledTime = String.valueOf(Global.getStringFromSharedPref(DetailsOfCustomerActivity.this, "scheduleVisitForCollection_dateTime"));
+        // send_callScheduledTime = ScheduleVisitForCollectionActivity.scheduleVisitForCollection_dateTime;
+        if(send_callScheduledTime!=null ){
+            callDetails.setScheduledCallDateTime(send_callScheduledTime); // for Will Pay Later flow
+        }
+
+        if (send_callDuration != null) {
+            callDetails.setCallDuration(Integer.parseInt(send_callDuration));
+        }
+
+        if (send_callRecording != null) {
+          //  callDetails.setCallRecording(send_callRecordingInByteArray);
+        }
+
+        if(send_callNotes!=null){
+            callDetails.setNotes(send_callNotes);
+        }
+
+        if(String.valueOf(send_callAttemptNo)!=null){
+            callDetails.setAttemptNo(send_callAttemptNo);
+        }
+
+        callDetailsList.add(callDetails);
         return callDetailsList;
     }
 
@@ -162,7 +210,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                         }
                     });
 
-                    //Get Name and Mobile Number for Calling Purpose and Storing Call Attempts
+                    //Get Name , Mobile Number , Schedule Time  for Calling Purpose and Storing Call Attempts
                     result.iterator().forEachRemaining(it -> {
                         String lowercase_label = String.valueOf(it.getLable()).toLowerCase(); //make labels lowercase
 
@@ -615,7 +663,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                // To send to backend
                     send_callDateTime = callDayTimes;
                     send_callDuration = callDuration;
-
+                    send_callDateTime_asDate = dateFormat;
 
                 }
 
