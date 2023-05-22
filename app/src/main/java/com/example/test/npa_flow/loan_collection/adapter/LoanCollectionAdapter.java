@@ -73,6 +73,10 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
         if(a.getActionStatus()!=null){
             holder.binding.txtStatus.setText(a.getActionStatus());
+
+            if(a.getActionStatus().toLowerCase().contains("complete")){
+                holder.binding.ivLoanCollectionAttempt.setVisibility(View.INVISIBLE); // hide Attempt No. when Status:Complete
+            }
         }
 
 //        holder.binding.txtScheduledTime.setText(a.getScheduleDateTime().toString()); //Note: in API Response Scheduled Time is null

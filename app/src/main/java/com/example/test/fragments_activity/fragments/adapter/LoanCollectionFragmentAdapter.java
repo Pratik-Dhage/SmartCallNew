@@ -49,6 +49,7 @@ public class LoanCollectionFragmentAdapter extends RecyclerView.Adapter<LoanColl
         holder.binding.txtName.setText(a.getMemberName());
         holder.binding.txtLocation.setText(a.getLocation());
         holder.binding.txtDistance.setText(a.getDistance().toString());
+        holder.binding.txtStatus.setText(a.getActionStatus());
 //        holder.binding.txtScheduledTime.setText(a.getScheduleDateTime().toString()); //Note: in API Response Scheduled Time is null
 
         //opens Google Maps
