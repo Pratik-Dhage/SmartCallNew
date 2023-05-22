@@ -42,6 +42,12 @@ public class LoanCollectionActivity extends AppCompatActivity {
             initObserver();
         }
 
+        if(getIntent().hasExtra("NearByCustomerActivity")){
+            int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this,"DPD_row_position"));
+            call_LoanCollectionList_Api(DPD_row_position); // coming from (Payment Mode)ScheduleVisitForCollection Flow
+            initObserver();
+        }
+
         initObserver();
         if (NetworkUtilities.getConnectivityStatus(this)) {
             int DPD_row_position = getIntent().getIntExtra("DPD_row_position", 0);
