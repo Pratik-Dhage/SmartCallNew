@@ -245,7 +245,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintTop_toBottomOf="@id/btnVisitNearbyCustomers"
-        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         style="@style/CustomButtonStyle"
         android:textStyle="normal"
         android:backgroundTint="@color/green"
@@ -253,7 +253,18 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_45sdp"/>
 
-
+    <Button
+        android:id="@+id/btnBackToMemberList"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnGotoDashBoard"
+        android:layout_marginTop="@dimen/_20sdp"
+        style="@style/CustomButtonStyle"
+        android:textStyle="normal"
+        android:backgroundTint="@color/brightOrange"
+        android:text="@string/back_to_member_list"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_45sdp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

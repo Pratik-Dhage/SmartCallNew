@@ -9,8 +9,10 @@ import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityNearByCustomersBinding;
+import com.example.test.helper_classes.Global;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
+import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 
 public class NearByCustomersActivity extends AppCompatActivity {
 
@@ -40,6 +42,14 @@ public class NearByCustomersActivity extends AppCompatActivity {
 
         binding.btnGotoDashBoard.setOnClickListener(v->{
             Intent i = new Intent(NearByCustomersActivity.this, MainActivity3API.class);
+            startActivity(i);
+        });
+
+        binding.btnBackToMemberList.setOnClickListener(v->{
+            //then redirect to LoanCollection List
+            Intent i = new Intent(new Intent(this, LoanCollectionActivity.class));
+            int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this,"DPD_row_position"));
+            i.putExtra("DPD_row_position",DPD_row_position);
             startActivity(i);
         });
 
