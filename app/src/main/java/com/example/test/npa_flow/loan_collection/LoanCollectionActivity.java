@@ -1,10 +1,13 @@
 package com.example.test.npa_flow.loan_collection;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -166,21 +169,39 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         //for Chips(Name/Location/Status)
         binding.chipName.setOnClickListener(v->{
-            binding.edtSearchFromList.setHint(getString(R.string.search));
+            binding.edtSearchFromList.setHint(getString(R.string.search_by));
+            binding.chipName.setTextColor(ContextCompat.getColor(this,R.color.white));
+            binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.textBlue)));
+            binding.chipLocation.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
+            binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
+            binding.chipLocation.setTextColor(ContextCompat.getColor(this,R.color.black));
+            binding.chipStatus.setTextColor(ContextCompat.getColor(this,R.color.black));
             binding.edtSearchFromList.setText("");
             binding.edtSearchFromList.setVisibility(View.VISIBLE);
             binding.txtToolbarHeading.setVisibility(View.INVISIBLE);
             binding.ivSearchIcon.performClick();
         });
         binding.chipLocation.setOnClickListener(v->{
-            binding.edtSearchFromList.setHint(getString(R.string.search));
+            binding.edtSearchFromList.setHint(getString(R.string.search_by));
+            binding.chipLocation.setTextColor(ContextCompat.getColor(this,R.color.white));
+            binding.chipLocation.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.textBlue)));
+            binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
+            binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
+            binding.chipName.setTextColor(ContextCompat.getColor(this,R.color.black));
+            binding.chipStatus.setTextColor(ContextCompat.getColor(this,R.color.black));
             binding.edtSearchFromList.setText("");
             binding.edtSearchFromList.setVisibility(View.VISIBLE);
             binding.txtToolbarHeading.setVisibility(View.INVISIBLE);
             binding.ivSearchIcon.performClick();
         });
         binding.chipStatus.setOnClickListener(v->{
-            binding.edtSearchFromList.setHint(getString(R.string.search));
+            binding.edtSearchFromList.setHint(getString(R.string.search_by));
+            binding.chipStatus.setTextColor(ContextCompat.getColor(this,R.color.white));
+            binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.textBlue)));
+            binding.chipLocation.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
+            binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
+            binding.chipLocation.setTextColor(ContextCompat.getColor(this,R.color.black));
+            binding.chipName.setTextColor(ContextCompat.getColor(this,R.color.black));
             binding.edtSearchFromList.setText("");
             binding.edtSearchFromList.setVisibility(View.VISIBLE);
             binding.txtToolbarHeading.setVisibility(View.INVISIBLE);

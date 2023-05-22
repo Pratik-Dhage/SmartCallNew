@@ -28,6 +28,7 @@ import com.example.test.roomDB.database.LeadListDB;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAdapter.MyViewHolderClass> {
@@ -98,7 +99,8 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
         holder.itemView.setOnClickListener(v->{
 
-            if(a.getActionStatus().contains("Pending")){
+            //DetailsOfCustomer Only visible if Status is Pending
+            if(a.getActionStatus().toLowerCase().contains("pending")){
 
                 //on Item Click save Name of Member
                 Global.saveStringInSharedPref(context,"FullNameFromAdapter",String.valueOf(a.getMemberName()));

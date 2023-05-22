@@ -97,7 +97,7 @@
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:background="@drawable/round_corner_bg"
                     android:backgroundTint="@color/white"
-                    android:hint="@string/search"
+                    android:hint="@string/search_by"
                     android:padding="@dimen/_3sdp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/borderColor"
