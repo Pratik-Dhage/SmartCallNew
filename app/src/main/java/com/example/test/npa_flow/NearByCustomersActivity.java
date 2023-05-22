@@ -50,6 +50,7 @@ public class NearByCustomersActivity extends AppCompatActivity {
             Intent i = new Intent(new Intent(this, LoanCollectionActivity.class));
             int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this,"DPD_row_position"));
             i.putExtra("DPD_row_position",DPD_row_position);
+            i.putExtra("NearByCustomerActivity","NearByCustomerActivity");
             startActivity(i);
         });
 
