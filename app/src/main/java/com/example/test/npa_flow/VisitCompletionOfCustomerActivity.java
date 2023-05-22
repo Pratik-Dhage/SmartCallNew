@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.example.test.npa_flow.call_details.CallDetailsViewModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -147,6 +149,22 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
                         try{
                             callDetailsViewModel.postCallDetails(dataSetId,from_payment_status_partial_amt_paid,complete_no_change);
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    //then redirect to LoanCollection List
+                                    Intent i = new Intent(new Intent(VisitCompletionOfCustomerActivity.this, LoanCollectionActivity.class));
+                                    int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(VisitCompletionOfCustomerActivity.this,"DPD_row_position"));
+                                    i.putExtra("DPD_row_position",DPD_row_position);
+                                    i.putExtra("isFromFull_Partial_AmountPaid_CompleteNoChange","isFromFull_Partial_AmountPaid_CompleteNoChange");
+                                    startActivity(i);
+
+                                }
+                            },3000);
+
+
                         }catch(Exception e){
                             Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                         }
@@ -164,6 +182,22 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
                         try{
                             callDetailsViewModel.postCallDetails(dataSetId,from_payment_status_full_amt_paid,complete_no_change);
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    //then redirect to LoanCollection List
+                                    Intent i = new Intent(new Intent(VisitCompletionOfCustomerActivity.this, LoanCollectionActivity.class));
+                                    int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(VisitCompletionOfCustomerActivity.this,"DPD_row_position"));
+                                    i.putExtra("DPD_row_position",DPD_row_position);
+                                    i.putExtra("isFromFull_Partial_AmountPaid_CompleteNoChange","isFromFull_Partial_AmountPaid_CompleteNoChange");
+                                    startActivity(i);
+
+                                }
+                            },3000);
+
+
                         }catch(Exception e){
                             Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                         }
@@ -203,6 +237,12 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
                         try{
                             callDetailsViewModel.postCallDetails(dataSetId,from_payment_status_partial_amt_paid,complete_need_to_update_details);
+
+                            //then redirect to LoanCollection List
+                            Intent i = new Intent(new Intent(this, LoanCollectionActivity.class));
+                            int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(VisitCompletionOfCustomerActivity.this,"DPD_row_position"));
+                            i.putExtra("DPD_row_position",DPD_row_position);
+                            startActivity(i);
                         }catch(Exception e){
                             Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                         }
@@ -220,6 +260,12 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
                         try{
                             callDetailsViewModel.postCallDetails(dataSetId,from_payment_status_full_amt_paid,complete_need_to_update_details);
+
+                            //then redirect to LoanCollection List
+                            Intent i = new Intent(new Intent(this, LoanCollectionActivity.class));
+                            int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(VisitCompletionOfCustomerActivity.this,"DPD_row_position"));
+                            i.putExtra("DPD_row_position",DPD_row_position);
+                            startActivity(i);
                         }catch(Exception e){
                             Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                         }
@@ -256,6 +302,12 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
                         try{
                             callDetailsViewModel.postCallDetails(dataSetId,from_payment_status_partial_amt_paid,complete_escalate_to_bm);
+
+                            //then redirect to LoanCollection List
+                            Intent i = new Intent(new Intent(this, LoanCollectionActivity.class));
+                            int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(VisitCompletionOfCustomerActivity.this,"DPD_row_position"));
+                            i.putExtra("DPD_row_position",DPD_row_position);
+                            startActivity(i);
                         }catch(Exception e){
                             Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                         }
@@ -273,6 +325,12 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
                         try{
                             callDetailsViewModel.postCallDetails(dataSetId,from_payment_status_full_amt_paid,complete_escalate_to_bm);
+
+                            //then redirect to LoanCollection List
+                            Intent i = new Intent(new Intent(this, LoanCollectionActivity.class));
+                            int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(VisitCompletionOfCustomerActivity.this,"DPD_row_position"));
+                            i.putExtra("DPD_row_position",DPD_row_position);
+                            startActivity(i);
                         }catch(Exception e){
                             Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                         }
