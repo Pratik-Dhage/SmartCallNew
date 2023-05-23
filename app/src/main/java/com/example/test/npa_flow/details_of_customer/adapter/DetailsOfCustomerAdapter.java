@@ -291,7 +291,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         }
 
         //for separation line between Personal and Account Details
-        if (Objects.equals(a.getLable(), "Father's Name")) {
+        if (a.getLable().toLowerCase().contains("father's name")) {
             holder.binding.viewLine.setVisibility(View.VISIBLE);
         }
 
