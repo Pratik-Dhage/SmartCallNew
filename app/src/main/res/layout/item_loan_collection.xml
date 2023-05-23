@@ -21,28 +21,39 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Sairaj Naidu" />
 
-
-        <TextView
-            android:id="@+id/labelStatus"
-            style="@style/common_text_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:text="@string/status"
-            android:textStyle="normal"
+        <!--For Status-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clStatus"
             app:layout_constraintStart_toStartOf="@id/txtName"
-            app:layout_constraintTop_toBottomOf="@id/txtName" />
-
-        <TextView
-            android:id="@+id/txtStatus"
-            style="@style/common_text_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/txtName"
             android:layout_marginTop="@dimen/_2sdp"
-            tools:text=" Active"
-            android:textStyle="normal"
-           app:layout_constraintStart_toEndOf="@id/labelStatus"
-            app:layout_constraintTop_toBottomOf="@id/txtName" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/labelStatus"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtStatus"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                tools:text=" Active"
+                android:textStyle="normal"
+                app:layout_constraintStart_toEndOf="@id/labelStatus"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
         <TextView
@@ -127,7 +138,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:background="@color/textBlue"
-            app:layout_constraintTop_toBottomOf="@id/txtStatus" />
+            app:layout_constraintTop_toBottomOf="@id/clStatus" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -113,6 +113,10 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
         });
 
+        //for Status
+        holder.binding.clStatus.setOnClickListener(v->{
+            Global.showToast(context,a.getActionStatus());
+        });
 
         //for setting Call Attempts ImageView to Selected Item(Member) for Calling
         LeadCallDao leadCallDao = LeadListDB.getInstance(context).leadCallDao();
