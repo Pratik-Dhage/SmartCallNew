@@ -311,6 +311,12 @@
     <string name="search_by_location">Search By Location</string>
     <string name="search_by_status">Search By Status</string>
     <string name="back_to_member_list">Back To Member List</string>
+    <string name="search">Search</string>
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
+    <string name="search_record">Search Record</string>
+    <string name="dd_MM_yyyy">dd-mm-yyyy</string>
+    <string name="incorrect_date_format">Incorrect Date Format</string>
 
 
     <!--for Tenure-->

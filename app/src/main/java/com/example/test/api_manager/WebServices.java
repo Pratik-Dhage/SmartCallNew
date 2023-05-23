@@ -1,6 +1,7 @@
 package com.example.test.api_manager;
 
 import com.example.test.lead.model.LeadModel;
+import com.example.test.schedule_flow.ScheduleDetailsActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -110,6 +111,11 @@ public class WebServices {
 
     //FOR SEND VISIT FOR COLLECTION
     public static String call_details_send_visit_for_collection = "activity/submitcall?flow=STTC-RTP-SVFC";
+
+    //SCHEDULE DETAILS (Calender Icon In DashBoard)
+    static String fromDate = ScheduleDetailsActivity.fromDate; // get this from ScheduleDetailsActivity on Search Button Click
+    static String toDate = ScheduleDetailsActivity.toDate;// get this from ScheduleDetailsActivity on Search Button Click
+    public static String schedule_details_in_dashboard = "activity/scheduledVisits?userId="+userId_new+"&fromDate="+fromDate+"&toDate="+toDate;
 
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();

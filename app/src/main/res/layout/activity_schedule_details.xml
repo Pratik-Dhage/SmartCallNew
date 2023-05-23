@@ -9,7 +9,6 @@
         tools:context=".schedule_flow.ScheduleDetailsActivity">
 
 
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/toolBarStyle"
@@ -33,15 +32,37 @@
 
         <ImageView
             android:id="@+id/ivBack"
-            app:layout_constraintTop_toTopOf="@id/toolbar"
-            app:layout_constraintBottom_toBottomOf="@id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:src="@drawable/back_arrow"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:src="@drawable/back_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/toolbar"
             app:tint="@color/white" />
 
+        <ImageView
+            android:id="@+id/ivCalendar"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:src="@drawable/schedule64_1"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/toolbar" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvScheduleDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewBorder5"
+            tools:listitem="3" />
 
         <!--Calender 1 -->
 
@@ -57,8 +78,8 @@
             android:text="30th March\nWednesday"
             android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintBottom_toBottomOf="@id/viewBorder1" />
+            app:layout_constraintBottom_toBottomOf="@id/viewBorder1"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <TextView
@@ -67,12 +88,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:text="Satya Thakur"
             android:textStyle="normal"
-            android:layout_marginTop="@dimen/_20sdp"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toEndOf="@id/txtDate1"
-           />
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <TextView
             android:id="@+id/txtScheduledTime1"
@@ -83,7 +103,7 @@
             android:text="9:30 pm"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@id/txtMember1"
-           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/txtMember1" />
 
         <TextView
@@ -94,7 +114,7 @@
             android:text="NPA"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@id/txtMember1"
-           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/txtMember1" />
 
         <View
@@ -113,36 +133,36 @@
         <TextView
             android:id="@+id/txtMember2"
             style="@style/common_text_style"
-            android:textStyle="normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="Rajesh Parab"
+            android:textStyle="normal"
             app:layout_constraintStart_toEndOf="@id/txtDate1"
             app:layout_constraintTop_toBottomOf="@id/viewBorder1" />
 
         <TextView
             android:id="@+id/txtScheduledTime2"
             style="@style/common_text_style"
-            android:textStyle="normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_70sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_70sdp"
             android:text="10:30 am"
-           app:layout_constraintEnd_toEndOf="parent"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewBorder1" />
 
         <TextView
             style="@style/common_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
             android:text="NPA"
             android:textStyle="normal"
-           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewBorder1" />
 
 
@@ -176,22 +196,22 @@
             style="@style/common_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_70sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_70sdp"
             android:text="1:30 pm"
             android:textStyle="normal"
-           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewBorder2" />
 
         <TextView
             style="@style/common_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
             android:text="NPA"
             android:textStyle="normal"
-           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewBorder2" />
 
 
@@ -222,8 +242,8 @@
             android:text="31st March\n  Thursday"
             android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/viewBorder4" />
+            app:layout_constraintBottom_toBottomOf="@id/viewBorder4"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <TextView
@@ -232,23 +252,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:text="Ameya Dixit"
             android:textStyle="normal"
-           app:layout_constraintTop_toBottomOf="@id/viewBorder3"
-            android:layout_marginTop="@dimen/_15sdp"
             app:layout_constraintStart_toEndOf="@id/txtDate2"
-            />
+            app:layout_constraintTop_toBottomOf="@id/viewBorder3" />
 
         <TextView
             android:id="@+id/txtScheduledTime4"
             style="@style/common_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:layout_marginEnd="@dimen/_70sdp"
+            android:layout_marginEnd="@dimen/_70sdp"
             android:text="9:30 am"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@id/txtMember4"
-           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/txtMember4" />
 
         <TextView
@@ -259,7 +278,7 @@
             android:text="NPA"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="@id/txtMember4"
-           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/txtMember4" />
 
         <View
@@ -292,22 +311,22 @@
             style="@style/common_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_70sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_70sdp"
             android:text="11:30 am"
             android:textStyle="normal"
-           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewBorder4" />
 
         <TextView
             style="@style/common_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
             android:text="NPA"
             android:textStyle="normal"
-           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewBorder4" />
 
         <View
