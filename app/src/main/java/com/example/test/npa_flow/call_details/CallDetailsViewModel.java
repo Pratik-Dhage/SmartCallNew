@@ -142,6 +142,18 @@ public class CallDetailsViewModel extends ViewModel {
         }
     }
 
+    //PAYMENT MODE - (SVFC)SCHEDULE VISIT FOR COLLECTION BUTTON CLICK
+    public void postScheduledDateTime_SVFC(String dataSetId ){
+        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_send_visit_for_collection+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+send_callScheduledTime,callDetailsList)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .unsubscribeOn(Schedulers.io())
+                    .subscribe(
+                            this::onHomeApiSuccess, this::onApiError
+                    );
+
+    }
+
 
     private void onHomeApiSuccess(String result) {
         mutCallDetailsResponseApi.setValue(result);

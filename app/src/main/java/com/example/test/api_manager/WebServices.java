@@ -64,49 +64,52 @@ public class WebServices {
 
     //for Details of Customer
     //http://43.239.52.151:8081/transactionDataSet/getDetailView?dataSetId=311964&queue=3738
-       public static String detail_of_customer = "transactionDataSet/getDetailView?dataSetId=311964&queue=3738";
+    public static String detail_of_customer = "transactionDataSet/getDetailView?dataSetId=311964&queue=3738";
 
-       public static String detail_of_customer_common ="transactionDataSet/getDetailView?";
+    public static String detail_of_customer_common = "transactionDataSet/getDetailView?";
 
 
     //for DPD queue
 
-    static String  userId_new = "CA_01_001";
+    static String userId_new = "CA_01_001";
     static String userBranchCode = "001";
-    static String newBranchCode ="00048"; // changed on 18/05/2023 (used in DPDQueue,LoanCollection)
+    static String newBranchCode = "00048"; // changed on 18/05/2023 (used in DPDQueue,LoanCollection)
 
-  //  public static String dpd_queue = "transactionDataSet/getDpdQueues?branchCode=001";
-    public static String dpd_queue = "transactionDataSet/getDpdQueues?userId=CA_01_001&branchCode="+newBranchCode; //Changes 28/4/2023 use userId along with branchCode
+    //  public static String dpd_queue = "transactionDataSet/getDpdQueues?branchCode=001";
+    public static String dpd_queue = "transactionDataSet/getDpdQueues?userId=CA_01_001&branchCode=" + newBranchCode; //Changes 28/4/2023 use userId along with branchCode
 
     //for Loan Collection List that comes after DPD Activity
     //http://43.239.52.151:8081/transactionDataSet/getDpdQueueList?branchCode=001&queue=3738 //for 30 Days
     //http://43.239.52.151:8081/transactionDataSet/getDpdQueueList?branchCode=001&queue=3739 //for 60 Days
     //http://43.239.52.151:8081/transactionDataSet/getDpdQueueList?branchCode=001&queue=3740 //for 90 Days
 
-  //  public static String loan_collection_list = dpd_queue+"&queue="+queue_30_days;
-    public static String loan_collection_list_30Days = "transactionDataSet/getDpdQueueList?userId=CA_01_001&branchCode="+newBranchCode+"&queue=3738";
-    public static String loan_collection_list_60Days = "transactionDataSet/getDpdQueueList?userId=CA_01_001&branchCode="+newBranchCode+"&queue=3739";
-    public static String loan_collection_list_90Days = "transactionDataSet/getDpdQueueList?userId=CA_01_001&branchCode="+newBranchCode+"&queue=3740";
+    //  public static String loan_collection_list = dpd_queue+"&queue="+queue_30_days;
+    public static String loan_collection_list_30Days = "transactionDataSet/getDpdQueueList?userId=CA_01_001&branchCode=" + newBranchCode + "&queue=3738";
+    public static String loan_collection_list_60Days = "transactionDataSet/getDpdQueueList?userId=CA_01_001&branchCode=" + newBranchCode + "&queue=3739";
+    public static String loan_collection_list_90Days = "transactionDataSet/getDpdQueueList?userId=CA_01_001&branchCode=" + newBranchCode + "&queue=3740";
 
 
     //for Call Details (Use Post Method)
 
     //Below is the API for call submit. It is a post method.
     //  http://43.239.52.151:8081/activity/submitcall?flow=<call flow as discussed>&dataSetId=<the records dataSetId>&callingAgent=<userId>
-   // in addition to this you need to send the call details in the request body
+    // in addition to this you need to send the call details in the request body
 
     //FOR FULL AMOUNT PAID
-    public static String call_details_complete_no_change_full_amt_paid="activity/submitcall?flow=STTC-RTP-SLFOP-FAP-UR-P-CNC";
-    public static String call_details_complete_need_to_update_details_full_amt_paid="activity/submitcall?flow=STTC-RTP-SLFOP-FAP-UR-P-CNTUD";
-    public static String call_details_complete_escalate_to_bm_full_amt_paid="activity/submitcall?flow=STTC-RTP-SLFOP-FAP-UR-P-CETBM";
+    public static String call_details_complete_no_change_full_amt_paid = "activity/submitcall?flow=STTC-RTP-SLFOP-FAP-UR-P-CNC";
+    public static String call_details_complete_need_to_update_details_full_amt_paid = "activity/submitcall?flow=STTC-RTP-SLFOP-FAP-UR-P-CNTUD";
+    public static String call_details_complete_escalate_to_bm_full_amt_paid = "activity/submitcall?flow=STTC-RTP-SLFOP-FAP-UR-P-CETBM";
 
     //FOR PARTIAL AMOUNT PAID
-    public static String call_details_complete_no_change_partial_amt_paid="activity/submitcall?flow=STTC-RTP-SLFOP-PAP-UR-P-CNC";
-    public static String call_details_complete_need_to_update_details_partial_amt_paid="activity/submitcall?flow=STTC-RTP-SLFOP-PAP-UR-P-CNTUD";
-    public static String call_details_complete_escalate_to_bm_partial_amt_paid="activity/submitcall?flow=STTC-RTP-SLFOP-PAP-UR-P-CETBM";
+    public static String call_details_complete_no_change_partial_amt_paid = "activity/submitcall?flow=STTC-RTP-SLFOP-PAP-UR-P-CNC";
+    public static String call_details_complete_need_to_update_details_partial_amt_paid = "activity/submitcall?flow=STTC-RTP-SLFOP-PAP-UR-P-CNTUD";
+    public static String call_details_complete_escalate_to_bm_partial_amt_paid = "activity/submitcall?flow=STTC-RTP-SLFOP-PAP-UR-P-CETBM";
 
-   //FOR WILL PAY LATER
-    public static String call_details_will_pay_later="activity/submitcall?flow=STTC-RTP-SLFOP-WPL";
+    //FOR WILL PAY LATER
+    public static String call_details_will_pay_later = "activity/submitcall?flow=STTC-RTP-SLFOP-WPL";
+
+    //FOR SEND VISIT FOR COLLECTION
+    public static String call_details_send_visit_for_collection = "activity/submitcall?flow=STTC-RTP-SVFC";
 
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();

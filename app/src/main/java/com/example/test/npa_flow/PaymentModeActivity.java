@@ -100,6 +100,7 @@ public class PaymentModeActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent(PaymentModeActivity.this, ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 startActivity(i);
 
             }
