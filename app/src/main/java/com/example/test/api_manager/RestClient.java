@@ -10,6 +10,7 @@ import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseMo
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
+import com.example.test.schedule_flow.model.Activity;
 import com.example.test.user.UserModel;
 
 import java.sql.Time;
@@ -63,5 +64,9 @@ public interface RestClient {
     //Details of Customer
     @GET
     Observable<List<DetailsOfCustomerResponseModel>> getDetailsOfCustomerList(@Url String url);
+
+    //Schedule Details (Calendar icon in Dashboard)
+    @GET
+    Observable<Activity> getScheduleDetails(@Url String url);
 
 }

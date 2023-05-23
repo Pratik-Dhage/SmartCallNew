@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.example.test.R;
 import com.example.test.databinding.ActivityScheduleDetailsBinding;
 import com.example.test.helper_classes.Global;
+import com.example.test.helper_classes.NetworkUtilities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,33 +26,69 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
 
     ActivityScheduleDetailsBinding binding;
     View view;
+    ScheduleDetailsViewModel scheduleDetailsViewModel;
+
     View customDialogSearchDate;
-   public static String fromDate;
-   public static String toDate;
+    public static String fromDate;
+    public static String toDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_schedule_details);
+        // setContentView(R.layout.activity_schedule_details);
 
-    initializeFields();
-    onClickListener();
+        initializeFields();
+        onClickListener();
+        initObserver();
+        if(NetworkUtilities.getConnectivityStatus(this)){
+           call_ScheduleDetailsApi();
+        }
+        else {
+            Global.showSnackBar(view, getString(R.string.check_internet_connection));
+        }
+    }
 
+    private void call_ScheduleDetailsApi(){
+        //fromDate=null , toDate=null will give All Schedule Details by default
+        scheduleDetailsViewModel.get_ScheduleDetails_Data(null,null);
     }
 
     private void initializeFields() {
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_schedule_details);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_schedule_details);
         view = binding.getRoot();
+        scheduleDetailsViewModel = new ViewModelProvider(this).get(ScheduleDetailsViewModel.class);
+        binding.setViewModel(scheduleDetailsViewModel);
     }
 
+    private void initObserver() {
+
+        if (NetworkUtilities.getConnectivityStatus(this)) {
+
+           scheduleDetailsViewModel.getMutActivity_ResponseApi().observe(this,result->{
+
+               if(result!=null){
+                   Global.showToast(this, String.valueOf(result.getActivityDetails().size()));
+               }
+
+           });
+
+
+        } else {
+            Global.showSnackBar(view, getString(R.string.check_internet_connection));
+        }
+
+
+    }
+
+
     private void onClickListener() {
-        binding.ivBack.setOnClickListener(v->{
+        binding.ivBack.setOnClickListener(v -> {
             onBackPressed();
         });
 
 
         //for Searching Record of Schedule Visits
-        binding.ivCalendar.setOnClickListener(v->{
+        binding.ivCalendar.setOnClickListener(v -> {
 
             customDialogSearchDate = LayoutInflater.from(this).inflate(R.layout.custom_dialog_search_date, null);
             Button btnSearch = customDialogSearchDate.findViewById(R.id.btnSearch);
@@ -59,17 +97,16 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
             TextView txtDateError = customDialogSearchDate.findViewById(R.id.txtDateError);
 
 
-
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(customDialogSearchDate);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
             dialog.show();
 
-            btnSearch.setOnClickListener(v1->{
+            btnSearch.setOnClickListener(v1 -> {
 
                 fromDate = edtFromDate.getText().toString().trim();
-                 toDate = edtToDate.getText().toString().trim();
+                toDate = edtToDate.getText().toString().trim();
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                 sdf.setLenient(false);  // This will make the parsing strict
@@ -78,17 +115,20 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
                     Date date_FromDate = sdf.parse(fromDate);
                     Date date_ToDate = sdf.parse(toDate);
                     // Date is successfully parsed, and it matches the desired format
-                    Global.showToast(this,"Correct Date format");
+                    Global.showToast(this, "Correct Date format");
+                    dialog.dismiss();
+
+                    //Get Schedule Details According to fromDate and toDate
+                    scheduleDetailsViewModel.get_ScheduleDetails_Data(fromDate,toDate);
 
                 } catch (ParseException e) {
-                   txtDateError.setVisibility(View.VISIBLE);
+                    txtDateError.setVisibility(View.VISIBLE);
                 }
 
             });
 
         });
     }
-
 
 
 }
