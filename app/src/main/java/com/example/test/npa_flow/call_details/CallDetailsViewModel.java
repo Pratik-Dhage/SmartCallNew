@@ -20,6 +20,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class CallDetailsViewModel extends ViewModel {
 
+    Context context;
     private Disposable subscribtion; //Disposable Interface used to prevent observer from receiving items from Observer before all items are loaded.
 
     private final MutableLiveData<String> mutCallDetailsResponseApi = new MutableLiveData<>();
@@ -40,7 +41,7 @@ public class CallDetailsViewModel extends ViewModel {
     List<CallDetails> callDetailsList = detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater(); //for Will Pay Later
     List<CallDetails> callDetailsList_full_partial_amount = detailsOfCustomerActivity.sendCallLogDetailsList_FullPartialAmountPaid(); //for Full/Partial Amt. paid
     String send_callScheduledTime = DetailsOfCustomerActivity.send_callScheduledTime;
-    //WebServices.call_details_complete_no_change_partial_amt_paid+"&dataSetId="+dataSetId+"&callingAgent="+userId
+
 
     public void postCallDetails(String dataSetId , String payment_type, String complete_action){
 
@@ -129,10 +130,10 @@ public class CallDetailsViewModel extends ViewModel {
     }
 
     //WILL PAY LATER
-    public void postScheduledDateTime(String dataSetId , String payment_type){
+    public void postScheduledDateTime(String dataSetId , String payment_type ,String scheduleVisitForCollection_dateTime){
         //WILL PAY LATER
         if(payment_type.contentEquals("will pay later") ){
-            subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_will_pay_later+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+send_callScheduledTime,callDetailsList)
+            subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_will_pay_later+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+scheduleVisitForCollection_dateTime,callDetailsList)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .unsubscribeOn(Schedulers.io())
@@ -143,8 +144,8 @@ public class CallDetailsViewModel extends ViewModel {
     }
 
     //PAYMENT MODE - (SVFC)SCHEDULE VISIT FOR COLLECTION BUTTON CLICK
-    public void postScheduledDateTime_SVFC(String dataSetId ){
-        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_send_visit_for_collection+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+send_callScheduledTime,callDetailsList)
+    public void postScheduledDateTime_SVFC(String dataSetId , String scheduleVisitForCollection_dateTime ){
+        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_send_visit_for_collection+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+scheduleVisitForCollection_dateTime,callDetailsList)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .unsubscribeOn(Schedulers.io())

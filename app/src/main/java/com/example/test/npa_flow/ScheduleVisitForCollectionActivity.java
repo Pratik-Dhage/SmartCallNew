@@ -33,7 +33,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
     View view;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
     CallDetailsViewModel callDetailsViewModel;
-    public static String scheduleVisitForCollection_dateTime =null ;
+    public static String scheduleVisitForCollection_dateTime  ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +147,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                 String will_pay_later = "will pay later";
 
                 //using payment type as will pay later
-                callDetailsViewModel.postScheduledDateTime(dataSetId,will_pay_later);
+                callDetailsViewModel.postScheduledDateTime(dataSetId,will_pay_later,scheduleVisitForCollection_dateTime);
 
             }
 
@@ -158,7 +158,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                 getScheduleDateTime();
                 String dataSetId = getIntent().getStringExtra("dataSetId");
 
-                callDetailsViewModel.postScheduledDateTime_SVFC(dataSetId);
+                callDetailsViewModel.postScheduledDateTime_SVFC(dataSetId,scheduleVisitForCollection_dateTime);
 
             }
 
@@ -238,7 +238,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
   // Now, dateTime variable contains the selected date and time in the desired format
      //  String scheduleVisitForCollection_dateTime_new  = scheduleVisitForCollection_dateTime; //had to save in new String
 
-        if(Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime")!=null){
+        if(!Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime").isEmpty()){
             Global.removeStringInSharedPref(this,"scheduleVisitForCollection_dateTime");
         }
 

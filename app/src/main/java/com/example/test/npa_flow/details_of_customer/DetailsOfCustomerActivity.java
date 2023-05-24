@@ -1,5 +1,7 @@
 package com.example.test.npa_flow.details_of_customer;
 
+import static com.example.test.npa_flow.ScheduleVisitForCollectionActivity.scheduleVisitForCollection_dateTime;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +46,7 @@ import com.example.test.npa_flow.NearByCustomersActivity;
 import com.example.test.npa_flow.ScheduleVisitForCollectionActivity;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.call_details.CallDetails;
+import com.example.test.npa_flow.call_details.CallDetailsViewModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
@@ -80,7 +83,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
     public static byte[] send_callRecordingInByteArray;
     public static String send_callNotes;
     public static int send_callAttemptNo;
-    public static String send_callScheduledTime = null;
+    public static String send_callScheduledTime  ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,10 +163,11 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
         }
 
+       // ScheduleVisitForCollectionActivity scheduleVisitForCollectionActivity = new ScheduleVisitForCollectionActivity();
+        //send_callScheduledTime = scheduleVisitForCollectionActivity.();
         String scheduleVisitForCollection_dateTime = Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime");
         send_callScheduledTime = scheduleVisitForCollection_dateTime;
-        //ScheduleVisitForCollectionActivity scheduleVisitForCollectionActivity = new ScheduleVisitForCollectionActivity();
-       //  send_callScheduledTime = scheduleVisitForCollectionActivity.getScheduleDateTime();
+
         if(send_callScheduledTime!=null ){
             callDetails.setScheduledCallDateTime(send_callScheduledTime); // for Will Pay Later flow
         }
