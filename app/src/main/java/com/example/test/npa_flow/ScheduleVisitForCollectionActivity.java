@@ -33,7 +33,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
     View view;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
     CallDetailsViewModel callDetailsViewModel;
-    public  String scheduleVisitForCollection_dateTime ;
+    public static String scheduleVisitForCollection_dateTime =null ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -237,6 +237,10 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
         System.out.println("Here scheduledDateTime:"+scheduleVisitForCollection_dateTime);
   // Now, dateTime variable contains the selected date and time in the desired format
      //  String scheduleVisitForCollection_dateTime_new  = scheduleVisitForCollection_dateTime; //had to save in new String
+
+        if(Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime")!=null){
+            Global.removeStringInSharedPref(this,"scheduleVisitForCollection_dateTime");
+        }
 
             Global.saveStringInSharedPref(this,"scheduleVisitForCollection_dateTime",scheduleVisitForCollection_dateTime);
 
