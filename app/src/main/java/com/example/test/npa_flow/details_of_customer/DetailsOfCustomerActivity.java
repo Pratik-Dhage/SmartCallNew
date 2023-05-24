@@ -80,7 +80,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
     public static byte[] send_callRecordingInByteArray;
     public static String send_callNotes;
     public static int send_callAttemptNo;
-    public static String send_callScheduledTime;
+    public static String send_callScheduledTime = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,8 +160,10 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
         }
 
-        send_callScheduledTime = String.valueOf(Global.getStringFromSharedPref(DetailsOfCustomerActivity.this, "scheduleVisitForCollection_dateTime"));
-        // send_callScheduledTime = ScheduleVisitForCollectionActivity.scheduleVisitForCollection_dateTime;
+        String scheduleVisitForCollection_dateTime = Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime");
+        send_callScheduledTime = scheduleVisitForCollection_dateTime;
+        //ScheduleVisitForCollectionActivity scheduleVisitForCollectionActivity = new ScheduleVisitForCollectionActivity();
+       //  send_callScheduledTime = scheduleVisitForCollectionActivity.getScheduleDateTime();
         if(send_callScheduledTime!=null ){
             callDetails.setScheduledCallDateTime(send_callScheduledTime); // for Will Pay Later flow
         }

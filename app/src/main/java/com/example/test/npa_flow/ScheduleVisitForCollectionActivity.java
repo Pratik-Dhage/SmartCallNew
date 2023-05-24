@@ -18,6 +18,7 @@ import com.example.test.fragments_activity.ActivityOfFragments;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.npa_flow.call_details.CallDetailsViewModel;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 
@@ -32,7 +33,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
     View view;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
     CallDetailsViewModel callDetailsViewModel;
-    public static String scheduleVisitForCollection_dateTime ;
+    public  String scheduleVisitForCollection_dateTime ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,8 +236,10 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
         System.out.println("Here scheduledDateTime:"+scheduleVisitForCollection_dateTime);
   // Now, dateTime variable contains the selected date and time in the desired format
-       String scheduleVisitForCollection_dateTime_new  = scheduleVisitForCollection_dateTime; //had to save in new String
-      Global.saveStringInSharedPref(this,"scheduleVisitForCollection_dateTime",scheduleVisitForCollection_dateTime_new);
+     //  String scheduleVisitForCollection_dateTime_new  = scheduleVisitForCollection_dateTime; //had to save in new String
+
+            Global.saveStringInSharedPref(this,"scheduleVisitForCollection_dateTime",scheduleVisitForCollection_dateTime);
+
 
     }
 
