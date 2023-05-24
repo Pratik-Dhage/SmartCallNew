@@ -6,10 +6,12 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,6 +22,7 @@ import com.example.test.helper_classes.NetworkUtilities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class ScheduleDetailsActivity extends AppCompatActivity {
@@ -103,6 +106,18 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
             dialog.setCancelable(true);
             dialog.show();
 
+            //for FromDate
+            edtFromDate.setOnFocusChangeListener((v2,hasFocus)->{
+               if(hasFocus)
+                showDatePickerDialogAndSetDate(edtFromDate);
+            });
+
+            //for ToDate
+            edtToDate.setOnFocusChangeListener((v3,hasFocus)->{
+                if(hasFocus)
+                showDatePickerDialogAndSetDate(edtToDate);
+            });
+
             btnSearch.setOnClickListener(v1 -> {
 
                 fromDate = edtFromDate.getText().toString().trim();
@@ -129,6 +144,30 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
 
         });
     }
+
+    private void showDatePickerDialogAndSetDate(final EditText editText) {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        // Set the selected date to the EditText
+                        String selectedDate = dayOfMonth + "-" + (month + 1) + "-" + year;
+                        editText.setText(selectedDate);
+                    }
+                }, year, month, dayOfMonth);
+
+        // Set the minimum and maximum dates allowed
+      //  datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000); // Will start from current date
+        // datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 7));
+
+        datePickerDialog.show();
+    }
+
 
 
 }
