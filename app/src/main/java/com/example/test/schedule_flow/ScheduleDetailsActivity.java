@@ -108,14 +108,14 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
 
             //for FromDate
             edtFromDate.setOnFocusChangeListener((v2,hasFocus)->{
-               if(hasFocus)
-                showDatePickerDialogAndSetDate(edtFromDate);
+               if(hasFocus){
+                showDatePickerDialogAndSetDate(edtFromDate);}
             });
 
             //for ToDate
             edtToDate.setOnFocusChangeListener((v3,hasFocus)->{
-                if(hasFocus)
-                showDatePickerDialogAndSetDate(edtToDate);
+                if(hasFocus){
+                showDatePickerDialogAndSetDate(edtToDate);}
             });
 
             btnSearch.setOnClickListener(v1 -> {
