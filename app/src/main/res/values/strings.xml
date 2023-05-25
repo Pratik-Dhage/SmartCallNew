@@ -317,6 +317,9 @@
     <string name="search_record">Search Record</string>
     <string name="dd_MM_yyyy">dd-mm-yyyy</string>
     <string name="incorrect_date_format">Incorrect Date Format</string>
+    <string name="submit_no_change">Submit-No Change</string>
+    <string name="submit_escalate_to_bm">Submit-Escalate to BM</string>
+    <string name="submit_need_to_update_details">Submit-Need to update Details</string>
 
 
     <!--for Tenure-->

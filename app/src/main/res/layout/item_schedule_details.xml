@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/MainConstraintStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_3sdp">
+
+
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:background="@drawable/round_corner_bg"
+            android:backgroundTint="@color/textBlue"
+            android:gravity="center"
+            android:padding="@dimen/_4sdp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="31-May-2023" />
+
+
+        <TextView
+            android:id="@+id/txtMember"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:maxLength="15"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@id/txtDate"
+            app:layout_constraintTop_toTopOf="@id/txtDate"
+            tools:text="Satya Thakur" />
+
+        <TextView
+            android:id="@+id/txtScheduledTime"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@id/txtMember"
+            app:layout_constraintEnd_toStartOf="@id/txtQueue"
+            app:layout_constraintTop_toTopOf="@id/txtMember"
+            tools:text="9:30 pm" />
+
+        <TextView
+            android:id="@+id/txtQueue"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@id/txtMember"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtMember"
+            tools:text="NPA" />
+
+        <View
+            android:id="@+id/viewBorder"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_90sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:background="@color/borderColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtMember"
+            app:layout_constraintTop_toBottomOf="@id/txtMember" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

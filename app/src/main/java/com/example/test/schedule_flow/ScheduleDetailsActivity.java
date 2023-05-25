@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -19,13 +20,24 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityScheduleDetailsBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.example.test.schedule_flow.adapter.ScheduleDetailsAdapter;
+import com.example.test.schedule_flow.model.ScheduleVisit_Details;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ScheduleDetailsActivity extends AppCompatActivity {
+
+   // When ScheduledVisitForCollection Button is clicked in PaymentModeActivity,( date,time,callLog,Member name is stored in Server/Backend)
+    //This Activity will contain those stored Scheduled Visits coming from Backend/Api
 
     ActivityScheduleDetailsBinding binding;
     View view;
@@ -53,7 +65,7 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
 
     private void call_ScheduleDetailsApi(){
         //fromDate=null , toDate=null will give All Schedule Details by default
-        scheduleDetailsViewModel.get_ScheduleDetails_Data(null,null);
+        scheduleDetailsViewModel.get_ScheduleDetails_Data("","");
     }
 
     private void initializeFields() {
@@ -63,6 +75,13 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
         binding.setViewModel(scheduleDetailsViewModel);
     }
 
+    private void setUpScheduledVisitDetailsRecyclerView() {
+
+        scheduleDetailsViewModel.updateScheduledVisitDetails_Data();
+        RecyclerView recyclerView = binding.rvScheduleDetails;
+        recyclerView.setAdapter(new ScheduleDetailsAdapter(scheduleDetailsViewModel.arrList_scheduledVisitDetails_Data));
+    }
+
     private void initObserver() {
 
         if (NetworkUtilities.getConnectivityStatus(this)) {
@@ -70,10 +89,29 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
            scheduleDetailsViewModel.getMutActivity_ResponseApi().observe(this,result->{
 
                if(result!=null){
-                   Global.showToast(this, String.valueOf(result.getActivityDetails().size()));
+                //   Global.showToast(this, String.valueOf(result.getActivityDetails().size()));
+
+
+                   scheduleDetailsViewModel.arrList_scheduledVisitDetails_Data.clear();
+                   setUpScheduledVisitDetailsRecyclerView();
+                System.out.println("ScheduleDetailsList: "+arrangeDates(result));
+
+                scheduleDetailsViewModel.arrList_scheduledVisitDetails_Data.addAll(result);
+
                }
 
            });
+
+
+            //to handle error
+            scheduleDetailsViewModel.getMutErrorResponse().observe(this,error->{
+                if (error != null && !error.isEmpty()) {
+                    Global.showSnackBar(view, error);
+                    System.out.println("Here error : " + error);
+                    //Here error : End of input at line 1 column 1 path $ (if Server response body is empty, we get this error)
+                }
+            });
+
 
 
         } else {
@@ -168,6 +206,55 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+    public static  Map<Date, List<ScheduleVisit_Details>> arrangeDates(List<ScheduleVisit_Details> visits) {
 
+        List<Date> dates = new ArrayList<Date>();
+
+        for(ScheduleVisit_Details visit:visits) {
+
+            Date date;
+
+            try {
+
+                date = new SimpleDateFormat("dd-MMM-yyyy").parse(visit.getScheduledDate());
+
+                dates.add(date);
+
+            } catch (ParseException e) {
+
+                e.printStackTrace();
+            }
+
+        }
+
+        List<Date> sortedDates = dates.stream().sorted().collect(Collectors.toList());
+
+        Map<Date,List<ScheduleVisit_Details>> groupedVisits = new HashMap<Date, List<ScheduleVisit_Details>>();
+
+        for(Date sortedDate:sortedDates) {
+
+            groupedVisits.put(sortedDate,new ArrayList<ScheduleVisit_Details>());
+
+        }
+
+        for(ScheduleVisit_Details scheduledVistit:visits) {
+
+            Date date;
+
+            try {
+
+                date = new SimpleDateFormat("dd-MMM-yyyy").parse(scheduledVistit.getScheduledDate());
+
+                groupedVisits.get(date).add(scheduledVistit);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return groupedVisits;
+
+
+    }
 
 }

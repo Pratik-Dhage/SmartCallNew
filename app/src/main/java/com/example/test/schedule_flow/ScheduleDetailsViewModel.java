@@ -5,9 +5,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.test.api_manager.WebServices;
 import com.example.test.helper_classes.Global;
-import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
-import com.example.test.schedule_flow.model.Activity;
+import com.example.test.schedule_flow.adapter.ScheduleDetailsAdapter;
+import com.example.test.schedule_flow.model.ScheduleVisit_Details;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -18,11 +19,11 @@ public class ScheduleDetailsViewModel extends ViewModel {
 
     private Disposable subscribtion; //Disposable Interface used to prevent observer from receiving items from Observer before all items are loaded.
 
-    private final MutableLiveData<Activity> mutActivity_ResponseApi = new MutableLiveData<>();
+    private final MutableLiveData<List<ScheduleVisit_Details>> mutActivity_ResponseApi = new MutableLiveData<>();
 
     private final MutableLiveData<String> mutErrorResponse = new MutableLiveData<>();
 
-    public MutableLiveData<Activity> getMutActivity_ResponseApi() {
+    public MutableLiveData<List<ScheduleVisit_Details>> getMutActivity_ResponseApi() {
         return mutActivity_ResponseApi;
     }
 
@@ -30,22 +31,28 @@ public class ScheduleDetailsViewModel extends ViewModel {
         return mutErrorResponse;
     }
 
+    public ArrayList<ScheduleVisit_Details> arrList_scheduledVisitDetails_Data = new ArrayList<>();
+    public ScheduleDetailsAdapter scheduleDetailsAdapter = new ScheduleDetailsAdapter(arrList_scheduledVisitDetails_Data);
+    public void updateScheduledVisitDetails_Data() {  scheduleDetailsAdapter.setData(arrList_scheduledVisitDetails_Data); }
+
+
+
+
     //for ScheduleDetailsAdapter
     static String userId_new = "CA_01_001";
 
     public void get_ScheduleDetails_Data(String fromDate , String toDate){
 
         subscribtion = (Disposable) Global.apiService().getScheduleDetails( WebServices.schedule_details_in_dashboard+userId_new+"&fromDate="+fromDate+"&toDate="+toDate)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io())
-                .subscribe(
-                        this::onHomeApiSuccess, this::onApiError
-                );
-
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .unsubscribeOn(Schedulers.io())
+                    .subscribe(
+                            this::onHomeApiSuccess, this::onApiError
+                    );
     }
 
-    private void onHomeApiSuccess(Activity result) {
+    private void onHomeApiSuccess(List<ScheduleVisit_Details> result) {
         mutActivity_ResponseApi.setValue(result);
     }
 
