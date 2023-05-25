@@ -112,7 +112,7 @@ public class WebServices {
     //FOR SEND VISIT FOR COLLECTION
     public static String call_details_send_visit_for_collection = "activity/submitcall?flow=STTC-RTP-SVFC";
 
-    //FOR ASKED TO CALL BACK LATER(PAYMENT NOTIFICATION ACTIVITY)
+    //FOR ASKED TO CALL BACK LATER(PAYMENT NOTIFICATION OF CUSTOMER ACTIVITY)
     public static String call_details_asked_to_call_later ="activity/submitcall?flow=STTC-ATCL";
 
     //SCHEDULE DETAILS (Calender Icon In DashBoard)
