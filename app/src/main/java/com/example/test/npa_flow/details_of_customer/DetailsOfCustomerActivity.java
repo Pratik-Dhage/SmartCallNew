@@ -144,7 +144,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         return callDetailsList;
     }
 
-//for Will Pay Later & SVFC(Schedule Visit For Customer) Flow
+//1) Will Pay Later 2) SVFC(Schedule Visit For Customer) Flow 3) Asked To Call Back Later Flow(ATCL)
     public  List<CallDetails> sendCallLogDetailsList_WillPayLater() {
        // String pattern = "dd-MM-yyyy HH:mm:ss"; // Pattern to match the date format
         String pattern = "yyyy-MM-dd HH:mm:ss"; // Pattern to match the date format

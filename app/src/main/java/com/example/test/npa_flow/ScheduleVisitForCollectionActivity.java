@@ -138,16 +138,29 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
             //on Clicking update call this api   callDetailsViewModel.postCallDetails with ScheduleDateTime
             //in pattern   String pattern = "yyyy-MM-dd HH:mm:ss"; // Pattern to match the date format
+
+            // UPDATE BUTTON (FOR ASKED TO CALL LATER AND WILL PAY LATER FLOW)
             if(  binding.btnUpdateSchedule.getText()==getString(R.string.update)){
 
-                //get scheduleDateTime
-                  getScheduleDateTime();
+                if(getIntent().hasExtra("isWillPayLater")){
+                    //get scheduleDateTime
+                    getScheduleDateTime();
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String will_pay_later = "will pay later";
 
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String will_pay_later = "will pay later";
+                    //using payment type as will pay later
+                    callDetailsViewModel.postScheduledDateTime(dataSetId,will_pay_later,scheduleVisitForCollection_dateTime);
+                }
 
-                //using payment type as will pay later
-                callDetailsViewModel.postScheduledDateTime(dataSetId,will_pay_later,scheduleVisitForCollection_dateTime);
+
+                //ASKED TO CALL BACK LATER(Payment Notification of Customer)
+                if(getIntent().hasExtra("isAskedToCallLater")){
+                    //get scheduleDateTime
+                    getScheduleDateTime();
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    callDetailsViewModel.postScheduledDateTime_ATCL(dataSetId,scheduleVisitForCollection_dateTime);
+
+                }
 
             }
 

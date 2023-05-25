@@ -86,6 +86,8 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
             Intent i = new Intent(PaymentNotificationOfCustomerActivity.this, ScheduleVisitForCollectionActivity.class);
             i.putExtra("isFromPaymentNotificationOfCustomerActivity", "isFromPaymentNotificationOfCustomerActivity");
+            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+            i.putExtra("isAskedToCallLater","isAskedToCallLater");
             startActivity(i);
 
         });
