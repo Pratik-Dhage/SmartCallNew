@@ -155,6 +155,19 @@ public class CallDetailsViewModel extends ViewModel {
 
     }
 
+    //PAYMENT NOTIFICATION - ASKED TO CALL BACK LATER BUTTON CLICK(ATCL->Asked to Call Later)
+    public void postScheduledDateTime_ATCL(String dataSetId , String scheduleVisitForCollection_dateTime ){
+        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_asked_to_call_later+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+scheduleVisitForCollection_dateTime,callDetailsList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        this::onHomeApiSuccess, this::onApiError
+                );
+
+    }
+
+
 
     private void onHomeApiSuccess(String result) {
         mutCallDetailsResponseApi.setValue(result);
