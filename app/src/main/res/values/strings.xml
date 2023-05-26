@@ -201,7 +201,7 @@
     <string name="already_paid">Already Paid</string>
     <string name="upload">Upload</string>
     <string name="upload_file">Upload File</string>
-    <string name="fo_not_attended_meeting">Fo not attended meeting</string>
+    <string name="fo_not_visited">Fo not visited</string>
     <string name="not_taken_loan">Not taken Loan</string>
     <string name="loan_taken_by_relative">Loan Taken By Relative</string>
     <string name="please_specify_name_and_contact_number">Please Specify Name &amp; Contact No.</string>
@@ -320,6 +320,9 @@
     <string name="submit_no_change">Submit-No Change</string>
     <string name="submit_escalate_to_bm">Submit-Escalate to BM</string>
     <string name="submit_need_to_update_details">Submit-Need to update Details</string>
+    <string name="capture_details">Capture Details</string>
+    <string name="date_of_visit_promised">Date Of Visit Promised</string>
+    <string name="fo_name">FO Name</string>
 
 
     <!--for Tenure-->

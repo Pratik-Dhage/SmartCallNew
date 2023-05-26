@@ -773,7 +773,7 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:backgroundTint="@color/blueButton"
-                android:text="@string/fo_not_attended_meeting"
+                android:text="@string/fo_not_visited"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnWillPayLater" />

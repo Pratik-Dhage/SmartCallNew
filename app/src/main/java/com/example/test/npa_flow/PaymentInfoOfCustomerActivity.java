@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,6 +51,8 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
     View view;
     View customDialogImagePicker;
     View customDialogEditable;
+    View customDialogCaptureDetails;
+    View customDialogDateOfVisitPromised;
     private ActivityResultLauncher<Intent> pickImageLauncher;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
@@ -211,11 +215,70 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
         });
 
-        binding.btnFoNotAttendedMeeting.setOnClickListener(v -> {
-            Intent i = new Intent(PaymentInfoOfCustomerActivity.this, VisitCompletionOfCustomerActivity.class);
-            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-            i.putExtra("detailsList", detailsList);
-            startActivity(i);
+        binding.btnFoNotVisited.setOnClickListener(v -> {
+
+            //Capture Details Dialog
+            customDialogCaptureDetails = LayoutInflater.from(this).inflate(R.layout.custom_dialog_capture_details, null);
+            ImageView ivCancel = customDialogCaptureDetails.findViewById(R.id.ivCancel);
+            Button btnCaptureDetails = customDialogCaptureDetails.findViewById(R.id.btnCaptureDetails);
+            Button btnSkipAndProceed = customDialogCaptureDetails.findViewById(R.id.btnSkipAndProceed);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(customDialogCaptureDetails);
+            final AlertDialog dialog = builder.create();
+            dialog.setCancelable(true);
+            dialog.show();
+
+            ivCancel.setOnClickListener(v1->{
+                dialog.dismiss();
+            });
+
+            btnSkipAndProceed.setOnClickListener(v1->{
+
+                Intent i = new Intent(PaymentInfoOfCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
+                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("detailsList", detailsList);
+                startActivity(i);
+            });
+
+            //Date Of Visit Promised Dialog
+            btnCaptureDetails.setOnClickListener(v1->{
+
+                customDialogDateOfVisitPromised =  LayoutInflater.from(this).inflate(R.layout.custom_dialog_date_of_visit, null);
+                ImageView ivClose = customDialogDateOfVisitPromised.findViewById(R.id.ivClose);
+                Button btnProceed = customDialogDateOfVisitPromised.findViewById(R.id.btnProceed);
+                EditText edtDateOfVisitPromised = customDialogDateOfVisitPromised.findViewById(R.id.edtDateOfVisitPromised);
+                EditText edtFoName = customDialogDateOfVisitPromised.findViewById(R.id.edtFoName);
+
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+                builder2.setView(customDialogDateOfVisitPromised);
+                final AlertDialog dialog2 = builder2.create();
+                dialog2.setCancelable(true);
+                dialog2.show();
+
+                ivClose.setOnClickListener(v3->{
+                    dialog2.dismiss();
+                });
+
+                edtDateOfVisitPromised.setOnFocusChangeListener((v2,hasFocus)->{
+                    if(hasFocus){
+                        showDatePickerDialogAndSetDate(edtDateOfVisitPromised);
+                    }
+                });
+
+
+                btnProceed.setOnClickListener(v2->{
+                    Intent i = new Intent(PaymentInfoOfCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("detailsList", detailsList);
+                    startActivity(i);
+                });
+
+
+            });
+
+
+
         });
 
         binding.btnNotTakenLoan.setOnClickListener(v -> {
@@ -304,30 +367,60 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
         binding.btnLoanTakenByRelative.setOnClickListener(v -> {
 
-            customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
-            ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
-
-            Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
+            //Capture Details Dialog
+            customDialogCaptureDetails = LayoutInflater.from(this).inflate(R.layout.custom_dialog_capture_details, null);
+            ImageView ivCancel = customDialogCaptureDetails.findViewById(R.id.ivCancel);
+            Button btnCaptureDetails = customDialogCaptureDetails.findViewById(R.id.btnCaptureDetails);
+            Button btnSkipAndProceed = customDialogCaptureDetails.findViewById(R.id.btnSkipAndProceed);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialogEditable);
+            builder.setView(customDialogCaptureDetails);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
             dialog.show();
 
+            ivCancel.setOnClickListener(v1->{
+                dialog.dismiss();
+            });
 
-            btnProceed.setOnClickListener(v2 -> {
-                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+            btnSkipAndProceed.setOnClickListener(v1->{
+
+                Intent i = new Intent(PaymentInfoOfCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
                 startActivity(i);
             });
 
-            ivCancel.setOnClickListener(v1 -> {
-                dialog.dismiss();
+            //Editable Dialog
+            btnCaptureDetails.setOnClickListener(v1->{
+
+                 customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
+            ImageView ivCancel2 = customDialogEditable.findViewById(R.id.ivCancel);
+
+            Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
+
+            AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+            builder2.setView(customDialogEditable);
+            final AlertDialog dialog2 = builder2.create();
+            dialog2.setCancelable(true);
+            //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            dialog2.show();
+
+
+            btnProceed.setOnClickListener(v2 -> {
+                Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
+                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("detailsList", detailsList);
+                startActivity(i);
             });
+
+            ivCancel2.setOnClickListener(v2 -> {
+                dialog2.dismiss();
+            });
+
+            });
+
 
 
         });
@@ -389,6 +482,32 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
 
     }
+
+
+    private void showDatePickerDialogAndSetDate(final EditText editText) {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        // Set the selected date to the EditText
+                        String selectedDate = dayOfMonth + "-" + (month + 1) + "-" + year;
+                        editText.setText(selectedDate);
+                    }
+                }, year, month, dayOfMonth);
+
+        // Set the minimum and maximum dates allowed
+          datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000); // Will start from current date
+        // datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 7));
+
+        datePickerDialog.show();
+    }
+
+
 
     // For Getting Calculated Balance Interest Result back from SharedPreference
     @Override
