@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/_20sdp"
     android:layout_marginEnd="@dimen/_20sdp"
-    android:background="@drawable/rounded_dialog_corner"
     android:backgroundTint="@color/white">
 
 
