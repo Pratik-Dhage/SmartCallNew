@@ -11,15 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
 import com.example.test.databinding.ItemScheduleDetailsBinding;
-import com.example.test.schedule_flow.model.ScheduleVisit_Details;
+import com.example.test.helper_classes.Global;
+import com.example.test.schedule_flow.model.ScheduleVisitDetails;
 
 import java.util.ArrayList;
 
 public class ScheduleDetailsAdapter extends RecyclerView.Adapter<ScheduleDetailsAdapter.MyViewHolderClass> {
 
-    ArrayList<ScheduleVisit_Details> scheduleVisitDetails_List;
-
-    public ScheduleDetailsAdapter(ArrayList<ScheduleVisit_Details> scheduleVisitDetails_List) {
+    ArrayList<ScheduleVisitDetails> scheduleVisitDetails_List;
+    public ScheduleDetailsAdapter(ArrayList<ScheduleVisitDetails> scheduleVisitDetails_List) {
         this.scheduleVisitDetails_List = scheduleVisitDetails_List;
     }
 
@@ -32,35 +32,42 @@ public class ScheduleDetailsAdapter extends RecyclerView.Adapter<ScheduleDetails
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolderClass holder, int position) {
-
-        ScheduleVisit_Details a = scheduleVisitDetails_List.get(position);
-
+        ScheduleVisitDetails a = scheduleVisitDetails_List.get(position);
         holder.binding.txtMember.setText(a.getMemberName());
         holder.binding.txtScheduledTime.setText(a.getScheduledTime());
         holder.binding.txtQueue.setText(a.getQueue());
 
-        String currentDate = a.getScheduledDate();
         String previousDate = "";
+        String currentDate;
+        for (int i = 0; i <= position; i++) {
+            a = scheduleVisitDetails_List.get(i);
+            currentDate = a.getScheduledDate();
+            if (!currentDate.equals(previousDate)) {
+                holder.binding.txtDate.setText(currentDate);
+                holder.binding.txtDate.setVisibility(View.VISIBLE);
+                previousDate = currentDate;
+            } else {
+                holder.binding.txtDate.setVisibility(View.INVISIBLE);
+            }
 
-        if (!currentDate.equals(previousDate)) {
-            holder.binding.txtDate.setText(currentDate);
-            holder.binding.txtDate.setVisibility(View.VISIBLE);
-            previousDate = currentDate;
-        } else {
-            holder.binding.txtDate.setVisibility(View.INVISIBLE);
         }
 
-
+        holder.itemView.setOnClickListener(v->{
+            Global.showToast(v.getContext(), "Position:"+position);
+        });
     }
+
 
     @Override
     public int getItemCount() {
+
+
         return scheduleVisitDetails_List.size();
     }
 
 
     @SuppressLint("NotifyDataSetChanged")
-    public ArrayList setData(ArrayList<ScheduleVisit_Details> data) {
+    public ArrayList setData(ArrayList<ScheduleVisitDetails> data) {
         if (data.isEmpty()) {
             scheduleVisitDetails_List = new ArrayList();
         }

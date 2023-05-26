@@ -1,21 +1,16 @@
 package com.example.test.api_manager;
 
 
-import com.example.test.lead.model.LeadListResponseModel;
 import com.example.test.lead.model.LeadModel;
 import com.example.test.login.model.LoginResponseModel;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.call_details.CallDetails;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
-import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
-import com.example.test.schedule_flow.model.Activity;
-import com.example.test.schedule_flow.model.ActivityDetail;
-import com.example.test.schedule_flow.model.ScheduleVisit_Details;
+import com.example.test.schedule_flow.model.ScheduleVisitDetails;
 import com.example.test.user.UserModel;
 
-import java.sql.Time;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -69,6 +64,6 @@ public interface RestClient {
 
     //Schedule Details (Calendar icon in Dashboard)
     @GET
-    Observable<List<ScheduleVisit_Details>> getScheduleDetails(@Url String url);
+    Observable<List<ScheduleVisitDetails>> getScheduleDetails(@Url String url);
 
 }

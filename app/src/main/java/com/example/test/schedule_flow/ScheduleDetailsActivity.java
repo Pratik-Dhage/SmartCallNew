@@ -2,7 +2,6 @@ package com.example.test.schedule_flow;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,9 +19,8 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityScheduleDetailsBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
-import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.schedule_flow.adapter.ScheduleDetailsAdapter;
-import com.example.test.schedule_flow.model.ScheduleVisit_Details;
+import com.example.test.schedule_flow.model.ScheduleVisitDetails;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -91,12 +89,10 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
                if(result!=null){
                 //   Global.showToast(this, String.valueOf(result.getActivityDetails().size()));
 
-
                    scheduleDetailsViewModel.arrList_scheduledVisitDetails_Data.clear();
                    setUpScheduledVisitDetailsRecyclerView();
-                System.out.println("ScheduleDetailsList: "+arrangeDates(result));
-
-                scheduleDetailsViewModel.arrList_scheduledVisitDetails_Data.addAll(result);
+              //  System.out.println("ScheduleDetailsList: "+arrangeDates(result));
+                   scheduleDetailsViewModel.arrList_scheduledVisitDetails_Data.addAll(result);
 
                }
 
@@ -206,11 +202,12 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    public static  Map<Date, List<ScheduleVisit_Details>> arrangeDates(List<ScheduleVisit_Details> visits) {
+    // Gives List of Dates(with respective list)
+    public static  Map<Date, List<ScheduleVisitDetails>> arrangeDates(List<ScheduleVisitDetails> visits) {
 
         List<Date> dates = new ArrayList<Date>();
 
-        for(ScheduleVisit_Details visit:visits) {
+        for(ScheduleVisitDetails visit:visits) {
 
             Date date;
 
@@ -229,15 +226,15 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
 
         List<Date> sortedDates = dates.stream().sorted().collect(Collectors.toList());
 
-        Map<Date,List<ScheduleVisit_Details>> groupedVisits = new HashMap<Date, List<ScheduleVisit_Details>>();
+        Map<Date,List<ScheduleVisitDetails>> groupedVisits = new HashMap<Date, List<ScheduleVisitDetails>>();
 
         for(Date sortedDate:sortedDates) {
 
-            groupedVisits.put(sortedDate,new ArrayList<ScheduleVisit_Details>());
+            groupedVisits.put(sortedDate,new ArrayList<ScheduleVisitDetails>());
 
         }
 
-        for(ScheduleVisit_Details scheduledVistit:visits) {
+        for(ScheduleVisitDetails scheduledVistit:visits) {
 
             Date date;
 

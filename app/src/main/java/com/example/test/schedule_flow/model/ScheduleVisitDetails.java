@@ -1,8 +1,9 @@
 package com.example.test.schedule_flow.model;
 
-public class ScheduleVisit_Details {
+public class ScheduleVisitDetails {
 
     private static final long serialVersionUID = -6563689854953117512L;
+    private Long dataSetId;
     private String scheduledDate;
     private String scheduledTime;
     private String memberName;
@@ -31,4 +32,14 @@ public class ScheduleVisit_Details {
     public void setQueue(String queue) {
         this.queue = queue;
     }
+
+    public Long getDataSetId() {
+        return dataSetId;
+    }
+
+    public void setDataSetId(Long dataSetId) {
+        this.dataSetId = dataSetId;
+    }
+
+
 }

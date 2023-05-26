@@ -60,13 +60,16 @@
             app:layout_constraintTop_toTopOf="@id/toolbar" />
 
 
+        <!--Whenever there is only recyclerview to display
+        always set its fix height OR give paddingBottom to display All Items-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvScheduleDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_40sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

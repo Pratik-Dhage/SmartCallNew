@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.test.api_manager.WebServices;
 import com.example.test.helper_classes.Global;
 import com.example.test.schedule_flow.adapter.ScheduleDetailsAdapter;
-import com.example.test.schedule_flow.model.ScheduleVisit_Details;
+import com.example.test.schedule_flow.model.ScheduleVisitDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +19,11 @@ public class ScheduleDetailsViewModel extends ViewModel {
 
     private Disposable subscribtion; //Disposable Interface used to prevent observer from receiving items from Observer before all items are loaded.
 
-    private final MutableLiveData<List<ScheduleVisit_Details>> mutActivity_ResponseApi = new MutableLiveData<>();
+    private final MutableLiveData<List<ScheduleVisitDetails>> mutActivity_ResponseApi = new MutableLiveData<>();
 
     private final MutableLiveData<String> mutErrorResponse = new MutableLiveData<>();
 
-    public MutableLiveData<List<ScheduleVisit_Details>> getMutActivity_ResponseApi() {
+    public MutableLiveData<List<ScheduleVisitDetails>> getMutActivity_ResponseApi() {
         return mutActivity_ResponseApi;
     }
 
@@ -31,7 +31,7 @@ public class ScheduleDetailsViewModel extends ViewModel {
         return mutErrorResponse;
     }
 
-    public ArrayList<ScheduleVisit_Details> arrList_scheduledVisitDetails_Data = new ArrayList<>();
+    public ArrayList<ScheduleVisitDetails> arrList_scheduledVisitDetails_Data = new ArrayList<>();
     public ScheduleDetailsAdapter scheduleDetailsAdapter = new ScheduleDetailsAdapter(arrList_scheduledVisitDetails_Data);
     public void updateScheduledVisitDetails_Data() {  scheduleDetailsAdapter.setData(arrList_scheduledVisitDetails_Data); }
 
@@ -52,7 +52,7 @@ public class ScheduleDetailsViewModel extends ViewModel {
                     );
     }
 
-    private void onHomeApiSuccess(List<ScheduleVisit_Details> result) {
+    private void onHomeApiSuccess(List<ScheduleVisitDetails> result) {
         mutActivity_ResponseApi.setValue(result);
     }
 
