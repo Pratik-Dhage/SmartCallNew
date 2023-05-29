@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,6 +13,7 @@ import com.example.test.R;
 import com.example.test.databinding.ActivitySubmitCompletionOfCustomerBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.call_details.CallDetailsViewModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
@@ -27,6 +29,10 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
     CallDetailsViewModel callDetailsViewModel;
+    public  String relativeName ;
+    public   String relativeContact ;
+    public  String dateOfVisitPromised ; ;
+    public  String foName ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         initializeFields();
         setUpDetailsOfCustomerRecyclerView();
         onClickListener();
+        initObserver();
     }
 
     private void initializeFields() {
@@ -50,7 +57,39 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
 
+        relativeName = getIntent().getStringExtra("relativeName");
+        relativeContact =getIntent().getStringExtra("relativeContact");
+        dateOfVisitPromised = getIntent().getStringExtra("dateOfVisitPromised");
+        foName = getIntent().getStringExtra("foName");
+    }
 
+    private void initObserver(){
+
+        if(NetworkUtilities.getConnectivityStatus(this)) {
+            callDetailsViewModel.getMutCallDetailsResponseApi().observe(this, result -> {
+
+                if(result!=null){
+                    Global.showToast(this,"Server Response:"+result);
+                }
+                if(result==null){
+                    Global.showToast(this,"Server Response: Null");
+                }
+
+            });
+
+            //to handle error
+            callDetailsViewModel.getMutErrorResponse().observe(this,error->{
+                if (error != null && !error.isEmpty()) {
+                    Global.showSnackBar(view, error);
+                    System.out.println("Here error : " + error);
+                    //Here error : End of input at line 1 column 1 path $ (if Server response body is empty, we get this error)
+                }
+            });
+
+        }
+        else{
+            Global.showSnackBar(view,getString(R.string.check_internet_connection));
+        }
     }
 
 
@@ -63,13 +102,19 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
     private void onClickListener() {
 
+        binding.ivBack.setOnClickListener(v -> onBackPressed());
+
+        binding.ivHome.setOnClickListener(v -> {
+            startActivity(new Intent(this, MainActivity3API.class));
+        });
+
         binding.btnSubmitNoChange.setOnClickListener(v->{
 
             //FO NOT VISITED
             if(getIntent().hasExtra("isFoNotVisited")){
                 String dataSetId = getIntent().getStringExtra("dataSetId");
-                String dateOfVisitPromised = getIntent().getStringExtra("dateOfVisitPromised");
-                String foName = getIntent().getStringExtra("foName");
+               //  dateOfVisitPromised = getIntent().getStringExtra("dateOfVisitPromised");
+               //  foName = getIntent().getStringExtra("foName");
 
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     callDetailsViewModel.postScheduledDateTime_FNV(dataSetId,"",dateOfVisitPromised,foName,"","");
@@ -81,9 +126,41 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
             }
 
+            //LOAN TAKEN BY RELATIVE
+            if(getIntent().hasExtra("isLoanTakenByRelative")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+               //  relativeName = getIntent().getStringExtra("relativeName");
+               //  relativeContact = getIntent().getStringExtra("relativeContact");
+
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    callDetailsViewModel.postScheduledDateTime_LTBR(dataSetId,"","","",relativeName,relativeContact,"LTBR");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+
+          //PAYMENT INFO WILL PAY LATER->WILL PAY LUMPSUM
+            if(getIntent().hasExtra("paymentInfo_WillPayLater")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId,"","","","","");
+                }
+                else {
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
 
         });
 
+        binding.btnSubmitNeedToUpdateDetails.setOnClickListener(v->{
+
+        });
+
+        binding.btnSubmitEscalateToBM.setOnClickListener(v->{
+
+        });
     }
 
 
