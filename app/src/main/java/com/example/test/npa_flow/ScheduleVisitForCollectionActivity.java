@@ -210,9 +210,10 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
             //get Details from PaymentInfoOfCustomerActivity and Pass To VisitCompletionOfCustomerActivity
 
-            Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+            Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("detailsList",detailsList);
+            i.putExtra("paymentInfo_WillPayLater",getIntent().getStringExtra("paymentInfo_WillPayLater"));
             startActivity(i);
         });
 
