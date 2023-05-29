@@ -213,6 +213,18 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
                 }
 
+                //(PAYMENT INFORMATION OF CUSTOMER) ALREADY PAID
+                  if(getIntent().hasExtra("isAlreadyPaid")){
+                      String dataSetId = getIntent().getStringExtra("dataSetId");
+
+                      if(NetworkUtilities.getConnectivityStatus(this)){
+
+                          callDetailsViewModel.postScheduledDateTime_AP(dataSetId,"","","","","");
+                      }
+                      else{
+                          Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                      }
+                  }
             }
 
 
@@ -280,6 +292,19 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
                 }
 
+                //(PAYMENT INFORMATION OF CUSTOMER) ALREADY PAID
+                if(getIntent().hasExtra("isAlreadyPaid")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+
+                    if(NetworkUtilities.getConnectivityStatus(this)){
+
+                        callDetailsViewModel.postScheduledDateTime_AP(dataSetId,"","","","","");
+                    }
+                    else{
+                        Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                    }
+                }
+
             }
 
         });
@@ -343,6 +368,19 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                 else{
 
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+
+                //(PAYMENT INFORMATION OF CUSTOMER) ALREADY PAID
+                if(getIntent().hasExtra("isAlreadyPaid")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+
+                    if(NetworkUtilities.getConnectivityStatus(this)){
+
+                        callDetailsViewModel.postScheduledDateTime_AP(dataSetId,"","","","","");
+                    }
+                    else{
+                        Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                    }
                 }
 
             }
