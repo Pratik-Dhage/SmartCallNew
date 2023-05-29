@@ -124,6 +124,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                         Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                         i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                         i.putExtra("detailsList", detailsList);
+                        i.putExtra("isAlreadyPaid","isAlreadyPaid");
                         startActivity(i);
                     });
 
@@ -211,6 +212,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             i.putExtra("isFromPaymentInfoOfCustomerActivity", "isFromPaymentInfoOfCustomerActivity");
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("detailsList", detailsList);
+            i.putExtra("paymentInfo_WillPayLater","paymentInfo_WillPayLater");
             startActivity(i);
 
         });
@@ -278,6 +280,10 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                     i.putExtra("dateOfVisitPromised",edtDateOfVisitPromised.getText().toString().trim());//Date of Visit Promised
                     i.putExtra("foName",edtFoName.getText().toString().trim()); //FO Name
                     startActivity(i);
+
+                    //Save DateOfVisitPromised and FoName in SharedPreference and use in DetailsOfCustomerActivity
+                    Global.saveStringInSharedPref(this,"dateOfVisitPromised",edtDateOfVisitPromised.getText().toString().trim());
+                    Global.saveStringInSharedPref(this,"foName",edtFoName.getText().toString().trim());
                 });
 
 
@@ -325,6 +331,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
+                i.putExtra("isAlreadyPaid","isAlreadyPaid");
                 startActivity(i);
             });
 
@@ -394,6 +401,9 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 Intent i = new Intent(PaymentInfoOfCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
+                i.putExtra("isLoanTakenByRelative","isLoanTakenByRelative");
+                i.putExtra("relativeName","");
+                i.putExtra("relativeContact","");
                 startActivity(i);
             });
 
@@ -402,6 +412,8 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
                  customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
             ImageView ivCancel2 = customDialogEditable.findViewById(R.id.ivCancel);
+            EditText edtRelativeName = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
+            EditText edtRelativeContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
 
             Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
 
@@ -418,7 +430,14 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
+                i.putExtra("isLoanTakenByRelative","isLoanTakenByRelative");
+                i.putExtra("relativeName",edtRelativeName.getText().toString().trim()); //Relative Name
+                i.putExtra("relativeContact",edtRelativeContact.getText().toString().trim()); //Relative Contact
                 startActivity(i);
+
+                // Save Relative Name and Contact in SharedPreferences and use in DetailsOfCustomerActivity
+                Global.saveStringInSharedPref(this,"relativeName",edtRelativeName.getText().toString().trim());
+                Global.saveStringInSharedPref(this,"relativeContact",edtRelativeContact.getText().toString().trim());
             });
 
             ivCancel2.setOnClickListener(v2 -> {

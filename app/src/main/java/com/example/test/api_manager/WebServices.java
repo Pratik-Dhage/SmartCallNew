@@ -124,6 +124,8 @@ public class WebServices {
     //FOR ALREADY PAID (PAYMENT INFORMATION OF CUSTOMER ACTIVITY (NOT READY TO PAY))
     public static String call_details_already_paid ="activity/submitcall?flow= STTC-NRTP-AP";
 
+  //FOR WILL PAY LUMPSUMP(PAYMENT INFORMATION OF CUSTOMER ACTIVITY - WILL PAY LATER -> WILL PAY LUMPSUMP)
+  public static String call_details_will_pay_lump_sump ="activity/submitcall?flow= STTC-NRTP-WPL-WPLS";
 
 
     //SCHEDULE DETAILS (Calender Icon In DashBoard)
