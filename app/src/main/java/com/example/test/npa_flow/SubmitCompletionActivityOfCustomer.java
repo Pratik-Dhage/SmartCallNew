@@ -10,6 +10,9 @@ import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivitySubmitCompletionOfCustomerBinding;
+import com.example.test.helper_classes.Global;
+import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.npa_flow.call_details.CallDetailsViewModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
@@ -23,6 +26,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
     View view;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
+    CallDetailsViewModel callDetailsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,9 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
 
+        callDetailsViewModel = new ViewModelProvider(this).get(CallDetailsViewModel.class);
+
+
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
 
@@ -55,6 +62,28 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
     }
 
     private void onClickListener() {
+
+        binding.btnSubmitNoChange.setOnClickListener(v->{
+
+            //FO NOT VISITED
+            if(getIntent().hasExtra("isFoNotVisited")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String dateOfVisitPromised = getIntent().getStringExtra("dateOfVisitPromised");
+                String foName = getIntent().getStringExtra("foName");
+
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    callDetailsViewModel.postScheduledDateTime_FNV(dataSetId,"",dateOfVisitPromised,foName,"","");
+
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+
+            }
+
+
+        });
+
     }
 
 

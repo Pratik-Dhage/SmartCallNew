@@ -115,6 +115,17 @@ public class WebServices {
     //FOR ASKED TO CALL BACK LATER(PAYMENT NOTIFICATION OF CUSTOMER ACTIVITY)
     public static String call_details_asked_to_call_later ="activity/submitcall?flow=STTC-ATCL";
 
+    //FOR FO NOT VISITED (PAYMENT INFORMATION OF CUSTOMER ACTIVITY (NOT READY TO PAY))
+    public static String call_details_fo_not_visited ="activity/submitcall?flow=STTC-NRTP-FNV";
+
+    //FOR LOAN TAKEN BY RELATIVE (PAYMENT INFORMATION OF CUSTOMER ACTIVITY (NOT READY TO PAY))
+    public static String call_details_loan_taken_by_relative ="activity/submitcall?flow= STTC-NRTP-LTBR";
+
+    //FOR ALREADY PAID (PAYMENT INFORMATION OF CUSTOMER ACTIVITY (NOT READY TO PAY))
+    public static String call_details_already_paid ="activity/submitcall?flow= STTC-NRTP-AP";
+
+
+
     //SCHEDULE DETAILS (Calender Icon In DashBoard)
     public static String schedule_details_in_dashboard = "activity/scheduledVisits?userId=";
 

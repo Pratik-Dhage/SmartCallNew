@@ -238,6 +238,9 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 Intent i = new Intent(PaymentInfoOfCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
+                i.putExtra("isFoNotVisited","isFoNotVisited");
+                i.putExtra("dateOfVisitPromised","");
+                i.putExtra("foName","");
                 startActivity(i);
             });
 
@@ -271,6 +274,9 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                     Intent i = new Intent(PaymentInfoOfCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                     i.putExtra("detailsList", detailsList);
+                    i.putExtra("isFoNotVisited","isFoNotVisited");
+                    i.putExtra("dateOfVisitPromised",edtDateOfVisitPromised.getText().toString().trim());//Date of Visit Promised
+                    i.putExtra("foName",edtFoName.getText().toString().trim()); //FO Name
                     startActivity(i);
                 });
 
@@ -300,7 +306,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             builder.setView(customDialogImagePicker);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+           // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             dialog.show();
 
@@ -346,7 +352,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             builder.setView(customDialogEditable);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+           // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             dialog.show();
 
