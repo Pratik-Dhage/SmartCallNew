@@ -229,7 +229,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
             builder.setView(customDialogImagePicker);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+           // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             dialog.show();
 
@@ -272,7 +272,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
             builder.setView(customDialogImagePicker);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+           // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             dialog.show();
 

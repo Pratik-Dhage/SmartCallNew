@@ -17,6 +17,10 @@ public class CallDetails implements Serializable {
     private String notes;
     private byte[] callRecording;
     private String scheduledCallDateTime;
+    private String dateOfVisitPromised;
+    private String foName;
+    private String relativeName;
+    private String relativeContact;
     public Integer getAttemptNo() {
         return attemptNo;
     }
@@ -54,5 +58,37 @@ public class CallDetails implements Serializable {
 
     public void setScheduledCallDateTime(String scheduledCallDateTime) {
         this.scheduledCallDateTime = scheduledCallDateTime;
+    }
+
+    public String getDateOfVisitPromised() {
+        return dateOfVisitPromised;
+    }
+
+    public void setDateOfVisitPromised(String dateOfVisitPromised) {
+        this.dateOfVisitPromised = dateOfVisitPromised;
+    }
+
+    public String getFoName() {
+        return foName;
+    }
+
+    public void setFoName(String foName) {
+        this.foName = foName;
+    }
+
+    public String getRelativeName() {
+        return relativeName;
+    }
+
+    public void setRelativeName(String relativeName) {
+        this.relativeName = relativeName;
+    }
+
+    public String getRelativeContact() {
+        return relativeContact;
+    }
+
+    public void setRelativeContact(String relativeContact) {
+        this.relativeContact = relativeContact;
     }
 }
