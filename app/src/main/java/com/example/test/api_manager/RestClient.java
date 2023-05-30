@@ -4,6 +4,7 @@ package com.example.test.api_manager;
 import com.example.test.lead.model.LeadModel;
 import com.example.test.login.model.LoginResponseModel;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
+import com.example.test.main_dashboard.model.DashBoardScheduleForTheDayModel;
 import com.example.test.npa_flow.call_details.CallDetails;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
@@ -39,6 +40,10 @@ public interface RestClient {
     Observable<List<DashBoardResponseModel>> getDashBoardData(
             @Body UserModel userModel
     );
+
+    //DashBoard(Schedule For The Day)
+    @GET
+    Observable<List<DashBoardScheduleForTheDayModel>> getDashBoardDataScheduleForTheDay(@Url String url);
 
     //for Call Details
  /*@POST

@@ -128,8 +128,11 @@ public class WebServices {
   public static String call_details_will_pay_lump_sump ="activity/submitcall?flow= STTC-NRTP-WPL-WPLS";
 
 
-    //SCHEDULE DETAILS (Calender Icon In DashBoard)
+    //FOR SCHEDULE DETAILS (Calender Icon In DashBoard)
     public static String schedule_details_in_dashboard = "activity/scheduledVisits?userId=";
+
+    //FOR SCHEDULE FOR THE DAY In DASHBOARD
+    public static String schedule_for_the_day="activity/scheduledForTheDay?";
 
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
