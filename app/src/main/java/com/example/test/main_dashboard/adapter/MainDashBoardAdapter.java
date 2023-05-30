@@ -47,11 +47,11 @@ public class MainDashBoardAdapter extends RecyclerView.Adapter<MainDashBoardAdap
 
        holder.binding.txtCompletedMembersAssigned.setText(a.getCompletedCalls().toString());
         holder.binding.txtPendingMembersAssigned.setText(a.getPendingCalls().toString());
-
+       holder.binding.txtInProcessMembersAssigned.setText(a.getInprocessCalls().toString());
 
         //for Total Assigned Members( for Marketing, Collection, Welcome Call,Renewal respectively)
-        int totalMembers = a.getCompletedCalls()+a.getPendingCalls();
-        holder.binding.txtTotalMembersAssigned.setText(String.valueOf(totalMembers));
+      //  int totalMembers = a.getCompletedCalls()+a.getPendingCalls();
+       // holder.binding.txtTotalMembersAssigned.setText(String.valueOf(totalMembers));
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

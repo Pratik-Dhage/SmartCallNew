@@ -18,15 +18,27 @@
             app:layout_constraintStart_toStartOf="parent"
             style="@style/common_text_style"/>
 
+
         <TextView
-            android:id="@+id/txtTotalMembersAssigned"
+            android:id="@+id/txtPendingMembersAssigned"
+            tools:text="90"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/txtInProcessMembersAssigned"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_55sdp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            style="@style/common_text_style"/>
+
+        <TextView
+            android:id="@+id/txtInProcessMembersAssigned"
             tools:text="90"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/_20sdp"
-          android:layout_marginEnd="@dimen/_55sdp"
+            android:layout_marginEnd="@dimen/_55sdp"
             android:textColor="@color/black"
             android:textStyle="normal"
-          app:layout_constraintEnd_toStartOf="@+id/txtCompletedMembersAssigned"
+            app:layout_constraintEnd_toStartOf="@+id/txtCompletedMembersAssigned"
             style="@style/common_text_style"/>
 
 
@@ -36,21 +48,10 @@
             tools:text="0"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_55sdp"
-            android:textColor="@color/black"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toStartOf="@id/txtPendingMembersAssigned"
-            style="@style/common_text_style"/>
-
-        <TextView
-            android:id="@+id/txtPendingMembersAssigned"
-            tools:text="90"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_25sdp"
             android:textColor="@color/black"
             android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
             style="@style/common_text_style"/>
 
 

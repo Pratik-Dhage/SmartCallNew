@@ -55,6 +55,7 @@ public class MainActivity3API extends AppCompatActivity {
 
     private void callDashBoardApi() {
         mainDashBoardViewModel.getDashBoardData();
+        mainDashBoardViewModel.getScheduleForTheDayData();
     }
 
     private void setUpDashBoardRecyclerView() {
@@ -83,23 +84,75 @@ public class MainActivity3API extends AppCompatActivity {
                     //to get TotalMembers Assigned value
                     int totalCompletedCalls = 0;
                     int totalPendingCalls = 0;
+                    int totalInProcessCalls = 0;
                     int TotalMembersAssigned = 0;
+
 
                     for(DashBoardResponseModel a : result){
 
                         totalCompletedCalls += a.getCompletedCalls();
                         totalPendingCalls += a.getPendingCalls();
-
+                        totalInProcessCalls +=a.getInprocessCalls();
 
                          TotalMembersAssigned = totalCompletedCalls + totalPendingCalls;
+
+
+                        binding.labelPendingMembersAssignedValue.setText(String.valueOf(totalPendingCalls)); //Pending Assigned
+                        binding.labelInProcessMembersAssignedValue.setText(String.valueOf(totalInProcessCalls));
+                        binding.labelCompletedMembersAssignedValue.setText(String.valueOf(totalCompletedCalls)); //Completed Assigned
                     }
 
+
                     // Total Members(Marketing+Collection(NPA)+Welcome Call+ Renewal)
-                    binding.labelTotalAssignedValue.setText(String.valueOf(TotalMembersAssigned));
-                    binding.labelPendingMembersAssignedValue.setText(String.valueOf(TotalMembersAssigned)); // same value for Pending because Completed = 0
+                   // binding.labelTotalAssignedValue.setText(String.valueOf(TotalMembersAssigned));
+                   // binding.labelPendingMembersAssignedValue.setText(String.valueOf(TotalMembersAssigned)); // same value for Pending because Completed = 0
+
 
                 }
+
+
             }
+            else{
+                Global.showSnackBar(view,getResources().getString(R.string.check_internet_connection));
+            }
+
+        });
+
+        //for Scheduled For The Day
+        mainDashBoardViewModel.getMutDashBoardScheduleForTheDayResponseApi().observe(this,result->{
+
+            if(NetworkUtilities.getConnectivityStatus(this)){
+
+                if(result!=null){
+
+                    //For Visits(Visits is 2nd in API list)
+                    if( result.get(1).getQueue().toLowerCase().contains("visits")){
+                        String CompletedVisits = String.valueOf(result.get(1).getComplete());
+                        String PendingVisits = String.valueOf(result.get(1).getPending());
+                         binding.txtCompletedVisitsValue.setText(CompletedVisits);
+                         binding.txtPendingVisitsValue.setText(PendingVisits);
+
+                         String TotalVisits = String.valueOf(result.get(1).getComplete() + result.get(1).getPending());
+                         binding.txtTotalVisitsValue.setText(TotalVisits);
+                    }
+
+                    //For Calls(Calls is 1st in API list)
+                    if(result.get(0).getQueue().toLowerCase().contains("calls")){
+
+                        String CompletedCalls = String.valueOf(result.get(0).getComplete());
+                        String PendingCalls = String.valueOf(result.get(0).getPending());
+                        binding.txtCompletedCallsValue.setText(CompletedCalls);
+                        binding.txtPendingCallsValue.setText(PendingCalls);
+
+                        String TotalCalls = String.valueOf(result.get(0).getComplete() + result.get(0).getPending());
+                        binding.txtTotalCallsValue.setText(TotalCalls);
+                    }
+
+
+                }
+
+            }
+
             else{
                 Global.showSnackBar(view,getResources().getString(R.string.check_internet_connection));
             }

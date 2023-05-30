@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.example.test.api_manager.CommonViewModel" />
+            type="com.example.test.main_dashboard.MainDashBoardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,10 +29,22 @@
                 android:text="@string/dashboard"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="normal" />
 
         </androidx.appcompat.widget.Toolbar>
+
+        <ImageView
+            android:id="@+id/ivLogout"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:src="@drawable/logout_icon"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
 
         <ScrollView
             android:id="@+id/dashboardScrollView"
@@ -133,6 +146,43 @@
                             app:layout_constraintTop_toBottomOf="@id/labelTotalMonth" />
 
                         <TextView
+                            android:id="@+id/txtTotalVisitsValue"
+                            style="@style/semi_mid_text_style"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="5"
+                            android:layout_marginEnd="@dimen/_55sdp"
+                            android:textColor="@color/textBlue"
+                            android:textStyle="normal"
+                            android:layout_marginStart="@dimen/_40sdp"
+                            app:layout_constraintStart_toEndOf="@+id/labelVisits"
+                            app:layout_constraintTop_toBottomOf="@id/labelTotalMonth" />
+
+                        <TextView
+                            android:id="@+id/txtCompletedVisitsValue"
+                            style="@style/semi_mid_text_style"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="2"
+                            android:layout_marginEnd="@dimen/_55sdp"
+                            android:textColor="@color/textBlue"
+                            android:textStyle="normal"
+                            android:layout_marginStart="@dimen/_60sdp"
+                            app:layout_constraintStart_toEndOf="@+id/txtTotalVisitsValue"
+                            app:layout_constraintTop_toBottomOf="@id/labelTotalMonth" />
+
+                        <TextView
+                            android:id="@+id/txtPendingVisitsValue"
+                            style="@style/semi_mid_text_style"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="3"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:textColor="@color/textBlue"
+                            android:textStyle="normal"
+                            app:layout_constraintEnd_toStartOf="@+id/ivRightArrowVisits"
+                            app:layout_constraintTop_toBottomOf="@id/labelTotalMonth" />
+
+
+
+                        <TextView
                             android:id="@+id/labelCalls"
                             style="@style/common_text_style"
                             android:layout_width="wrap_content"
@@ -143,6 +193,39 @@
                             android:textColor="@color/textBlue"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/labelVisits" />
+
+                        <TextView
+                            android:id="@+id/txtTotalCallsValue"
+                            style="@style/semi_mid_text_style"
+                            android:text="26"
+                            android:layout_marginEnd="@dimen/_55sdp"
+                            android:textColor="@color/textBlue"
+                            android:textStyle="normal"
+                            android:layout_marginStart="@dimen/_40sdp"
+                            app:layout_constraintStart_toEndOf="@+id/labelVisits"
+                            app:layout_constraintTop_toTopOf="@id/labelCalls" />
+
+                        <TextView
+                            android:id="@+id/txtCompletedCallsValue"
+                            style="@style/semi_mid_text_style"
+                            android:text="14"
+                            android:layout_marginEnd="@dimen/_55sdp"
+                            android:textColor="@color/textBlue"
+                            android:textStyle="normal"
+                            android:layout_marginStart="@dimen/_50sdp"
+                            app:layout_constraintStart_toEndOf="@+id/txtTotalCallsValue"
+                            app:layout_constraintTop_toTopOf="@id/labelCalls" />
+
+                        <TextView
+                            android:id="@+id/txtPendingCallsValue"
+                            style="@style/semi_mid_text_style"
+                            android:text="12"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:textColor="@color/textBlue"
+                            android:textStyle="normal"
+                            app:layout_constraintEnd_toStartOf="@+id/ivRightArrowCalls"
+                            app:layout_constraintTop_toTopOf="@id/labelCalls" />
+
 
                         <View
                             android:id="@+id/viewBorder"
@@ -247,16 +330,6 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/labelTotalAssigned"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginStart="@dimen/_30sdp"
-                            android:text="@string/total"
-                            android:textColor="@color/black"
-                           app:layout_constraintStart_toEndOf="@id/labelMembersAssigned"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
                             android:id="@+id/labelMembersAssigned"
                             style="@style/common_text_style"
                             android:layout_marginStart="@dimen/_10sdp"
@@ -266,135 +339,90 @@
                             android:textColor="@color/black"
                             android:textStyle="normal"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/labelTotalAssigned" />
+                            app:layout_constraintTop_toBottomOf="@id/labelCompletedMembersAssigned" />
 
 
+                        <!--Pending-->
                         <TextView
-                            android:id="@+id/labelCallsAssigned"
-                            style="@style/common_text_style"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:text="@string/calls"
-                            android:textColor="@color/textBlue"
-                            android:visibility="gone"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/labelMembersAssigned" />
-
-
-                        <TextView
-                            android:id="@+id/labelTotalAssignedValue"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:text="90"
-                            android:layout_marginStart="@dimen/_42sdp"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintStart_toEndOf="@id/labelMembersAssigned"
-                            app:layout_constraintTop_toBottomOf="@id/labelTotalAssigned" />
-
-
-                        <TextView
-                            android:id="@+id/labelTotalAssignedValue2"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:text="120"
-                            android:visibility="gone"
-                            app:layout_constraintEnd_toEndOf="@+id/labelTotalAssigned"
-                            app:layout_constraintStart_toStartOf="@+id/labelTotalAssigned"
-                            app:layout_constraintTop_toBottomOf="@id/labelTotalAssignedValue" />
-
-
-                        <TextView
-                            android:id="@+id/labelCompletedCallsAssigned"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginTop="@dimen/_10sdp"
-
-                            android:text="@string/completed"
-                            android:textColor="@color/black"
-                            app:layout_constraintStart_toEndOf="@id/labelTotalAssigned"
-                            app:layout_constraintEnd_toStartOf="@id/labelPendingCallsAssigned"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-
-                        <TextView
-                            android:id="@+id/labelCompletedCallsAssignedValue"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:text="0"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            android:layout_marginStart="@dimen/_50sdp"
-                            app:layout_constraintStart_toEndOf="@+id/labelTotalAssignedValue"
-                            app:layout_constraintTop_toBottomOf="@id/labelCompletedCallsAssigned" />
-
-                        <TextView
-                            android:id="@+id/labelCompletedCallsAssignedValue2"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:text="20"
-                            android:visibility="gone"
-                            app:layout_constraintEnd_toEndOf="@id/labelCompletedCallsAssigned"
-                            app:layout_constraintStart_toStartOf="@id/labelCompletedCallsAssigned"
-                            app:layout_constraintTop_toBottomOf="@id/labelCompletedCallsAssignedValue" />
-
-
-                        <TextView
-                            android:id="@+id/labelPendingCallsAssigned"
+                            android:id="@+id/labelPendingMembersAssigned"
                             style="@style/semi_mid_text_style"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:text="@string/pending"
                             android:textColor="@color/black"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/labelInProcessMembersAssigned"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/labelPendingCallsAssignedValue"
+                            android:id="@+id/labelPendingMembersAssignedValue"
                             style="@style/semi_mid_text_style"
                             android:layout_marginStart="@dimen/_30sdp"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:layout_marginEnd="@dimen/_20sdp"
-                            android:text="90"
                             android:textColor="@color/black"
                             android:textStyle="normal"
-                            app:layout_constraintEnd_toEndOf="@+id/labelPendingCallsAssigned"
-                            app:layout_constraintStart_toStartOf="@+id/labelPendingCallsAssigned"
-                            app:layout_constraintTop_toBottomOf="@id/labelPendingCallsAssigned" />
+                            app:layout_constraintEnd_toEndOf="@+id/labelPendingMembersAssigned"
+                            app:layout_constraintStart_toStartOf="@+id/labelPendingMembersAssigned"
+                            app:layout_constraintTop_toBottomOf="@id/labelPendingMembersAssigned"
+                            tools:text="90" />
 
-                        <!--RightArrow Visits Assigned-->
-                        <ImageView
-                            android:id="@+id/ivRightArrowVisitsAssigned"
-                            android:layout_width="@dimen/_20sdp"
-                            android:layout_height="@dimen/_20sdp"
-                            android:src="@drawable/right_arrow"
-                            app:layout_constraintBottom_toBottomOf="@+id/labelPendingCallsAssignedValue"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/labelPendingCallsAssignedValue"
-                            app:tint="@color/black" />
+
+                        <!--In-Process-->
+                        <TextView
+                            android:id="@+id/labelInProcessMembersAssigned"
+                            style="@style/semi_mid_text_style"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:text="@string/in_process"
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toStartOf="@+id/labelCompletedMembersAssigned"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/labelPendingCallsAssignedValue2"
+                            android:id="@+id/labelInProcessMembersAssignedValue"
+                            style="@style/semi_mid_text_style"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_55sdp"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            app:layout_constraintEnd_toStartOf="@+id/labelCompletedMembersAssignedValue"
+                            app:layout_constraintTop_toBottomOf="@id/labelInProcessMembersAssigned"
+                            tools:text="90" />
+
+                        <!--Completed-->
+                        <TextView
+                            android:id="@+id/labelCompletedMembersAssigned"
+                            style="@style/semi_mid_text_style"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:text="@string/completed"
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/labelCompletedMembersAssignedValue"
                             style="@style/semi_mid_text_style"
                             android:layout_marginStart="@dimen/_30sdp"
                             android:layout_marginTop="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_10sdp"
-                            android:text="100"
-                            android:visibility="gone"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/labelCompletedCallsAssigned"
-                            app:layout_constraintTop_toBottomOf="@id/labelPendingCallsAssignedValue" />
+                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:textColor="@color/black"
+                            android:textStyle="normal"
+                            app:layout_constraintEnd_toEndOf="@+id/labelCompletedMembersAssigned"
+                            app:layout_constraintStart_toStartOf="@+id/labelCompletedMembersAssigned"
+                            app:layout_constraintTop_toBottomOf="@id/labelCompletedMembersAssigned"
+                            tools:text="90" />
 
-                        <!--RightArrow Calls Assigned-->
+                        <!--RightArrow Members Assigned-->
                         <ImageView
-                            android:id="@+id/ivRightArrowCallsAssigned"
+                            android:id="@+id/ivRightArrowMembersAssigned"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
                             android:src="@drawable/right_arrow"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="@+id/labelPendingCallsAssignedValue2"
+                            app:layout_constraintBottom_toBottomOf="@+id/labelCompletedMembersAssignedValue"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/labelPendingCallsAssignedValue2"
-                            app:tint="@color/textBlue" />
+                            app:layout_constraintTop_toTopOf="@+id/labelCompletedMembersAssignedValue"
+                            app:tint="@color/black" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -423,224 +451,33 @@
                         android:layout_height="wrap_content"
                         android:paddingBottom="@dimen/_10sdp">
 
-                        <TextView
-                            android:id="@+id/labelMarketing"
-                            style="@style/common_text_style"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_15sdp"
-                            android:text="@string/marketing"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
+                        <!--Progress Bar-->
+                        <ProgressBar
+                            android:id="@+id/loadingProgressBar"
+                            style="@style/CustomProgressDialog"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:indeterminate="true"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/labelTotalAssignedMarketingValue"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginStart="@dimen/_40sdp"
-                            android:text="40"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintBottom_toBottomOf="@id/labelMarketing"
-                            app:layout_constraintStart_toEndOf="@id/labelMarketing"
-                            app:layout_constraintTop_toTopOf="@id/labelMarketing" />
 
-                        <TextView
-                            android:id="@+id/labelCompletedAssignedMarketingValue"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginStart="@dimen/_50sdp"
-                            android:text="0"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintBottom_toBottomOf="@id/labelMarketing"
-                            app:layout_constraintStart_toEndOf="@id/labelTotalAssignedMarketingValue"
-                            app:layout_constraintTop_toTopOf="@id/labelMarketing" />
-
-                        <TextView
-                            android:id="@+id/labelPendingAssignedMarketingValue"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginEnd="@dimen/_25sdp"
-                            android:text="40"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintBottom_toBottomOf="@id/labelMarketing"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/labelMarketing" />
-
-                        <View
-                            android:id="@+id/viewBorder_1"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvDashBoardMain"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:layout_marginEnd="@dimen/_10sdp"
-                            android:background="@color/borderColor"
-                            app:layout_constraintTop_toBottomOf="@id/labelMarketing" />
-
-                        <TextView
-                            android:id="@+id/labelNPA"
-                            style="@style/common_text_style"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_15sdp"
-                            android:text="NPA"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/labelMarketing" />
-
-                        <TextView
-                            android:id="@+id/labelTotalAssignedNPAValue"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginStart="@dimen/_40sdp"
-                            android:text="25"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintBottom_toBottomOf="@id/labelNPA"
-                            app:layout_constraintStart_toEndOf="@id/labelMarketing"
-                            app:layout_constraintTop_toTopOf="@id/labelNPA" />
-
-                        <TextView
-                            android:id="@+id/labelCompletedAssignedNPAValue"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginStart="@dimen/_50sdp"
-                            android:text="0"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintBottom_toBottomOf="@id/labelNPA"
-                            app:layout_constraintStart_toEndOf="@id/labelTotalAssignedMarketingValue"
-                            app:layout_constraintTop_toTopOf="@id/labelNPA" />
-
-                        <TextView
-                            android:id="@+id/labelPendingAssignedNPAValue"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginEnd="@dimen/_25sdp"
+                            android:layout_height="@dimen/_150sdp"
+                            android:orientation="vertical"
+                            android:visibility="visible"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            android:text="25"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintBottom_toBottomOf="@id/labelNPA"
-                            app:layout_constraintTop_toTopOf="@id/labelNPA" />
-
-
-                        <View
-                            android:id="@+id/viewBorder_2"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:layout_marginEnd="@dimen/_10sdp"
-                            android:background="@color/borderColor"
-                            app:layout_constraintTop_toBottomOf="@id/labelNPA" />
-
-
-                        <TextView
-                            android:id="@+id/labelRenewal"
-                            style="@style/common_text_style"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_15sdp"
-                            android:text="@string/renewal"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/labelNPA" />
-
-                        <TextView
-                            android:id="@+id/labelTotalAssignedRenewalValue"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginStart="@dimen/_40sdp"
-                            android:text="10"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintBottom_toBottomOf="@id/labelRenewal"
-                            app:layout_constraintStart_toEndOf="@id/labelMarketing"
-                            app:layout_constraintTop_toTopOf="@id/labelRenewal" />
-
-                        <TextView
-                            android:id="@+id/labelCompletedAssignedRenewalValue"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginStart="@dimen/_50sdp"
-                            android:text="0"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintBottom_toBottomOf="@id/labelRenewal"
-                            app:layout_constraintStart_toEndOf="@id/labelTotalAssignedMarketingValue"
-                            app:layout_constraintTop_toTopOf="@id/labelRenewal" />
-
-                        <TextView
-                            android:id="@+id/labelPendingAssignedRenewalValue"
-                            style="@style/semi_mid_text_style"
-                           android:layout_marginEnd="@dimen/_25sdp"
-                            android:text="10"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintBottom_toBottomOf="@id/labelRenewal"
-                           app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/labelRenewal" />
-
-
-                        <View
-                            android:id="@+id/viewBorder_3"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:layout_marginEnd="@dimen/_10sdp"
-                            android:background="@color/borderColor"
-                            app:layout_constraintTop_toBottomOf="@id/labelRenewal" />
-
-
-                        <TextView
-                            android:id="@+id/labelWelcomeCall"
-                            style="@style/common_text_style"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_15sdp"
-                            android:text="@string/welcome_call"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/labelRenewal" />
-
-
-                        <TextView
-                            android:id="@+id/labelTotalAssignedWelcomeValue"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginStart="@dimen/_40sdp"
-                            android:text="15"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintBottom_toBottomOf="@id/labelWelcomeCall"
-                            app:layout_constraintStart_toEndOf="@id/labelMarketing"
-                            app:layout_constraintTop_toTopOf="@id/labelWelcomeCall" />
-
-                        <TextView
-                            android:id="@+id/labelCompletedAssignedWelcomeValue"
-                            style="@style/semi_mid_text_style"
-                            android:layout_marginStart="@dimen/_50sdp"
-                            android:text="0"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintBottom_toBottomOf="@id/labelWelcomeCall"
-                            app:layout_constraintStart_toEndOf="@id/labelTotalAssignedMarketingValue"
-                            app:layout_constraintTop_toTopOf="@id/labelWelcomeCall" />
-
-                        <TextView
-                            android:id="@+id/labelPendingAssignedWelcomeValue"
-                            style="@style/semi_mid_text_style"
-                           android:layout_marginEnd="@dimen/_25sdp"
-                            android:text="15"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"
-                            app:layout_constraintBottom_toBottomOf="@id/labelWelcomeCall"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/labelWelcomeCall" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:itemCount="3"
+                            tools:listitem="@layout/item_dashboard3_api" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
