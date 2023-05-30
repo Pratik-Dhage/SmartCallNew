@@ -10,6 +10,7 @@ import com.example.test.lead.model.LeadModel;
 import com.example.test.main_dashboard.adapter.MainDashBoardAdapter;
 import com.example.test.main_dashboard.model.DashBoardModel;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
+import com.example.test.main_dashboard.model.DashBoardScheduleForTheDayModel;
 import com.example.test.user.UserModel;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
@@ -29,6 +30,7 @@ public class MainDashBoardViewModel extends ViewModel {
     private Disposable subscribtion; //Disposable Interface used to prevent observer from receiving items from Observer before all items are loaded.
 
 
+    //For Assigned in DashBoard
     private final MutableLiveData<List<DashBoardResponseModel>> mutDashBoardResponseApi = new MutableLiveData<>();
     private final MutableLiveData<String> mutErrorResponse = new MutableLiveData<>();
 
@@ -39,6 +41,14 @@ public class MainDashBoardViewModel extends ViewModel {
     public MutableLiveData<String> getMutErrorResponse() {
         return mutErrorResponse;
     }
+
+    //for Schedule For the Day in DashBoard
+    private final MutableLiveData<List<DashBoardScheduleForTheDayModel>> mutDashBoardScheduleForTheDayResponseApi = new MutableLiveData<>();
+
+    public MutableLiveData<List<DashBoardScheduleForTheDayModel>> getMutDashBoardScheduleForTheDayResponseApi() {
+        return mutDashBoardScheduleForTheDayResponseApi;
+    }
+
 
     public ArrayList<DashBoardResponseModel> arrListDashBoardData = new  ArrayList<>() ;
     public MainDashBoardAdapter mainDashBoardAdapter = new MainDashBoardAdapter(arrListDashBoardData);
@@ -80,8 +90,26 @@ public class MainDashBoardViewModel extends ViewModel {
                 );
 
     }
+
+    public void getScheduleForTheDayData(){
+        subscribtion = (Disposable) Global.apiService().getDashBoardDataScheduleForTheDay(WebServices.schedule_for_the_day+"userId="+userId_new)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        this::onHomeApiSuccess2, this::onApiError
+                );
+
+    }
+
+    //For Assigned
     private void onHomeApiSuccess(List<DashBoardResponseModel> result) {
         mutDashBoardResponseApi.setValue(result);
+    }
+
+    //For Scheduled For The Day
+    private void onHomeApiSuccess2(List<DashBoardScheduleForTheDayModel> result) {
+        mutDashBoardScheduleForTheDayResponseApi.setValue(result);
     }
 
     private void onApiError(Throwable error) {
