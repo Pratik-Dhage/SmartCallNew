@@ -28,10 +28,15 @@ public interface RestClient {
     @GET
     Observable<List<LeadModel>> getLeadList(@Url String url);
 
+    //Login User
     @POST("security/authenticateUser")
     Observable<LoginResponseModel> loginUserApi(
             @Body UserModel userModel
     );
+
+    //Authenticate User(Login User)
+    @POST
+    Observable<UserModel> authenticateUser( @Url String url, @Body UserModel userModel);
 
     //DashBoard
     //Only @POST request can have request @BODY

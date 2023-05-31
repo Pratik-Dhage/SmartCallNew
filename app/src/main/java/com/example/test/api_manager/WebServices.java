@@ -63,6 +63,9 @@ public class WebServices {
     // for Generating User
     public static String generate_User = "security/generateUser?userId=admin";
 
+    //Authenticate User
+    public static String authenticate_user = "security/authenticateUser";
+
     //for Details of Customer
     //http://43.239.52.151:8081/transactionDataSet/getDetailView?dataSetId=311964&queue=3738
     public static String detail_of_customer = "transactionDataSet/getDetailView?dataSetId=311964&queue=3738";
