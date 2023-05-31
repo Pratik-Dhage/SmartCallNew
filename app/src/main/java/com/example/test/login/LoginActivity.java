@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public String userId ;
     public String userPassword;
+    public String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,9 @@ public class LoginActivity extends AppCompatActivity {
 
         userId  = binding.edtUserID.getText().toString().trim();
         userPassword   = binding.edtUserPassword.getText().toString().trim();
+        userName = binding.edtUserName.getText().toString().trim();
 
-        loginViewModel.callLoginApi(userId,userPassword);
+        loginViewModel.callLoginApi(userId,userName);
     }
 
     private void initObserver(){
@@ -72,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                     Global.showToast(LoginActivity.this, "Login :" + result.getAuthenticationResult());
 
                     Intent i = new Intent(LoginActivity.this, MainActivity3API.class);
+                    i.putExtra("userName",userName);
                     startActivity(i);
                 }
             }
@@ -128,12 +131,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean validations(){
 
+        //UserID
         if(binding.edtUserID.getText().toString().isEmpty()){
             binding.inputLayoutId.setError(getResources().getString(R.string.user_id_cannot_be_empty));
             return false;
         }
 
-        if(binding.edtUserPassword.getText().toString().isEmpty()){
+        //Password
+        /*if(binding.edtUserPassword.getText().toString().isEmpty()){
            binding.inputLayoutPassword.setError(getResources().getString(R.string.password_cannot_be_empty));
            return false;
         }
@@ -141,7 +146,14 @@ public class LoginActivity extends AppCompatActivity {
         if(!Global.isValidPassword(binding.edtUserPassword.getText().toString())){
             binding.inputLayoutPassword.setError(getResources().getString(R.string.password_not_valid));
             return false;
+        }*/
+
+        //UserName
+        if(binding.edtUserName.getText().toString().isEmpty()){
+            binding.inputLayoutUserName.setError(getResources().getString(R.string.user_name_cannot_be_empty));
+            return false;
         }
+
 
         return true;
 
@@ -164,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        binding.edtUserPassword.addTextChangedListener(new TextWatcher() {
+       /* binding.edtUserPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -177,8 +189,28 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
             }
+        });*/
+
+
+        binding.edtUserName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                binding.inputLayoutUserName.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
         });
 
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
 }

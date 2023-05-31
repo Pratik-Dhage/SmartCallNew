@@ -1,19 +1,26 @@
 package com.example.test.main_dashboard;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityMainActivity3ApiBinding;
 import com.example.test.fragments_activity.ActivityOfFragments;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.login.LoginActivity;
 import com.example.test.main_dashboard.adapter.MainDashBoardAdapter;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
@@ -51,6 +58,10 @@ public class MainActivity3API extends AppCompatActivity {
         view = binding.getRoot();
         mainDashBoardViewModel = new ViewModelProvider(this).get(MainDashBoardViewModel.class);
         binding.setViewModel(mainDashBoardViewModel);
+
+        if(getIntent().hasExtra("userName")){
+            binding.txtWelcomeUser.setText("Welcome "+getIntent().getStringExtra("userName"));
+        }
     }
 
     private void callDashBoardApi() {
@@ -125,30 +136,31 @@ public class MainActivity3API extends AppCompatActivity {
 
                 if(result!=null){
 
-                    //For Visits(Visits is 2nd in API list)
-                    if( result.get(1).getQueue().toLowerCase().contains("visits")){
-                        String CompletedVisits = String.valueOf(result.get(1).getComplete());
-                        String PendingVisits = String.valueOf(result.get(1).getPending());
-                         binding.txtCompletedVisitsValue.setText(CompletedVisits);
-                         binding.txtPendingVisitsValue.setText(PendingVisits);
+                     result.iterator().forEachRemaining(it->{
 
-                         String TotalVisits = String.valueOf(result.get(1).getComplete() + result.get(1).getPending());
-                         binding.txtTotalVisitsValue.setText(TotalVisits);
-                    }
+                         //For Visits
+                         if(it.getQueue().toLowerCase().contains("visits")){
+                             String CompletedVisits = String.valueOf(it.getComplete());
+                             String PendingVisits = String.valueOf(it.getPending());
+                             binding.txtCompletedVisitsValue.setText(CompletedVisits);
+                             binding.txtPendingVisitsValue.setText(PendingVisits);
 
-                    //For Calls(Calls is 1st in API list)
-                    if(result.get(0).getQueue().toLowerCase().contains("calls")){
+                             String TotalVisits = String.valueOf(it.getComplete() + it.getPending());
+                             binding.txtTotalVisitsValue.setText(TotalVisits);
+                         }
 
-                        String CompletedCalls = String.valueOf(result.get(0).getComplete());
-                        String PendingCalls = String.valueOf(result.get(0).getPending());
-                        binding.txtCompletedCallsValue.setText(CompletedCalls);
-                        binding.txtPendingCallsValue.setText(PendingCalls);
+                         //For Calls
+                         if(it.getQueue().toLowerCase().contains("calls")){
+                             String CompletedCalls = String.valueOf(it.getComplete());
+                             String PendingCalls = String.valueOf(it.getPending());
+                             binding.txtCompletedCallsValue.setText(CompletedCalls);
+                             binding.txtPendingCallsValue.setText(PendingCalls);
 
-                        String TotalCalls = String.valueOf(result.get(0).getComplete() + result.get(0).getPending());
-                        binding.txtTotalCallsValue.setText(TotalCalls);
-                    }
+                             String TotalCalls = String.valueOf(it.getComplete() + it.getPending());
+                             binding.txtTotalCallsValue.setText(TotalCalls);
+                         }
 
-
+                     });
                 }
 
             }
@@ -215,6 +227,32 @@ public class MainActivity3API extends AppCompatActivity {
         });
 
 
+       binding.ivLogout.setOnClickListener(v->{
+
+           View customDialogLogout = LayoutInflater.from(this).inflate(R.layout.custom_dialog_logout, null);
+
+           Button customButtonYes = customDialogLogout.findViewById(R.id.btnYes);
+           Button customButtonNo = customDialogLogout.findViewById(R.id.btnNo);
+
+           AlertDialog.Builder builder = new AlertDialog.Builder(this);
+           builder.setView(customDialogLogout);
+           final AlertDialog dialog = builder.create();
+           dialog.show();
+
+           customButtonYes.setOnClickListener(v1->{
+
+               Intent i = new Intent(MainActivity3API.this,LoginActivity.class);
+               startActivity(i);
+           });
+
+           customButtonNo.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   dialog.dismiss();
+               }
+           });
+
+       });
 
 
 
