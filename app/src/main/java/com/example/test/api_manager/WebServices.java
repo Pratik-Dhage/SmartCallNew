@@ -66,6 +66,12 @@ public class WebServices {
     //Authenticate User
     public static String authenticate_user = "security/authenticateUser";
 
+    //for Generate OTP
+    public static String generate_OTP = "security/generateOtp";
+
+    //for Validate OTP
+    public static String validate_OTP = "security/validateOtp";
+
     //for Details of Customer
     //http://43.239.52.151:8081/transactionDataSet/getDetailView?dataSetId=311964&queue=3738
     public static String detail_of_customer = "transactionDataSet/getDetailView?dataSetId=311964&queue=3738";

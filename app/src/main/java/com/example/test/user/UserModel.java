@@ -72,7 +72,21 @@ public class UserModel {
         this.userName = userName;
     }*/
 
-    // This COnstructor can also be used for Login / Authentication Purpose
+    //Login purpose
+
+
+    //Generate OTP purpose
+    public UserModel(String userId) {
+        this.userId = userId;
+    }
+
+    //Validate OTP
+    public UserModel(String userId, Integer otpCode) {
+        this.userId = userId;
+        this.otpCode = otpCode;
+    }
+
+    // This Constructor is also be used for Login / Authentication Purpose
     //Changes (28/04/2023) now use userId and branchCode as parameters to get DashBoard Data
     public UserModel(String userId, String branchCode) {
         this.userId = userId;

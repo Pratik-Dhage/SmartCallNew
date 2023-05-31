@@ -9,6 +9,8 @@ import com.example.test.npa_flow.call_details.CallDetails;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
+import com.example.test.otp.model.OTPGenerateOTPResponseModel;
+import com.example.test.otp.model.OTPValidateOTPResponseModel;
 import com.example.test.schedule_flow.model.ScheduleVisitDetails;
 import com.example.test.user.UserModel;
 
@@ -37,6 +39,18 @@ public interface RestClient {
     //Authenticate User(Login User)
     @POST
     Observable<UserModel> authenticateUser( @Url String url, @Body UserModel userModel);
+
+    //Generate OTP
+    @POST("security/generateOtp")
+     Observable<OTPGenerateOTPResponseModel> otpGenerateApi(
+             @Body UserModel userModel
+    );
+
+    //Validate OTP
+    @POST("security/validateOtp")
+    Observable<OTPValidateOTPResponseModel> otpValidateApi(
+            @Body UserModel userModel
+    );
 
     //DashBoard
     //Only @POST request can have request @BODY
