@@ -54,10 +54,42 @@ public class LoginActivity extends AppCompatActivity {
 
     private void callLoginApi(){
 
-        userId  = binding.edtUserID.getText().toString();
-        userPassword   = binding.edtUserPassword.getText().toString();
+        userId  = binding.edtUserID.getText().toString().trim();
+        userPassword   = binding.edtUserPassword.getText().toString().trim();
 
         loginViewModel.callLoginApi(userId,userPassword);
+    }
+
+    private void initObserver(){
+
+        loginViewModel.getMutLoginResponseApi().observe(LoginActivity.this, result -> {
+
+            //to check if userId from Login Page and API response is same
+            if(result.getUserId().contentEquals(userId)){
+
+                if(result.getAuthenticationResult().toLowerCase().contains("success")){
+
+                    Global.showToast(LoginActivity.this, "Login :" + result.getAuthenticationResult());
+
+                    Intent i = new Intent(LoginActivity.this, MainActivity3API.class);
+                    startActivity(i);
+                }
+            }
+
+
+
+        });
+
+        //handle  error response
+        loginViewModel.getMutErrorResponse().observe(LoginActivity.this, error -> {
+
+            if (error != null && !error.isEmpty()) {
+                Global.showSnackBar(view, error);
+                System.out.println("Here: " + error);
+            } else {
+                Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+            }
+        });
     }
 
     private void onClickListener() {
@@ -78,65 +110,11 @@ public class LoginActivity extends AppCompatActivity {
 
                if(NetworkUtilities.getConnectivityStatus(LoginActivity.this)){
 
-                 /*  if(validations()){
-
-
-                       //Custom Dialog box
-                       Dialog dialog = new Dialog(LoginActivity.this);
-                       dialog.setContentView(R.layout.custom_dialog_box);
-                       dialog.setTitle("Test");
-                       dialog.setCancelable(false);
-                       dialog.show();
-
-                     //  TextView txtTitle =  dialog.findViewById(R.id.txtCustomDialogTitle);
-                       //txtTitle.setText(getString(R.string.test_dialog_title));
-                      TextView txtMsg =  dialog.findViewById(R.id.txtCustomDialog);
-                      txtMsg.setText(getString(R.string.login_details_verified));
-                       Button btn = (Button) dialog.findViewById(R.id.btnCustomDialog);
-                       btn.setOnClickListener(new View.OnClickListener() {
-                           @Override
-                           public void onClick(View v) {
-                               dialog.dismiss();
-                           }
-                       });
-
-                   }*/
-
-
-
-
                    if(validations()) {
 
                        callLoginApi();
-
-                       loginViewModel.getMutLoginResponseApi().observe(LoginActivity.this, result -> {
-
-
-                           if (Objects.equals(result.getAuthenticationResult(), "SUCCESS")) {
-
-                               Global.showToast(LoginActivity.this, "Login Result :" + result.getAuthenticationResult());
-
-                               Intent i = new Intent(LoginActivity.this, MainActivity3API.class);
-                               startActivity(i);
-                           }
-
-                       });
-
+                       initObserver();
                    }
-
-
-
-                   //handle  error response
-                   loginViewModel.getMutErrorResponse().observe(LoginActivity.this, error -> {
-
-                       if (error != null && !error.isEmpty()) {
-                           Global.showSnackBar(view, error);
-                           System.out.println("Here: " + error);
-                       } else {
-                           Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
-                       }
-                   });
-
                }
 
                else{

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.test.api_manager.WebServices;
 import com.example.test.helper_classes.Global;
 import com.example.test.lead.model.LeadModel;
+import com.example.test.login.model.LoginModel;
 import com.example.test.login.model.LoginResponseModel;
 import com.example.test.user.UserModel;
 
@@ -33,12 +34,12 @@ public class LoginViewModel extends ViewModel {
 
 
 
-    //Login API
-
+    //Login API / Authenticate User
     public void callLoginApi(String userId, String userPassword) {
 
 
       UserModel loginUserRequest = new UserModel(userId , userPassword);
+     // LoginModel loginUserRequest = new LoginModel(userId, userPassword);
 
     subscribtion = (Disposable) Global.apiService().loginUserApi(loginUserRequest)
                   .subscribeOn(Schedulers.io())

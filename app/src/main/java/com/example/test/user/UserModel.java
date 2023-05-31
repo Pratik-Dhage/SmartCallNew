@@ -66,11 +66,13 @@ public class UserModel {
     private BigDecimal genericNumber10;
     private String authenticationResult;
 
-  /*  public UserModel(String userId, String password) {
+
+  /*  public UserModel(String userId, String userName) {
         this.userId = userId;
-        this.password = password;
+        this.userName = userName;
     }*/
 
+    // This COnstructor can also be used for Login / Authentication Purpose
     //Changes (28/04/2023) now use userId and branchCode as parameters to get DashBoard Data
     public UserModel(String userId, String branchCode) {
         this.userId = userId;
