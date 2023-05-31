@@ -5,24 +5,25 @@ import java.lang.Integer;
 import java.lang.Object;
 import java.lang.String;
 
+
 public class LoginResponseModel implements Serializable {
   private Object genericDate10;
 
   private Object allowedLoginTimeTo;
 
-  private String mobileNumber;
+  private Object mobileNumber;
 
-  private String createdDateTime;
+  private Object createdDateTime;
 
   private Object emailId;
 
   private Object concurrentLimit;
 
-  private String validFrom;
+  private Object validFrom;
 
-  private String password;
+  private Object password;
 
-  private String nameOfMother;
+  private Object nameOfMother;
 
   private Object genericNumber10;
 
@@ -42,11 +43,11 @@ public class LoginResponseModel implements Serializable {
 
   private Object branchCode;
 
-  private Integer companyId;
+  private Object companyId;
 
   private Object allowedLoginTimeFrom;
 
-  private String status;
+  private Object status;
 
   private Object generic1;
 
@@ -60,7 +61,7 @@ public class LoginResponseModel implements Serializable {
 
   private Object generic6;
 
-  private String validTo;
+  private Object validTo;
 
   private Object genericDate7;
 
@@ -82,7 +83,7 @@ public class LoginResponseModel implements Serializable {
 
   private Object genericNumber7;
 
-  private Integer roleId;
+  private Object roleId;
 
   private Object genericDate9;
 
@@ -92,7 +93,7 @@ public class LoginResponseModel implements Serializable {
 
   private Object branchName;
 
-  private String dateOfBirth;
+  private Object dateOfBirth;
 
   private Object genericNumber8;
 
@@ -104,17 +105,17 @@ public class LoginResponseModel implements Serializable {
 
   private Object concurrentLoginAllowed;
 
-  private String createdBy;
+  private Object createdBy;
 
   private Object genericDate3;
 
-  private String roleDescription;
+  private Object roleDescription;
 
   private Object genericDate4;
 
   private Object genericDate1;
 
-  private String removeDatetime;
+  private Object removeDatetime;
 
   private Object genericDate2;
 
@@ -134,19 +135,19 @@ public class LoginResponseModel implements Serializable {
     this.allowedLoginTimeTo = allowedLoginTimeTo;
   }
 
-  public String getMobileNumber() {
+  public Object getMobileNumber() {
     return this.mobileNumber;
   }
 
-  public void setMobileNumber(String mobileNumber) {
+  public void setMobileNumber(Object mobileNumber) {
     this.mobileNumber = mobileNumber;
   }
 
-  public String getCreatedDateTime() {
+  public Object getCreatedDateTime() {
     return this.createdDateTime;
   }
 
-  public void setCreatedDateTime(String createdDateTime) {
+  public void setCreatedDateTime(Object createdDateTime) {
     this.createdDateTime = createdDateTime;
   }
 
@@ -166,27 +167,27 @@ public class LoginResponseModel implements Serializable {
     this.concurrentLimit = concurrentLimit;
   }
 
-  public String getValidFrom() {
+  public Object getValidFrom() {
     return this.validFrom;
   }
 
-  public void setValidFrom(String validFrom) {
+  public void setValidFrom(Object validFrom) {
     this.validFrom = validFrom;
   }
 
-  public String getPassword() {
+  public Object getPassword() {
     return this.password;
   }
 
-  public void setPassword(String password) {
+  public void setPassword(Object password) {
     this.password = password;
   }
 
-  public String getNameOfMother() {
+  public Object getNameOfMother() {
     return this.nameOfMother;
   }
 
-  public void setNameOfMother(String nameOfMother) {
+  public void setNameOfMother(Object nameOfMother) {
     this.nameOfMother = nameOfMother;
   }
 
@@ -262,11 +263,11 @@ public class LoginResponseModel implements Serializable {
     this.branchCode = branchCode;
   }
 
-  public Integer getCompanyId() {
+  public Object getCompanyId() {
     return this.companyId;
   }
 
-  public void setCompanyId(Integer companyId) {
+  public void setCompanyId(Object companyId) {
     this.companyId = companyId;
   }
 
@@ -278,11 +279,11 @@ public class LoginResponseModel implements Serializable {
     this.allowedLoginTimeFrom = allowedLoginTimeFrom;
   }
 
-  public String getStatus() {
+  public Object getStatus() {
     return this.status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(Object status) {
     this.status = status;
   }
 
@@ -334,11 +335,11 @@ public class LoginResponseModel implements Serializable {
     this.generic6 = generic6;
   }
 
-  public String getValidTo() {
+  public Object getValidTo() {
     return this.validTo;
   }
 
-  public void setValidTo(String validTo) {
+  public void setValidTo(Object validTo) {
     this.validTo = validTo;
   }
 
@@ -422,11 +423,11 @@ public class LoginResponseModel implements Serializable {
     this.genericNumber7 = genericNumber7;
   }
 
-  public Integer getRoleId() {
+  public Object getRoleId() {
     return this.roleId;
   }
 
-  public void setRoleId(Integer roleId) {
+  public void setRoleId(Object roleId) {
     this.roleId = roleId;
   }
 
@@ -462,11 +463,11 @@ public class LoginResponseModel implements Serializable {
     this.branchName = branchName;
   }
 
-  public String getDateOfBirth() {
+  public Object getDateOfBirth() {
     return this.dateOfBirth;
   }
 
-  public void setDateOfBirth(String dateOfBirth) {
+  public void setDateOfBirth(Object dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
 
@@ -510,11 +511,11 @@ public class LoginResponseModel implements Serializable {
     this.concurrentLoginAllowed = concurrentLoginAllowed;
   }
 
-  public String getCreatedBy() {
+  public Object getCreatedBy() {
     return this.createdBy;
   }
 
-  public void setCreatedBy(String createdBy) {
+  public void setCreatedBy(Object createdBy) {
     this.createdBy = createdBy;
   }
 
@@ -526,11 +527,11 @@ public class LoginResponseModel implements Serializable {
     this.genericDate3 = genericDate3;
   }
 
-  public String getRoleDescription() {
+  public Object getRoleDescription() {
     return this.roleDescription;
   }
 
-  public void setRoleDescription(String roleDescription) {
+  public void setRoleDescription(Object roleDescription) {
     this.roleDescription = roleDescription;
   }
 
@@ -550,11 +551,11 @@ public class LoginResponseModel implements Serializable {
     this.genericDate1 = genericDate1;
   }
 
-  public String getRemoveDatetime() {
+  public Object getRemoveDatetime() {
     return this.removeDatetime;
   }
 
-  public void setRemoveDatetime(String removeDatetime) {
+  public void setRemoveDatetime(Object removeDatetime) {
     this.removeDatetime = removeDatetime;
   }
 
