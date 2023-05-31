@@ -81,7 +81,7 @@ public class UserModel {
     }
 
     //Validate OTP
-    public UserModel(String userId, Integer otpCode) {
+    public UserModel(String userId, int otpCode) {
         this.userId = userId;
         this.otpCode = otpCode;
     }

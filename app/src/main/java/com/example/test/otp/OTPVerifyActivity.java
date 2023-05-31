@@ -2,6 +2,7 @@ package com.example.test.otp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -26,6 +27,8 @@ public class OTPVerifyActivity extends AppCompatActivity {
     ActivityOtpverifyBinding binding;
     View view;
     OTPVerifyViewModel otpVerifyViewModel;
+    public String userId;
+    public int otpCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,50 @@ public class OTPVerifyActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this,R.layout.activity_otpverify);
         view = binding.getRoot();
-        otpVerifyViewModel = binding.getViewModel();
+        otpVerifyViewModel = new ViewModelProvider(this).get(OTPVerifyViewModel.class);
+        binding.setViewModel(otpVerifyViewModel);
+    }
+
+    private void callValidateOTP_Api(){
+
+        userId = getIntent().getStringExtra("userId");
+        otpCode = Integer.parseInt(binding.edt1.getText().toString() + binding.edt2.getText().toString() + binding.edt3.getText().toString() +
+                binding.edt4.getText().toString());
+
+        otpVerifyViewModel.callValidateOTP_Api(userId, otpCode);
+
+    }
+
+    private void initObserver(){
+
+        if(NetworkUtilities.getConnectivityStatus(this)){
+
+            otpVerifyViewModel.getMutValidateOTP_ResponseApi().observe(this,result->{
+
+                if(result!=null){
+
+                    Intent mPinIntent = new Intent(OTPVerifyActivity.this, MPinActivity.class);
+                    startActivity(mPinIntent);
+                }
+
+            });
+
+            //handle  error response
+            otpVerifyViewModel.getMutErrorResponse().observe(this, error -> {
+
+                if (error != null && !error.isEmpty()) {
+                    Global.showSnackBar(view, error);
+                    System.out.println("Here: " + error);
+                } else {
+                    Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+                }
+            });
+
+        }
+
+        else{
+            Global.showSnackBar(view,getString(R.string.check_internet_connection));
+        }
     }
 
     private void onClickListener() {
@@ -57,8 +103,8 @@ public class OTPVerifyActivity extends AppCompatActivity {
 
                         if(validations()){
 
-                                Intent mPinIntent = new Intent(OTPVerifyActivity.this, MPinActivity.class);
-                                startActivity(mPinIntent);
+                               callValidateOTP_Api();
+                               initObserver();
                         }
 
                     }
@@ -81,7 +127,7 @@ public class OTPVerifyActivity extends AppCompatActivity {
              if(binding.edt4.getText().toString().isEmpty() ||
                 binding.edt3.getText().toString().isEmpty() ||
                 binding.edt2.getText().toString().isEmpty() ||
-                binding.edt4.getText().toString().isEmpty())
+                binding.edt1.getText().toString().isEmpty())
              {
           binding.txtErrorOTP.setVisibility(View.VISIBLE);
           binding.txtOTPTimer.setVisibility(View.INVISIBLE);

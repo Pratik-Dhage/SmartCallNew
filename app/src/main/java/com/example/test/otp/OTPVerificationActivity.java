@@ -23,6 +23,8 @@ public class OTPVerificationActivity extends AppCompatActivity {
     ActivityOtpverificationBinding binding;
     View view;
     OTPVerifyViewModel otpVerifyViewModel;
+    public String userId;
+    public int otpCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,46 @@ public class OTPVerificationActivity extends AppCompatActivity {
 
     }
 
+    private void callValidateOTP_Api(){
+
+        userId = getIntent().getStringExtra("userId");
+        otpCode = Integer.parseInt(binding.otpView.getOTP());
+
+        otpVerifyViewModel.callValidateOTP_Api(userId,otpCode);
+    }
+
+    private void initObserver(){
+
+        if(NetworkUtilities.getConnectivityStatus(this)){
+
+            otpVerifyViewModel.getMutValidateOTP_ResponseApi().observe(this,result->{
+
+                if(result!=null){
+
+                    Intent registerIntent = new Intent(OTPVerificationActivity.this, RegisterPasswordActivity.class);
+                    startActivity(registerIntent);
+                }
+
+            });
+
+            //handle  error response
+            otpVerifyViewModel.getMutErrorResponse().observe(this, error -> {
+
+                if (error != null && !error.isEmpty()) {
+                    Global.showSnackBar(view, error);
+                    System.out.println("Here: " + error);
+                } else {
+                    Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+                }
+            });
+
+        }
+
+        else{
+            Global.showSnackBar(view,getString(R.string.check_internet_connection));
+        }
+    }
+
     private void onClickListeners() {
 
 
@@ -60,11 +102,14 @@ public class OTPVerificationActivity extends AppCompatActivity {
                 if(!binding.otpView.getOTP().isEmpty()){
                     binding.txtErrorOTP.setVisibility(View.INVISIBLE);
                     binding.btnVerifyOTP.setBackgroundColor(ContextCompat.getColor(OTPVerificationActivity.this,R.color.textBlue));
-                    Intent registerIntent = new Intent(OTPVerificationActivity.this, RegisterPasswordActivity.class);
-                    startActivity(registerIntent);
+
+                 callValidateOTP_Api();
+                 initObserver();
+
+
                 }
 
-
+/*
                 if(NetworkUtilities.getConnectivityStatus(OTPVerificationActivity.this)){
 
                     binding.otpView.setOtpListener(new OTPListener() {
@@ -91,6 +136,8 @@ public class OTPVerificationActivity extends AppCompatActivity {
                 else{
                     Global.showSnackBar(view,getResources().getString(R.string.check_internet_connection));
                 }
+ */
+
             }
         });
     }

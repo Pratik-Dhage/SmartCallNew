@@ -2,6 +2,7 @@ package com.example.test.otp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ public class OTPActivity extends AppCompatActivity {
     View view;
     OTPViewModel otpViewModel;
     boolean isFromRegisterPasswordActivity = true;
+    public String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +37,57 @@ public class OTPActivity extends AppCompatActivity {
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_otpactivity);
         view = binding.getRoot();
-        otpViewModel = binding.getViewModel();
+        otpViewModel = new ViewModelProvider(this).get(OTPViewModel.class);
+        binding.setViewModel(otpViewModel);
+    }
+
+    private void callGenerateOTP_Api(){
+
+        userId  = binding.edtOTPUserId.getText().toString().trim();
+        otpViewModel.callGenerateOTP_Api(userId);
+    }
+
+    private void initObserver(){
+
+        otpViewModel.getMutGenerateOTP_ResponseApi().observe(this,result->{
+
+            if(NetworkUtilities.getConnectivityStatus(this)){
+
+                if(result!=null){
+
+                    //if coming from RegisterPasswordActivity
+                    if(getIntent().hasExtra("isFromRegisterPasswordActivity")){
+                        Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
+                        i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
+                        i.putExtra("userId",userId);
+                        startActivity(i);
+                    }
+
+                    else{
+                        Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
+                        i.putExtra("userId",userId);
+                        startActivity(i);
+                    }
+                }
+
+                //handle  error response
+                otpViewModel.getMutErrorResponse().observe(this, error -> {
+
+                    if (error != null && !error.isEmpty()) {
+                        Global.showSnackBar(view, error);
+                        System.out.println("Here: " + error);
+                    } else {
+                        Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+                    }
+                });
+
+
+            }
+            else{
+                Global.showSnackBar(view,getString(R.string.check_internet_connection));
+            }
+
+        });
     }
 
     private void onClickListener() {
@@ -49,29 +101,15 @@ public class OTPActivity extends AppCompatActivity {
 
                     if(validations()){
 
-                        //if coming from RegisterPasswordActivity
-                        if(getIntent().hasExtra("isFromRegisterPasswordActivity")){
-                            Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
-                            i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
-                            startActivity(i);
-                        }
-
-                        else{
-                            Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
-                            startActivity(i);
-                        }
+                        callGenerateOTP_Api();
+                        initObserver();
                     }
-
-
 
                 }
 
                 else {
                     Global.showSnackBar(view,getResources().getString(R.string.check_internet_connection));
                 }
-
-
-
             }
         });
     }
