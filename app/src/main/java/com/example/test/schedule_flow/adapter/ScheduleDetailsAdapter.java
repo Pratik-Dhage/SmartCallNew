@@ -59,12 +59,19 @@ public class ScheduleDetailsAdapter extends RecyclerView.Adapter<ScheduleDetails
 
 
     @Override
-    public int getItemCount() {
+    public int getItemCount() {return scheduleVisitDetails_List.size();}
 
-
-        return scheduleVisitDetails_List.size();
+    @Override
+    public void onViewAttachedToWindow(@NonNull MyViewHolderClass holder) {
+        super.onViewAttachedToWindow(holder);
+        holder.setIsRecyclable(true);
     }
 
+    @Override
+    public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.setIsRecyclable(false);
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     public ArrayList setData(ArrayList<ScheduleVisitDetails> data) {
