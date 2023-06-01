@@ -107,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.labelForgotPassword.setOnClickListener(v->{
             Intent i = new Intent(LoginActivity.this, OTPActivity.class);
+            i.putExtra("isFromLoginForgotPassword","isFromLoginForgotPassword");
             startActivity(i);
 
         });

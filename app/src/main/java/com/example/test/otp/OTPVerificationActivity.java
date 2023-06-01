@@ -20,6 +20,7 @@ import in.aabhasjindal.otptextview.OTPListener;
 
 public class OTPVerificationActivity extends AppCompatActivity {
 
+    //OTP Validation Activity
     ActivityOtpverificationBinding binding;
     View view;
     OTPVerifyViewModel otpVerifyViewModel;
@@ -63,8 +64,13 @@ public class OTPVerificationActivity extends AppCompatActivity {
 
                 if(result!=null){
 
-                    Intent registerIntent = new Intent(OTPVerificationActivity.this, RegisterPasswordActivity.class);
-                    startActivity(registerIntent);
+                    if(result.getUserId().toString().contentEquals(userId)){
+
+                        Intent registerIntent = new Intent(OTPVerificationActivity.this, RegisterPasswordActivity.class);
+                        startActivity(registerIntent);
+                    }
+
+
                 }
 
             });

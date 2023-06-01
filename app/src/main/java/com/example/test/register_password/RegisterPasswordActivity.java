@@ -67,11 +67,11 @@ public class RegisterPasswordActivity extends AppCompatActivity {
 
     private boolean validations(){
 
-        //Default Password
+       /* //Default Password
         if(binding.edtDefaultPassword.getText().toString().isEmpty()){
             binding.inputLayoutDefaultPassword.setError(getResources().getString(R.string.password_cannot_be_empty));
             return false;
-        }
+        }*/
 
         // Set Password for empty
         if(binding.edtSetPassword.getText().toString().isEmpty()){
@@ -103,7 +103,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
 
     private void CustomEditTextWatcher(){
 
-        //Default Password
+        /*//Default Password
         binding.edtDefaultPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -117,7 +117,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
             }
-        });
+        });*/
 
         //Set Password
         binding.edtSetPassword.addTextChangedListener(new TextWatcher() {
