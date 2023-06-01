@@ -11,6 +11,10 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.example.test.R;
+import com.example.test.roomDB.dao.LeadCallDao;
+import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.database.LeadListDB;
+import com.example.test.roomDB.model.MPinRoomModel;
 import com.example.test.success.SuccessActivity;
 import com.example.test.databinding.ActivityMpinBinding;
 import com.example.test.databinding.ActivityRegisterPasswordBinding;
@@ -38,7 +42,7 @@ public class MPinActivity extends AppCompatActivity {
     }
 
     private void initializeFields() {
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_mpin);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_mpin);
         view = binding.getRoot();
         mPinViewModel = new ViewModelProvider(this).get(MPinViewModel.class);
         binding.setViewModel(mPinViewModel);
@@ -50,19 +54,21 @@ public class MPinActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                if(NetworkUtilities.getConnectivityStatus(MPinActivity.this)){
+                if (NetworkUtilities.getConnectivityStatus(MPinActivity.this)) {
 
-                    if(validation()){
+                    if (validation()) {
 
+                        String userMPin = binding.setMpinView.getOTP();
+                        Global.saveStringInSharedPref(MPinActivity.this, "userMPin", userMPin); //save MPin in SharedPreferences for Logging using MPin
+                        System.out.println("Here userMPin:" + userMPin);
+                        saveMPinInRoomDB(userMPin);
                         Intent i = new Intent(MPinActivity.this, SuccessActivity.class);
-                        i.putExtra("isFromMPinActivity",isFromMPinActivity);
+                        i.putExtra("isFromMPinActivity", isFromMPinActivity);
                         startActivity(i);
                     }
 
-                }
-
-                else {
-                    Global.showSnackBar(view,getResources().getString(R.string.check_internet_connection));
+                } else {
+                    Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
                 }
 
             }
@@ -70,16 +76,26 @@ public class MPinActivity extends AppCompatActivity {
     }
 
 
-    private boolean validation(){
+    private boolean validation() {
 
         //means if Set New mPin != Re_enter Pin with Null safety
-        if(!Objects.equals(binding.setMpinView.getOTP(), binding.reEnterMpinView.getOTP())){
+        if (!Objects.equals(binding.setMpinView.getOTP(), binding.reEnterMpinView.getOTP())) {
             binding.txtErrorPIN.setVisibility(View.VISIBLE);
             return false;
         }
 
 
         return true;
+    }
+
+    private void saveMPinInRoomDB(String userMPin) {
+
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+
+        String userNameFromOTPValidationResponse = Global.getStringFromSharedPref(this, "userNameFromOTPValidationResponse");
+        MPinRoomModel mPinRoomModel = new MPinRoomModel(userMPin, userNameFromOTPValidationResponse);
+        mPinDao.insert(mPinRoomModel); // Inserted mPin in RoomDB
+
     }
 
 

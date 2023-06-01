@@ -17,6 +17,7 @@ import com.example.test.mPin.MPinActivity;
 import com.example.test.register_password.RegisterPasswordActivity;
 
 import in.aabhasjindal.otptextview.OTPListener;
+import in.aabhasjindal.otptextview.OtpTextView;
 
 public class OTPVerificationActivity extends AppCompatActivity {
 
@@ -36,7 +37,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
         //This activity is made by externally adding an OTP Library
         initializeFields();
         onClickListeners();
-
+        otpListener();
     }
 
     private void initializeFields() {
@@ -65,6 +66,21 @@ public class OTPVerificationActivity extends AppCompatActivity {
                 if(result!=null){
 
                     if(result.getUserId().toString().contentEquals(userId)){
+                        String userNameFromOTPValidationResponse;
+                        try{
+                             userNameFromOTPValidationResponse = result.getUserName().toString();
+
+                             if(result.getUserName()==null){
+                                 Global.saveStringInSharedPref(this,"userNameFromOTPValidationResponse","userNameIsNull"); // Save UserName in SharedPreferences for storing mPin with userName in RoomDB
+                             }
+                             else{
+                                 Global.saveStringInSharedPref(this,"userNameFromOTPValidationResponse",userNameFromOTPValidationResponse); // Save UserName in SharedPreferences for storing mPin with userName in RoomDB
+                             }
+                        }
+                        catch(Exception e){
+                            System.out.println("Here Error:"+e);
+                        }
+
 
                         if(getIntent().hasExtra("isFromLoginWithOTPFragment")){
                             Intent mpinIntent = new Intent(this,MPinActivity.class);
@@ -99,6 +115,33 @@ public class OTPVerificationActivity extends AppCompatActivity {
             Global.showSnackBar(view,getString(R.string.check_internet_connection));
         }
     }
+
+    private void otpListener(){
+
+        OtpTextView otpTextView = binding.otpView;
+        otpTextView.setOtpListener(new OTPListener() {
+            @Override
+            public void onInteractionListener() {
+                // This method will be called when any digit is entered or deleted.
+
+                if (otpTextView.getOTP().length() == 4) {
+                    // All four entries of the OTP have been written by the user.
+                    binding.btnVerifyOTP.setBackgroundColor(ContextCompat.getColor(OTPVerificationActivity.this,R.color.textBlue));
+
+                }
+                else{
+                    binding.btnVerifyOTP.setBackgroundColor(ContextCompat.getColor(OTPVerificationActivity.this,R.color.borderColor));
+                }
+            }
+
+            @Override
+            public void onOTPComplete(String otp) {
+                binding.btnVerifyOTP.setBackgroundColor(ContextCompat.getColor(OTPVerificationActivity.this,R.color.textBlue));
+
+            }
+        });
+    }
+
 
     private void onClickListeners() {
 
