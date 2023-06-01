@@ -9,12 +9,37 @@
     tools:context=".login.LoginWithMPinActivity">
 
     <TextView
+        android:id="@+id/txtWelcomeUser"
+        style="@style/heading_text_style"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="@string/welcome_User"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/txtLoginWithMPin"
+        style="@style/common_text_style"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="@string/login_with_mpin"
+        android:textAllCaps="true"
+        android:background="@color/skyBlue"
+        android:textColor="@color/textBlue"
+        android:padding="@dimen/_8sdp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/txtWelcomeUser" />
+
+    <TextView
         android:id="@+id/labelEnter_mPin"
         android:text="@string/enter_mpin"
         android:textStyle="normal"
         style="@style/heading_text_style"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/_80sdp"
+       app:layout_constraintTop_toBottomOf="@+id/txtLoginWithMPin"
+        android:layout_marginTop="@dimen/_50sdp"
         app:layout_constraintStart_toStartOf="@id/mpin_view"
         android:layout_marginBottom="@dimen/_10sdp"
         app:layout_constraintBottom_toTopOf="@id/mpin_view"

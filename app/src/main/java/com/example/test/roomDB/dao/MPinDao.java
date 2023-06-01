@@ -30,4 +30,7 @@ public interface MPinDao {
     @Query("UPDATE mpin_table SET mPin = :newMPin WHERE mPinUserName = :userName")
     void updateMPin(String newMPin, String userName);
 
+    @Query("SELECT COUNT(*) FROM mpin_table")
+    int checkAnyMPinExists();
+
 }

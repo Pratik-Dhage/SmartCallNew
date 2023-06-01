@@ -332,6 +332,7 @@
     <string name="no">No</string>
     <string name="reset_mpin">Reset MPin</string>
     <string name="enter_your_password">Enter your Password</string>
+    <string name="login_with_mpin">Login With MPin</string>
 
 
     <!--for Tenure-->

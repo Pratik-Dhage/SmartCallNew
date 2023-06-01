@@ -16,6 +16,8 @@ import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.otp.OTPActivity;
+import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.database.LeadListDB;
 
 import java.util.Objects;
 
@@ -37,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         onClickListener();
         CustomEditTextWatcher();
 
-       // callLoginAPi();
+        checkIfMPinExists();
 
 
     }
@@ -51,7 +53,20 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private void checkIfMPinExists(){
 
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        int countOfMPin = mPinDao.checkAnyMPinExists();
+
+        if (countOfMPin > 0) {
+            // At least one mPin exists in the table
+            startActivity(new Intent(this,LoginWithMPinActivity.class));
+        } else {
+            // No mPin exists in the table
+
+        }
+
+    }
 
     private void callLoginApi(){
 
