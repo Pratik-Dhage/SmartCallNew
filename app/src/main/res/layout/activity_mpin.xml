@@ -16,12 +16,47 @@
     style="@style/MainConstraintStyle"
     tools:context=".mPin.MPinActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/toolBarStyle"
+        android:background="@color/textBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/txtToolbarHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/generate_mpin"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp" />
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:src="@drawable/back_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+
+
+
     <TextView
         android:id="@+id/labelSetNewMPin"
         android:text="@string/set_new_pin"
         style="@style/heading_text_style"
         android:textStyle="normal"
-        app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:layout_marginTop="@dimen/_60sdp"
         app:layout_constraintStart_toStartOf="@id/set_mpin_view"
         android:layout_marginBottom="@dimen/_10sdp"

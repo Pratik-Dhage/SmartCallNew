@@ -49,6 +49,11 @@ public class MPinActivity extends AppCompatActivity {
     }
 
     private void onClickListener() {
+
+        binding.ivBack.setOnClickListener(v->{
+            onBackPressed();
+        });
+
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
