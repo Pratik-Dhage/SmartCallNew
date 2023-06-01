@@ -60,7 +60,7 @@ public class MPinActivity extends AppCompatActivity {
 
                         String userMPin = binding.setMpinView.getOTP();
                         Global.saveStringInSharedPref(MPinActivity.this, "userMPin", userMPin); //save MPin in SharedPreferences for Logging using MPin
-                        System.out.println("Here userMPin:" + userMPin);
+                        System.out.println("Here userMPin: "+userMPin);
                         saveMPinInRoomDB(userMPin);
                         Intent i = new Intent(MPinActivity.this, SuccessActivity.class);
                         i.putExtra("isFromMPinActivity", isFromMPinActivity);
@@ -89,14 +89,21 @@ public class MPinActivity extends AppCompatActivity {
     }
 
     private void saveMPinInRoomDB(String userMPin) {
-
         MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
-
         String userNameFromOTPValidationResponse = Global.getStringFromSharedPref(this, "userNameFromOTPValidationResponse");
-        MPinRoomModel mPinRoomModel = new MPinRoomModel(userMPin, userNameFromOTPValidationResponse);
-        mPinDao.insert(mPinRoomModel); // Inserted mPin in RoomDB
 
+        if (getIntent().hasExtra("isFromLoginWithOTPFragment_ResetMPin")) {
+            // Replace the old mPin with the new mPin
+            mPinDao.updateMPin(userMPin, userNameFromOTPValidationResponse);
+        } else {
+            // Insert the new mPin in the Room database
+            MPinRoomModel newMPinRoomModel = new MPinRoomModel(userMPin, userNameFromOTPValidationResponse);
+            mPinDao.insert(newMPinRoomModel);
+        }
+
+        System.out.println("Here userMPinInRoomDB: " + mPinDao.getMPinFromRoomDB(userNameFromOTPValidationResponse));
     }
+
 
 
 }

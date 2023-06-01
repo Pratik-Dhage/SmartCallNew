@@ -59,7 +59,7 @@ public class LoginWithOTPFragment extends Fragment {
 
                         Intent i = new Intent(getContext(), OTPVerificationActivity.class);
                         i.putExtra("userId",userId);
-                        i.putExtra("isFromLoginWithOTPFragment","isFromLoginWithOTPFragment");
+                        i.putExtra("isFromLoginWithOTPFragment_ResetMPin","isFromLoginWithOTPFragment_ResetMPin");
                         startActivity(i);
 
                 }

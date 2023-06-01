@@ -64,6 +64,7 @@ public class SuccessActivity extends AppCompatActivity {
                 if(binding.txtLink.getText().toString().contentEquals(getResources().getString(R.string.login_now)))
                 {
                     Intent loginIntent = new Intent(SuccessActivity.this, LoginWithMPinActivity.class);
+                    loginIntent.putExtra("isFromLoginWithOTPFragment_ResetMPin","isFromLoginWithOTPFragment_ResetMPin");
                     startActivity(loginIntent);
                 }
 
