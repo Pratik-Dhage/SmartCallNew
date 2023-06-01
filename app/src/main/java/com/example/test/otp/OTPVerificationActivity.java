@@ -66,8 +66,15 @@ public class OTPVerificationActivity extends AppCompatActivity {
 
                     if(result.getUserId().toString().contentEquals(userId)){
 
-                        Intent registerIntent = new Intent(OTPVerificationActivity.this, RegisterPasswordActivity.class);
-                        startActivity(registerIntent);
+                        if(getIntent().hasExtra("isFromLoginWithOTPFragment")){
+                            Intent mpinIntent = new Intent(this,MPinActivity.class);
+                            startActivity(mpinIntent);
+                        }
+
+                        else {
+                            Intent registerIntent = new Intent(OTPVerificationActivity.this, RegisterPasswordActivity.class);
+                            startActivity(registerIntent);
+                        }
                     }
 
 

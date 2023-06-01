@@ -330,6 +330,8 @@
     <string name="are_you_sure">Are you sure?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="reset_mpin">Reset MPin</string>
+    <string name="enter_your_password">Enter your Password</string>
 
 
     <!--for Tenure-->

@@ -38,13 +38,14 @@
         app:otp_text_size="@dimen/_24sdp"/>
 
     <TextView
-        android:id="@+id/labelForgotPassword"
+        android:id="@+id/labelForgotMPin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="@string/forgot_mpin"
         android:textColor="@color/black"
         android:textSize="@dimen/_12ssp"
+        android:padding="@dimen/_5sdp"
         app:layout_constraintEnd_toEndOf="@id/mpin_view"
         app:layout_constraintTop_toBottomOf="@id/mpin_view" />
 
