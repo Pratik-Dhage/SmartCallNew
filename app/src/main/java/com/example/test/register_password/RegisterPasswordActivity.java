@@ -24,6 +24,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
     View view;
     RegisterPasswordViewModel registerPasswordViewModel;
     boolean isFromRegisterPasswordActivity = true;
+    String userId , userPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,41 @@ public class RegisterPasswordActivity extends AppCompatActivity {
         binding.setViewModel(registerPasswordViewModel);
     }
 
+    private void callRegisterApi(){
+
+        userId  = Global.getStringFromSharedPref(this,"userId");
+        userPassword   = binding.edtSetPassword.getText().toString().trim();
+
+       System.out.println("Here RegisterPasswordActivity");
+        registerPasswordViewModel.callRegisterApi(userId,userPassword);
+    }
+
+    private void initObserver(){
+
+        registerPasswordViewModel.getMutLoginResponseApi().observe(this,result->{
+
+            if(result!=null){
+
+                Intent i = new Intent(RegisterPasswordActivity.this, SuccessActivity.class);
+                i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
+                startActivity(i);
+            }
+
+        });
+
+        //handle  error response
+        registerPasswordViewModel.getMutErrorResponse().observe(this, error -> {
+
+            if (error != null && !error.isEmpty()) {
+                Global.showSnackBar(view, error);
+                System.out.println("Here: " + error);
+            } else {
+                Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+            }
+        });
+    }
+
+
     private void onClickListener() {
 
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -51,9 +87,9 @@ public class RegisterPasswordActivity extends AppCompatActivity {
 
                     if(validations()){
 
-                        Intent i = new Intent(RegisterPasswordActivity.this, SuccessActivity.class);
-                        i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
-                        startActivity(i);
+                        callRegisterApi();
+                        initObserver();
+
                     }
                 }
 
