@@ -45,6 +45,8 @@ public class OTPActivity extends AppCompatActivity {
 
         userId  = binding.edtOTPUserId.getText().toString().trim();
         otpViewModel.callGenerateOTP_Api(userId);
+
+        Global.saveStringInSharedPref(this,"userId",userId); // saving userId  for calling api in RegisterPasswordActivity
     }
 
     private void initObserver(){
