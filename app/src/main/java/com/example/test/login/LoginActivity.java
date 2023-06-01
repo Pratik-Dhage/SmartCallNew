@@ -100,11 +100,15 @@ public class LoginActivity extends AppCompatActivity {
         binding.txtSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(LoginActivity.this, OTPActivity.class);
                 startActivity(i);
-
             }
+        });
+
+        binding.labelForgotPassword.setOnClickListener(v->{
+            Intent i = new Intent(LoginActivity.this, OTPActivity.class);
+            startActivity(i);
+
         });
 
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {

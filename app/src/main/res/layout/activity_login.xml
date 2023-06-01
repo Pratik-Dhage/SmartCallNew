@@ -164,6 +164,8 @@
                     android:textColor="@color/textBlue"
                     android:textSize="@dimen/_12ssp"
                     android:textStyle="bold"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="@id/labelForgotPassword"
                     app:layout_constraintStart_toEndOf="@id/labelDontHaveAccount"
                     app:layout_constraintTop_toBottomOf="@id/labelForgotPassword" />
