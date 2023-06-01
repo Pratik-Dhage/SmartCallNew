@@ -147,7 +147,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         });
 
         binding.btnNumberIsInvalid.setOnClickListener(v -> {
-            Intent i = new Intent(NotSpokeToCustomerActivity.this, VisitCompletionOfCustomerActivity.class);
+            Intent i = new Intent(NotSpokeToCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("detailsList",detailsList);
             startActivity(i);
