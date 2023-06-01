@@ -44,7 +44,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSendOTP"
                 style="@style/ButtonStyle"
-                android:layout_marginTop="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_35sdp"
                 android:text="@string/send_otp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
