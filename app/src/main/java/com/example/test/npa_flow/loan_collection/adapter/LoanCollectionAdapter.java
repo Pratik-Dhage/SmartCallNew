@@ -124,7 +124,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
         });
 
         //for Status , Navigate to StatusOfCustomerActivity
-        holder.binding.clStatus.setOnClickListener(v->{
+        holder.binding.ivStatusInfo.setOnClickListener(v->{
             String dataSetId = a.getDataSetId().toString();
             Intent i = new Intent(context, StatusOfCustomerActivity.class);
             i.putExtra("dataSetId",dataSetId);
