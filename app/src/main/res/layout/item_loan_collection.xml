@@ -57,7 +57,7 @@
                   app:layout_constraintTop_toTopOf="@id/txtStatus"
                   app:layout_constraintBottom_toBottomOf="@id/txtStatus"
                   android:layout_marginStart="@dimen/_5sdp"
-                  android:src="@drawable/status_info"
+                  android:src="@drawable/status_info2"
                   android:layout_width="@dimen/_20sdp"
                   android:layout_height="@dimen/_20sdp"/>
 
