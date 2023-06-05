@@ -4,6 +4,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     style="@style/MainConstraintStyle"
+    android:id="@+id/clMainConstraint"
     android:layout_height="wrap_content">
 
     <TextView
@@ -13,7 +14,6 @@
         android:paddingTop="@dimen/_10sdp"
         android:paddingBottom="@dimen/_10sdp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/_5sdp"
         tools:text="25th May 23,Friday,5:00pm Complete"
@@ -54,6 +54,90 @@
         android:visibility="invisible"
         android:layout_marginEnd="@dimen/_3sdp"
         android:layout_height="@dimen/_20sdp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clStatusInfo"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivDownArrowStatus"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+
+        <!--Spoke To The Customer-->
+        <TextView
+            android:id="@+id/txtHeadStatusInfo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:textSize="@dimen/_11ssp"
+            tools:text="Spoke To The Customer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!--Ready To Pay-->
+        <TextView
+            android:id="@+id/txtMidStatusInfo1"
+            app:layout_constraintTop_toBottomOf="@id/txtHeadStatusInfo"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:textSize="@dimen/_11ssp"
+            tools:text="Ready To pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+       <!--Schedule Visit For Collection-->
+        <TextView
+            android:id="@+id/txtMidStatusInfo2"
+            app:layout_constraintTop_toBottomOf="@id/txtMidStatusInfo1"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:textSize="@dimen/_11ssp"
+            tools:text="Schedule Visit For Collection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!--Full Amount Paid/Partail Amount Paid/ Will Pay Later-->
+        <TextView
+            android:id="@+id/txtMidStatusInfo3"
+            app:layout_constraintTop_toBottomOf="@id/txtMidStatusInfo1"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:textSize="@dimen/_11ssp"
+            tools:text="Full Amt. Paid/ Partial Amt Paid/ Will Pay Later"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txtBottomMainStatusInfo"
+            app:layout_constraintTop_toBottomOf="@id/txtMidStatusInfo3"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:paddingTop="@dimen/_5sdp"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:textSize="@dimen/_11ssp"
+            tools:text="Pending/In Process/Complete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
