@@ -151,6 +151,9 @@ public class WebServices {
     //http://43.239.52.151:8081/activity/callsForTheDay?userId=CA_01_001
     public static String calls_for_the_day = "activity/callsForTheDay?";
 
+    //FOR STATUS OF CUSTOMER(LOAN COLLECTION ADAPTER in Loan Collection List)
+    public static String details_of_status_of_customer = "activity/activitiesForDataSet?";
+
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    style="@style/MainConstraintStyle"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txtStatusDetailsOfCustomer"
+        android:layout_width="wrap_content"
+        style="@style/common_text_style"
+        android:paddingTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        tools:text="25th May 23,Friday,5:00pm Complete"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/txtUserName"
+        app:layout_constraintStart_toEndOf="@id/txtStatusDetailsOfCustomer"
+        app:layout_constraintTop_toTopOf="@id/txtStatusDetailsOfCustomer"
+        app:layout_constraintBottom_toBottomOf="@id/txtStatusDetailsOfCustomer"
+        tools:text="ShivKumar"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:maxLength="10"
+        android:layout_marginStart="@dimen/_5sdp"
+        style="@style/common_text_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <ImageView
+        android:id="@+id/ivDownArrowStatus"
+        android:layout_width="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtUserName"
+        app:layout_constraintBottom_toBottomOf="@id/txtUserName"
+        android:src="@drawable/down_arrow"
+        android:layout_marginEnd="@dimen/_3sdp"
+        android:layout_height="@dimen/_20sdp"/>
+
+    <ImageView
+        android:id="@+id/ivUpArrowStatus"
+        android:layout_width="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtUserName"
+        app:layout_constraintBottom_toBottomOf="@id/txtUserName"
+        android:src="@drawable/up_arrow"
+        android:visibility="invisible"
+        android:layout_marginEnd="@dimen/_3sdp"
+        android:layout_height="@dimen/_20sdp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

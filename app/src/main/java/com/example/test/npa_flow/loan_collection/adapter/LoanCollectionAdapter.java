@@ -23,6 +23,7 @@ import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
+import com.example.test.npa_flow.status_of_customer.StatusOfCustomerActivity;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.database.LeadListDB;
 
@@ -99,6 +100,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
         holder.itemView.setOnClickListener(v->{
 
+            /*
             //DetailsOfCustomer Only visible if Status is Pending
             if(a.getActionStatus().toLowerCase().contains("pending")){
 
@@ -110,12 +112,23 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
                 i.putExtra("dataSetId",dataSetId);
                 context.startActivity(i);
             }
+*/
+
+            Global.saveStringInSharedPref(context,"FullNameFromAdapter",String.valueOf(a.getMemberName()));
+
+            String dataSetId = a.getDataSetId().toString();
+            Intent i = new Intent(context, DetailsOfCustomerActivity.class);
+            i.putExtra("dataSetId",dataSetId);
+            context.startActivity(i);
 
         });
 
-        //for Status
+        //for Status , Navigate to StatusOfCustomerActivity
         holder.binding.clStatus.setOnClickListener(v->{
-            Global.showToast(context,a.getActionStatus());
+            String dataSetId = a.getDataSetId().toString();
+            Intent i = new Intent(context, StatusOfCustomerActivity.class);
+            i.putExtra("dataSetId",dataSetId);
+            context.startActivity(i);
         });
 
         //for setting Call Attempts ImageView to Selected Item(Member) for Calling

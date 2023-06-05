@@ -9,6 +9,7 @@ import com.example.test.npa_flow.call_details.CallDetails;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
+import com.example.test.npa_flow.status_of_customer.model.Activity;
 import com.example.test.otp.model.OTPGenerateOTPResponseModel;
 import com.example.test.otp.model.OTPValidateOTPResponseModel;
 import com.example.test.schedule_flow.calls_for_the_day.model.CallsForTheDayResponseModel;
@@ -74,6 +75,9 @@ public interface RestClient {
     @GET
     Observable<List<CallsForTheDayResponseModel>> getCallsForTheDay(@Url String url);
 
+    //Status Of Customer in Loan Collection List(Loan Collection Adapter)
+    @GET
+    Observable<List<Activity>> getStatusDetailsOfCustomer(@Url String url);
 
     //for Call Details
  /*@POST

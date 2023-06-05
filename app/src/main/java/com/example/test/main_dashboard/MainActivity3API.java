@@ -63,6 +63,10 @@ public class MainActivity3API extends AppCompatActivity {
 
         if(getIntent().hasExtra("userName")){
             binding.txtWelcomeUser.setText("Welcome "+getIntent().getStringExtra("userName"));
+
+            // Store UserName in SharedPreference and Use in StatusOfCustomerDetailsAdapter
+            String userName = getIntent().getStringExtra("userName");
+            Global.saveStringInSharedPref(this,"userName",userName);
         }
     }
 
