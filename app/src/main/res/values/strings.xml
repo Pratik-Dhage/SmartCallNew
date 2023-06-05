@@ -336,6 +336,7 @@
     <string name="visits_for_the_day">Visits For The Day</string>
     <string name="status_of_customer">Status Of Customer</string>
     <string name="calling_npa_customer_details">Calling - NPA Customer Details</string>
+    <string name="customer_response">Customer Response</string>
 
 
     <!--for Tenure-->
