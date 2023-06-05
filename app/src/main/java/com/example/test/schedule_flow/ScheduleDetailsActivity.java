@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.test.R;
@@ -132,6 +133,9 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
             EditText edtFromDate = customDialogSearchDate.findViewById(R.id.edtFromDate);
             EditText edtToDate = customDialogSearchDate.findViewById(R.id.edtToDate);
             TextView txtDateError = customDialogSearchDate.findViewById(R.id.txtDateError);
+            ImageView ivClose =customDialogSearchDate.findViewById(R.id.ivClose);
+            TextView labelSearchRecord = customDialogSearchDate.findViewById(R.id.labelSearchRecord);
+            labelSearchRecord.setText(getString(R.string.search_by_date_range));
 
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -150,6 +154,10 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
             edtToDate.setOnFocusChangeListener((v3,hasFocus)->{
                 if(hasFocus){
                 showDatePickerDialogAndSetDate(edtToDate);}
+            });
+
+            ivClose.setOnClickListener(v4->{
+                dialog.dismiss();
             });
 
             btnSearch.setOnClickListener(v1 -> {

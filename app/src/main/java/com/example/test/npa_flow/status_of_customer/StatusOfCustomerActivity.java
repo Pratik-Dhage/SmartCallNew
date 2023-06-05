@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -129,6 +130,7 @@ public class StatusOfCustomerActivity extends AppCompatActivity {
             EditText edtFromDate = customDialogSearchDate.findViewById(R.id.edtFromDate);
             EditText edtToDate = customDialogSearchDate.findViewById(R.id.edtToDate);
             TextView txtDateError = customDialogSearchDate.findViewById(R.id.txtDateError);
+            ImageView ivClose =customDialogSearchDate.findViewById(R.id.ivClose);
 
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -147,6 +149,10 @@ public class StatusOfCustomerActivity extends AppCompatActivity {
             edtToDate.setOnFocusChangeListener((v3,hasFocus)->{
                 if(hasFocus){
                     showDatePickerDialogAndSetDate(edtToDate);}
+            });
+
+            ivClose.setOnClickListener(v4->{
+                dialog.dismiss();
             });
 
             btnSearch.setOnClickListener(v1 -> {

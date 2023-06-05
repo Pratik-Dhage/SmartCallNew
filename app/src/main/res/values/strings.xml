@@ -337,6 +337,7 @@
     <string name="status_of_customer">Status Of Customer</string>
     <string name="calling_npa_customer_details">Calling - NPA Customer Details</string>
     <string name="customer_response">Customer Response</string>
+    <string name="search_by_date_range">Search By Date Range</string>
 
 
     <!--for Tenure-->
