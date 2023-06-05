@@ -11,7 +11,9 @@ import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
 import com.example.test.otp.model.OTPGenerateOTPResponseModel;
 import com.example.test.otp.model.OTPValidateOTPResponseModel;
+import com.example.test.schedule_flow.calls_for_the_day.model.CallsForTheDayResponseModel;
 import com.example.test.schedule_flow.model.ScheduleVisitDetails;
+import com.example.test.schedule_flow.visits_for_the_day.model.VisitsForTheDayResponseModel;
 import com.example.test.user.UserModel;
 
 import java.util.List;
@@ -63,6 +65,15 @@ public interface RestClient {
     //DashBoard(Schedule For The Day)
     @GET
     Observable<List<DashBoardScheduleForTheDayModel>> getDashBoardDataScheduleForTheDay(@Url String url);
+
+    //DashBoard(Visits For The Day)
+    @GET
+    Observable<List<VisitsForTheDayResponseModel>> getVisitsForTheDay(@Url String url);
+
+    //DashBoard(Calls For The Day)
+    @GET
+    Observable<List<CallsForTheDayResponseModel>> getCallsForTheDay(@Url String url);
+
 
     //for Call Details
  /*@POST

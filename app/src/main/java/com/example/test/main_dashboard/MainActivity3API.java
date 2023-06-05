@@ -25,6 +25,8 @@ import com.example.test.main_dashboard.adapter.MainDashBoardAdapter;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 import com.example.test.schedule_flow.ScheduleDetailsActivity;
+import com.example.test.schedule_flow.calls_for_the_day.CallsForTheDayActivity;
+import com.example.test.schedule_flow.visits_for_the_day.VisitsForTheDayActivity;
 
 public class MainActivity3API extends AppCompatActivity {
 
@@ -197,7 +199,9 @@ public class MainActivity3API extends AppCompatActivity {
         binding.ivRightArrowVisits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity3API.this, ActivityOfFragments.class);
+               // Intent i = new Intent(MainActivity3API.this, ActivityOfFragments.class);
+                Intent i = new Intent(MainActivity3API.this, VisitsForTheDayActivity.class);
+                i.putExtra("isFromVisitsForTheDay","isFromVisitsForTheDay");
                 startActivity(i);
             }
         });
@@ -205,7 +209,7 @@ public class MainActivity3API extends AppCompatActivity {
         binding.ivRightArrowCalls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity3API.this, LoanCollectionActivity.class);
+                Intent i = new Intent(MainActivity3API.this, CallsForTheDayActivity.class);
                 i.putExtra("isFromCallsForTheDay","isFromCallsForTheDay");
                 startActivity(i);
             }

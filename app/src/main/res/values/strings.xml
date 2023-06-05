@@ -333,6 +333,7 @@
     <string name="reset_mpin">Reset MPin</string>
     <string name="enter_your_password">Enter your Password</string>
     <string name="login_with_mpin">Login With MPin</string>
+    <string name="visits_for_the_day">Visits For The Day</string>
 
 
     <!--for Tenure-->

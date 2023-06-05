@@ -81,9 +81,9 @@ public class WebServices {
 
     //for DPD queue
 
-    static String userId_new = "CA_01_001";
+   public static String userId = "CA_01_001";
     static String userBranchCode = "001";
-    static String newBranchCode = "00048"; // changed on 18/05/2023 (used in DPDQueue,LoanCollection)
+   public static String newBranchCode = "00048"; // changed on 18/05/2023 (used in DPDQueue,LoanCollection)
 
     //  public static String dpd_queue = "transactionDataSet/getDpdQueues?branchCode=001";
     public static String dpd_queue = "transactionDataSet/getDpdQueues?userId=CA_01_001&branchCode=" + newBranchCode; //Changes 28/4/2023 use userId along with branchCode
@@ -142,6 +142,14 @@ public class WebServices {
 
     //FOR SCHEDULE FOR THE DAY In DASHBOARD
     public static String schedule_for_the_day="activity/scheduledForTheDay?";
+
+    //FOR Visits for the Day (In DashBoard, on clicking right arrow)
+    //http://43.239.52.151:8081/activity/visitsForTheDay?userId=CA_01_001
+    public static String visits_for_the_day = "activity/visitsForTheDay?";
+
+    //FOR Calls for the Day (In DashBoard, on clicking right arrow)
+    //http://43.239.52.151:8081/activity/callsForTheDay?userId=CA_01_001
+    public static String calls_for_the_day = "activity/callsForTheDay?";
 
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
