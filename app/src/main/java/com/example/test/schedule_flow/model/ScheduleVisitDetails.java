@@ -8,6 +8,7 @@ public class ScheduleVisitDetails {
     private String scheduledTime;
     private String memberName;
     private String queue;
+    private String villageName;
     public String getScheduledDate() {
         return scheduledDate;
     }
@@ -41,5 +42,11 @@ public class ScheduleVisitDetails {
         this.dataSetId = dataSetId;
     }
 
+    public String getVillageName() {
+        return villageName;
+    }
 
+    public void setVillageName(String villageName) {
+        this.villageName = villageName;
+    }
 }

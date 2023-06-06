@@ -36,6 +36,7 @@ public class ScheduleDetailsAdapter extends RecyclerView.Adapter<ScheduleDetails
         holder.binding.txtMember.setText(a.getMemberName());
         holder.binding.txtScheduledTime.setText(a.getScheduledTime());
         holder.binding.txtQueue.setText(a.getQueue());
+        holder.binding.txtVillageName.setText(a.getVillageName());
 
         String previousDate = "";
         String currentDate;
