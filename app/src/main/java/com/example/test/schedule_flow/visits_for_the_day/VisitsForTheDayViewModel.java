@@ -6,8 +6,12 @@ import androidx.lifecycle.ViewModel;
 import com.example.test.api_manager.WebServices;
 import com.example.test.helper_classes.Global;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
+import com.example.test.npa_flow.status_of_customer.adapter.StatusOfCustomerDetailsAdapter;
+import com.example.test.npa_flow.status_of_customer.model.Activity;
+import com.example.test.schedule_flow.visits_for_the_day.adapter.VisitsForTheDayAdapter;
 import com.example.test.schedule_flow.visits_for_the_day.model.VisitsForTheDayResponseModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -32,6 +36,10 @@ public class VisitsForTheDayViewModel  extends ViewModel {
         return mutErrorResponse;
     }
 
+
+    public ArrayList<VisitsForTheDayResponseModel> arrListVisitsForTheDayData = new ArrayList<>();
+    public VisitsForTheDayAdapter visitsForTheDayAdapter = new VisitsForTheDayAdapter(arrListVisitsForTheDayData);
+    public void updateVisitsForTheDayData(){  visitsForTheDayAdapter.setData(arrListVisitsForTheDayData);  }
 
 
     public void getVisitsForTheDayData(){

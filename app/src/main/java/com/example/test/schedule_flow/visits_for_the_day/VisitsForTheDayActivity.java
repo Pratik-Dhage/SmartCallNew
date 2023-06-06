@@ -3,6 +3,7 @@ package com.example.test.schedule_flow.visits_for_the_day;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,8 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityVisitsForTheDayBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.npa_flow.status_of_customer.adapter.StatusOfCustomerDetailsAdapter;
+import com.example.test.schedule_flow.visits_for_the_day.adapter.VisitsForTheDayAdapter;
 
 public class VisitsForTheDayActivity extends AppCompatActivity {
 
@@ -47,6 +50,13 @@ public class VisitsForTheDayActivity extends AppCompatActivity {
         visitsForTheDayViewModel.getVisitsForTheDayData();
     }
 
+    private void setUpVisitsForTheDayRecyclerViewData(){
+        visitsForTheDayViewModel.updateVisitsForTheDayData();
+        RecyclerView recyclerView = binding.rvVisitsForTheDay;
+        recyclerView.setAdapter(new VisitsForTheDayAdapter(visitsForTheDayViewModel.arrListVisitsForTheDayData));
+
+    }
+
     private void initObserver() {
 
         visitsForTheDayViewModel.getMutVisitsForTheDayResponseApi().observe(this,result->{
@@ -55,6 +65,9 @@ public class VisitsForTheDayActivity extends AppCompatActivity {
 
                 if(result!=null){
 
+                    visitsForTheDayViewModel.arrListVisitsForTheDayData.clear();
+                    setUpVisitsForTheDayRecyclerViewData();
+                    visitsForTheDayViewModel.arrListVisitsForTheDayData.addAll(result);
                 }
 
                 if(result.isEmpty()){
