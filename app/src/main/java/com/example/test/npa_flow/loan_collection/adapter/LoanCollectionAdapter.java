@@ -3,7 +3,6 @@ package com.example.test.npa_flow.loan_collection.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,24 +12,16 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
-import com.example.test.databinding.ItemDpdBinding;
 import com.example.test.databinding.ItemLoanCollectionBinding;
 import com.example.test.helper_classes.Global;
-import com.example.test.lead.adapter.LeadListAdapter;
-import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.WebViewActivity;
-import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
-import com.example.test.npa_flow.dpd.DPD_ResponseModel;
-import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
 import com.example.test.npa_flow.status_of_customer.StatusOfCustomerActivity;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.database.LeadListDB;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 
 public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAdapter.MyViewHolderClass> {
 
