@@ -3,183 +3,83 @@ package com.example.test.schedule_flow.visits_for_the_day.model;
 import java.io.Serializable;
 
 public class VisitsForTheDayResponseModel implements Serializable {
-    private Object parentActivity;
+    private Integer dataSetId;
 
-    private Integer attemptSequence;
+    private Object distance;
 
-    private Object attemptFlow;
+    private String actionStatus;
 
-    private String activityDateTime;
+    private Object scheduleDateTime;
 
-    private Object userId;
+    private Object latitude;
 
-    private Object branchCode;
+    private String memberName;
 
-    private Integer activityId;
+    private String location;
 
-    private Object companyId;
+    private Object longitude;
 
-    private Object dataSetId;
-
-    private String attemptStatus;
-
-    private String scheduleType;
-
-    private String scheduleDateTime;
-
-    private Object attemptNotes;
-
-    private Object attemptDateTime;
-
-    private String activityDescription;
-
-    private Integer attemptDuration;
-
-    private Integer activityType;
-
-    private Object status;
-
-    public Object getParentActivity() {
-        return this.parentActivity;
-    }
-
-    public void setParentActivity(Object parentActivity) {
-        this.parentActivity = parentActivity;
-    }
-
-    public Integer getAttemptSequence() {
-        return this.attemptSequence;
-    }
-
-    public void setAttemptSequence(Integer attemptSequence) {
-        this.attemptSequence = attemptSequence;
-    }
-
-    public Object getAttemptFlow() {
-        return this.attemptFlow;
-    }
-
-    public void setAttemptFlow(Object attemptFlow) {
-        this.attemptFlow = attemptFlow;
-    }
-
-    public String getActivityDateTime() {
-        return this.activityDateTime;
-    }
-
-    public void setActivityDateTime(String activityDateTime) {
-        this.activityDateTime = activityDateTime;
-    }
-
-    public Object getUserId() {
-        return this.userId;
-    }
-
-    public void setUserId(Object userId) {
-        this.userId = userId;
-    }
-
-    public Object getBranchCode() {
-        return this.branchCode;
-    }
-
-    public void setBranchCode(Object branchCode) {
-        this.branchCode = branchCode;
-    }
-
-    public Integer getActivityId() {
-        return this.activityId;
-    }
-
-    public void setActivityId(Integer activityId) {
-        this.activityId = activityId;
-    }
-
-    public Object getCompanyId() {
-        return this.companyId;
-    }
-
-    public void setCompanyId(Object companyId) {
-        this.companyId = companyId;
-    }
-
-    public Object getDataSetId() {
+    public Integer getDataSetId() {
         return this.dataSetId;
     }
 
-    public void setDataSetId(Object dataSetId) {
+    public void setDataSetId(Integer dataSetId) {
         this.dataSetId = dataSetId;
     }
 
-    public String getAttemptStatus() {
-        return this.attemptStatus;
+    public Object getDistance() {
+        return this.distance;
     }
 
-    public void setAttemptStatus(String attemptStatus) {
-        this.attemptStatus = attemptStatus;
+    public void setDistance(Object distance) {
+        this.distance = distance;
     }
 
-    public String getScheduleType() {
-        return this.scheduleType;
+    public String getActionStatus() {
+        return this.actionStatus;
     }
 
-    public void setScheduleType(String scheduleType) {
-        this.scheduleType = scheduleType;
+    public void setActionStatus(String actionStatus) {
+        this.actionStatus = actionStatus;
     }
 
-    public String getScheduleDateTime() {
+    public Object getScheduleDateTime() {
         return this.scheduleDateTime;
     }
 
-    public void setScheduleDateTime(String scheduleDateTime) {
+    public void setScheduleDateTime(Object scheduleDateTime) {
         this.scheduleDateTime = scheduleDateTime;
     }
 
-    public Object getAttemptNotes() {
-        return this.attemptNotes;
+    public Object getLatitude() {
+        return latitude;
     }
 
-    public void setAttemptNotes(Object attemptNotes) {
-        this.attemptNotes = attemptNotes;
+    public void setLatitude(Object latitude) {
+        this.latitude = latitude;
     }
 
-    public Object getAttemptDateTime() {
-        return this.attemptDateTime;
+    public String getMemberName() {
+        return this.memberName;
     }
 
-    public void setAttemptDateTime(Object attemptDateTime) {
-        this.attemptDateTime = attemptDateTime;
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
     }
 
-    public String getActivityDescription() {
-        return this.activityDescription;
+    public String getLocation() {
+        return this.location;
     }
 
-    public void setActivityDescription(String activityDescription) {
-        this.activityDescription = activityDescription;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public Integer getAttemptDuration() {
-        return this.attemptDuration;
+    public Object getLongitude() {
+        return longitude;
     }
 
-    public void setAttemptDuration(Integer attemptDuration) {
-        this.attemptDuration = attemptDuration;
-    }
-
-    public Integer getActivityType() {
-        return this.activityType;
-    }
-
-    public void setActivityType(Integer activityType) {
-        this.activityType = activityType;
-    }
-
-    public Object getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(Object status) {
-        this.status = status;
+    public void setLongitude(Object longitude) {
+        this.longitude = longitude;
     }
 }

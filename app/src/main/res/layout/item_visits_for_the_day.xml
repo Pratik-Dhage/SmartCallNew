@@ -1,144 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
         style="@style/MainConstraintStyle"
-        android:id="@+id/clMainConstraint"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/txtVisitsForTheDay"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtName"
             style="@style/common_text_style"
-            android:paddingTop="@dimen/_10sdp"
-            android:paddingBottom="@dimen/_10sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="@dimen/_5sdp"
-            tools:text="25th May 23,Friday,5:00pm Complete"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/txtUserName"
-            app:layout_constraintStart_toEndOf="@id/txtVisitsForTheDay"
-            app:layout_constraintTop_toTopOf="@id/txtVisitsForTheDay"
-            app:layout_constraintBottom_toBottomOf="@id/txtVisitsForTheDay"
-            tools:text="ShivKumar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textStyle="normal"
             android:ellipsize="end"
-            android:maxLines="1"
-            android:maxLength="10"
-            android:layout_marginStart="@dimen/_5sdp"
-            style="@style/common_text_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-        <ImageView
-            android:id="@+id/ivDownArrowStatus"
-            android:layout_width="@dimen/_20sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/txtUserName"
-            app:layout_constraintBottom_toBottomOf="@id/txtUserName"
-            android:src="@drawable/down_arrow"
-            android:layout_marginEnd="@dimen/_3sdp"
-            android:layout_height="@dimen/_20sdp"/>
-
-        <ImageView
-            android:id="@+id/ivUpArrowStatus"
-            android:layout_width="@dimen/_20sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/txtUserName"
-            app:layout_constraintBottom_toBottomOf="@id/txtUserName"
-            android:src="@drawable/up_arrow"
-            android:visibility="invisible"
-            android:layout_marginEnd="@dimen/_3sdp"
-            android:layout_height="@dimen/_20sdp"/>
-
-
-        <!--For AttemptFlow Purpose-->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clStatusInfo"
-            android:layout_marginStart="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
+            android:maxLength="13"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivDownArrowStatus"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="match_parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Sairaj Naidu" />
 
-            <!--Spoke To The Customer-->
-            <TextView
-                android:id="@+id/txtHeadStatusInfo"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:textColor="@color/black"
-                android:textStyle="normal"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:textSize="@dimen/_11ssp"
-                tools:text="Spoke To The Customer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <!--Ready To Pay-->
-            <TextView
-                android:id="@+id/txtMidStatusInfo1"
-                app:layout_constraintTop_toBottomOf="@id/txtHeadStatusInfo"
-                app:layout_constraintStart_toStartOf="parent"
-                android:textColor="@color/black"
-                android:textStyle="normal"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:textSize="@dimen/_11ssp"
-                tools:text="Ready To pay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <!--Schedule Visit For Collection-->
-            <TextView
-                android:id="@+id/txtMidStatusInfo2"
-                app:layout_constraintTop_toBottomOf="@id/txtMidStatusInfo1"
-                app:layout_constraintStart_toStartOf="parent"
-                android:textColor="@color/black"
-                android:textStyle="normal"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:textSize="@dimen/_11ssp"
-                tools:text="Schedule Visit For Collection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <!--Full Amount Paid/Partail Amount Paid/ Will Pay Later-->
-            <TextView
-                android:id="@+id/txtMidStatusInfo3"
-                app:layout_constraintTop_toBottomOf="@id/txtMidStatusInfo1"
-                app:layout_constraintStart_toStartOf="parent"
-                android:textColor="@color/black"
-                android:textStyle="normal"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:textSize="@dimen/_11ssp"
-                tools:text="Full Amt. Paid/ Partial Amt Paid/ Will Pay Later"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+        <!--For Status-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clStatus"
+            app:layout_constraintStart_toStartOf="@id/txtName"
+            app:layout_constraintTop_toBottomOf="@id/txtName"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/txtBottomMainStatusInfo"
-                app:layout_constraintTop_toBottomOf="@id/txtMidStatusInfo3"
-                app:layout_constraintStart_toStartOf="parent"
-                android:textColor="@color/black"
+                android:id="@+id/labelStatus"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status"
                 android:textStyle="normal"
-                android:paddingTop="@dimen/_5sdp"
-                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtStatus"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text=" IN-PROCESS"
+                android:textStyle="normal"
+                app:layout_constraintStart_toEndOf="@id/labelStatus"
+                app:layout_constraintTop_toTopOf="parent" />
+
+           <!-- <ImageView
+                android:id="@+id/ivStatusInfo"
+                app:layout_constraintStart_toEndOf="@id/txtStatus"
+                app:layout_constraintTop_toTopOf="@id/txtStatus"
+                app:layout_constraintBottom_toBottomOf="@id/txtStatus"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:textSize="@dimen/_11ssp"
-                tools:text="Pending/In Process/Complete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:src="@drawable/status_info3"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"/>-->
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
+        <TextView
+            android:id="@+id/txtLocation"
+            android:ellipsize="end"
+            android:maxLength="10"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@+id/txtDistance"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Siddapur" />
+
+        <TextView
+            android:id="@+id/labelAttemptNumber"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:text="@string/AttemptNo"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@id/txtLocation"
+            app:layout_constraintTop_toBottomOf="@id/txtLocation" />
+
+        <TextView
+            android:id="@+id/txtDistance"
+            style="@style/common_text_style"
+            android:ellipsize="end"
+            android:maxLength="4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@id/label_KM"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="3.5656" />
+
+        <TextView
+            android:id="@+id/label_KM"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@id/ivMap"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/km" />
+
+
+        <ImageView
+            android:id="@+id/ivMap"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:src="@drawable/location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtDistance"
+            app:layout_constraintBottom_toBottomOf="@id/txtDistance"
+            app:tint="@color/red" />
+
+
+        <ImageView
+            android:id="@+id/ivVisitAttempt"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="@id/txtDistance"
+            app:layout_constraintTop_toTopOf="@id/labelAttemptNumber"
+            app:layout_constraintBottom_toBottomOf="@id/labelAttemptNumber"
+            tools:src="@drawable/hand" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@color/textBlue"
+            app:layout_constraintTop_toBottomOf="@id/clStatus" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
