@@ -92,7 +92,21 @@ public class MapFragment extends Fragment {
                     // Add the marker to the map and animate the camera to center on the marker
                     googleMap.addMarker(markerOptions);
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lodhaMallLatLng, 15));
-                } else {
+                }
+
+                //coming from LoanCollectionAdapter
+                double latitude = GoogleMapsActivity.latitude;
+                double longitude = GoogleMapsActivity.longitude;
+                if(GoogleMapsActivity.isFromLoanCollectionAdapter!=null){
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    LatLng latLngFromLoanCollectionAdapter = new LatLng(latitude,longitude);
+                    markerOptions.position(latLngFromLoanCollectionAdapter);
+                    googleMap.addMarker(markerOptions);
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromLoanCollectionAdapter, 15));
+                }
+
+
+                else {
                     // If we were not able to obtain the coordinates, log an error
                     Log.e("MapsActivity", "Unable to geocode address: " + addressString);
                     System.out.println("Unable to geocode address: " + addressString);

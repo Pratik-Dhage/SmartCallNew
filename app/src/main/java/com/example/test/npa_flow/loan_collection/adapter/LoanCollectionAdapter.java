@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
 import com.example.test.databinding.ItemLoanCollectionBinding;
+import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
@@ -82,9 +83,10 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
              String latitude = a.getLattitute().toString();
              String longitude = a.getLongitute().toString();
 
-            Intent googleMapsIntent = new Intent(context, WebViewActivity.class);
-            googleMapsIntent.putExtra("latitude",latitude);
-            googleMapsIntent.putExtra("longitude",longitude);
+            Intent googleMapsIntent = new Intent(context, GoogleMapsActivity.class);
+            googleMapsIntent.putExtra("latitude",Double.parseDouble(latitude));
+            googleMapsIntent.putExtra("longitude",Double.parseDouble(longitude));
+            googleMapsIntent.putExtra("isFromLoanCollectionAdapter","isFromLoanCollectionAdapter");
             context.startActivity(googleMapsIntent);
         });
 

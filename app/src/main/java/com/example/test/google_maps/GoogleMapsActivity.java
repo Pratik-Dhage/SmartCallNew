@@ -16,6 +16,8 @@ public class GoogleMapsActivity extends AppCompatActivity {
 
     ActivityGoogleMapsBinding binding;
     View view;
+   public static double latitude , longitude;
+   public static String isFromLoanCollectionAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,10 @@ public class GoogleMapsActivity extends AppCompatActivity {
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_google_maps);
         view = binding.getRoot();
+
+        latitude = getIntent().getDoubleExtra("latitude",0.0);
+        longitude = getIntent().getDoubleExtra("longitude",0.0);
+        isFromLoanCollectionAdapter = getIntent().getStringExtra("isFromLoanCollectionAdapter");
     }
 
     private void setUpFragmentForGoogleMaps(){
