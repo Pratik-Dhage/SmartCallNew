@@ -21,23 +21,25 @@
 
         <TextView
             android:id="@+id/txtPendingMembersAssigned"
-            tools:text="90"
+            tools:text="9000"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/txtInProcessMembersAssigned"
             android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_55sdp"
+            android:layout_marginEnd="@dimen/_40sdp"
             android:textColor="@color/black"
             android:textStyle="normal"
+            android:layout_width="@dimen/_30sdp"
             style="@style/common_text_style"/>
 
         <TextView
             android:id="@+id/txtInProcessMembersAssigned"
-            tools:text="90"
+            tools:text="9000"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_55sdp"
+            android:layout_marginEnd="@dimen/_40sdp"
             android:textColor="@color/black"
             android:textStyle="normal"
+            android:layout_width="@dimen/_30sdp"
             app:layout_constraintEnd_toStartOf="@+id/txtCompletedMembersAssigned"
             style="@style/common_text_style"/>
 
@@ -45,13 +47,14 @@
 
         <TextView
             android:id="@+id/txtCompletedMembersAssigned"
-            tools:text="0"
+            tools:text="0000"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:textColor="@color/black"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="@dimen/_30sdp"
             style="@style/common_text_style"/>
 
 
