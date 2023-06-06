@@ -21,6 +21,7 @@ import com.example.test.databinding.ActivityStatusOfCustomerBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.npa_flow.status_of_customer.adapter.StatusOfCustomerDetailsAdapter;
+import com.example.test.schedule_flow.adapter.ScheduleDetailsAdapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,6 +37,8 @@ public class StatusOfCustomerActivity extends AppCompatActivity {
     View customDialogSearchDate;
     public static String fromDate;
     public static String toDate;
+    public String searchedDateRange;
+    boolean isCalendarClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,16 @@ public class StatusOfCustomerActivity extends AppCompatActivity {
         view = binding.getRoot();
         statusOfCustomerViewModel = new ViewModelProvider(this).get(StatusOfCustomerViewModel.class);
         binding.setViewModel(statusOfCustomerViewModel);
+
+        // Is Calendar icon Clicked for Searching records
+        if(isCalendarClicked && searchedDateRange!=null){
+            binding.txtSearchedDateRange.setVisibility(View.VISIBLE);
+            binding.txtClearAll.setVisibility(View.VISIBLE);
+        }
+        else{
+            binding.txtSearchedDateRange.setVisibility(View.GONE);
+            binding.txtClearAll.setVisibility(View.GONE);
+        }
     }
 
     private void callStatusDetailsOfCustomerApi() {
@@ -122,8 +135,17 @@ public class StatusOfCustomerActivity extends AppCompatActivity {
             onBackPressed();
         });
 
+        binding.txtClearAll.setOnClickListener(v->{
+            //Clear Searched Records
+            statusOfCustomerViewModel.arrListActivityData.clear();
+            RecyclerView recyclerView = binding.rvStatusOfCustomerDetails;
+            recyclerView.setAdapter(new StatusOfCustomerDetailsAdapter(statusOfCustomerViewModel.arrListActivityData));
+        });
+
          // fro Searching Record
         binding.ivCalendar.setOnClickListener(v -> {
+
+            isCalendarClicked = true;
 
             customDialogSearchDate = LayoutInflater.from(this).inflate(R.layout.custom_dialog_search_date, null);
             Button btnSearch = customDialogSearchDate.findViewById(R.id.btnSearch);
@@ -167,7 +189,24 @@ public class StatusOfCustomerActivity extends AppCompatActivity {
                     Date date_FromDate = sdf.parse(fromDate);
                     Date date_ToDate = sdf.parse(toDate);
                     // Date is successfully parsed, and it matches the desired format
-                    Global.showToast(this, "Correct Date format");
+
+                    if(date_FromDate!=null && date_ToDate!=null){
+                        searchedDateRange = fromDate+" to "+toDate; // Display Searched Date Range
+                        System.out.println("Here Searched Date: "+searchedDateRange );
+                    }
+
+                    // Is Calendar icon Clicked for Searching records
+                    if(isCalendarClicked && searchedDateRange!=null){
+                        binding.txtSearchedDateRange.setVisibility(View.VISIBLE);
+                        binding.txtSearchedDateRange.setText(searchedDateRange);
+                        binding.txtClearAll.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        binding.txtSearchedDateRange.setVisibility(View.GONE);
+                        binding.txtClearAll.setVisibility(View.GONE);
+                    }
+
+
                     dialog.dismiss();
 
                     //Get Schedule Details According to fromDate and toDate

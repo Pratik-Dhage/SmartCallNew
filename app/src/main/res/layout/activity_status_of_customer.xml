@@ -59,12 +59,35 @@
        app:layout_constraintTop_toTopOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="@id/toolbar"/>
 
+    <TextView
+        android:id="@+id/txtSearchedDateRange"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:layout_marginTop="@dimen/_10sdp"
+        style="@style/common_text_style"
+        android:visibility="gone"
+        tools:text="01-06-2023 to 30-06-2023"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/txtClearAll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        style="@style/common_text_style"
+        android:visibility="gone"
+        android:text="@string/clear_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvStatusOfCustomerDetails"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/txtSearchedDateRange"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="@dimen/_10sdp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
