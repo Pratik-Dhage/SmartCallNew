@@ -162,12 +162,20 @@ public class StatusOfCustomerActivity extends AppCompatActivity {
             dialog.show();
 
             //for FromDate
+            edtFromDate.setOnClickListener(v1->{
+                showDatePickerDialogAndSetDate(edtFromDate);
+            });
+
             edtFromDate.setOnFocusChangeListener((v2,hasFocus)->{
                 if(hasFocus){
                     showDatePickerDialogAndSetDate(edtFromDate);}
             });
 
             //for ToDate
+            edtToDate.setOnClickListener(v1->{
+                showDatePickerDialogAndSetDate(edtToDate);
+            });
+
             edtToDate.setOnFocusChangeListener((v3,hasFocus)->{
                 if(hasFocus){
                     showDatePickerDialogAndSetDate(edtToDate);}
