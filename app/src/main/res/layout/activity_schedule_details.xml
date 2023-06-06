@@ -59,6 +59,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/toolbar" />
 
+        <TextView
+            android:id="@+id/txtSearchedDateRange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:layout_marginTop="@dimen/_10sdp"
+            style="@style/common_text_style"
+            android:visibility="gone"
+            tools:text="01-06-2023 to 30-06-2023"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txtClearAll"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            style="@style/common_text_style"
+            android:visibility="gone"
+            android:text="@string/clear_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
 
         <!--Whenever there is only recyclerview to display
         always set its fix height OR give paddingBottom to display All Items-->
@@ -69,11 +93,11 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toBottomOf="@id/txtSearchedDateRange"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:itemCount="3"
             tools:listitem="@layout/item_schedule_details" />

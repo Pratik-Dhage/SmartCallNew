@@ -45,6 +45,8 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
     View customDialogSearchDate;
     public static String fromDate;
     public static String toDate;
+    public String searchedDateRange;
+    boolean isCalendarClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,16 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
         view = binding.getRoot();
         scheduleDetailsViewModel = new ViewModelProvider(this).get(ScheduleDetailsViewModel.class);
         binding.setViewModel(scheduleDetailsViewModel);
+
+        // Is Calendar icon Clicked for Searching records
+        if(isCalendarClicked && searchedDateRange!=null){
+            binding.txtSearchedDateRange.setVisibility(View.VISIBLE);
+            binding.txtClearAll.setVisibility(View.VISIBLE);
+        }
+        else{
+            binding.txtSearchedDateRange.setVisibility(View.GONE);
+            binding.txtClearAll.setVisibility(View.GONE);
+        }
     }
 
     private void setUpScheduledVisitDetailsRecyclerView() {
@@ -124,9 +136,18 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
             onBackPressed();
         });
 
+        binding.txtClearAll.setOnClickListener(v->{
+            //Clear Searched Records
+            scheduleDetailsViewModel.arrList_scheduledVisitDetails_Data.clear();
+            RecyclerView recyclerView = binding.rvScheduleDetails;
+            recyclerView.setAdapter(new ScheduleDetailsAdapter(scheduleDetailsViewModel.arrList_scheduledVisitDetails_Data));
+        });
+
 
         //for Searching Record of Schedule Visits
         binding.ivCalendar.setOnClickListener(v -> {
+
+            isCalendarClicked = true;
 
             customDialogSearchDate = LayoutInflater.from(this).inflate(R.layout.custom_dialog_search_date, null);
             Button btnSearch = customDialogSearchDate.findViewById(R.id.btnSearch);
@@ -172,7 +193,24 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
                     Date date_FromDate = sdf.parse(fromDate);
                     Date date_ToDate = sdf.parse(toDate);
                     // Date is successfully parsed, and it matches the desired format
-                    Global.showToast(this, "Correct Date format");
+
+                    if(date_FromDate!=null && date_ToDate!=null){
+                        searchedDateRange = fromDate+" to "+toDate; // Display Searched Date Range
+                        System.out.println("Here Searched Date: "+searchedDateRange );
+                    }
+
+                    // Is Calendar icon Clicked for Searching records
+                    if(isCalendarClicked && searchedDateRange!=null){
+                        binding.txtSearchedDateRange.setVisibility(View.VISIBLE);
+                        binding.txtSearchedDateRange.setText(searchedDateRange);
+                        binding.txtClearAll.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        binding.txtSearchedDateRange.setVisibility(View.GONE);
+                        binding.txtClearAll.setVisibility(View.GONE);
+                    }
+
+
                     dialog.dismiss();
 
                     //Get Schedule Details According to fromDate and toDate
