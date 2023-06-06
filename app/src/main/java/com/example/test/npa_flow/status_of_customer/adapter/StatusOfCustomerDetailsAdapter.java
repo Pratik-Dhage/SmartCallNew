@@ -48,14 +48,17 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
         Context context = holder.itemView.getContext();
 
         String userName = Global.getStringFromSharedPref(context,"userName");
-        holder.binding.txtUserName.setText(userName);
+      //  holder.binding.txtUserName.setText(userName);  //space is less to fit in row
 
         // format should be  -> 25th May 23,Friday,5:00pm COMPLETE ShivKumar
-        holder.binding.txtStatusDetailsOfCustomer.setText(a.getActivityDate()+","+a.getDay()+","+a.getActivityTime()+" "+a.getActivityStatus());
+        if(a.getActivityDate()!=null && a.getDay()!=null  && a.getActivityTime()!=null && a.getActivityStatus()!=null){
+            holder.binding.txtStatusDetailsOfCustomer.setText(a.getActivityDate()+","+a.getDay()+","+a.getActivityTime()+" "+a.getActivityStatus());
+        }
 
 
-
-        holder.binding.txtBottomMainStatusInfo.setText(a.getActivityStatus());
+                 if(a.getActivityStatus()!=null){
+                     holder.binding.txtBottomMainStatusInfo.setText(a.getActivityStatus());
+                 }
 
 
         holder.binding.ivDownArrowStatus.setOnClickListener(v -> {
