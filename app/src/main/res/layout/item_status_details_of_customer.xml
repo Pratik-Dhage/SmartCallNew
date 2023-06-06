@@ -12,23 +12,35 @@
         android:layout_width="wrap_content"
         style="@style/common_text_style"
         android:paddingTop="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_3sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_10sdp"
         tools:text="25th May 23,Friday,5:00pm Complete"
         android:layout_height="wrap_content"/>
 
     <TextView
+        android:id="@+id/txtActivityStatus"
+        app:layout_constraintTop_toBottomOf="@+id/txtStatusDetailsOfCustomer"
+        app:layout_constraintStart_toStartOf="@+id/txtStatusDetailsOfCustomer"
+        tools:text="PENDING"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:maxLength="10"
+        android:textAllCaps="false"
+        style="@style/common_text_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
         android:id="@+id/txtUserName"
-        app:layout_constraintStart_toEndOf="@id/txtStatusDetailsOfCustomer"
-        app:layout_constraintTop_toTopOf="@id/txtStatusDetailsOfCustomer"
-        app:layout_constraintBottom_toBottomOf="@id/txtStatusDetailsOfCustomer"
+        app:layout_constraintTop_toBottomOf="@+id/txtStatusDetailsOfCustomer"
+        app:layout_constraintStart_toEndOf="@+id/txtActivityStatus"
         tools:text="ShivKumar"
         android:ellipsize="end"
         android:maxLines="1"
         android:maxLength="10"
-        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_2sdp"
         style="@style/common_text_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -38,30 +50,31 @@
         android:id="@+id/ivDownArrowStatus"
         android:layout_width="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/txtUserName"
-        app:layout_constraintBottom_toBottomOf="@id/txtUserName"
+        app:layout_constraintTop_toTopOf="@id/txtStatusDetailsOfCustomer"
+        app:layout_constraintBottom_toBottomOf="@id/txtStatusDetailsOfCustomer"
         android:src="@drawable/down_arrow"
-        android:layout_marginEnd="@dimen/_3sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
         android:layout_height="@dimen/_20sdp"/>
 
     <ImageView
         android:id="@+id/ivUpArrowStatus"
         android:layout_width="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/txtUserName"
-        app:layout_constraintBottom_toBottomOf="@id/txtUserName"
+        app:layout_constraintTop_toTopOf="@id/txtStatusDetailsOfCustomer"
+        app:layout_constraintBottom_toBottomOf="@id/txtStatusDetailsOfCustomer"
         android:src="@drawable/up_arrow"
         android:visibility="invisible"
-        android:layout_marginEnd="@dimen/_3sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
         android:layout_height="@dimen/_20sdp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clStatusInfo"
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivDownArrowStatus"
+        app:layout_constraintTop_toBottomOf="@id/txtUserName"
         android:layout_width="match_parent"
         android:visibility="gone"
         android:layout_height="match_parent">
