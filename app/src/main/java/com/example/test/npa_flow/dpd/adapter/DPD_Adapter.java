@@ -40,10 +40,22 @@ public class DPD_Adapter extends RecyclerView.Adapter<DPD_Adapter.MyViewHolderCl
         DPD_ResponseModel a = dpdResponseModelArrayList.get(position);
         Context context = holder.itemView.getContext();
 
-        holder.binding.txtDPDQueueName.setText(a.getDpdQueueName());
-        holder.binding.txtCompleted.setText(a.getCompleted().toString());
-        holder.binding.txtNoOfMember.setText(a.getNoOfMembers().toString());
-        holder.binding.txtPending.setText(a.getPending().toString());
+        if(a.getDpdQueueName()!=null){
+            holder.binding.txtDPDQueueName.setText(a.getDpdQueueName());
+        }
+
+        if(a.getCompleted()!=null){
+            holder.binding.txtCompleted.setText(String.valueOf(a.getCompleted()));
+        }
+
+        if(a.getInprocess()!=null){
+            holder.binding.txtInProcess.setText(String.valueOf(a.getInprocess()));
+        }
+
+        if(a.getPending()!=null){
+            holder.binding.txtPending.setText(String.valueOf(a.getPending()));
+
+        }
 
 
         // to show Respective list of LoanCollectionList of Customers according to Row Position Of DPD Queue in DPD Activity

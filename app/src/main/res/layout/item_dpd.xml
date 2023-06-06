@@ -22,43 +22,44 @@
             tools:text="30 Days Past Due" />
 
         <TextView
-            android:id="@+id/txtNoOfMember"
+            android:id="@+id/txtPending"
             style="@style/common_text_style"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_30sdp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_50sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:textColor="@color/black"
             android:textStyle="normal"
-           app:layout_constraintEnd_toStartOf="@id/txtCompleted"
+            android:maxLines="1"
+           app:layout_constraintEnd_toStartOf="@id/txtInProcess"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="50" />
+            tools:text="5000" />
+
+        <TextView
+            android:id="@+id/txtInProcess"
+            style="@style/common_text_style"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_40sdp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toStartOf="@id/txtCompleted"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="2800" />
 
         <TextView
             android:id="@+id/txtCompleted"
             style="@style/common_text_style"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_30sdp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_50sdp"
-            android:textColor="@color/black"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toStartOf="@id/txtPending"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="28" />
-
-        <TextView
-            android:id="@+id/txtPending"
-            style="@style/common_text_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:textColor="@color/black"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="22" />
+            tools:text="2200" />
 
 
         <View

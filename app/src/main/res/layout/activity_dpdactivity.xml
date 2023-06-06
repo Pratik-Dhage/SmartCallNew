@@ -52,7 +52,6 @@
             android:layout_height="@dimen/_20sdp"
             app:tint="@color/white" />
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clDPD"
             android:layout_width="match_parent"
@@ -63,7 +62,7 @@
             android:backgroundTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@id/toolbar">
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <TextView
                 android:id="@+id/labelDPDQueue"
@@ -79,16 +78,29 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/labelNoOfMembers"
+                android:id="@+id/labelPendingCalls"
                 style="@style/common_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-               android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:paddingBottom="@dimen/_5sdp"
-                android:text="@string/no_of_members"
+                android:text="@string/pending_calls"
                 android:textColor="@color/black"
-                app:layout_constraintEnd_toStartOf="@+id/labelCompletedCalls"
+                app:layout_constraintEnd_toStartOf="@+id/labelInProcessCalls"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/labelInProcessCalls"
+                style="@style/common_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:text="@string/in_process_calls"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@id/labelCompletedCalls"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -96,30 +108,17 @@
                 style="@style/common_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_5sdp"
-                android:text="@string/completed_calls"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toStartOf="@id/labelPendingCalls"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/labelPendingCalls"
-                style="@style/common_text_style"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
-                android:text="@string/pending_calls"
+                android:text="@string/completed_calls"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
-                app:layout_constraintTop_toBottomOf="@id/labelNoOfMembers"
+                app:layout_constraintTop_toBottomOf="@id/labelPendingCalls"
                 android:background="@color/textBlue"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="@dimen/_5sdp"

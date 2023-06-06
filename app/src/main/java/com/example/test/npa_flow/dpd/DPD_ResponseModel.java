@@ -13,6 +13,8 @@ public class DPD_ResponseModel implements Serializable {
 
   private Integer completed;
 
+  private Integer inprocess;
+
   public String getDpdQueueName() {
     return this.dpdQueueName;
   }
@@ -43,5 +45,13 @@ public class DPD_ResponseModel implements Serializable {
 
   public void setCompleted(Integer completed) {
     this.completed = completed;
+  }
+
+  public Integer getInprocess() {
+    return inprocess;
+  }
+
+  public void setInprocess(Integer inprocess) {
+    this.inprocess = inprocess;
   }
 }
