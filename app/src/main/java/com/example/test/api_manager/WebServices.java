@@ -144,12 +144,12 @@ public class WebServices {
     public static String schedule_for_the_day="activity/scheduledForTheDay?";
 
     //FOR Visits for the Day (In DashBoard, on clicking right arrow)
-    //http://43.239.52.151:8081/activity/visitsForTheDay?userId=CA_01_001
-    public static String visits_for_the_day = "activity/visitsForTheDay?";
+    //http://43.239.52.151:8081/transactionDataSet/getVisitLists?userId=CA_01_001&branchCode=00048
+    public static String visits_for_the_day = "transactionDataSet/getVisitLists?";
 
     //FOR Calls for the Day (In DashBoard, on clicking right arrow)
-    //http://43.239.52.151:8081/activity/callsForTheDay?userId=CA_01_001
-    public static String calls_for_the_day = "activity/callsForTheDay?";
+    //http://43.239.52.151:8081/transactionDataSet/getCallLists?userId=CA_01_001&branchCode=00048
+    public static String calls_for_the_day = "transactionDataSet/getCallLists?";
 
     //FOR STATUS OF CUSTOMER(LOAN COLLECTION ADAPTER in Loan Collection List)
     public static String details_of_status_of_customer = "activity/activitiesForDataSet?";

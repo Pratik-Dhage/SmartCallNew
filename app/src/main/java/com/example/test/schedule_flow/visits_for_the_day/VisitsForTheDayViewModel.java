@@ -44,7 +44,7 @@ public class VisitsForTheDayViewModel  extends ViewModel {
 
     public void getVisitsForTheDayData(){
 
-        subscribtion = (Disposable) Global.apiService().getVisitsForTheDay(WebServices.visits_for_the_day+"userId="+WebServices.userId)
+        subscribtion = (Disposable) Global.apiService().getVisitsForTheDay(WebServices.visits_for_the_day+"userId="+WebServices.userId+"&branchCode="+WebServices.newBranchCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

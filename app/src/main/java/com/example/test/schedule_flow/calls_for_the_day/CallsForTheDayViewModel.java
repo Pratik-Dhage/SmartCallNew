@@ -34,7 +34,7 @@ public class CallsForTheDayViewModel extends ViewModel {
 
     public void getCallsForTheDayData(){
 
-        subscribtion = (Disposable) Global.apiService().getCallsForTheDay(WebServices.calls_for_the_day+"userId="+WebServices.userId)
+        subscribtion = (Disposable) Global.apiService().getCallsForTheDay(WebServices.calls_for_the_day+"userId="+WebServices.userId+"&branchCode="+WebServices.newBranchCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
