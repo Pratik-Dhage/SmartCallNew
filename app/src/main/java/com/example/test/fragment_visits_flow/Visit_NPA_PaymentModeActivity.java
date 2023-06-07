@@ -100,45 +100,56 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
         //for Cash Payment
         binding.btnCash.setOnClickListener(v->{
 
-            View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_cash, null);
-            ImageView ivCancel = customDialog.findViewById(R.id.ivCancel);
-            Button btnGenerateReceipt = customDialog.findViewById(R.id.btnGenerateReceipt);
+            //If Amount Paid is Null
+            if(Global.getStringFromSharedPref(this,"Amount_Paid").isEmpty()){
+                Global.showToast(this,getString(R.string.amount_paid_is_empty));
+            }
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialog);
-            final AlertDialog dialog = builder.create();
-            dialog.setCancelable(true);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialog.show();
+            else{
 
-            btnGenerateReceipt.setOnClickListener(v2->{
+                View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_cash, null);
+                ImageView ivCancel = customDialog.findViewById(R.id.ivCancel);
+                Button btnGenerateReceipt = customDialog.findViewById(R.id.btnGenerateReceipt);
 
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String userId = "CA_01_001";
-                String username = "CallingAgent1";
-                String amount_paid = Global.getStringFromSharedPref(this,"Amount_Paid");
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setView(customDialog);
+                final AlertDialog dialog = builder.create();
+                dialog.setCancelable(true);
+                // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
 
-                //original URL
-                String generateReceiptUrl = "http://43.239.52.151:8081/report/Receipt?output=PDF&dataSetId=238624&amtPaid=1645&userId=CA_01_001&userName=CallingAgent1";
+                btnGenerateReceipt.setOnClickListener(v2->{
 
-                String generateReceiptUrl2 = "http://43.239.52.151:8081/report/Receipt?output=PDF&dataSetId=" + dataSetId + "&amtPaid=" + amount_paid + "&userId=" + userId + "&userName=" + username;
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String userId = "CA_01_001";
+                    String username = "CallingAgent1";
+                    String amount_paid = Global.getStringFromSharedPref(this,"Amount_Paid");
 
-                //for Navigating to PDF Viewer app installed in Device
-                Uri uri = Uri.parse(generateReceiptUrl2);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                intent.setDataAndType(uri,"application/pdf");
-                startActivity(intent);
+                    //original URL
+                    String generateReceiptUrl = "http://43.239.52.151:8081/report/Receipt?output=PDF&dataSetId=238624&amtPaid=1645&userId=CA_01_001&userName=CallingAgent1";
 
-                // for PDF view inside app
+                    String generateReceiptUrl2 = "http://43.239.52.151:8081/report/Receipt?output=PDF&dataSetId=" + dataSetId + "&amtPaid=" + amount_paid + "&userId=" + userId + "&userName=" + username;
+
+                    //for Navigating to PDF Viewer app installed in Device
+                    Uri uri = Uri.parse(generateReceiptUrl2);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    intent.setDataAndType(uri,"application/pdf");
+                    startActivity(intent);
+
+                    // for PDF view inside app
            /*     Intent i = new Intent(this,WebViewGenerateReceiptActivity.class);
                 i.putExtra("dataSetId",dataSetId);
                 startActivity(i);
 */
-            });
+                });
 
-            ivCancel.setOnClickListener(v1->{
-                dialog.dismiss();
-            });
+                ivCancel.setOnClickListener(v1->{
+                    dialog.dismiss();
+                });
+
+            }
+
+
 
         });
 
@@ -159,7 +170,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
               builder.setView(customDialog);
               final AlertDialog dialog = builder.create();
               dialog.setCancelable(true);
-              dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+             // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
               dialog.show();
 
 

@@ -340,6 +340,7 @@
     <string name="search_by_date_range">Search By Date Range</string>
     <string name="clear_all">Clear All</string>
     <string name="in_process_calls">In Process\n\u0020\u0020\u0020\u0020\u0020Calls</string>
+    <string name="amount_paid_is_empty">Amount Paid is empty</string>
 
 
     <!--for Tenure-->

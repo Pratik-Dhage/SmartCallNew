@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.test.R;
 import com.example.test.databinding.ItemStatusDetailsOfCustomerBinding;
 import com.example.test.databinding.ItemVisitsForTheDayBinding;
+import com.example.test.fragments_activity.CustomerDetailsActivity;
 import com.example.test.google_maps.MapFragment;
 import com.example.test.helper_classes.Global;
 import com.example.test.npa_flow.WebViewActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.status_of_customer.adapter.StatusOfCustomerDetailsAdapter;
 import com.example.test.npa_flow.status_of_customer.model.Activity;
 import com.example.test.schedule_flow.visits_for_the_day.model.VisitsForTheDayResponseModel;
@@ -77,6 +79,14 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
             }
 
         });
+
+          holder.itemView.setOnClickListener(v->{
+
+              String dataSetId = a.getDataSetId().toString();
+              Intent i = new Intent(context, CustomerDetailsActivity.class);
+              i.putExtra("dataSetId",dataSetId);
+              context.startActivity(i);
+          });
 
 
     }

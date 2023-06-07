@@ -26,7 +26,7 @@ import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAd
 
 public class CustomerDetailsActivity extends AppCompatActivity {
 
-    // This is from Visits Flow
+    // This is from Visits For The Day Flow
 
     ActivityCustomerDetailsBinding binding;
     View view;
