@@ -131,7 +131,7 @@
 
 
         <ImageView
-            android:id="@+id/ivVisitAttempt"
+            android:id="@+id/ivCallsAttempt"
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"
             android:layout_marginStart="@dimen/_10sdp"
