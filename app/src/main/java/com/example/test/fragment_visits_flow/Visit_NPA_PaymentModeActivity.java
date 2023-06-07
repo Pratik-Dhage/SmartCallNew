@@ -1,11 +1,14 @@
 package com.example.test.fragment_visits_flow;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -42,6 +45,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
 
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
+    public String navigateToPaymentModeStatusActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +98,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
             Intent i = new Intent(this, PaymentModeStatusActivity.class);
             String dataSetId = getIntent().getStringExtra("dataSetId");
             i.putExtra("dataSetId",dataSetId);
+            i.putExtra("detailsList",detailsList);
             startActivity(i);
         });
 
@@ -135,6 +140,8 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                     intent.setDataAndType(uri,"application/pdf");
                     startActivity(intent);
+
+                    navigateToPaymentModeStatusActivity = "navigateToFullAmtPaid_PartialAmtPaid_WillPayLater_UI";
 
                     // for PDF view inside app
            /*     Intent i = new Intent(this,WebViewGenerateReceiptActivity.class);
@@ -281,9 +288,25 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
     // For Getting Calculated Balance Interest Result back from SharedPreference
     @Override
     protected void onResume() {
-        initializeFields();
-        onClickListener();
-        setUpDetailsOfCustomerRecyclerView();
+
+        // After Receipt is generated and User view it in PdfViewer App , on back pressed in PdfViewer app navigate to PaymentModeStatusActivity
+        if(navigateToPaymentModeStatusActivity!=null){
+            Intent i = new Intent(this, PaymentModeStatusActivity.class);
+            String dataSetId = getIntent().getStringExtra("dataSetId");
+            i.putExtra("dataSetId", dataSetId);
+            i.putExtra("detailsList", detailsList);
+            i.putExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity","isFromVisitsForTheDayFlow_PaymentModeStatusActivity");
+            startActivity(i);
+
+            navigateToPaymentModeStatusActivity = null ; // make it null to rest the flow
+        }
+
+        else{
+            initializeFields();
+            onClickListener();
+            setUpDetailsOfCustomerRecyclerView();
+        }
+
         super.onResume();
     }
 

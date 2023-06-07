@@ -120,6 +120,8 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                         i.putExtra("detailsList", detailsList);
                         i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
                         i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
+                        String isFromVisitsForTheDayFlow_PaymentModeStatusActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity");
+                        i.putExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity",isFromVisitsForTheDayFlow_PaymentModeStatusActivity);
                         startActivity(i);
                     });
 
@@ -249,6 +251,8 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
                 i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
+                String isFromVisitsForTheDayFlow_PaymentModeStatusActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity");
+                i.putExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity",isFromVisitsForTheDayFlow_PaymentModeStatusActivity);
                 startActivity(i);
             });
 
@@ -292,6 +296,8 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
                 i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
+                String isFromVisitsForTheDayFlow_PaymentModeStatusActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity");
+                i.putExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity",isFromVisitsForTheDayFlow_PaymentModeStatusActivity);
                 startActivity(i);
             });
 

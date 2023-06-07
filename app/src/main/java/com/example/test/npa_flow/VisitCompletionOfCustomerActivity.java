@@ -62,7 +62,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
         if (getIntent().hasExtra("isFromVisitNPAStatusActivity") || getIntent().hasExtra("isFromVisitNPANotificationActivity")
                 || getIntent().hasExtra("isFromVisitNPARescheduleActivity")
                 || getIntent().hasExtra("isFromVisitNPANotAvailableActivity") || getIntent().hasExtra("isFromVisitNPAPaymentModeActivity")
-
+                || getIntent().hasExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity")
         ) {
             binding.txtToolbarHeading.setText(getString(R.string.visit_complete));
         }
@@ -136,7 +136,12 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
         binding.btnCompleteNoChange.setOnClickListener(v -> {
 
-            //2 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List)
+            //3 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List) 3) Visits For The Day Flow
+
+            //Visits For The Day Flow
+                    if(getIntent().hasExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity")){
+                        Global.showToast(this,"Payment Complete");
+                    }
 
             //Calls For the Day Flow
             if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter !=null){
@@ -251,7 +256,12 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
         binding.btnCompleteNeedToUpdateDetails.setOnClickListener(v -> {
 
-            //2 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List)
+            //3 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List) 3) Visits For The Day Flow
+
+            //Visits For The Day Flow
+            if(getIntent().hasExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity")){
+                Global.showToast(this,"Payment Complete");
+            }
 
             //Calls For the Day Flow
             if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter !=null){
@@ -345,7 +355,12 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
         binding.btnCompleteEscalateToBM.setOnClickListener(v -> {
 
-            //2 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List)
+            //3 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List) 3) Visits For The Day Flow
+
+            //Visits For The Day Flow
+            if(getIntent().hasExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity")){
+                Global.showToast(this,"Payment Complete");
+            }
 
             //Calls For the Day Flow
             if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter !=null){
