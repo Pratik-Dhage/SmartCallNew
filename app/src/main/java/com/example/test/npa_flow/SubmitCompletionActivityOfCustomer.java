@@ -43,6 +43,16 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         setUpDetailsOfCustomerRecyclerView();
         onClickListener();
         initObserver();
+
+    }
+
+    private void setToolBarTitle(){
+        if(getIntent().hasExtra("isFromVisitNPANotificationActivity")){
+            binding.txtToolbarHeading.setText(getString(R.string.visit_complete));
+        }
+        else {
+            binding.txtToolbarHeading.setText(getString(R.string.call_complete));
+        }
     }
 
     private void initializeFields() {
@@ -52,7 +62,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         binding.setViewModel(detailsOfCustomerViewModel);
 
         callDetailsViewModel = new ViewModelProvider(this).get(CallDetailsViewModel.class);
-
+         setToolBarTitle();
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");

@@ -264,6 +264,19 @@
             app:layout_constraintTop_toBottomOf="@id/btnClaimsPaymentMade"
             app:layout_constraintTop_toTopOf="@id/btnNotTakenLoan" />
 
+        <Button
+            android:id="@+id/btnWillPayLumpSump"
+            style="@style/CustomButtonStyle"
+            android:layout_width="@dimen/_136sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:backgroundTint="@color/blueButton"
+            android:text="@string/will_pay_lumpsum"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="@id/btnClaimsPaymentMade"
+            app:layout_constraintStart_toStartOf="@id/btnClaimsPaymentMade"
+            app:layout_constraintTop_toBottomOf="@id/btnLoanTakenByRelative"
+            app:layout_constraintTop_toTopOf="@id/btnOthers" />
+
 
         <Button
             android:id="@+id/btnOthers"
@@ -274,7 +287,7 @@
             android:backgroundTint="@color/grey"
             android:text="@string/others"
             android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnNotTakenLoan" />
 

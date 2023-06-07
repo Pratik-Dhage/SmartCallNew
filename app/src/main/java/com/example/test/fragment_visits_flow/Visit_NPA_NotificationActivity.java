@@ -28,6 +28,7 @@ import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.ScheduleVisitForCollectionActivity;
+import com.example.test.npa_flow.SubmitCompletionActivityOfCustomer;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
@@ -104,6 +105,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
                 txtProceed.setOnClickListener(v -> {
                     Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("detailsList",detailsList);
                     i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
                     startActivity(i);
                 });
@@ -151,8 +153,9 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
       binding.btnLackOfFunds.setOnClickListener(v->{
 
-          Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+          Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
           i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+          i.putExtra("detailsList",detailsList);
           i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
           startActivity(i);
 
@@ -188,6 +191,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
             txtSkipAndProceed.setOnClickListener(v1 -> {
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("detailsList",detailsList);
                 i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
                 startActivity(i);
             });
@@ -201,7 +205,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
         binding.btnNotTakenLoan.setOnClickListener(v->{
 
-            Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+            Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
             i.putExtra("detailsList",detailsList);
@@ -227,8 +231,9 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
 
             btnProceed.setOnClickListener(v2 -> {
-                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("detailsList",detailsList);
                 i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
                 startActivity(i);
             });
@@ -262,8 +267,9 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
 
              btnProceed.setOnClickListener(v2 -> {
-                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                 Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                  i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                 i.putExtra("detailsList",detailsList);
                  i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
                  startActivity(i);
              });
@@ -274,6 +280,15 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
 
          });
+
+         binding.btnWillPayLumpSump.setOnClickListener(v->{
+             Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
+             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+             i.putExtra("detailsList",detailsList);
+             i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
+             startActivity(i);
+         });
+
 
          //for Notes
          binding.ivNotesIcon.setOnClickListener(v->{
