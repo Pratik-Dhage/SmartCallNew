@@ -170,7 +170,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
             builder.setView(customDialogImagePicker);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+           // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             dialog.show();
 
@@ -221,7 +221,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
             builder.setView(customDialogEditable);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+           // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             dialog.show();
 
@@ -256,7 +256,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
              builder.setView(customDialogEditable);
              final AlertDialog dialog = builder.create();
              dialog.setCancelable(true);
-             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
              dialog.show();
 
