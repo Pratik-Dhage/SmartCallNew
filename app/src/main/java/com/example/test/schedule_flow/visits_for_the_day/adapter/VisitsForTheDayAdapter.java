@@ -69,8 +69,8 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
                 String longitude = String.valueOf(a.getLongitute());
 
                 Intent googleMapsIntent = new Intent(context, MapFragment.class);
-                googleMapsIntent.putExtra("latitude", Double.parseDouble(latitude));
-                googleMapsIntent.putExtra("longitude", Double.parseDouble(longitude));
+                googleMapsIntent.putExtra("latitude_visitsForTheDay", Double.parseDouble(latitude));
+                googleMapsIntent.putExtra("longitude_visitsForTheDay", Double.parseDouble(longitude));
                 googleMapsIntent.putExtra("isFromVisitsForTheDayAdapter","isFromVisitsForTheDayAdapter");
                 context.startActivity(googleMapsIntent);
 

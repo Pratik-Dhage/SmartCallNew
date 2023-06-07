@@ -18,6 +18,10 @@ public class GoogleMapsActivity extends AppCompatActivity {
     View view;
    public static double latitude , longitude;
    public static String isFromLoanCollectionAdapter;
+   public static double latitude_visitsForTheDay, longitude_visitsForTheDay;
+   public static String isFromVisitsForTheDayAdapter;
+    public static double latitude_callsForTheDay, longitude_callsForTheDay;
+   public static String isFromCallsForTheDayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +38,20 @@ public class GoogleMapsActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_google_maps);
         view = binding.getRoot();
 
+        //From LoanCollectionAdapter
         latitude = getIntent().getDoubleExtra("latitude",0.0);
         longitude = getIntent().getDoubleExtra("longitude",0.0);
         isFromLoanCollectionAdapter = getIntent().getStringExtra("isFromLoanCollectionAdapter");
+
+        //FromVisitsForTheDayAdapter
+       latitude_visitsForTheDay = getIntent().getDoubleExtra("latitude_visitsForTheDay",0.0);
+        longitude_visitsForTheDay = getIntent().getDoubleExtra("longitude_visitsForTheDay",0.0);
+        isFromVisitsForTheDayAdapter = getIntent().getStringExtra("isFromVisitsForTheDayAdapter");
+
+        //FromCallsForTheDayAdapter
+        latitude_callsForTheDay = getIntent().getDoubleExtra("latitude_callsForTheDay",0.0);
+        longitude_callsForTheDay = getIntent().getDoubleExtra("longitude_callsForTheDay",0.0);
+        isFromCallsForTheDayAdapter = getIntent().getStringExtra("isFromCallsForTheDayAdapter");
     }
 
     private void setUpFragmentForGoogleMaps(){

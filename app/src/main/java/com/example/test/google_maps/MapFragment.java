@@ -105,12 +105,34 @@ public class MapFragment extends Fragment {
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromLoanCollectionAdapter, 15));
                 }
 
+                //coming from VisitsForTheDayAdapter
+                double latitude_visitsForTheDay = GoogleMapsActivity.latitude_visitsForTheDay;
+                double longitude_visitsForTheDay = GoogleMapsActivity.longitude_visitsForTheDay;
+                if(GoogleMapsActivity.isFromVisitsForTheDayAdapter!=null){
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    LatLng latLngFromVisitsForTheDayAdapter = new LatLng(latitude_visitsForTheDay,longitude_visitsForTheDay);
+                    markerOptions.position(latLngFromVisitsForTheDayAdapter);
+                    googleMap.addMarker(markerOptions);
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromVisitsForTheDayAdapter, 15));
+                }
+
+                //coming from CallsForTheDayAdapter
+                double latitude_callsForTheDay = GoogleMapsActivity.latitude_callsForTheDay;
+                double longitude_callsForTheDay = GoogleMapsActivity.longitude_callsForTheDay;
+                if(GoogleMapsActivity.isFromCallsForTheDayAdapter!=null){
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    LatLng latLngFromCallsForTheDayAdapter = new LatLng(latitude_callsForTheDay,longitude_callsForTheDay);
+                    markerOptions.position(latLngFromCallsForTheDayAdapter);
+                    googleMap.addMarker(markerOptions);
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromCallsForTheDayAdapter, 15));
+                }
+
 
                 else {
                     // If we were not able to obtain the coordinates, log an error
                     Log.e("MapsActivity", "Unable to geocode address: " + addressString);
                     System.out.println("Unable to geocode address: " + addressString);
-                    Global.showToast(getContext(),getString(R.string.location_not_found));
+                   // Global.showToast(getContext(),getString(R.string.location_not_found));
                 }
 
 

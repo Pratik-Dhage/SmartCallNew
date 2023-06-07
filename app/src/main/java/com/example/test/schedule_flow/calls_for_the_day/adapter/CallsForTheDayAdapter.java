@@ -65,8 +65,8 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
                 String longitude = String.valueOf(a.getLongitute());
 
                 Intent googleMapsIntent = new Intent(context, GoogleMapsActivity.class);
-                googleMapsIntent.putExtra("latitude", Double.parseDouble(latitude));
-                googleMapsIntent.putExtra("longitude", Double.parseDouble(longitude));
+                googleMapsIntent.putExtra("latitude_callsForTheDay", Double.parseDouble(latitude));
+                googleMapsIntent.putExtra("longitude_callsForTheDay", Double.parseDouble(longitude));
                 googleMapsIntent.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
                 context.startActivity(googleMapsIntent);
 
