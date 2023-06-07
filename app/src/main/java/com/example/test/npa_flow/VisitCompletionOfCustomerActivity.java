@@ -30,6 +30,7 @@ import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAd
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 import com.example.test.schedule_flow.calls_for_the_day.CallsForTheDayActivity;
 import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAdapter;
+import com.example.test.schedule_flow.visits_for_the_day.VisitsForTheDayActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -141,6 +142,17 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             //Visits For The Day Flow
                     if(getIntent().hasExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity")){
                         Global.showToast(this,"Payment Complete");
+
+                        Handler handler = new Handler();
+                        Runnable startVisitsActivity = new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent i = new Intent(VisitCompletionOfCustomerActivity.this, VisitsForTheDayActivity.class);
+                                startActivity(i);
+                            }
+                        };
+                        handler.postDelayed(startVisitsActivity, 3000);
+
                     }
 
             //Calls For the Day Flow
@@ -261,6 +273,16 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             //Visits For The Day Flow
             if(getIntent().hasExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity")){
                 Global.showToast(this,"Payment Complete");
+                Handler handler = new Handler();
+                Runnable startVisitsActivity = new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(VisitCompletionOfCustomerActivity.this, VisitsForTheDayActivity.class);
+                        startActivity(i);
+                    }
+                };
+                handler.postDelayed(startVisitsActivity, 3000);
+
             }
 
             //Calls For the Day Flow
@@ -360,6 +382,16 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             //Visits For The Day Flow
             if(getIntent().hasExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity")){
                 Global.showToast(this,"Payment Complete");
+                Handler handler = new Handler();
+                Runnable startVisitsActivity = new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(VisitCompletionOfCustomerActivity.this, VisitsForTheDayActivity.class);
+                        startActivity(i);
+                    }
+                };
+                handler.postDelayed(startVisitsActivity, 3000);
+
             }
 
             //Calls For the Day Flow
