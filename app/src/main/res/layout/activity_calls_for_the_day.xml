@@ -47,6 +47,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCallsForTheDay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_calls_for_the_day"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

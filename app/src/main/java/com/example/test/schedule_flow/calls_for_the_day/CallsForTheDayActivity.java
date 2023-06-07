@@ -1,17 +1,18 @@
 package com.example.test.schedule_flow.calls_for_the_day;
 
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.os.Bundle;
-import android.view.View;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityCallsForTheDayBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
-import com.example.test.schedule_flow.visits_for_the_day.VisitsForTheDayViewModel;
+import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAdapter;
 
 public class CallsForTheDayActivity extends AppCompatActivity {
 
@@ -50,6 +51,13 @@ public class CallsForTheDayActivity extends AppCompatActivity {
         callsForTheDayViewModel.getCallsForTheDayData();
     }
 
+    private void setUpCallsForTheDayRecyclerViewData(){
+        callsForTheDayViewModel.updateCallsForTheDayData();
+        RecyclerView recyclerView = binding.rvCallsForTheDay;
+        recyclerView.setAdapter(new CallsForTheDayAdapter(callsForTheDayViewModel.arrListCallsForTheDayData));
+
+    }
+
     private void initObserver() {
 
         callsForTheDayViewModel.getMutCallsForTheDayResponseApi().observe(this,result->{
@@ -58,6 +66,9 @@ public class CallsForTheDayActivity extends AppCompatActivity {
 
                 if(result!=null){
 
+                    callsForTheDayViewModel.arrListCallsForTheDayData.clear();
+                    setUpCallsForTheDayRecyclerViewData();
+                    callsForTheDayViewModel.arrListCallsForTheDayData.addAll(result);
                 }
 
                 if(result.isEmpty()){

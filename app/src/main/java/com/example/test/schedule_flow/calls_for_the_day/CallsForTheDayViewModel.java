@@ -5,9 +5,12 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.test.api_manager.WebServices;
 import com.example.test.helper_classes.Global;
+import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAdapter;
 import com.example.test.schedule_flow.calls_for_the_day.model.CallsForTheDayResponseModel;
+import com.example.test.schedule_flow.visits_for_the_day.adapter.VisitsForTheDayAdapter;
 import com.example.test.schedule_flow.visits_for_the_day.model.VisitsForTheDayResponseModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,6 +33,11 @@ public class CallsForTheDayViewModel extends ViewModel {
     public MutableLiveData<String> getMutErrorResponse() {
         return mutErrorResponse;
     }
+
+    public ArrayList<CallsForTheDayResponseModel> arrListCallsForTheDayData = new ArrayList<>();
+    public CallsForTheDayAdapter callsForTheDayAdapter = new CallsForTheDayAdapter(arrListCallsForTheDayData);
+    public void updateCallsForTheDayData(){  callsForTheDayAdapter.setData(arrListCallsForTheDayData);  }
+
 
 
     public void getCallsForTheDayData(){
