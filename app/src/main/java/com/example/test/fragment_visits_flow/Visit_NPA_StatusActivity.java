@@ -154,7 +154,9 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
                 txtProceed.setOnClickListener(v -> {
                     Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
-                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    i.putExtra("dataSetId",dataSetId);
+                    i.putExtra("detailsList",detailsList);
                     i.putExtra("isFromVisitNPAStatusActivity","isFromVisitNPAStatusActivity");
                     startActivity(i);
                 });
@@ -226,6 +228,9 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
         binding.btnAskedToVisitLater.setOnClickListener(v->{
             Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+            String dataSetId = getIntent().getStringExtra("dataSetId");
+            i.putExtra("dataSetId",dataSetId);
+            i.putExtra("detailsList",detailsList);
             startActivity(i);
         });
 
@@ -258,7 +263,9 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
             txtSkipAndProceed.setOnClickListener(v1 -> {
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
-                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("detailsList",detailsList);
                 i.putExtra("isFromVisitNPAStatusActivity","isFromVisitNPAStatusActivity");
                 startActivity(i);
             });
@@ -294,7 +301,9 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
             btnProceed.setOnClickListener(v2 -> {
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
-                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("detailsList",detailsList);
                 i.putExtra("isFromVisitNPAStatusActivity","isFromVisitNPAStatusActivity");
                 startActivity(i);
             });
