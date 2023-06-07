@@ -341,6 +341,7 @@
     <string name="clear_all">Clear All</string>
     <string name="in_process_calls">In Process\n\u0020\u0020\u0020\u0020\u0020Calls</string>
     <string name="amount_paid_is_empty">Amount Paid is empty</string>
+    <string name="mobile">Mobile</string>
 
 
     <!--for Tenure-->

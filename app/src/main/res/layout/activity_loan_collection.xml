@@ -218,6 +218,24 @@
                         app:layout_constraintStart_toEndOf="@id/chipLocation"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipMobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="@string/mobile"
+                        app:chipBackgroundColor="@color/skyBlue"
+                        app:chipCornerRadius="@dimen/_16sdp"
+                        app:chipEndPadding="@dimen/_8sdp"
+                        app:chipIconSize="@dimen/_10sdp"
+                        app:chipIconTint="@color/green"
+                        app:chipStartPadding="@dimen/_8sdp"
+                        app:chipStrokeColor="@color/textBlue"
+                        app:chipStrokeWidth="@dimen/_1sdp"
+                        app:layout_constraintStart_toEndOf="@id/chipStatus"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
