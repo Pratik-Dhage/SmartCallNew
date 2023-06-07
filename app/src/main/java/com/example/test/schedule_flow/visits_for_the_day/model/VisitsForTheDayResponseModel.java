@@ -11,13 +11,13 @@ public class VisitsForTheDayResponseModel implements Serializable {
 
     private Object scheduleDateTime;
 
-    private Object latitude;
+    private Object lattitute;
 
     private String memberName;
 
     private String location;
 
-    private Object longitude;
+    private Object longitute;
 
     public Integer getDataSetId() {
         return this.dataSetId;
@@ -51,12 +51,12 @@ public class VisitsForTheDayResponseModel implements Serializable {
         this.scheduleDateTime = scheduleDateTime;
     }
 
-    public Object getLatitude() {
-        return latitude;
+    public Object getLattitute() {
+        return lattitute;
     }
 
-    public void setLatitude(Object latitude) {
-        this.latitude = latitude;
+    public void setLattitute(Object lattitute) {
+        this.lattitute = lattitute;
     }
 
     public String getMemberName() {
@@ -75,11 +75,11 @@ public class VisitsForTheDayResponseModel implements Serializable {
         this.location = location;
     }
 
-    public Object getLongitude() {
-        return longitude;
+    public Object getLongitute() {
+        return longitute;
     }
 
-    public void setLongitude(Object longitude) {
-        this.longitude = longitude;
+    public void setLongitute(Object longitute) {
+        this.longitute = longitute;
     }
 }
