@@ -43,9 +43,9 @@
             <TextView
                 android:id="@+id/txtStatus"
                 style="@style/common_text_style"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_70sdp"
                 android:layout_height="wrap_content"
-                tools:text=" IN-PROCESS"
+                tools:text="IN-PROCESS"
                 android:textStyle="normal"
                 app:layout_constraintStart_toEndOf="@id/labelStatus"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +55,7 @@
                   app:layout_constraintStart_toEndOf="@id/txtStatus"
                   app:layout_constraintTop_toTopOf="@id/txtStatus"
                   app:layout_constraintBottom_toBottomOf="@id/txtStatus"
-                  android:layout_marginStart="@dimen/_5sdp"
+                  android:layout_marginStart="@dimen/_3sdp"
                   android:src="@drawable/status_info3"
                   android:layout_width="@dimen/_20sdp"
                   android:layout_height="@dimen/_20sdp"/>
