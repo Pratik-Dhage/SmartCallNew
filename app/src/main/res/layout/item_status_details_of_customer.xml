@@ -19,23 +19,24 @@
         tools:text="25th May 23,Friday,5:00pm Complete"
         android:layout_height="wrap_content"/>
 
-    <TextView
+  <!--  <TextView
         android:id="@+id/txtActivityStatus"
         app:layout_constraintTop_toBottomOf="@+id/txtStatusDetailsOfCustomer"
         app:layout_constraintStart_toStartOf="@+id/txtStatusDetailsOfCustomer"
         tools:text="PENDING"
         android:ellipsize="end"
         android:maxLines="1"
+        android:visibility="gone"
         android:maxLength="10"
         android:textAllCaps="false"
         style="@style/common_text_style"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"/>-->
 
     <TextView
         android:id="@+id/txtUserName"
         app:layout_constraintTop_toBottomOf="@+id/txtStatusDetailsOfCustomer"
-        app:layout_constraintStart_toEndOf="@+id/txtActivityStatus"
+        app:layout_constraintStart_toStartOf="@id/txtStatusDetailsOfCustomer"
         tools:text="ShivKumar"
         android:ellipsize="end"
         android:maxLines="1"
@@ -116,37 +117,69 @@
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_3sdp"
             android:textSize="@dimen/_11ssp"
+            android:visibility="gone"
             tools:text="Schedule Visit For Collection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <!--Full Amount Paid/Partail Amount Paid/ Will Pay Later-->
+
+
+        <!--Full Amount Paid/Partial Amount Paid/ Will Pay Later-->
         <TextView
             android:id="@+id/txtMidStatusInfo3"
-            app:layout_constraintTop_toBottomOf="@id/txtMidStatusInfo1"
+            app:layout_constraintTop_toBottomOf="@id/txtMidStatusInfo2"
             app:layout_constraintStart_toStartOf="parent"
             android:textColor="@color/black"
             android:textStyle="normal"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_3sdp"
             android:textSize="@dimen/_11ssp"
+            android:visibility="gone"
             tools:text="Full Amt. Paid/ Partial Amt Paid/ Will Pay Later"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <TextView
+      <!--  <TextView
             android:id="@+id/txtBottomMainStatusInfo"
             app:layout_constraintTop_toBottomOf="@id/txtMidStatusInfo3"
             app:layout_constraintStart_toStartOf="parent"
             android:textColor="@color/black"
             android:textStyle="normal"
-            android:paddingTop="@dimen/_5sdp"
+           android:layout_marginTop="@dimen/_3sdp"
             android:visibility="gone"
             android:layout_marginStart="@dimen/_5sdp"
             android:textSize="@dimen/_11ssp"
             tools:text="Pending/In Process/Complete"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>-->
+
+        <TextView
+            android:id="@+id/txtScheduleDateStatusInfo"
+            app:layout_constraintTop_toBottomOf="@id/txtMidStatusInfo3"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:visibility="visible"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:textSize="@dimen/_11ssp"
+            tools:text="Schedule Date: 07-06-2023"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+       <!-- <TextView
+            android:id="@+id/txtScheduleTimeStatusInfo"
+            app:layout_constraintTop_toBottomOf="@id/txtScheduleDateStatusInfo"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:visibility="visible"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:textSize="@dimen/_11ssp"
+            tools:text="Schedule Time: 10:30 AM"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

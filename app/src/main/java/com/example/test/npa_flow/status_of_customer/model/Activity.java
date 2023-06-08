@@ -21,6 +21,8 @@ public class Activity implements Serializable {
     private String userId;
     private String userName;
     private String activityStatus;
+    private String scheduleDate;
+    private String scheduleTime;
     private List<ActivityDetail> activityDetails;
     private Activity childActivity;
     public Long getActivityId() {
@@ -114,4 +116,19 @@ public class Activity implements Serializable {
         this.childActivity = childActivity;
     }
 
+    public String getScheduleDate() {
+        return scheduleDate;
+    }
+
+    public void setScheduleDate(String scheduleDate) {
+        this.scheduleDate = scheduleDate;
+    }
+
+    public String getScheduleTime() {
+        return scheduleTime;
+    }
+
+    public void setScheduleTime(String scheduleTime) {
+        this.scheduleTime = scheduleTime;
+    }
 }

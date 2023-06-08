@@ -342,6 +342,20 @@
     <string name="in_process_calls">In Process\n\u0020\u0020\u0020\u0020\u0020Calls</string>
     <string name="amount_paid_is_empty">Amount Paid is empty</string>
     <string name="mobile">Mobile</string>
+    <string name="spoke_to_The_customer_status_info">Spoke To The Customer</string>
+    <string name="ready_to_pay_status_info">Ready To Pay</string>
+    <string name="not_ready_to_pay_status_info">Not Ready To Pay</string>
+    <string name="asked_to_call_back_later_status_info">Asked To Call Back Later</string>
+    <string name="send_visit_for_collection_status_info">Send Visit For Collection</string>n
+    <string name="send_link_for_online_payment_status_info">Send Link For Online Payment</string>
+    <string name="fo_not_visited_status_info">FO Not Visited</string>
+    <string name="loan_taken_by_relative_status_info">Loan Taken By Relative</string>
+    <string name="already_paid_status_info">Already Paid</string>
+    <string name="will_pay_later_status_info">Will Pay Later</string>
+    <string name="full_amount_paid_status_info">Full Amount Paid</string>
+    <string name="partial_Amount_paid_status_info">Partial Amount Paid</string>
+    <string name="will_pay_lump_sump_status_info">Will Pay Lump sump</string>
+
 
 
     <!--for Tenure-->

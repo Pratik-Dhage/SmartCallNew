@@ -25,7 +25,7 @@ import java.util.Locale;
 
 public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusOfCustomerDetailsAdapter.MyViewHolderClass> {
 
-      ArrayList<Activity> activityArrayList;
+    ArrayList<Activity> activityArrayList;
 
     public StatusOfCustomerDetailsAdapter(ArrayList<Activity> activityArrayList) {
         this.activityArrayList = activityArrayList;
@@ -35,7 +35,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
     @Override
     public MyViewHolderClass onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        ItemStatusDetailsOfCustomerBinding view = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_status_details_of_customer,parent,false);
+        ItemStatusDetailsOfCustomerBinding view = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_status_details_of_customer, parent, false);
         return new MyViewHolderClass(view);
     }
 
@@ -47,26 +47,35 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
 
         Context context = holder.itemView.getContext();
 
-        String userName = Global.getStringFromSharedPref(context,"userName");
-      //  holder.binding.txtUserName.setText(userName);  //space is less to fit in row
+        String userName = Global.getStringFromSharedPref(context, "userName");
+        //  holder.binding.txtUserName.setText(userName);  //space is less to fit in row
 
         // format should be  -> 25th May 23,Friday,5:00pm
-        if(a.getActivityDate()!=null && a.getDay()!=null  && a.getActivityTime()!=null ){
-            holder.binding.txtStatusDetailsOfCustomer.setText(a.getActivityDate()+","+a.getDay()+","+a.getActivityTime());
+        if (a.getActivityDate() != null && a.getDay() != null && a.getActivityTime() != null) {
+            holder.binding.txtStatusDetailsOfCustomer.setText(a.getActivityDate() + "," + a.getDay() + "," + a.getActivityTime()); //Activity Date and Activity Time Used here
         }
 
-        if(a.getActivityStatus()!=null){
-         holder.binding.txtActivityStatus.setText(a.getActivityStatus());
+       /* if (a.getActivityStatus() != null) {
+            holder.binding.txtActivityStatus.setText(a.getActivityStatus());
+        }*/
+
+        if (userName != null) {
+            holder.binding.txtUserName.setText(userName);
         }
 
-        if(userName!=null){
-            holder.binding.txtUserName.setText(", "+userName);
+        //This is inside Status info
+        if (a.getActivityStatus() != null) {
+
+            // Complete / Pending
+           /* if (a.getActivityStatus().toLowerCase().contains("complete")) {
+                holder.binding.txtBottomMainStatusInfo.setText("Complete");
+            }
+            if (a.getActivityStatus().toLowerCase().contains("pending")) {
+                holder.binding.txtBottomMainStatusInfo.setText("Pending");
+            }*/
+
+
         }
-
-
-                 if(a.getActivityStatus()!=null){
-                     holder.binding.txtBottomMainStatusInfo.setText(a.getActivityStatus());
-                 }
 
 
         holder.binding.ivDownArrowStatus.setOnClickListener(v -> {
@@ -74,15 +83,14 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                 holder.binding.ivDownArrowStatus.setVisibility(View.INVISIBLE);
                 holder.binding.ivUpArrowStatus.setVisibility(View.VISIBLE);
                 holder.binding.clStatusInfo.setVisibility(View.VISIBLE);
-                holder.binding.txtBottomMainStatusInfo.setVisibility(View.VISIBLE);
+                // holder.binding.txtBottomMainStatusInfo.setVisibility(View.VISIBLE);
 
-                // Complete / Pending
-                if(a.getActivityStatus().toLowerCase().contains("complete")){
-                    holder.binding.txtBottomMainStatusInfo.setText("Complete");
+
+                //Schedule Date And Time in Status info
+                if (a.getScheduleDate() != null && a.getScheduleTime() != null) {
+                    holder.binding.txtScheduleDateStatusInfo.setText("Scheduled Date and Time: " + a.getScheduleDate() + "," + a.getScheduleTime());
                 }
-                if(a.getActivityStatus().toLowerCase().contains("pending")){
-                    holder.binding.txtBottomMainStatusInfo.setText("Pending");
-                }
+
 
                 // Status Info
                 for (ActivityDetail details : a.getActivityDetails()) {
@@ -91,51 +99,57 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
 
                         //1)Spoke To The Customer
                         if (attemptFlow.contains("sttc")) {
-                            holder.binding.txtHeadStatusInfo.setText("Spoke To The Customer");
+                            holder.binding.txtHeadStatusInfo.setText(R.string.spoke_to_The_customer_status_info);
                         }
                         //2)Ready To Pay / Not Ready To Pay / Asked To Call Back Later
                         if (attemptFlow.contains("rtp")) {
-                            holder.binding.txtMidStatusInfo1.setText("Ready To Pay");
+                            holder.binding.txtMidStatusInfo1.setText(R.string.ready_to_pay_status_info);
                         }
                         if (attemptFlow.contains("nrtp")) {
-                            holder.binding.txtMidStatusInfo1.setText("Not Ready To Pay");
+                            holder.binding.txtMidStatusInfo1.setText(R.string.not_ready_to_pay_status_info);
                         }
                         if (attemptFlow.contains("atcl")) {
-                            holder.binding.txtMidStatusInfo1.setText("Asked To Call Back Later");
+                            holder.binding.txtMidStatusInfo1.setText(R.string.asked_to_call_back_later_status_info);
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText("Scheduled Date and Time: " + a.getScheduleDate() + "," + a.getScheduleTime());
+                            holder.binding.txtScheduleDateStatusInfo.setVisibility(View.GONE);
+                            //  holder.binding.txtScheduleTimeStatusInfo.setVisibility(View.GONE);
                         }
 
                         //3)Send Visit For Collection / Send Link For Online Payment / FO Not Visited / Loan taken By Relative / Already Paid / Will Pay later
                         if (attemptFlow.contains("svfc")) {
-                            holder.binding.txtMidStatusInfo2.setText("Send Visit For Collection");
-                        }
-                        if (attemptFlow.contains("slfop")) {
-                            holder.binding.txtMidStatusInfo2.setText("Send Link For Online Payment");
-                        }
-                        if (attemptFlow.contains("fnv")) {
-                            holder.binding.txtMidStatusInfo2.setText("FO Not Visited");
-                        }
-                        if (attemptFlow.contains("ltbr")) {
-                            holder.binding.txtMidStatusInfo2.setText("Loan Taken By Relative");
-                        }
-                        if (attemptFlow.contains("ap")) {
-                            holder.binding.txtMidStatusInfo2.setText("Already Paid");
-                        }
-                        if (attemptFlow.contains("wpl")) {
-                            holder.binding.txtMidStatusInfo2.setText("Will Pay Later");
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.send_visit_for_collection_status_info);
+                        } else if (attemptFlow.contains("slfop")) {
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.send_link_for_online_payment_status_info);
+                        } else if (attemptFlow.contains("fnv")) {
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.fo_not_visited_status_info);
+                        } else if (attemptFlow.contains("ltbr")) {
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.loan_taken_by_relative_status_info);
+                        } else if (attemptFlow.contains("ap")) {
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.already_paid_status_info);
+                        } else if (attemptFlow.contains("wpl")) {
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.will_pay_later_status_info);
                         }
 
                         //4)Full Amt. Paid /Partial Amt. Paid/ Wil Pay Later / Will Pay Lump sump
-                        if(attemptFlow.contains("fap")){
-                            holder.binding.txtMidStatusInfo3.setText("Full Amount Paid");
-                        }
-                        if(attemptFlow.contains("pap")){
-                            holder.binding.txtMidStatusInfo3.setText("Partial Amount Paid");
-                        }
-                        if(attemptFlow.contains("wpl")){
-                            holder.binding.txtMidStatusInfo3.setText("Will Pay Later");
-                        }
-                        if(attemptFlow.contains("wpls")){
-                            holder.binding.txtMidStatusInfo3.setText("Will Pay Lump sump");
+                        if (attemptFlow.contains("fap")) {
+                            holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo3.setText(R.string.full_amount_paid_status_info);
+                        } else if (attemptFlow.contains("pap")) {
+                            holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo3.setText(R.string.partial_Amount_paid_status_info);
+                        } else if (attemptFlow.contains("wpl")) {
+                            holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_later_status_info);
+                        } else if (attemptFlow.contains("wpls")) {
+                            holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_lump_sump_status_info);
                         }
                     }
                 }
@@ -147,10 +161,9 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                 holder.binding.ivDownArrowStatus.setVisibility(View.VISIBLE);
                 holder.binding.ivUpArrowStatus.setVisibility(View.INVISIBLE);
                 holder.binding.clStatusInfo.setVisibility(View.GONE);
-                holder.binding.txtBottomMainStatusInfo.setVisibility(View.GONE);
+                // holder.binding.txtBottomMainStatusInfo.setVisibility(View.GONE);
             }
         });
-
 
 
     }
@@ -189,9 +202,9 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
 */
 
     @SuppressLint("NotifyDataSetChanged")
-    public ArrayList setData(ArrayList<Activity> data)  {
+    public ArrayList setData(ArrayList<Activity> data) {
         if (data.isEmpty()) {
-            activityArrayList =  new ArrayList();
+            activityArrayList = new ArrayList();
         }
         activityArrayList = data;
         notifyDataSetChanged();
@@ -206,7 +219,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
 
         public MyViewHolderClass(ItemStatusDetailsOfCustomerBinding binding) {
             super(binding.getRoot());
-            this.binding =binding;
+            this.binding = binding;
         }
 
     }
