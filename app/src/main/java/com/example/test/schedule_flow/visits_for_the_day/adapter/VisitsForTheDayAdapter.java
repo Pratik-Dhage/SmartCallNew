@@ -82,10 +82,15 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
 
           holder.itemView.setOnClickListener(v->{
 
-              String dataSetId = a.getDataSetId().toString();
-              Intent i = new Intent(context, CustomerDetailsActivity.class);
-              i.putExtra("dataSetId",dataSetId);
-              context.startActivity(i);
+              //DetailsOfCustomer Only visible if Status is Pending
+              if(a.getActionStatus().toLowerCase().contains("pending")){
+
+                  String dataSetId = a.getDataSetId().toString();
+                  Intent i = new Intent(context, CustomerDetailsActivity.class);
+                  i.putExtra("dataSetId",dataSetId);
+                  context.startActivity(i);
+
+              }
           });
 
 

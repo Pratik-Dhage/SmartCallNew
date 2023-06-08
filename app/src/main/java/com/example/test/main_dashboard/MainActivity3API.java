@@ -33,6 +33,7 @@ public class MainActivity3API extends AppCompatActivity {
     ActivityMainActivity3ApiBinding binding;
     View view;
     MainDashBoardViewModel mainDashBoardViewModel;
+    public static boolean showCallIcon = false; // for call icon to be visible when coming from Visits For The Day Flow to be True Else False
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,8 @@ public class MainActivity3API extends AppCompatActivity {
         view = binding.getRoot();
         mainDashBoardViewModel = new ViewModelProvider(this).get(MainDashBoardViewModel.class);
         binding.setViewModel(mainDashBoardViewModel);
+
+        showCallIcon = false; //from Visits For The Day Flow to be True Else False
 
         if(getIntent().hasExtra("userName")){
             binding.txtWelcomeUser.setText("Welcome "+getIntent().getStringExtra("userName"));
@@ -203,7 +206,8 @@ public class MainActivity3API extends AppCompatActivity {
         binding.ivRightArrowVisits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent i = new Intent(MainActivity3API.this, ActivityOfFragments.class);
+
+                showCallIcon = true;
                 Intent i = new Intent(MainActivity3API.this, VisitsForTheDayActivity.class);
                 i.putExtra("isFromVisitsForTheDay","isFromVisitsForTheDay");
                 startActivity(i);
@@ -213,6 +217,8 @@ public class MainActivity3API extends AppCompatActivity {
         binding.ivRightArrowCalls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                showCallIcon = false;
                 Intent i = new Intent(MainActivity3API.this, CallsForTheDayActivity.class);
                 i.putExtra("isFromCallsForTheDay","isFromCallsForTheDay");
                 startActivity(i);

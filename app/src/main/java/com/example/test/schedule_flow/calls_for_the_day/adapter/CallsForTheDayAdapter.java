@@ -82,18 +82,21 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
 
         holder.itemView.setOnClickListener(v->{
 
-            Global.saveStringInSharedPref(context,"FullNameFromAdapter",String.valueOf(a.getMemberName()));
+            //DetailsOfCustomer Only visible if Status is Pending
+            if(a.getActionStatus().toLowerCase().contains("pending")){
 
-            //for using in VisitCompletionOfCustomerActivity and redirecting to Calls For The Day List
-            isFromCallsForTheDayAdapter = "isFromCallsForTheDayAdapter";
-            System.out.println("Here isFromCallsForTheDayAdapter: "+isFromCallsForTheDayAdapter);
+                Global.saveStringInSharedPref(context,"FullNameFromAdapter",String.valueOf(a.getMemberName()));
 
-            String dataSetId = a.getDataSetId().toString();
-            Intent i = new Intent(context, DetailsOfCustomerActivity.class);
-            i.putExtra("dataSetId",dataSetId);
-            context.startActivity(i);
+                //for using in VisitCompletionOfCustomerActivity and redirecting to Calls For The Day List
+                isFromCallsForTheDayAdapter = "isFromCallsForTheDayAdapter";
+                System.out.println("Here isFromCallsForTheDayAdapter: "+isFromCallsForTheDayAdapter);
 
+                String dataSetId = a.getDataSetId().toString();
+                Intent i = new Intent(context, DetailsOfCustomerActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                context.startActivity(i);
 
+            }
         });
 
 

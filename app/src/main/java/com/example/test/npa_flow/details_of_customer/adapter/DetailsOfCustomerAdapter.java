@@ -1,8 +1,12 @@
 package com.example.test.npa_flow.details_of_customer.adapter;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -12,15 +16,19 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
 import com.example.test.databinding.ItemDetailsOfCustomerBinding;
+import com.example.test.fragments_activity.CustomerDetailsActivity;
 import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.lead.adapter.LeadListAdapter;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.WebViewActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
 
@@ -227,6 +235,46 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         }
 
 */
+
+        //for Call Icon to be visible when coming from Visits For The Day(DashBoard)
+        if(MainActivity3API.showCallIcon ){
+            if(a.getLable().toLowerCase().contains("mobile")){
+                holder.binding.ivCallLogo.setVisibility(View.VISIBLE);
+            }
+
+            holder.binding.txtDetailName.setOnClickListener(v->{
+                holder.binding.ivCallLogo.performClick();
+            });
+
+            holder.binding.ivCallLogo.setOnClickListener(v-> {
+                if (a.getLable().toLowerCase().contains("mobile")) {
+                    //make an actual call
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED ||
+                        ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED ||
+                        ActivityCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
+
+                ) {
+                    Activity activity = (Activity) context;
+                    // Permission is not granted, request the permission
+                    ActivityCompat.requestPermissions(activity, new String[]{
+                            Manifest.permission.CALL_PHONE,
+                            Manifest.permission.READ_CALL_LOG,
+                            Manifest.permission.RECORD_AUDIO}, DetailsOfCustomerActivity.REQUEST_CALL);
+                }
+                else {
+
+                    // Permission has already been granted, make the call
+                    String phoneNumber = String.valueOf(a.getValue()); //use mobile number fetched from result(API Response)
+                    Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+                    //  Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+                    context.startActivity(dial);
+                }
+
+            }
+
+            });
+        }
+
         //for Capture Button
         holder.binding.btnDetail.setOnClickListener(v -> {
 

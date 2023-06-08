@@ -57,9 +57,10 @@
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:src="@drawable/call_round_icon"
+            android:layout_marginEnd="@dimen/_3sdp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/labelDetailName"
-            app:layout_constraintStart_toStartOf="@id/btnDetail"
+           app:layout_constraintEnd_toStartOf="@id/txtDetailName"
             app:layout_constraintTop_toTopOf="@+id/labelDetailName" />
 
 
