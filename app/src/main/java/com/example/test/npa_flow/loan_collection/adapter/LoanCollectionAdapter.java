@@ -93,7 +93,6 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
         holder.itemView.setOnClickListener(v->{
 
-            /*
             //DetailsOfCustomer Only visible if Status is Pending
             if(a.getActionStatus().toLowerCase().contains("pending")){
 
@@ -105,15 +104,15 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
                 i.putExtra("dataSetId",dataSetId);
                 context.startActivity(i);
             }
-*/
 
+            /*
             Global.saveStringInSharedPref(context,"FullNameFromAdapter",String.valueOf(a.getMemberName()));
 
             String dataSetId = a.getDataSetId().toString();
             Intent i = new Intent(context, DetailsOfCustomerActivity.class);
             i.putExtra("dataSetId",dataSetId);
             context.startActivity(i);
-
+*/
         });
 
         //for Status , Navigate to StatusOfCustomerActivity
