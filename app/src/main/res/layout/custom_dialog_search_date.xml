@@ -50,6 +50,16 @@
                 android:layout_height="@dimen/_20sdp"
                 app:tint="@color/white" />
 
+            <ImageView
+                android:id="@+id/ivResetDate"
+                app:layout_constraintStart_toStartOf="@id/toolbar"
+                app:layout_constraintTop_toTopOf="@id/toolbar"
+                app:layout_constraintBottom_toBottomOf="@id/toolbar"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:src="@drawable/refresh_icon"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                app:tint="@color/white" />
 
 
             <TextView

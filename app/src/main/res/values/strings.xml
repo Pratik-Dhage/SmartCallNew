@@ -355,6 +355,8 @@
     <string name="full_amount_paid_status_info">Full Amount Paid</string>
     <string name="partial_Amount_paid_status_info">Partial Amount Paid</string>
     <string name="will_pay_lump_sump_status_info">Will Pay Lump sump</string>
+    <string name="please_select_from_date">Please Select From Date</string>
+    <string name="please_select_to_date">Please Select To Date</string>
 
 
 

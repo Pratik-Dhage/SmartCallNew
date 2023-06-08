@@ -137,10 +137,11 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
         });
 
         binding.txtClearAll.setOnClickListener(v->{
-            //Clear Searched Records
-            scheduleDetailsViewModel.arrList_scheduledVisitDetails_Data.clear();
-            RecyclerView recyclerView = binding.rvScheduleDetails;
-            recyclerView.setAdapter(new ScheduleDetailsAdapter(scheduleDetailsViewModel.arrList_scheduledVisitDetails_Data));
+            //Clear Searched Records And Show Unfiltered List Of Records
+            binding.txtClearAll.setVisibility(View.GONE);
+            binding.txtSearchedDateRange.setVisibility(View.GONE);
+            call_ScheduleDetailsApi();
+            initObserver();
         });
 
 
@@ -155,6 +156,7 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
             EditText edtToDate = customDialogSearchDate.findViewById(R.id.edtToDate);
             TextView txtDateError = customDialogSearchDate.findViewById(R.id.txtDateError);
             ImageView ivClose =customDialogSearchDate.findViewById(R.id.ivClose);
+            ImageView ivResetDate =customDialogSearchDate.findViewById(R.id.ivResetDate);
             TextView labelSearchRecord = customDialogSearchDate.findViewById(R.id.labelSearchRecord);
             labelSearchRecord.setText(getString(R.string.search_by_date_range));
 
@@ -188,6 +190,12 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
 
             ivClose.setOnClickListener(v4->{
                 dialog.dismiss();
+            });
+
+            ivResetDate.setOnClickListener(v5->{
+                edtFromDate.setText("");
+                edtToDate.setText("");
+                txtDateError.setVisibility(View.INVISIBLE);
             });
 
             btnSearch.setOnClickListener(v1 -> {
@@ -226,7 +234,16 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
                     scheduleDetailsViewModel.get_ScheduleDetails_Data(fromDate,toDate);
 
                 } catch (ParseException e) {
-                    txtDateError.setVisibility(View.VISIBLE);
+
+                    if(fromDate.isEmpty()){
+                        txtDateError.setVisibility(View.VISIBLE);
+                        txtDateError.setText(R.string.please_select_from_date);
+                    }
+                  else  if(toDate.isEmpty()){
+                        txtDateError.setVisibility(View.VISIBLE);
+                        txtDateError.setText(R.string.please_select_to_date);
+                    }
+
                 }
 
             });
