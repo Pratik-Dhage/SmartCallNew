@@ -22,7 +22,10 @@ import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.schedule_flow.calls_for_the_day.model.CallsForTheDayResponseModel;
 import com.example.test.schedule_flow.visits_for_the_day.model.VisitsForTheDayResponseModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAdapter.MyViewHolderClass> {
 
@@ -60,6 +63,37 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
 
         if(a.getActionStatus()!=null){
             holder.binding.txtStatus.setText(String.valueOf(a.getActionStatus()));
+        }
+
+        //for ScheduleTime
+        if(a.getScheduleDateTime()!=null){
+
+            // Split the datetime string into date and time parts
+            String[] parts = String.valueOf(a.getScheduleDateTime()).split(" ");
+            String timeString = parts[1]; // Extract the time part
+            String am_or_pm = parts[2];
+
+            holder.binding.txtScheduleTime.setText(timeString+" "+am_or_pm);
+
+        //  SimpleDateFormat object to parse the time string
+          /*  SimpleDateFormat inputFormat = new SimpleDateFormat("HH:mm");
+
+            try {
+                Date time = inputFormat.parse(timeString); // Parse the time string
+                SimpleDateFormat outputFormat = new SimpleDateFormat("hh:mm a"); // Format the time
+
+                assert time != null; //time can never be null
+                String formattedTime = outputFormat.format(time);
+
+                holder.binding.txtScheduleTime.setText(formattedTime);
+
+            } catch (ParseException e) {
+                System.out.println("Here Call ScheduleTime Exception :"+e.getLocalizedMessage());
+                e.printStackTrace();
+            }
+*/
+
+
         }
 
         //opens Google Maps

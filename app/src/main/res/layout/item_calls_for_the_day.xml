@@ -64,6 +64,28 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TextView
+            android:id="@+id/labelScheduleTime"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Scheduled_Time"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textStyle="normal"
+            android:layout_marginTop="@dimen/_2sdp"
+            app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/clStatus" />
+
+        <TextView
+            android:id="@+id/txtScheduleTime"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text=" 12:00 PM"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@id/labelScheduleTime"
+            app:layout_constraintTop_toTopOf="@+id/labelScheduleTime" />
+
 
 
         <TextView
@@ -148,7 +170,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:background="@color/textBlue"
-            app:layout_constraintTop_toBottomOf="@id/clStatus" />
+            app:layout_constraintTop_toBottomOf="@id/labelScheduleTime" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
