@@ -15,6 +15,7 @@ import com.example.test.R;
 import com.example.test.databinding.ItemLoanCollectionBinding;
 import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.helper_classes.Global;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
@@ -98,7 +99,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
                 //on Item Click save Name of Member
                 Global.saveStringInSharedPref(context,"FullNameFromAdapter",String.valueOf(a.getMemberName()));
-
+                MainActivity3API.showCallIcon = false; // //from Visits For The Day Flow to be True Else False
                 String dataSetId = a.getDataSetId().toString();
                 Intent i = new Intent(context, DetailsOfCustomerActivity.class);
                 i.putExtra("dataSetId",dataSetId);
