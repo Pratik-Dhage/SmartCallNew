@@ -63,7 +63,14 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
         setUpImagePicker();
     }
 
-    private void initializeFields() {
+    private void setToolBarTitle(){
+        if(getIntent().hasExtra("isFromCallsForTheDayAdapter")) {
+            binding.txtToolbarHeading.setText(R.string.calls_for_the_day_payment_status);
+        }
+    }
+
+
+            private void initializeFields() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_mode_status);
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
@@ -71,7 +78,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
-
+        setToolBarTitle();
     }
 
 
@@ -115,14 +122,45 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                     btnUploadReceipt.setVisibility(View.INVISIBLE);
 
                     txtProceed.setOnClickListener(v -> {
-                        Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
-                        i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                        i.putExtra("detailsList", detailsList);
-                        i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
-                        i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
-                        String isFromVisitsForTheDayFlow_PaymentModeStatusActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity");
-                        i.putExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity",isFromVisitsForTheDayFlow_PaymentModeStatusActivity);
-                        startActivity(i);
+
+                        //From Calls For The Day
+                        if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+
+                            Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                            i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
+                            i.putExtra("detailsList", detailsList);
+                            i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
+                            i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
+                          //  String isFromVisitsForTheDayFlow_PaymentModeStatusActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity");
+                          //  i.putExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity",isFromVisitsForTheDayFlow_PaymentModeStatusActivity);
+                            startActivity(i);
+                        }
+
+                        // From Visit For The Day
+                     else   if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
+                            Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                            i.putExtra("detailsList", detailsList);
+                            i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
+                            i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
+                            String isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
+                            i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity",isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity);
+                            startActivity(i);
+                        }
+
+                        //From NPA
+                        else{
+                            Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                            i.putExtra("detailsList", detailsList);
+                            i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
+                            i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
+                          //  String isFromVisitsForTheDayFlow_PaymentModeStatusActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity");
+                           // i.putExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity",isFromVisitsForTheDayFlow_PaymentModeStatusActivity);
+                            startActivity(i);
+                        }
+
                     });
 
                     ivRefreshCancel.setOnClickListener(v -> {
@@ -247,13 +285,41 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
             });
 
             txtSkipAndProceed.setOnClickListener(v1 -> {
-                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
-                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                i.putExtra("detailsList", detailsList);
-                i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
-                String isFromVisitsForTheDayFlow_PaymentModeStatusActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity");
-                i.putExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity",isFromVisitsForTheDayFlow_PaymentModeStatusActivity);
-                startActivity(i);
+
+                //From Calls For TheDay
+                if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                    Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
+                    i.putExtra("detailsList", detailsList);
+                    i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
+                  //  String isFromVisitsForTheDayFlow_PaymentModeStatusActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity");
+                   // i.putExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity",isFromVisitsForTheDayFlow_PaymentModeStatusActivity);
+                    startActivity(i);
+                }
+
+                //From Visits For The Day
+             else   if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
+                    Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("detailsList", detailsList);
+                    i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
+                    String isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
+                    i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity",isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity);
+                    startActivity(i);
+                }
+
+                //From NPA
+                else{
+                    Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("detailsList", detailsList);
+                    i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
+                   // String isFromVisitsForTheDayFlow_PaymentModeStatusActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity");
+                   // i.putExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity",isFromVisitsForTheDayFlow_PaymentModeStatusActivity);
+                    startActivity(i);
+                }
+
             });
 
             ivCancel.setOnClickListener(v1 -> {
@@ -292,13 +358,41 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
             });
 
             txtSkipAndProceed.setOnClickListener(v1 -> {
-                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
-                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                i.putExtra("detailsList", detailsList);
-                i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
-                String isFromVisitsForTheDayFlow_PaymentModeStatusActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity");
-                i.putExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity",isFromVisitsForTheDayFlow_PaymentModeStatusActivity);
-                startActivity(i);
+
+                //From Calls For The Day
+                if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                    Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
+                    i.putExtra("detailsList", detailsList);
+                    i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
+                   // String isFromVisitsForTheDayFlow_PaymentModeStatusActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity");
+                  //  i.putExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity",isFromVisitsForTheDayFlow_PaymentModeStatusActivity);
+                    startActivity(i);
+                }
+
+                //From Visits For The Day
+                if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
+                    Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("detailsList", detailsList);
+                    i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
+                    String isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
+                    i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity",isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity);
+                    startActivity(i);
+                }
+
+                //From NPA
+                else{
+                    Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("detailsList", detailsList);
+                    i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
+                   // String isFromVisitsForTheDayFlow_PaymentModeStatusActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity");
+                  //  i.putExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity",isFromVisitsForTheDayFlow_PaymentModeStatusActivity);
+                    startActivity(i);
+                }
+
             });
 
             ivCancel.setOnClickListener(v1 -> {
