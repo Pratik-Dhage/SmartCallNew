@@ -52,6 +52,13 @@ public class WebServices {
     //you have to pass the User object as request body to the service
     //the return type is also User object
 
+    //for Reset Password
+    // 1.     It is a post method
+   // 2.     You need to set the userId and password in the User object and set it as the request body for the method.
+   // 3.     The method will return user object. In case of failure it will return null
+    public static String reset_password = "security/resetPassword";
+
+
     //for Dashboard Data
     public static String Dashboard_Data = "dashboard/getDashBoardForUser?";
     //you have to send User as request body

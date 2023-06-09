@@ -39,6 +39,12 @@ public interface RestClient {
             @Body UserModel userModel
     );
 
+    //Forgot Password / Reset Pasword
+    @POST("security/resetPassword")
+    Observable<LoginResponseModel> resetPasswordUserApi(
+            @Body UserModel userModel
+    );
+
     //Authenticate User(Login User)
     @POST
     Observable<UserModel> authenticateUser( @Url String url, @Body UserModel userModel);
