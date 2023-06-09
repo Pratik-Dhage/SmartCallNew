@@ -37,103 +37,109 @@ public class CallDetailsViewModel extends ViewModel {
 
     String userId = "CA_01_001";
 
-    DetailsOfCustomerActivity detailsOfCustomerActivity= new DetailsOfCustomerActivity();
-    List<CallDetails> callDetailsList = detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater(); //for Will Pay Later
+    DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+    List<CallDetails> callDetailsList = detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater(); //for Will Pay Later,SVFC,Asked To call Back,Already Paid
     List<CallDetails> callDetailsList_full_partial_amount = detailsOfCustomerActivity.sendCallLogDetailsList_FullPartialAmountPaid(); //for Full/Partial Amt. paid
-    String send_callScheduledTime = DetailsOfCustomerActivity.send_callScheduledTime;
 
 
-    public void postCallDetails(String dataSetId , String payment_type, String complete_action){
+    public void postCallDetails(String dataSetId, String payment_type, String complete_action) {
 
         //1)PARTIAL AMOUNT PAID
-     if(payment_type.contentEquals("from_payment_status_partial_amt_paid")){
+        if (payment_type.contentEquals("from_payment_status_partial_amt_paid")) {
 
-         // Post Call Data => Call_AttemptNo. , Call_Time , Call_Duration, Call_Notes , Call_Recording
-         // for Every Attempt (0,1,2) there will be these Individual Call Data
-         //3 Scenarios => 1) No Change 2) Need To Update Details 3) Escalate To BM (Branch Manager)
+            // Post Call Data => Call_AttemptNo. , Call_Time , Call_Duration, Call_Notes , Call_Recording
+            // for Every Attempt (0,1,2) there will be these Individual Call Data
+            //3 Scenarios => 1) No Change 2) Need To Update Details 3) Escalate To BM (Branch Manager)
 
-         if(complete_action.contentEquals("complete_no_change")){
+            if (complete_action.contentEquals("complete_no_change")) {
 
-             subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_complete_no_change_partial_amt_paid+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+"",callDetailsList_full_partial_amount)
-                     .subscribeOn(Schedulers.io())
-                     .observeOn(AndroidSchedulers.mainThread())
-                     .unsubscribeOn(Schedulers.io())
-                     .subscribe(
-                             this::onHomeApiSuccess, this::onApiError
-                     );
-         }
+                subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_complete_no_change_partial_amt_paid + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + "" +
+                                "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber", callDetailsList_full_partial_amount)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(
+                                this::onHomeApiSuccess, this::onApiError
+                        );
+            }
 
-         if(complete_action.contentEquals("complete_need_to_update_details")){
+            if (complete_action.contentEquals("complete_need_to_update_details")) {
 
-             subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_complete_need_to_update_details_partial_amt_paid+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+"",callDetailsList_full_partial_amount)
-                     .subscribeOn(Schedulers.io())
-                     .observeOn(AndroidSchedulers.mainThread())
-                     .unsubscribeOn(Schedulers.io())
-                     .subscribe(
-                             this::onHomeApiSuccess, this::onApiError
-                     );
-         }
+                subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_complete_need_to_update_details_partial_amt_paid + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + "" +
+                                "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber", callDetailsList_full_partial_amount)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(
+                                this::onHomeApiSuccess, this::onApiError
+                        );
+            }
 
-         if(complete_action.contentEquals("complete_escalate_to_bm")) {
-             subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_complete_escalate_to_bm_partial_amt_paid+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+"",callDetailsList_full_partial_amount)
-                     .subscribeOn(Schedulers.io())
-                     .observeOn(AndroidSchedulers.mainThread())
-                     .unsubscribeOn(Schedulers.io())
-                     .subscribe(
-                             this::onHomeApiSuccess, this::onApiError
-                     );
-         }
-     }
+            if (complete_action.contentEquals("complete_escalate_to_bm")) {
+                subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_complete_escalate_to_bm_partial_amt_paid + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + "" +
+                                "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber", callDetailsList_full_partial_amount)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(
+                                this::onHomeApiSuccess, this::onApiError
+                        );
+            }
+        }
 
-     //2)FULL AMOUNT PAID
-     if(payment_type.contentEquals("from_payment_status_full_amt_paid")){
+        //2)FULL AMOUNT PAID
+        if (payment_type.contentEquals("from_payment_status_full_amt_paid")) {
 
-         // Post Call Data => Call_AttemptNo. , Call_Time , Call_Duration, Call_Notes , Call_Recording
-         // for Every Attempt (0,1,2) there will be these Individual Call Data
+            // Post Call Data => Call_AttemptNo. , Call_Time , Call_Duration, Call_Notes , Call_Recording
+            // for Every Attempt (0,1,2) there will be these Individual Call Data
 
-         if(complete_action.contentEquals("complete_no_change")){
+            if (complete_action.contentEquals("complete_no_change")) {
 
-             subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_complete_no_change_full_amt_paid+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+"",callDetailsList_full_partial_amount)
-                     .subscribeOn(Schedulers.io())
-                     .observeOn(AndroidSchedulers.mainThread())
-                     .unsubscribeOn(Schedulers.io())
-                     .subscribe(
-                             this::onHomeApiSuccess, this::onApiError
-                     );
-         }
+                subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_complete_no_change_full_amt_paid + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + "" +
+                                "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber", callDetailsList_full_partial_amount)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(
+                                this::onHomeApiSuccess, this::onApiError
+                        );
+            }
 
-         if(complete_action.contentEquals("complete_need_to_update_details")){
+            if (complete_action.contentEquals("complete_need_to_update_details")) {
 
-             subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_complete_need_to_update_details_full_amt_paid+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+"",callDetailsList_full_partial_amount)
-                     .subscribeOn(Schedulers.io())
-                     .observeOn(AndroidSchedulers.mainThread())
-                     .unsubscribeOn(Schedulers.io())
-                     .subscribe(
-                             this::onHomeApiSuccess, this::onApiError
-                     );
-         }
+                subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_complete_need_to_update_details_full_amt_paid + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + "" +
+                                "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber", callDetailsList_full_partial_amount)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(
+                                this::onHomeApiSuccess, this::onApiError
+                        );
+            }
 
-         if(complete_action.contentEquals("complete_escalate_to_bm")) {
-             subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_complete_escalate_to_bm_full_amt_paid+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+"",callDetailsList_full_partial_amount)
-                     .subscribeOn(Schedulers.io())
-                     .observeOn(AndroidSchedulers.mainThread())
-                     .unsubscribeOn(Schedulers.io())
-                     .subscribe(
-                             this::onHomeApiSuccess, this::onApiError
-                     );
-         }
+            if (complete_action.contentEquals("complete_escalate_to_bm")) {
+                subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_complete_escalate_to_bm_full_amt_paid + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + "" +
+                                "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber", callDetailsList_full_partial_amount)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(
+                                this::onHomeApiSuccess, this::onApiError
+                        );
+            }
 
 
-     }
+        }
 
 
     }
 
     //3)WILL PAY LATER
-    public void postScheduledDateTime(String dataSetId , String payment_type ,String scheduleVisitForCollection_dateTime){
+    public void postScheduledDateTime(String dataSetId, String payment_type, String scheduleVisitForCollection_dateTime) {
         //WILL PAY LATER
-        if(payment_type.contentEquals("will pay later") ){
-            subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_will_pay_later+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+scheduleVisitForCollection_dateTime,callDetailsList)
+        if (payment_type.contentEquals("will pay later")) {
+            subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_will_pay_later + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+                            "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber", callDetailsList)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .unsubscribeOn(Schedulers.io())
@@ -144,20 +150,22 @@ public class CallDetailsViewModel extends ViewModel {
     }
 
     //4)PAYMENT MODE - (SVFC)SCHEDULE VISIT FOR COLLECTION BUTTON CLICK
-    public void postScheduledDateTime_SVFC(String dataSetId , String scheduleVisitForCollection_dateTime ){
-        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_send_visit_for_collection+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+scheduleVisitForCollection_dateTime,callDetailsList)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .unsubscribeOn(Schedulers.io())
-                    .subscribe(
-                            this::onHomeApiSuccess, this::onApiError
-                    );
+    public void postScheduledDateTime_SVFC(String dataSetId, String scheduleVisitForCollection_dateTime) {
+        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_send_visit_for_collection + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+                        "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber", callDetailsList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        this::onHomeApiSuccess, this::onApiError
+                );
 
     }
 
     //5)PAYMENT NOTIFICATION - ASKED TO CALL BACK LATER BUTTON CLICK(ATCL->Asked to Call Later)
-    public void postScheduledDateTime_ATCL(String dataSetId , String scheduleVisitForCollection_dateTime ){
-        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_asked_to_call_later+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+scheduleVisitForCollection_dateTime,callDetailsList)
+    public void postScheduledDateTime_ATCL(String dataSetId, String scheduleVisitForCollection_dateTime) {
+        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_asked_to_call_later + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+                        "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber", callDetailsList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -176,9 +184,9 @@ public class CallDetailsViewModel extends ViewModel {
 */
 
     //6)PAYMENT INFORMATION OF CUSTOMER ACTIVITY - FO NOT VISITED (FNV)BUTTON CLICK
-    public void postScheduledDateTime_FNV(String dataSetId , String scheduleVisitForCollection_dateTime, String dateOfVisitPromised,String foName ,String relativeName, String relativeContactNumber){
-        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_fo_not_visited+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+scheduleVisitForCollection_dateTime+
-                        "&dateOfVisitPromised="+dateOfVisitPromised+"&foName="+foName+"&relativeName="+relativeName+"&relativeContactNumber"+relativeContactNumber,callDetailsList)
+    public void postScheduledDateTime_FNV(String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber) {
+        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_fo_not_visited + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+                        "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber" + relativeContactNumber, detailsOfCustomerActivity.sendCallLogDetailsList_FNV_LTBR("FNV"))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -189,9 +197,9 @@ public class CallDetailsViewModel extends ViewModel {
     }
 
     //7)PAYMENT INFORMATION OF CUSTOMER ACTIVITY - LOAN TAKEN BY RELATIVE (LTBR)BUTTON CLICK
-    public void postScheduledDateTime_LTBR(String dataSetId , String scheduleVisitForCollection_dateTime, String dateOfVisitPromised,String foName ,String relativeName, String relativeContactNumber){
-        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_loan_taken_by_relative+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+scheduleVisitForCollection_dateTime+
-                        "&dateOfVisitPromised="+dateOfVisitPromised+"&foName="+foName+"&relativeName="+relativeName+"&relativeContactNumber"+relativeContactNumber,callDetailsList)
+    public void postScheduledDateTime_LTBR(String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber, String type) {
+        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_loan_taken_by_relative + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+                        "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber, detailsOfCustomerActivity.sendCallLogDetailsList_FNV_LTBR("LTBR"))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -202,9 +210,9 @@ public class CallDetailsViewModel extends ViewModel {
     }
 
     //8)PAYMENT INFORMATION OF CUSTOMER ACTIVITY - ALREADY PAID (AP)BUTTON CLICK
-    public void postScheduledDateTime_AP(String dataSetId , String scheduleVisitForCollection_dateTime, String dateOfVisitPromised,String foName ,String relativeName, String relativeContactNumber){
-        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_already_paid+"&dataSetId="+dataSetId+"&callingAgent="+userId+"&scheduledDateTime="+scheduleVisitForCollection_dateTime+
-                        "&dateOfVisitPromised="+dateOfVisitPromised+"&foName="+foName+"&relativeName="+relativeName+"&relativeContactNumber"+relativeContactNumber,callDetailsList)
+    public void postScheduledDateTime_AP(String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber) {
+        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_already_paid + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+                        "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber" + relativeContactNumber, callDetailsList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -214,8 +222,18 @@ public class CallDetailsViewModel extends ViewModel {
 
     }
 
+    //9)PAYMENT INFORMATION OF CUSTOMER ACTIVITY - WILL PAY LATER -> WILL PAY LUMPSUMP
+    public void postScheduledDateTime_WPLS(String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber) {
+        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_will_pay_lump_sump + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+                        "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber" + relativeContactNumber, callDetailsList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        this::onHomeApiSuccess, this::onApiError
+                );
 
-
+    }
 
     private void onHomeApiSuccess(String result) {
         mutCallDetailsResponseApi.setValue(result);

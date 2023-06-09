@@ -44,6 +44,7 @@ import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.CallDetailOfCustomerActivity;
 import com.example.test.npa_flow.NearByCustomersActivity;
 import com.example.test.npa_flow.ScheduleVisitForCollectionActivity;
+import com.example.test.npa_flow.SubmitCompletionActivityOfCustomer;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.call_details.CallDetails;
 import com.example.test.npa_flow.call_details.CallDetailsViewModel;
@@ -73,7 +74,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
     public static String FullName; //for storing call attempts
     public static String Mobile_Number; //for calling purpose
-    int REQUEST_CALL = 1; // can use any integer value
+  public static int REQUEST_CALL = 1; // can use any integer value
 
     //To Send to Backend Using Post Method
     public static String send_callDateTime;
@@ -83,7 +84,11 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
     public static byte[] send_callRecordingInByteArray;
     public static String send_callNotes;
     public static int send_callAttemptNo;
-    public static String send_callScheduledTime  ;
+    public  String send_callScheduledTime  ;
+    public  String send_DateOfVisitPromised;
+    public  String send_FoName;
+    public  String send_RelativeName;
+    public  String send_RelativeContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +149,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         return callDetailsList;
     }
 
-//1) Will Pay Later 2) SVFC(Schedule Visit For Customer) Flow 3) Asked To Call Back Later Flow(ATCL)
+//1) Will Pay Later 2) SVFC(Schedule Visit For Customer) Flow 3) Asked To Call Back Later Flow(ATCL) 4)Already Paid
     public  List<CallDetails> sendCallLogDetailsList_WillPayLater() {
        // String pattern = "dd-MM-yyyy HH:mm:ss"; // Pattern to match the date format
         String pattern = "yyyy-MM-dd HH:mm:ss"; // Pattern to match the date format
@@ -191,6 +196,95 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         callDetailsList.add(callDetails);
         return callDetailsList;
     }
+
+    //For 1)Fo Not Visited  2)Loan Taken By Relative
+    public  List<CallDetails> sendCallLogDetailsList_FNV_LTBR(String type) {
+        // String pattern = "dd-MM-yyyy HH:mm:ss"; // Pattern to match the date format
+        String pattern = "yyyy-MM-dd HH:mm:ss"; // Pattern to match the date format
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+
+        List<CallDetails> callDetailsList = new ArrayList<>(); //List to hold CallDetails Object
+        CallDetails callDetails = new CallDetails();    //CallDetails Object
+
+        if (send_callDateTime != null) {
+
+            Date date = new Date();
+            String callDateTime = dateFormat.format(date);
+            //CallDetails Object
+            callDetails.setCallDateTime(callDateTime);
+
+
+        }
+
+        // ScheduleVisitForCollectionActivity scheduleVisitForCollectionActivity = new ScheduleVisitForCollectionActivity();
+        //send_callScheduledTime = scheduleVisitForCollectionActivity.();
+        String scheduleVisitForCollection_dateTime = Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime");
+        send_callScheduledTime = scheduleVisitForCollection_dateTime;
+
+        if(send_callScheduledTime!=null ){
+           // callDetails.setScheduledCallDateTime(send_callScheduledTime); // for Will Pay Later flow
+        }
+
+        if (send_callDuration != null) {
+            callDetails.setCallDuration(Integer.parseInt(send_callDuration));
+        }
+
+        if (send_callRecording != null) {
+            //  callDetails.setCallRecording(send_callRecordingInByteArray);
+        }
+
+        if(send_callNotes!=null){
+            callDetails.setNotes(send_callNotes);
+        }
+
+        if(String.valueOf(send_callAttemptNo)!=null){
+            callDetails.setAttemptNo(send_callAttemptNo);
+        }
+
+        //FO not visited
+        if(type.contains("FNV")){
+            send_DateOfVisitPromised = Global.getStringFromSharedPref(this,"dateOfVisitPromised");
+            if(send_DateOfVisitPromised!=null){
+                callDetails.setDateOfVisitPromised(send_DateOfVisitPromised);
+            }
+
+
+            send_FoName = Global.getStringFromSharedPref(this,"foName");
+            if(send_FoName!=null){
+                callDetails.setFoName(send_FoName);
+            }
+        }
+         else {
+            callDetails.setDateOfVisitPromised("");
+            callDetails.setFoName("");
+        }
+
+
+        //Loan Taken By Relative
+        if(type.contains("LTBR")){
+
+            send_RelativeName = Global.getStringFromSharedPref(this,"relativeName");
+            if(send_RelativeName!=null){
+                callDetails.setRelativeName(send_RelativeName);
+            }
+
+
+            send_RelativeContact = Global.getStringFromSharedPref(this,"relativeContact");
+            if(send_RelativeContact!=null){
+                callDetails.setRelativeContact(send_RelativeContact);
+            }
+        }
+        else{
+            callDetails.setRelativeName("");
+            callDetails.setRelativeContact("");
+        }
+
+
+
+        callDetailsList.add(callDetails);
+        return callDetailsList;
+    }
+
 
     private void callDetailsOfCustomerApi() {
 
