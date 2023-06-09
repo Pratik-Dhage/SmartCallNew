@@ -527,6 +527,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                 if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
                     Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
                     startActivity(i);
                 }
 
@@ -629,7 +630,15 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                     Global.showSnackBar(view, "Call Error" + e);
                 }
 
+                //From CallsForTheDayAdapter
+                if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                    Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
+                    startActivity(i);
+                }
 
+                 //From NPA (Assigned)
                 // While Call is going , Move the User to Next Activity
                 Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));

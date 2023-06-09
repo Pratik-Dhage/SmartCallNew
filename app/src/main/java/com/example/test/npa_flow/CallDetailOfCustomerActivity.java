@@ -57,12 +57,19 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
 
     }
 
+    private void setToolBarTitle(){
+        if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+            binding.txtToolbarHeading.setText(R.string.calls_for_the_day_npa_details);
+        }
+    }
+
     private void initializeFields() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_call_detail_of_customer);
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
+        setToolBarTitle();
     }
 
     private void callDetailsOfCustomerApi(){
@@ -135,6 +142,15 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
         });
 
         binding.btnSpokeToCustomer.setOnClickListener(v -> {
+
+                    //From CallsForTheDayAdapter
+                    if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                        Intent i = new Intent(this, PaymentNotificationOfCustomerActivity.class);
+                        i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
+                        i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
+                        i.putExtra("detailsList",detailsList);
+                        startActivity(i);
+                    }
 
             Intent i = new Intent(this, PaymentNotificationOfCustomerActivity.class);
             i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
