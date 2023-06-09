@@ -449,6 +449,11 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         }
     }
 
+    private void setToolBarTitle(){
+        if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+            binding.txtToolbarHeading.setText(R.string.calls_for_the_day_npa);
+        }
+    }
 
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details_of_customer2);
@@ -457,7 +462,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         binding.setViewModel(detailsOfCustomerViewModel);
 
         Global.removeStringInSharedPref(this, "Amount_Paid"); // remove Amount Paid from SharePreferences for next activities to have New value
-
+          setToolBarTitle();
     }
 
     private void setUpDetailsOfCustomerRecyclerView() {
@@ -518,6 +523,14 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                     System.out.println("Here Call Error:" + e);
                 }
 
+                //From CallsForTheDayAdapter
+                if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                    Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    startActivity(i);
+                }
+
+                // From NPA (Assigned)
                 // While Call is going , Move the User to Next Activity
                 Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
