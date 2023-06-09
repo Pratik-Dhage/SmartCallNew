@@ -531,11 +531,14 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                     startActivity(i);
                 }
 
-                // From NPA (Assigned)
-                // While Call is going , Move the User to Next Activity
-                Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
-                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                startActivity(i);
+                else{
+                    // From NPA (Assigned)
+                    // While Call is going , Move the User to Next Activity
+                    Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    startActivity(i);
+                }
+
 
             }
 
@@ -638,11 +641,14 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                     startActivity(i);
                 }
 
-                 //From NPA (Assigned)
-                // While Call is going , Move the User to Next Activity
-                Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
-                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                startActivity(i);
+                else {
+                    //From NPA (Assigned)
+                    // While Call is going , Move the User to Next Activity
+                    Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    startActivity(i);
+                }
+
 
             } else {
                 // Permission is denied, show a message

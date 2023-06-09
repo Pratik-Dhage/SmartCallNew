@@ -152,10 +152,14 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
                         startActivity(i);
                     }
 
-            Intent i = new Intent(this, PaymentNotificationOfCustomerActivity.class);
-            i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
-            i.putExtra("detailsList",detailsList);
-            startActivity(i);
+                    //From NPA (Assigned)
+                    else{
+                        Intent i = new Intent(this, PaymentNotificationOfCustomerActivity.class);
+                        i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
+                        i.putExtra("detailsList",detailsList);
+                        startActivity(i);
+                    }
+
         });
 
         binding.btnNotSpokeToCustomer.setOnClickListener(v->{

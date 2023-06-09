@@ -53,6 +53,12 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
     }
 
+    private void setToolBarTitle(){
+        if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+            binding.txtToolbarHeading.setText(R.string.calls_for_the_day_customer_response);
+        }
+    }
+
     private void initializeFields() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_notification_of_customer);
@@ -62,7 +68,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
-
+        setToolBarTitle();
     }
 
 
@@ -129,10 +135,24 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
         binding.btnReadyToPay.setOnClickListener(v -> {
 
-            Intent i = new Intent(PaymentNotificationOfCustomerActivity.this, PaymentModeActivity.class);
-            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-            i.putExtra("detailsList",detailsList);
-            startActivity(i);
+            //From CallsForTheDayAdapter
+            if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                Intent i = new Intent(PaymentNotificationOfCustomerActivity.this, PaymentModeActivity.class);
+                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
+                i.putExtra("detailsList",detailsList);
+                startActivity(i);
+            }
+
+            //From NPA (Assigned)
+            else{
+
+                Intent i = new Intent(PaymentNotificationOfCustomerActivity.this, PaymentModeActivity.class);
+                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("detailsList",detailsList);
+                startActivity(i);
+            }
+
         });
 
         binding.btnNotReadyToPay.setOnClickListener(v -> {
