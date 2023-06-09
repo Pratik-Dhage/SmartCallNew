@@ -11,6 +11,7 @@ import com.example.test.main_dashboard.adapter.MainDashBoardAdapter;
 import com.example.test.main_dashboard.model.DashBoardModel;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.main_dashboard.model.DashBoardScheduleForTheDayModel;
+import com.example.test.schedule_flow.schedule_for_the_day.ScheduleForTheDayAdapter;
 import com.example.test.user.UserModel;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
@@ -42,14 +43,7 @@ public class MainDashBoardViewModel extends ViewModel {
         return mutErrorResponse;
     }
 
-    //for Schedule For the Day in DashBoard
-    private final MutableLiveData<List<DashBoardScheduleForTheDayModel>> mutDashBoardScheduleForTheDayResponseApi = new MutableLiveData<>();
-
-    public MutableLiveData<List<DashBoardScheduleForTheDayModel>> getMutDashBoardScheduleForTheDayResponseApi() {
-        return mutDashBoardScheduleForTheDayResponseApi;
-    }
-
-
+    //FOR Assigned
     public ArrayList<DashBoardResponseModel> arrListDashBoardData = new  ArrayList<>() ;
     public MainDashBoardAdapter mainDashBoardAdapter = new MainDashBoardAdapter(arrListDashBoardData);
 
@@ -57,6 +51,19 @@ public class MainDashBoardViewModel extends ViewModel {
         mainDashBoardAdapter.setData(arrListDashBoardData);
     }
 
+
+
+    //for Schedule For the Day in DashBoard
+    private final MutableLiveData<List<DashBoardScheduleForTheDayModel>> mutDashBoardScheduleForTheDayResponseApi = new MutableLiveData<>();
+
+    public MutableLiveData<List<DashBoardScheduleForTheDayModel>> getMutDashBoardScheduleForTheDayResponseApi() {
+        return mutDashBoardScheduleForTheDayResponseApi;
+    }
+
+    //FOR ScheduleForTheDay
+    public ArrayList<DashBoardScheduleForTheDayModel> arrListScheduleForTheDayData = new ArrayList<>();
+    public ScheduleForTheDayAdapter scheduleForTheDayAdapter = new ScheduleForTheDayAdapter(arrListScheduleForTheDayData);
+    public void updateScheduleForTheDayData() {   scheduleForTheDayAdapter.setData(arrListScheduleForTheDayData);      }
 
 
     //Call to API with Required Function

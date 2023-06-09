@@ -26,6 +26,7 @@ import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 import com.example.test.schedule_flow.ScheduleDetailsActivity;
 import com.example.test.schedule_flow.calls_for_the_day.CallsForTheDayActivity;
+import com.example.test.schedule_flow.schedule_for_the_day.ScheduleForTheDayAdapter;
 import com.example.test.schedule_flow.visits_for_the_day.VisitsForTheDayActivity;
 
 public class MainActivity3API extends AppCompatActivity {
@@ -43,15 +44,17 @@ public class MainActivity3API extends AppCompatActivity {
         initializeFields();
         onClickListener();
 
-        initObserver();
-
         if(NetworkUtilities.getConnectivityStatus(this)){
             callDashBoardApi();
-
+             callScheduleForTheDayApi();
         }
+
        else{
             Global.showToast(this,getString(R.string.check_internet_connection));
         }
+
+        initObserver();
+       initObserverScheduleForTheDay();
 
     }
 
@@ -75,6 +78,9 @@ public class MainActivity3API extends AppCompatActivity {
 
     private void callDashBoardApi() {
         mainDashBoardViewModel.getDashBoardData();
+    }
+
+    private void callScheduleForTheDayApi(){
         mainDashBoardViewModel.getScheduleForTheDayData();
     }
 
@@ -82,6 +88,12 @@ public class MainActivity3API extends AppCompatActivity {
         mainDashBoardViewModel.updateDashBoardData();
         RecyclerView recyclerView = binding.rvDashBoardMain;
         recyclerView.setAdapter(new MainDashBoardAdapter(mainDashBoardViewModel.arrListDashBoardData));
+    }
+
+    private void setUpScheduleForTheDayRecyclerView(){
+        mainDashBoardViewModel.updateScheduleForTheDayData();
+        RecyclerView recyclerView = binding.rvScheduleForTheDay;
+        recyclerView.setAdapter(new ScheduleForTheDayAdapter(mainDashBoardViewModel.arrListScheduleForTheDayData));
     }
 
 
@@ -138,6 +150,10 @@ public class MainActivity3API extends AppCompatActivity {
 
         });
 
+    }
+
+    private void initObserverScheduleForTheDay(){
+
         //for Scheduled For The Day
         mainDashBoardViewModel.getMutDashBoardScheduleForTheDayResponseApi().observe(this,result->{
 
@@ -145,31 +161,9 @@ public class MainActivity3API extends AppCompatActivity {
 
                 if(result!=null){
 
-                     result.iterator().forEachRemaining(it->{
-
-                         //For Visits
-                         if(it.getQueue().toLowerCase().contains("visits")){
-                             String CompletedVisits = String.valueOf(it.getComplete());
-                             String PendingVisits = String.valueOf(it.getPending());
-                             binding.txtCompletedVisitsValue.setText(CompletedVisits);
-                             binding.txtPendingVisitsValue.setText(PendingVisits);
-
-                             String TotalVisits = String.valueOf(it.getComplete() + it.getPending());
-                             binding.txtTotalVisitsValue.setText(TotalVisits);
-                         }
-
-                         //For Calls
-                         if(it.getQueue().toLowerCase().contains("calls")){
-                             String CompletedCalls = String.valueOf(it.getComplete());
-                             String PendingCalls = String.valueOf(it.getPending());
-                             binding.txtCompletedCallsValue.setText(CompletedCalls);
-                             binding.txtPendingCallsValue.setText(PendingCalls);
-
-                             String TotalCalls = String.valueOf(it.getComplete() + it.getPending());
-                             binding.txtTotalCallsValue.setText(TotalCalls);
-                         }
-
-                     });
+                    mainDashBoardViewModel.arrListScheduleForTheDayData.clear();
+                    setUpScheduleForTheDayRecyclerView();
+                    mainDashBoardViewModel.arrListScheduleForTheDayData.addAll(result);
                 }
 
             }
@@ -191,19 +185,20 @@ public class MainActivity3API extends AppCompatActivity {
             }
         });
 
+
     }
+
 
 
     private void onClickListener(){
 
         //Scheduled for the day section
-
         binding.ivSchedule.setOnClickListener(v->{
             Intent i = new Intent(this, ScheduleDetailsActivity.class);
             startActivity(i);
         });
 
-        binding.ivRightArrowVisits.setOnClickListener(new View.OnClickListener() {
+       /* binding.ivRightArrowVisits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -224,7 +219,7 @@ public class MainActivity3API extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+*/
 
         //Assigned Section
         binding.ivRightArrowMembersAssigned.setOnClickListener(v->{

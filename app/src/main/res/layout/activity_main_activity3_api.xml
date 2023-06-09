@@ -108,7 +108,7 @@
                             android:id="@+id/labelTotalMonth"
                             style="@style/semi_mid_text_style"
                             android:layout_marginTop="@dimen/_5sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:layout_marginEnd="@dimen/_15sdp"
                             android:text="@string/total"
                             app:layout_constraintEnd_toStartOf="@+id/labelCompletedCallsTotalMonth"
                             app:layout_constraintTop_toTopOf="@id/clCardView" />
@@ -119,7 +119,7 @@
                             style="@style/semi_mid_text_style"
                             android:layout_marginStart="@dimen/_50sdp"
                             android:layout_marginTop="@dimen/_5sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:layout_marginEnd="@dimen/_15sdp"
                             android:text="@string/completed"
                             app:layout_constraintEnd_toStartOf="@id/labelPendingCallsTotalMonth"
                             app:layout_constraintTop_toTopOf="@id/clCardView" />
@@ -133,7 +133,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/clCardView" />
 
-                        <TextView
+                    <!--    <TextView
                             android:id="@+id/labelVisits"
                             style="@style/common_text_style"
                             android:layout_width="wrap_content"
@@ -223,15 +223,32 @@
                             app:layout_constraintTop_toTopOf="@id/labelCalls"
                             tools:text="12" />
 
+-->
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvScheduleForTheDay"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_80sdp"
+                            android:orientation="vertical"
+                            android:visibility="visible"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                           app:layout_constraintBottom_toTopOf="@id/viewBorder"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintTop_toBottomOf="@+id/labelTotalMonth"
+                            tools:itemCount="3"
+                            tools:listitem="@layout/item_schedule_for_the_day" />
+
 
                         <View
                             android:id="@+id/viewBorder"
                             style="@style/viewBorderStyle"
-                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
                             android:background="@color/textBlue"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/labelCalls" />
+                            app:layout_constraintTop_toBottomOf="@id/rvScheduleForTheDay" />
 
 
                         <ImageView
@@ -259,7 +276,7 @@
                             app:layout_constraintTop_toBottomOf="@id/viewBorder" />
 
                         <!--RightArrow Visits-->
-                        <ImageView
+                       <!-- <ImageView
                             android:id="@+id/ivRightArrowVisits"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
@@ -268,10 +285,10 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/labelPendingCallsTotalMonth"
                             app:tint="@color/textBlue" />
-
+-->
 
                         <!--RightArrow Calls-->
-                        <ImageView
+                      <!--  <ImageView
                             android:id="@+id/ivRightArrowCalls"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
@@ -280,7 +297,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/ivRightArrowVisits"
                             app:tint="@color/textBlue" />
-
+-->
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </com.google.android.material.card.MaterialCardView>
