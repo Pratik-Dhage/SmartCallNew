@@ -128,6 +128,7 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
                 String dataSetId = a.getDataSetId().toString();
                 Intent i = new Intent(context, DetailsOfCustomerActivity.class);
                 i.putExtra("dataSetId",dataSetId);
+                i.putExtra("isFromCallsForTheDayAdapter",isFromCallsForTheDayAdapter);
                 context.startActivity(i);
 
             }

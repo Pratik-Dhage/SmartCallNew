@@ -179,6 +179,8 @@
     <string name="update_schedule_space">\u00A0\u00A0Update Schedule\u00A0\u00A0</string>
     <string name="schedule_update_successfully">Schedule Updated Successfully</string>
     <string name="calls_for_the_day">Calls For The Day</string>
+    <string name="calls_for_the_day_npa">Calls For The Day - NPA</string>
+    <string name="calls_for_the_day_npa_details">Calls For The Day - NPA Details</string>
     <string name="view_nearby_customers">View Nearby Customers</string>
     <string name="goto_dashboard">Go to Dashboard</string>
     <string name="schedule_details">Schedule Details</string>
