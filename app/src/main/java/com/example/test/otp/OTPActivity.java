@@ -22,6 +22,7 @@ public class OTPActivity extends AppCompatActivity {
     View view;
     OTPViewModel otpViewModel;
     boolean isFromRegisterPasswordActivity = true;
+    boolean isFromLoginForgotPassword ;
     public String userId;
 
     @Override
@@ -39,6 +40,8 @@ public class OTPActivity extends AppCompatActivity {
         view = binding.getRoot();
         otpViewModel = new ViewModelProvider(this).get(OTPViewModel.class);
         binding.setViewModel(otpViewModel);
+
+        isFromLoginForgotPassword = false; //initially isFromLoginForgotPassword will be false
     }
 
     private void callGenerateOTP_Api(){
@@ -46,7 +49,7 @@ public class OTPActivity extends AppCompatActivity {
         userId  = binding.edtOTPUserId.getText().toString().trim();
         otpViewModel.callGenerateOTP_Api(userId);
 
-        Global.saveStringInSharedPref(this,"userId",userId); // saving userId  for calling api in RegisterPasswordActivity
+        Global.saveStringInSharedPref(this,"userId",userId); // saving userId  for calling api in RegisterPasswordActivity for Setting And Resetting Password
     }
 
     private void initObserver(){
@@ -61,6 +64,15 @@ public class OTPActivity extends AppCompatActivity {
                     if(getIntent().hasExtra("isFromRegisterPasswordActivity")){
                         Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
                         i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
+                        i.putExtra("userId",userId);
+                        startActivity(i);
+                    }
+
+                    //if coming from ForgotPassword / Reset Password
+                  else  if(getIntent().hasExtra("isFromLoginForgotPassword")){
+                        Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
+                        isFromLoginForgotPassword = true;
+                        i.putExtra("isFromLoginForgotPassword",isFromLoginForgotPassword);
                         i.putExtra("userId",userId);
                         startActivity(i);
                     }

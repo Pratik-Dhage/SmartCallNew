@@ -27,6 +27,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
     OTPVerifyViewModel otpVerifyViewModel;
     public String userId;
     public int otpCode;
+    boolean isFromLoginForgotPassword ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
         otpVerifyViewModel = new ViewModelProvider(this).get(OTPVerifyViewModel.class);
         binding.setViewModel(otpVerifyViewModel);
 
+        isFromLoginForgotPassword = false ; //initially isFromLoginForgotPassword will be false
     }
 
     private void callValidateOTP_Api(){
@@ -85,6 +87,14 @@ public class OTPVerificationActivity extends AppCompatActivity {
                         if(getIntent().hasExtra("isFromLoginWithOTPFragment_ResetMPin")){
                             Intent mpinIntent = new Intent(this,MPinActivity.class);
                             startActivity(mpinIntent);
+                        }
+
+                        //coming from isFromLoginForgotPassword
+                        if(getIntent().hasExtra("isFromLoginForgotPassword")){
+                            Intent registerIntent = new Intent(OTPVerificationActivity.this, RegisterPasswordActivity.class);
+                            isFromLoginForgotPassword = true;
+                            registerIntent.putExtra("isFromLoginForgotPassword",isFromLoginForgotPassword);
+                            startActivity(registerIntent);
                         }
 
                         else {

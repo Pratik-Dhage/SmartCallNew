@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.test.helper_classes.Global;
 import com.example.test.login.model.LoginResponseModel;
 import com.example.test.user.UserModel;
+import com.example.test.user.UserResponseModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -18,10 +19,17 @@ public class RegisterPasswordViewModel extends ViewModel {
     private Disposable subscribtion; //Disposable Interface used to prevent observer from receiving items from Observer before all items are loaded.
 
     private final MutableLiveData<LoginResponseModel> mutLoginResponseApi = new MutableLiveData<>();
+
+    private final  MutableLiveData<UserResponseModel> mutUserResponseApi = new MutableLiveData<>(); //for Forgot /Reset Password
+
     private final MutableLiveData<String> mutErrorResponse = new MutableLiveData<>();
 
     public MutableLiveData<LoginResponseModel> getMutLoginResponseApi() {
         return mutLoginResponseApi;
+    }
+
+    public MutableLiveData<UserResponseModel> getMutUserResponseApi() {
+        return mutUserResponseApi;
     }
 
     public MutableLiveData<String> getMutErrorResponse() {
@@ -47,8 +55,27 @@ public class RegisterPasswordViewModel extends ViewModel {
                 );
     }
 
+
+    //coming from Login Activity Forgot Password / Reset Password
+    public void callForgotResetPasswordApi(String userId, String userPassword){
+
+        UserResponseModel resetUserRequest = new UserResponseModel(userId , userPassword);
+
+        subscribtion = (Disposable) Global.apiService().resetPasswordUserApi(resetUserRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        this::onHomeApiSuccess2 , this::onApiError
+                );
+    }
+
     private void onHomeApiSuccess(LoginResponseModel result) {
         mutLoginResponseApi.setValue(result);
+    }
+
+    private void onHomeApiSuccess2(UserResponseModel result){
+        mutUserResponseApi.setValue(result);
     }
 
     private void onApiError(Throwable error) {

@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.example.test.R;
+import com.example.test.api_manager.WebServices;
 import com.example.test.success.SuccessActivity;
 import com.example.test.databinding.ActivityRegisterPasswordBinding;
 import com.example.test.helper_classes.Global;
@@ -51,6 +52,15 @@ public class RegisterPasswordActivity extends AppCompatActivity {
         registerPasswordViewModel.callRegisterApi(userId,userPassword);
     }
 
+    private void callForgotPassword(){
+       // userId  = Global.getStringFromSharedPref(this,"userId");
+       String userId_new = WebServices.userId;
+        userPassword   = binding.edtSetPassword.getText().toString().trim();
+        System.out.println("Here ForgotPassword or Reset Password");
+        registerPasswordViewModel.callForgotResetPasswordApi(userId_new,userPassword);
+    }
+
+
     private void initObserver(){
 
         registerPasswordViewModel.getMutLoginResponseApi().observe(this,result->{
@@ -76,6 +86,32 @@ public class RegisterPasswordActivity extends AppCompatActivity {
         });
     }
 
+    private void initObserverForgotPassword(){
+
+        registerPasswordViewModel.getMutUserResponseApi().observe(this,result->{
+
+            if(result!=null){
+
+                Intent i = new Intent(RegisterPasswordActivity.this, SuccessActivity.class);
+                i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
+                startActivity(i);
+            }
+
+        });
+
+        //handle  error response
+        registerPasswordViewModel.getMutErrorResponse().observe(this, error -> {
+
+            if (error != null && !error.isEmpty()) {
+                Global.showSnackBar(view, error);
+                System.out.println("Here: " + error);
+            } else {
+                Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+            }
+        });
+
+    }
+
 
     private void onClickListener() {
 
@@ -87,8 +123,20 @@ public class RegisterPasswordActivity extends AppCompatActivity {
 
                     if(validations()){
 
-                        callRegisterApi();
-                        initObserver();
+
+                        //coming from isFromLoginForgotPassword
+                        if(getIntent().hasExtra("isFromLoginForgotPassword")){
+                            System.out.println("Here isFromLoginForgotPassword");
+                            callForgotPassword();
+                            initObserverForgotPassword();
+                        }
+
+                        //First time Registration
+                        else {
+                            callRegisterApi();
+                            initObserver();
+                        }
+
 
                     }
                 }

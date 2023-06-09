@@ -16,6 +16,7 @@ import com.example.test.schedule_flow.calls_for_the_day.model.CallsForTheDayResp
 import com.example.test.schedule_flow.model.ScheduleVisitDetails;
 import com.example.test.schedule_flow.visits_for_the_day.model.VisitsForTheDayResponseModel;
 import com.example.test.user.UserModel;
+import com.example.test.user.UserResponseModel;
 
 import java.util.List;
 
@@ -39,10 +40,10 @@ public interface RestClient {
             @Body UserModel userModel
     );
 
-    //Forgot Password / Reset Pasword
+    //Forgot Password / Reset Password
     @POST("security/resetPassword")
-    Observable<LoginResponseModel> resetPasswordUserApi(
-            @Body UserModel userModel
+    Observable<UserResponseModel> resetPasswordUserApi(
+            @Body UserResponseModel userResponseModel
     );
 
     //Authenticate User(Login User)

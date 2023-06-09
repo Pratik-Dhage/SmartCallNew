@@ -119,6 +119,12 @@ public class UserResponseModel implements Serializable {
 
   private Object genericDate2;
 
+  //Use This Constructor when calling callForgotResetPasswordApi //coming from Login Activity Forgot Password / Reset Password
+  public UserResponseModel(String userId, String password) {
+    this.password = password;
+    this.userId = userId;
+  }
+
   public Object getGenericDate10() {
     return this.genericDate10;
   }
