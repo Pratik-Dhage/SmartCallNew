@@ -47,6 +47,12 @@ public class PaymentModeActivity extends AppCompatActivity {
         onClickListener();
     }
 
+    private void setToolBarTitle(){
+        if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+            binding.txtToolbarHeading.setText(R.string.calls_for_the_day_payment_mode);
+        }
+    }
+
     private void initializeFields() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_mode);
@@ -56,7 +62,7 @@ public class PaymentModeActivity extends AppCompatActivity {
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
-
+        setToolBarTitle();
     }
 
 
@@ -86,10 +92,23 @@ public class PaymentModeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(PaymentModeActivity.this, PaymentModeStatusActivity.class);
-                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                i.putExtra("detailsList",detailsList);
-                startActivity(i);
+                //From CallsForTheDayAdapter
+                if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                    Intent i = new Intent(PaymentModeActivity.this, PaymentModeStatusActivity.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
+                    i.putExtra("detailsList",detailsList);
+                    startActivity(i);
+                }
+
+                else{
+                   //From NPA
+                    Intent i = new Intent(PaymentModeActivity.this, PaymentModeStatusActivity.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("detailsList",detailsList);
+                    startActivity(i);
+                }
+
 
             }
         });
