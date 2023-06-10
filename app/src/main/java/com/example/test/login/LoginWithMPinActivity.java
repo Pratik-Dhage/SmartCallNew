@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityLoginWithMpinBinding;
+import com.example.test.helper_classes.Global;
 import com.example.test.mPin.ResetMPinActivity;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.roomDB.dao.MPinDao;
@@ -84,6 +85,13 @@ public class LoginWithMPinActivity extends AppCompatActivity {
 
             Intent i = new Intent(this, MainActivity3API.class);
             startActivity(i);
+
+            Global.showToast(this,getString(R.string.login_successful));
+        }
+
+        else{
+
+            Global.showToast(this,getString(R.string.mpin_is_incorrect));
         }
 
         System.out.println("Here mPinFromRoomDB: " + mPinFromRoomDB);

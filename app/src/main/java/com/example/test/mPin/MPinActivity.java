@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.example.test.R;
+import com.example.test.login.LoginWithMPinActivity;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.database.LeadListDB;
@@ -97,18 +98,33 @@ public class MPinActivity extends AppCompatActivity {
         MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
         String userNameFromOTPValidationResponse = Global.getStringFromSharedPref(this, "userNameFromOTPValidationResponse");
 
-        if (getIntent().hasExtra("isFromLoginWithOTPFragment_ResetMPin")) {
-            // Replace the old mPin with the new mPin
-            mPinDao.updateMPin(userMPin, userNameFromOTPValidationResponse);
-        } else {
-            // Insert the new mPin in the Room database
-            MPinRoomModel newMPinRoomModel = new MPinRoomModel(userMPin, userNameFromOTPValidationResponse);
-            mPinDao.insert(newMPinRoomModel);
-        }
+
+        checkIfMPinExists(userMPin);
 
         System.out.println("Here userMPinInRoomDB: " + mPinDao.getMPinFromRoomDB(userNameFromOTPValidationResponse));
+        System.out.println("Here userNameMPinInRoomDB: " + mPinDao.getUserNameUsingMPinInRoomDB(userMPin));
     }
 
+    private void checkIfMPinExists(String userMPin){
 
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        int countOfMPin = mPinDao.checkAnyMPinExists();
+        String userNameFromOTPValidationResponse = Global.getStringFromSharedPref(this, "userNameFromOTPValidationResponse");
+
+        if (countOfMPin > 0) {
+            // At least one mPin exists in the table
+            mPinDao.updateMPin(userMPin, userNameFromOTPValidationResponse);
+
+        }
+        else {
+            // No mPin exists in the table
+           // Insert the new mPin in the Room database
+            MPinRoomModel newMPinRoomModel = new MPinRoomModel(userMPin, userNameFromOTPValidationResponse);
+            mPinDao.insert(newMPinRoomModel);
+
+
+        }
+
+    }
 
 }

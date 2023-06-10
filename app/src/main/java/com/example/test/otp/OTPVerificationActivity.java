@@ -66,6 +66,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
             otpVerifyViewModel.getMutValidateOTP_ResponseApi().observe(this,result->{
 
                 if(result!=null){
+                   // Global.showToast(this,String.valueOf(result.getUserName()));
 
                     if(result.getUserId().toString().contentEquals(userId)){
                         String userNameFromOTPValidationResponse;
