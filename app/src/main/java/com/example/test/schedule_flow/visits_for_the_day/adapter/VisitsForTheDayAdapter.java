@@ -62,6 +62,15 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
               holder.binding.txtStatus.setText(String.valueOf(a.getActionStatus()));
           }
 
+        if(a.getMobileNumber()!=null){
+            holder.binding.txtMobileNumber.setText(a.getMobileNumber());
+        }
+
+        if(a.getPinCode()!=null){
+            holder.binding.txtPinCode.setText(a.getPinCode());
+        }
+
+
         //for ScheduleTime
         if(a.getScheduleDateTime()!=null) {
 

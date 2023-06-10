@@ -61,8 +61,32 @@
                 android:layout_height="@dimen/_20sdp"/>-->
 
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/labelMobileNumber"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mobile_no_"
+            android:textStyle="normal"
+            android:layout_marginTop="@dimen/_2sdp"
+            app:layout_constraintStart_toStartOf="@+id/clStatus"
+            app:layout_constraintTop_toBottomOf="@id/clStatus" />
+
+        <TextView
+            android:id="@+id/txtMobileNumber"
+            android:ellipsize="end"
+            android:maxLength="12"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@+id/labelMobileNumber"
+            app:layout_constraintTop_toBottomOf="@id/clStatus"
+            tools:text="987654321" />
 
         <TextView
             android:id="@+id/labelScheduleTime"
@@ -74,7 +98,7 @@
             android:textStyle="normal"
             android:layout_marginTop="@dimen/_2sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/clStatus" />
+            app:layout_constraintTop_toBottomOf="@id/labelMobileNumber" />
 
         <TextView
             android:id="@+id/txtScheduleTime"
@@ -160,6 +184,32 @@
             app:layout_constraintTop_toTopOf="@id/labelAttemptNumber"
             app:layout_constraintBottom_toBottomOf="@id/labelAttemptNumber"
             tools:src="@drawable/hand" />
+
+        <TextView
+            android:id="@+id/labelPinCode"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:text="@string/pincode"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@id/labelAttemptNumber"
+            app:layout_constraintTop_toBottomOf="@id/labelAttemptNumber" />
+
+        <TextView
+            android:id="@+id/txtPinCode"
+            style="@style/common_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            tools:text="400083"
+            android:textStyle="normal"
+            android:ellipsize="end"
+            android:maxLength="12"
+            app:layout_constraintStart_toEndOf="@+id/labelPinCode"
+            app:layout_constraintTop_toBottomOf="@id/labelAttemptNumber" />
+
+
 
         <View
             android:id="@+id/view"

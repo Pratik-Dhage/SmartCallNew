@@ -19,6 +19,10 @@ public class VisitsForTheDayResponseModel implements Serializable {
 
     private Object longitute;
 
+    private String mobileNumber;
+
+    private String pinCode;
+
     public Integer getDataSetId() {
         return this.dataSetId;
     }
@@ -81,5 +85,21 @@ public class VisitsForTheDayResponseModel implements Serializable {
 
     public void setLongitute(Object longitute) {
         this.longitute = longitute;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getPinCode() {
+        return pinCode;
+    }
+
+    public void setPinCode(String pinCode) {
+        this.pinCode = pinCode;
     }
 }
