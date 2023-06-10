@@ -9,11 +9,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -22,23 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
 import com.example.test.databinding.ItemDetailsOfCustomerBinding;
-import com.example.test.fragments_activity.CustomerDetailsActivity;
 import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.helper_classes.Global;
-import com.example.test.lead.adapter.LeadListAdapter;
 import com.example.test.main_dashboard.MainActivity3API;
-import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
-import com.example.test.npa_flow.details_of_customer.DetailsOfCustomer_ResponseModel;
 
 import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCustomerAdapter.MyViewHolderClass> {
