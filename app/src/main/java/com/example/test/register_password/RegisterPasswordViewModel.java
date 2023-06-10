@@ -14,19 +14,12 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RegisterPasswordViewModel extends ViewModel {
 
-        //Call Same API used for Login in LoginViewModel and same LoginResponseModel that returns UserModel Object
-
     private Disposable subscribtion; //Disposable Interface used to prevent observer from receiving items from Observer before all items are loaded.
-
-    private final MutableLiveData<LoginResponseModel> mutLoginResponseApi = new MutableLiveData<>();
 
     private final  MutableLiveData<UserResponseModel> mutUserResponseApi = new MutableLiveData<>(); //for Forgot /Reset Password
 
     private final MutableLiveData<String> mutErrorResponse = new MutableLiveData<>();
 
-    public MutableLiveData<LoginResponseModel> getMutLoginResponseApi() {
-        return mutLoginResponseApi;
-    }
 
     public MutableLiveData<UserResponseModel> getMutUserResponseApi() {
         return mutUserResponseApi;
@@ -39,14 +32,14 @@ public class RegisterPasswordViewModel extends ViewModel {
 
 
 
-    //Login API / Authenticate User
+    // Authenticate User // Register Password
     public void callRegisterApi(String userId, String userPassword) {
 
 
-        UserModel registerUserRequest = new UserModel(userId , userPassword);
+        UserResponseModel registerPasswordUserRequest = new UserResponseModel(userId , userPassword);
         // LoginModel loginUserRequest = new LoginModel(userId, userPassword);
 
-        subscribtion = (Disposable) Global.apiService().loginUserApi(registerUserRequest)
+        subscribtion = (Disposable) Global.apiService().registerPasswordUserApi(registerPasswordUserRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -59,22 +52,19 @@ public class RegisterPasswordViewModel extends ViewModel {
     //coming from Login Activity Forgot Password / Reset Password
     public void callForgotResetPasswordApi(String userId, String userPassword){
 
-        UserResponseModel resetUserRequest = new UserResponseModel(userId , userPassword);
+        UserResponseModel resetPasswordUserRequest = new UserResponseModel(userId , userPassword);
 
-        subscribtion = (Disposable) Global.apiService().resetPasswordUserApi(resetUserRequest)
+        subscribtion = (Disposable) Global.apiService().resetPasswordUserApi(resetPasswordUserRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(
-                        this::onHomeApiSuccess2 , this::onApiError
+                        this::onHomeApiSuccess , this::onApiError
                 );
     }
 
-    private void onHomeApiSuccess(LoginResponseModel result) {
-        mutLoginResponseApi.setValue(result);
-    }
 
-    private void onHomeApiSuccess2(UserResponseModel result){
+    private void onHomeApiSuccess(UserResponseModel result){
         mutUserResponseApi.setValue(result);
     }
 

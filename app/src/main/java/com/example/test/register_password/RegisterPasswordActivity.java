@@ -60,16 +60,17 @@ public class RegisterPasswordActivity extends AppCompatActivity {
         registerPasswordViewModel.callForgotResetPasswordApi(userId_new,userPassword);
     }
 
-
+     //For Register Password
     private void initObserver(){
 
-        registerPasswordViewModel.getMutLoginResponseApi().observe(this,result->{
+        registerPasswordViewModel.getMutUserResponseApi().observe(this,result->{
 
             if(result!=null){
 
                 Intent i = new Intent(RegisterPasswordActivity.this, SuccessActivity.class);
                 i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
                 startActivity(i);
+                System.out.println("Here From Register Password");
             }
 
         });
@@ -86,6 +87,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
         });
     }
 
+    //For Reset / Forgot Password
     private void initObserverForgotPassword(){
 
         registerPasswordViewModel.getMutUserResponseApi().observe(this,result->{
@@ -95,6 +97,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
                 Intent i = new Intent(RegisterPasswordActivity.this, SuccessActivity.class);
                 i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
                 startActivity(i);
+                System.out.println("Here From Reset Forgot Password");
             }
 
         });

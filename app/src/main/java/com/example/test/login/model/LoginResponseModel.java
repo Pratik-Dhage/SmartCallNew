@@ -119,6 +119,11 @@ public class LoginResponseModel implements Serializable {
 
   private Object genericDate2;
 
+  public LoginResponseModel(String userId, String  userName) {
+    this.userName = userName;
+    this.userId = userId;
+  }
+
   public Object getGenericDate10() {
     return this.genericDate10;
   }

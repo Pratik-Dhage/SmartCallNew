@@ -9,6 +9,7 @@ import com.example.test.lead.model.LeadModel;
 import com.example.test.login.model.LoginModel;
 import com.example.test.login.model.LoginResponseModel;
 import com.example.test.user.UserModel;
+import com.example.test.user.UserResponseModel;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class LoginViewModel extends ViewModel {
     public void callLoginApi(String userId, String userPassword) {
 
 
-      UserModel loginUserRequest = new UserModel(userId , userPassword);
+        LoginResponseModel loginUserRequest = new LoginResponseModel(userId , userPassword);
      // LoginModel loginUserRequest = new LoginModel(userId, userPassword);
 
     subscribtion = (Disposable) Global.apiService().loginUserApi(loginUserRequest)
