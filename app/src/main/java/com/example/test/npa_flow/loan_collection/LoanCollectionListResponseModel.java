@@ -23,6 +23,10 @@ public class LoanCollectionListResponseModel implements Serializable {
 
   private BigDecimal longitute;
 
+  private String mobileNumber;
+
+  private String pinCode;
+
   public Long getDataSetId() {
     return this.dataSetId;
   }
@@ -85,5 +89,21 @@ public class LoanCollectionListResponseModel implements Serializable {
 
   public void setLongitute(BigDecimal longitute) {
     this.longitute = longitute;
+  }
+
+  public String getMobileNumber() {
+    return mobileNumber;
+  }
+
+  public void setMobileNumber(String mobileNumber) {
+    this.mobileNumber = mobileNumber;
+  }
+
+  public String getPinCode() {
+    return pinCode;
+  }
+
+  public void setPinCode(String pinCode) {
+    this.pinCode = pinCode;
   }
 }

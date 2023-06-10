@@ -76,6 +76,13 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
 //        holder.binding.txtScheduledTime.setText(a.getScheduleDateTime().toString()); //Note: in API Response Scheduled Time is null
 
+        if(a.getMobileNumber()!=null){
+         holder.binding.txtMobileNumber.setText(a.getMobileNumber());
+        }
+
+        if(a.getPinCode()!=null){
+            holder.binding.txtPinCode.setText(a.getPinCode());
+        }
 
         //opens Google Maps
         holder.binding.ivMap.setOnClickListener(v->{

@@ -364,7 +364,8 @@
     <string name="please_select_to_date">Please Select To Date</string>
     <string name="mpin_is_incorrect">MPin is Incorrect</string>
     <string name="login_successful">Login Successful</string>
-
+    <string name="mobile_no_">Mobile :</string>
+    <string name="pincode">PinCode :</string>
 
 
     <!--for Tenure-->
