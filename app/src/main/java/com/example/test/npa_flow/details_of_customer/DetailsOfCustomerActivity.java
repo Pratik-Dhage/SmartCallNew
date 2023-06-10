@@ -322,9 +322,11 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                         if (lowercase_label.contains("mobile") || lowercase_label.contains("phone")) {
 
                             //test purpose as Mobile number from back end is Long/Double
-                            DecimalFormat decimalFormat = new DecimalFormat("#");
-                            String mobile_number = decimalFormat.format(it.getValue());
-                            Mobile_Number = String.valueOf(mobile_number); //store mobile_no
+                           // DecimalFormat decimalFormat = new DecimalFormat("#");
+                          //  String mobile_number = decimalFormat.format(it.getValue());
+
+                            Mobile_Number = String.valueOf(it.getValue()); //store mobile_no
+                            System.out.println("Here Mobile Number: "+Mobile_Number);
                         }
 
                     });
@@ -504,6 +506,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                 Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
               //  Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
                 startActivity(dial);
+                System.out.println("Here Mobile Number: "+phoneNumber);
 
                 //Store Call Count in RoomDB
                 storeCallCountInRoomDB(FullName, Mobile_Number);
