@@ -71,7 +71,7 @@ public class VisitsForTheDayActivity extends AppCompatActivity {
                 }
 
                 if(result.isEmpty()){
-                    Global.showToast(this,"Visits Api Called");
+                    Global.showToast(this,"No Data for Visits");
                 }
 
 

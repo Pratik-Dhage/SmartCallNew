@@ -72,7 +72,7 @@ public class CallsForTheDayActivity extends AppCompatActivity {
                 }
 
                 if(result.isEmpty()){
-                    Global.showToast(this,"Calls Api Called");
+                    Global.showToast(this,"No Data For Calls");
                 }
 
 
