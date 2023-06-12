@@ -35,7 +35,8 @@
     <string name="password_note"><i>(Password must be 8-12 Characters long,\nAlphanumeric with at least 1 special character)</i></string>
     <string name="submit">Submit</string>
     <string name="registration_successful">Registration Successful !</string>
-    <string name="pin_generated_success">Pin generated Successfully !</string>
+    <string name="pin_generated_success">Pin Generated Successfully !</string>
+    <string name="pin_reset_success">Pin Reset Successfully !</string>
     <string name="generate_mpin">Generate mPIN</string>
     <string name="login_now">Login Now</string>
     <string name="set_new_pin">Set New Pin</string>

@@ -49,6 +49,7 @@ public class LoginWithUserCredentialsFragment extends Fragment {
             if(validations())
             {
                 Intent i = new Intent(getContext(), MPinActivity.class);
+                i.putExtra("isFromLoginWithUserCredential_ResetMPin","isFromLoginWithUserCredential_ResetMPin");
                 startActivity(i);
             }
         });

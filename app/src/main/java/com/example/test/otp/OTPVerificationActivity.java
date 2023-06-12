@@ -87,6 +87,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
                            // coming From Reset MPin (LoginWithOTPFragment)
                         if(getIntent().hasExtra("isFromLoginWithOTPFragment_ResetMPin")){
                             Intent mpinIntent = new Intent(this,MPinActivity.class);
+                            mpinIntent.putExtra("isFromLoginWithOTPFragment_ResetMPin","isFromLoginWithOTPFragment_ResetMPin");
                             startActivity(mpinIntent);
                         }
 

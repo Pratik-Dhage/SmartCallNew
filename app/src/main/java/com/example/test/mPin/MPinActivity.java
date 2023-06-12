@@ -68,9 +68,20 @@ public class MPinActivity extends AppCompatActivity {
                         Global.saveStringInSharedPref(MPinActivity.this, "userMPin", userMPin); //save MPin in SharedPreferences for Logging using MPin
                         System.out.println("Here userMPin: "+userMPin);
                         saveMPinInRoomDB(userMPin);
-                        Intent i = new Intent(MPinActivity.this, SuccessActivity.class);
-                        i.putExtra("isFromMPinActivity", isFromMPinActivity);
-                        startActivity(i);
+
+                        if(getIntent().hasExtra("isFromLoginWithOTPFragment_ResetMPin") || getIntent().hasExtra("isFromLoginWithUserCredential_ResetMPin")){
+                            Intent i = new Intent(MPinActivity.this, SuccessActivity.class);
+                            i.putExtra("isFromResetMPin","isFromResetMPin");
+                            startActivity(i);
+                        }
+
+                        // 1st time Generating MPin
+                        else{
+                            Intent i = new Intent(MPinActivity.this, SuccessActivity.class);
+                            i.putExtra("isFromMPinActivity", isFromMPinActivity);
+                            startActivity(i);
+                        }
+
                     }
 
                 } else {
