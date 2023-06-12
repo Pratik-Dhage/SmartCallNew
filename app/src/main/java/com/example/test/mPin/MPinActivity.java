@@ -47,6 +47,15 @@ public class MPinActivity extends AppCompatActivity {
         view = binding.getRoot();
         mPinViewModel = new ViewModelProvider(this).get(MPinViewModel.class);
         binding.setViewModel(mPinViewModel);
+
+        setToolBarTitle();
+    }
+
+    private void setToolBarTitle(){
+        if(getIntent().hasExtra("isFromLoginWithOTPFragment_ResetMPin") || getIntent().hasExtra("isFromLoginWithUserCredential_ResetMPin"))
+        {
+          binding.txtToolbarHeading.setText(R.string.reset_mpin);
+        }
     }
 
     private void onClickListener() {
