@@ -119,8 +119,8 @@ public class LoginResponseModel implements Serializable {
 
   private Object genericDate2;
 
-  public LoginResponseModel(String userId, String  userName) {
-    this.userName = userName;
+  public LoginResponseModel(String userId, String  password) {
+    this.password = password;
     this.userId = userId;
   }
 

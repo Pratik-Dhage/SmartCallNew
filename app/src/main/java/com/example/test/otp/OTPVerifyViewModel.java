@@ -17,9 +17,15 @@ public class OTPVerifyViewModel extends ViewModel {
 
     private Disposable subscribtion; //Disposable Interface used to prevent observer from receiving items from Observer before all items are loaded.
 
-    private final MutableLiveData<OTPValidateOTPResponseModel> mutValidateOTP_ResponseApi = new MutableLiveData<>();
+   // private final MutableLiveData<OTPValidateOTPResponseModel> mutValidateOTP_ResponseApi = new MutableLiveData<>();
 
-    public MutableLiveData<OTPValidateOTPResponseModel> getMutValidateOTP_ResponseApi() {
+   /* public MutableLiveData<OTPValidateOTPResponseModel> getMutValidateOTP_ResponseApi() {
+        return mutValidateOTP_ResponseApi;
+    }*/
+
+    private final MutableLiveData<String> mutValidateOTP_ResponseApi = new MutableLiveData<>();
+
+    public MutableLiveData<String> getMutValidateOTP_ResponseApi() {
         return mutValidateOTP_ResponseApi;
     }
 
@@ -43,7 +49,7 @@ public class OTPVerifyViewModel extends ViewModel {
                 );
     }
 
-    private void onHomeApiSuccess(OTPValidateOTPResponseModel result) {
+    private void onHomeApiSuccess(String result) {
         mutValidateOTP_ResponseApi.setValue(result);
     }
 

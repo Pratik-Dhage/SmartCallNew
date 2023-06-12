@@ -65,7 +65,10 @@ public interface RestClient {
 
     //Validate OTP
     @POST("security/validateOtp")
-    Observable<OTPValidateOTPResponseModel> otpValidateApi(
+   /* Observable<OTPValidateOTPResponseModel> otpValidateApi(
+            @Body UserModel userModel
+    );*/
+    Observable<String> otpValidateApi(
             @Body UserModel userModel
     );
 

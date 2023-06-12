@@ -60,6 +60,9 @@ public class OTPActivity extends AppCompatActivity {
 
                 if(result!=null){
 
+                    //to display OTP code
+                    Global.showToast(this,"OTP Code: "+ result.getOtpCode());
+
                     //if coming from RegisterPasswordActivity
                     if(getIntent().hasExtra("isFromRegisterPasswordActivity")){
                         Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);

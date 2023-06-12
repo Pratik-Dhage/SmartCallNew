@@ -73,21 +73,33 @@ public class LoginActivity extends AppCompatActivity {
 
         userId  = binding.edtUserID.getText().toString().trim();
         userPassword   = binding.edtUserPassword.getText().toString().trim();
-        userName = binding.edtUserName.getText().toString().trim();
+      //  userName = binding.edtUserName.getText().toString().trim();
 
-        loginViewModel.callLoginApi(userId,userName);
+        loginViewModel.callLoginApi(userId,userPassword);
     }
 
     private void initObserver(){
 
         loginViewModel.getMutLoginResponseApi().observe(LoginActivity.this, result -> {
 
+            /*
             //to check if userId from Login Page and API response is same
             if(result.getUserId().contentEquals(userId)){
 
                 if(result.getAuthenticationResult().toLowerCase().contains("success")){
 
                     Global.showToast(LoginActivity.this, "Login :" + result.getAuthenticationResult());
+
+                    Intent i = new Intent(LoginActivity.this, SuccessActivity.class);
+                    i.putExtra("userName",userName);
+                    i.putExtra("isFromLoginActivity","isFromLoginActivity");
+                    startActivity(i);
+                }
+            }*/
+            if(result!=null){
+                Global.showToast(LoginActivity.this, "Login Response :" + result.getAuthenticationResult());
+
+                if(result.getAuthenticationResult().toLowerCase().contains("success")){
 
                     Intent i = new Intent(LoginActivity.this, SuccessActivity.class);
                     i.putExtra("userName",userName);
@@ -160,7 +172,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         //Password
-        /*if(binding.edtUserPassword.getText().toString().isEmpty()){
+        if(binding.edtUserPassword.getText().toString().isEmpty()){
            binding.inputLayoutPassword.setError(getResources().getString(R.string.password_cannot_be_empty));
            return false;
         }
@@ -168,13 +180,13 @@ public class LoginActivity extends AppCompatActivity {
         if(!Global.isValidPassword(binding.edtUserPassword.getText().toString())){
             binding.inputLayoutPassword.setError(getResources().getString(R.string.password_not_valid));
             return false;
-        }*/
+        }
 
         //UserName
-        if(binding.edtUserName.getText().toString().isEmpty()){
+       /* if(binding.edtUserName.getText().toString().isEmpty()){
             binding.inputLayoutUserName.setError(getResources().getString(R.string.user_name_cannot_be_empty));
             return false;
-        }
+        }*/
 
 
         return true;
@@ -198,7 +210,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-       /* binding.edtUserPassword.addTextChangedListener(new TextWatcher() {
+        binding.edtUserPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -211,10 +223,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
             }
-        });*/
+        });
 
 
-        binding.edtUserName.addTextChangedListener(new TextWatcher() {
+       /* binding.edtUserName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -228,7 +240,7 @@ public class LoginActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-
+*/
     }
 
     @Override

@@ -68,7 +68,9 @@ public class OTPVerificationActivity extends AppCompatActivity {
                 if(result!=null){
                    // Global.showToast(this,String.valueOf(result.getUserName()));
 
-                    if(result.getUserId().toString().contentEquals(userId)){
+                    Global.showToast(this,result); // SUCCESS / FAILED
+
+   /*                 if(result.getUserId().toString().contentEquals(userId)){
                         String userNameFromOTPValidationResponse;
                         try{
                              userNameFromOTPValidationResponse = result.getUserName().toString();
@@ -84,7 +86,11 @@ public class OTPVerificationActivity extends AppCompatActivity {
                             System.out.println("Here Error:"+e);
                         }
 
-                           // coming From Reset MPin (LoginWithOTPFragment)
+
+                    }*/
+
+                    if(result.toLowerCase().contains("success")){
+                        // coming From Reset MPin (LoginWithOTPFragment)
                         if(getIntent().hasExtra("isFromLoginWithOTPFragment_ResetMPin")){
                             Intent mpinIntent = new Intent(this,MPinActivity.class);
                             mpinIntent.putExtra("isFromLoginWithOTPFragment_ResetMPin","isFromLoginWithOTPFragment_ResetMPin");
@@ -92,7 +98,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
                         }
 
                         //coming from isFromLoginForgotPassword
-                    else   if(getIntent().hasExtra("isFromLoginForgotPassword")){
+                        else   if(getIntent().hasExtra("isFromLoginForgotPassword")){
                             Intent registerIntent = new Intent(OTPVerificationActivity.this, RegisterPasswordActivity.class);
                             isFromLoginForgotPassword = true;
                             registerIntent.putExtra("isFromLoginForgotPassword",isFromLoginForgotPassword);
