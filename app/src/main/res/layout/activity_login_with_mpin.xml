@@ -74,6 +74,19 @@
         app:layout_constraintEnd_toEndOf="@id/mpin_view"
         app:layout_constraintTop_toBottomOf="@id/mpin_view" />
 
+    <TextView
+        android:id="@+id/labelMPinIsInCorrect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/mpin_is_incorrect"
+        android:textColor="@color/chilliRed"
+        android:textSize="@dimen/_12ssp"
+        android:padding="@dimen/_5sdp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@id/mpin_view"
+        app:layout_constraintEnd_toEndOf="@id/mpin_view"
+        app:layout_constraintTop_toBottomOf="@id/labelForgotMPin" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

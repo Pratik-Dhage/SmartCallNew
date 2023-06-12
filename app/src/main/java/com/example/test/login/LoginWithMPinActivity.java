@@ -49,6 +49,8 @@ public class LoginWithMPinActivity extends AppCompatActivity {
             public void onInteractionListener() {
                 // This method will be called when any digit is entered or deleted.
 
+                binding.labelMPinIsInCorrect.setVisibility(View.INVISIBLE);
+
                 if (otpTextView.getOTP().length() == 4) {
                     // All four entries of the OTP have been written by the user.
                     navigateToDashBoardUsingMPin();
@@ -91,7 +93,8 @@ public class LoginWithMPinActivity extends AppCompatActivity {
 
         else{
 
-            Global.showToast(this,getString(R.string.mpin_is_incorrect));
+            //Global.showToast(this,getString(R.string.mpin_is_incorrect));
+            binding.labelMPinIsInCorrect.setVisibility(View.VISIBLE);
         }
 
         System.out.println("Here mPinFromRoomDB: " + mPinFromRoomDB);
