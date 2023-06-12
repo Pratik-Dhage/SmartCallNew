@@ -44,6 +44,11 @@ public class SuccessActivity extends AppCompatActivity {
             binding.txtLink.setText(getResources().getString(R.string.generate_mpin));
         }
 
+        else if(getIntent().hasExtra("isFromLoginActivity")){
+            binding.labelSuccess.setText(R.string.login_successful);
+            binding.txtLink.setText(getResources().getString(R.string.generate_mpin));
+        }
+
      else   if(getIntent().hasExtra("isFromMPinActivity")){
             binding.labelSuccess.setText(getResources().getString(R.string.pin_generated_success));
             binding.txtLink.setText(getResources().getString(R.string.login_now));

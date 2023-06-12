@@ -18,6 +18,7 @@ import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.otp.OTPActivity;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.database.LeadListDB;
+import com.example.test.success.SuccessActivity;
 
 import java.util.Objects;
 
@@ -29,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public String userId ;
     public String userPassword;
-    public String userName;
+    public static  String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +89,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     Global.showToast(LoginActivity.this, "Login :" + result.getAuthenticationResult());
 
-                    Intent i = new Intent(LoginActivity.this, MainActivity3API.class);
+                    Intent i = new Intent(LoginActivity.this, SuccessActivity.class);
                     i.putExtra("userName",userName);
+                    i.putExtra("isFromLoginActivity","isFromLoginActivity");
                     startActivity(i);
                 }
             }

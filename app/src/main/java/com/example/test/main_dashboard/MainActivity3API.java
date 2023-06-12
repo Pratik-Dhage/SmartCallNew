@@ -68,11 +68,19 @@ public class MainActivity3API extends AppCompatActivity {
 
         showCallIcon = false; //from Visits For The Day Flow to be True Else False
 
-        if(getIntent().hasExtra("userName")){
+       /* if(getIntent().hasExtra("userName")){
             binding.txtWelcomeUser.setText("Welcome "+getIntent().getStringExtra("userName"));
 
             // Store UserName in SharedPreference and Use in StatusOfCustomerDetailsAdapter
             String userName = getIntent().getStringExtra("userName");
+            Global.saveStringInSharedPref(this,"userName",userName);
+        }*/
+
+         if(LoginActivity.userName!=null){
+            binding.txtWelcomeUser.setText("Welcome "+LoginActivity.userName);
+
+            // Store UserName in SharedPreference and Use in StatusOfCustomerDetailsAdapter
+            String userName = LoginActivity.userName;
             Global.saveStringInSharedPref(this,"userName",userName);
         }
     }

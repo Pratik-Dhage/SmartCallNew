@@ -39,6 +39,13 @@ public class LoginWithMPinActivity extends AppCompatActivity {
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login_with_mpin);
         view = binding.getRoot();
+
+
+        //if coming from Login Activity->Generate MPin
+        if(LoginActivity.userName!=null){
+            binding.txtWelcomeUser.setText("Welcome "+LoginActivity.userName);
+        }
+
     }
 
     private void otpListener() {
