@@ -72,7 +72,7 @@
     <string name="password_not_matching">Password not matching</string>
     <string name="enter_valid_otp">Enter valid OTP</string>
     <string name="pin_cannot_be_empty">Pin cannot be empty</string>
-    <string name="pin_not_matching">Pin not matching</string>
+    <string name="pin_does_not_matching">Pin Does Not Match</string>
     <string name="lead_first_name_cannot_be_empty">Lead first name cannot be empty </string>
     <string name="lead_last_name_cannot_be_empty">Lead last name cannot be empty </string>
     <string name="lead_mobile_number_cannot_be_empty">Lead mobile number cannot be empty </string>
