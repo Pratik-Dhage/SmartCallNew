@@ -84,14 +84,14 @@ public class OTPVerificationActivity extends AppCompatActivity {
                             System.out.println("Here Error:"+e);
                         }
 
-
+                           // coming From Reset MPin (LoginWithOTPFragment)
                         if(getIntent().hasExtra("isFromLoginWithOTPFragment_ResetMPin")){
                             Intent mpinIntent = new Intent(this,MPinActivity.class);
                             startActivity(mpinIntent);
                         }
 
                         //coming from isFromLoginForgotPassword
-                        if(getIntent().hasExtra("isFromLoginForgotPassword")){
+                    else   if(getIntent().hasExtra("isFromLoginForgotPassword")){
                             Intent registerIntent = new Intent(OTPVerificationActivity.this, RegisterPasswordActivity.class);
                             isFromLoginForgotPassword = true;
                             registerIntent.putExtra("isFromLoginForgotPassword",isFromLoginForgotPassword);
