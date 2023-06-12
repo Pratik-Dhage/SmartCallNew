@@ -43,6 +43,17 @@
 
             </androidx.appcompat.widget.Toolbar>
 
+            <ImageView
+                android:id="@+id/ivClose"
+                app:layout_constraintTop_toTopOf="@id/toolbar"
+                app:layout_constraintBottom_toBottomOf="@id/toolbar"
+                app:layout_constraintEnd_toEndOf="@id/toolbar"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:src="@drawable/cancel_close"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                app:tint="@color/white" />
+
             <TextView
                 android:id="@+id/txtAreYouSure"
                 android:layout_width="wrap_content"

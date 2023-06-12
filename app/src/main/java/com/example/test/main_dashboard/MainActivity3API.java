@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.test.R;
@@ -242,6 +243,7 @@ public class MainActivity3API extends AppCompatActivity {
 
            Button customButtonYes = customDialogLogout.findViewById(R.id.btnYes);
            Button customButtonNo = customDialogLogout.findViewById(R.id.btnNo);
+           ImageView ivClose = customDialogLogout.findViewById(R.id.ivClose);
 
            AlertDialog.Builder builder = new AlertDialog.Builder(this);
            builder.setView(customDialogLogout);
@@ -259,6 +261,10 @@ public class MainActivity3API extends AppCompatActivity {
                public void onClick(View v) {
                    dialog.dismiss();
                }
+           });
+
+           ivClose.setOnClickListener(v1->{
+               dialog.dismiss();
            });
 
        });
