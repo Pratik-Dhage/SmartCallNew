@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.test.R;
 import com.example.test.databinding.ActivityVisitNpaStatusBinding;
 import com.example.test.helper_classes.Global;
@@ -133,37 +135,81 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
         // Initialize the ActivityResultLauncher
         pickImageLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                // Get the file URI and file name
-                Uri uri = result.getData().getData();
-                String fileName = getFileNameFromUri(uri);
 
-                // Set the file name on the TextView
-                TextView txtUploadReceipt = customDialogImagePicker.findViewById(R.id.txtUploadReceipt);
-                TextView txtProceed = customDialogImagePicker.findViewById(R.id.txtProceed);
-                TextView txtSkipAndProceed = customDialogImagePicker.findViewById(R.id.txtSkipAndProceed);
-                Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
-                ImageView ivRefreshCancel = customDialogImagePicker.findViewById(R.id.ivRefreshCancel);
-                ImageView ivFileUpload = customDialogImagePicker.findViewById(R.id.ivFileUpload);
+              try {
 
-                txtUploadReceipt.setText(fileName);
-                txtProceed.setVisibility(View.VISIBLE);
-                ivRefreshCancel.setVisibility(View.VISIBLE);
-                txtSkipAndProceed.setVisibility(View.GONE);
-                ivFileUpload.setVisibility(View.GONE);
-                btnUploadReceipt.setVisibility(View.INVISIBLE);
+                  // Get the file URI and file name
+                  Uri uri = result.getData().getData();
+                  String fileName = getFileNameFromUri(uri);
 
-                txtProceed.setOnClickListener(v -> {
-                    Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
-                    String dataSetId = getIntent().getStringExtra("dataSetId");
-                    i.putExtra("dataSetId",dataSetId);
-                    i.putExtra("detailsList",detailsList);
-                    i.putExtra("isFromVisitNPAStatusActivity","isFromVisitNPAStatusActivity");
-                    startActivity(i);
-                });
+                  // Set the file name on the TextView
+                  TextView txtUploadReceipt = customDialogImagePicker.findViewById(R.id.txtUploadReceipt);
+                  TextView txtProceed = customDialogImagePicker.findViewById(R.id.txtProceed);
+                  TextView txtSkipAndProceed = customDialogImagePicker.findViewById(R.id.txtSkipAndProceed);
+                  Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
+                  ImageView ivRefreshCancel = customDialogImagePicker.findViewById(R.id.ivRefreshCancel);
+                  ImageView ivFileUpload = customDialogImagePicker.findViewById(R.id.ivFileUpload);
+                  ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivCancel);
+                  ImageView ivViewUploadedReceipt = customDialogImagePicker.findViewById(R.id.ivViewUploadedReceipt);
+                  TextView txtViewUploadedReceipt = customDialogImagePicker.findViewById(R.id.txtViewUploadedReceipt);
+                  TextView txtCloseUploadedReceipt = customDialogImagePicker.findViewById(R.id.txtCloseUploadedReceipt);
 
-                ivRefreshCancel.setOnClickListener(v -> {
-                    btnUploadReceipt.performClick();
-                });
+                  txtUploadReceipt.setText(fileName); // Name of Uploaded Receipt File
+                  txtViewUploadedReceipt.setVisibility(View.VISIBLE);
+                  txtProceed.setVisibility(View.VISIBLE);
+                  ivRefreshCancel.setVisibility(View.VISIBLE);
+                  txtSkipAndProceed.setVisibility(View.GONE);
+                  ivFileUpload.setVisibility(View.GONE);
+                  btnUploadReceipt.setVisibility(View.INVISIBLE);
+
+                  txtProceed.setOnClickListener(v -> {
+                      Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                      String dataSetId = getIntent().getStringExtra("dataSetId");
+                      i.putExtra("dataSetId", dataSetId);
+                      i.putExtra("detailsList", detailsList);
+                      i.putExtra("isFromVisitNPAStatusActivity", "isFromVisitNPAStatusActivity");
+                      startActivity(i);
+                  });
+
+                  ivRefreshCancel.setOnClickListener(v -> {
+                      btnUploadReceipt.performClick();
+                  });
+
+                  txtViewUploadedReceipt.setOnClickListener(v -> {
+                      if (fileName != null || !fileName.isEmpty()) {
+                          ivViewUploadedReceipt.setVisibility(View.VISIBLE);
+                          txtCloseUploadedReceipt.setVisibility(View.VISIBLE);
+                          Glide.with(this).load(uri).into(ivViewUploadedReceipt); //set selected Image of Receipt
+                          // Picasso.get().load(uri).into(ivViewUploadedReceipt);
+                          txtViewUploadedReceipt.setVisibility(View.GONE);
+                          txtProceed.setVisibility(View.GONE);
+                          txtUploadReceipt.setVisibility(View.GONE);
+                          ivRefreshCancel.setVisibility(View.GONE);
+
+                          if (ivViewUploadedReceipt.getVisibility() == View.VISIBLE) {
+                              ivCancel.setVisibility(View.INVISIBLE);
+                          }
+
+
+                      }
+                  });
+
+                  txtCloseUploadedReceipt.setOnClickListener(v -> {
+                      txtViewUploadedReceipt.setVisibility(View.VISIBLE);
+                      ivCancel.setVisibility(View.VISIBLE);
+                      txtProceed.setVisibility(View.VISIBLE);
+                      txtUploadReceipt.setVisibility(View.VISIBLE);
+                      ivRefreshCancel.setVisibility(View.VISIBLE);
+                      txtCloseUploadedReceipt.setVisibility(View.GONE);
+                      ivViewUploadedReceipt.setVisibility(View.GONE);
+
+                  });
+
+              }catch (Exception e) {
+
+                  Log.d("File Receipt Exception", "File Receipt Exception:" + e);
+                  //  Global.showToast(this,"File Receipt Exception:"+e.getLocalizedMessage());
+              }
             }
         });
     }
