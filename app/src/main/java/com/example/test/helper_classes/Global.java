@@ -67,7 +67,7 @@ public class Global {
 
     //for password purpose
     // Define the regular expression for the password policy
-    private static final String PASSWORD_PATTERN = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,12}$";
+    private static final String PASSWORD_PATTERN = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&_])[A-Za-z\\d@$!%*#?&_]{8,12}$";
 
     // Compile the regular expression into a pattern
     private static final Pattern PATTERN = Pattern.compile(PASSWORD_PATTERN);
@@ -85,8 +85,8 @@ public class Global {
            1) ^ and $ - Anchors that assert the position at the start and end of the string, respectively.
            2) (?=.*[A-Za-z]) - A positive lookahead that asserts that at least one alphabetical character must be present in the password.
            3) (?=.*\d) - A positive lookahead that asserts that at least one numeric digit must be present in the password.
-           4) (?=.*[@$!%*#?&]) - A positive lookahead that asserts that at least one special character (@,$,!,%,*,#,?,&) must be present in the password.
-          5)  [A-Za-z\d@$!%*#?&]{8,12} - Character set and the quantifier that limit the length to 8-12
+           4) (?=.*[@$!%*#?&]) - A positive lookahead that asserts that at least one special character (@,$,!,%,*,#,?,&,_) must be present in the password.
+          5)  [A-Za-z\d@$!%*#?&_]{8,12} - Character set and the quantifier that limit the length to 8-12
 
 */
 
