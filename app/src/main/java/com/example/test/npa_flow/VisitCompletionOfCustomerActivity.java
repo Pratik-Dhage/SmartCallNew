@@ -176,7 +176,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             //3 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List) 3) Visits For The Day Flow
 
             //Visits For The Day Flow
-                    if(getIntent().hasExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity")){
+                    if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
                         Global.showToast(this,"Payment Complete");
 
                         Handler handler = new Handler();
@@ -317,7 +317,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             //3 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List) 3) Visits For The Day Flow
 
             //Visits For The Day Flow
-            if(getIntent().hasExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity")){
+            if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
                 Global.showToast(this,"Payment Complete");
                 Handler handler = new Handler();
                 Runnable startVisitsActivity = new Runnable() {
@@ -437,7 +437,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             //3 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List) 3) Visits For The Day Flow
 
             //Visits For The Day Flow
-            if(getIntent().hasExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity")){
+            if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
                 Global.showToast(this,"Payment Complete");
                 Handler handler = new Handler();
                 Runnable startVisitsActivity = new Runnable() {

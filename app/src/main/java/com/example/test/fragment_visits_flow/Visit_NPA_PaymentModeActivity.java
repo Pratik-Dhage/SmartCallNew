@@ -296,7 +296,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
             String dataSetId = getIntent().getStringExtra("dataSetId");
             i.putExtra("dataSetId", dataSetId);
             i.putExtra("detailsList", detailsList);
-            i.putExtra("isFromVisitsForTheDayFlow_PaymentModeStatusActivity","isFromVisitsForTheDayFlow_PaymentModeStatusActivity");
+            i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity","isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
             startActivity(i);
 
             navigateToPaymentModeStatusActivity = null ; // make it null to rest the flow
