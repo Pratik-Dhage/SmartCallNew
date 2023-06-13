@@ -1,5 +1,6 @@
 package com.example.test.schedule_flow.calls_for_the_day;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,6 +13,7 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityCallsForTheDayBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAdapter;
 
 public class CallsForTheDayActivity extends AppCompatActivity {
@@ -103,6 +105,10 @@ public class CallsForTheDayActivity extends AppCompatActivity {
 
         binding.ivBack.setOnClickListener(v -> {
             onBackPressed();
+        });
+
+        binding.ivHome.setOnClickListener(v->{
+            startActivity(new Intent(this, MainActivity3API.class));
         });
     }
 }
