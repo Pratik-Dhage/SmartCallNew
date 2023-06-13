@@ -101,10 +101,13 @@ public interface RestClient {
  Observable<List<CallDetails>> post_call_details(@Url String url,
    @Body List<CallDetails> callDetails
  );*/
-    //for Call Details
+    //for Call Details (CALLS FOR THE DAY FLOW & NPA FLOW)
     @POST
     Observable<String> post_call_details(@Url String url, @Body List<CallDetails> callDetails);
 
+    //FOR VISITS FOR  THE DAY (NOT READY TO PAY FLOWS)
+    @POST
+    Observable<String> post_visits_call_details(@Url String url);
 
     //DPD Queue
     @GET

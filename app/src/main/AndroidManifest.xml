@@ -36,6 +36,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".fragment_visits_flow.VisitsFlowCallDetailsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".schedule_flow.calls_for_the_day.CallsForTheDayActivity"
             android:exported="false">
             <meta-data

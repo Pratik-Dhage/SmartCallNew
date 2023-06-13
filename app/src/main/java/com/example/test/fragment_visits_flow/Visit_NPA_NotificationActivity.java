@@ -115,6 +115,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
                    txtProceed.setOnClickListener(v -> {
                        Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                        i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                       i.putExtra("NotReadyToPay_ClaimsPaymentMade","NotReadyToPay_ClaimsPaymentMade");
                        i.putExtra("detailsList", detailsList);
                        i.putExtra("isFromVisitNPANotificationActivity", "isFromVisitNPANotificationActivity");
                        startActivity(i);
@@ -206,6 +207,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
           i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
           i.putExtra("detailsList",detailsList);
           i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
+          i.putExtra("NotReadyToPay_LackOfFunds","NotReadyToPay_LackOfFunds");
           startActivity(i);
 
       });
@@ -238,8 +240,9 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
             });
 
             txtSkipAndProceed.setOnClickListener(v1 -> {
-                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("NotReadyToPay_ClaimsPaymentMade","NotReadyToPay_ClaimsPaymentMade");
                 i.putExtra("detailsList",detailsList);
                 i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
                 startActivity(i);
@@ -257,6 +260,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
             Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
+            i.putExtra("NotReadyToPay_NotTakenLoan","NotReadyToPay_NotTakenLoan");
             i.putExtra("detailsList",detailsList);
             startActivity(i);
 
@@ -267,7 +271,8 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
           View customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
             ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
-
+            EditText edtRelativeName = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
+            EditText edtRelativeContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
             Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -280,9 +285,19 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
 
             btnProceed.setOnClickListener(v2 -> {
+
+              String relativeName  = edtRelativeName.getText().toString().trim();
+              String relativeContact  = edtRelativeContact.getText().toString().trim();
+
+              VisitsFlowCallDetailsActivity.send_RelativeName = relativeName;
+              VisitsFlowCallDetailsActivity.send_RelativeContact = relativeContact;
+
                 Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList",detailsList);
+                i.putExtra("relativeName",relativeName);
+                i.putExtra("relativeContact",relativeContact);
+                i.putExtra("NotReadyToPay_LoanTakenByRelative","NotReadyToPay_LoanTakenByRelative");
                 i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
                 startActivity(i);
             });
@@ -293,6 +308,16 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
 
         });
+
+         binding.btnWillPayLumpSump.setOnClickListener(v->{
+             Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
+             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+             i.putExtra("detailsList",detailsList);
+             i.putExtra("NotReadyToPay_WillPayLumpSump","NotReadyToPay_WillPayLumpSump");
+             i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
+             startActivity(i);
+         });
+
 
          binding.btnOthers.setOnClickListener(v -> {
 
@@ -330,13 +355,6 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
          });
 
-         binding.btnWillPayLumpSump.setOnClickListener(v->{
-             Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
-             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-             i.putExtra("detailsList",detailsList);
-             i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
-             startActivity(i);
-         });
 
 
          //for Notes

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -89,6 +90,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
     public  String send_FoName;
     public  String send_RelativeName;
     public  String send_RelativeContact;
+    public static String visits_FirstName , visits_MobileNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -661,7 +663,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
     }
 
 
-    private void storeCallCountInRoomDB(String firstName, String phoneNumber) {
+    public void storeCallCountInRoomDB(String firstName, String phoneNumber) {
 
         LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
         int callCount = leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);

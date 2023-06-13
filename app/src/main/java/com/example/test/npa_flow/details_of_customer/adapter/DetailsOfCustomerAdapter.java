@@ -238,30 +238,32 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
             holder.binding.ivCallLogo.setOnClickListener(v-> {
                 if (a.getLable().toLowerCase().contains("mobile")) {
                     //make an actual call
-                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED ||
-                        ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED ||
-                        ActivityCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
+                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED ||
+                            ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED ||
+                            ActivityCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
 
-                ) {
-                    Activity activity = (Activity) context;
-                    // Permission is not granted, request the permission
-                    ActivityCompat.requestPermissions(activity, new String[]{
-                            Manifest.permission.CALL_PHONE,
-                            Manifest.permission.READ_CALL_LOG,
-                            Manifest.permission.RECORD_AUDIO}, DetailsOfCustomerActivity.REQUEST_CALL);
+                    ) {
+                        Activity activity = (Activity) context;
+                        // Permission is not granted, request the permission
+                        ActivityCompat.requestPermissions(activity, new String[]{
+                                Manifest.permission.CALL_PHONE,
+                                Manifest.permission.READ_CALL_LOG,
+                                Manifest.permission.RECORD_AUDIO}, DetailsOfCustomerActivity.REQUEST_CALL);
+                    } else {
+
+                        // Permission has already been granted, make the call
+                        String phoneNumber = String.valueOf(a.getValue()); //use mobile number fetched from result(API Response)
+                        Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+                        //  Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+                        context.startActivity(dial);
+
+                    }
+
                 }
-                else {
-
-                    // Permission has already been granted, make the call
-                    String phoneNumber = String.valueOf(a.getValue()); //use mobile number fetched from result(API Response)
-                    Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
-                    //  Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
-                    context.startActivity(dial);
-                }
-
-            }
 
             });
+
+
         }
 
         //for Capture Button

@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.test.R;
+import com.example.test.api_manager.WebServices;
 import com.example.test.databinding.ActivitySubmitCompletionOfCustomerBinding;
+import com.example.test.fragment_visits_flow.VisitsFlowViewModel;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
@@ -29,6 +31,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
     CallDetailsViewModel callDetailsViewModel;
+    VisitsFlowViewModel visitsFlowViewModel;
     public  String relativeName ;
     public   String relativeContact ;
     public  String dateOfVisitPromised ; ;
@@ -43,7 +46,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         setUpDetailsOfCustomerRecyclerView();
         onClickListener();
         initObserver();
-
+        initObserverVisitsFlow();
     }
 
     private void setToolBarTitle(){
@@ -62,6 +65,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         binding.setViewModel(detailsOfCustomerViewModel);
 
         callDetailsViewModel = new ViewModelProvider(this).get(CallDetailsViewModel.class);
+        visitsFlowViewModel = new ViewModelProvider(this).get(VisitsFlowViewModel.class);
          setToolBarTitle();
 
         //get detailsList
@@ -102,6 +106,35 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         }
     }
 
+    private void initObserverVisitsFlow(){
+
+        if(NetworkUtilities.getConnectivityStatus(this)){
+
+            visitsFlowViewModel.getMutVisitsCallDetailsResponseApi().observe(this,result->{
+
+                if(result!=null){
+                    Global.showToast(this,"Server Response:"+result);
+                }
+                if(result==null){
+                    Global.showToast(this,"Server Response: Null");
+                }
+
+            });
+
+            //to handle error
+            visitsFlowViewModel.getMutErrorResponse().observe(this,error->{
+                if (error != null && !error.isEmpty()) {
+                    Global.showSnackBar(view, error);
+                    System.out.println("Here error : " + error);
+                    //Here error : End of input at line 1 column 1 path $ (if Server response body is empty, we get this error)
+                }
+            });
+
+        }
+        else{
+            Global.showSnackBar(view,getString(R.string.check_internet_connection));
+        }
+    }
 
     private void setUpDetailsOfCustomerRecyclerView() {
 
@@ -162,13 +195,292 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 }
             }
 
+            //VISITS FOR THE DAY FLOW
+
+            //Visits Flow (Not Ready to Pay Lack Of Funds)
+                if(getIntent().hasExtra("NotReadyToPay_LackOfFunds")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String lackOfFunds = WebServices.visit_not_ready_to_pay_lack_of_funds;
+                    if(NetworkUtilities.getConnectivityStatus(this)){
+                        visitsFlowViewModel.postVisitsFlowCallDateTime(lackOfFunds,dataSetId,"","","","","");
+                    }
+                    else{
+                        Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                    }
+                }
+
+            //Visits Flow (Not Ready to Pay Not Taken Loan)
+            if(getIntent().hasExtra("NotReadyToPay_NotTakenLoan")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String notTakenLoan = WebServices.visit_not_ready_to_pay_not_taken_loan;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(notTakenLoan,dataSetId,"","","","","");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+             //Visits Flow (Not Ready to Pay Loan Taken By Relative)
+            if(getIntent().hasExtra("NotReadyToPay_LoanTakenByRelative")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String relativeName = getIntent().getStringExtra("relativeName");
+                String relativeContact = getIntent().getStringExtra("relativeContact");
+                String loanTakenByRelative = WebServices.visit_not_ready_to_pay_loan_taken_by_relative;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(loanTakenByRelative,dataSetId,"","","",relativeName,relativeContact);
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+            //Visits Flow (Not Ready to Pay Will Pay LumpSump)
+            if(getIntent().hasExtra("NotReadyToPay_WillPayLumpSump")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String willPayLumpSump = WebServices.visit_not_ready_to_pay_will_pay_lumpsump;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(willPayLumpSump,dataSetId,"","","","","");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+            //Visits Flow (Not Ready to Pay Claims Payment Made)
+            if(getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade,dataSetId,"","","","","");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+
         });
 
         binding.btnSubmitNeedToUpdateDetails.setOnClickListener(v->{
 
+            //FO NOT VISITED
+            if(getIntent().hasExtra("isFoNotVisited")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                //  dateOfVisitPromised = getIntent().getStringExtra("dateOfVisitPromised");
+                //  foName = getIntent().getStringExtra("foName");
+
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    callDetailsViewModel.postScheduledDateTime_FNV(dataSetId,"",dateOfVisitPromised,foName,"","");
+
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+
+            }
+
+            //LOAN TAKEN BY RELATIVE
+            if(getIntent().hasExtra("isLoanTakenByRelative")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                //  relativeName = getIntent().getStringExtra("relativeName");
+                //  relativeContact = getIntent().getStringExtra("relativeContact");
+
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    callDetailsViewModel.postScheduledDateTime_LTBR(dataSetId,"","","",relativeName,relativeContact,"LTBR");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+
+            //PAYMENT INFO WILL PAY LATER->WILL PAY LUMPSUM
+            if(getIntent().hasExtra("paymentInfo_WillPayLater")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId,"","","","","");
+                }
+                else {
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+            //VISITS FOR THE DAY FLOW
+
+            //Visits Flow (Not Ready to Pay Lack Of Funds)
+            if(getIntent().hasExtra("NotReadyToPay_LackOfFunds")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String lackOfFunds = WebServices.visit_not_ready_to_pay_lack_of_funds;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(lackOfFunds,dataSetId,"","","","","");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+            //Visits Flow (Not Ready to Pay Not Taken Loan)
+            if(getIntent().hasExtra("NotReadyToPay_NotTakenLoan")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String notTakenLoan = WebServices.visit_not_ready_to_pay_not_taken_loan;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(notTakenLoan,dataSetId,"","","","","");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+            //Visits Flow (Not Ready to Pay Loan Taken By Relative)
+            if(getIntent().hasExtra("NotReadyToPay_LoanTakenByRelative")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String relativeName = getIntent().getStringExtra("relativeName");
+                String relativeContact = getIntent().getStringExtra("relativeContact");
+                String loanTakenByRelative = WebServices.visit_not_ready_to_pay_loan_taken_by_relative;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(loanTakenByRelative,dataSetId,"","","",relativeName,relativeContact);
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+            //Visits Flow (Not Ready to Pay Will Pay LumpSump)
+            if(getIntent().hasExtra("NotReadyToPay_WillPayLumpSump")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String willPayLumpSump = WebServices.visit_not_ready_to_pay_will_pay_lumpsump;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(willPayLumpSump,dataSetId,"","","","","");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+
+            //Visits Flow (Not Ready to Pay Claims Payment Made)
+            if(getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade,dataSetId,"","","","","");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
         });
 
         binding.btnSubmitEscalateToBM.setOnClickListener(v->{
+
+            //FO NOT VISITED
+            if(getIntent().hasExtra("isFoNotVisited")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                //  dateOfVisitPromised = getIntent().getStringExtra("dateOfVisitPromised");
+                //  foName = getIntent().getStringExtra("foName");
+
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    callDetailsViewModel.postScheduledDateTime_FNV(dataSetId,"",dateOfVisitPromised,foName,"","");
+
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+
+            }
+
+            //LOAN TAKEN BY RELATIVE
+            if(getIntent().hasExtra("isLoanTakenByRelative")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                //  relativeName = getIntent().getStringExtra("relativeName");
+                //  relativeContact = getIntent().getStringExtra("relativeContact");
+
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    callDetailsViewModel.postScheduledDateTime_LTBR(dataSetId,"","","",relativeName,relativeContact,"LTBR");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+
+            //PAYMENT INFO WILL PAY LATER->WILL PAY LUMPSUM
+            if(getIntent().hasExtra("paymentInfo_WillPayLater")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId,"","","","","");
+                }
+                else {
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+            //VISITS FOR THE DAY FLOW
+
+            //Visits Flow (Not Ready to Pay Lack Of Funds)
+            if(getIntent().hasExtra("NotReadyToPay_LackOfFunds")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String lackOfFunds = WebServices.visit_not_ready_to_pay_lack_of_funds;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(lackOfFunds,dataSetId,"","","","","");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+            //Visits Flow (Not Ready to Pay Not Taken Loan)
+            if(getIntent().hasExtra("NotReadyToPay_NotTakenLoan")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String notTakenLoan = WebServices.visit_not_ready_to_pay_not_taken_loan;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(notTakenLoan,dataSetId,"","","","","");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+            //Visits Flow (Not Ready to Pay Loan Taken By Relative)
+            if(getIntent().hasExtra("NotReadyToPay_LoanTakenByRelative")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String relativeName = getIntent().getStringExtra("relativeName");
+                String relativeContact = getIntent().getStringExtra("relativeContact");
+                String loanTakenByRelative = WebServices.visit_not_ready_to_pay_loan_taken_by_relative;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(loanTakenByRelative,dataSetId,"","","",relativeName,relativeContact);
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+            //Visits Flow (Not Ready to Pay Will Pay LumpSump)
+            if(getIntent().hasExtra("NotReadyToPay_WillPayLumpSump")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String willPayLumpSump = WebServices.visit_not_ready_to_pay_will_pay_lumpsump;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(willPayLumpSump,dataSetId,"","","","","");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
+
+
+            //Visits Flow (Not Ready to Pay Claims Payment Made)
+            if(getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade,dataSetId,"","","","","");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
 
         });
     }
