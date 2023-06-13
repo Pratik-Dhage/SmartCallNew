@@ -18,7 +18,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.test.R;
+import com.example.test.api_manager.WebServices;
 import com.example.test.databinding.ActivityVisitCompletionOfCustomerBinding;
+import com.example.test.fragment_visits_flow.VisitsFlowViewModel;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
@@ -45,6 +47,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
     CallDetailsViewModel callDetailsViewModel;
+    VisitsFlowViewModel visitsFlowViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
         onClickListener();
 
        initObserver();
+       initObserverVisitsFlow();
     }
 
     private void setUpToolbarTitle() {
@@ -78,7 +82,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
         binding.setViewModel(detailsOfCustomerViewModel);
 
         callDetailsViewModel = new ViewModelProvider(this).get(CallDetailsViewModel.class);
-
+        visitsFlowViewModel = new ViewModelProvider(this).get(VisitsFlowViewModel.class);
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
@@ -122,6 +126,37 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             Global.showSnackBar(view,getString(R.string.check_internet_connection));
         }
     }
+
+    private void initObserverVisitsFlow(){
+
+        if(NetworkUtilities.getConnectivityStatus(this)) {
+            visitsFlowViewModel.getMutVisitsCallDetailsResponseApi().observe(this, result -> {
+
+                if(result!=null){
+                    Global.showToast(this,"Server Response:"+result);
+                }
+                if(result==null){
+                    Global.showToast(this,"Server Response: Null");
+                }
+
+            });
+
+            //to handle error
+            visitsFlowViewModel.getMutErrorResponse().observe(this,error->{
+                if (error != null && !error.isEmpty()) {
+                    Global.showSnackBar(view, error);
+                    System.out.println("Here error : " + error);
+                    //Here error : End of input at line 1 column 1 path $ (if Server response body is empty, we get this error)
+                }
+            });
+
+        }
+        else{
+            Global.showSnackBar(view,getString(R.string.check_internet_connection));
+        }
+    }
+
+
 
     private void onClickListener() {
 
@@ -264,7 +299,17 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
             }
 
-
+            //Visits Flow (Not Ready to Pay Claims Payment Made)
+            if(getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade,dataSetId,"","","","","");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
         });
 
         binding.btnCompleteNeedToUpdateDetails.setOnClickListener(v -> {
@@ -371,6 +416,17 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
             }
 
+            //Visits Flow (Not Ready to Pay Claims Payment Made)
+            if(getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade,dataSetId,"","","","","");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
 
 
         });
@@ -480,6 +536,18 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
             }
 
+
+            //Visits Flow (Not Ready to Pay Claims Payment Made)
+            if(getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade,dataSetId,"","","","","");
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+            }
 
 
         });
