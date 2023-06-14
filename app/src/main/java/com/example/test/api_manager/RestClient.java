@@ -128,6 +128,6 @@ public interface RestClient {
 
     //Notes-History
     @GET
-    Observable<NotesHistoryResponseModel> getNotesHistory(@Url String url);
+    Observable<List<NotesHistoryResponseModel>> getNotesHistory(@Url String url);
 
 }

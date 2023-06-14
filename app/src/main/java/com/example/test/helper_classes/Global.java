@@ -4,16 +4,28 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.example.test.R;
 import com.example.test.api_manager.RestClient;
 import com.example.test.api_manager.WebServices;
 import com.example.test.api_manager.RestClient;
+import com.example.test.notes_history.NotesHistoryViewModel;
+import com.example.test.notes_history.adapter.NotesHistoryAdapter;
+import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.roomDB.database.LeadListDB;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -89,5 +101,86 @@ public class Global {
           5)  [A-Za-z\d@$!%*#?&_]{8,12} - Character set and the quantifier that limit the length to 8-12
 
 */
+
+
+    // TO Display Notes_History Dialog
+    public static NotesHistoryViewModel notesHistoryViewModel ;
+    public static void showNotesHistoryDialog(Context context, String dataSetId){
+
+        notesHistoryViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(NotesHistoryViewModel.class);
+        View customDialog = LayoutInflater.from(context).inflate(R.layout.custom_dialog_notes_history, null);
+
+        TextView customNotesHistoryTextHeading = customDialog.findViewById(R.id.txtCustomDialog);
+        Button btnCloseDialog = customDialog.findViewById(R.id.btnCloseDialog);
+        RecyclerView recyclerViewNotesHistory = customDialog.findViewById(R.id.rvNotesHistory);
+
+        customNotesHistoryTextHeading.setText(R.string.lead_history);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(customDialog);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        callNotesHistoryApi(dataSetId); // Call NotesHistory Api
+        initObserverNotesHistory(context); // initObserver
+
+        btnCloseDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+
+    }
+
+    public static void setUpNotesHistoryRecyclerView(Context context){
+        View customDialog = LayoutInflater.from(context).inflate(R.layout.custom_dialog_notes_history, null);
+        RecyclerView recyclerViewNotesHistory = customDialog.findViewById(R.id.rvNotesHistory);
+
+        notesHistoryViewModel.updateNotesHistory_Data();
+        recyclerViewNotesHistory.setAdapter(new NotesHistoryAdapter(notesHistoryViewModel.arrList_NotesHistory_Data));
+
+    }
+
+    public static void callNotesHistoryApi(String dataSetId){
+        notesHistoryViewModel.getNotesHistoryData(dataSetId);
+    }
+
+    public static void initObserverNotesHistory(Context context){
+
+        if(NetworkUtilities.getConnectivityStatus(context)){
+
+            notesHistoryViewModel.getMutNotesHistory_ResponseApi().observe((LifecycleOwner) context, result->{
+                if(result!=null){
+
+                    notesHistoryViewModel.arrList_NotesHistory_Data.clear();
+                    setUpNotesHistoryRecyclerView(context);
+                   notesHistoryViewModel.arrList_NotesHistory_Data.addAll(result);
+                }
+
+                if(result==null || result.isEmpty()){
+                   // Global.showToast(context,"No Data");
+                    System.out.println("Here Notes History :No Data");
+                }
+            });
+
+            //handle  error response
+            notesHistoryViewModel.getMutErrorResponse().observe((LifecycleOwner)context, error -> {
+
+                if (error != null && !error.isEmpty()) {
+                    Global.showToast(context, error);
+                    System.out.println("Here: " + error);
+                } else {
+                    Global.showToast(context, String.valueOf(R.string.check_internet_connection));
+                }
+            });
+        }
+        else{
+            Global.showToast(context, String.valueOf(R.string.check_internet_connection));
+        }
+
+    }
+
 
 }

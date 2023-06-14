@@ -80,6 +80,7 @@ public class WebServices {
     public static String validate_OTP = "security/validateOtp";
 
     //for Notes-History
+    //http://43.239.52.151:8081/activity/getNotesHistory?dataSetId=311180
     public static String notes_History = "activity/getNotesHistory?";
 
     //for Details of Customer
