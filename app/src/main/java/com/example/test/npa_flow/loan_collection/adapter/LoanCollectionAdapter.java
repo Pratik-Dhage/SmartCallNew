@@ -16,6 +16,7 @@ import com.example.test.databinding.ItemLoanCollectionBinding;
 import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.NotSpokeToCustomerActivity;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
@@ -150,7 +151,8 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
             // match Name coming from api list  and name stored in SharedPreferences in this Adapter on ItemView Click
                String FullNameFromAdapter = Global.getStringFromSharedPref(context,"FullNameFromAdapter");
 
-            if(FullNameFromAdapter.contains(String.valueOf(a.getMemberName()))){
+            // Show Call Attempts(Hands) Only If Not Spoke To Customer is True(No Response/Busy And Not Reachable/Switched Off)
+            if(FullNameFromAdapter.contains(String.valueOf(a.getMemberName())) && NotSpokeToCustomerActivity.notSpokeToCustomer==true){
 
 
                 switch (callCount){

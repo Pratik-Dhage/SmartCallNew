@@ -38,6 +38,8 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
     View view;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
+    public static boolean notSpokeToCustomer = false; // for Call Attempts(Hands) to display ONLY in Case if User Did Not Spoke To Customer
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
 
+        notSpokeToCustomer = false;
     }
 
 
@@ -103,12 +106,18 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         binding.btnNoResponseBusy.setOnClickListener(v -> {
             //From CallsForTheDayAdapter
             if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+
+                notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
+
                 Intent i = new Intent(this, CallsForTheDayActivity.class);
                 startActivity(i);
             }
 
             //From NPA
             else{
+
+                notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
+
                 // Get DPD_row_position saved in SharedPreference in DPD_Adapter Class
                 int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this, "DPD_row_position"));
 
@@ -123,12 +132,18 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         binding.btnNotReachableSwitchedOff.setOnClickListener(v -> {
             //From CallsForTheDayAdapter
             if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+
+                notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
+
                 Intent i = new Intent(this, CallsForTheDayActivity.class);
                 startActivity(i);
             }
 
             //From NPA
             else{
+
+                notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
+
                 // Get DPD_row_position saved in SharedPreference in DPD_Adapter Class
                 int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this, "DPD_row_position"));
 

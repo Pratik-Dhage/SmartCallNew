@@ -16,6 +16,8 @@ import com.example.test.databinding.ItemCallsForTheDayBinding;
 import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.google_maps.MapFragment;
 import com.example.test.helper_classes.Global;
+import com.example.test.npa_flow.CallDetailOfCustomerActivity;
+import com.example.test.npa_flow.NotSpokeToCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.database.LeadListDB;
@@ -163,7 +165,8 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
             // match Name coming from api list  and name stored in SharedPreferences in this Adapter on ItemView Click
             String FullNameFromAdapter = Global.getStringFromSharedPref(context,"FullNameFromAdapter");
 
-            if(FullNameFromAdapter.contains(String.valueOf(a.getMemberName()))){
+            // Show Call Attempts(Hands) Only If Not Spoke To Customer is True(No Response/Busy And Not Reachable/Switched Off)
+            if(FullNameFromAdapter.contains(String.valueOf(a.getMemberName())) && NotSpokeToCustomerActivity.notSpokeToCustomer==true){
 
 
                 switch (callCount){
