@@ -24,6 +24,7 @@ import com.example.test.R;
 import com.example.test.api_manager.RestClient;
 import com.example.test.api_manager.WebServices;
 import com.example.test.api_manager.RestClient;
+import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
 import com.example.test.notes_history.NotesHistoryViewModel;
 import com.example.test.notes_history.adapter.NotesHistoryAdapter;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
@@ -104,7 +105,7 @@ public class Global {
 
 */
 
-    //To Display Notes_Edit Dialog
+    //To Display Notes_Edit Dialog (Calls / NPA Flow)
     public static void showNotesEditDialog(Context context){
 
         View customDialog = LayoutInflater.from(context).inflate(R.layout.custom_dialog_box, null);
@@ -116,16 +117,50 @@ public class Global {
 
         customText.setText(R.string.lead_interaction);
 
-        DetailsOfCustomerActivity.send_callNotes = customEditBox.getText().toString();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setView(customDialog);
         final AlertDialog dialog = builder.create();
         dialog.show();
 
+
+         //OK Button
         customButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                DetailsOfCustomerActivity.send_callNotes = customEditBox.getText().toString();
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    //To Display Notes_Edit Dialog (Visits Flow)
+    public static void showNotesEditDialogVisits(Context context){
+
+        View customDialog = LayoutInflater.from(context).inflate(R.layout.custom_dialog_box, null);
+
+        TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+        Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
+        EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
+        customEditBox.setVisibility(View.VISIBLE);
+
+        customText.setText(R.string.lead_interaction);
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(customDialog);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+
+        //OK Button
+        customButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                VisitsFlowCallDetailsActivity.send_callNotes = customEditBox.getText().toString();
                 dialog.dismiss();
             }
         });
