@@ -5,6 +5,7 @@ import com.example.test.lead.model.LeadModel;
 import com.example.test.login.model.LoginResponseModel;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.main_dashboard.model.DashBoardScheduleForTheDayModel;
+import com.example.test.notes_history.NotesHistoryResponseModel;
 import com.example.test.npa_flow.call_details.CallDetails;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
@@ -124,5 +125,9 @@ public interface RestClient {
     //Schedule Details (Calendar icon in Dashboard)
     @GET
     Observable<List<ScheduleVisitDetails>> getScheduleDetails(@Url String url);
+
+    //Notes-History
+    @GET
+    Observable<NotesHistoryResponseModel> getNotesHistory(@Url String url);
 
 }

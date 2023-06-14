@@ -79,6 +79,9 @@ public class WebServices {
     //for Validate OTP
     public static String validate_OTP = "security/validateOtp";
 
+    //for Notes-History
+    public static String notes_History = "activity/getNotesHistory?";
+
     //for Details of Customer
     //http://43.239.52.151:8081/transactionDataSet/getDetailView?dataSetId=311964&queue=3738
     public static String detail_of_customer = "transactionDataSet/getDetailView?dataSetId=311964&queue=3738";
