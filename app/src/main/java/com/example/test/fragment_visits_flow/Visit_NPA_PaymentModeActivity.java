@@ -188,10 +188,10 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
               });
 
               btnProceed.setOnClickListener(v2->{
-                  Intent i = new Intent(this,VisitCompletionOfCustomerActivity.class);
+                  Intent i = new Intent(this,PaymentModeStatusActivity.class);
                   i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                   i.putExtra("detailsList",detailsList);
-                  i.putExtra("isFromVisitNPAPaymentModeActivity","isFromVisitNPAPaymentModeActivity");
+                  i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity","isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
                 startActivity(i);
               });
 
