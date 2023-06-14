@@ -25,6 +25,7 @@ import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseMo
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
+import com.example.test.schedule_flow.calls_for_the_day.CallsForTheDayActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -100,19 +101,41 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
 
         binding.btnNoResponseBusy.setOnClickListener(v -> {
+            //From CallsForTheDayAdapter
+            if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                Intent i = new Intent(this, CallsForTheDayActivity.class);
+                startActivity(i);
+            }
 
-            // Get DPD_row_position saved in SharedPreference in DPD_Adapter Class
-            int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this, "DPD_row_position"));
+            //From NPA
+            else{
+                // Get DPD_row_position saved in SharedPreference in DPD_Adapter Class
+                int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this, "DPD_row_position"));
 
-            Intent i = new Intent(NotSpokeToCustomerActivity.this, LoanCollectionActivity.class);
-            i.putExtra("DPD_row_position", DPD_row_position);
-            startActivity(i);
+                Intent i = new Intent(NotSpokeToCustomerActivity.this, LoanCollectionActivity.class);
+                i.putExtra("DPD_row_position", DPD_row_position);
+                startActivity(i);
+
+            }
 
         });
 
         binding.btnNotReachableSwitchedOff.setOnClickListener(v -> {
-            Intent i = new Intent(NotSpokeToCustomerActivity.this, LoanCollectionActivity.class);
-            startActivity(i);
+            //From CallsForTheDayAdapter
+            if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                Intent i = new Intent(this, CallsForTheDayActivity.class);
+                startActivity(i);
+            }
+
+            //From NPA
+            else{
+                // Get DPD_row_position saved in SharedPreference in DPD_Adapter Class
+                int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this, "DPD_row_position"));
+
+                Intent i = new Intent(NotSpokeToCustomerActivity.this, LoanCollectionActivity.class);
+                i.putExtra("DPD_row_position", DPD_row_position);
+                startActivity(i);
+            }
 
         });
 

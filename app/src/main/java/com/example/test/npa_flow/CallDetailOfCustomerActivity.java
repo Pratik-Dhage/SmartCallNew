@@ -163,10 +163,25 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
         });
 
         binding.btnNotSpokeToCustomer.setOnClickListener(v->{
-            Intent i = new Intent(CallDetailOfCustomerActivity.this,NotSpokeToCustomerActivity.class);
-            i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
-            i.putExtra("detailsList",detailsList);
-            startActivity(i);
+
+            //From CallsForTheDayAdapter
+            if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                Intent i = new Intent(CallDetailOfCustomerActivity.this,NotSpokeToCustomerActivity.class);
+                i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
+                i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
+                i.putExtra("detailsList",detailsList);
+                startActivity(i);
+            }
+
+            //From NPA (Assigned)
+            else{
+                Intent i = new Intent(CallDetailOfCustomerActivity.this,NotSpokeToCustomerActivity.class);
+                i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
+                i.putExtra("detailsList",detailsList);
+                startActivity(i);
+            }
+
+
         });
 
 
