@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.example.test.api_manager.WebServices;
 import com.example.test.api_manager.RestClient;
 import com.example.test.notes_history.NotesHistoryViewModel;
 import com.example.test.notes_history.adapter.NotesHistoryAdapter;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.roomDB.database.LeadListDB;
 import com.google.android.material.snackbar.Snackbar;
@@ -101,6 +103,34 @@ public class Global {
           5)  [A-Za-z\d@$!%*#?&_]{8,12} - Character set and the quantifier that limit the length to 8-12
 
 */
+
+    //To Display Notes_Edit Dialog
+    public static void showNotesEditDialog(Context context){
+
+        View customDialog = LayoutInflater.from(context).inflate(R.layout.custom_dialog_box, null);
+
+        TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+        Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
+        EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
+        customEditBox.setVisibility(View.VISIBLE);
+
+        customText.setText(R.string.lead_interaction);
+
+        DetailsOfCustomerActivity.send_callNotes = customEditBox.getText().toString();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(customDialog);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        customButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+    }
 
 
     // TO Display Notes_History Dialog
