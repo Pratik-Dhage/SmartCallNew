@@ -17,9 +17,23 @@ public class MPinRoomModel {
     @ColumnInfo(name = "mPinUserName")
     private String mPinUserName;
 
-    public MPinRoomModel(String mPin, String mPinUserName) {
+    @ColumnInfo(name = "UserID")
+    private String UserID;
+
+    @ColumnInfo(name = "BranchCode")
+    private String BranchCode;
+
+
+    /*public MPinRoomModel(String mPin, String mPinUserName) {
         this.mPin = mPin;
         this.mPinUserName = mPinUserName;
+    }*/
+
+    public MPinRoomModel(String mPin, String mPinUserName,String UserID , String BranchCode) {
+        this.mPin = mPin;
+        this.mPinUserName = mPinUserName;
+        this.UserID = UserID;
+        this.BranchCode = BranchCode;
     }
 
     public int getMPinID() {
@@ -44,5 +58,21 @@ public class MPinRoomModel {
 
     public void setMPinUserName(String mPinUserName) {
         this.mPinUserName = mPinUserName;
+    }
+
+    public String getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(String userID) {
+        UserID = userID;
+    }
+
+    public String getBranchCode() {
+        return BranchCode;
+    }
+
+    public void setBranchCode(String branchCode) {
+        BranchCode = branchCode;
     }
 }

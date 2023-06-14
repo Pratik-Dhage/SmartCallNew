@@ -7,6 +7,7 @@ import com.example.test.api_manager.WebServices;
 import com.example.test.helper_classes.Global;
 import com.example.test.lead.adapter.LeadListAdapter;
 import com.example.test.lead.model.LeadModel;
+import com.example.test.login.LoginActivity;
 import com.example.test.main_dashboard.adapter.MainDashBoardAdapter;
 import com.example.test.main_dashboard.model.DashBoardModel;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
@@ -76,13 +77,15 @@ public class MainDashBoardViewModel extends ViewModel {
     String userBranchCode = "001";
     String newBranchCode = "00048";
 
+
+
     //for making @GET request
     String userId = "admin"; //send User Id and password as Request Body in RestClient
     String password = "123456";
 
     //for making @POST request
     //UserModel userModel = new UserModel(userId,password);
-    UserModel userModel = new UserModel("CA_01_001",newBranchCode); // Changes UserModel userModel = new UserModel(userId_new,userBranchCode);
+    UserModel userModel = new UserModel(LoginActivity.UserID,LoginActivity.BranchCode); // Changes UserModel userModel = new UserModel(userId_new,userBranchCode);
 
 
     public void getDashBoardData()
@@ -99,7 +102,7 @@ public class MainDashBoardViewModel extends ViewModel {
     }
 
     public void getScheduleForTheDayData(){
-        subscribtion = (Disposable) Global.apiService().getDashBoardDataScheduleForTheDay(WebServices.schedule_for_the_day+"userId="+userId_new)
+        subscribtion = (Disposable) Global.apiService().getDashBoardDataScheduleForTheDay(WebServices.schedule_for_the_day+"userId="+LoginActivity.UserID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

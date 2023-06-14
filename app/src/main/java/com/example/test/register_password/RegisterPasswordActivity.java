@@ -45,7 +45,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
 
     private void callRegisterApi(){
 
-        userId  = Global.getStringFromSharedPref(this,"userId");
+        userId  = Global.getStringFromSharedPref(this,"userId"); // coming from OTP Activity
         userPassword   = binding.edtSetPassword.getText().toString().trim();
 
        System.out.println("Here RegisterPasswordActivity");
@@ -53,11 +53,11 @@ public class RegisterPasswordActivity extends AppCompatActivity {
     }
 
     private void callForgotPassword(){
-       // userId  = Global.getStringFromSharedPref(this,"userId");
-       String userId_new = WebServices.userId;
+        userId  = Global.getStringFromSharedPref(this,"userId");
+      // String userId_new = WebServices.userId;
         userPassword   = binding.edtSetPassword.getText().toString().trim();
         System.out.println("Here ForgotPassword or Reset Password");
-        registerPasswordViewModel.callForgotResetPasswordApi(userId_new,userPassword);
+        registerPasswordViewModel.callForgotResetPasswordApi(userId,userPassword);
     }
 
      //For Register Password
@@ -71,6 +71,13 @@ public class RegisterPasswordActivity extends AppCompatActivity {
                 i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
                 startActivity(i);
                 System.out.println("Here From Register Password");
+
+
+                //Store in Shared Preference For Storing MPin
+                Global.saveStringInSharedPref(this,"UserID",String.valueOf(result.getUserId()));
+                Global.saveStringInSharedPref(this,"BranchCode",String.valueOf(result.getBranchCode()));
+
+
             }
 
         });

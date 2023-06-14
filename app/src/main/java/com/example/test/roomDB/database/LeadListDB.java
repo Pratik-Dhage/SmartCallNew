@@ -19,7 +19,7 @@ import com.example.test.roomDB.model.UserLocationRoomModel;
 
 import kotlin.jvm.Synchronized;
 
-@Database(entities = {LeadModelRoom.class, LeadCallModelRoom.class, UserLocationRoomModel.class, CustomerLocationRoomModel.class, MPinRoomModel.class},version = 6)
+@Database(entities = {LeadModelRoom.class, LeadCallModelRoom.class, UserLocationRoomModel.class, CustomerLocationRoomModel.class, MPinRoomModel.class},version = 7)
 public abstract class LeadListDB extends RoomDatabase {
 
     public abstract LeadDao leadDao();

@@ -62,6 +62,10 @@ public class LoginWithOTPFragment extends Fragment {
                         i.putExtra("isFromLoginWithOTPFragment_ResetMPin","isFromLoginWithOTPFragment_ResetMPin");
                         startActivity(i);
 
+                    //Store in Shared Preference For Storing MPin
+                    Global.saveStringInSharedPref(getContext(),"UserID",String.valueOf(result.getUserId()));
+                    Global.saveStringInSharedPref(getContext(),"BranchCode",String.valueOf(result.getBranchCode()));
+
                 }
 
                 //handle  error response

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.test.api_manager.WebServices;
 import com.example.test.helper_classes.Global;
+import com.example.test.login.LoginActivity;
 import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAdapter;
 import com.example.test.schedule_flow.calls_for_the_day.model.CallsForTheDayResponseModel;
 import com.example.test.schedule_flow.visits_for_the_day.adapter.VisitsForTheDayAdapter;
@@ -42,7 +43,7 @@ public class CallsForTheDayViewModel extends ViewModel {
 
     public void getCallsForTheDayData(){
 
-        subscribtion = (Disposable) Global.apiService().getCallsForTheDay(WebServices.calls_for_the_day+"userId="+WebServices.userId+"&branchCode="+WebServices.newBranchCode)
+        subscribtion = (Disposable) Global.apiService().getCallsForTheDay(WebServices.calls_for_the_day+"userId="+LoginActivity.UserID+"&branchCode="+ LoginActivity.BranchCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

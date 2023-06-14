@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.example.test.R;
+import com.example.test.login.LoginActivity;
 import com.example.test.login.LoginWithMPinActivity;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.MPinDao;
@@ -131,18 +132,24 @@ public class MPinActivity extends AppCompatActivity {
         int countOfMPin = mPinDao.checkAnyMPinExists();
         String userNameFromOTPValidationResponse = Global.getStringFromSharedPref(this, "userNameFromOTPValidationResponse");
 
+        String UserID = Global.getStringFromSharedPref(this,"UserID");
+        String BranchCode = Global.getStringFromSharedPref(this,"BranchCode");
+
         if (countOfMPin > 0) {
             // At least one mPin exists in the table
-            mPinDao.updateMPin(userMPin, userNameFromOTPValidationResponse);
+            mPinDao.updateMPin(userMPin, userNameFromOTPValidationResponse,UserID,BranchCode);
+
 
         }
         else {
             // No mPin exists in the table
            // Insert the new mPin in the Room database
-            MPinRoomModel newMPinRoomModel = new MPinRoomModel(userMPin, userNameFromOTPValidationResponse);
+
+          //  MPinRoomModel newMPinRoomModel = new MPinRoomModel(userMPin, userNameFromOTPValidationResponse);
+          //  mPinDao.insert(newMPinRoomModel);
+
+            MPinRoomModel newMPinRoomModel = new MPinRoomModel(userMPin, userNameFromOTPValidationResponse, UserID , BranchCode);
             mPinDao.insert(newMPinRoomModel);
-
-
         }
 
     }
