@@ -1,5 +1,6 @@
 package com.example.test.npa_flow;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -7,7 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.test.R;
 import com.example.test.api_manager.WebServices;
@@ -150,6 +155,36 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         binding.ivHome.setOnClickListener(v -> {
             startActivity(new Intent(this, MainActivity3API.class));
         });
+
+        //for Notes
+        binding.ivNotesIcon.setOnClickListener(v -> {
+
+            View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
+
+            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
+            Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
+            EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
+            customEditBox.setVisibility(View.VISIBLE);
+
+            customText.setText(getResources().getString(R.string.lead_interaction));
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(customDialog);
+            final AlertDialog dialog = builder.create();
+            dialog.show();
+
+            customButton.setOnClickListener(v1 -> dialog.dismiss());
+
+        });
+
+        //for History
+        binding.ivHistory.setOnClickListener(v -> {
+
+            String dataSetId = getIntent().getStringExtra("dataSetId");
+            Global.showNotesHistoryDialog(this,dataSetId);
+
+        });
+
 
         binding.btnSubmitNoChange.setOnClickListener(v->{
 
