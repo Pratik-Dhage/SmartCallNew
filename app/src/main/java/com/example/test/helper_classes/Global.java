@@ -168,7 +168,7 @@ public class Global {
     }
 
 
-    // TO Display Notes_History Dialog
+    // TO Display Notes_History Dialog (Visits / Calls & NPA Flows)
     public static NotesHistoryViewModel notesHistoryViewModel ;
     public static void showNotesHistoryDialog(Context context, String dataSetId){
 
