@@ -190,6 +190,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
               btnProceed.setOnClickListener(v2->{
                   Intent i = new Intent(this,VisitCompletionOfCustomerActivity.class);
                   i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                  i.putExtra("detailsList",detailsList);
                   i.putExtra("isFromVisitNPAPaymentModeActivity","isFromVisitNPAPaymentModeActivity");
                 startActivity(i);
               });
@@ -230,29 +231,8 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
         //for History
         binding.ivHistory.setOnClickListener(v->{
 
-            View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
-
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
-            Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
-            TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
-            txtCustom.setVisibility(View.VISIBLE);
-
-
-            customText.setText(getResources().getString(R.string.lead_history));
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialog);
-            final AlertDialog dialog = builder.create();
-            dialog.show();
-
-            customButton.setText(R.string.close);
-            customButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-
+            String dataSetId = getIntent().getStringExtra("dataSetId");
+            Global.showNotesHistoryDialog(this,dataSetId);
 
 
         });

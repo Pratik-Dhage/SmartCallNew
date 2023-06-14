@@ -15,6 +15,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.test.R;
 import com.example.test.databinding.ActivityVisitNpaRescheduleBinding;
 import com.example.test.helper_classes.Global;
@@ -124,35 +126,84 @@ public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
         // Initialize the ActivityResultLauncher
         pickImageLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                // Get the file URI and file name
-                Uri uri = result.getData().getData();
-                String fileName = getFileNameFromUri(uri);
 
-                // Set the file name on the TextView
-                TextView txtUploadReceipt = customDialogImagePicker.findViewById(R.id.txtUploadReceipt);
-                TextView txtProceed = customDialogImagePicker.findViewById(R.id.txtProceed);
-                TextView txtSkipAndProceed = customDialogImagePicker.findViewById(R.id.txtSkipAndProceed);
-                Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
-                ImageView ivRefreshCancel = customDialogImagePicker.findViewById(R.id.ivRefreshCancel);
-                ImageView ivFileUpload = customDialogImagePicker.findViewById(R.id.ivFileUpload);
+              try {
 
-                txtUploadReceipt.setText(fileName);
-                txtProceed.setVisibility(View.VISIBLE);
-                ivRefreshCancel.setVisibility(View.VISIBLE);
-                txtSkipAndProceed.setVisibility(View.GONE);
-                ivFileUpload.setVisibility(View.GONE);
-                btnUploadReceipt.setVisibility(View.INVISIBLE);
 
-                txtProceed.setOnClickListener(v -> {
-                    Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
-                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                    i.putExtra("isFromVisitNPARescheduleActivity","isFromVisitNPARescheduleActivity");
-                    startActivity(i);
-                });
+                  // Get the file URI and file name
+                  Uri uri = result.getData().getData();
+                  String fileName = getFileNameFromUri(uri);
 
-                ivRefreshCancel.setOnClickListener(v -> {
-                    btnUploadReceipt.performClick();
-                });
+                  // Set the file name on the TextView
+                  TextView txtUploadReceipt = customDialogImagePicker.findViewById(R.id.txtUploadReceipt);
+                  TextView txtProceed = customDialogImagePicker.findViewById(R.id.txtProceed);
+                  TextView txtSkipAndProceed = customDialogImagePicker.findViewById(R.id.txtSkipAndProceed);
+                  Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
+                  ImageView ivRefreshCancel = customDialogImagePicker.findViewById(R.id.ivRefreshCancel);
+                  ImageView ivFileUpload = customDialogImagePicker.findViewById(R.id.ivFileUpload);
+                  ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivCancel);
+                  ImageView ivViewUploadedReceipt = customDialogImagePicker.findViewById(R.id.ivViewUploadedReceipt);
+                  TextView txtViewUploadedReceipt = customDialogImagePicker.findViewById(R.id.txtViewUploadedReceipt);
+                  TextView txtCloseUploadedReceipt = customDialogImagePicker.findViewById(R.id.txtCloseUploadedReceipt);
+
+                  txtUploadReceipt.setText(fileName); // Name of Uploaded Receipt File
+                  txtViewUploadedReceipt.setVisibility(View.VISIBLE);
+                  txtProceed.setVisibility(View.VISIBLE);
+                  ivRefreshCancel.setVisibility(View.VISIBLE);
+                  txtSkipAndProceed.setVisibility(View.GONE);
+                  ivFileUpload.setVisibility(View.GONE);
+                  btnUploadReceipt.setVisibility(View.INVISIBLE);
+
+
+                  txtProceed.setOnClickListener(v -> {
+                      Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                      i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                      i.putExtra("detailsList", detailsList);
+                      i.putExtra("isFromVisitNPARescheduleActivity", "isFromVisitNPARescheduleActivity");
+                      startActivity(i);
+                  });
+
+                  ivRefreshCancel.setOnClickListener(v -> {
+                      btnUploadReceipt.performClick();
+                  });
+
+
+                  txtViewUploadedReceipt.setOnClickListener(v -> {
+                      if (fileName != null || !fileName.isEmpty()) {
+                          ivViewUploadedReceipt.setVisibility(View.VISIBLE);
+                          txtCloseUploadedReceipt.setVisibility(View.VISIBLE);
+                          Glide.with(this).load(uri).into(ivViewUploadedReceipt); //set selected Image of Receipt
+                          // Picasso.get().load(uri).into(ivViewUploadedReceipt);
+                          txtViewUploadedReceipt.setVisibility(View.GONE);
+                          txtProceed.setVisibility(View.GONE);
+                          txtUploadReceipt.setVisibility(View.GONE);
+                          ivRefreshCancel.setVisibility(View.GONE);
+
+                          if (ivViewUploadedReceipt.getVisibility() == View.VISIBLE) {
+                              ivCancel.setVisibility(View.INVISIBLE);
+                          }
+
+
+                      }
+                  });
+
+                  txtCloseUploadedReceipt.setOnClickListener(v -> {
+                      txtViewUploadedReceipt.setVisibility(View.VISIBLE);
+                      ivCancel.setVisibility(View.VISIBLE);
+                      txtProceed.setVisibility(View.VISIBLE);
+                      txtUploadReceipt.setVisibility(View.VISIBLE);
+                      ivRefreshCancel.setVisibility(View.VISIBLE);
+                      txtCloseUploadedReceipt.setVisibility(View.GONE);
+                      ivViewUploadedReceipt.setVisibility(View.GONE);
+
+                  });
+
+              } catch (Exception e) {
+
+                  Log.d("File Receipt Exception", "File Receipt Exception:" + e);
+                  //  Global.showToast(this,"File Receipt Exception:"+e.getLocalizedMessage());
+              }
+
             }
         });
     }
@@ -212,7 +263,7 @@ public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
             builder.setView(customDialogImagePicker);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+         //   dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             dialog.show();
 
@@ -230,6 +281,7 @@ public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
             txtSkipAndProceed.setOnClickListener(v1 -> {
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("detailsList",detailsList);
                 i.putExtra("isFromVisitNPARescheduleActivity","isFromVisitNPARescheduleActivity");
                 startActivity(i);
             });
@@ -258,7 +310,7 @@ public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
             builder.setView(customDialogEditable);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+           // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             dialog.show();
 
@@ -266,6 +318,7 @@ public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
             btnProceed.setOnClickListener(v2 -> {
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("detailsList",detailsList);
                 i.putExtra("isFromVisitNPARescheduleActivity","isFromVisitNPARescheduleActivity");
                 startActivity(i);
             });
@@ -306,28 +359,8 @@ public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
         //for History
         binding.ivHistory.setOnClickListener(v->{
 
-            View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
-
-            TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
-            Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
-            TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
-            txtCustom.setVisibility(View.VISIBLE);
-
-
-            customText.setText(getResources().getString(R.string.lead_history));
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialog);
-            final AlertDialog dialog = builder.create();
-            dialog.show();
-
-            customButton.setText(R.string.close);
-            customButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
+            String dataSetId = getIntent().getStringExtra("dataSetId");
+            Global.showNotesHistoryDialog(this,dataSetId);
 
         });
 

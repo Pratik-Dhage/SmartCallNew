@@ -118,7 +118,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
                 Intent i = new Intent(this,VisitCompletionOfCustomerActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-
+                i.putExtra("detailsList", detailsList);
                 i.putExtra("isFromVisitNPANotAvailableActivity","isFromVisitNPANotAvailableActivity");
                 startActivity(i);
             });
