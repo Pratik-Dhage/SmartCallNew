@@ -94,7 +94,8 @@ public class LoginWithMPinActivity extends AppCompatActivity {
 
         String BranchCode = mPinDao.getBranchCode(binding.mpinView.getOTP());
 
-
+        Global.saveStringInSharedPref(this,"UserID",UserID);
+        Global.saveStringInSharedPref(this,"BranchCode",BranchCode);
 
         if (binding.mpinView.getOTP().equals(mPinFromRoomDB)) {
 

@@ -117,12 +117,12 @@ public class MPinActivity extends AppCompatActivity {
 
     private void saveMPinInRoomDB(String userMPin) {
         MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
-        String userNameFromOTPValidationResponse = Global.getStringFromSharedPref(this, "userNameFromOTPValidationResponse");
+        String userNameFromOTPResponse = Global.getStringFromSharedPref(this, "userNameFromOTPResponse");
 
 
         checkIfMPinExists(userMPin);
 
-        System.out.println("Here userMPinInRoomDB: " + mPinDao.getMPinFromRoomDB(userNameFromOTPValidationResponse));
+        System.out.println("Here userMPinInRoomDB: " + mPinDao.getMPinFromRoomDB(userNameFromOTPResponse));
         System.out.println("Here userNameMPinInRoomDB: " + mPinDao.getUserNameUsingMPinInRoomDB(userMPin));
         System.out.println("Here UserIDinRoomDB: " + mPinDao.getUserID(userMPin));
         System.out.println("Here BranchCodeInInRoomDB: " + mPinDao.getBranchCode(userMPin));
@@ -132,15 +132,15 @@ public class MPinActivity extends AppCompatActivity {
 
         MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
         int countOfMPin = mPinDao.checkAnyMPinExists();
-        String userNameFromOTPValidationResponse = Global.getStringFromSharedPref(this, "userNameFromOTPValidationResponse");
+        String userNameFromOTPResponse = Global.getStringFromSharedPref(this, "userNameFromOTPResponse");
 
         String UserID = Global.getStringFromSharedPref(this,"UserID");
         String BranchCode = Global.getStringFromSharedPref(this,"BranchCode");
 
         if (countOfMPin > 0) {
             // At least one mPin exists in the table
-            mPinDao.updateMPin(userMPin, userNameFromOTPValidationResponse,UserID,BranchCode);
-
+            mPinDao.updateMPin(userMPin, userNameFromOTPResponse,UserID,BranchCode);
+            Global.showToast(this,"Updated mPin");
 
         }
         else {
@@ -150,8 +150,9 @@ public class MPinActivity extends AppCompatActivity {
           //  MPinRoomModel newMPinRoomModel = new MPinRoomModel(userMPin, userNameFromOTPValidationResponse);
           //  mPinDao.insert(newMPinRoomModel);
 
-            MPinRoomModel newMPinRoomModel = new MPinRoomModel(userMPin, userNameFromOTPValidationResponse, UserID , BranchCode);
+            MPinRoomModel newMPinRoomModel = new MPinRoomModel(userMPin, userNameFromOTPResponse, UserID , BranchCode);
             mPinDao.insert(newMPinRoomModel);
+            Global.showToast(this,"Saved mPin");
         }
 
     }

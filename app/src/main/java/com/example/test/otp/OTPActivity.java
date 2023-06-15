@@ -63,6 +63,9 @@ public class OTPActivity extends AppCompatActivity {
                     //to display OTP code
                     Global.showToast(this,"OTP Code: "+ result.getOtpCode());
 
+                    // Save UserName in SharedPreferences for Saving UserName in RoomDB
+                    Global.saveStringInSharedPref(this,"userNameFromOTPResponse",String.valueOf(result.getUserName()));
+
                     //if coming from RegisterPasswordActivity
                     if(getIntent().hasExtra("isFromRegisterPasswordActivity")){
                         Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
