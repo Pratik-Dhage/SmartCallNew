@@ -33,4 +33,10 @@ public interface MPinDao {
     @Query("SELECT COUNT(*) FROM mpin_table")
     int checkAnyMPinExists();
 
+    @Query("SELECT UserID FROM mpin_table WHERE mPin = :mPin")
+    String getUserID(String mPin);
+
+    @Query("SELECT BranchCode FROM mpin_table WHERE mPin = :mPin")
+    String getBranchCode(String mPin);
+
 }

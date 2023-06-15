@@ -36,6 +36,9 @@ public class MainActivity3API extends AppCompatActivity {
     View view;
     MainDashBoardViewModel mainDashBoardViewModel;
     public static boolean showCallIcon = false; // for call icon to be visible when coming from Visits For The Day Flow to be True Else False
+    public static String UserID;
+    public static String BranchCode;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,12 @@ public class MainActivity3API extends AppCompatActivity {
             String userName = getIntent().getStringExtra("userName");
             Global.saveStringInSharedPref(this,"userName",userName);
         }*/
+
+        if(getIntent().hasExtra("isFromLoginWithMPin")){
+
+            UserID = getIntent().getStringExtra("UserID");
+            BranchCode = getIntent().getStringExtra("BranchCode");
+        }
 
          if(LoginActivity.userName!=null){
             binding.txtWelcomeUser.setText("Welcome "+LoginActivity.userName);

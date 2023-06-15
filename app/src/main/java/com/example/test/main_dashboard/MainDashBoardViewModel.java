@@ -85,7 +85,7 @@ public class MainDashBoardViewModel extends ViewModel {
 
     //for making @POST request
     //UserModel userModel = new UserModel(userId,password);
-    UserModel userModel = new UserModel(LoginActivity.UserID,LoginActivity.BranchCode); // Changes UserModel userModel = new UserModel(userId_new,userBranchCode);
+    UserModel userModel = new UserModel(MainActivity3API.UserID,MainActivity3API.BranchCode); // Changes UserModel userModel = new UserModel(userId_new,userBranchCode);
 
 
     public void getDashBoardData()
@@ -102,7 +102,7 @@ public class MainDashBoardViewModel extends ViewModel {
     }
 
     public void getScheduleForTheDayData(){
-        subscribtion = (Disposable) Global.apiService().getDashBoardDataScheduleForTheDay(WebServices.schedule_for_the_day+"userId="+LoginActivity.UserID)
+        subscribtion = (Disposable) Global.apiService().getDashBoardDataScheduleForTheDay(WebServices.schedule_for_the_day+"userId="+MainActivity3API.UserID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

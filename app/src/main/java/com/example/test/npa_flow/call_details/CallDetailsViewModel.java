@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.test.api_manager.WebServices;
 import com.example.test.helper_classes.Global;
 import com.example.test.login.LoginActivity;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.ScheduleVisitForCollectionActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
@@ -36,7 +37,7 @@ public class CallDetailsViewModel extends ViewModel {
     }
 
 
-    String userId = LoginActivity.UserID;
+    String userId = MainActivity3API.UserID;
 
     DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
     List<CallDetails> callDetailsList = detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater(); //for Will Pay Later,SVFC,Asked To call Back,Already Paid

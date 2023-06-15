@@ -83,6 +83,18 @@ public class LoanCollectionViewModel extends ViewModel {
                                 this::onHomeApiSuccess, this::onApiError
                         );
                 break;
+
+            case 3:
+                subscribtion = (Disposable) Global.apiService().getLoanCollectionList( WebServices.loan_collection_list_above90Days)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(
+                                this::onHomeApiSuccess, this::onApiError
+                        );
+                break;
+
+
             default:
                /* subscribtion = (Disposable) Global.apiService().getLoanCollectionList(WebServices.SmartCall_BaseURL2+ WebServices.loan_collection_list_30Days)
                         .subscribeOn(Schedulers.io())

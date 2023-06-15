@@ -124,6 +124,8 @@ public class MPinActivity extends AppCompatActivity {
 
         System.out.println("Here userMPinInRoomDB: " + mPinDao.getMPinFromRoomDB(userNameFromOTPValidationResponse));
         System.out.println("Here userNameMPinInRoomDB: " + mPinDao.getUserNameUsingMPinInRoomDB(userMPin));
+        System.out.println("Here UserIDinRoomDB: " + mPinDao.getUserID(userMPin));
+        System.out.println("Here BranchCodeInInRoomDB: " + mPinDao.getBranchCode(userMPin));
     }
 
     private void checkIfMPinExists(String userMPin){

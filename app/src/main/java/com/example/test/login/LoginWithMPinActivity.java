@@ -90,12 +90,23 @@ public class LoginWithMPinActivity extends AppCompatActivity {
 
         String mPinFromRoomDB = mPinDao.getMPinFromRoomDB(mPinUserNameFromRomDB);
 
+        String UserID = mPinDao.getUserID(binding.mpinView.getOTP());
+
+        String BranchCode = mPinDao.getBranchCode(binding.mpinView.getOTP());
+
+
+
         if (binding.mpinView.getOTP().equals(mPinFromRoomDB)) {
 
             Intent i = new Intent(this, MainActivity3API.class);
+            i.putExtra("isFromLoginWithMPin","isFromLoginWithMPin");
+            i.putExtra("UserID",UserID);
+            i.putExtra("BranchCode",BranchCode);
             startActivity(i);
 
             Global.showToast(this,getString(R.string.login_successful));
+            System.out.println("Here UserID from RoomDB "+UserID);
+            System.out.println("Here BranchCode from RoomDB "+BranchCode);
         }
 
         else{

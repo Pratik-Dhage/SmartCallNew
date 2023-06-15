@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.test.api_manager.WebServices;
 import com.example.test.helper_classes.Global;
 import com.example.test.login.LoginActivity;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.status_of_customer.adapter.StatusOfCustomerDetailsAdapter;
 import com.example.test.npa_flow.status_of_customer.model.Activity;
@@ -45,7 +46,7 @@ public class VisitsForTheDayViewModel  extends ViewModel {
 
     public void getVisitsForTheDayData(){
 
-        subscribtion = (Disposable) Global.apiService().getVisitsForTheDay(WebServices.visits_for_the_day+"userId="+LoginActivity.UserID+"&branchCode="+ LoginActivity.BranchCode)
+        subscribtion = (Disposable) Global.apiService().getVisitsForTheDay(WebServices.visits_for_the_day+"userId="+ MainActivity3API.UserID+"&branchCode="+ MainActivity3API.BranchCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
