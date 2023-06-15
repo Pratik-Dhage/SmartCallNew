@@ -16,10 +16,10 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:textStyle="normal"
             android:ellipsize="end"
-            android:maxLength="13"
+            android:maxLength="20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Sairaj Naidu" />
+            tools:text="Sairaj Naidu Sairaj Naidu" />
 
         <!--For Status-->
         <androidx.constraintlayout.widget.ConstraintLayout
