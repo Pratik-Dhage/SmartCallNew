@@ -57,6 +57,8 @@ public class LoginWithOTPFragment extends Fragment {
 
                 if(result!=null){
 
+                    Global.showToast(getContext(),String.valueOf(result.getOtpCode()));
+
                         Intent i = new Intent(getContext(), OTPVerificationActivity.class);
                         i.putExtra("userId",userId);
                         i.putExtra("isFromLoginWithOTPFragment_ResetMPin","isFromLoginWithOTPFragment_ResetMPin");
