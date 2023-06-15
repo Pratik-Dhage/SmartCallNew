@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.test.api_manager.WebServices;
 import com.example.test.helper_classes.Global;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.schedule_flow.adapter.ScheduleDetailsAdapter;
 import com.example.test.schedule_flow.model.ScheduleVisitDetails;
 
@@ -39,7 +40,7 @@ public class ScheduleDetailsViewModel extends ViewModel {
 
 
     //for ScheduleDetailsAdapter
-    static String userId_new = "CA_01_001";
+    static String userId_new = MainActivity3API.UserID;
 
     public void get_ScheduleDetails_Data(String fromDate , String toDate){
 
