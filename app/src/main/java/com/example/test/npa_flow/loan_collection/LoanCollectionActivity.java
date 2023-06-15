@@ -86,8 +86,12 @@ public class LoanCollectionActivity extends AppCompatActivity {
             binding.txtToolbarHeading.setText(getString(R.string.calling_31_60_dpd));
         }
         if (DPD_row_position == 2) {
-            binding.txtToolbarHeading.setText(getString(R.string.calling_above_60_dpd));
+            binding.txtToolbarHeading.setText(getString(R.string.calling_60_90_dpd));
         }
+        if (DPD_row_position == 3) {
+            binding.txtToolbarHeading.setText(getString(R.string.calling_above_90));
+        }
+
 
         if (getIntent().hasExtra("isFromCallsForTheDay")) {
             binding.txtToolbarHeading.setText(getResources().getString(R.string.calls_for_the_day));
