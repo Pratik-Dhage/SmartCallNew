@@ -102,18 +102,26 @@ public class LoginActivity extends AppCompatActivity {
             if(result!=null){
                 Global.showToast(LoginActivity.this, "Login Response :" + result.getAuthenticationResult());
 
+                userName = result.getUserName();
+
                 if(result.getAuthenticationResult().toLowerCase().contains("success")){
+
+                    // Store UserID and BranchCode To Call In API's
+                    UserID =  String.valueOf(result.getUserId());
+                    BranchCode = String.valueOf(result.getBranchCode());
+
+
+                    System.out.println("Here UserId & BranchCode:"+UserID+" "+BranchCode);
 
                     Intent i = new Intent(LoginActivity.this, SuccessActivity.class);
                     i.putExtra("userName",userName);
+                    i.putExtra("UserID",UserID);
+                    i.putExtra("BranchCode",BranchCode);
                     i.putExtra("isFromLoginActivity","isFromLoginActivity");
                     startActivity(i);
 
-                    // Store UserID and BranchCode To Call In API's
-                  UserID =  String.valueOf(result.getUserId());
-                  BranchCode = String.valueOf(result.getBranchCode());
 
-                  System.out.println("Here UserId & BranchCode:"+UserID+" "+BranchCode);
+                  //System.out.println("Here UserId & BranchCode:"+UserID+" "+BranchCode);
 
 
                   //Store in Shared Preference For Storing MPin

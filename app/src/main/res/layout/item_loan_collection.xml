@@ -161,8 +161,8 @@
             android:id="@+id/ivLoanCollectionAttempt"
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            app:layout_constraintStart_toStartOf="@id/txtDistance"
+
+
            app:layout_constraintTop_toTopOf="@id/labelAttemptNumber"
             app:layout_constraintBottom_toBottomOf="@id/labelAttemptNumber"
             app:layout_constraintEnd_toEndOf="parent"

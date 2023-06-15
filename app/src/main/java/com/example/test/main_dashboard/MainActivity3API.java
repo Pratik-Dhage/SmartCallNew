@@ -25,6 +25,8 @@ import com.example.test.login.LoginActivity;
 import com.example.test.main_dashboard.adapter.MainDashBoardAdapter;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
+import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.schedule_flow.ScheduleDetailsActivity;
 import com.example.test.schedule_flow.calls_for_the_day.CallsForTheDayActivity;
 import com.example.test.schedule_flow.schedule_for_the_day.ScheduleForTheDayAdapter;
@@ -36,14 +38,30 @@ public class MainActivity3API extends AppCompatActivity {
     View view;
     MainDashBoardViewModel mainDashBoardViewModel;
     public static boolean showCallIcon = false; // for call icon to be visible when coming from Visits For The Day Flow to be True Else False
-    public static String UserID;
-    public static String BranchCode;
+    public static String UserID ;
+    public static String BranchCode ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // setContentView(R.layout.activity_main_activity3_api);
+
+        // Get UserID , BranchCode , UserName from RoomDB
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        System.out.println("Here UserID in MainActivity3API From RoomDB :"+mPinDao.getUserID(getIntent().getStringExtra("MPin")));
+        System.out.println("Here BranchCode in MainActivity3API From RoomDB :"+mPinDao.getBranchCode(getIntent().getStringExtra("MPin")));
+
+        if(getIntent().hasExtra("isFromLoginWithMPin")){
+
+            UserID = mPinDao.getUserID(Global.getStringFromSharedPref(this,"MPin"));
+            BranchCode = mPinDao.getBranchCode(Global.getStringFromSharedPref(this,"MPin"));
+
+        }
+
+
+        UserID = mPinDao.getUserID(Global.getStringFromSharedPref(this,"MPin"));
+        BranchCode = mPinDao.getBranchCode(Global.getStringFromSharedPref(this,"MPin"));
 
         initializeFields();
         onClickListener();
@@ -79,11 +97,7 @@ public class MainActivity3API extends AppCompatActivity {
             Global.saveStringInSharedPref(this,"userName",userName);
         }*/
 
-        if(getIntent().hasExtra("isFromLoginWithMPin")){
 
-            UserID = getIntent().getStringExtra("UserID");
-            BranchCode = getIntent().getStringExtra("BranchCode");
-        }
 
          if(LoginActivity.userName!=null){
             binding.txtWelcomeUser.setText("Welcome "+LoginActivity.userName);

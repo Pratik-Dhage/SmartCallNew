@@ -101,6 +101,7 @@ public class LoginWithMPinActivity extends AppCompatActivity {
 
             Intent i = new Intent(this, MainActivity3API.class);
             i.putExtra("isFromLoginWithMPin","isFromLoginWithMPin");
+            i.putExtra("MPin",binding.mpinView.getOTP());
             i.putExtra("UserID",UserID);
             i.putExtra("BranchCode",BranchCode);
             startActivity(i);
@@ -108,6 +109,9 @@ public class LoginWithMPinActivity extends AppCompatActivity {
             Global.showToast(this,getString(R.string.login_successful));
             System.out.println("Here UserID from RoomDB "+UserID);
             System.out.println("Here BranchCode from RoomDB "+BranchCode);
+
+            //Save MPin SharedPreferences
+            Global.saveStringInSharedPref(this,"MPin",binding.mpinView.getOTP());
         }
 
         else{
