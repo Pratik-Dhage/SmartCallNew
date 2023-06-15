@@ -96,7 +96,7 @@
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
     <string name="loading">Loading...</string>
-    <string name="welcome_User">Welcome Tanisha!</string>
+    <string name="welcome_User">Welcome User!</string>
     <string name="select_lead_source">Select Lead Source</string>
     <string name="get_user_location_and_save">Get User Location And Save</string>
     <string name="latitude">Latitude</string>

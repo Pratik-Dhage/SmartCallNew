@@ -87,7 +87,7 @@ public class MainDashBoardViewModel extends ViewModel {
     //UserModel userModel = new UserModel(userId,password);
     UserModel userModel = new UserModel(MainActivity3API.UserID,MainActivity3API.BranchCode); // Changes UserModel userModel = new UserModel(userId_new,userBranchCode);
 
-
+     //Assigned
     public void getDashBoardData()
 
     {  //WebServices.SmartCall_BaseURL2+WebServices.Dashboard_Data,
@@ -101,6 +101,7 @@ public class MainDashBoardViewModel extends ViewModel {
 
     }
 
+    //Schedule For The Day
     public void getScheduleForTheDayData(){
         subscribtion = (Disposable) Global.apiService().getDashBoardDataScheduleForTheDay(WebServices.schedule_for_the_day+"userId="+MainActivity3API.UserID)
                 .subscribeOn(Schedulers.io())

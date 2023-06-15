@@ -27,6 +27,9 @@ public interface MPinDao {
     @Query("SELECT mPinUserName FROM mpin_table WHERE mPin =:mPin ")
     String getUserNameUsingMPinInRoomDB(String mPin);
 
+    @Query("SELECT mPinUserName FROM mpin_table WHERE UserID = :UserID")
+    String getUserNameUsingUserID(String UserID);
+
     @Query("UPDATE mpin_table SET mPin = :newMPin WHERE mPinUserName = :userName AND UserID = :UserID AND BranchCode = :BranchCode")
     void updateMPin(String newMPin, String userName , String UserID , String BranchCode);
 
