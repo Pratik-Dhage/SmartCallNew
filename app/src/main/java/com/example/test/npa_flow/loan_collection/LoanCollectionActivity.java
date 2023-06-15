@@ -171,14 +171,14 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         });
 
-        //for Chips(Name/Location/Status/Mobile)
+        //for Chips(Name/PinCode/Status/Mobile)
         binding.chipName.setOnClickListener(v->{
             binding.edtSearchFromList.setHint(getString(R.string.search_by));
             binding.chipName.setTextColor(ContextCompat.getColor(this,R.color.white));
             binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.textBlue)));
-            binding.chipLocation.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
+            binding.chipPinCode.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
             binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipLocation.setTextColor(ContextCompat.getColor(this,R.color.black));
+            binding.chipPinCode.setTextColor(ContextCompat.getColor(this,R.color.black));
             binding.chipStatus.setTextColor(ContextCompat.getColor(this,R.color.black));
             binding.chipMobile.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
             binding.chipMobile.setTextColor(ContextCompat.getColor(this,R.color.black));
@@ -188,10 +188,10 @@ public class LoanCollectionActivity extends AppCompatActivity {
             binding.ivSearchIcon.performClick();
         });
 
-        binding.chipLocation.setOnClickListener(v->{
+        binding.chipPinCode.setOnClickListener(v->{
             binding.edtSearchFromList.setHint(getString(R.string.search_by));
-            binding.chipLocation.setTextColor(ContextCompat.getColor(this,R.color.white));
-            binding.chipLocation.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.textBlue)));
+            binding.chipPinCode.setTextColor(ContextCompat.getColor(this,R.color.white));
+            binding.chipPinCode.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.textBlue)));
             binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
             binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
             binding.chipName.setTextColor(ContextCompat.getColor(this,R.color.black));
@@ -208,9 +208,9 @@ public class LoanCollectionActivity extends AppCompatActivity {
             binding.edtSearchFromList.setHint(getString(R.string.search_by));
             binding.chipStatus.setTextColor(ContextCompat.getColor(this,R.color.white));
             binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.textBlue)));
-            binding.chipLocation.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
+            binding.chipPinCode.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
             binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipLocation.setTextColor(ContextCompat.getColor(this,R.color.black));
+            binding.chipPinCode.setTextColor(ContextCompat.getColor(this,R.color.black));
             binding.chipName.setTextColor(ContextCompat.getColor(this,R.color.black));
             binding.chipMobile.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
             binding.chipMobile.setTextColor(ContextCompat.getColor(this,R.color.black));
@@ -224,10 +224,10 @@ public class LoanCollectionActivity extends AppCompatActivity {
             binding.edtSearchFromList.setHint(getString(R.string.search_by));
             binding.chipMobile.setTextColor(ContextCompat.getColor(this,R.color.white));
             binding.chipMobile.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.textBlue)));
-            binding.chipLocation.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
+            binding.chipPinCode.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
             binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
             binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipLocation.setTextColor(ContextCompat.getColor(this,R.color.black));
+            binding.chipPinCode.setTextColor(ContextCompat.getColor(this,R.color.black));
             binding.chipName.setTextColor(ContextCompat.getColor(this,R.color.black));
             binding.chipStatus.setTextColor(ContextCompat.getColor(this,R.color.black));
             binding.edtSearchFromList.setText("");

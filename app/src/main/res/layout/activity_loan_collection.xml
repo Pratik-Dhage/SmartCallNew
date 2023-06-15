@@ -185,11 +185,11 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/chipLocation"
+                        android:id="@+id/chipPinCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:text="@string/location"
+                        android:text="@string/pincode_"
                         app:chipBackgroundColor="@color/skyBlue"
                         app:chipCornerRadius="@dimen/_16sdp"
                         app:chipEndPadding="@dimen/_8sdp"
@@ -215,7 +215,7 @@
                         app:chipStartPadding="@dimen/_8sdp"
                         app:chipStrokeColor="@color/textBlue"
                         app:chipStrokeWidth="@dimen/_1sdp"
-                        app:layout_constraintStart_toEndOf="@id/chipLocation"
+                        app:layout_constraintStart_toEndOf="@id/chipPinCode"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.chip.Chip

@@ -368,6 +368,7 @@
     <string name="login_successful">Login Successful</string>
     <string name="mobile_no_">Mobile :</string>
     <string name="pincode">Pincode :</string>
+    <string name="pincode_">Pincode </string>
 
 
     <!--for Tenure-->
