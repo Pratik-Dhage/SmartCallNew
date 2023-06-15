@@ -115,7 +115,7 @@ public class Global {
         EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
         customEditBox.setVisibility(View.VISIBLE);
 
-        customText.setText(R.string.lead_interaction);
+        customText.setText(R.string.customer_interaction);
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -146,7 +146,7 @@ public class Global {
         EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
         customEditBox.setVisibility(View.VISIBLE);
 
-        customText.setText(R.string.lead_interaction);
+        customText.setText(R.string.customer_interaction);
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -179,7 +179,7 @@ public class Global {
         Button btnCloseDialog = customDialog.findViewById(R.id.btnCloseDialog);
         RecyclerView recyclerViewNotesHistory = customDialog.findViewById(R.id.rvNotesHistory);
 
-        customNotesHistoryTextHeading.setText(R.string.lead_history);
+        customNotesHistoryTextHeading.setText(R.string.customer_history);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setView(customDialog);
@@ -234,7 +234,7 @@ public class Global {
             notesHistoryViewModel.getMutErrorResponse().observe((LifecycleOwner)context, error -> {
 
                 if (error != null && !error.isEmpty()) {
-                    Global.showToast(context, error);
+                  //  Global.showToast(context, error);
                     System.out.println("Here: " + error);
                 } else {
                     Global.showToast(context, String.valueOf(R.string.check_internet_connection));

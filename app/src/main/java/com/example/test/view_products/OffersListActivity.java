@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityOffersListBinding;
+import com.example.test.helper_classes.Global;
 import com.example.test.main_dashboard.MainActivity3API;
 
 public class OffersListActivity extends AppCompatActivity {
@@ -76,53 +77,16 @@ public class OffersListActivity extends AppCompatActivity {
         //for Notes
         binding.ivNotesIcon.setOnClickListener(v -> {
 
-            View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
-
-            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
-            Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
-            EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
-            customEditBox.setVisibility(View.VISIBLE);
-
-            customText.setText(getResources().getString(R.string.lead_interaction));
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialog);
-            final AlertDialog dialog = builder.create();
-            dialog.show();
-
-            customButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
+            Global.showNotesEditDialog(this);
 
         });
 
         //for History
         binding.ivHistory.setOnClickListener(v -> {
 
-            View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_box, null);
+            String dataSetId = getIntent().getStringExtra("dataSetId");
+            Global.showNotesHistoryDialog(this,dataSetId);
 
-            TextView customText = customDialog.findViewById(R.id.txtCustomDialog);
-            Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
-            TextView txtCustom = customDialog.findViewById(R.id.txtCustom);
-            txtCustom.setVisibility(View.VISIBLE);
-
-            customText.setText(getResources().getString(R.string.lead_history));
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialog);
-            final AlertDialog dialog = builder.create();
-            dialog.show();
-
-            customButton.setText(R.string.close);
-            customButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
 
         });
 

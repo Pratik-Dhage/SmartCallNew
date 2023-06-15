@@ -190,8 +190,9 @@
     <string name="schedule_details">Schedule Details</string>
     <string name="members">Members</string>
     <string name="enter_details_here">Enter details here</string>
-    <string name="lead_interaction">Lead Interaction</string>
+    <string name="customer_interaction">Customer Interaction</string>
     <string name="lead_history">Lead History</string>
+    <string name="customer_history">Customer History</string>
     <string name="close">Close</string>
     <string name="no_response_busy">No Response/ \nBusy</string>
     <string name="not_reachable_switched_off">Not Reachable/ \nSwitched Off</string>
