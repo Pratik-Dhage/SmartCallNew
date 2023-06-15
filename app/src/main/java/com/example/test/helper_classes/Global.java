@@ -2,7 +2,9 @@ package com.example.test.helper_classes;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -123,6 +125,10 @@ public class Global {
         final AlertDialog dialog = builder.create();
         dialog.show();
 
+        //Edit Text
+        if(Global.getStringFromSharedPref(context,"notes")!=null){
+                    customEditBox.setText(Global.getStringFromSharedPref(context,"notes"));
+                }
 
          //OK Button
         customButton.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +137,24 @@ public class Global {
 
                 DetailsOfCustomerActivity.send_callNotes = customEditBox.getText().toString();
                 dialog.dismiss();
+            }
+        });
+
+        // to Display previous written Notes
+        customEditBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                  Global.saveStringInSharedPref(context,"notes",s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
@@ -154,6 +178,10 @@ public class Global {
         final AlertDialog dialog = builder.create();
         dialog.show();
 
+        //Edit Text
+        if(Global.getStringFromSharedPref(context,"notes")!=null){
+            customEditBox.setText(Global.getStringFromSharedPref(context,"notes"));
+        }
 
         //OK Button
         customButton.setOnClickListener(new View.OnClickListener() {
@@ -164,6 +192,25 @@ public class Global {
                 dialog.dismiss();
             }
         });
+
+        // to Display previous written Notes
+        customEditBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                Global.saveStringInSharedPref(context,"notes",s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
     }
 
