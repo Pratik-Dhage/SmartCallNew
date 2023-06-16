@@ -186,6 +186,7 @@ public class MainActivity3API extends AppCompatActivity {
 
     private void initObserverScheduleForTheDay(){
 
+        binding.loadingProgressBar2.setVisibility(View.VISIBLE);
         //for Scheduled For The Day
         mainDashBoardViewModel.getMutDashBoardScheduleForTheDayResponseApi().observe(this,result->{
 
@@ -193,6 +194,7 @@ public class MainActivity3API extends AppCompatActivity {
 
                 if(result!=null){
 
+                    binding.loadingProgressBar2.setVisibility(View.INVISIBLE);
                     mainDashBoardViewModel.arrListScheduleForTheDayData.clear();
                     setUpScheduleForTheDayRecyclerView();
                     mainDashBoardViewModel.arrListScheduleForTheDayData.addAll(result);
