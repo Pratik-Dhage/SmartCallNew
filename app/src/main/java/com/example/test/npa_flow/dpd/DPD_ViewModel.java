@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.test.api_manager.WebServices;
 import com.example.test.helper_classes.Global;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
 
@@ -43,7 +44,7 @@ public class DPD_ViewModel extends ViewModel {
    //DPD Queue Api
     public void getDPD_Data(){
 
-        subscribtion = (Disposable) Global.apiService().getDPD_QueueList( WebServices.dpd_queue)
+        subscribtion = (Disposable) Global.apiService().getDPD_QueueList( WebServices.dpd_queue+"userId="+ MainActivity3API.UserID+"&branchCode=" + MainActivity3API.BranchCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

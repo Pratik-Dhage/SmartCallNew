@@ -45,6 +45,8 @@ public class MainActivity3API extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // UserID = getIntent().getStringExtra("UserID");
+       // BranchCode = getIntent().getStringExtra("BranchCode");
        // setContentView(R.layout.activity_main_activity3_api);
 
         // Get UserID , BranchCode , UserName from RoomDB

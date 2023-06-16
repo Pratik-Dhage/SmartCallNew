@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.test.api_manager.WebServices;
 import com.example.test.fragments_activity.fragments.adapter.LoanCollectionFragmentAdapter;
 import com.example.test.helper_classes.Global;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 
@@ -57,7 +58,7 @@ public class LoanCollectionViewModel extends ViewModel {
             //According to Row Position of DPD Queue in DPD Activity , the respective Api Response will be Called
         switch(DPD_row_position){
             case 0:
-                subscribtion = (Disposable) Global.apiService().getLoanCollectionList( WebServices.loan_collection_list_30Days)
+                subscribtion = (Disposable) Global.apiService().getLoanCollectionList( WebServices.loan_collection_list_30Days+"userId="+ MainActivity3API.UserID+"&branchCode=" + MainActivity3API.BranchCode+ "&queue=3738")
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .unsubscribeOn(Schedulers.io())
@@ -66,7 +67,7 @@ public class LoanCollectionViewModel extends ViewModel {
                         );
                 break;
             case 1:
-                subscribtion = (Disposable) Global.apiService().getLoanCollectionList( WebServices.loan_collection_list_60Days)
+                subscribtion = (Disposable) Global.apiService().getLoanCollectionList( WebServices.loan_collection_list_60Days+"userId="+ MainActivity3API.UserID+"&branchCode=" + MainActivity3API.BranchCode+ "&queue=3739")
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .unsubscribeOn(Schedulers.io())
@@ -75,7 +76,7 @@ public class LoanCollectionViewModel extends ViewModel {
                         );
                 break;
             case 2:
-                subscribtion = (Disposable) Global.apiService().getLoanCollectionList( WebServices.loan_collection_list_90Days)
+                subscribtion = (Disposable) Global.apiService().getLoanCollectionList( WebServices.loan_collection_list_90Days+"userId="+ MainActivity3API.UserID+"&branchCode=" + MainActivity3API.BranchCode+ "&queue=3740")
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .unsubscribeOn(Schedulers.io())
@@ -85,7 +86,7 @@ public class LoanCollectionViewModel extends ViewModel {
                 break;
 
             case 3:
-                subscribtion = (Disposable) Global.apiService().getLoanCollectionList( WebServices.loan_collection_list_above90Days)
+                subscribtion = (Disposable) Global.apiService().getLoanCollectionList( WebServices.loan_collection_list_above90Days+"userId="+ MainActivity3API.UserID+"&branchCode=" + MainActivity3API.BranchCode+ "&queue=3750")
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .unsubscribeOn(Schedulers.io())

@@ -107,18 +107,18 @@ public  class WebServices {
    public static String newBranchCode = "00048"; // changed on 18/05/2023 (used in DPDQueue,LoanCollection)
 
     //  public static String dpd_queue = "transactionDataSet/getDpdQueues?branchCode=001";
-    public static String dpd_queue = "transactionDataSet/getDpdQueues?userId="+UserID+"&branchCode=" + BranchCode; //Changes 28/4/2023 use userId along with branchCode
-
+//    public static String dpd_queue = "transactionDataSet/getDpdQueues?userId="+UserID+"&branchCode=" + BranchCode; //Changes 28/4/2023 use userId along with branchCode
+    public static String dpd_queue = "transactionDataSet/getDpdQueues?";
     //for Loan Collection List that comes after DPD Activity
     //http://43.239.52.151:8081/transactionDataSet/getDpdQueueList?branchCode=001&queue=3738 //for 30 Days
     //http://43.239.52.151:8081/transactionDataSet/getDpdQueueList?branchCode=001&queue=3739 //for 60 Days
     //http://43.239.52.151:8081/transactionDataSet/getDpdQueueList?branchCode=001&queue=3740 //for 90 Days
 
     //  public static String loan_collection_list = dpd_queue+"&queue="+queue_30_days;
-    public static String loan_collection_list_30Days = "transactionDataSet/getDpdQueueList?userId="+UserID+"&branchCode=" + BranchCode + "&queue=3738";
-    public static String loan_collection_list_60Days = "transactionDataSet/getDpdQueueList?userId="+UserID+"&branchCode=" + BranchCode + "&queue=3739";
-    public static String loan_collection_list_90Days = "transactionDataSet/getDpdQueueList?userId="+UserID+"&branchCode=" + BranchCode + "&queue=3740";
-    public static String loan_collection_list_above90Days = "transactionDataSet/getDpdQueueList?userId="+UserID+"&branchCode=" + BranchCode + "&queue=3750";
+    public static String loan_collection_list_30Days = "transactionDataSet/getDpdQueueList?";
+    public static String loan_collection_list_60Days = "transactionDataSet/getDpdQueueList?";
+    public static String loan_collection_list_90Days = "transactionDataSet/getDpdQueueList?";
+    public static String loan_collection_list_above90Days = "transactionDataSet/getDpdQueueList?";
 
     //for Call Details (Use Post Method)
 
