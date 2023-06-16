@@ -261,6 +261,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
 
             customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
             ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivCancel);
+            ImageView ivFileUpload = customDialogImagePicker.findViewById(R.id.ivFileUpload);
             TextView txtSkipAndProceed = customDialogImagePicker.findViewById(R.id.txtSkipAndProceed);
             Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
 
@@ -273,6 +274,12 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
 
             dialog.show();
 
+            // Visits For The Day Flow Do Not show Upload Receipt
+            if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
+                btnUploadReceipt.setVisibility(View.GONE);
+                ivFileUpload.setVisibility(View.GONE);
+                txtSkipAndProceed.setText(R.string.proceed); // Skip & Proceed will be Proceed (Visits For The Day Flow)
+            }
 
             btnUploadReceipt.setOnClickListener(v2 -> {
 
@@ -334,6 +341,7 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
 
             customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
             ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivCancel);
+            ImageView ivFileUpload = customDialogImagePicker.findViewById(R.id.ivFileUpload);
             TextView txtSkipAndProceed = customDialogImagePicker.findViewById(R.id.txtSkipAndProceed);
             Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
 
@@ -345,6 +353,13 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
            // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             dialog.show();
+
+            // Visits For The Day Flow Do Not show Upload Receipt
+            if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
+                btnUploadReceipt.setVisibility(View.GONE);
+                ivFileUpload.setVisibility(View.GONE);
+                txtSkipAndProceed.setText(R.string.proceed); // Skip & Proceed will be Proceed (Visits For The Day Flow)
+            }
 
 
             btnUploadReceipt.setOnClickListener(v2 -> {

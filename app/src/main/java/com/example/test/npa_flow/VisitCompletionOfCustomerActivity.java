@@ -183,7 +183,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                         Runnable startVisitsActivity = new Runnable() {
                             @Override
                             public void run() {
-                                Intent i = new Intent(VisitCompletionOfCustomerActivity.this, VisitsForTheDayActivity.class);
+                                Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
                                 startActivity(i);
                             }
                         };
@@ -323,7 +323,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                 Runnable startVisitsActivity = new Runnable() {
                     @Override
                     public void run() {
-                        Intent i = new Intent(VisitCompletionOfCustomerActivity.this, VisitsForTheDayActivity.class);
+                        Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
                         startActivity(i);
                     }
                 };
@@ -443,7 +443,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                 Runnable startVisitsActivity = new Runnable() {
                     @Override
                     public void run() {
-                        Intent i = new Intent(VisitCompletionOfCustomerActivity.this, VisitsForTheDayActivity.class);
+                        Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
                         startActivity(i);
                     }
                 };
