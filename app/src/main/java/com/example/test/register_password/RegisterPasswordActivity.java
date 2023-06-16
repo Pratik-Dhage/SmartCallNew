@@ -105,6 +105,11 @@ public class RegisterPasswordActivity extends AppCompatActivity {
                 i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
                 startActivity(i);
                 System.out.println("Here From Reset Forgot Password");
+
+                //Store in Shared Preference For Storing MPin
+                Global.saveStringInSharedPref(this,"UserID",String.valueOf(result.getUserId()));
+                Global.saveStringInSharedPref(this,"BranchCode",String.valueOf(result.getBranchCode()));
+
             }
 
         });

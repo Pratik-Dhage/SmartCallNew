@@ -46,6 +46,9 @@ public class VisitsForTheDayActivity extends AppCompatActivity {
         view = binding.getRoot();
         visitsForTheDayViewModel = new ViewModelProvider(this).get(VisitsForTheDayViewModel.class);
         binding.setViewModel(visitsForTheDayViewModel);
+
+        Global.saveStringInSharedPref(this,"notes",""); //make Notes Empty After Complete
+
     }
 
     private void callVisitsForTheDayAPi() {

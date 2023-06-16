@@ -173,6 +173,8 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
         binding.btnCompleteNoChange.setOnClickListener(v -> {
 
+            Global.saveStringInSharedPref(this,"notes",""); //make Notes Empty After Complete
+
             //3 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List) 3) Visits For The Day Flow
 
             //Visits For The Day Flow
@@ -334,6 +336,8 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
         binding.btnCompleteNeedToUpdateDetails.setOnClickListener(v -> {
 
+            Global.saveStringInSharedPref(this,"notes",""); //make Notes Empty After Complete
+
             //3 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List) 3) Visits For The Day Flow
 
             //Visits For The Day Flow
@@ -474,6 +478,8 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
 
         binding.btnCompleteEscalateToBM.setOnClickListener(v -> {
+
+            Global.saveStringInSharedPref(this,"notes",""); //make Notes Empty After Complete
 
             //3 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List) 3) Visits For The Day Flow
 

@@ -52,13 +52,13 @@ public class MainActivity3API extends AppCompatActivity {
         System.out.println("Here UserID in MainActivity3API From RoomDB :"+mPinDao.getUserID(getIntent().getStringExtra("MPin")));
         System.out.println("Here BranchCode in MainActivity3API From RoomDB :"+mPinDao.getBranchCode(getIntent().getStringExtra("MPin")));
 
-        if(getIntent().hasExtra("isFromLoginWithMPin")){
+       /* if(getIntent().hasExtra("isFromLoginWithMPin")){
 
             UserID = mPinDao.getUserID(Global.getStringFromSharedPref(this,"MPin"));
             BranchCode = mPinDao.getBranchCode(Global.getStringFromSharedPref(this,"MPin"));
 
         }
-
+*/
 
         UserID = mPinDao.getUserID(Global.getStringFromSharedPref(this,"MPin"));
         BranchCode = mPinDao.getBranchCode(Global.getStringFromSharedPref(this,"MPin"));

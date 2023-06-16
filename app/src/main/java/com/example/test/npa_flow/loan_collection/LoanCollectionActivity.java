@@ -72,6 +72,9 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         Global.removeStringInSharedPref(this, "formattedDistanceInKm");
 
+        //Whenever List is Loaded Make Notes Empty
+        Global.saveStringInSharedPref(this,"notes",""); //make Notes Empty After Complete
+
         setToolbarTitle();
 
     }
