@@ -98,6 +98,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
             Intent i = new Intent(this, PaymentModeStatusActivity.class);
             String dataSetId = getIntent().getStringExtra("dataSetId");
             i.putExtra("dataSetId",dataSetId);
+            i.putExtra("isVisitsReadyToPaySendLinkForOnlinePayment","isVisitsReadyToPaySendLinkForOnlinePayment");
             i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity","isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
             i.putExtra("detailsList",detailsList);
             startActivity(i);
@@ -191,6 +192,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                   Intent i = new Intent(this,PaymentModeStatusActivity.class);
                   i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                   i.putExtra("detailsList",detailsList);
+                  i.putExtra("isVisitsReadyToPayChequePayment","isVisitsReadyToPayChequePayment");
                   i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity","isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
                 startActivity(i);
               });
@@ -256,6 +258,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
             String dataSetId = getIntent().getStringExtra("dataSetId");
             i.putExtra("dataSetId", dataSetId);
             i.putExtra("detailsList", detailsList);
+            i.putExtra("isVisitsReadyToPayCashPayment","isVisitsReadyToPayCashPayment");
             i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity","isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
             startActivity(i);
 

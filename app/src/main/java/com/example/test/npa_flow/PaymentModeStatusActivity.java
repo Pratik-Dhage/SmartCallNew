@@ -313,6 +313,15 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                     i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
                     String isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
                     i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity",isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity);
+
+                    // from Visits Ready to pay Send link For Online Payment / Cash Payment  /  Cheque Payment
+                    if(getIntent().hasExtra("isVisitsReadyToPaySendLinkForOnlinePayment"))
+                    { i.putExtra("isVisitsReadyToPaySendLinkForOnlinePayment","isVisitsReadyToPaySendLinkForOnlinePayment"); }
+                    else if(getIntent().hasExtra("isVisitsReadyToPayCashPayment"))
+                    { i.putExtra("isVisitsReadyToPayCashPayment","isVisitsReadyToPayCashPayment");}
+                    else if(getIntent().hasExtra("isVisitsReadyToPayChequePayment"))
+                    { i.putExtra("isVisitsReadyToPayChequePayment","isVisitsReadyToPayChequePayment");}
+
                     startActivity(i);
                 }
 
@@ -394,6 +403,15 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                     i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
                     String isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity = getIntent().getStringExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
                     i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity",isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity);
+
+                    // from Visits Ready to pay Send link For Online Payment / Cash Payment  /  Cheque Payment
+                    if(getIntent().hasExtra("isVisitsReadyToPaySendLinkForOnlinePayment"))
+                    { i.putExtra("isVisitsReadyToPaySendLinkForOnlinePayment","isVisitsReadyToPaySendLinkForOnlinePayment"); }
+                    else if(getIntent().hasExtra("isVisitsReadyToPayCashPayment"))
+                    { i.putExtra("isVisitsReadyToPayCashPayment","isVisitsReadyToPayCashPayment");}
+                    else if(getIntent().hasExtra("isVisitsReadyToPayChequePayment"))
+                    { i.putExtra("isVisitsReadyToPayChequePayment","isVisitsReadyToPayChequePayment");}
+
                     startActivity(i);
                 }
 

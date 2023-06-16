@@ -179,6 +179,26 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                     if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
                         Global.showToast(this,"Payment Complete");
 
+                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                        if(NetworkUtilities.getConnectivityStatus(this)){
+                            if(getIntent().hasExtra("isVisitsReadyToPaySendLinkForOnlinePayment")){
+                                String sendLinkForOnlinePayment = WebServices.visit_ready_to_pay_send_link_for_online_payment;
+                                visitsFlowViewModel.postVisitsFlowCallDateTime(sendLinkForOnlinePayment,dataSetId,"","","","","");
+                            }
+                          else  if(getIntent().hasExtra("isVisitsReadyToPayCashPayment")){
+                                String cashPayment = WebServices.visit_ready_to_pay_cash_payment;
+                                visitsFlowViewModel.postVisitsFlowCallDateTime(cashPayment,dataSetId,"","","","","");
+                            }
+                          else  if(getIntent().hasExtra("isVisitsReadyToPayChequePayment")){
+                                String chequePayment = WebServices.visit_ready_to_pay_cheque_payment;
+                                visitsFlowViewModel.postVisitsFlowCallDateTime(chequePayment,dataSetId,"","","","","");
+                            }
+
+                        }
+                        else{
+                            Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                        }
+
                         Handler handler = new Handler();
                         Runnable startVisitsActivity = new Runnable() {
                             @Override
@@ -319,6 +339,27 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             //Visits For The Day Flow
             if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
                 Global.showToast(this,"Payment Complete");
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    if(getIntent().hasExtra("isVisitsReadyToPaySendLinkForOnlinePayment")){
+                        String sendLinkForOnlinePayment = WebServices.visit_ready_to_pay_send_link_for_online_payment;
+                        visitsFlowViewModel.postVisitsFlowCallDateTime(sendLinkForOnlinePayment,dataSetId,"","","","","");
+                    }
+                    else  if(getIntent().hasExtra("isVisitsReadyToPayCashPayment")){
+                        String cashPayment = WebServices.visit_ready_to_pay_cash_payment;
+                        visitsFlowViewModel.postVisitsFlowCallDateTime(cashPayment,dataSetId,"","","","","");
+                    }
+                    else  if(getIntent().hasExtra("isVisitsReadyToPayChequePayment")){
+                        String chequePayment = WebServices.visit_ready_to_pay_cheque_payment;
+                        visitsFlowViewModel.postVisitsFlowCallDateTime(chequePayment,dataSetId,"","","","","");
+                    }
+
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+
                 Handler handler = new Handler();
                 Runnable startVisitsActivity = new Runnable() {
                     @Override
@@ -439,6 +480,27 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             //Visits For The Day Flow
             if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
                 Global.showToast(this,"Payment Complete");
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                if(NetworkUtilities.getConnectivityStatus(this)){
+                    if(getIntent().hasExtra("isVisitsReadyToPaySendLinkForOnlinePayment")){
+                        String sendLinkForOnlinePayment = WebServices.visit_ready_to_pay_send_link_for_online_payment;
+                        visitsFlowViewModel.postVisitsFlowCallDateTime(sendLinkForOnlinePayment,dataSetId,"","","","","");
+                    }
+                    else  if(getIntent().hasExtra("isVisitsReadyToPayCashPayment")){
+                        String cashPayment = WebServices.visit_ready_to_pay_cash_payment;
+                        visitsFlowViewModel.postVisitsFlowCallDateTime(cashPayment,dataSetId,"","","","","");
+                    }
+                    else  if(getIntent().hasExtra("isVisitsReadyToPayChequePayment")){
+                        String chequePayment = WebServices.visit_ready_to_pay_cheque_payment;
+                        visitsFlowViewModel.postVisitsFlowCallDateTime(chequePayment,dataSetId,"","","","","");
+                    }
+
+                }
+                else{
+                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                }
+
                 Handler handler = new Handler();
                 Runnable startVisitsActivity = new Runnable() {
                     @Override

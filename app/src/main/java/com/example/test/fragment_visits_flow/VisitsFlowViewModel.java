@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.test.api_manager.WebServices;
 import com.example.test.helper_classes.Global;
 import com.example.test.login.LoginActivity;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.call_details.CallDetails;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class VisitsFlowViewModel extends ViewModel {
     public MutableLiveData<String> getMutErrorResponse() {
         return mutErrorResponse;
     }
-    String userId = LoginActivity.UserID;
+    String userId = MainActivity3API.UserID;
 
     VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
     List<CallDetails> callDetailsList = visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow();
