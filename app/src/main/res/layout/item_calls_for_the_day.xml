@@ -136,7 +136,7 @@
             android:layout_marginTop="@dimen/_2sdp"
             android:text="@string/AttemptNo"
             android:textStyle="normal"
-            app:layout_constraintStart_toStartOf="@id/txtLocation"
+            app:layout_constraintEnd_toStartOf="@id/ivCallsAttempt"
             app:layout_constraintTop_toBottomOf="@id/txtLocation" />
 
         <TextView
@@ -182,8 +182,8 @@
             android:id="@+id/ivCallsAttempt"
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            app:layout_constraintStart_toStartOf="@id/txtDistance"
+            android:layout_marginEnd="@dimen/_10sdp"
+           app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/labelAttemptNumber"
             app:layout_constraintBottom_toBottomOf="@id/labelAttemptNumber"
             tools:src="@drawable/hand" />
@@ -209,7 +209,8 @@
             android:textStyle="normal"
             android:ellipsize="end"
             android:maxLength="12"
-            app:layout_constraintStart_toEndOf="@+id/labelPinCode"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/_5sdp"
             app:layout_constraintTop_toBottomOf="@id/labelAttemptNumber" />
 
 
