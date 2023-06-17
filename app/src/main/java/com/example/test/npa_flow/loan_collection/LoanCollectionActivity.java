@@ -277,9 +277,14 @@ public class LoanCollectionActivity extends AppCompatActivity {
             if (item.getMemberName().toLowerCase().contains(userSearchedText.toLowerCase())
                     || item.getPinCode().toLowerCase().contains(userSearchedText.toLowerCase())
                     || item.getActionStatus().toLowerCase().contains(userSearchedText.toLowerCase())
+                    || item.getMobileNumber().contains(userSearchedText.toLowerCase())
             ) {
                 searchResults.add(item);
             }
+        }
+
+        if(searchResults.isEmpty()){
+            Global.showToast(this,getString(R.string.no_data_found));
         }
 
         // Use the searchResults ArrayList to update  UI
