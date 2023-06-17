@@ -209,6 +209,9 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId,"","","","","");
+
+                    Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
+                    startActivity(i);
                 }
                 else {
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
@@ -320,6 +323,9 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId,"","","","","");
+
+                    Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
+                    startActivity(i);
                 }
                 else {
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
@@ -431,6 +437,9 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId,"","","","","");
+
+                    Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
+                    startActivity(i);
                 }
                 else {
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));

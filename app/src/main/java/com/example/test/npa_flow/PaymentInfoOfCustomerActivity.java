@@ -212,7 +212,8 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             i.putExtra("isFromPaymentInfoOfCustomerActivity", "isFromPaymentInfoOfCustomerActivity");
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("detailsList", detailsList);
-            i.putExtra("paymentInfo_WillPayLater","paymentInfo_WillPayLater");
+            i.putExtra("paymentInfo_WillPayLater","paymentInfo_WillPayLater"); //Used For Will Pay LumpSump
+            i.putExtra("will_pay_later_update","will_pay_later_update"); // Used For Will Pay Later ->Update
             startActivity(i);
 
         });

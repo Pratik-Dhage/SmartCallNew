@@ -17,6 +17,7 @@ import com.example.test.databinding.ActivityScheduleVisitForCollectionBinding;
 import com.example.test.fragments_activity.ActivityOfFragments;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.call_details.CallDetailsViewModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
@@ -139,6 +140,18 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
             //on Clicking update call this api   callDetailsViewModel.postCallDetails with ScheduleDateTime
             //in pattern   String pattern = "yyyy-MM-dd HH:mm:ss"; // Pattern to match the date format
 
+            //UPDATE BUTTON (FOR SPOKE TO CUSTOMER -NOT READY TO PAY - WILL PAY LATER -UPDATE )(Payment Info Of Customer Activity)
+            if(binding.btnUpdateSchedule.getText()==getString(R.string.update)){
+                if(getIntent().hasExtra("will_pay_later_update")){
+                    getScheduleDateTime();
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String will_pay_later_update = "will pay later update";
+
+                    //using payment type as will pay later-> update
+                    callDetailsViewModel.postScheduledDateTime(dataSetId,will_pay_later_update,scheduleVisitForCollection_dateTime);
+                }
+            }
+
             // UPDATE BUTTON (FOR ASKED TO CALL LATER AND WILL PAY LATER FLOW)
             if(  binding.btnUpdateSchedule.getText()==getString(R.string.update)){
 
@@ -194,6 +207,12 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                         startActivity(i);
                     }
 
+                    if(getIntent().hasExtra("will_pay_later_update")){
+                        //from Payment Info Of Customer -> Will Pay Later-> Update
+                        Intent i = new Intent(ScheduleVisitForCollectionActivity.this, MainActivity3API.class);
+                        startActivity(i);
+                    }
+
                     else{
 
                         Intent intent = new Intent(ScheduleVisitForCollectionActivity.this, NearByCustomersActivity.class);
@@ -214,6 +233,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("detailsList",detailsList);
             i.putExtra("paymentInfo_WillPayLater",getIntent().getStringExtra("paymentInfo_WillPayLater"));
+            i.putExtra("will_pay_later_will_pay_lumpsump","will_pay_later_will_pay_lumpsump"); //for Navigating to dashboard
             startActivity(i);
         });
 

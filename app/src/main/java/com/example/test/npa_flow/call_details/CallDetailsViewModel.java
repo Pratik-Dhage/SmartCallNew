@@ -149,6 +149,18 @@ public class CallDetailsViewModel extends ViewModel {
                             this::onHomeApiSuccess, this::onApiError
                     );
         }
+
+        //WILL PAY LATER -> UPDATE
+        if(payment_type.contentEquals("will pay later update")){
+            subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_will_pay_later_update + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+                            "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber", callDetailsList)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .unsubscribeOn(Schedulers.io())
+                    .subscribe(
+                            this::onHomeApiSuccess, this::onApiError
+                    );
+        }
     }
 
     //4)PAYMENT MODE - (SVFC)SCHEDULE VISIT FOR COLLECTION BUTTON CLICK
