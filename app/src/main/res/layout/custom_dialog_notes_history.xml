@@ -41,6 +41,8 @@
                 android:orientation="vertical"
                 tools:listitem="@layout/item_notes_history"
                 tools:itemCount="3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_height="@dimen/_100sdp"/>
 
