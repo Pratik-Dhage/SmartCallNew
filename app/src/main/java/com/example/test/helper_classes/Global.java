@@ -228,14 +228,16 @@ public class Global {
 
         customNotesHistoryTextHeading.setText(R.string.customer_history);
 
+        //Set Notes History Recycler View
+        notesHistoryViewModel.updateNotesHistory_Data();
+        recyclerViewNotesHistory.setAdapter(new NotesHistoryAdapter(notesHistoryViewModel.arrList_NotesHistory_Data));
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setView(customDialog);
         final AlertDialog dialog = builder.create();
         dialog.show();
 
-        //Set Notes History Recycler View
-        notesHistoryViewModel.updateNotesHistory_Data();
-        recyclerViewNotesHistory.setAdapter(new NotesHistoryAdapter(notesHistoryViewModel.arrList_NotesHistory_Data));
 
         callNotesHistoryApi(dataSetId); // Call NotesHistory Api
         initObserverNotesHistory(context); // initObserver
