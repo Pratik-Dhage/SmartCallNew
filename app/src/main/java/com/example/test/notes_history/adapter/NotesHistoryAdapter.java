@@ -36,6 +36,7 @@ public class NotesHistoryAdapter extends RecyclerView.Adapter<NotesHistoryAdapte
 
         NotesHistoryResponseModel a = notesHistoryResponseModelArrayList.get(position);
         Context context = holder.itemView.getContext();
+
         if(a.getNotes()!=null){
             holder.binding.txtNotesHistory.setText(a.getNotes());
 
@@ -43,6 +44,10 @@ public class NotesHistoryAdapter extends RecyclerView.Adapter<NotesHistoryAdapte
 
         if(a.getDate()!=null && a.getTime()!=null){
             holder.binding.txtNotesHistoryDateTime.setText(a.getDate()+" "+a.getTime());
+        }
+
+        if(a.getUserName()!=null){
+            holder.binding.txtNotesHistoryUserName.setText(a.getUserName());
         }
 
     }
