@@ -266,6 +266,10 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                     dialog2.dismiss();
                 });
 
+                edtDateOfVisitPromised.setOnClickListener(v3->{
+                    showDatePickerDialogAndSetDate(edtDateOfVisitPromised);
+                });
+
                 edtDateOfVisitPromised.setOnFocusChangeListener((v2,hasFocus)->{
                     if(hasFocus){
                         showDatePickerDialogAndSetDate(edtDateOfVisitPromised);
@@ -487,7 +491,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 }, year, month, dayOfMonth);
 
         // Set the minimum and maximum dates allowed
-          datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000); // Will start from current date
+         // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000); // Will start from current date
         // datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 7));
 
         datePickerDialog.show();

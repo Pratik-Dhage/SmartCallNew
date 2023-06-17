@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -182,6 +183,14 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     callDetailsViewModel.postScheduledDateTime_FNV(dataSetId,"",dateOfVisitPromised,foName,"","");
 
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            startActivity(i);
+                        }
+                    },3000);
+
                 }
                 else{
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
@@ -210,8 +219,13 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId,"","","","","");
 
-                    Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
-                    startActivity(i);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            startActivity(i);
+                        }
+                    },3000);
                 }
                 else {
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
@@ -296,6 +310,13 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     callDetailsViewModel.postScheduledDateTime_FNV(dataSetId,"",dateOfVisitPromised,foName,"","");
 
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            startActivity(i);
+                        }
+                    },3000);
                 }
                 else{
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
@@ -324,8 +345,13 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId,"","","","","");
 
-                    Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
-                    startActivity(i);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            startActivity(i);
+                        }
+                    },3000);
                 }
                 else {
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
@@ -410,6 +436,13 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     callDetailsViewModel.postScheduledDateTime_FNV(dataSetId,"",dateOfVisitPromised,foName,"","");
 
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            startActivity(i);
+                        }
+                    },3000);
                 }
                 else{
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
@@ -438,8 +471,13 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId,"","","","","");
 
-                    Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
-                    startActivity(i);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            startActivity(i);
+                        }
+                    },3000);
                 }
                 else {
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
