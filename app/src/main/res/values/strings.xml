@@ -371,6 +371,9 @@
     <string name="pincode">Pincode :</string>
     <string name="pincode_">Pincode </string>
     <string name="no_data_found">No Data Found </string>
+    <string name="enter_10digit_mobile_number">Enter 10 Digit number  </string>
+    <string name="name_cannot_be_empty">Name cannot be empty  </string>
+    <string name="date_cannot_be_empty">Date cannot be empty  </string>
 
 
     <!--for Tenure-->

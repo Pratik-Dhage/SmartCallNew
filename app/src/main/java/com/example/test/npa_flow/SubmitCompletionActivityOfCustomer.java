@@ -206,6 +206,15 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     callDetailsViewModel.postScheduledDateTime_LTBR(dataSetId,"","","",relativeName,relativeContact,"LTBR");
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            startActivity(i);
+                        }
+                    },3000);
+
                 }
                 else{
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
@@ -332,6 +341,14 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     callDetailsViewModel.postScheduledDateTime_LTBR(dataSetId,"","","",relativeName,relativeContact,"LTBR");
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            startActivity(i);
+                        }
+                    },3000);
                 }
                 else{
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
@@ -458,6 +475,14 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     callDetailsViewModel.postScheduledDateTime_LTBR(dataSetId,"","","",relativeName,relativeContact,"LTBR");
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            startActivity(i);
+                        }
+                    },3000);
                 }
                 else{
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));

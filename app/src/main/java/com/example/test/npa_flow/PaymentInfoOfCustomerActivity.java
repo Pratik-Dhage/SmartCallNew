@@ -278,17 +278,30 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
 
                 btnProceed.setOnClickListener(v2->{
-                    Intent i = new Intent(PaymentInfoOfCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
-                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                    i.putExtra("detailsList", detailsList);
-                    i.putExtra("isFoNotVisited","isFoNotVisited");
-                    i.putExtra("dateOfVisitPromised",edtDateOfVisitPromised.getText().toString().trim());//Date of Visit Promised
-                    i.putExtra("foName",edtFoName.getText().toString().trim()); //FO Name
-                    startActivity(i);
 
-                    //Save DateOfVisitPromised and FoName in SharedPreference and use in DetailsOfCustomerActivity
-                    Global.saveStringInSharedPref(this,"dateOfVisitPromised",edtDateOfVisitPromised.getText().toString().trim());
-                    Global.saveStringInSharedPref(this,"foName",edtFoName.getText().toString().trim());
+                    if(edtDateOfVisitPromised.getText().toString().isEmpty()){
+                        edtDateOfVisitPromised.setError(getString(R.string.date_cannot_be_empty));
+                    }
+                    else if(edtFoName.getText().toString().isEmpty()){
+                        edtFoName.setError(getString(R.string.name_cannot_be_empty));
+                    }
+                    else{
+
+                        Intent i = new Intent(PaymentInfoOfCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
+                        i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                        i.putExtra("detailsList", detailsList);
+                        i.putExtra("isFoNotVisited","isFoNotVisited");
+                        i.putExtra("dateOfVisitPromised",edtDateOfVisitPromised.getText().toString().trim());//Date of Visit Promised
+                        i.putExtra("foName",edtFoName.getText().toString().trim()); //FO Name
+                        startActivity(i);
+
+                        //Save DateOfVisitPromised and FoName in SharedPreference and use in DetailsOfCustomerActivity
+                        Global.saveStringInSharedPref(this,"dateOfVisitPromised",edtDateOfVisitPromised.getText().toString().trim());
+                        Global.saveStringInSharedPref(this,"foName",edtFoName.getText().toString().trim());
+
+                    }
+
+
                 });
 
 
@@ -431,18 +444,33 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             dialog2.show();
 
 
-            btnProceed.setOnClickListener(v2 -> {
-                Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
-                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                i.putExtra("detailsList", detailsList);
-                i.putExtra("isLoanTakenByRelative","isLoanTakenByRelative");
-                i.putExtra("relativeName",edtRelativeName.getText().toString().trim()); //Relative Name
-                i.putExtra("relativeContact",edtRelativeContact.getText().toString().trim()); //Relative Contact
-                startActivity(i);
 
-                // Save Relative Name and Contact in SharedPreferences and use in DetailsOfCustomerActivity
-                Global.saveStringInSharedPref(this,"relativeName",edtRelativeName.getText().toString().trim());
-                Global.saveStringInSharedPref(this,"relativeContact",edtRelativeContact.getText().toString().trim());
+            btnProceed.setOnClickListener(v2 -> {
+
+                if(edtRelativeName.getText().toString().isEmpty()){
+                    edtRelativeName.setError(getString(R.string.name_cannot_be_empty));
+                }
+
+              else  if(edtRelativeContact.length()!=10){
+                    edtRelativeContact.setError(getString(R.string.enter_10digit_mobile_number));
+                }
+
+                else{
+                    Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("detailsList", detailsList);
+                    i.putExtra("isLoanTakenByRelative","isLoanTakenByRelative");
+                    i.putExtra("relativeName",edtRelativeName.getText().toString().trim()); //Relative Name
+                    i.putExtra("relativeContact",edtRelativeContact.getText().toString().trim()); //Relative Contact
+                    startActivity(i);
+
+                    // Save Relative Name and Contact in SharedPreferences and use in DetailsOfCustomerActivity
+                    Global.saveStringInSharedPref(this,"relativeName",edtRelativeName.getText().toString().trim());
+                    Global.saveStringInSharedPref(this,"relativeContact",edtRelativeContact.getText().toString().trim());
+
+                }
+
+
             });
 
             ivCancel2.setOnClickListener(v2 -> {
