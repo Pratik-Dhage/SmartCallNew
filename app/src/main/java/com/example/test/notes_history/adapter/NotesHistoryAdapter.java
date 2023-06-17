@@ -1,6 +1,7 @@
 package com.example.test.notes_history.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
 import com.example.test.databinding.ItemNotesHistoryBinding;
+import com.example.test.helper_classes.Global;
 import com.example.test.notes_history.NotesHistoryResponseModel;
 
 import java.util.ArrayList;
@@ -33,9 +35,14 @@ public class NotesHistoryAdapter extends RecyclerView.Adapter<NotesHistoryAdapte
     public void onBindViewHolder(@NonNull MyViewHolderClass holder, int position) {
 
         NotesHistoryResponseModel a = notesHistoryResponseModelArrayList.get(position);
+        Context context = holder.itemView.getContext();
+        if(a.getNotes()!=null){
+            holder.binding.txtNotesHistory.setText(a.getNotes());
 
-        if(a.getNotesHistory()!=null){
-            holder.binding.txtNotesHistory.setText(a.getNotesHistory());
+        }
+
+        if(a.getDate()!=null && a.getTime()!=null){
+            holder.binding.txtNotesHistoryDateTime.setText(a.getDate()+" "+a.getTime());
         }
 
     }

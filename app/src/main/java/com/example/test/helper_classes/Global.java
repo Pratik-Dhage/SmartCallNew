@@ -233,8 +233,13 @@ public class Global {
         final AlertDialog dialog = builder.create();
         dialog.show();
 
+        //Set Notes History Recycler View
+        notesHistoryViewModel.updateNotesHistory_Data();
+        recyclerViewNotesHistory.setAdapter(new NotesHistoryAdapter(notesHistoryViewModel.arrList_NotesHistory_Data));
+
         callNotesHistoryApi(dataSetId); // Call NotesHistory Api
         initObserverNotesHistory(context); // initObserver
+
 
         btnCloseDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -267,7 +272,7 @@ public class Global {
                 if(result!=null){
 
                     notesHistoryViewModel.arrList_NotesHistory_Data.clear();
-                    setUpNotesHistoryRecyclerView(context);
+                   // setUpNotesHistoryRecyclerView(context); // No need here, Setting Recycler View Above
                    notesHistoryViewModel.arrList_NotesHistory_Data.addAll(result);
                 }
 

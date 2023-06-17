@@ -44,7 +44,7 @@ public class NotesHistoryResponseModel {
         this.activityType = activityType;
     }
 
-    public void setNotesHistory(String notesHistory) {
+    public void setNotes(String notes) {
         this.notes = notes;
     }
 }
