@@ -346,7 +346,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             });
 
             txtSkipAndProceed.setOnClickListener(v1 -> {
-                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
                 i.putExtra("isAlreadyPaid","isAlreadyPaid");

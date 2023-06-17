@@ -310,6 +310,15 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                         if(NetworkUtilities.getConnectivityStatus(this)){
 
                             callDetailsViewModel.postScheduledDateTime_AP(dataSetId,"","","","","");
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent i = new Intent(VisitCompletionOfCustomerActivity.this,MainActivity3API.class);
+                                    startActivity(i);
+                                }
+                            },2000);
+
                         }
                         else{
                             Global.showSnackBar(view,getString(R.string.check_internet_connection));
@@ -451,6 +460,14 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                         if(NetworkUtilities.getConnectivityStatus(this)){
 
                             callDetailsViewModel.postScheduledDateTime_AP(dataSetId,"","","","","");
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent i = new Intent(VisitCompletionOfCustomerActivity.this,MainActivity3API.class);
+                                    startActivity(i);
+                                }
+                            },2000);
                         }
                         else{
                             Global.showSnackBar(view,getString(R.string.check_internet_connection));
@@ -594,6 +611,14 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                         if(NetworkUtilities.getConnectivityStatus(this)){
 
                             callDetailsViewModel.postScheduledDateTime_AP(dataSetId,"","","","","");
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent i = new Intent(VisitCompletionOfCustomerActivity.this,MainActivity3API.class);
+                                    startActivity(i);
+                                }
+                            },2000);
                         }
                         else{
                             Global.showSnackBar(view,getString(R.string.check_internet_connection));

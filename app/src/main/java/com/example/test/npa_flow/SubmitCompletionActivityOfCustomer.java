@@ -174,6 +174,21 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
         binding.btnSubmitNoChange.setOnClickListener(v->{
 
+            //ALREADY PAID
+            if(getIntent().hasExtra("isAlreadyPaid")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                callDetailsViewModel.postScheduledDateTime_AP(dataSetId,"","","","","");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                        startActivity(i);
+                    }
+                },2000);
+
+            }
+
             //FO NOT VISITED
             if(getIntent().hasExtra("isFoNotVisited")){
                 String dataSetId = getIntent().getStringExtra("dataSetId");
@@ -310,6 +325,21 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
         binding.btnSubmitNeedToUpdateDetails.setOnClickListener(v->{
 
+            //ALREADY PAID
+            if(getIntent().hasExtra("isAlreadyPaid")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                callDetailsViewModel.postScheduledDateTime_AP(dataSetId,"","","","","");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                        startActivity(i);
+                    }
+                },2000);
+
+            }
+
             //FO NOT VISITED
             if(getIntent().hasExtra("isFoNotVisited")){
                 String dataSetId = getIntent().getStringExtra("dataSetId");
@@ -443,6 +473,21 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         });
 
         binding.btnSubmitEscalateToBM.setOnClickListener(v->{
+
+            //ALREADY PAID
+            if(getIntent().hasExtra("isAlreadyPaid")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                callDetailsViewModel.postScheduledDateTime_AP(dataSetId,"","","","","");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                        startActivity(i);
+                    }
+                },2000);
+
+            }
 
             //FO NOT VISITED
             if(getIntent().hasExtra("isFoNotVisited")){
