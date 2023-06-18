@@ -144,12 +144,12 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         } else if (attemptFlow.contains("pap")) {
                             holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo3.setText(R.string.partial_Amount_paid_status_info);
-                        } else if (attemptFlow.contains("wpl")) {
-                            holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
-                            holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_later_status_info);
                         } else if (attemptFlow.contains("wpls")) {
                             holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_lump_sump_status_info);
+                        } else if (attemptFlow.contains("wpl")) {
+                            holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_later_status_info);
                         }
                     }
                 }

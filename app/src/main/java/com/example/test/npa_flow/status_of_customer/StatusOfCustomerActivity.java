@@ -92,6 +92,7 @@ public class StatusOfCustomerActivity extends AppCompatActivity {
 
     private void initObserver(){
 
+        binding.loadingProgressBar.setVisibility(View.VISIBLE);
         statusOfCustomerViewModel.getMutActivityOfStatusResponseApi().observe(this,result->{
 
             if(NetworkUtilities.getConnectivityStatus(this)){
@@ -99,6 +100,7 @@ public class StatusOfCustomerActivity extends AppCompatActivity {
 
                 if(result!=null){
 
+                    binding.loadingProgressBar.setVisibility(View.INVISIBLE);
                     statusOfCustomerViewModel.arrListActivityData.clear();
                     setUpStatusDetailsRecyclerViewData();
                     statusOfCustomerViewModel.arrListActivityData.addAll(result);
