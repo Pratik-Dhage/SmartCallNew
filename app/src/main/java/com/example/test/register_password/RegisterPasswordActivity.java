@@ -77,6 +77,8 @@ public class RegisterPasswordActivity extends AppCompatActivity {
                 Global.saveStringInSharedPref(this,"UserID",String.valueOf(result.getUserId()));
                 Global.saveStringInSharedPref(this,"BranchCode",String.valueOf(result.getBranchCode()));
 
+                System.out.println("Here RegisterPassword UserID: "+String.valueOf(result.getUserId()));
+                System.out.println("Here RegisterPassword BranchCode: "+String.valueOf(result.getBranchCode()));
 
             }
 

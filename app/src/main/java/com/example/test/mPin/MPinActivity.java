@@ -118,11 +118,11 @@ public class MPinActivity extends AppCompatActivity {
     private void saveMPinInRoomDB(String userMPin) {
         MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
         String userNameFromOTPResponse = Global.getStringFromSharedPref(this, "userNameFromOTPResponse");
-
+        String UserID = Global.getStringFromSharedPref(this,"UserID");
 
         checkIfMPinExists(userMPin);
 
-        System.out.println("Here userMPinInRoomDB: " + mPinDao.getMPinFromRoomDB(userNameFromOTPResponse));
+        System.out.println("Here userMPinInRoomDB: " + mPinDao.getMPinFromRoomDB(UserID));
         System.out.println("Here userNameMPinInRoomDB: " + mPinDao.getUserNameUsingMPinInRoomDB(userMPin));
         System.out.println("Here UserIDinRoomDB: " + mPinDao.getUserID(userMPin));
         System.out.println("Here BranchCodeInInRoomDB: " + mPinDao.getBranchCode(userMPin));
@@ -139,7 +139,7 @@ public class MPinActivity extends AppCompatActivity {
 
         if (countOfMPin > 0) {
             // At least one mPin exists in the table
-            mPinDao.updateMPin(userMPin, userNameFromOTPResponse,UserID,BranchCode);
+            mPinDao.updateMPin(userMPin,UserID,BranchCode);
             Global.showToast(this,"Updated mPin");
 
         }

@@ -88,11 +88,13 @@ public class LoginWithMPinActivity extends AppCompatActivity {
 
         String mPinUserNameFromRomDB = mPinDao.getUserNameUsingMPinInRoomDB(binding.mpinView.getOTP());
 
-        String mPinFromRoomDB = mPinDao.getMPinFromRoomDB(mPinUserNameFromRomDB);
 
         String UserID = mPinDao.getUserID(binding.mpinView.getOTP());
 
         String BranchCode = mPinDao.getBranchCode(binding.mpinView.getOTP());
+
+        String mPinFromRoomDB = mPinDao.getMPinFromRoomDB(UserID);
+
 
         Global.saveStringInSharedPref(this,"UserID",UserID);
         Global.saveStringInSharedPref(this,"BranchCode",BranchCode);
