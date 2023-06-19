@@ -44,6 +44,12 @@ public class VisitsFlowCallDetailsActivity extends AppCompatActivity {
     public static String send_callNotes;
     public static String send_RelativeName;
     public static String send_RelativeContact;
+    public static String send_amountCollected;
+    public static String send_chequeDate;
+    public static String send_chequeNumber;
+    public static String send_chequeAmount;
+    public static String send_bankName;
+
     public static boolean startCallRecording = false;
 
     @Override
@@ -109,6 +115,26 @@ public class VisitsFlowCallDetailsActivity extends AppCompatActivity {
         callDetails.setRelativeName("");
         callDetails.setRelativeContact("");
     }
+
+        if(send_amountCollected!=null){
+         callDetails.setAmountCollected(send_amountCollected);
+        }
+
+        if(send_chequeDate!=null){
+            callDetails.setChequeDate(send_chequeDate);
+        }
+
+        if(send_chequeNumber!=null){
+           callDetails.setChequeNumber(send_chequeNumber);
+        }
+
+        if(send_chequeAmount!=null){
+            callDetails.setChequeAmount(send_chequeAmount);
+        }
+
+        if(send_bankName!=null){
+            callDetails.setBankName(send_bankName);
+        }
 
         callDetailsList.add(callDetails);
         return callDetailsList;
