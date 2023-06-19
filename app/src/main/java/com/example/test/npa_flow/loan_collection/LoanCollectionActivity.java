@@ -308,8 +308,12 @@ public class LoanCollectionActivity extends AppCompatActivity {
         Global.removeStringInSharedPref(this, "formattedDistanceInKm");
         setUpLoanCollectionList_RecyclerView(); // acts as refresh to show correct Attempt No.
 
+
         //When User Searched String is not empty (When pressing back button in StatusOfCustomerActivity)
-        performSearch(binding.edtSearchFromList.getText().toString());
+       if(!binding.edtSearchFromList.getText().toString().isEmpty()){
+           performSearch(binding.edtSearchFromList.getText().toString());
+       }
+
 
         super.onResume();
     }
