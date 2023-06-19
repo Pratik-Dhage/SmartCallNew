@@ -15,8 +15,10 @@ import com.example.test.login.LoginActivity;
 import com.example.test.login.LoginWithMPinActivity;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.MPinRoomModel;
+import com.example.test.roomDB.model.UserNameRoomModel;
 import com.example.test.success.SuccessActivity;
 import com.example.test.databinding.ActivityMpinBinding;
 import com.example.test.databinding.ActivityRegisterPasswordBinding;
@@ -117,13 +119,14 @@ public class MPinActivity extends AppCompatActivity {
 
     private void saveMPinInRoomDB(String userMPin) {
         MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
         String userNameFromOTPResponse = Global.getStringFromSharedPref(this, "userNameFromOTPResponse");
         String UserID = Global.getStringFromSharedPref(this,"UserID");
 
         checkIfMPinExists(userMPin);
 
         System.out.println("Here userMPinInRoomDB: " + mPinDao.getMPinFromRoomDB(UserID));
-        System.out.println("Here userNameMPinInRoomDB: " + mPinDao.getUserNameUsingMPinInRoomDB(userMPin));
+        System.out.println("Here userNameInRoomDB: " + userNameDao.getUserNameUsingUserIDInUserNameRoomDB(UserID));
         System.out.println("Here UserIDinRoomDB: " + mPinDao.getUserID(userMPin));
         System.out.println("Here BranchCodeInInRoomDB: " + mPinDao.getBranchCode(userMPin));
     }
@@ -142,6 +145,10 @@ public class MPinActivity extends AppCompatActivity {
             mPinDao.updateMPin(userMPin,UserID,BranchCode);
             Global.showToast(this,"Updated mPin");
 
+            //Update UserName in RoomDB
+            UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+            userNameDao.updateUserName(UserID,Global.getStringFromSharedPref(this,"UserName"));
+            System.out.println("Updated UserName:"+userNameDao.getUserNameUsingUserIDInUserNameRoomDB(UserID));
         }
         else {
             // No mPin exists in the table
@@ -153,6 +160,13 @@ public class MPinActivity extends AppCompatActivity {
             MPinRoomModel newMPinRoomModel = new MPinRoomModel(userMPin,  UserID , BranchCode);
             mPinDao.insert(newMPinRoomModel);
             Global.showToast(this,"Saved mPin");
+
+            //Save UserName in RoomDB
+            UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+
+            UserNameRoomModel userNameRoomModel = new UserNameRoomModel(UserID, Global.getStringFromSharedPref(this,"UserName"));
+            userNameDao.insert(userNameRoomModel);
+            System.out.println("Here MPin & UserName:"+userMPin+" "+mPinDao.getUserNameUsingUserID(UserID));
         }
 
     }

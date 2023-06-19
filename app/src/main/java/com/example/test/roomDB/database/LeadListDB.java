@@ -11,15 +11,17 @@ import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.LeadDao;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserDao;
+import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.model.CustomerLocationRoomModel;
 import com.example.test.roomDB.model.LeadCallModelRoom;
 import com.example.test.roomDB.model.LeadModelRoom;
 import com.example.test.roomDB.model.MPinRoomModel;
 import com.example.test.roomDB.model.UserLocationRoomModel;
+import com.example.test.roomDB.model.UserNameRoomModel;
 
 import kotlin.jvm.Synchronized;
 
-@Database(entities = {LeadModelRoom.class, LeadCallModelRoom.class, UserLocationRoomModel.class, CustomerLocationRoomModel.class, MPinRoomModel.class},version = 7)
+@Database(entities = {LeadModelRoom.class, LeadCallModelRoom.class, UserLocationRoomModel.class, CustomerLocationRoomModel.class, MPinRoomModel.class, UserNameRoomModel.class},version = 8)
 public abstract class LeadListDB extends RoomDatabase {
 
     public abstract LeadDao leadDao();
@@ -27,6 +29,7 @@ public abstract class LeadListDB extends RoomDatabase {
     public abstract UserDao userDao();
     public abstract CustomerDao customerDao();
     public abstract MPinDao mPinDao();
+    public abstract UserNameDao userNameDao();
 
     private static LeadListDB leadListDBInstance= null; // the instance will be created only once
 

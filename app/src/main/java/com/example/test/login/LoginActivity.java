@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     public static  String userName;
    public static String BranchCode;
    public static  String UserID;
+   public static String UserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                     // Store UserID and BranchCode To Call In API's
                     UserID =  String.valueOf(result.getUserId());
                     BranchCode = String.valueOf(result.getBranchCode());
-
+                    UserName = String.valueOf(result.getUserName());
 
                     System.out.println("Here UserId & BranchCode:"+UserID+" "+BranchCode);
 
@@ -133,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                   //Store in Shared Preference For Storing MPin
                     Global.saveStringInSharedPref(this,"UserID",UserID);
                     Global.saveStringInSharedPref(this,"BranchCode",BranchCode);
+                    Global.saveStringInSharedPref(this,"UserName",UserName);
 
                 }
             }

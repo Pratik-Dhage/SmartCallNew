@@ -26,6 +26,7 @@ import com.example.test.main_dashboard.adapter.MainDashBoardAdapter;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.schedule_flow.ScheduleDetailsActivity;
 import com.example.test.schedule_flow.calls_for_the_day.CallsForTheDayActivity;
@@ -108,6 +109,16 @@ public class MainActivity3API extends AppCompatActivity {
             String userName = LoginActivity.userName;
             Global.saveStringInSharedPref(this,"userName",userName);
         }
+         else{
+             MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+             UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+             String userName =  userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+             binding.txtWelcomeUser.setText("Welcome "+userName);
+             System.out.println("Here LoginWithMPin UserName:"+userName);
+
+             // Store UserName in SharedPreference and Use in StatusOfCustomerDetailsAdapter
+             Global.saveStringInSharedPref(this,"userName",userName);
+         }
     }
 
     private void callDashBoardApi() {
