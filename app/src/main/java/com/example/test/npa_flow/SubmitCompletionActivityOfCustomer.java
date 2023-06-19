@@ -234,7 +234,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                             Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
                             startActivity(i);
                         }
-                    },3000);
+                    },1000);
 
                 }
                 else{
@@ -390,7 +390,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                             Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
                             startActivity(i);
                         }
-                    },3000);
+                    },1000);
                 }
                 else{
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
@@ -545,7 +545,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                             Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
                             startActivity(i);
                         }
-                    },3000);
+                    },1000);
                 }
                 else{
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
