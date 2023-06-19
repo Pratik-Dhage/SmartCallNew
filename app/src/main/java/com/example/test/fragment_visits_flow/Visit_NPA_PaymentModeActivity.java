@@ -109,7 +109,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
             //If Amount Paid is Null
             if(Global.getStringFromSharedPref(this,"Amount_Paid").isEmpty()){
-                Global.showToast(this,getString(R.string.amount_paid_is_empty));
+                Global.showToast(this,getString(R.string.please_enter_amount));
             }
 
             else{
@@ -166,40 +166,52 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
             //for Cheque Payment
           binding.btnCheque.setOnClickListener(v->{
 
-              View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_cheque, null);
-              ImageView ivCancel = customDialog.findViewById(R.id.ivCancel);
-              Button btnProceed = customDialog.findViewById(R.id.btnProceed);
-              EditText edtPleaseEnterChequeDate = customDialog.findViewById(R.id.edtPleaseEnterChequeDate);
-              EditText edtPleaseEnterChequeNumber = customDialog.findViewById(R.id.edtPleaseEnterChequeNumber);
-              EditText edtPleaseEnterBankName = customDialog.findViewById(R.id.edtPleaseEnterBankName);
-              EditText edtPleaseEnterIfscCode = customDialog.findViewById(R.id.edtPleaseEnterIfscCode);
+              //If Amount Paid is Null
+              if(Global.getStringFromSharedPref(this,"Amount_Paid").isEmpty()){
+                  Global.showToast(this,getString(R.string.please_enter_amount));
+              }
+
+              else{
+
+                  View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_cheque, null);
+                  ImageView ivCancel = customDialog.findViewById(R.id.ivCancel);
+                  Button btnProceed = customDialog.findViewById(R.id.btnProceed);
+                  EditText edtPleaseEnterChequeDate = customDialog.findViewById(R.id.edtPleaseEnterChequeDate);
+                  EditText edtPleaseEnterChequeNumber = customDialog.findViewById(R.id.edtPleaseEnterChequeNumber);
+                  EditText edtPleaseEnterBankName = customDialog.findViewById(R.id.edtPleaseEnterBankName);
+                  EditText edtPleaseEnterIfscCode = customDialog.findViewById(R.id.edtPleaseEnterIfscCode);
 
 
-              AlertDialog.Builder builder = new AlertDialog.Builder(this);
-              builder.setView(customDialog);
-              final AlertDialog dialog = builder.create();
-              dialog.setCancelable(true);
-             // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-              dialog.show();
+                  AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                  builder.setView(customDialog);
+                  final AlertDialog dialog = builder.create();
+                  dialog.setCancelable(true);
+                  // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                  dialog.show();
 
 
-              //for Cheque Date
-              edtPleaseEnterChequeDate.setOnFocusChangeListener((v1, hasFocus) -> {
-                  showDatePickerDialogAndSetDate(edtPleaseEnterChequeDate);
-              });
+                  //for Cheque Date
+                  edtPleaseEnterChequeDate.setOnFocusChangeListener((v1, hasFocus) -> {
+                      showDatePickerDialogAndSetDate(edtPleaseEnterChequeDate);
+                  });
 
-              btnProceed.setOnClickListener(v2->{
-                  Intent i = new Intent(this,PaymentModeStatusActivity.class);
-                  i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                  i.putExtra("detailsList",detailsList);
-                  i.putExtra("isVisitsReadyToPayChequePayment","isVisitsReadyToPayChequePayment");
-                  i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity","isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
-                startActivity(i);
-              });
+                  btnProceed.setOnClickListener(v2->{
+                      Intent i = new Intent(this,PaymentModeStatusActivity.class);
+                      i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                      i.putExtra("detailsList",detailsList);
+                      i.putExtra("isVisitsReadyToPayChequePayment","isVisitsReadyToPayChequePayment");
+                      i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity","isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
+                      startActivity(i);
+                  });
 
-              ivCancel.setOnClickListener(v1->{
-                  dialog.dismiss();
-              });
+                  ivCancel.setOnClickListener(v1->{
+                      dialog.dismiss();
+                  });
+
+
+              }
+
+
           });
 
 
