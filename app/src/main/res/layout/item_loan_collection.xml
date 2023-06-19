@@ -46,7 +46,7 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 tools:text="IN-PROCESS"
-                android:textStyle="normal"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/labelStatus"
                 app:layout_constraintTop_toTopOf="parent" />
 
