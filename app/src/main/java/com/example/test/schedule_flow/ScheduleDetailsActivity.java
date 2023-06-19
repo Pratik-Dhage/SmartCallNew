@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -196,6 +197,8 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
                 edtFromDate.setText("");
                 edtToDate.setText("");
                 txtDateError.setVisibility(View.INVISIBLE);
+                edtFromDate.requestFocus();//for Cursor to be on From Date After ResetDate icon is clicked
+
             });
 
             btnSearch.setOnClickListener(v1 -> {
