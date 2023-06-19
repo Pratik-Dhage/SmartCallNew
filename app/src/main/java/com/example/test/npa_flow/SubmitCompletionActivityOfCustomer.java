@@ -174,6 +174,12 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
         binding.btnSubmitNoChange.setOnClickListener(v->{
 
+            //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
+            if(getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")){
+                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                startActivity(i);
+            }
+
             //ALREADY PAID
             if(getIntent().hasExtra("isAlreadyPaid")){
                 String dataSetId = getIntent().getStringExtra("dataSetId");
@@ -325,6 +331,12 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
         binding.btnSubmitNeedToUpdateDetails.setOnClickListener(v->{
 
+            //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
+            if(getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")){
+                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                startActivity(i);
+            }
+
             //ALREADY PAID
             if(getIntent().hasExtra("isAlreadyPaid")){
                 String dataSetId = getIntent().getStringExtra("dataSetId");
@@ -473,6 +485,12 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         });
 
         binding.btnSubmitEscalateToBM.setOnClickListener(v->{
+
+            //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
+            if(getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")){
+                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                startActivity(i);
+            }
 
             //ALREADY PAID
             if(getIntent().hasExtra("isAlreadyPaid")){

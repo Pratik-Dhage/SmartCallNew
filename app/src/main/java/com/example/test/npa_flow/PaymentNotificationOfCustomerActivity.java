@@ -114,15 +114,16 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
             builder.setView(customDialogEditable);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+          //  dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
             dialog.show();
 
 
             btnProceed.setOnClickListener(v2 -> {
-                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList",detailsList);
+                i.putExtra("isPaymentNotificationOfCustomer_Others","isPaymentNotificationOfCustomer_Others");
                 startActivity(i);
             });
 
