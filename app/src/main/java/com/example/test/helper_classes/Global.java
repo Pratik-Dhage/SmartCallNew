@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -113,6 +114,7 @@ public class Global {
         View customDialog = LayoutInflater.from(context).inflate(R.layout.custom_dialog_box, null);
 
         TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+        ImageView ivClose = customDialog.findViewById(R.id.ivClose);
         Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
         EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
         customEditBox.setVisibility(View.VISIBLE);
@@ -140,6 +142,8 @@ public class Global {
             }
         });
 
+        ivClose.setOnClickListener(v->{ dialog.dismiss();});
+
         // to Display previous written Notes
         customEditBox.addTextChangedListener(new TextWatcher() {
             @Override
@@ -166,6 +170,7 @@ public class Global {
         View customDialog = LayoutInflater.from(context).inflate(R.layout.custom_dialog_box, null);
 
         TextView customText =  customDialog.findViewById(R.id.txtCustomDialog);
+        ImageView ivClose = customDialog.findViewById(R.id.ivClose);
         Button customButton = customDialog.findViewById(R.id.btnCustomDialog);
         EditText customEditBox = customDialog.findViewById(R.id.edtCustomDialog);
         customEditBox.setVisibility(View.VISIBLE);
@@ -192,6 +197,8 @@ public class Global {
                 dialog.dismiss();
             }
         });
+
+        ivClose.setOnClickListener(v->{dialog.dismiss();});
 
         // to Display previous written Notes
         customEditBox.addTextChangedListener(new TextWatcher() {
