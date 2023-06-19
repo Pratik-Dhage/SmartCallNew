@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -68,11 +69,27 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
         }
 
         if(a.getActionStatus()!=null){
+
             holder.binding.txtStatus.setText(a.getActionStatus());
 
+            //set Colors for Status
+            if(a.getActionStatus().toLowerCase().contains("pending")){
+                holder.binding.txtStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.chilliRed) );
+            }
+
+            if(a.getActionStatus().toLowerCase().contains("in-process")){
+                holder.binding.txtStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.blueButton) );
+            }
+
+            if(a.getActionStatus().toLowerCase().contains("re-assigned")){
+                holder.binding.txtStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.purple) );
+            }
+
             if(a.getActionStatus().toLowerCase().contains("complete")){
+                holder.binding.txtStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.green) );
                 holder.binding.ivLoanCollectionAttempt.setVisibility(View.INVISIBLE); // hide Attempt No. when Status:Complete
             }
+
         }
 
 //        holder.binding.txtScheduledTime.setText(a.getScheduleDateTime().toString()); //Note: in API Response Scheduled Time is null
