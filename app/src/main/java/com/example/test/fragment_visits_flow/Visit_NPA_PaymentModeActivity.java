@@ -125,6 +125,9 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                 // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
+                //To Send To Server
+                VisitsFlowCallDetailsActivity.send_amountCollected = Global.getStringFromSharedPref(this,"Amount_Paid");
+
                 btnGenerateReceipt.setOnClickListener(v2->{
 
                     String dataSetId = getIntent().getStringExtra("dataSetId");
@@ -180,6 +183,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                   EditText edtPleaseEnterChequeNumber = customDialog.findViewById(R.id.edtPleaseEnterChequeNumber);
                   EditText edtPleaseEnterBankName = customDialog.findViewById(R.id.edtPleaseEnterBankName);
                   EditText edtPleaseEnterIfscCode = customDialog.findViewById(R.id.edtPleaseEnterIfscCode);
+                  EditText edtPleaseEnterAmount = customDialog.findViewById(R.id.edtPleaseEnterAmount);
 
 
                   AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -196,12 +200,41 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                   });
 
                   btnProceed.setOnClickListener(v2->{
-                      Intent i = new Intent(this,PaymentModeStatusActivity.class);
-                      i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                      i.putExtra("detailsList",detailsList);
-                      i.putExtra("isVisitsReadyToPayChequePayment","isVisitsReadyToPayChequePayment");
-                      i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity","isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
-                      startActivity(i);
+
+                      if(edtPleaseEnterChequeDate.getText().toString().isEmpty() || edtPleaseEnterChequeNumber.getText().toString().isEmpty()
+                      || edtPleaseEnterBankName.getText().toString().isEmpty() || edtPleaseEnterIfscCode.getText().toString().isEmpty() ||
+                              edtPleaseEnterAmount.getText().toString().isEmpty()){
+
+                          Global.showToast(this,getString(R.string.please_enter_all_cheque_details));
+                      }
+
+                      else{
+
+                          String ChequeDate = edtPleaseEnterChequeDate.getText().toString().trim();
+                          String ChequeNumber = edtPleaseEnterChequeNumber.getText().toString().trim();
+                          String BankName = edtPleaseEnterBankName.getText().toString().trim();
+                          String ChequeAmount = edtPleaseEnterAmount.getText().toString().trim();
+
+                          //to Post/Send  Cheque Details to Server
+                          VisitsFlowCallDetailsActivity.send_amountCollected = Global.getStringFromSharedPref(this,"Amount_Paid");
+                          VisitsFlowCallDetailsActivity.send_chequeDate = edtPleaseEnterChequeDate.getText().toString().trim();
+                          VisitsFlowCallDetailsActivity.send_chequeNumber = edtPleaseEnterChequeNumber.getText().toString().trim();
+                          VisitsFlowCallDetailsActivity.send_bankName = edtPleaseEnterBankName.getText().toString().trim();
+                          VisitsFlowCallDetailsActivity.send_chequeAmount = edtPleaseEnterAmount.getText().toString().trim();
+
+                          Intent i = new Intent(this,PaymentModeStatusActivity.class);
+                          i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                          i.putExtra("detailsList",detailsList);
+                          i.putExtra("isVisitsReadyToPayChequePayment","isVisitsReadyToPayChequePayment");
+                          i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity","isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
+                          i.putExtra("ChequeDate",ChequeDate);
+                          i.putExtra("ChequeNumber",ChequeNumber);
+                          i.putExtra("BankName",BankName);
+                          i.putExtra("ChequeAmount",ChequeAmount);
+
+                          startActivity(i);
+                      }
+
                   });
 
                   ivCancel.setOnClickListener(v1->{

@@ -320,7 +320,14 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                     else if(getIntent().hasExtra("isVisitsReadyToPayCashPayment"))
                     { i.putExtra("isVisitsReadyToPayCashPayment","isVisitsReadyToPayCashPayment");}
                     else if(getIntent().hasExtra("isVisitsReadyToPayChequePayment"))
-                    { i.putExtra("isVisitsReadyToPayChequePayment","isVisitsReadyToPayChequePayment");}
+                    { i.putExtra("isVisitsReadyToPayChequePayment","isVisitsReadyToPayChequePayment");
+
+                    i.putExtra("ChequeDate",getIntent().getStringExtra("ChequeDate"));
+                    i.putExtra("ChequeNumber",getIntent().getStringExtra("ChequeNumber"));
+                    i.putExtra("BankName",getIntent().getStringExtra("BankName"));
+                    i.putExtra("ChequeAmount",getIntent().getStringExtra("ChequeAmount"));
+
+                    }
 
                     startActivity(i);
                 }
@@ -411,6 +418,11 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                     { i.putExtra("isVisitsReadyToPayCashPayment","isVisitsReadyToPayCashPayment");}
                     else if(getIntent().hasExtra("isVisitsReadyToPayChequePayment"))
                     { i.putExtra("isVisitsReadyToPayChequePayment","isVisitsReadyToPayChequePayment");}
+
+                    i.putExtra("ChequeDate",getIntent().getStringExtra("ChequeDate"));
+                    i.putExtra("ChequeNumber",getIntent().getStringExtra("ChequeNumber"));
+                    i.putExtra("BankName",getIntent().getStringExtra("BankName"));
+                    i.putExtra("ChequeAmount",getIntent().getStringExtra("ChequeAmount"));
 
                     startActivity(i);
                 }

@@ -374,6 +374,7 @@
     <string name="enter_10digit_mobile_number">Enter 10 Digit number  </string>
     <string name="name_cannot_be_empty">Name cannot be empty  </string>
     <string name="date_cannot_be_empty">Date cannot be empty  </string>
+    <string name="please_enter_all_cheque_details">Please Enter All Cheque Details  </string>
 
 
     <!--for Tenure-->

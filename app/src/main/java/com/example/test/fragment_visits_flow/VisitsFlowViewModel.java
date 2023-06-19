@@ -48,6 +48,21 @@ public class VisitsFlowViewModel extends ViewModel {
 
     }
 
+    //FOR VISITS FLOW-> READY TO PAY -> CHEQUE PAYMENT & CASH PAYMENT
+    public void postVisitsFlowCallDateTimeCheque_Cash(String ApiType,String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber,
+                                                 String amountCollected,String chequeDate ,String chequeNumber ,String chequeAmount, String bankName) {
+        subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+                        "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber" + relativeContactNumber
+                        +"&amountCollected="+amountCollected + "&chequeDate="+chequeDate + "&chequeNumber="+chequeNumber + "&chequeAmount="+chequeAmount + "&bankName="+bankName,callDetailsList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        this::onHomeApiSuccess, this::onApiError
+                );
+
+    }
+
     private void onHomeApiSuccess(String result) {
         mutVisitsFlowCallDetailsResponseApi.setValue(result);
     }

@@ -189,11 +189,20 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                             }
                           else  if(getIntent().hasExtra("isVisitsReadyToPayCashPayment")){
                                 String cashPayment = WebServices.visit_ready_to_pay_cash_payment;
-                                visitsFlowViewModel.postVisitsFlowCallDateTime(cashPayment,dataSetId,"","","","","");
+                                String amountCollected = Global.getStringFromSharedPref(this,"Amount_Paid");
+                                visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(cashPayment,dataSetId,"","","","","",
+                                        amountCollected,"","","","");
                             }
                           else  if(getIntent().hasExtra("isVisitsReadyToPayChequePayment")){
                                 String chequePayment = WebServices.visit_ready_to_pay_cheque_payment;
-                                visitsFlowViewModel.postVisitsFlowCallDateTime(chequePayment,dataSetId,"","","","","");
+                                String amountCollected = Global.getStringFromSharedPref(this,"Amount_Paid");
+                                String chequeDate = getIntent().getStringExtra("ChequeDate") ;
+                                String chequeNumber = getIntent().getStringExtra("ChequeNumber");
+                                String chequeAmount = getIntent().getStringExtra("ChequeAmount");
+                                String bankName = getIntent().getStringExtra("BankName");
+
+                                visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(chequePayment,dataSetId,"","","","","",
+                                       amountCollected,chequeDate,chequeNumber,chequeAmount,bankName);
                             }
 
                         }
@@ -361,11 +370,20 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                     }
                     else  if(getIntent().hasExtra("isVisitsReadyToPayCashPayment")){
                         String cashPayment = WebServices.visit_ready_to_pay_cash_payment;
-                        visitsFlowViewModel.postVisitsFlowCallDateTime(cashPayment,dataSetId,"","","","","");
+                        String amountCollected = Global.getStringFromSharedPref(this,"Amount_Paid");
+                        visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(cashPayment,dataSetId,"","","","","",
+                                amountCollected,"","","","");
                     }
                     else  if(getIntent().hasExtra("isVisitsReadyToPayChequePayment")){
                         String chequePayment = WebServices.visit_ready_to_pay_cheque_payment;
-                        visitsFlowViewModel.postVisitsFlowCallDateTime(chequePayment,dataSetId,"","","","","");
+                        String amountCollected = Global.getStringFromSharedPref(this,"Amount_Paid");
+                        String chequeDate = getIntent().getStringExtra("ChequeDate") ;
+                        String chequeNumber = getIntent().getStringExtra("ChequeNumber");
+                        String chequeAmount = getIntent().getStringExtra("ChequeAmount");
+                        String bankName = getIntent().getStringExtra("BankName");
+
+                        visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(chequePayment,dataSetId,"","","","","",
+                                amountCollected,chequeDate,chequeNumber,chequeAmount,bankName);
                     }
 
                 }
@@ -512,11 +530,20 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                     }
                     else  if(getIntent().hasExtra("isVisitsReadyToPayCashPayment")){
                         String cashPayment = WebServices.visit_ready_to_pay_cash_payment;
-                        visitsFlowViewModel.postVisitsFlowCallDateTime(cashPayment,dataSetId,"","","","","");
+                        String amountCollected = Global.getStringFromSharedPref(this,"Amount_Paid");
+                        visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(cashPayment,dataSetId,"","","","","",
+                                amountCollected,"","","","");
                     }
                     else  if(getIntent().hasExtra("isVisitsReadyToPayChequePayment")){
                         String chequePayment = WebServices.visit_ready_to_pay_cheque_payment;
-                        visitsFlowViewModel.postVisitsFlowCallDateTime(chequePayment,dataSetId,"","","","","");
+                        String amountCollected = Global.getStringFromSharedPref(this,"Amount_Paid");
+                        String chequeDate = getIntent().getStringExtra("ChequeDate") ;
+                        String chequeNumber = getIntent().getStringExtra("ChequeNumber");
+                        String chequeAmount = getIntent().getStringExtra("ChequeAmount");
+                        String bankName = getIntent().getStringExtra("BankName");
+
+                        visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(chequePayment,dataSetId,"","","","","",
+                                amountCollected,chequeDate,chequeNumber,chequeAmount,bankName);
                     }
 
                 }

@@ -21,6 +21,11 @@ public class CallDetails implements Serializable {
     private String foName;
     private String relativeName;
     private String relativeContact;
+    private String amountCollected;
+    private String chequeDate;
+    private String chequeNumber;
+    private String chequeAmount;
+    private String bankName;
     public Integer getAttemptNo() {
         return attemptNo;
     }
@@ -90,5 +95,45 @@ public class CallDetails implements Serializable {
 
     public void setRelativeContact(String relativeContact) {
         this.relativeContact = relativeContact;
+    }
+
+    public String getAmountCollected() {
+        return amountCollected;
+    }
+
+    public void setAmountCollected(String amountCollected) {
+        this.amountCollected = amountCollected;
+    }
+
+    public String getChequeDate() {
+        return chequeDate;
+    }
+
+    public void setChequeDate(String chequeDate) {
+        this.chequeDate = chequeDate;
+    }
+
+    public String getChequeNumber() {
+        return chequeNumber;
+    }
+
+    public void setChequeNumber(String chequeNumber) {
+        this.chequeNumber = chequeNumber;
+    }
+
+    public String getChequeAmount() {
+        return chequeAmount;
+    }
+
+    public void setChequeAmount(String chequeAmount) {
+        this.chequeAmount = chequeAmount;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 }
