@@ -174,6 +174,18 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
         binding.btnSubmitNoChange.setOnClickListener(v->{
 
+            //PAYMENT INFO OF CUSTOMER -> OTHERS
+            if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")){
+                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                startActivity(i);
+            }
+
+            //PAYMENT INFO OF CUSTOMER-> NOT TAKEN LOAN
+            if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")){
+                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                startActivity(i);
+            }
+
             //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
             if(getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")){
                 Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
@@ -331,6 +343,18 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
         binding.btnSubmitNeedToUpdateDetails.setOnClickListener(v->{
 
+            //PAYMENT INFO OF CUSTOMER -> OTHERS
+            if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")){
+                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                startActivity(i);
+            }
+
+            //PAYMENT INFO OF CUSTOMER-> NOT TAKEN LOAN
+            if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")){
+                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                startActivity(i);
+            }
+
             //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
             if(getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")){
                 Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
@@ -485,6 +509,18 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         });
 
         binding.btnSubmitEscalateToBM.setOnClickListener(v->{
+
+            //PAYMENT INFO OF CUSTOMER -> OTHERS
+            if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")){
+                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                startActivity(i);
+            }
+
+            //PAYMENT INFO OF CUSTOMER-> NOT TAKEN LOAN
+            if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")){
+                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                startActivity(i);
+            }
 
             //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
             if(getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")){

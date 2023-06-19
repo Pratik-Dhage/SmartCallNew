@@ -312,9 +312,10 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
         });
 
         binding.btnNotTakenLoan.setOnClickListener(v -> {
-            Intent i = new Intent(PaymentInfoOfCustomerActivity.this, VisitCompletionOfCustomerActivity.class);
+            Intent i = new Intent(PaymentInfoOfCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("detailsList", detailsList);
+            i.putExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan","isPaymentInfoOfCustomerActivity_NotTakenLoan");
             startActivity(i);
         });
 
@@ -383,9 +384,10 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
 
             btnProceed.setOnClickListener(v2 -> {
-                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
+                i.putExtra("isPaymentInfoOfCustomerActivity_Others","isPaymentInfoOfCustomerActivity_Others");
                 startActivity(i);
             });
 
