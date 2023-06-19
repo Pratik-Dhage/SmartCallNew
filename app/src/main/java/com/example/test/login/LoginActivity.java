@@ -153,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(LoginActivity.this, OTPActivity.class);
+                i.putExtra("isFromLoginSignUp","isFromLoginSignUp");
                 startActivity(i);
             }
         });

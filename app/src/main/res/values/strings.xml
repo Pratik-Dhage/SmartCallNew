@@ -376,6 +376,7 @@
     <string name="date_cannot_be_empty">Date cannot be empty  </string>
     <string name="please_enter_all_cheque_details">Please Enter All Cheque Details  </string>
     <string name="invalid_userID_contact_admin">Invalid UserID \nPlease Contact Admin</string>
+    <string name="user_already_registered">User Already Registered</string>
 
 
     <!--for Tenure-->

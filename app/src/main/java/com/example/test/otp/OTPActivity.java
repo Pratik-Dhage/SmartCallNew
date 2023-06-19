@@ -15,6 +15,8 @@ import com.example.test.databinding.ActivityOtpactivityBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.login.LoginActivity;
+import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.database.LeadListDB;
 
 public class OTPActivity extends AppCompatActivity {
 
@@ -121,8 +123,22 @@ public class OTPActivity extends AppCompatActivity {
 
                     if(validations()){
 
-                        callGenerateOTP_Api();
-                        initObserver();
+                        //TO Check if User is Already Registered / MPin Already exists
+                        //if User is Already Registered
+                        MPinDao mPinDao = LeadListDB.getInstance(OTPActivity.this).mPinDao();
+                        String MPin =   mPinDao.getMPinFromRoomDB(binding.edtOTPUserId.getText().toString().trim());
+
+                        if(MPin!=null && getIntent().hasExtra("isFromLoginSignUp")){
+                            Global.showToast(OTPActivity.this,getString(R.string.user_already_registered));
+                        }
+
+                        else{
+
+                            callGenerateOTP_Api();
+                            initObserver();
+
+                        }
+
                     }
 
                 }
