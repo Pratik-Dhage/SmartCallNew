@@ -191,7 +191,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                         Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
                         startActivity(i);
                     }
-                },2000);
+                },1000);
 
             }
 
@@ -348,7 +348,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                         Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
                         startActivity(i);
                     }
-                },2000);
+                },1000);
 
             }
 
@@ -503,7 +503,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                         Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
                         startActivity(i);
                     }
-                },2000);
+                },1000);
 
             }
 
