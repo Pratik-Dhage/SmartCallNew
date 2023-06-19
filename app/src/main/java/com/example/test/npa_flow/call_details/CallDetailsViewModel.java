@@ -249,6 +249,19 @@ public class CallDetailsViewModel extends ViewModel {
 
     }
 
+    //10)PAYMENT INFORMATION OF CUSTOMER ACTIVITY -> OTHERS
+    public void postScheduledDateTime_OTHERS(String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber) {
+        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_payment_info_others + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+                        "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber" + relativeContactNumber, callDetailsList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        this::onHomeApiSuccess, this::onApiError
+                );
+
+    }
+
     private void onHomeApiSuccess(String result) {
         mutCallDetailsResponseApi.setValue(result);
     }

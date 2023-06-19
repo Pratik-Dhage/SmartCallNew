@@ -176,8 +176,18 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
             //PAYMENT INFO OF CUSTOMER -> OTHERS
             if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")){
-                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
-                startActivity(i);
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId,"","","","","");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                        startActivity(i);
+                    }
+                },1000);
+
             }
 
             //PAYMENT INFO OF CUSTOMER-> NOT TAKEN LOAN
@@ -345,8 +355,17 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
             //PAYMENT INFO OF CUSTOMER -> OTHERS
             if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")){
-                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
-                startActivity(i);
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId,"","","","","");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                        startActivity(i);
+                    }
+                },1000);
             }
 
             //PAYMENT INFO OF CUSTOMER-> NOT TAKEN LOAN
@@ -512,8 +531,18 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
             //PAYMENT INFO OF CUSTOMER -> OTHERS
             if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")){
-                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
-                startActivity(i);
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId,"","","","","");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                        startActivity(i);
+                    }
+                },1000);
+
             }
 
             //PAYMENT INFO OF CUSTOMER-> NOT TAKEN LOAN

@@ -160,6 +160,9 @@ public  class WebServices {
     //FOR WILL PAY LATER - UPDATE(PAYMENT INFORMATION OF CUSTOMER ACTIVITY - WILL PAY LATER -> UPDATE)
   public static String call_details_will_pay_later_update = "activity/submitcall?flow=STTC-NRTP-WPL-UPDATE";
 
+  //FOR OTHERS (PAYMENT INFORMATION OF CUSTOMER ACTIVITY - OTHERS)
+    public static String call_details_payment_info_others = "activity/submitcall?flow=STTC-NRTP-OTHERS";
+
 
     //Visit For The Day - Visit-NPA Notification (Visits For The Day Not Ready To Pay Flow)
     public static String visit_not_ready_to_pay_lack_of_funds ="activity/submitcall?flow=NRTP-LOF";
