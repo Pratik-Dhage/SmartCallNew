@@ -272,12 +272,15 @@ public class LoanCollectionActivity extends AppCompatActivity {
         // Create a new ArrayList to hold the search results
         ArrayList<LoanCollectionListResponseModel> searchResults = new ArrayList<>();
 
+        // Remove any spaces from the userSearchedText
+        userSearchedText = userSearchedText.replace(" ", "");
+
         // Iterate through the original ArrayList(LoanCollectionResponseModel) and check if matcher with userSearchedText
         for (LoanCollectionListResponseModel item : loanCollectionViewModel.arrList_LoanCollectionList) {
-            if (item.getMemberName().toLowerCase().contains(userSearchedText.toLowerCase())
-                    || item.getPinCode().toLowerCase().contains(userSearchedText.toLowerCase())
-                    || item.getActionStatus().toLowerCase().contains(userSearchedText.toLowerCase())
-                    || item.getMobileNumber().contains(userSearchedText.toLowerCase())
+            if (item.getMemberName().toLowerCase().replace(" ", "").contains(userSearchedText.toLowerCase())
+                    || item.getPinCode().toLowerCase().replace(" ", "").contains(userSearchedText.toLowerCase())
+                    || item.getActionStatus().toLowerCase().replace(" ", "").contains(userSearchedText.toLowerCase())
+                    || item.getMobileNumber().replace(" ", "").contains(userSearchedText.toLowerCase())
             ) {
                 searchResults.add(item);
             }
