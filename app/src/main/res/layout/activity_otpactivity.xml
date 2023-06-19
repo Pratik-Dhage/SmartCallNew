@@ -47,6 +47,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/inputLayoutUserId" />
 
+    <TextView
+        android:id="@+id/txtLoginWithMPin"
+        app:layout_constraintTop_toBottomOf="@id/btnSendOTP"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_160sdp"
+        android:text="@string/login_with_mpin"
+        style="@style/common_text_style"
+        android:visibility="gone"
+        android:textColor="@color/textBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/txtLoginWithUserCredentials"
+        app:layout_constraintTop_toBottomOf="@id/txtLoginWithMPin"
+        app:layout_constraintStart_toStartOf="@id/btnSendOTP"
+        app:layout_constraintEnd_toEndOf="@id/btnSendOTP"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:text="@string/login_with_user_credentials"
+        style="@style/common_text_style"
+        android:visibility="gone"
+        android:textColor="@color/textBlue"
+        android:textSize="@dimen/_13ssp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

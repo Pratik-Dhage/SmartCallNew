@@ -29,9 +29,8 @@ public class MPinRoomModel {
         this.mPinUserName = mPinUserName;
     }*/
 
-    public MPinRoomModel(String mPin, String mPinUserName,String UserID , String BranchCode) {
+    public MPinRoomModel(String mPin,String UserID , String BranchCode) {
         this.mPin = mPin;
-        this.mPinUserName = mPinUserName;
         this.UserID = UserID;
         this.BranchCode = BranchCode;
     }

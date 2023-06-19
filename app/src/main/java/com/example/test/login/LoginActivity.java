@@ -43,7 +43,13 @@ public class LoginActivity extends AppCompatActivity {
         onClickListener();
         CustomEditTextWatcher();
 
-        checkIfMPinExists();
+        if(getIntent().hasExtra("isFromOTPActivityLoginWithCredentials")){
+            System.out.println("Here isFromOTPActivityLoginWithCredentials");
+        }
+        else {
+            checkIfMPinExists();
+        }
+
 
 
     }

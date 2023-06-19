@@ -1,22 +1,27 @@
 package com.example.test.otp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityOtpactivityBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.login.LoginActivity;
+import com.example.test.login.LoginWithMPinActivity;
+import com.example.test.mPin.MPinActivity;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.database.LeadListDB;
+
+import java.util.Locale;
 
 public class OTPActivity extends AppCompatActivity {
 
@@ -26,6 +31,8 @@ public class OTPActivity extends AppCompatActivity {
     boolean isFromRegisterPasswordActivity = true;
     boolean isFromLoginForgotPassword ;
     public String userId;
+    public static String BranchCode;
+    public static  String UserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,34 +69,66 @@ public class OTPActivity extends AppCompatActivity {
 
                 if(result!=null){
 
-                    //to display OTP code
-                    Global.showToast(this,"OTP Code: "+ result.getOtpCode());
+                    // Store UserID and BranchCode To Call In API's
+                    UserID =  String.valueOf(result.getUserId());
+                    BranchCode = String.valueOf(result.getBranchCode());
 
-                    // Save UserName in SharedPreferences for Saving UserName in RoomDB
-                    Global.saveStringInSharedPref(this,"userNameFromOTPResponse",String.valueOf(result.getUserName()));
+                    //Store in Shared Preference For Storing MPin
+                    Global.saveStringInSharedPref(this,"UserID",UserID);
+                    Global.saveStringInSharedPref(this,"BranchCode",BranchCode);
 
-                    //if coming from RegisterPasswordActivity
-                    if(getIntent().hasExtra("isFromRegisterPasswordActivity")){
-                        Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
-                        i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
-                        i.putExtra("userId",userId);
-                        startActivity(i);
+
+                    if (result.getAuthenticationResult().toString().toLowerCase().contains("already registered")) {
+                        Global.showToast(this, result.getAuthenticationResult().toString());
+                        binding.txtLoginWithMPin.setVisibility(View.VISIBLE);
+                        binding.txtLoginWithUserCredentials.setVisibility(View.VISIBLE);
+                        binding.inputLayoutUserId.setVisibility(View.INVISIBLE);
+                        binding.btnSendOTP.setVisibility(View.INVISIBLE);
+                        return;
+                    }
+                    else if (result.getAuthenticationResult().toString().toLowerCase().contains("invalid userid")) {
+                        Global.showToast(this, result.getAuthenticationResult().toString());
+                        return;
                     }
 
-                    //if coming from ForgotPassword / Reset Password
-                  else  if(getIntent().hasExtra("isFromLoginForgotPassword")){
-                        Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
-                        isFromLoginForgotPassword = true;
-                        i.putExtra("isFromLoginForgotPassword",isFromLoginForgotPassword);
-                        i.putExtra("userId",userId);
-                        startActivity(i);
+                  else{
+
+                        //to display OTP code
+                        Global.showToast(this,"OTP Code: "+ result.getOtpCode());
+
+                        // Save UserName in SharedPreferences for Saving UserName in RoomDB
+                        Global.saveStringInSharedPref(this,"userNameFromOTPResponse",String.valueOf(result.getUserName()));
+
+                        //if coming from RegisterPasswordActivity
+                        if(getIntent().hasExtra("isFromRegisterPasswordActivity")){
+                            Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
+                            i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
+                            i.putExtra("userId",userId);
+                            startActivity(i);
+                        }
+
+                        //if coming from ForgotPassword / Reset Password
+                        else  if(getIntent().hasExtra("isFromLoginForgotPassword")){
+                            Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
+                            isFromLoginForgotPassword = true;
+                            i.putExtra("isFromLoginForgotPassword",isFromLoginForgotPassword);
+                            i.putExtra("userId",userId);
+                            startActivity(i);
+                        }
+
+                        //First Time Registration
+                        else{
+                            Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
+                            i.putExtra("userId",userId);
+                            startActivity(i);
+                        }
+
+
+
                     }
 
-                    else{
-                        Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
-                        i.putExtra("userId",userId);
-                        startActivity(i);
-                    }
+
+
                 }
 
                 //handle  error response
@@ -123,21 +162,8 @@ public class OTPActivity extends AppCompatActivity {
 
                     if(validations()){
 
-                        //TO Check if User is Already Registered / MPin Already exists
-                        //if User is Already Registered
-                        MPinDao mPinDao = LeadListDB.getInstance(OTPActivity.this).mPinDao();
-                        String MPin =   mPinDao.getMPinFromRoomDB(binding.edtOTPUserId.getText().toString().trim());
-
-                        if(MPin!=null && getIntent().hasExtra("isFromLoginSignUp")){
-                            Global.showToast(OTPActivity.this,getString(R.string.user_already_registered));
-                        }
-
-                        else{
-
-                            callGenerateOTP_Api();
-                            initObserver();
-
-                        }
+                        callGenerateOTP_Api();
+                        initObserver();
 
                     }
 
@@ -148,6 +174,39 @@ public class OTPActivity extends AppCompatActivity {
                 }
             }
         });
+
+        binding.txtLoginWithMPin.setOnClickListener(v->{
+            if( binding.txtLoginWithMPin.getVisibility()==View.VISIBLE){
+                checkIfMPinExists();
+            }
+        });
+
+        binding.txtLoginWithUserCredentials.setOnClickListener(v->{
+            if(binding.txtLoginWithUserCredentials.getVisibility()==View.VISIBLE){
+                Intent i = new Intent(OTPActivity.this, LoginActivity.class);
+                i.putExtra("isFromOTPActivityLoginWithCredentials","isFromOTPActivityLoginWithCredentials");
+                startActivity(i);
+                Log.d("Debug", "Login with User Credentials clicked");
+                finish();
+            }
+
+        });
+    }
+
+    private void checkIfMPinExists(){
+
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        int countOfMPin = mPinDao.checkAnyMPinExists();
+
+        if (countOfMPin > 0) {
+            // At least one mPin exists in the table
+            startActivity(new Intent(this, LoginWithMPinActivity.class));
+        } else {
+            // No mPin exists in the table
+              Intent i = new Intent(OTPActivity.this, MPinActivity.class);
+              startActivity(i);
+        }
+
     }
 
     private boolean validations(){

@@ -150,7 +150,7 @@ public class MPinActivity extends AppCompatActivity {
           //  MPinRoomModel newMPinRoomModel = new MPinRoomModel(userMPin, userNameFromOTPValidationResponse);
           //  mPinDao.insert(newMPinRoomModel);
 
-            MPinRoomModel newMPinRoomModel = new MPinRoomModel(userMPin, userNameFromOTPResponse, UserID , BranchCode);
+            MPinRoomModel newMPinRoomModel = new MPinRoomModel(userMPin,  UserID , BranchCode);
             mPinDao.insert(newMPinRoomModel);
             Global.showToast(this,"Saved mPin");
         }

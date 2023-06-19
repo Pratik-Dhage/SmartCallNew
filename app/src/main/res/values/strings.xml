@@ -341,6 +341,7 @@
     <string name="reset_mpin">Reset MPin</string>
     <string name="enter_your_password">Enter your Password</string>
     <string name="login_with_mpin">Login With MPin</string>
+    <string name="login_with_user_credentials">Login With User Credentials</string>
     <string name="visits_for_the_day">Visits For The Day</string>
     <string name="status_of_customer">Status Of Customer</string>
     <string name="calling_npa_customer_details">Calling - NPA Customer Details</string>
