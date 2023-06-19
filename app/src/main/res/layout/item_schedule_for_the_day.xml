@@ -29,6 +29,7 @@
             android:layout_marginEnd="@dimen/_40sdp"
             android:textColor="@color/black"
             android:textStyle="normal"
+            android:visibility="invisible"
             android:layout_width="@dimen/_30sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="@dimen/_10sdp"
