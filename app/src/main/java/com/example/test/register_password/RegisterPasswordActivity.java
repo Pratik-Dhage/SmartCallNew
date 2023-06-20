@@ -76,9 +76,11 @@ public class RegisterPasswordActivity extends AppCompatActivity {
                 //Store in Shared Preference For Storing MPin
                 Global.saveStringInSharedPref(this,"UserID",String.valueOf(result.getUserId()));
                 Global.saveStringInSharedPref(this,"BranchCode",String.valueOf(result.getBranchCode()));
+                Global.saveStringInSharedPref(this,"UserName",String.valueOf(result.getUserName()));
 
                 System.out.println("Here RegisterPassword UserID: "+String.valueOf(result.getUserId()));
                 System.out.println("Here RegisterPassword BranchCode: "+String.valueOf(result.getBranchCode()));
+                System.out.println("Here RegisterPassword UserName: "+String.valueOf(result.getUserName()));
 
             }
 
