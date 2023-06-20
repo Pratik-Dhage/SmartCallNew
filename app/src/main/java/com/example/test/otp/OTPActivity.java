@@ -80,18 +80,54 @@ public class OTPActivity extends AppCompatActivity {
                     Global.saveStringInSharedPref(this,"BranchCode",BranchCode);
                     Global.saveStringInSharedPref(this,"UserName",UserName);
 
-                    //First Time User Registration
+
                     System.out.println("Here AuthenticationResult: "+result.getAuthenticationResult());
 
-                  if (null != result.getAuthenticationResult() && result.getAuthenticationResult().toString().toLowerCase().contains("already registered")) {
+
+                    // Save UserName in SharedPreferences for Saving UserName in RoomDB
+                    Global.saveStringInSharedPref(this,"userNameFromOTPResponse",String.valueOf(result.getUserName()));
+
+                    //if coming from RegisterPasswordActivity
+                    if(getIntent().hasExtra("isFromRegisterPasswordActivity")  &&
+                            (! result.getAuthenticationResult().toString().toLowerCase().contains("invalid userid"))
+                    ){
+
+                        //to display OTP code
+                        Global.showToast(this,"OTP Code: "+ result.getOtpCode());
+                        binding.txtUserIDError.setVisibility(View.GONE);
+                        Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
+                        i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
+                        i.putExtra("userId",userId);
+                        startActivity(i);
+
+                    }
+
+                    //if coming from ForgotPassword / Reset Password
+                    else  if(getIntent().hasExtra("isFromLoginForgotPassword") &&
+                            (!result.getAuthenticationResult().toString().toLowerCase().contains("invalid userid"))
+                    ){
+                        //to display OTP code
+                        Global.showToast(this,"OTP Code: "+ result.getOtpCode());
+                        binding.txtUserIDError.setVisibility(View.GONE);
+                        Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
+                        isFromLoginForgotPassword = true;
+                        i.putExtra("isFromLoginForgotPassword",isFromLoginForgotPassword);
+                        i.putExtra("userId",userId);
+                        startActivity(i);
+
+                    }
+
+
+                   else if (null != result.getAuthenticationResult() && result.getAuthenticationResult().toString().toLowerCase().contains("already registered")) {
                         //Global.showToast(this, result.getAuthenticationResult().toString());
                         System.out.println("Here Authentication Result :"+result.getAuthenticationResult().toString());
+                        binding.txtUserIDError.setVisibility(View.GONE);
                         binding.txtAlreadyRegistered.setVisibility(View.VISIBLE);
                         binding.txtLoginWithMPin.setVisibility(View.VISIBLE);
                         binding.txtLoginWithUserCredentials.setVisibility(View.VISIBLE);
                         binding.inputLayoutUserId.setVisibility(View.INVISIBLE);
                         binding.btnSendOTP.setVisibility(View.INVISIBLE);
-                        binding.txtUserIDError.setVisibility(View.GONE);
+
 
                     }
                     else if (null != result.getAuthenticationResult() && result.getAuthenticationResult().toString().toLowerCase().contains("invalid userid")) {
@@ -103,8 +139,8 @@ public class OTPActivity extends AppCompatActivity {
 
                     }
 
-                    // if getAuthenticationResult==null
-                   /* else{
+                    // if getAuthenticationResult==null i.e First Time User Registration
+                    else{
 
                         //to display OTP code
                         Global.showToast(this,"OTP Code: "+ result.getOtpCode());
@@ -112,10 +148,10 @@ public class OTPActivity extends AppCompatActivity {
                         Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
                         i.putExtra("userId",userId);
                         startActivity(i);
-                    }*/
+                    }
 
                     // if getAuthenticationResult==null
-                  else{
+                /*  else{
 
                         //to display OTP code
                         Global.showToast(this,"OTP Code: "+ result.getOtpCode());
@@ -149,7 +185,7 @@ public class OTPActivity extends AppCompatActivity {
 
 
 
-                    }
+                    }*/
 
 
 
