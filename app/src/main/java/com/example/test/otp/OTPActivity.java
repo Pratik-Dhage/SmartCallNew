@@ -80,7 +80,10 @@ public class OTPActivity extends AppCompatActivity {
                     Global.saveStringInSharedPref(this,"BranchCode",BranchCode);
                     Global.saveStringInSharedPref(this,"UserName",UserName);
 
-                    if (result.getAuthenticationResult().toString().toLowerCase().contains("already registered")) {
+                    //First Time User Registration
+                    System.out.println("Here AuthenticationResult: "+result.getAuthenticationResult());
+
+                  if (null != result.getAuthenticationResult() && result.getAuthenticationResult().toString().toLowerCase().contains("already registered")) {
                         //Global.showToast(this, result.getAuthenticationResult().toString());
                         System.out.println("Here Authentication Result :"+result.getAuthenticationResult().toString());
                         binding.txtAlreadyRegistered.setVisibility(View.VISIBLE);
@@ -89,17 +92,29 @@ public class OTPActivity extends AppCompatActivity {
                         binding.inputLayoutUserId.setVisibility(View.INVISIBLE);
                         binding.btnSendOTP.setVisibility(View.INVISIBLE);
                         binding.txtUserIDError.setVisibility(View.GONE);
-                        return;
+
                     }
-                    else if (result.getAuthenticationResult().toString().toLowerCase().contains("invalid userid")) {
+                    else if (null != result.getAuthenticationResult() && result.getAuthenticationResult().toString().toLowerCase().contains("invalid userid")) {
                       //  Global.showToast(this, result.getAuthenticationResult().toString());
                         System.out.println("Here Authentication Result :"+result.getAuthenticationResult().toString());
                         binding.txtUserIDError.setVisibility(View.VISIBLE);
                         binding.txtUserIDError.setText(String.valueOf(result.getAuthenticationResult()));
 
-                        return;
+
                     }
 
+                    // if getAuthenticationResult==null
+                   /* else{
+
+                        //to display OTP code
+                        Global.showToast(this,"OTP Code: "+ result.getOtpCode());
+
+                        Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
+                        i.putExtra("userId",userId);
+                        startActivity(i);
+                    }*/
+
+                    // if getAuthenticationResult==null
                   else{
 
                         //to display OTP code
@@ -173,7 +188,7 @@ public class OTPActivity extends AppCompatActivity {
 
                         callGenerateOTP_Api();
                         initObserver();
-
+                         onClickListener();
                     }
 
                 }
