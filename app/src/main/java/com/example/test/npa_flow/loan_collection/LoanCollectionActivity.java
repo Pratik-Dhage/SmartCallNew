@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityLoanCollectionBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
@@ -162,6 +164,11 @@ public class LoanCollectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 onBackPressed();
             }
+        });
+
+        binding.ivHome.setOnClickListener(v->{
+            Intent i = new Intent(this, MainActivity3API.class);
+            startActivity(i);
         });
 
         binding.ivSearchCancelIcon.setOnClickListener(v->{
