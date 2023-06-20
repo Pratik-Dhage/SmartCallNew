@@ -13,6 +13,7 @@ import com.example.test.helper_classes.Global;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
+import com.example.test.schedule_flow.visits_for_the_day.adapter.VisitsForTheDayAdapter;
 
 public class NearByCustomersActivity extends AppCompatActivity {
 
@@ -31,6 +32,13 @@ public class NearByCustomersActivity extends AppCompatActivity {
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_near_by_customers);
         view = binding.getRoot();
+
+        if(VisitsForTheDayAdapter.showNearByCustomerButton == true){
+            binding.btnVisitNearbyCustomers.setVisibility(View.VISIBLE);
+        }
+        else{
+            binding.btnVisitNearbyCustomers.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void onClickListener() {
@@ -55,10 +63,9 @@ public class NearByCustomersActivity extends AppCompatActivity {
         });
 
         binding.btnVisitNearbyCustomers.setOnClickListener(v->{
-
-
-
-
+            Intent i = new Intent(this,LoanCollectionActivity.class);
+            i.putExtra("isFromNearByCustomerActivity","isFromNearByCustomerActivity");
+            startActivity(i);
         });
 
 

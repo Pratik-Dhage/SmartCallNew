@@ -379,6 +379,7 @@
     <string name="invalid_userID_contact_admin">Invalid UserID \nPlease Contact Admin</string>
     <string name="user_already_registered">User is Already Registered</string>
     <string name="already_registered">Already Registered</string>
+    <string name="near_by_customers">Near By Customers</string>
 
 
     <!--for Tenure-->

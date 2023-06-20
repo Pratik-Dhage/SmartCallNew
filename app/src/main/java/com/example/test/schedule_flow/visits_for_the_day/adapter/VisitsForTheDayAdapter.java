@@ -30,6 +30,7 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
 
 
     ArrayList<VisitsForTheDayResponseModel> visitsForTheDayResponseModelArrayList;
+    public static boolean showNearByCustomerButton ;
 
     public VisitsForTheDayAdapter(ArrayList<VisitsForTheDayResponseModel> visitsForTheDayResponseModelArrayList) {
         this.visitsForTheDayResponseModelArrayList = visitsForTheDayResponseModelArrayList;
@@ -126,6 +127,8 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
         });
 
           holder.itemView.setOnClickListener(v->{
+
+              showNearByCustomerButton = true; //Only for Visits For The Day Flow VisitNearByCustomer Button is Visible in NearByCustomerActivity
 
               //DetailsOfCustomer Only visible if Status is Pending
               if(a.getActionStatus().toLowerCase().contains("pending")){

@@ -22,6 +22,8 @@ import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
+import com.example.test.roomDB.dao.UserNameDao;
+import com.example.test.roomDB.database.LeadListDB;
 
 import java.util.ArrayList;
 
@@ -100,6 +102,11 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         if (getIntent().hasExtra("isFromCallsForTheDay")) {
             binding.txtToolbarHeading.setText(getResources().getString(R.string.calls_for_the_day));
+        }
+
+        //for UAT only . Later delete this
+        if(getIntent().hasExtra("isFromNearByCustomerActivity")){
+            binding.txtToolbarHeading.setText(R.string.near_by_customers);
         }
 
     }
