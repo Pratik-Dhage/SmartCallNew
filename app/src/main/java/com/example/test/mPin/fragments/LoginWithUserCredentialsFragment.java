@@ -17,6 +17,7 @@ import com.example.test.databinding.FragmentLoginWithUserCredentialsBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.mPin.MPinActivity;
 import com.example.test.otp.OTPActivity;
+import com.example.test.register_password.RegisterPasswordActivity;
 
 
 public class LoginWithUserCredentialsFragment extends Fragment {
@@ -40,7 +41,7 @@ public class LoginWithUserCredentialsFragment extends Fragment {
     private void onClickListener(){
 
         binding.labelForgotPassword.setOnClickListener(v->{
-            Intent i = new Intent(getContext(), OTPActivity.class);
+            Intent i = new Intent(getContext(), RegisterPasswordActivity.class);
             startActivity(i);
         });
 
