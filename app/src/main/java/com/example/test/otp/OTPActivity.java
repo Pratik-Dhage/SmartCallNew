@@ -91,7 +91,9 @@ public class OTPActivity extends AppCompatActivity {
                     }
                     else if (result.getAuthenticationResult().toString().toLowerCase().contains("invalid userid")) {
                       //  Global.showToast(this, result.getAuthenticationResult().toString());
+                        binding.txtUserIDError.setVisibility(View.VISIBLE);
                         binding.txtUserIDError.setText(String.valueOf(result.getAuthenticationResult()));
+
                         return;
                     }
 
