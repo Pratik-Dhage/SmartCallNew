@@ -40,7 +40,6 @@
         tools:text="ShivKumar"
         android:ellipsize="end"
         android:maxLines="1"
-        android:maxLength="10"
         android:layout_marginStart="@dimen/_2sdp"
         style="@style/common_text_style"
         android:layout_width="wrap_content"
