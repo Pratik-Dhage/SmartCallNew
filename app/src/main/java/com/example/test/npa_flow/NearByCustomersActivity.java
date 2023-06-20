@@ -56,16 +56,7 @@ public class NearByCustomersActivity extends AppCompatActivity {
 
         binding.btnVisitNearbyCustomers.setOnClickListener(v->{
 
-            if(binding.clLoanCollectionData.getVisibility()==View.INVISIBLE){
 
-                binding.btnGotoDashBoard.setVisibility(View.INVISIBLE);
-                binding.clLoanCollectionData.setVisibility(View.VISIBLE);
-            }
-
-            else{
-                binding.btnGotoDashBoard.setVisibility(View.VISIBLE);
-                binding.clLoanCollectionData.setVisibility(View.INVISIBLE);
-            }
 
 
         });
