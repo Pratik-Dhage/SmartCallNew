@@ -25,6 +25,7 @@ public class LoginWithMPinActivity extends AppCompatActivity {
 
     ActivityLoginWithMpinBinding binding;
     View view;
+    public static String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,8 @@ public class LoginWithMPinActivity extends AppCompatActivity {
         else{
             MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
             UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
-            String userName =  userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+            String UserID = Global.getStringFromSharedPref(this,"UserID");
+             userName =  userNameDao.getUserNameUsingUserIDInUserNameRoomDB(UserID);
             binding.txtWelcomeUser.setText("Welcome "+userName);
             System.out.println("Here LoginWithMPin UserName:"+userName);
 

@@ -75,6 +75,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <TextView
+        android:id="@+id/txtUserIDError"
+        app:layout_constraintTop_toBottomOf="@id/btnSendOTP"
+        app:layout_constraintStart_toStartOf="@id/btnSendOTP"
+        app:layout_constraintEnd_toEndOf="@id/btnSendOTP"
+        android:layout_marginTop="@dimen/_30sdp"
+        tools:text="@string/invalid_userID_contact_admin"
+        style="@style/common_text_style"
+        android:visibility="visible"
+        android:textColor="@color/chilliRed"
+        android:textSize="@dimen/_13ssp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

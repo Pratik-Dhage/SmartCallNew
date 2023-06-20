@@ -22,6 +22,7 @@ import com.example.test.fragments_activity.ActivityOfFragments;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.login.LoginActivity;
+import com.example.test.login.LoginWithMPinActivity;
 import com.example.test.main_dashboard.adapter.MainDashBoardAdapter;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
@@ -110,9 +111,14 @@ public class MainActivity3API extends AppCompatActivity {
             Global.saveStringInSharedPref(this,"userName",userName);
         }
          else{
-             MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+            /* MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
              UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
-             String userName =  userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+             String UserID = Global.getStringFromSharedPref(this,"UserID");
+             String userName =  userNameDao.getUserNameUsingUserIDInUserNameRoomDB(UserID);
+             binding.txtWelcomeUser.setText("Welcome "+userName);
+             System.out.println("Here LoginWithMPin UserName:"+userName);
+*/
+             String userName = LoginWithMPinActivity.userName;
              binding.txtWelcomeUser.setText("Welcome "+userName);
              System.out.println("Here LoginWithMPin UserName:"+userName);
 

@@ -13,6 +13,7 @@ import android.view.View;
 import com.example.test.R;
 import com.example.test.login.LoginActivity;
 import com.example.test.login.LoginWithMPinActivity;
+import com.example.test.otp.OTPActivity;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
@@ -135,6 +136,7 @@ public class MPinActivity extends AppCompatActivity {
 
         MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
         int countOfMPin = mPinDao.checkAnyMPinExists();
+        String UserIDInRoomDB = mPinDao.getUserID();
         String userNameFromOTPResponse = Global.getStringFromSharedPref(this, "userNameFromOTPResponse");
 
         String UserID = Global.getStringFromSharedPref(this,"UserID");
@@ -166,7 +168,7 @@ public class MPinActivity extends AppCompatActivity {
 
             UserNameRoomModel userNameRoomModel = new UserNameRoomModel(UserID, Global.getStringFromSharedPref(this,"UserName"));
             userNameDao.insert(userNameRoomModel);
-            System.out.println("Here MPin & UserName:"+userMPin+" "+mPinDao.getUserNameUsingUserID(UserID));
+            System.out.println("Here MPin & UserName:"+userMPin+" "+userNameDao.getUserNameUsingUserIDInUserNameRoomDB(UserID));
         }
 
     }

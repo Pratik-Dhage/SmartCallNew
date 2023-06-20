@@ -86,10 +86,12 @@ public class OTPActivity extends AppCompatActivity {
                         binding.txtLoginWithUserCredentials.setVisibility(View.VISIBLE);
                         binding.inputLayoutUserId.setVisibility(View.INVISIBLE);
                         binding.btnSendOTP.setVisibility(View.INVISIBLE);
+                        binding.txtUserIDError.setVisibility(View.INVISIBLE);
                         return;
                     }
                     else if (result.getAuthenticationResult().toString().toLowerCase().contains("invalid userid")) {
-                        Global.showToast(this, result.getAuthenticationResult().toString());
+                      //  Global.showToast(this, result.getAuthenticationResult().toString());
+                        binding.txtUserIDError.setText(String.valueOf(result.getAuthenticationResult()));
                         return;
                     }
 
@@ -199,8 +201,10 @@ public class OTPActivity extends AppCompatActivity {
 
         MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
         int countOfMPin = mPinDao.checkAnyMPinExists();
+       String UserIDInRoomDB = mPinDao.getUserID();
 
-        if (countOfMPin > 0) {
+       // If UserID == UserID in RoomDB
+        if (countOfMPin > 0 && UserIDInRoomDB==UserID) {
             // At least one mPin exists in the table
             startActivity(new Intent(this, LoginWithMPinActivity.class));
         } else {
@@ -231,6 +235,7 @@ public class OTPActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 binding.inputLayoutUserId.setError(null);
+                binding.txtUserIDError.setVisibility(View.INVISIBLE);
             }
 
             @Override
