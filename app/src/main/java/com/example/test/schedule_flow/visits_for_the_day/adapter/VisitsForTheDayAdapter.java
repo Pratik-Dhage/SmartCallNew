@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +19,7 @@ import com.example.test.google_maps.MapFragment;
 import com.example.test.helper_classes.Global;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
+import com.example.test.npa_flow.status_of_customer.StatusOfCustomerActivity;
 import com.example.test.npa_flow.status_of_customer.adapter.StatusOfCustomerDetailsAdapter;
 import com.example.test.npa_flow.status_of_customer.model.Activity;
 import com.example.test.schedule_flow.visits_for_the_day.model.VisitsForTheDayResponseModel;
@@ -60,6 +62,11 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
 
           if(a.getActionStatus()!=null){
               holder.binding.txtStatus.setText(String.valueOf(a.getActionStatus()));
+
+              //set Colors for Status
+              if(a.getActionStatus().toLowerCase().contains("pending")){
+                  holder.binding.txtStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.chilliRed) );
+              }
           }
 
         if(a.getMobileNumber()!=null){
@@ -130,6 +137,14 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
 
               }
           });
+
+        //for Status , Navigate to StatusOfCustomerActivity
+        holder.binding.ivStatusInfo.setOnClickListener(v->{
+            String dataSetId = a.getDataSetId().toString();
+            Intent i = new Intent(context, StatusOfCustomerActivity.class);
+            i.putExtra("dataSetId",dataSetId);
+            context.startActivity(i);
+        });
 
 
     }

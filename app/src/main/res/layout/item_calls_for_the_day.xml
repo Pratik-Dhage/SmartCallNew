@@ -16,7 +16,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:textStyle="normal"
             android:ellipsize="end"
-            android:maxLength="13"
+            android:maxLength="20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Sairaj Naidu" />
@@ -43,14 +43,14 @@
             <TextView
                 android:id="@+id/txtStatus"
                 style="@style/common_text_style"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
                 tools:text=" IN-PROCESS"
-                android:textStyle="normal"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/labelStatus"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- <ImageView
+             <ImageView
                  android:id="@+id/ivStatusInfo"
                  app:layout_constraintStart_toEndOf="@id/txtStatus"
                  app:layout_constraintTop_toTopOf="@id/txtStatus"
@@ -58,7 +58,7 @@
                  android:layout_marginStart="@dimen/_5sdp"
                  android:src="@drawable/status_info3"
                  android:layout_width="@dimen/_20sdp"
-                 android:layout_height="@dimen/_20sdp"/>-->
+                 android:layout_height="@dimen/_20sdp"/>
 
 
 

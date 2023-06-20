@@ -137,7 +137,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                             holder.binding.txtMidStatusInfo2.setText(R.string.will_pay_later_status_info);
                         }
 
-                        //4)Full Amt. Paid /Partial Amt. Paid/ Wil Pay Later / Will Pay Lump sump
+                        //4)Full Amt. Paid /Partial Amt. Paid/ Wil Pay Later / Will Pay Lump sump / Update
                         if (attemptFlow.contains("fap")) {
                             holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo3.setText(R.string.full_amount_paid_status_info);
@@ -147,6 +147,9 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         } else if (attemptFlow.contains("wpls")) {
                             holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_lump_sump_status_info);
+                        } else if(attemptFlow.contains("update")) {
+                            holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo3.setText(R.string.update);
                         } else if (attemptFlow.contains("wpl")) {
                             holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_later_status_info);
