@@ -506,8 +506,8 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             } else {
                 // Permission has already been granted, make the call
                 String phoneNumber = Mobile_Number; //use mobile number fetched from result(API Response)
-                Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
-              //  Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+              //  Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+                Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
                 startActivity(dial);
                 System.out.println("Here Mobile Number: "+phoneNumber);
 
@@ -537,13 +537,13 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                     startActivity(i);
                 }
 
-                else{
+              /*  else{
                     // From NPA (Assigned)
                     // While Call is going , Move the User to Next Activity
                     Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                     startActivity(i);
-                }
+                }*/
 
 
             }
@@ -577,7 +577,8 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission is granted, make the call
                 String phoneNumber = Mobile_Number; //use mobile number fetched from result(API Response)
-                Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+               // Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+                Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
                 startActivity(dial);
 
                 try {
@@ -605,13 +606,13 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                     startActivity(i);
                 }
 
-                else {
+               /* else {
                     //From NPA (Assigned)
                     // While Call is going , Move the User to Next Activity
                     Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                     startActivity(i);
-                }
+                }*/
 
 
             } else {
@@ -694,6 +695,12 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                         finally {
                             // Release the MediaRecorder
                             recorder.release();
+
+                            // From NPA (Assigned)
+                            // While Call is going , Move the User to Next Activity
+                            Intent i = new Intent(DetailsOfCustomerActivity.this, CallDetailOfCustomerActivity.class);
+                            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                            startActivity(i);
 
                         }
 
