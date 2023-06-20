@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
             if(result!=null){
                 Global.showToast(LoginActivity.this, "Login Response :" + result.getAuthenticationResult());
 
-                userName = result.getUserName();
+                userName = String.valueOf(result.getUserName());
 
                 if(result.getAuthenticationResult().toLowerCase().contains("success")){
 

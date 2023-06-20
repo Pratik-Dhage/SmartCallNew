@@ -14,9 +14,12 @@ import com.example.test.databinding.ActivityLoginWithMpinBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.mPin.ResetMPinActivity;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.otp.OTPActivity;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
+import com.example.test.roomDB.dao.UserNameDao_Impl;
 import com.example.test.roomDB.database.LeadListDB;
+import com.example.test.roomDB.model.UserNameRoomModel;
 
 import in.aabhasjindal.otptextview.OTPListener;
 import in.aabhasjindal.otptextview.OtpTextView;
@@ -44,7 +47,7 @@ public class LoginWithMPinActivity extends AppCompatActivity {
 
 
         //if coming from Login Activity->Generate MPin
-        if(LoginActivity.userName!=null){
+       /* if(LoginActivity.userName!=null){
             binding.txtWelcomeUser.setText("Welcome "+LoginActivity.userName);
         }
         else{
@@ -55,7 +58,25 @@ public class LoginWithMPinActivity extends AppCompatActivity {
             binding.txtWelcomeUser.setText("Welcome "+userName);
             System.out.println("Here LoginWithMPin UserName:"+userName);
 
-        }
+        }*/
+
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+        String UserID = Global.getStringFromSharedPref(this,"UserID");
+        userName =  userNameDao.getUserNameUsingUserIDInUserNameRoomDB(UserID);
+        binding.txtWelcomeUser.setText("Welcome "+userName);
+        System.out.println("Here LoginWithMPin UserName:"+userName);
+
+        //Update Username
+        userNameDao.updateUserName(UserID,userName);
+        System.out.println("Here Update LoginWithMPin UserName:"+userName);
+
+
+       /* //If no UserName then send to OTP Activity
+        if(LoginActivity.userName==null && userName==null){
+            startActivity(new Intent(this, OTPActivity.class));
+
+        }*/
 
     }
 
