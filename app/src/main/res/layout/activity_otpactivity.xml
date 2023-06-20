@@ -48,6 +48,22 @@
         app:layout_constraintTop_toBottomOf="@id/inputLayoutUserId" />
 
     <TextView
+        android:id="@+id/txtAlreadyRegistered"
+        app:layout_constraintTop_toBottomOf="@id/btnSendOTP"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_120sdp"
+        android:text="@string/already_registered"
+        style="@style/common_text_style"
+        android:textSize="@dimen/_13ssp"
+        android:visibility="gone"
+        android:textColor="@color/green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
         android:id="@+id/txtLoginWithMPin"
         app:layout_constraintTop_toBottomOf="@id/btnSendOTP"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +99,7 @@
         android:layout_marginTop="@dimen/_30sdp"
         tools:text="@string/invalid_userID_contact_admin"
         style="@style/common_text_style"
-        android:visibility="visible"
+        android:visibility="gone"
         android:textColor="@color/chilliRed"
         android:textSize="@dimen/_13ssp"
         android:layout_width="wrap_content"

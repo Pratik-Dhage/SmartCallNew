@@ -81,16 +81,19 @@ public class OTPActivity extends AppCompatActivity {
                     Global.saveStringInSharedPref(this,"UserName",UserName);
 
                     if (result.getAuthenticationResult().toString().toLowerCase().contains("already registered")) {
-                        Global.showToast(this, result.getAuthenticationResult().toString());
+                        //Global.showToast(this, result.getAuthenticationResult().toString());
+                        System.out.println("Here Authentication Result :"+result.getAuthenticationResult().toString());
+                        binding.txtAlreadyRegistered.setVisibility(View.VISIBLE);
                         binding.txtLoginWithMPin.setVisibility(View.VISIBLE);
                         binding.txtLoginWithUserCredentials.setVisibility(View.VISIBLE);
                         binding.inputLayoutUserId.setVisibility(View.INVISIBLE);
                         binding.btnSendOTP.setVisibility(View.INVISIBLE);
-                        binding.txtUserIDError.setVisibility(View.INVISIBLE);
+                        binding.txtUserIDError.setVisibility(View.GONE);
                         return;
                     }
                     else if (result.getAuthenticationResult().toString().toLowerCase().contains("invalid userid")) {
                       //  Global.showToast(this, result.getAuthenticationResult().toString());
+                        System.out.println("Here Authentication Result :"+result.getAuthenticationResult().toString());
                         binding.txtUserIDError.setVisibility(View.VISIBLE);
                         binding.txtUserIDError.setText(String.valueOf(result.getAuthenticationResult()));
 
@@ -237,7 +240,8 @@ public class OTPActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 binding.inputLayoutUserId.setError(null);
-                binding.txtUserIDError.setVisibility(View.INVISIBLE);
+                binding.txtUserIDError.setVisibility(View.GONE);
+                binding.txtAlreadyRegistered.setVisibility(View.GONE);
             }
 
             @Override

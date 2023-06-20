@@ -378,6 +378,7 @@
     <string name="please_enter_all_cheque_details">Please Enter All Cheque Details  </string>
     <string name="invalid_userID_contact_admin">Invalid UserID \nPlease Contact Admin</string>
     <string name="user_already_registered">User is Already Registered</string>
+    <string name="already_registered">Already Registered</string>
 
 
     <!--for Tenure-->
