@@ -64,7 +64,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
             holder.binding.txtLocation.setText(a.getLocation());
         }
 
-        if(String.valueOf(a.getDistance())!=null){
+        if(a.getDistance()!=null){
             holder.binding.txtDistance.setText(String.valueOf(a.getDistance()));
         }
 
