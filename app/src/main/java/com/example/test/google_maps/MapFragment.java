@@ -227,13 +227,21 @@ public class MapFragment extends Fragment {
                     float distanceInKm = distance[0] / 1000;
                     String formattedDistanceInKm = String.format("%.2f", distanceInKm);
 
-                    TextView txtDistance = getActivity().findViewById(R.id.txtDistance);
 
-                    if(!formattedDistanceInKm.isEmpty()){
-                        txtDistance.setText(formattedDistanceInKm);
+                    try{
+                        TextView txtDistance = getActivity().findViewById(R.id.txtDistance);
+
+                        if(!formattedDistanceInKm.isEmpty()){
+                            txtDistance.setText(formattedDistanceInKm);
+                        }
+
+                        System.out.println("Distance in Km:" + distanceInKm);
+                    }
+                    catch(Exception e){
+                        System.out.println("Here Distance Exception:"+e.getLocalizedMessage());
                     }
 
-                    System.out.println("Distance in Km:" + distanceInKm);
+
                     // Log the distance
                    // Log.d("MapsActivity", "Distance from user to Lodha Xperia Mall: " + distanceInKm + " km");
 
@@ -284,15 +292,24 @@ public class MapFragment extends Fragment {
                     float distanceInKm = distance[0] / 1000;
                     String formattedDistanceInKm = String.format("%.2f", distanceInKm);
 
-                    TextView txtDistance = getActivity().findViewById(R.id.txtDistance);
 
-                    if(!formattedDistanceInKm.isEmpty()){
-                        getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.GONE); //Dismiss ProgressBar
-                        txtDistance.setVisibility(View.VISIBLE);
-                        txtDistance.setText(formattedDistanceInKm);
+                    try{
+                        TextView txtDistance = getActivity().findViewById(R.id.txtDistance);
+
+                        if(!formattedDistanceInKm.isEmpty()){
+                            getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.GONE); //Dismiss ProgressBar
+                            txtDistance.setVisibility(View.VISIBLE);
+                            txtDistance.setText(formattedDistanceInKm);
+                        }
+
+                        System.out.println("Marker Distance in Km:" + distanceInKm);
+                    }
+                    catch(Exception e){
+                        System.out.println("Here Distance Exception:"+e.getLocalizedMessage());
                     }
 
-                    System.out.println("Marker Distance in Km:" + distanceInKm);
+
+
                     // Log the distance
                     // Log.d("MapsActivity", "Distance from user to Lodha Xperia Mall: " + distanceInKm + " km");
 
