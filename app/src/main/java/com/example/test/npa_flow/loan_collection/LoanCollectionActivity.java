@@ -291,10 +291,10 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         // Iterate through the original ArrayList(LoanCollectionResponseModel) and check if matcher with userSearchedText
         for (LoanCollectionListResponseModel item : loanCollectionViewModel.arrList_LoanCollectionList) {
-            if (item.getMemberName().toLowerCase().replace(" ", "").contains(userSearchedText.toLowerCase())
-                    || item.getPinCode().toLowerCase().replace(" ", "").contains(userSearchedText.toLowerCase())
-                    || item.getActionStatus().toLowerCase().replace(" ", "").contains(userSearchedText.toLowerCase())
-                    || item.getMobileNumber().replace(" ", "").contains(userSearchedText.toLowerCase())
+            if ((null != item.getMemberName() && item.getMemberName().toLowerCase().replace(" ", "").contains(userSearchedText.toLowerCase()))
+                    || (null != item.getPinCode() && item.getPinCode().toLowerCase().replace(" ", "").contains(userSearchedText.toLowerCase()))
+                    || (null != item.getActionStatus() && item.getActionStatus().toLowerCase().replace(" ", "").contains(userSearchedText.toLowerCase()))
+                    || (null != item.getMobileNumber() && item.getMobileNumber().replace(" ", "").contains(userSearchedText.toLowerCase()))
             ) {
                 searchResults.add(item);
             }
