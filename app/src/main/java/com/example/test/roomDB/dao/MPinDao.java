@@ -44,4 +44,7 @@ public interface MPinDao {
 
     @Query("SELECT UserID FROM mpin_table ")
      String getUserID();
+
+    @Query("SELECT BranchCode FROM mpin_table")
+    String getBranchCode();
 }

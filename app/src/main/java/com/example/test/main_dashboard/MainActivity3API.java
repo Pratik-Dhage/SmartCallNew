@@ -325,6 +325,27 @@ public class MainActivity3API extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        // Get UserName , UserID , BranchCode
 
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+
+       String userName = userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+
+        binding.txtWelcomeUser.setText("Welcome "+userName);
+        System.out.println("Here MainActivity3Api onResume() UserName:"+userName);
+
+        // Store UserName in SharedPreference and Use in StatusOfCustomerDetailsAdapter
+        Global.saveStringInSharedPref(this,"userName",userName);
+
+        UserID = mPinDao.getUserID();
+        BranchCode = mPinDao.getBranchCode();
+
+        System.out.println("Here MainActivity3Api onResume() UserID:"+UserID);
+        System.out.println("Here MainActivity3Api onResume() BranchCode:"+BranchCode);
+    }
 }
