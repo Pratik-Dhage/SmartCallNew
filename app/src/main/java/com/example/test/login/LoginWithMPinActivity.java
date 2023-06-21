@@ -162,5 +162,21 @@ public class LoginWithMPinActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        //Get UserName ,UserID  onResume()
+
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+        String UserID = mPinDao.getUserID();
+        userName =  userNameDao.getUserNameUsingUserIDInUserNameRoomDB(UserID);
+        binding.txtWelcomeUser.setText("Welcome "+userName);
+        System.out.println("Here LoginWithMPin UserName on Resume():"+userName);
+
+
+
+
+    }
 }
