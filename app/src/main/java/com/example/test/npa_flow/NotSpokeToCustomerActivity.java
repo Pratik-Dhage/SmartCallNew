@@ -161,6 +161,13 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+        binding.btnSpokeToFriendFamilyMember.setOnClickListener(v->{
+            Intent i = new Intent(NotSpokeToCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
+            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+            i.putExtra("detailsList",detailsList);
+            startActivity(i);
+        });
+
     }
 
     // For Getting Calculated Balance Interest Result back from SharedPreference
