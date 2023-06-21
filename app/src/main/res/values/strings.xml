@@ -26,7 +26,7 @@
     <string name="logo">Logo</string>
     <string name="send_otp">Send OTP</string>
     <string name="otp_verification">OTP Verification</string>
-    <string name="enter_the_otp_sent_to_you_at">Enter the OTP sent to you at</string>
+    <string name="enter_the_otp_sent_to_you_at">Enter the OTP sent to you at\n your registered Mobile No.</string>
     <string name="enter_otp">Enter OTP</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="verify_otp">Verify OTP</string>
