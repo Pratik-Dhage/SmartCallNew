@@ -10,7 +10,7 @@ import com.example.test.npa_flow.call_details.CallDetails;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
-import com.example.test.npa_flow.save_location.SaveLocationOfCustomerModel;
+//import com.example.test.npa_flow.save_location.SaveLocationOfCustomerModel;
 import com.example.test.npa_flow.status_of_customer.model.Activity;
 import com.example.test.otp.model.OTPGenerateOTPResponseModel;
 import com.example.test.otp.model.OTPValidateOTPResponseModel;
