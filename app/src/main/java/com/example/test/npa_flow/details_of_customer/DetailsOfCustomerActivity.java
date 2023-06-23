@@ -698,6 +698,22 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                             // Release the MediaRecorder
                             recorder.release();
 
+
+                            // Get UserName , UserID , BranchCode
+
+                            MPinDao mPinDao = LeadListDB.getInstance(DetailsOfCustomerActivity.this).mPinDao();
+                            UserNameDao userNameDao = LeadListDB.getInstance(DetailsOfCustomerActivity.this).userNameDao();
+                            String userName = userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+                            // Store UserName in SharedPreference and Use in StatusOfCustomerDetailsAdapter
+                            Global.saveStringInSharedPref(DetailsOfCustomerActivity.this,"userName",userName);
+
+                            MainActivity3API.UserID = mPinDao.getUserID();
+                            MainActivity3API.BranchCode = mPinDao.getBranchCode();
+
+                            System.out.println("Here DetailsOfCustomerActivity AfterCall UserID:"+MainActivity3API.UserID);
+                            System.out.println("Here DetailsOfCustomerActivity AfterCall BranchCode:"+MainActivity3API.BranchCode);
+
+
                             // From NPA (Assigned)
                             // While Call is going , Move the User to Next Activity
                             Intent i = new Intent(DetailsOfCustomerActivity.this, CallDetailOfCustomerActivity.class);
