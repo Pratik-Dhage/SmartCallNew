@@ -16,15 +16,22 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
+import com.example.test.api_manager.WebServices;
 import com.example.test.databinding.ItemDetailsOfCustomerBinding;
 import com.example.test.google_maps.GoogleMapsActivity;
+import com.example.test.google_maps.MapFragment;
 import com.example.test.helper_classes.Global;
+import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
+import com.example.test.npa_flow.save_location.SaveLocationOfCustomerViewModel;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -33,6 +40,8 @@ import java.util.Objects;
 public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCustomerAdapter.MyViewHolderClass> {
 
     ArrayList<DetailsOfCustomerResponseModel> detailsOfCustomer_responseModelArrayList;
+
+    public static String dataSetId; // used in LoanCollectionAdapter for saving location when Capture Button is Clicked
 
     public DetailsOfCustomerAdapter(ArrayList<DetailsOfCustomerResponseModel> detailsOfCustomer_responseModelArrayList) {
         this.detailsOfCustomer_responseModelArrayList = detailsOfCustomer_responseModelArrayList;
@@ -287,8 +296,15 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
             if (Global.getStringFromSharedPref(context, "formattedDistanceInKm").isEmpty()) {
                 //  holder.binding.txtDetailName.setText(a.getValue());
             } else {
+
                 String savedDistance = Global.getStringFromSharedPref(context, "formattedDistanceInKm");
                 holder.binding.txtDetailName.setText(a.getValue() + ", " + savedDistance + "Km");
+
+                // Call Save Location of Customer API Here
+               callSaveLocationOfCustomerAPI(context,savedDistance);
+
+                //initObserverSavedLocationOfCustomer
+             initObserverSavedLocationOfCustomer(context);
             }
 
         }
@@ -339,6 +355,51 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
     @Override
     public int getItemCount() {
         return detailsOfCustomer_responseModelArrayList.size();
+    }
+
+    public void callSaveLocationOfCustomerAPI(Context context, String savedDistance){
+        SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(SaveLocationOfCustomerViewModel.class);
+
+        // DetailsOfCustomerAdapter.dataSetId != null && GoogleMapsActivity.latitude!=null && GoogleMapsActivity.longitude!=null
+        if(DetailsOfCustomerAdapter.dataSetId!=null && savedDistance !=null ){
+
+            if((String.valueOf(MapFragment.userMarkerLatitude)!=null && String.valueOf(MapFragment.userMarkerLongitude)!=null)){
+
+                System.out.println("Here DetailsOfCustomerAdapter dataSetId:"+DetailsOfCustomerAdapter.dataSetId);
+                System.out.println("Here DetailsOfCustomerAdapter Latitude:"+MapFragment.userMarkerLatitude);
+                System.out.println("Here DetailsOfCustomerAdapter Longitude:"+ MapFragment.userMarkerLongitude);
+
+                //Save Location of Customer API
+                if(NetworkUtilities.getConnectivityStatus(context)){
+                    saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(DetailsOfCustomerAdapter.dataSetId,String.valueOf(MapFragment.userMarkerLatitude),String.valueOf(MapFragment.userMarkerLongitude),savedDistance);
+                }
+
+            }
+
+        }
+    }
+
+    public void initObserverSavedLocationOfCustomer(Context context){
+        SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(SaveLocationOfCustomerViewModel.class);
+
+        saveLocationOfCustomerViewModel.getMutSaveLocationOfCustomerResponseApi().observe((LifecycleOwner) context, result->{
+            if(result!=null){
+
+              //  Global.showToast(context,result);
+                System.out.println("Here SavedDistanceOfCustomerResponse: "+result);
+            }
+        });
+
+        //handle  error response
+        saveLocationOfCustomerViewModel.getMutErrorResponse().observe((LifecycleOwner)context, error -> {
+
+            if (error != null && !error.isEmpty()) {
+                Global.showToast(context, error);
+                System.out.println("Here: " + error);
+            } else {
+                Global.showToast(context,"Check internet connection");
+            }
+        });
     }
 
     @Override
