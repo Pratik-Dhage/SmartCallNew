@@ -42,8 +42,8 @@ public class MapFragment extends Fragment {
     LocationManager locationManager;
     double userLatitude;
     double userLongitude;
-    double userMarkerLatitude; //for when user clicks on new locations
-    double userMarkerLongitude; //for when user clicks on new locations
+   public static  double userMarkerLatitude; //for when user clicks on new locations
+   public static double userMarkerLongitude; //for when user clicks on new locations
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

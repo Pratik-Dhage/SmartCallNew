@@ -193,6 +193,11 @@ public  class WebServices {
     //FOR STATUS OF CUSTOMER(LOAN COLLECTION ADAPTER in Loan Collection List)
     public static String details_of_status_of_customer = "activity/activitiesForDataSet?";
 
+
+    // For Saving LATITUDE , LONGITUDE , Distance of Member/Customer on Capture Button click in DetailsOfCustomerAdapter
+    //http://43.239.52.151:8081/transactionDataSet/updateLocation?dataSetId=...&lat=....&lon=...&dist=...
+    public static String save_location_of_customer = "transactionDataSet/updateLocation?";
+
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 

@@ -10,6 +10,7 @@ import com.example.test.npa_flow.call_details.CallDetails;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
+import com.example.test.npa_flow.save_location.SaveLocationOfCustomerModel;
 import com.example.test.npa_flow.status_of_customer.model.Activity;
 import com.example.test.otp.model.OTPGenerateOTPResponseModel;
 import com.example.test.otp.model.OTPValidateOTPResponseModel;
@@ -129,5 +130,10 @@ public interface RestClient {
     //Notes-History
     @GET
     Observable<List<NotesHistoryResponseModel>> getNotesHistory(@Url String url);
+
+    //SavedLocationOfCustomer(Passing dataSetId, Latitude ,Longitude , Distance)
+    @GET
+    //Observable<SaveLocationOfCustomerModel> getSavedLocationOfCustomer(@Url String url);
+    Observable<String> getSavedLocationOfCustomer(@Url String url);
 
 }
