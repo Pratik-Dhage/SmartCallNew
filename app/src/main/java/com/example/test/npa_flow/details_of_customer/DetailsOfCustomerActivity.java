@@ -54,6 +54,8 @@ import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
 import com.example.test.roomDB.dao.LeadCallDao;
+import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.LeadCallModelRoom;
 
@@ -802,6 +804,24 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         onClickListener();
         initObserver();
         callDetailsOfCustomerApi();
+
+        // Get UserName , UserID , BranchCode
+
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+
+        String userName = userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+
+        // Store UserName in SharedPreference and Use in StatusOfCustomerDetailsAdapter
+        Global.saveStringInSharedPref(this,"userName",userName);
+
+        MainActivity3API.UserID = mPinDao.getUserID();
+        MainActivity3API.BranchCode = mPinDao.getBranchCode();
+
+        System.out.println("Here DetailsOfCustomerActivity onResume() UserID:"+MainActivity3API.UserID);
+        System.out.println("Here DetailsOfCustomerActivity onResume() BranchCode:"+MainActivity3API.BranchCode);
+
+
         super.onResume();
     }
 
