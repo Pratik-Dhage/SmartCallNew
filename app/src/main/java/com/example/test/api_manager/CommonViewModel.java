@@ -30,7 +30,7 @@ public class CommonViewModel extends ViewModel {
         Disposable disposable;
         switch (apiType) {
             case 1: // call getLeadList API
-                disposable = Global.apiService().getLeadList(WebServices.SmartCall_BaseURL2 + WebServices.find_Leads)
+                disposable = Global.apiService().getLeadList(WebServices.SmartCall_BaseURL5 + WebServices.find_Leads)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .unsubscribeOn(Schedulers.io())
