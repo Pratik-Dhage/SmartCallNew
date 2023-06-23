@@ -140,13 +140,13 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             }
         });
 
-      /*binding.btnDidNotVisitTheCustomer.setOnClickListener(v->{
+      binding.btnDidNotVisitTheCustomer.setOnClickListener(v->{
           Intent i = new Intent(CustomerDetailsActivity.this, Visit_NPA_RescheduledActivity.class);
           String dataSetId = getIntent().getStringExtra("dataSetId");
           i.putExtra("dataSetId",dataSetId);
           startActivity(i);
 
-      });*/
+      });
 
 
 
