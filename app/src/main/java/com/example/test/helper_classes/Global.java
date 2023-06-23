@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.example.test.api_manager.RestClient;
 import com.example.test.api_manager.WebServices;
 import com.example.test.api_manager.RestClient;
 import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
+import com.example.test.notes_history.NotesHistoryResponseModel;
 import com.example.test.notes_history.NotesHistoryViewModel;
 import com.example.test.notes_history.adapter.NotesHistoryAdapter;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
@@ -224,6 +226,7 @@ public class Global {
 
     // TO Display Notes_History Dialog (Visits / Calls & NPA Flows)
     public static NotesHistoryViewModel notesHistoryViewModel ;
+     static ProgressBar progressBar;
     public static void showNotesHistoryDialog(Context context, String dataSetId){
 
         notesHistoryViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(NotesHistoryViewModel.class);
@@ -232,6 +235,7 @@ public class Global {
         TextView customNotesHistoryTextHeading = customDialog.findViewById(R.id.txtCustomDialog);
         Button btnCloseDialog = customDialog.findViewById(R.id.btnCloseDialog);
         RecyclerView recyclerViewNotesHistory = customDialog.findViewById(R.id.rvNotesHistory);
+         progressBar = customDialog.findViewById(R.id.loadingProgressBar);
 
         customNotesHistoryTextHeading.setText(R.string.customer_history);
 
@@ -275,14 +279,25 @@ public class Global {
 
     public static void initObserverNotesHistory(Context context){
 
+         progressBar.setVisibility(View.VISIBLE);
+
         if(NetworkUtilities.getConnectivityStatus(context)){
 
             notesHistoryViewModel.getMutNotesHistory_ResponseApi().observe((LifecycleOwner) context, result->{
                 if(result!=null){
 
+                    progressBar.setVisibility(View.INVISIBLE);
                     notesHistoryViewModel.arrList_NotesHistory_Data.clear();
                    // setUpNotesHistoryRecyclerView(context); // No need here, Setting Recycler View Above
-                   notesHistoryViewModel.arrList_NotesHistory_Data.addAll(result);
+
+                    // if notes is null it will not be included in  notesHistoryViewModel.arrList_NotesHistory_Data
+                    for (NotesHistoryResponseModel item : result) {
+                        if (item.getNotes() != null) {
+                            notesHistoryViewModel.arrList_NotesHistory_Data.add(item);
+                        }
+                    }
+
+                  // notesHistoryViewModel.arrList_NotesHistory_Data.addAll(result);
                 }
 
                 if(result==null || result.isEmpty()){
