@@ -50,6 +50,7 @@ public class VisitsFlowCallDetailsActivity extends AppCompatActivity {
     public static String send_chequeAmount;
     public static String send_bankName;
     public static String send_reason;
+    public static String send_scheduleDateTime;
 
     public static boolean startCallRecording = false;
 
@@ -60,7 +61,7 @@ public class VisitsFlowCallDetailsActivity extends AppCompatActivity {
 
 
 
-
+        send_scheduleDateTime = Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime");
 
     }
 
@@ -139,6 +140,14 @@ public class VisitsFlowCallDetailsActivity extends AppCompatActivity {
 
         if(send_reason!=null){
             callDetails.setReason(send_reason);
+        }
+
+        send_scheduleDateTime = Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime");
+        System.out.println("Here VisitFlowCallDetailsList send_scheduleDateTime before: "+Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime"));
+        if(send_scheduleDateTime!=null){
+            callDetails.setScheduledCallDateTime(send_scheduleDateTime);
+            Global.saveStringInSharedPref(this,"scheduleVisitForCollection_dateTime",""); // make empty to reset
+            System.out.println("Here VisitFlowCallDetailsList send_scheduleDateTime after: "+Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime"));
         }
 
         callDetailsList.add(callDetails);
