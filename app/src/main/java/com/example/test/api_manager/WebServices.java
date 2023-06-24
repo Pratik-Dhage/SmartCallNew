@@ -191,7 +191,7 @@ public  class WebServices {
     public static String visit_rescheduled_late_for_visit_skip_and_proceed = "activity/submitcall?flow=NVTC-VR-LFV-SNP";
 
      //3)Others(Reason to send to backend) (Update Schedule , Skip & Proceed)
-
+     public static String visit_rescheduled_others = "activity/submitcall?flow=DNVTC-VR-O";
 
     //Visits For The Day - (CustomerDetailsActivity / Visit - NPA Details) - Did Not Visit The Customer - Payment Already Made
     public static String visit_did_not_visit_payment_already_made = "activity/submitcall?flow=DNVTC";
