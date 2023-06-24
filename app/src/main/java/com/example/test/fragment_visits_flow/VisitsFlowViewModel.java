@@ -38,7 +38,7 @@ public class VisitsFlowViewModel extends ViewModel {
 
     public void postVisitsFlowCallDateTime(String ApiType,String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber) {
         subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
-                        "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber" + relativeContactNumber,callDetailsList)
+                        "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber" + relativeContactNumber+"&reason=",callDetailsList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -62,6 +62,23 @@ public class VisitsFlowViewModel extends ViewModel {
                 );
 
     }
+
+    //**FOR VISITS FLOW - DID NOT VISIT THE CUSTOMER
+    //1) Did Not Visit The Customer - Visit Rescheduled - Customer Not Available
+    //2) Did Not Visit The Customer - Visit Rescheduled - Late For Visit
+    //3) Did Not Visit The Customer - Visit Rescheduled - Others
+    public void postVisitsFlow_DidNotVisitTheCustomer(String ApiType,String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber,String reason, List<CallDetails> callDetailsList) {
+        subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+                        "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber" + relativeContactNumber +"&reason="+reason,callDetailsList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        this::onHomeApiSuccess, this::onApiError
+                );
+
+    }
+
 
     private void onHomeApiSuccess(String result) {
         mutVisitsFlowCallDetailsResponseApi.setValue(result);
