@@ -189,9 +189,9 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                     getScheduleDateTime();
                     String dataSetId = getIntent().getStringExtra("dataSetId");
                     String will_pay_later_update = "will pay later update";
-
+                    DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
                     //using payment type as will pay later-> update
-                    callDetailsViewModel.postScheduledDateTime(dataSetId,will_pay_later_update,scheduleVisitForCollection_dateTime);
+                    callDetailsViewModel.postScheduledDateTime(dataSetId,will_pay_later_update,scheduleVisitForCollection_dateTime,detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
                 }
             }
 
@@ -203,9 +203,9 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                     getScheduleDateTime();
                     String dataSetId = getIntent().getStringExtra("dataSetId");
                     String will_pay_later = "will pay later";
-
+                    DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
                     //using payment type as will pay later
-                    callDetailsViewModel.postScheduledDateTime(dataSetId,will_pay_later,scheduleVisitForCollection_dateTime);
+                    callDetailsViewModel.postScheduledDateTime(dataSetId,will_pay_later,scheduleVisitForCollection_dateTime,detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
                 }
 
 
@@ -214,7 +214,8 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                     //get scheduleDateTime
                     getScheduleDateTime();
                     String dataSetId = getIntent().getStringExtra("dataSetId");
-                    callDetailsViewModel.postScheduledDateTime_ATCL(dataSetId,scheduleVisitForCollection_dateTime);
+                    DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+                    callDetailsViewModel.postScheduledDateTime_ATCL(dataSetId,scheduleVisitForCollection_dateTime,detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
 
                 }
 
@@ -256,8 +257,8 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                 //get scheduleDateTime
                 getScheduleDateTime();
                 String dataSetId = getIntent().getStringExtra("dataSetId");
-
-                callDetailsViewModel.postScheduledDateTime_SVFC(dataSetId,scheduleVisitForCollection_dateTime);
+                DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+                callDetailsViewModel.postScheduledDateTime_SVFC(dataSetId,scheduleVisitForCollection_dateTime,detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
 
             }
 
