@@ -153,6 +153,9 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
 
 
             btnProceed.setOnClickListener(v2 -> {
+
+                VisitsFlowCallDetailsActivity.send_reason = edtPleaseSpecify.getText().toString().trim();
+
                 Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
