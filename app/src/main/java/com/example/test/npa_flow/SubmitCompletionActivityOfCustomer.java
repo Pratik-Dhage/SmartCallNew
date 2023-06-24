@@ -18,14 +18,19 @@ import android.widget.TextView;
 import com.example.test.R;
 import com.example.test.api_manager.WebServices;
 import com.example.test.databinding.ActivitySubmitCompletionOfCustomerBinding;
+import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
 import com.example.test.fragment_visits_flow.VisitsFlowViewModel;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.call_details.CallDetailsViewModel;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.dao.UserNameDao;
+import com.example.test.roomDB.database.LeadListDB;
 
 import java.util.ArrayList;
 
@@ -56,7 +61,9 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
     }
 
     private void setToolBarTitle(){
-        if(getIntent().hasExtra("isFromVisitNPANotificationActivity")){
+        if(getIntent().hasExtra("isFromVisitNPANotificationActivity") || getIntent().hasExtra("isFromVisitNPANotAvailableActivity")
+         || getIntent().hasExtra("isFromVisitNPARescheduleActivity")
+        ){
             binding.txtToolbarHeading.setText(getString(R.string.visit_complete));
         }
         else {
@@ -81,6 +88,21 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         relativeContact =getIntent().getStringExtra("relativeContact");
         dateOfVisitPromised = getIntent().getStringExtra("dateOfVisitPromised");
         foName = getIntent().getStringExtra("foName");
+
+
+        // Get UserName , UserID , BranchCode
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+        String userName = userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+        // Store UserName in SharedPreference and Use in StatusOfCustomerDetailsAdapter
+        Global.saveStringInSharedPref(this,"userName",userName);
+
+        MainActivity3API.UserID = mPinDao.getUserID();
+        MainActivity3API.BranchCode = mPinDao.getBranchCode();
+
+        System.out.println("Here SubmitCompletionActivityOfCustomer initializeFields UserID:"+MainActivity3API.UserID);
+        System.out.println("Here SubmitCompletionActivityOfCustomer initializeFields BranchCode:"+MainActivity3API.BranchCode);
+
     }
 
     private void initObserver(){
@@ -173,6 +195,58 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
 
         binding.btnSubmitNoChange.setOnClickListener(v->{
+
+            //Visit-NPA Reschedule -> Others -> Proceed
+            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String others_proceed = WebServices.visit_did_not_visit_others;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_proceed,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPA Reschedule -> Payment Already Made -> Skip & Proceed
+            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String payment_already_made_skip_and_proceed = WebServices.visit_did_not_visit_payment_already_made;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_skip_and_proceed,dataSetId,"","",",","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPANotAvailable -> Others -> Skip & Proceed
+            if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String others_SkipAndProceed = WebServices.visit_rescheduled_others;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_SkipAndProceed,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPANotAvailable -> Late For Visit -> Skip & Proceed
+          else  if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_LateForVisit")){
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String lateForVisit_SkipAndProceed = WebServices.visit_rescheduled_late_for_visit_skip_and_proceed;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(lateForVisit_SkipAndProceed,dataSetId,"","","","","", VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPANotAvailable->Customer Not Available -> Skip & Proceed
+          else  if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable")){
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String customerNotAvailable_SkipAndProceed = WebServices.visit_rescheduled_customer_not_available_skip_and_proceed;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(customerNotAvailable_SkipAndProceed,dataSetId,"","","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
 
             //PAYMENT INFO OF CUSTOMER -> OTHERS
             if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")){
@@ -353,6 +427,60 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
         binding.btnSubmitNeedToUpdateDetails.setOnClickListener(v->{
 
+            //Visit-NPA Reschedule -> Others -> Proceed
+            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String others_proceed = WebServices.visit_did_not_visit_others;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_proceed,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPA Reschedule -> Payment Already Made -> Skip & Proceed
+            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String payment_already_made_skip_and_proceed = WebServices.visit_did_not_visit_payment_already_made;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_skip_and_proceed,dataSetId,"","",",","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPANotAvailable -> Others -> Skip & Proceed
+            if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String others_SkipAndProceed = WebServices.visit_rescheduled_others;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_SkipAndProceed,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPANotAvailable -> Late For Visit -> Skip & Proceed
+            else  if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_LateForVisit")){
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String lateForVisit_SkipAndProceed = WebServices.visit_rescheduled_late_for_visit_skip_and_proceed;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(lateForVisit_SkipAndProceed,dataSetId,"","","","","", VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPANotAvailable->Customer Not Available -> Skip & Proceed
+            else  if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable")){
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String customerNotAvailable_SkipAndProceed = WebServices.visit_rescheduled_customer_not_available_skip_and_proceed;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(customerNotAvailable_SkipAndProceed,dataSetId,"","","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
             //PAYMENT INFO OF CUSTOMER -> OTHERS
             if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")){
 
@@ -529,6 +657,58 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
         binding.btnSubmitEscalateToBM.setOnClickListener(v->{
 
+            //Visit-NPA Reschedule -> Others -> Proceed
+            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String others_proceed = WebServices.visit_did_not_visit_others;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_proceed,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPA Reschedule -> Payment Already Made -> Skip & Proceed
+            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String payment_already_made_skip_and_proceed = WebServices.visit_did_not_visit_payment_already_made;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_skip_and_proceed,dataSetId,"","",",","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPANotAvailable -> Others -> Skip & Proceed
+            if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String others_SkipAndProceed = WebServices.visit_rescheduled_others;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_SkipAndProceed,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPANotAvailable -> Late For Visit -> Skip & Proceed
+            else  if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_LateForVisit")){
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String lateForVisit_SkipAndProceed = WebServices.visit_rescheduled_late_for_visit_skip_and_proceed;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(lateForVisit_SkipAndProceed,dataSetId,"","","","","", VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPANotAvailable->Customer Not Available -> Skip & Proceed
+            else  if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable")){
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String customerNotAvailable_SkipAndProceed = WebServices.visit_rescheduled_customer_not_available_skip_and_proceed;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(customerNotAvailable_SkipAndProceed,dataSetId,"","","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
             //PAYMENT INFO OF CUSTOMER -> OTHERS
             if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")){
 
@@ -703,6 +883,21 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
             }
 
         });
+    }
+
+    private void navigateToDashBoard(){
+
+        VisitsFlowCallDetailsActivity.send_reason =""; // make empty to reset flow
+        Global.removeStringInSharedPref(this,"scheduleVisitForCollection_dateTime"); // make empty to reset flow
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                startActivity(i);
+            }
+        },1000);
+
     }
 
 
