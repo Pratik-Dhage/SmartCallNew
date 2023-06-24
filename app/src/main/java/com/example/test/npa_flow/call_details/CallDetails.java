@@ -26,6 +26,7 @@ public class CallDetails implements Serializable {
     private String chequeNumber;
     private String chequeAmount;
     private String bankName;
+    private String reason;
     public Integer getAttemptNo() {
         return attemptNo;
     }
@@ -135,5 +136,13 @@ public class CallDetails implements Serializable {
 
     public void setBankName(String bankName) {
         this.bankName = bankName;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }
