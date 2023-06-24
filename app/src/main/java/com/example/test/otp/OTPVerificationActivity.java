@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 
 import com.example.test.R;
@@ -28,6 +29,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
     public String userId;
     public int otpCode;
     boolean isFromLoginForgotPassword ;
+    OTPViewModel otpViewModel; // for Resend OTP
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
         initializeFields();
         onClickListeners();
         otpListener();
+        startCountDownTimer();
     }
 
     private void initializeFields() {
@@ -49,6 +52,8 @@ public class OTPVerificationActivity extends AppCompatActivity {
         binding.setViewModel(otpVerifyViewModel);
 
         isFromLoginForgotPassword = false ; //initially isFromLoginForgotPassword will be false
+
+        otpViewModel = new ViewModelProvider(this).get(OTPViewModel.class); // for Resend OTP
     }
 
     private void callValidateOTP_Api(){
@@ -160,8 +165,59 @@ public class OTPVerificationActivity extends AppCompatActivity {
         });
     }
 
+    // on Clicking Resend OTP Call generateOTP API
+    private void callGenerateOTP_Api(){
+
+        userId  = getIntent().getStringExtra("userId");;
+        otpViewModel.callGenerateOTP_Api(userId);
+
+    }
+
+    private void initObserverGenerateOTP(){
+
+        otpViewModel.getMutGenerateOTP_ResponseApi().observe(this,result->{
+
+            if(NetworkUtilities.getConnectivityStatus(this)){
+
+                if(result!=null){
+
+                    Global.showToast(this,result.getOtpCode().toString());
+                    System.out.println("Here OTPVerificationActivity Resend OTP called: "+result.getOtpCode().toString());
+                }
+
+                //handle  error response
+                otpViewModel.getMutErrorResponse().observe(this, error -> {
+
+                    if (error != null && !error.isEmpty()) {
+                        Global.showSnackBar(view, error);
+                        System.out.println("Here: " + error);
+                    } else {
+                        Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+                    }
+                });
+
+            }
+
+            else{
+                Global.showSnackBar(view,getString(R.string.check_internet_connection));
+            }
+
+
+
+        });
+
+    }
+
 
     private void onClickListeners() {
+
+        //on Clicking Resend OTP
+        binding.labelResendOTP.setOnClickListener(v1->{
+            System.out.println("Resend OTP clicked");
+            callGenerateOTP_Api();
+            initObserverGenerateOTP();
+
+        });
 
 
         binding.btnVerifyOTP.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +270,36 @@ public class OTPVerificationActivity extends AppCompatActivity {
 
             }
         });
+
+
+
     }
 
+    private void startCountDownTimer(){
+         CountDownTimer countdownTimer;
+        // Start the countdown timer with 30 seconds duration and 1-second intervals
+        countdownTimer = new CountDownTimer(30000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // Convert milliseconds to seconds
+                int seconds = (int) (millisUntilFinished / 1000);
+
+                // Format the time as "mm:ss"
+                String time = String.format("%02d:%02d", seconds / 60, seconds % 60);
+
+                // Update the TextView
+               binding.txtOTPTimer.setText(time);
+            }
+
+            @Override
+            public void onFinish() {
+                // Countdown finished, perform any necessary actions
+                binding.txtOTPTimer.setText("00:00");
+                // Add code to handle timer completion
+            }
+        };
+
+        countdownTimer.start(); // Start the countdown timer
+    }
 
 }
