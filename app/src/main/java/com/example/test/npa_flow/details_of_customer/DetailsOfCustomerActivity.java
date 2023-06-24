@@ -180,6 +180,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
         if(send_callScheduledTime!=null ){
             callDetails.setScheduledCallDateTime(send_callScheduledTime); // for Will Pay Later flow
+            Global.saveStringInSharedPref(this,"scheduleVisitForCollection_dateTime",""); // make empty to reset
         }
 
         if (send_callDuration != null) {
