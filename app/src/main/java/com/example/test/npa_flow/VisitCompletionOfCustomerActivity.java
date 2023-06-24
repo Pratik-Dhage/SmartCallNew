@@ -178,6 +178,18 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             //3 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List) 3) Visits For The Day Flow
 
             //Visits For The Day Flow
+
+            // VisitsForTheDay->Did Not Visit The Customer-> Payment Already Made
+            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String payment_already_made_proceed = WebServices.visit_did_not_visit_payment_already_made;
+
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_proceed,dataSetId,"","",",","","","");
+                navigateToDashBoard();
+
+            }
+
+
                     if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
                         Global.showToast(this,"Payment Complete");
 
@@ -359,6 +371,18 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             //3 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List) 3) Visits For The Day Flow
 
             //Visits For The Day Flow
+
+            // VisitsForTheDay->Did Not Visit The Customer-> Payment Already Made
+            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String payment_already_made_proceed = WebServices.visit_did_not_visit_payment_already_made;
+
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_proceed,dataSetId,"","",",","","","");
+                navigateToDashBoard();
+
+            }
+
+
             if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
                 Global.showToast(this,"Payment Complete");
 
@@ -519,6 +543,17 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             //3 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List) 3) Visits For The Day Flow
 
             //Visits For The Day Flow
+
+            // VisitsForTheDay->Did Not Visit The Customer-> Payment Already Made
+            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String payment_already_made_proceed = WebServices.visit_did_not_visit_payment_already_made;
+
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_proceed,dataSetId,"","",",","","","");
+                navigateToDashBoard();
+
+            }
+
             if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
                 Global.showToast(this,"Payment Complete");
 
@@ -687,6 +722,17 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
 
         });
+
+    }
+
+    private void navigateToDashBoard(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(VisitCompletionOfCustomerActivity.this,MainActivity3API.class);
+                startActivity(i);
+            }
+        },1000);
 
     }
 
