@@ -138,7 +138,8 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                     //original URL
                     String generateReceiptUrl = "http://43.239.52.151:8081/report/Receipt?output=PDF&dataSetId=238624&amtPaid=1645&userId=CA_01_001&userName=CallingAgent1";
 
-                    String generateReceiptUrl2 = "http://43.239.52.151:8081/report/Receipt?output=PDF&dataSetId=" + dataSetId + "&amtPaid=" + amount_paid + "&userId=" + userId + "&userName=" + username;
+                    // Using SmartCall_BaseURL5 for fast response
+                    String generateReceiptUrl2 = "http://45.113.189.27:8082/report/Receipt?output=PDF&dataSetId=" + dataSetId + "&amtPaid=" + amount_paid + "&userId=" + userId + "&userName=" + username;
 
                     //for Navigating to PDF Viewer app installed in Device
                     Uri uri = Uri.parse(generateReceiptUrl2);
