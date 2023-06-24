@@ -692,7 +692,10 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
                            Log.d("Here byte_array to String:", bytes_array.toString()) ;
                         } catch (Exception e) {
-                            Log.d("Here Call Recording Exception:", e.getLocalizedMessage());
+                            if(e.getLocalizedMessage()!=null){
+                                Log.d("Here Call Recording Exception:", e.getLocalizedMessage());
+                            }
+
                             e.printStackTrace();
                         }
                         finally {
