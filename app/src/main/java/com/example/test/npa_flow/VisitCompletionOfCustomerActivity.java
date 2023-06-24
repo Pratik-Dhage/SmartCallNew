@@ -30,6 +30,9 @@ import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseMo
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
+import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.dao.UserNameDao;
+import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.schedule_flow.calls_for_the_day.CallsForTheDayActivity;
 import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAdapter;
 import com.example.test.schedule_flow.visits_for_the_day.VisitsForTheDayActivity;
@@ -87,6 +90,20 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
         setUpToolbarTitle();
+
+        // Get UserName , UserID , BranchCode
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+        String userName = userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+        // Store UserName in SharedPreference and Use in StatusOfCustomerDetailsAdapter
+        Global.saveStringInSharedPref(this,"userName",userName);
+
+        MainActivity3API.UserID = mPinDao.getUserID();
+        MainActivity3API.BranchCode = mPinDao.getBranchCode();
+
+        System.out.println("Here VisitCompletionOfCustomerActivity initializeFields UserID:"+MainActivity3API.UserID);
+        System.out.println("Here VisitCompletionOfCustomerActivity initializeFields BranchCode:"+MainActivity3API.BranchCode);
+
     }
 
 
