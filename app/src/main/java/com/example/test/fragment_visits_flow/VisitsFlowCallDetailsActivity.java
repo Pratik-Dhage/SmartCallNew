@@ -49,6 +49,7 @@ public class VisitsFlowCallDetailsActivity extends AppCompatActivity {
     public static String send_chequeNumber;
     public static String send_chequeAmount;
     public static String send_bankName;
+    public static String send_reason;
 
     public static boolean startCallRecording = false;
 
@@ -134,6 +135,10 @@ public class VisitsFlowCallDetailsActivity extends AppCompatActivity {
 
         if(send_bankName!=null){
             callDetails.setBankName(send_bankName);
+        }
+
+        if(send_reason!=null){
+            callDetails.setReason(send_reason);
         }
 
         callDetailsList.add(callDetails);
