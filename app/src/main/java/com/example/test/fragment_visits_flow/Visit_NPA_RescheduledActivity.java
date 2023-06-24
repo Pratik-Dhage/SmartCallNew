@@ -29,6 +29,7 @@ import com.example.test.databinding.ActivityVisitNpaRescheduleBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.SubmitCompletionActivityOfCustomer;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
@@ -160,6 +161,7 @@ public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
                       i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                       i.putExtra("detailsList", detailsList);
                       i.putExtra("isFromVisitNPARescheduleActivity", "isFromVisitNPARescheduleActivity");
+                      i.putExtra("isFromVisitNPARescheduleActivity_payment_already_made","isFromVisitNPARescheduleActivity_payment_already_made");
                       startActivity(i);
                   });
 
@@ -279,10 +281,11 @@ public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
             });
 
             txtSkipAndProceed.setOnClickListener(v1 -> {
-                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList",detailsList);
                 i.putExtra("isFromVisitNPARescheduleActivity","isFromVisitNPARescheduleActivity");
+                i.putExtra("isFromVisitNPARescheduleActivity_payment_already_made","isFromVisitNPARescheduleActivity_payment_already_made");
                 startActivity(i);
             });
 
@@ -316,10 +319,14 @@ public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
 
 
             btnProceed.setOnClickListener(v2 -> {
-                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+
+                VisitsFlowCallDetailsActivity.send_reason = edtPleaseSpecify.getText().toString().trim();
+
+                Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList",detailsList);
                 i.putExtra("isFromVisitNPARescheduleActivity","isFromVisitNPARescheduleActivity");
+                i.putExtra("isFromVisitNPARescheduleActivity_Others","isFromVisitNPARescheduleActivity_Others");
                 startActivity(i);
             });
 
