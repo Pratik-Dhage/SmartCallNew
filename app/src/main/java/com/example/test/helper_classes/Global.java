@@ -227,6 +227,7 @@ public class Global {
     // TO Display Notes_History Dialog (Visits / Calls & NPA Flows)
     public static NotesHistoryViewModel notesHistoryViewModel ;
      static ProgressBar progressBar;
+     static RecyclerView recyclerViewNotesHistory;
     public static void showNotesHistoryDialog(Context context, String dataSetId){
 
         notesHistoryViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(NotesHistoryViewModel.class);
@@ -234,14 +235,11 @@ public class Global {
 
         TextView customNotesHistoryTextHeading = customDialog.findViewById(R.id.txtCustomDialog);
         Button btnCloseDialog = customDialog.findViewById(R.id.btnCloseDialog);
-        RecyclerView recyclerViewNotesHistory = customDialog.findViewById(R.id.rvNotesHistory);
+         recyclerViewNotesHistory = customDialog.findViewById(R.id.rvNotesHistory);
          progressBar = customDialog.findViewById(R.id.loadingProgressBar);
 
         customNotesHistoryTextHeading.setText(R.string.customer_history);
 
-        //Set Notes History Recycler View
-        notesHistoryViewModel.updateNotesHistory_Data();
-        recyclerViewNotesHistory.setAdapter(new NotesHistoryAdapter(notesHistoryViewModel.arrList_NotesHistory_Data));
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -288,7 +286,11 @@ public class Global {
 
                     progressBar.setVisibility(View.INVISIBLE);
                     notesHistoryViewModel.arrList_NotesHistory_Data.clear();
-                   // setUpNotesHistoryRecyclerView(context); // No need here, Setting Recycler View Above
+
+                    //Set Notes History Recycler View
+                    notesHistoryViewModel.updateNotesHistory_Data();
+                    recyclerViewNotesHistory.setAdapter(new NotesHistoryAdapter(notesHistoryViewModel.arrList_NotesHistory_Data));
+
 
                     // if notes is null it will not be included in  notesHistoryViewModel.arrList_NotesHistory_Data
                     for (NotesHistoryResponseModel item : result) {
