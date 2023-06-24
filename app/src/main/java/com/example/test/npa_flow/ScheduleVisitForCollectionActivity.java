@@ -13,7 +13,10 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import com.example.test.R;
+import com.example.test.api_manager.WebServices;
 import com.example.test.databinding.ActivityScheduleVisitForCollectionBinding;
+import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
+import com.example.test.fragment_visits_flow.VisitsFlowViewModel;
 import com.example.test.fragments_activity.ActivityOfFragments;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
@@ -22,6 +25,9 @@ import com.example.test.npa_flow.call_details.CallDetailsViewModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
+import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.dao.UserNameDao;
+import com.example.test.roomDB.database.LeadListDB;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +40,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
     View view;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
     CallDetailsViewModel callDetailsViewModel;
+    VisitsFlowViewModel visitsFlowViewModel;
     public static String scheduleVisitForCollection_dateTime  ;
 
     @Override
@@ -53,7 +60,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
         view = binding.getRoot();
 
         callDetailsViewModel = new ViewModelProvider(this).get(CallDetailsViewModel.class);
-
+        visitsFlowViewModel = new ViewModelProvider(this).get(VisitsFlowViewModel.class);
 
         //for current date
         DatePicker datePicker = binding.datePickerCalendarView;
@@ -66,6 +73,22 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
 
         setUpTitleAndButtonText();
+
+
+        // Get UserName , UserID , BranchCode
+
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+        String userName = userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+        // Store UserName in SharedPreference and Use in StatusOfCustomerDetailsAdapter
+        Global.saveStringInSharedPref(this,"userName",userName);
+
+        MainActivity3API.UserID = mPinDao.getUserID();
+        MainActivity3API.BranchCode = mPinDao.getBranchCode();
+
+        System.out.println("Here ScheduleVisitForCustomerActivity initializeFields() UserID:"+MainActivity3API.UserID);
+        System.out.println("Here ScheduleVisitForCustomerActivity initializeFields() BranchCode:"+MainActivity3API.BranchCode);
+
     }
 
     private void initObserver(){
@@ -117,11 +140,31 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
             binding.btnSkipAndProceed.setOnClickListener(v->{
 
-                Intent i = new Intent(this,VisitCompletionOfCustomerActivity.class);
-                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                i.putExtra("detailsList", detailsList);
-                i.putExtra("isFromVisitNPANotAvailableActivity","isFromVisitNPANotAvailableActivity");
-                startActivity(i);
+                if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable") ||
+                        getIntent().hasExtra("isFromVisitNPANotAvailableActivity_LateForVisit")  ||
+                        getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")
+                ){
+                    Intent i = new Intent(this,SubmitCompletionActivityOfCustomer.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("detailsList", detailsList);
+                    i.putExtra("isFromVisitNPANotAvailableActivity","isFromVisitNPANotAvailableActivity");
+
+                    if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable")){
+                        i.putExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable","isFromVisitNPANotAvailableActivity_CustomerNotAvailable");
+                    }
+
+                    else if (getIntent().hasExtra("isFromVisitNPANotAvailableActivity_LateForVisit")){
+                        i.putExtra("isFromVisitNPANotAvailableActivity_LateForVisit","isFromVisitNPANotAvailableActivity_LateForVisit");
+                    }
+
+                    else if (getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")){
+                        i.putExtra("isFromVisitNPANotAvailableActivity_Others","isFromVisitNPANotAvailableActivity_Others");
+                    }
+
+
+                    startActivity(i);
+                }
+
             });
         }
     }
@@ -177,8 +220,38 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
             }
 
+            //Visit_NPA_NotAvailableActivity -> Customer Not Available -> Update Schedule
+            if(binding.btnUpdateSchedule.getText()==getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String customerNotAvailable_UpdateSchedule = WebServices.visit_rescheduled_customer_not_available_update_schedule;
+                //get scheduleDateTime
+                getScheduleDateTime();
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(customerNotAvailable_UpdateSchedule,dataSetId,scheduleVisitForCollection_dateTime,"","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+            }
+
+            //Visit_NPA_NotAvailable -> Late For Visit -> Update Schedule
+            if(binding.btnUpdateSchedule.getText()==getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromVisitNPANotAvailableActivity_LateForVisit")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String lateForVisit_UpdateSchedule = WebServices.visit_rescheduled_late_for_visit_update_schedule;
+                //get scheduleDateTime
+                getScheduleDateTime();
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(lateForVisit_UpdateSchedule,dataSetId,scheduleVisitForCollection_dateTime,"","","","", VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+            }
+
+            //Visit_NPA_NotAvailable -> Others -> Update Schedule
+            if(binding.btnUpdateSchedule.getText()==getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String others_SkipAndProceed = WebServices.visit_rescheduled_others;
+                //get scheduleDateTime
+                getScheduleDateTime();
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_SkipAndProceed,dataSetId,scheduleVisitForCollection_dateTime,"","","","",VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+            }
+
             //Payment Mode -> Schedule Visit For Collection (SVFC)
-            if(binding.btnUpdateSchedule.getText()==getString(R.string.update_schedule_space)){
+            if(binding.btnUpdateSchedule.getText()==getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromPaymentMode_ScheduleVisitForCollection")){
 
                 //get scheduleDateTime
                 getScheduleDateTime();
@@ -281,4 +354,24 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+
+        // Get UserName , UserID , BranchCode
+
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+        String userName = userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+        // Store UserName in SharedPreference and Use in StatusOfCustomerDetailsAdapter
+        Global.saveStringInSharedPref(this,"userName",userName);
+
+        MainActivity3API.UserID = mPinDao.getUserID();
+        MainActivity3API.BranchCode = mPinDao.getBranchCode();
+
+        System.out.println("Here ScheduleVisitForCustomerActivity onResume() UserID:"+MainActivity3API.UserID);
+        System.out.println("Here ScheduleVisitForCustomerActivity onResume() BranchCode:"+MainActivity3API.BranchCode);
+
+
+        super.onResume();
+    }
 }
