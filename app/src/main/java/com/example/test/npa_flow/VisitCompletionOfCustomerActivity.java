@@ -20,6 +20,7 @@ import android.widget.TimePicker;
 import com.example.test.R;
 import com.example.test.api_manager.WebServices;
 import com.example.test.databinding.ActivityVisitCompletionOfCustomerBinding;
+import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
 import com.example.test.fragment_visits_flow.VisitsFlowViewModel;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
@@ -201,7 +202,8 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String payment_already_made_proceed = WebServices.visit_did_not_visit_payment_already_made;
 
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_proceed,dataSetId,"","",",","","","");
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_proceed,dataSetId,"","",",","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
                 navigateToDashBoard();
 
             }
@@ -394,7 +396,8 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String payment_already_made_proceed = WebServices.visit_did_not_visit_payment_already_made;
 
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_proceed,dataSetId,"","",",","","","");
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_proceed,dataSetId,"","",",","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
                 navigateToDashBoard();
 
             }
@@ -566,7 +569,8 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String payment_already_made_proceed = WebServices.visit_did_not_visit_payment_already_made;
 
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_proceed,dataSetId,"","",",","","","");
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_proceed,dataSetId,"","",",","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
                 navigateToDashBoard();
 
             }
