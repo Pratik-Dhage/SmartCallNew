@@ -86,6 +86,7 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("detailsList", detailsList);
             i.putExtra("isFromVisitNPANotAvailableActivity", "isFromVisitNPANotAvailableActivity");
+            i.putExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable","isFromVisitNPANotAvailableActivity_CustomerNotAvailable");
             startActivity(i);
 
         });
@@ -112,10 +113,14 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
 
 
             btnProceed.setOnClickListener(v2 -> {
+
+                VisitsFlowCallDetailsActivity.send_reason = edtPleaseSpecify.getText().toString().trim(); // send reason to Server
+
                 Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
                 i.putExtra("isFromVisitNPANotAvailableActivity", "isFromVisitNPANotAvailableActivity");
+                i.putExtra("isFromVisitNPANotAvailableActivity_LateForVisit","isFromVisitNPANotAvailableActivity_LateForVisit");
                 startActivity(i);
             });
 
@@ -152,6 +157,7 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
                 i.putExtra("isFromVisitNPANotAvailableActivity", "isFromVisitNPANotAvailableActivity");
+                i.putExtra("isFromVisitNPANotAvailableActivity_Others","isFromVisitNPANotAvailableActivity_Others");
                 startActivity(i);
             });
 
