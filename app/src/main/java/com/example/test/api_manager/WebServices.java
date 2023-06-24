@@ -48,11 +48,13 @@ public  class WebServices {
     //Smart Call BaseURL
     public static String SmartCall_BaseURL = "https://192.168.1.101:8433/";
 
-    public static String SmartCall_BaseURL2 = "http://43.239.52.151:8081/";
+    public static String SmartCall_BaseURL2 = "http://43.239.52.151:8081/"; // FOR Testing purpose
 
     public static String SmartCall_BaseURL3 = "http://192.168.1.100:8081/";
 
     public static String SmartCall_BaseURL4 = "http://45.117.0.12:8081/";
+
+    public static String SmartCall_BaseURL5 = "http://45.113.189.27:8082/"; // FOR Client (Faster Response from Backend)
 
     //for Login Authentication
     public static String Login_Authentication = "security/authenticateUser";
@@ -175,6 +177,16 @@ public  class WebServices {
     public static String visit_ready_to_pay_send_link_for_online_payment ="activity/submitcall?flow=RTP-SLFOP";
     public static String visit_ready_to_pay_cash_payment ="activity/submitcallCheque?flow=RTP-CAP";
     public static String visit_ready_to_pay_cheque_payment = "activity/submitcallCheque?flow=RTP-CHP";
+
+    //Visits For The Day - (CustomerDetailsActivity / Visit - NPA Details) - Did Not Visit The Customer - Visit Rescheduled
+    //1) Customer Not Available ( Update Schedule , Skip & Proceed)
+    public static String visit_rescheduled_customer_not_available_update_schedule = "activity/submitcall?flow=DNVTC-VR-CAN-US";
+    public static String visit_rescheduled_customer_not_available_skip_and_proceed = "activity/submitcall?flow=NVTC-VR-CAN-SNP";
+
+    //2)Late For Visit (Reason to send to backend) (Update Schedule , Others)
+    public static String visit_rescheduled_late_for_visit_update_schedule = "activity/submitcall?flow=DNVTC-VR-LFV-US";
+    public static String visit_rescheduled_late_for_visit_others = "activity/submitcall?flow=NVTC-VR-LFV-O";
+
 
     //FOR SCHEDULE DETAILS (Calender Icon In DashBoard)
     public static String schedule_details_in_dashboard = "activity/scheduledVisits?userId=";
