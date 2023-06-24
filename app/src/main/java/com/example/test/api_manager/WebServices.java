@@ -165,6 +165,7 @@ public  class WebServices {
   //FOR OTHERS (PAYMENT INFORMATION OF CUSTOMER ACTIVITY - OTHERS)
     public static String call_details_payment_info_others = "activity/submitcall?flow=STTC-NRTP-OTHERS";
 
+  //*** Visit For The Day - Visited The Customer ***
 
     //Visit For The Day - Visit-NPA Notification (Visits For The Day Not Ready To Pay Flow)
     public static String visit_not_ready_to_pay_lack_of_funds ="activity/submitcall?flow=NRTP-LOF";
@@ -178,14 +179,26 @@ public  class WebServices {
     public static String visit_ready_to_pay_cash_payment ="activity/submitcallCheque?flow=RTP-CAP";
     public static String visit_ready_to_pay_cheque_payment = "activity/submitcallCheque?flow=RTP-CHP";
 
+    //*** Visit For The Day - Did Not Visit The Customer
+
     //Visits For The Day - (CustomerDetailsActivity / Visit - NPA Details) - Did Not Visit The Customer - Visit Rescheduled
     //1) Customer Not Available ( Update Schedule , Skip & Proceed)
     public static String visit_rescheduled_customer_not_available_update_schedule = "activity/submitcall?flow=DNVTC-VR-CAN-US";
     public static String visit_rescheduled_customer_not_available_skip_and_proceed = "activity/submitcall?flow=NVTC-VR-CAN-SNP";
 
-    //2)Late For Visit (Reason to send to backend) (Update Schedule , Others)
+    //2)Late For Visit (Reason to send to backend) (Update Schedule , Skip & Proceed)
     public static String visit_rescheduled_late_for_visit_update_schedule = "activity/submitcall?flow=DNVTC-VR-LFV-US";
-    public static String visit_rescheduled_late_for_visit_others = "activity/submitcall?flow=NVTC-VR-LFV-O";
+    public static String visit_rescheduled_late_for_visit_skip_and_proceed = "activity/submitcall?flow=NVTC-VR-LFV-SNP";
+
+     //3)Others(Reason to send to backend) (Update Schedule , Skip & Proceed)
+
+
+    //Visits For The Day - (CustomerDetailsActivity / Visit - NPA Details) - Did Not Visit The Customer - Payment Already Made
+    public static String visit_did_not_visit_payment_already_made = "activity/submitcall?flow=DNVTC";
+
+    //Visits For The Day - (CustomerDetailsActivity / Visit - NPA Details) - Did Not Visit The Customer - Others
+    public static String visit_did_not_visit_others = "activity/submitcall?flow=DNVTC–O";
+
 
 
     //FOR SCHEDULE DETAILS (Calender Icon In DashBoard)
