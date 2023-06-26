@@ -1,6 +1,7 @@
 package com.example.test.npa_flow.loan_collection;
 
 import android.content.Context;
+import android.location.Location;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -38,8 +39,9 @@ public class LoanCollectionViewModel extends ViewModel {
 
 
     public ArrayList<LoanCollectionListResponseModel> arrList_LoanCollectionList = new ArrayList<>();
+    public Location currentLocation;
     // for LoanCollectionActivity
-    public LoanCollectionAdapter loanCollectionAdapter = new LoanCollectionAdapter(arrList_LoanCollectionList);
+    public LoanCollectionAdapter loanCollectionAdapter = new LoanCollectionAdapter(arrList_LoanCollectionList,currentLocation);
 
     public void updateLoanCollectionData(){ loanCollectionAdapter.setData(arrList_LoanCollectionList);  }
 

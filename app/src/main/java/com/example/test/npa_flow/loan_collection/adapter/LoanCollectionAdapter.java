@@ -3,11 +3,14 @@ package com.example.test.npa_flow.loan_collection.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,16 +23,19 @@ import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.NotSpokeToCustomerActivity;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
+import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
 import com.example.test.npa_flow.status_of_customer.StatusOfCustomerActivity;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.database.LeadListDB;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAdapter.MyViewHolderClass> {
 
 
+    private Location currentLocation;
 
     public LoanCollectionAdapter() {
         //to use dataSetId in DetailsOfCustomerViewModel
@@ -37,8 +43,9 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
     ArrayList<LoanCollectionListResponseModel> loanCollectionListResponseModelArrayList;
 
-    public LoanCollectionAdapter(ArrayList<LoanCollectionListResponseModel> loanCollectionListResponseModelArrayList) {
+    public LoanCollectionAdapter(ArrayList<LoanCollectionListResponseModel> loanCollectionListResponseModelArrayList, Location location) {
         this.loanCollectionListResponseModelArrayList = loanCollectionListResponseModelArrayList;
+        this.currentLocation = location;
     }
 
     @NonNull
@@ -60,10 +67,10 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
             holder.binding.txtName.setText(a.getMemberName());
         }
 
-        if(a.getLocation()!=null){
-            holder.binding.txtLocation.setText(a.getLocation());
-        }
-
+//        if(a.getLocation()!=null){
+//            holder.binding.txtLocation.setText(a.getLocation());
+//        }
+        holder.binding.txtLocation.setText("");
         if(a.getDistance()!=null){
             holder.binding.txtDistance.setText(String.valueOf(a.getDistance()));
         }
@@ -104,16 +111,15 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
         //opens Google Maps
         holder.binding.ivMap.setOnClickListener(v->{
-
-            // Pass LatLong to Google Maps in WebViewActivity
-             String latitude = a.getLattitute().toString();
-             String longitude = a.getLongitute().toString();
-
-            Intent googleMapsIntent = new Intent(context, GoogleMapsActivity.class);
-            googleMapsIntent.putExtra("latitude",Double.parseDouble(latitude));
-            googleMapsIntent.putExtra("longitude",Double.parseDouble(longitude));
-            googleMapsIntent.putExtra("isFromLoanCollectionAdapter","isFromLoanCollectionAdapter");
-            context.startActivity(googleMapsIntent);
+            if(null != currentLocation) {
+                Intent googleMapsIntent = new Intent(context, GoogleMapsActivity.class);
+                googleMapsIntent.putExtra("longitude",currentLocation.getLongitude());
+                googleMapsIntent.putExtra("latitude", currentLocation.getLatitude());
+                googleMapsIntent.putExtra("isFromLoanCollectionAdapter", "isFromLoanCollectionAdapter");
+                context.startActivity(googleMapsIntent);
+            }else{
+                Toast.makeText(v.getContext(), "Unable to get device location",Toast.LENGTH_LONG);
+            }
         });
 
 
@@ -126,6 +132,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
                 Global.saveStringInSharedPref(context,"FullNameFromAdapter",String.valueOf(a.getMemberName()));
                 MainActivity3API.showCallIcon = false; // //from Visits For The Day Flow to be True Else False
                 String dataSetId = a.getDataSetId().toString();
+                DetailsOfCustomerAdapter.dataSetId = a.getDataSetId().toString(); // store dataSetId for Saving Location of Customer along with LatLong,Distance in DetailsOfCustomerAdapter
                 Intent i = new Intent(context, DetailsOfCustomerActivity.class);
                 i.putExtra("dataSetId",dataSetId);
                 context.startActivity(i);
@@ -230,4 +237,5 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
         }
 
     }
+
 }

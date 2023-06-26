@@ -1,14 +1,22 @@
 package com.example.test.npa_flow.loan_collection;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,10 +30,12 @@ import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
+import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class LoanCollectionActivity extends AppCompatActivity {
 
@@ -33,7 +43,9 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
     ActivityLoanCollectionBinding binding;
     View view;
+    private LocationManager locationManager;
     LoanCollectionViewModel loanCollectionViewModel;
+    private Location currentLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +55,14 @@ public class LoanCollectionActivity extends AppCompatActivity {
         initializeFields();
         onClickListener();
 
-        if(getIntent().hasExtra("isFromFull_Partial_AmountPaid_CompleteNoChange")){
-            int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this,"DPD_row_position"));
+        if (getIntent().hasExtra("isFromFull_Partial_AmountPaid_CompleteNoChange")) {
+            int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this, "DPD_row_position"));
             call_LoanCollectionList_Api(DPD_row_position); // coming from Full/Partial Amt Paid Flow
             initObserver();
         }
 
-        if(getIntent().hasExtra("NearByCustomerActivity")){
-            int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this,"DPD_row_position"));
+        if (getIntent().hasExtra("NearByCustomerActivity")) {
+            int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this, "DPD_row_position"));
             call_LoanCollectionList_Api(DPD_row_position); // coming from (Payment Mode)ScheduleVisitForCollection Flow
             initObserver();
         }
@@ -77,7 +89,7 @@ public class LoanCollectionActivity extends AppCompatActivity {
         Global.removeStringInSharedPref(this, "formattedDistanceInKm");
 
         //Whenever List is Loaded Make Notes Empty
-        Global.saveStringInSharedPref(this,"notes",""); //make Notes Empty After Complete
+        Global.saveStringInSharedPref(this, "notes", ""); //make Notes Empty After Complete
 
         setToolbarTitle();
 
@@ -105,7 +117,7 @@ public class LoanCollectionActivity extends AppCompatActivity {
         }
 
         //for UAT only . Later delete this
-        if(getIntent().hasExtra("isFromNearByCustomerActivity")){
+        if (getIntent().hasExtra("isFromNearByCustomerActivity")) {
             binding.txtToolbarHeading.setText(R.string.near_by_customers);
         }
 
@@ -122,7 +134,22 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         loanCollectionViewModel.updateLoanCollectionData();
         RecyclerView recyclerView = binding.rvLoanCollection;
-        recyclerView.setAdapter(new LoanCollectionAdapter(loanCollectionViewModel.arrList_LoanCollectionList));
+        try {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+            }else
+                currentLocation = getDeviceLocation();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        recyclerView.setAdapter(new LoanCollectionAdapter(loanCollectionViewModel.arrList_LoanCollectionList, currentLocation));
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 101)
+            currentLocation = getDeviceLocation();
     }
 
     private void initObserver() {
@@ -173,12 +200,12 @@ public class LoanCollectionActivity extends AppCompatActivity {
             }
         });
 
-        binding.ivHome.setOnClickListener(v->{
+        binding.ivHome.setOnClickListener(v -> {
             Intent i = new Intent(this, MainActivity3API.class);
             startActivity(i);
         });
 
-        binding.ivSearchCancelIcon.setOnClickListener(v->{
+        binding.ivSearchCancelIcon.setOnClickListener(v -> {
             binding.ivSearchIcon.setVisibility(View.VISIBLE);
             binding.txtToolbarHeading.setVisibility(View.VISIBLE);
             binding.edtSearchFromList.setVisibility(View.INVISIBLE);
@@ -189,64 +216,64 @@ public class LoanCollectionActivity extends AppCompatActivity {
         });
 
         //for Chips(Name/PinCode/Status/Mobile)
-        binding.chipName.setOnClickListener(v->{
+        binding.chipName.setOnClickListener(v -> {
             binding.edtSearchFromList.setHint(getString(R.string.search_by));
-            binding.chipName.setTextColor(ContextCompat.getColor(this,R.color.white));
-            binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.textBlue)));
-            binding.chipPinCode.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipPinCode.setTextColor(ContextCompat.getColor(this,R.color.black));
-            binding.chipStatus.setTextColor(ContextCompat.getColor(this,R.color.black));
-            binding.chipMobile.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipMobile.setTextColor(ContextCompat.getColor(this,R.color.black));
+            binding.chipName.setTextColor(ContextCompat.getColor(this, R.color.white));
+            binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.textBlue)));
+            binding.chipPinCode.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.skyBlue)));
+            binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.skyBlue)));
+            binding.chipPinCode.setTextColor(ContextCompat.getColor(this, R.color.black));
+            binding.chipStatus.setTextColor(ContextCompat.getColor(this, R.color.black));
+            binding.chipMobile.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.skyBlue)));
+            binding.chipMobile.setTextColor(ContextCompat.getColor(this, R.color.black));
             binding.edtSearchFromList.setText("");
             binding.edtSearchFromList.setVisibility(View.VISIBLE);
             binding.txtToolbarHeading.setVisibility(View.INVISIBLE);
             binding.ivSearchIcon.performClick();
         });
 
-        binding.chipPinCode.setOnClickListener(v->{
+        binding.chipPinCode.setOnClickListener(v -> {
             binding.edtSearchFromList.setHint(getString(R.string.search_by));
-            binding.chipPinCode.setTextColor(ContextCompat.getColor(this,R.color.white));
-            binding.chipPinCode.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.textBlue)));
-            binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipName.setTextColor(ContextCompat.getColor(this,R.color.black));
-            binding.chipStatus.setTextColor(ContextCompat.getColor(this,R.color.black));
-            binding.chipMobile.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipMobile.setTextColor(ContextCompat.getColor(this,R.color.black));
+            binding.chipPinCode.setTextColor(ContextCompat.getColor(this, R.color.white));
+            binding.chipPinCode.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.textBlue)));
+            binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.skyBlue)));
+            binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.skyBlue)));
+            binding.chipName.setTextColor(ContextCompat.getColor(this, R.color.black));
+            binding.chipStatus.setTextColor(ContextCompat.getColor(this, R.color.black));
+            binding.chipMobile.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.skyBlue)));
+            binding.chipMobile.setTextColor(ContextCompat.getColor(this, R.color.black));
             binding.edtSearchFromList.setText("");
             binding.edtSearchFromList.setVisibility(View.VISIBLE);
             binding.txtToolbarHeading.setVisibility(View.INVISIBLE);
             binding.ivSearchIcon.performClick();
         });
 
-        binding.chipStatus.setOnClickListener(v->{
+        binding.chipStatus.setOnClickListener(v -> {
             binding.edtSearchFromList.setHint(getString(R.string.search_by));
-            binding.chipStatus.setTextColor(ContextCompat.getColor(this,R.color.white));
-            binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.textBlue)));
-            binding.chipPinCode.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipPinCode.setTextColor(ContextCompat.getColor(this,R.color.black));
-            binding.chipName.setTextColor(ContextCompat.getColor(this,R.color.black));
-            binding.chipMobile.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipMobile.setTextColor(ContextCompat.getColor(this,R.color.black));
+            binding.chipStatus.setTextColor(ContextCompat.getColor(this, R.color.white));
+            binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.textBlue)));
+            binding.chipPinCode.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.skyBlue)));
+            binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.skyBlue)));
+            binding.chipPinCode.setTextColor(ContextCompat.getColor(this, R.color.black));
+            binding.chipName.setTextColor(ContextCompat.getColor(this, R.color.black));
+            binding.chipMobile.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.skyBlue)));
+            binding.chipMobile.setTextColor(ContextCompat.getColor(this, R.color.black));
             binding.edtSearchFromList.setText("");
             binding.edtSearchFromList.setVisibility(View.VISIBLE);
             binding.txtToolbarHeading.setVisibility(View.INVISIBLE);
             binding.ivSearchIcon.performClick();
         });
 
-        binding.chipMobile.setOnClickListener(v->{
+        binding.chipMobile.setOnClickListener(v -> {
             binding.edtSearchFromList.setHint(getString(R.string.search_by));
-            binding.chipMobile.setTextColor(ContextCompat.getColor(this,R.color.white));
-            binding.chipMobile.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.textBlue)));
-            binding.chipPinCode.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,R.color.skyBlue)));
-            binding.chipPinCode.setTextColor(ContextCompat.getColor(this,R.color.black));
-            binding.chipName.setTextColor(ContextCompat.getColor(this,R.color.black));
-            binding.chipStatus.setTextColor(ContextCompat.getColor(this,R.color.black));
+            binding.chipMobile.setTextColor(ContextCompat.getColor(this, R.color.white));
+            binding.chipMobile.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.textBlue)));
+            binding.chipPinCode.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.skyBlue)));
+            binding.chipName.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.skyBlue)));
+            binding.chipStatus.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.skyBlue)));
+            binding.chipPinCode.setTextColor(ContextCompat.getColor(this, R.color.black));
+            binding.chipName.setTextColor(ContextCompat.getColor(this, R.color.black));
+            binding.chipStatus.setTextColor(ContextCompat.getColor(this, R.color.black));
             binding.edtSearchFromList.setText("");
             binding.edtSearchFromList.setVisibility(View.VISIBLE);
             binding.txtToolbarHeading.setVisibility(View.INVISIBLE);
@@ -254,7 +281,7 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         });
 
-        binding.ivSearchIcon.setOnClickListener(v->{
+        binding.ivSearchIcon.setOnClickListener(v -> {
 
             binding.ivSearchCancelIcon.setVisibility(View.VISIBLE);
             binding.ivSearchIcon.setVisibility(View.INVISIBLE);
@@ -300,33 +327,59 @@ public class LoanCollectionActivity extends AppCompatActivity {
             }
         }
 
-        if(searchResults.isEmpty()){
-            Global.showToast(this,getString(R.string.no_data_found));
+        if (searchResults.isEmpty()) {
+            Global.showToast(this, getString(R.string.no_data_found));
         }
 
         // Use the searchResults ArrayList to update  UI
-       // updateUI(searchResults);
+        // updateUI(searchResults);
         RecyclerView recyclerView = binding.rvLoanCollection;
-        recyclerView.setAdapter(new LoanCollectionAdapter(searchResults));
+        recyclerView.setAdapter(new LoanCollectionAdapter(searchResults, currentLocation));
     }
 
 
-
-
+    @Override
+    protected void onPause() {
+        System.out.println("LoanCollectionActivity on Pause() called");
+        super.onPause();
+    }
 
     @Override
     protected void onResume() {
 
+        System.out.println("LoanCollectionActivity on Resume() called");
+
         //Whenever List is Loaded Remove BalanceInterestResult,  Distance between User & Destination from SharedPreferences
         Global.removeStringInSharedPref(this, "BalanceInterestResult");
         Global.removeStringInSharedPref(this, "formattedDistanceInKm");
-        setUpLoanCollectionList_RecyclerView(); // acts as refresh to show correct Attempt No.
+        setUpLoanCollectionList_RecyclerView(); // acts as refresh to show correct Attempt No. And Distance in Km
 
 
         //When User Searched String is not empty (When pressing back button in StatusOfCustomerActivity)
-       if(!binding.edtSearchFromList.getText().toString().isEmpty()){
-           performSearch(binding.edtSearchFromList.getText().toString());
-       }
+        if (!binding.edtSearchFromList.getText().toString().isEmpty()) {
+            performSearch(binding.edtSearchFromList.getText().toString());
+        }
+
+
+        // Get UserName , UserID , BranchCode
+
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+
+        String userName = userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+
+        // Store UserName in SharedPreference and Use in StatusOfCustomerDetailsAdapter
+        Global.saveStringInSharedPref(this,"userName",userName);
+
+        MainActivity3API.UserID = mPinDao.getUserID();
+        MainActivity3API.BranchCode = mPinDao.getBranchCode();
+
+        System.out.println("Here LoanCollectionActivity onResume() UserID:"+MainActivity3API.UserID);
+        System.out.println("Here LoanCollectionActivity onResume() BranchCode:"+MainActivity3API.BranchCode);
+
+        int DPD_row_position = getIntent().getIntExtra("DPD_row_position", 0);
+        call_LoanCollectionList_Api(DPD_row_position);
+
 
 
         super.onResume();
@@ -339,5 +392,65 @@ public class LoanCollectionActivity extends AppCompatActivity {
         Global.removeStringInSharedPref(this, "BalanceInterestResult");
         Global.removeStringInSharedPref(this, "formattedDistanceInKm");
         super.onDestroy();
+    }
+
+
+    private Location getDeviceLocation() {
+        Location currentLocation = null;
+        System.out.println("Method called");
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+        }else {
+
+            Double latitude;
+            Double longitude;
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            boolean gpsProviderEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            boolean networkProviderEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            GpsLocationListner gpsLocationListener = new GpsLocationListner();
+            if (gpsProviderEnabled) {
+                locationManager.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER,
+                        5000,
+                        0F,
+                        gpsLocationListener
+                );
+            }
+            if (networkProviderEnable) {
+                locationManager.requestLocationUpdates(
+                        LocationManager.NETWORK_PROVIDER,
+                        5000,
+                        0F,
+                        gpsLocationListener
+                );
+            }
+
+            Location lastKnownLocationByGps =
+                    locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location lastKnownLocationByNetwork =
+                    locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (lastKnownLocationByGps != null && lastKnownLocationByNetwork != null) {
+                if (lastKnownLocationByGps.getAccuracy() > lastKnownLocationByNetwork.getAccuracy()) {
+                    currentLocation = lastKnownLocationByGps;
+                    latitude = currentLocation.getLatitude();
+                    longitude = currentLocation.getLongitude();
+                    // use latitude and longitude as per your need
+                } else {
+                    currentLocation = lastKnownLocationByNetwork;
+                    latitude = currentLocation.getLatitude();
+                    longitude = currentLocation.getLongitude();
+                    // use latitude and longitude as per your need
+                }
+            } else if (lastKnownLocationByGps != null) {
+                currentLocation = lastKnownLocationByGps;
+                latitude = currentLocation.getLatitude();
+                longitude = currentLocation.getLongitude();
+            } else if (lastKnownLocationByNetwork != null) {
+                currentLocation = lastKnownLocationByNetwork;
+                latitude = currentLocation.getLatitude();
+                longitude = currentLocation.getLongitude();
+            }
+        }
+        return currentLocation;
     }
 }
