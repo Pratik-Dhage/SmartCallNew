@@ -23,4 +23,8 @@ public interface LeadCallDao {
 
     @Query("UPDATE lead_call_table SET leadCalls=:leadsCount where phoneNumber =:phoneNumber")
      void UpdateLeadCalls(int leadsCount,String phoneNumber);
+
+
+    @Query("SELECT firstName FROM lead_call_table WHERE phoneNumber =:phone_Number")
+    String getFullNameUsingPhoneNumber(String phone_Number);
 }
