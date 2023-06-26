@@ -13,9 +13,13 @@ import com.example.test.R;
 import com.example.test.databinding.ActivityDpdactivityBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 import com.example.test.npa_flow.dpd.DPD_ViewModel;
 import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
+import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.dao.UserNameDao;
+import com.example.test.roomDB.database.LeadListDB;
 
 public class DPDActivity extends AppCompatActivity {
 
@@ -51,6 +55,19 @@ public class DPDActivity extends AppCompatActivity {
         view = binding.getRoot();
         dpdViewModel = new ViewModelProvider(this).get(DPD_ViewModel.class);
         binding.setViewModel(dpdViewModel);
+
+        // Get UserName , UserID , BranchCode
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+        String userName = userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+        // Store UserName in SharedPreference and Use in StatusOfCustomerDetailsAdapter
+        Global.saveStringInSharedPref(this,"userName",userName);
+
+        MainActivity3API.UserID = mPinDao.getUserID();
+        MainActivity3API.BranchCode = mPinDao.getBranchCode();
+
+        System.out.println("Here DPDActivity initializeFields() UserID:"+MainActivity3API.UserID);
+        System.out.println("Here DPDActivity initializeFields() BranchCode:"+MainActivity3API.BranchCode);
 
     }
 
@@ -105,5 +122,19 @@ public class DPDActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
 
+        initializeFields();
+        initObserver();
+        if(NetworkUtilities.getConnectivityStatus(this)){
+            call_DPD_Api();
+        }
+        else{
+            Global.showToast(this,getString(R.string.check_internet_connection));
+        }
+        onClickListener();
+
+        super.onResume();
+    }
 }
