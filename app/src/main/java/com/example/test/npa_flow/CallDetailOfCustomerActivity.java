@@ -25,6 +25,7 @@ import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
     }
 
     private void setToolBarTitle(){
-        if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+        if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null){
             binding.txtToolbarHeading.setText(R.string.calls_for_the_day_npa_details);
         }
     }
@@ -144,7 +145,8 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
         binding.btnSpokeToCustomer.setOnClickListener(v -> {
 
                     //From CallsForTheDayAdapter
-                    if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                    if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null){
+                        System.out.println("Here isFromCallsForTheDayAdapter_CallDetailOfCustomerActivity");
                         Intent i = new Intent(this, PaymentNotificationOfCustomerActivity.class);
                         i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
                         i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
@@ -154,6 +156,7 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
 
                     //From NPA (Assigned)
                     else{
+                        System.out.println("Here fromNPA_CallDetailOfCustomerActivity");
                         Intent i = new Intent(this, PaymentNotificationOfCustomerActivity.class);
                         i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
                         i.putExtra("detailsList",detailsList);
@@ -165,7 +168,8 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
         binding.btnNotSpokeToCustomer.setOnClickListener(v->{
 
             //From CallsForTheDayAdapter
-            if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+            if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null){
+                System.out.println("Here isFromCallsForTheDayAdapter");
                 Intent i = new Intent(CallDetailOfCustomerActivity.this,NotSpokeToCustomerActivity.class);
                 i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
                 i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
@@ -175,6 +179,7 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
 
             //From NPA (Assigned)
             else{
+                System.out.println("Here fromNPA_CallDetailOfCustomerActivity");
                 Intent i = new Intent(CallDetailOfCustomerActivity.this,NotSpokeToCustomerActivity.class);
                 i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList",detailsList);

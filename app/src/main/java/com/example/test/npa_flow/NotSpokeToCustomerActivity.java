@@ -106,7 +106,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         binding.btnNoResponseBusy.setOnClickListener(v -> {
             //From CallsForTheDayAdapter
             if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
-
+                System.out.println("Here isFromCallsForTheDayAdapter_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
 
                 Intent i = new Intent(this, CallsForTheDayActivity.class);
@@ -115,7 +115,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
             //From NPA
             else{
-
+               System.out.println("Here isFromNPA_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
 
                 // Get DPD_row_position saved in SharedPreference in DPD_Adapter Class
@@ -132,7 +132,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         binding.btnNotReachableSwitchedOff.setOnClickListener(v -> {
             //From CallsForTheDayAdapter
             if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
-
+                System.out.println("Here isFromCallsForTheDayAdapter_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
 
                 Intent i = new Intent(this, CallsForTheDayActivity.class);
@@ -141,7 +141,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
             //From NPA
             else{
-
+                System.out.println("Here isFromNPA_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
 
                 // Get DPD_row_position saved in SharedPreference in DPD_Adapter Class

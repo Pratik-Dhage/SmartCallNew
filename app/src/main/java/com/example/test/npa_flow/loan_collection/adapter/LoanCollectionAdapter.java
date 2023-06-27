@@ -40,6 +40,7 @@ import com.example.test.roomDB.dao.NotSpokeToCustomerDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.LeadCallModelRoom;
 import com.example.test.roomDB.model.NotSpokeToCustomerRoomModel;
+import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAdapter;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -164,6 +165,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
         holder.itemView.setOnClickListener(v->{
 
+            CallsForTheDayAdapter.isFromCallsForTheDayAdapter = null; // to Reset CallsForTheDayFlow  & GOTO NPA flow
             //DetailsOfCustomer Only visible if Status is Pending
             if(a.getActionStatus().toLowerCase().contains("pending")){
 

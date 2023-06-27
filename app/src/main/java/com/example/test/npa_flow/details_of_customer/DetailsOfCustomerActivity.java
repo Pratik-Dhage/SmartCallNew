@@ -58,6 +58,7 @@ import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.LeadCallModelRoom;
+import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAdapter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -533,20 +534,22 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                 }
 
                 //From CallsForTheDayAdapter
-                if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null){
+                    System.out.println("Here isFromCallsForTheDayAdapter_DetailsOfCustomerActivity");
                     Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                     i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
                     startActivity(i);
                 }
 
-              /*  else{
+                else{
                     // From NPA (Assigned)
                     // While Call is going , Move the User to Next Activity
+                    System.out.println("Here fromNPA_DetailsOfCustomerActivity");
                     Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                     startActivity(i);
-                }*/
+                }
 
 
             }
@@ -602,20 +605,22 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                 }
 
                 //From CallsForTheDayAdapter
-                if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null){
+                    System.out.println("Here isFromCallsForTheDayAdapter_DetailsOfCustomerActivity");
                     Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                     i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
                     startActivity(i);
                 }
 
-               /* else {
+                else {
                     //From NPA (Assigned)
                     // While Call is going , Move the User to Next Activity
+                    System.out.println("Here fromNPA_DetailsOfCustomerActivity");
                     Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                     startActivity(i);
-                }*/
+                }
 
 
             } else {
