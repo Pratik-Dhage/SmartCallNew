@@ -22,7 +22,9 @@ import com.example.test.npa_flow.NotSpokeToCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.status_of_customer.StatusOfCustomerActivity;
 import com.example.test.roomDB.dao.LeadCallDao;
+import com.example.test.roomDB.dao.NotSpokeToCustomerDao;
 import com.example.test.roomDB.database.LeadListDB;
+import com.example.test.roomDB.model.NotSpokeToCustomerRoomModel;
 import com.example.test.schedule_flow.calls_for_the_day.model.CallsForTheDayResponseModel;
 import com.example.test.schedule_flow.visits_for_the_day.model.VisitsForTheDayResponseModel;
 
@@ -196,6 +198,40 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
                 }
             }
 
+            //Store Not Spoke To Customer Name , Mobile Number , true for Not Spoke To customer
+            if(null!=DetailsOfCustomerActivity.FullName && null!= DetailsOfCustomerActivity.Mobile_Number){
+                if(NotSpokeToCustomerActivity.notSpokeToCustomer==true){
+
+                    NotSpokeToCustomerDao notSpokeToCustomerDao = LeadListDB.getInstance(context).notSpokeToCustomerDao();
+                    NotSpokeToCustomerRoomModel notSpokeToCustomerRoomModel = new NotSpokeToCustomerRoomModel(true,a.getMemberName(),DetailsOfCustomerActivity.Mobile_Number);
+                    notSpokeToCustomerDao.insert(notSpokeToCustomerRoomModel);
+                    System.out.println("Here MobileNumber NotSpokeToCustomer: "+notSpokeToCustomerDao.getMobileNumberWhoNotSpokeWithCustomer(DetailsOfCustomerActivity.Mobile_Number));
+                }
+            }
+
+        }
+
+
+        //to Display Hand Gestures for Not Spoke To The Customer Mobile Numbers from RoomDB
+        NotSpokeToCustomerDao notSpokeToCustomerDao = LeadListDB.getInstance(context).notSpokeToCustomerDao();
+        if( (null!=notSpokeToCustomerDao.getMobileNumberWhoNotSpokeWithCustomer(a.getMobileNumber()) && null!= a.getMobileNumber()) && (null!= a.getActionStatus() && a.getActionStatus().toLowerCase().contains("pending") )){
+
+            if(notSpokeToCustomerDao.getMobileNumberWhoNotSpokeWithCustomer(a.getMobileNumber()).contentEquals(a.getMobileNumber())){
+
+                int callCount =  leadCallDao.getCallCountUsingPhoneNumber(String.valueOf(a.getMobileNumber()));
+
+                switch (callCount){
+
+                    case 0:  holder.binding.ivCallsAttempt.setVisibility(View.INVISIBLE);
+                        break;
+                    case 1:holder.binding.ivCallsAttempt.setImageResource(R.drawable.attempttwo);
+                        break;
+                    case 2 : holder.binding.ivCallsAttempt.setImageResource(R.drawable.attemptthree);
+                        break;
+
+                }
+
+            }
 
         }
 
