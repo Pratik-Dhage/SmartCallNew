@@ -1,9 +1,13 @@
 package com.example.test.npa_flow.loan_collection.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +17,23 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
 import com.example.test.databinding.ItemLoanCollectionBinding;
 import com.example.test.google_maps.GoogleMapsActivity;
+import com.example.test.google_maps.MapFragment;
 import com.example.test.helper_classes.Global;
+import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.NotSpokeToCustomerActivity;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
+import com.example.test.npa_flow.save_location.SaveLocationOfCustomerViewModel;
 import com.example.test.npa_flow.status_of_customer.StatusOfCustomerActivity;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.NotSpokeToCustomerDao;
@@ -114,15 +123,42 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
         //opens Google Maps
         holder.binding.ivMap.setOnClickListener(v->{
-            if(null != currentLocation) {
-                Intent googleMapsIntent = new Intent(context, GoogleMapsActivity.class);
-                googleMapsIntent.putExtra("longitude",currentLocation.getLongitude());
-                googleMapsIntent.putExtra("latitude", currentLocation.getLatitude());
-                googleMapsIntent.putExtra("isFromLoanCollectionAdapter", "isFromLoanCollectionAdapter");
-                context.startActivity(googleMapsIntent);
-            }else{
-                Toast.makeText(v.getContext(), "Unable to get device location",Toast.LENGTH_LONG);
+
+            System.out.println("Here LoanCollectionAdapter ivMap Location msg");
+            //check if Location Turned On
+            LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            boolean isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                    locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            if(!isLocationEnabled){
+                Global.showToast(context, "Please Turn Location On");
+                // Open location settings
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                ((Activity) context).startActivityForResult(intent, 1);
+
+
             }
+
+            else if(isLocationEnabled) {
+
+                if(null != currentLocation) {
+                    Intent googleMapsIntent = new Intent(context, GoogleMapsActivity.class);
+                    googleMapsIntent.putExtra("longitude",currentLocation.getLongitude());
+                    googleMapsIntent.putExtra("latitude", currentLocation.getLatitude());
+                    googleMapsIntent.putExtra("isFromLoanCollectionAdapter", "isFromLoanCollectionAdapter");
+                    googleMapsIntent.putExtra("isFromLoanCollectionAdapter_ivMap","isFromLoanCollectionAdapter_ivMap");
+                    googleMapsIntent.putExtra("dataSetId",String.valueOf(a.getDataSetId()));
+                    context.startActivity(googleMapsIntent);
+
+
+
+                }else{
+                    Toast.makeText(v.getContext(), "Unable to get device location",Toast.LENGTH_LONG);
+                }
+
+            }
+
+
         });
 
 

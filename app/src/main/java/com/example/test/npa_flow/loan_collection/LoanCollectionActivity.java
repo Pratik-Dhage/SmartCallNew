@@ -352,7 +352,6 @@ public class LoanCollectionActivity extends AppCompatActivity {
         //Whenever List is Loaded Remove BalanceInterestResult,  Distance between User & Destination from SharedPreferences
         Global.removeStringInSharedPref(this, "BalanceInterestResult");
         Global.removeStringInSharedPref(this, "formattedDistanceInKm");
-        setUpLoanCollectionList_RecyclerView(); // acts as refresh to show correct Attempt No. And Distance in Km
 
 
         //When User Searched String is not empty (When pressing back button in StatusOfCustomerActivity)
@@ -377,9 +376,12 @@ public class LoanCollectionActivity extends AppCompatActivity {
         System.out.println("Here LoanCollectionActivity onResume() UserID:"+MainActivity3API.UserID);
         System.out.println("Here LoanCollectionActivity onResume() BranchCode:"+MainActivity3API.BranchCode);
 
+        initializeFields();
+        onClickListener();
+        initObserver();
         int DPD_row_position = getIntent().getIntExtra("DPD_row_position", 0);
         call_LoanCollectionList_Api(DPD_row_position);
-
+        setUpLoanCollectionList_RecyclerView(); // acts as refresh to show correct Attempt No. And Distance in Km
 
 
         super.onResume();

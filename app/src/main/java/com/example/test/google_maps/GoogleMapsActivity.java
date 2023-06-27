@@ -3,14 +3,21 @@ package com.example.test.google_maps;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityGoogleMapsBinding;
+import com.example.test.helper_classes.Global;
+import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.loan_collection.LoanCollectionViewModel;
+import com.example.test.npa_flow.save_location.SaveLocationOfCustomerViewModel;
 
 public class GoogleMapsActivity extends AppCompatActivity {
 
@@ -68,5 +75,31 @@ public class GoogleMapsActivity extends AppCompatActivity {
         binding.ivHome.setOnClickListener(v->{
             startActivity(new Intent(this, MainActivity3API.class));
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        System.out.println("Here onBackPressed() GoogleMapsActivity");
+        if(getIntent().hasExtra("isFromLoanCollectionAdapter_ivMap")){
+
+            //Save Location of Customer API
+            if(NetworkUtilities.getConnectivityStatus(this)){
+                SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider(this).get(SaveLocationOfCustomerViewModel.class);
+
+                String savedDistance = Global.getStringFromSharedPref(this, "formattedDistanceInKm");
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                if(savedDistance!=null){
+                    saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(MapFragment.userMarkerLatitude),String.valueOf(MapFragment.userMarkerLongitude),savedDistance);
+                }
+
+                LoanCollectionViewModel loanCollectionViewModel = new ViewModelProvider(this).get(LoanCollectionViewModel.class);
+                int DPD_row_position = getIntent().getIntExtra("DPD_row_position", 0);
+                loanCollectionViewModel.getLoanCollectionList_Data(DPD_row_position);
+
+            }
+        }
+
+        super.onBackPressed();
     }
 }
