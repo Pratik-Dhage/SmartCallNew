@@ -21,10 +21,14 @@ import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
+import com.example.test.roomDB.dao.LeadCallDao;
+import com.example.test.roomDB.database.LeadListDB;
+import com.example.test.roomDB.model.LeadCallModelRoom;
 import com.example.test.schedule_flow.calls_for_the_day.CallsForTheDayActivity;
 
 import java.text.SimpleDateFormat;
@@ -109,6 +113,10 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                 System.out.println("Here isFromCallsForTheDayAdapter_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
 
+                if(null!= DetailsOfCustomerActivity.FullName && null!= DetailsOfCustomerActivity.Mobile_Number){
+                    storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number);
+                }
+
                 Intent i = new Intent(this, CallsForTheDayActivity.class);
                 startActivity(i);
             }
@@ -117,6 +125,10 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
             else{
                System.out.println("Here isFromNPA_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
+
+                if(null!= DetailsOfCustomerActivity.FullName && null!= DetailsOfCustomerActivity.Mobile_Number){
+                    storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number);
+                }
 
                 // Get DPD_row_position saved in SharedPreference in DPD_Adapter Class
                 int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this, "DPD_row_position"));
@@ -135,6 +147,10 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                 System.out.println("Here isFromCallsForTheDayAdapter_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
 
+                if(null!= DetailsOfCustomerActivity.FullName && null!= DetailsOfCustomerActivity.Mobile_Number){
+                    storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number);
+                }
+
                 Intent i = new Intent(this, CallsForTheDayActivity.class);
                 startActivity(i);
             }
@@ -143,6 +159,10 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
             else{
                 System.out.println("Here isFromNPA_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
+
+                if(null!= DetailsOfCustomerActivity.FullName && null!= DetailsOfCustomerActivity.Mobile_Number){
+                    storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number);
+                }
 
                 // Get DPD_row_position saved in SharedPreference in DPD_Adapter Class
                 int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this, "DPD_row_position"));
@@ -170,7 +190,30 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
     }
 
-    // For Getting Calculated Balance Interest Result back from SharedPreference
+
+    public void storeCallCountInRoomDB(String firstName, String phoneNumber) {
+
+        LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
+        int callCount = leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
+        callCount++; //callCount+1
+        LeadCallModelRoom leadCallModelRoom = new LeadCallModelRoom(callCount, firstName, phoneNumber);
+
+        leadCallDao.insert(leadCallModelRoom);
+        //  if Call Count >2 then make it to zero
+
+        if (callCount > 2) {
+            callCount = 0;
+        }
+
+        leadCallDao.UpdateLeadCalls(callCount, phoneNumber);
+
+        Global.showToast(this, "Call Count for " + phoneNumber + " is: " + leadCallDao.getCallCountUsingPhoneNumber(phoneNumber));
+        System.out.println("Here Call Count for " + phoneNumber + " is: " + leadCallDao.getCallCountUsingPhoneNumber(phoneNumber));
+
+        DetailsOfCustomerActivity.send_callAttemptNo = callCount;
+    }
+
+
     @Override
     protected void onResume() {
         initializeFields();

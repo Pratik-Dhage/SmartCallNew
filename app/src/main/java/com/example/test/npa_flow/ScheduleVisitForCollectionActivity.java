@@ -25,6 +25,7 @@ import com.example.test.npa_flow.call_details.CallDetailsViewModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
+import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
@@ -217,6 +218,12 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                     DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
                     callDetailsViewModel.postScheduledDateTime_ATCL(dataSetId,scheduleVisitForCollection_dateTime,detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
 
+                    //Reset Call Count of Mobile Number that will Appear in CallsForTheDay List
+                    if(getIntent().hasExtra("mobileNumberToResetCallCount") && getIntent().getStringExtra("mobileNumberToResetCallCount")!=null){
+                        String mobileNumberToResetCallCount = getIntent().getStringExtra("mobileNumberToResetCallCount");
+                        LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
+                        leadCallDao.UpdateLeadCalls(0,mobileNumberToResetCallCount);
+                    }
                 }
 
             }
