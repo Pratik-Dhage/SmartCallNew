@@ -170,8 +170,8 @@ public class MapFragment extends Fragment {
 
 
        // Global.showToast(getContext(), getString(R.string.location_access_needed));
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) || !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 
 
             if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -182,6 +182,7 @@ public class MapFragment extends Fragment {
             }
 
             // Location services are disabled, prompt/navigate the user to turn them on in Settings Screen UI
+            Global.showToast(getActivity().getApplicationContext(), "Please Turn Location On");
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(intent);
         }
@@ -284,6 +285,9 @@ public class MapFragment extends Fragment {
                     // Create a LatLng object for the user's location
                     LatLng userLatLng = new LatLng(userLatitude, userLongitude);
 
+                    System.out.println("Here userLatitude & userLongitude: "+userLatitude+" "+userLongitude);
+                    System.out.println("Here MarkerLatitude & MarkerLongitude: "+userMarkerLatitude+" "+userMarkerLongitude);
+
                     // Calculate the distance between the user's location and the marker using Location.distanceBetween() in Meters
                     float[] distance = new float[1];
                     Location.distanceBetween(userLatLng.latitude, userLatLng.longitude, userMarkerLatitude, userMarkerLongitude, distance);
@@ -322,4 +326,24 @@ public class MapFragment extends Fragment {
 
     }
 
+    // For Location Permission
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        //requestCode used in getDistanceBetweenMarkerAndUser()
+        if(requestCode == 1){
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permissions granted
+                getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
+
+            } else {
+                // Permissions denied
+                // Request the location permission if it is not granted
+                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            }
+
+        }
+    }
 }
