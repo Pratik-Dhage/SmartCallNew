@@ -22,7 +22,7 @@
 
         <TextView
             android:id="@+id/txtDetailName"
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="@dimen/_130sdp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_5sdp"
             android:ellipsize="end"
