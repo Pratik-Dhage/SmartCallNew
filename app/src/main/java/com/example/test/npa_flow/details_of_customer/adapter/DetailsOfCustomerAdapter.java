@@ -35,6 +35,7 @@ import com.example.test.npa_flow.save_location.SaveLocationOfCustomerViewModel;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Objects;
 
 public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCustomerAdapter.MyViewHolderClass> {
@@ -70,6 +71,9 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
         DetailsOfCustomerResponseModel a = detailsOfCustomer_responseModelArrayList.get(position);
         Context context = holder.itemView.getContext();
+
+        // Sort by number in getSequence coming from DetailsOfCustomerResponseModel
+        detailsOfCustomer_responseModelArrayList.sort(Comparator.comparingInt(DetailsOfCustomerResponseModel::getSequence));
 
         if (a.getLable() != null) {
             holder.binding.labelDetailName.setText(a.getLable());
@@ -290,8 +294,13 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
             }
         });
 
-        // for Distance between User and Village
-        if (a.getLable().contentEquals("Village")) {
+        // for Distance between User and Address
+        if (a.getLable().contentEquals("Pincode")) {
+
+            // Setting Width of txtDetailName programmatically in case of Pincode
+            ViewGroup.LayoutParams layoutParams = holder.binding.txtDetailName.getLayoutParams();
+            layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            holder.binding.txtDetailName.setLayoutParams(layoutParams);
 
             if (Global.getStringFromSharedPref(context, "formattedDistanceInKm").isEmpty()) {
                 //  holder.binding.txtDetailName.setText(a.getValue());
