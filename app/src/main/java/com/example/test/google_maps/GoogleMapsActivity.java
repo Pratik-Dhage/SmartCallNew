@@ -3,9 +3,11 @@ package com.example.test.google_maps;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -91,15 +93,41 @@ public class GoogleMapsActivity extends AppCompatActivity {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 if(savedDistance!=null){
                     saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(MapFragment.userMarkerLatitude),String.valueOf(MapFragment.userMarkerLongitude),savedDistance);
-                }
+                    System.out.println("Here savedDistance: "+savedDistance);
+                    initObserverSavedLocationOfCustomer(this);
 
-                LoanCollectionViewModel loanCollectionViewModel = new ViewModelProvider(this).get(LoanCollectionViewModel.class);
-                int DPD_row_position = getIntent().getIntExtra("DPD_row_position", 0);
-                loanCollectionViewModel.getLoanCollectionList_Data(DPD_row_position);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            performBackPressedAction();
+                        }
+                    }, 1000);
+                }
 
             }
         }
 
+        else {
+            super.onBackPressed();
+        }
+
+    }
+
+    private void performBackPressedAction(){
         super.onBackPressed();
     }
+
+
+    public void initObserverSavedLocationOfCustomer(Context context){
+        SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(SaveLocationOfCustomerViewModel.class);
+
+        saveLocationOfCustomerViewModel.getMutSaveLocationOfCustomerResponseApi().observe((LifecycleOwner) context, result->{
+            if(result!=null){
+
+                //  Global.showToast(context,result);
+                System.out.println("Here SavedDistanceOfCustomerResponse: "+result);
+            }
+        });
+    }
+
 }
