@@ -516,7 +516,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                 System.out.println("Here Mobile Number: "+phoneNumber);
 
                 //Store Call Count in RoomDB
-                storeCallCountInRoomDB(FullName, Mobile_Number);
+              //  storeCallCountInRoomDB(FullName, Mobile_Number);
 
                 try {
 
@@ -597,7 +597,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                     getCallRecordingAndCallLogs();
 
                     //Store Call Count in RoomDB
-                    storeCallCountInRoomDB(FullName, Mobile_Number);
+                  //  storeCallCountInRoomDB(FullName, Mobile_Number);
 
                 } catch (Exception e) {
                     System.out.println("Here Error:" + e);
