@@ -49,6 +49,9 @@ public class VisitsForTheDayActivity extends AppCompatActivity {
 
         Global.saveStringInSharedPref(this,"notes",""); //make Notes Empty After Complete
 
+        //Whenever List is Loaded remove previously stored formattedDistanceInKm
+        Global.removeStringInSharedPref(this, "formattedDistanceInKm");
+
     }
 
     private void callVisitsForTheDayAPi() {
@@ -111,5 +114,21 @@ public class VisitsForTheDayActivity extends AppCompatActivity {
         binding.ivHome.setOnClickListener(v->{
             startActivity(new Intent(this, MainActivity3API.class));
         });
+    }
+
+    @Override
+    protected void onResume() {
+        initializeFields();
+        onClickListeners();
+
+        if (NetworkUtilities.getConnectivityStatus(this)) {
+            callVisitsForTheDayAPi();
+            initObserver();
+
+        } else {
+            Global.showToast(this, getString(R.string.check_internet_connection));
+        }
+
+        super.onResume();
     }
 }
