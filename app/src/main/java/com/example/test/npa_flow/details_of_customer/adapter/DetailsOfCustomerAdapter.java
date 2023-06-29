@@ -307,7 +307,14 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
             } else {
 
                 String savedDistance = Global.getStringFromSharedPref(context, "formattedDistanceInKm");
-                holder.binding.txtDetailName.setText(a.getValue() + ", " + savedDistance + "Km");
+                if(a.getValue()!=null){
+                    holder.binding.txtDetailName.setText(a.getValue() + ", " + savedDistance + "Km");}
+             else
+                {
+                  holder.binding.txtDetailName.setText(savedDistance + "Km");
+              }
+
+
 
                 // Call Save Location of Customer API Here
                callSaveLocationOfCustomerAPI(context,savedDistance);
