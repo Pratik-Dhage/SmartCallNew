@@ -53,7 +53,7 @@
 
     <TextView
         android:id="@+id/labelDistance"
-        android:text="Distance in Km:"
+        android:text="@string/distance_in_km"
         android:textSize="@dimen/_14ssp"
         android:textColor="@color/black"
         android:layout_marginStart="@dimen/_10sdp"
@@ -87,6 +87,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <TextView
+        android:id="@+id/labelAddress"
+        android:text="@string/address_"
+        android:textSize="@dimen/_14ssp"
+        android:textColor="@color/black"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/txtAddress"
+        tools:text="Lodha i-think Tower-B"
+        android:textSize="@dimen/_13ssp"
+        android:textColor="@color/black"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:inputType="textMultiLine"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_3sdp"
+        app:layout_constraintStart_toEndOf="@id/labelAddress"
+        app:layout_constraintTop_toTopOf="@id/labelAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <FrameLayout
         android:id="@+id/googleMapsFrameLayout"
