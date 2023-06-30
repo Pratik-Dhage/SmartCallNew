@@ -1,6 +1,10 @@
 package com.example.test.npa_flow.loan_collection;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -12,6 +16,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -20,19 +25,28 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityLoanCollectionBinding;
+import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
+import com.example.test.npa_flow.status_of_customer.StatusOfCustomerActivity;
+import com.example.test.npa_flow.status_of_customer.model.Activity;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -46,6 +60,8 @@ public class LoanCollectionActivity extends AppCompatActivity {
     private LocationManager locationManager;
     LoanCollectionViewModel loanCollectionViewModel;
     private Location currentLocation;
+   // public static int LocationRequestCode = 1 ; //used in LoanCollectionAdapterClass for if Location is not Enabled
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +83,11 @@ public class LoanCollectionActivity extends AppCompatActivity {
             initObserver();
         }
 
-        initObserver();
+
         if (NetworkUtilities.getConnectivityStatus(this)) {
             int DPD_row_position = getIntent().getIntExtra("DPD_row_position", 0);
             call_LoanCollectionList_Api(DPD_row_position); // using row position from DPD Activity and pass in LoanCollectionViewModel
+            initObserver();
         } else {
             Global.showToast(this, getString(R.string.check_internet_connection));
         }
@@ -92,6 +109,8 @@ public class LoanCollectionActivity extends AppCompatActivity {
         Global.saveStringInSharedPref(this, "notes", ""); //make Notes Empty After Complete
 
         setToolbarTitle();
+
+        LoanCollectionAdapter.LoanCollectionAdapter_Distance ="0.0"; //initial value
 
     }
 
@@ -341,6 +360,9 @@ public class LoanCollectionActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         System.out.println("LoanCollectionActivity on Pause() called");
+        int DPD_row_position = getIntent().getIntExtra("DPD_row_position", 0);
+        call_LoanCollectionList_Api(DPD_row_position);
+        initObserver();
         super.onPause();
     }
 
@@ -348,17 +370,6 @@ public class LoanCollectionActivity extends AppCompatActivity {
     protected void onResume() {
 
         System.out.println("LoanCollectionActivity on Resume() called");
-
-        //Whenever List is Loaded Remove BalanceInterestResult,  Distance between User & Destination from SharedPreferences
-        Global.removeStringInSharedPref(this, "BalanceInterestResult");
-        Global.removeStringInSharedPref(this, "formattedDistanceInKm");
-
-
-        //When User Searched String is not empty (When pressing back button in StatusOfCustomerActivity)
-        if (!binding.edtSearchFromList.getText().toString().isEmpty()) {
-            performSearch(binding.edtSearchFromList.getText().toString());
-        }
-
 
         // Get UserName , UserID , BranchCode
 
@@ -376,12 +387,29 @@ public class LoanCollectionActivity extends AppCompatActivity {
         System.out.println("Here LoanCollectionActivity onResume() UserID:"+MainActivity3API.UserID);
         System.out.println("Here LoanCollectionActivity onResume() BranchCode:"+MainActivity3API.BranchCode);
 
-        initializeFields();
-        onClickListener();
-        initObserver();
-        int DPD_row_position = getIntent().getIntExtra("DPD_row_position", 0);
-        call_LoanCollectionList_Api(DPD_row_position);
-        setUpLoanCollectionList_RecyclerView(); // acts as refresh to show correct Attempt No. And Distance in Km
+
+        if(StatusOfCustomerActivity.isFromStatusOfCustomerActivity){
+            System.out.println("Here from LoanCollectionToStatusOfCustomerActivity: "+StatusOfCustomerActivity.isFromStatusOfCustomerActivity);
+            //When User Searched String is not empty (When pressing back button in StatusOfCustomerActivity)
+            if (!binding.edtSearchFromList.getText().toString().isEmpty()) {
+                performSearch(binding.edtSearchFromList.getText().toString());
+            }
+
+            StatusOfCustomerActivity.isFromStatusOfCustomerActivity = false; // make false to reset the flow
+            System.out.println("Here After Reset flow LoanCollectionToStatusOfCustomerActivity: "+StatusOfCustomerActivity.isFromStatusOfCustomerActivity);
+        }
+
+        //coming from GoogleMapsActivity
+        else {
+
+            initializeFields();
+            onClickListener();
+            int DPD_row_position = getIntent().getIntExtra("DPD_row_position", 0);
+            call_LoanCollectionList_Api(DPD_row_position);
+            initObserver();
+            //setUpLoanCollectionList_RecyclerView(); // acts as refresh to show correct Attempt No. And Distance in Km
+
+        }
 
 
         super.onResume();
@@ -455,4 +483,20 @@ public class LoanCollectionActivity extends AppCompatActivity {
         }
         return currentLocation;
     }
+
+  /*  @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == LocationRequestCode){
+            Global.showToast(this,"Yes");
+
+            if(resultCode == RESULT_OK){
+                Global.showToast(this,"OK");
+            }
+            else if (resultCode == RESULT_CANCELED){
+                Global.showToast(this,"Cancelled");
+            }
+        }
+    }*/
 }
