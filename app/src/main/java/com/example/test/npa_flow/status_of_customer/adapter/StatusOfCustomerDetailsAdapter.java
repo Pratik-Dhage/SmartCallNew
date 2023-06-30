@@ -97,11 +97,15 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     if (details.getAttemptFlow() != null) {
                         String attemptFlow = details.getAttemptFlow().toLowerCase();
 
-                        //1)Spoke To The Customer
+                        //1)Spoke To The Customer / Did Not Visit The Customer
                         if (attemptFlow.contains("sttc")) {
                             holder.binding.txtHeadStatusInfo.setText(R.string.spoke_to_The_customer_status_info);
                         }
-                        //2)Ready To Pay / Not Ready To Pay / Asked To Call Back Later
+                        else if(attemptFlow.contains("dnvtc")){
+                            holder.binding.txtHeadStatusInfo.setText(R.string.did_not_visited_the_customer);
+                        }
+
+                        //2)Ready To Pay / Not Ready To Pay / Asked To Call Back Later / Visit Reschedule / Others
                         if (attemptFlow.contains("rtp")) {
                             holder.binding.txtMidStatusInfo1.setText(R.string.ready_to_pay_status_info);
                         }
@@ -115,11 +119,20 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                             holder.binding.txtScheduleDateStatusInfo.setVisibility(View.GONE);
                             //  holder.binding.txtScheduleTimeStatusInfo.setVisibility(View.GONE);
                         }
+                        if(attemptFlow.contains("vr")){
+                            holder.binding.txtMidStatusInfo1.setText(R.string.visit_rescheduled);
+                        }
+                        if(attemptFlow.contains("o")){
+                            holder.binding.txtMidStatusInfo1.setText(R.string.others);
+                        }
 
-                        //3)Send Visit For Collection / Send Link For Online Payment / FO Not Visited / Loan taken By Relative / Already Paid / Will Pay later
+                        //3)Send(Schedule) Visit For Collection / Send Link For Online Payment
+                        // / FO Not Visited / Loan taken By Relative / Already Paid / Will Pay later
+                        // / Customer Not Available / Late For Visit / Others
+
                         if (attemptFlow.contains("svfc")) {
                             holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
-                            holder.binding.txtMidStatusInfo2.setText(R.string.send_visit_for_collection_status_info);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.schedule_visit_for_collection_status_info);
                         } else if (attemptFlow.contains("slfop")) {
                             holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo2.setText(R.string.send_link_for_online_payment_status_info);
@@ -136,8 +149,23 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                             holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo2.setText(R.string.will_pay_later_status_info);
                         }
+                        else if(attemptFlow.contains("cna")){
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.customer_not_available);
+                        }
+                        else if(attemptFlow.contains("lfv")){
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.late_for_visit);
+                        }
+                        else if(attemptFlow.contains("o")){
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.others);
+                        }
 
-                        //4)Full Amt. Paid /Partial Amt. Paid/ Wil Pay Later / Will Pay Lump sump / Update
+
+
+
+                        //4)Full Amt. Paid /Partial Amt. Paid/ Wil Pay Later / Will Pay Lump sump / Update / Update Schedule
                         if (attemptFlow.contains("fap")) {
                             holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo3.setText(R.string.full_amount_paid_status_info);
@@ -150,6 +178,9 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         } else if(attemptFlow.contains("update")) {
                             holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo3.setText(R.string.update);
+                        } else if(attemptFlow.contains("us")){
+                            holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo3.setText(R.string.update_schedule);
                         } else if (attemptFlow.contains("wpl")) {
                             holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_later_status_info);

@@ -267,9 +267,11 @@
     <string name="claims_payment_made">Claims Payment Made</string>
     <string name="visit_npa_reschedule">Visit - NPA Reschedule</string>
     <string name="visit_rescheduled_space">\u00A0\u00A0\u00A0\u00A0Visit Rescheduled\u00A0\u00A0\u00A0\u00A0</string>
+    <string name="visit_rescheduled">Visit Rescheduled</string>
     <string name="others_space">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Others\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="visit_npa_notavailable">Visit - NPA Not Available</string>
     <string name="customer_not_available">Customer Not Available</string>
+    <string name="late_for_visit">Late for Visit</string>
     <string name="late_for_visit_space">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Late for Visit\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="others_space2">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Others\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="credit_card">Credit Card</string>
@@ -355,7 +357,8 @@
     <string name="ready_to_pay_status_info">Ready To Pay</string>
     <string name="not_ready_to_pay_status_info">Not Ready To Pay</string>
     <string name="asked_to_call_back_later_status_info">Asked To Call Back Later</string>
-    <string name="send_visit_for_collection_status_info">Send Visit For Collection</string>n
+    <string name="send_visit_for_collection_status_info">Send Visit For Collection</string>
+    <string name="schedule_visit_for_collection_status_info">Schedule Visit For Collection</string>
     <string name="send_link_for_online_payment_status_info">Send Link For Online Payment</string>
     <string name="fo_not_visited_status_info">FO Not Visited</string>
     <string name="loan_taken_by_relative_status_info">Loan Taken By Relative</string>
