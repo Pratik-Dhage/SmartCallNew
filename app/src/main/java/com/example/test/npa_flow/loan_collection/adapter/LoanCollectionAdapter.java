@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -32,6 +33,7 @@ import com.example.test.npa_flow.NotSpokeToCustomerActivity;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
 import com.example.test.npa_flow.save_location.SaveLocationOfCustomerViewModel;
 import com.example.test.npa_flow.status_of_customer.StatusOfCustomerActivity;
@@ -49,6 +51,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
 
     private Location currentLocation;
+    public static String LoanCollectionAdapter_Distance ="0.0"; //initial value
 
     public LoanCollectionAdapter() {
         //to use dataSetId in DetailsOfCustomerViewModel
@@ -134,10 +137,8 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
             if(!isLocationEnabled){
                 Global.showToast(context, "Please Turn Location On");
                 // Open location settings
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                ((Activity) context).startActivityForResult(intent, 1);
-
-
+               /* Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                ((Activity) context).startActivityForResult(intent, LoanCollectionActivity.LocationRequestCode);*/
             }
 
             else if(isLocationEnabled) {
@@ -154,7 +155,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
 
                 }else{
-                    Toast.makeText(v.getContext(), "Unable to get device location",Toast.LENGTH_LONG);
+                    Global.showToast(context, "Unable to get device location");
                 }
 
             }
@@ -168,6 +169,12 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
             CallsForTheDayAdapter.isFromCallsForTheDayAdapter = null; // to Reset CallsForTheDayFlow  & GOTO NPA flow
             //DetailsOfCustomer Only visible if Status is Pending
             if(a.getActionStatus().toLowerCase().contains("pending")){
+
+                //Use LoanCollectionAdapter_Distance value in DetailsOfCustomerAdapter beside Pincode
+                if(a.getDistance()!=null && !String.valueOf(a.getDistance()).contentEquals("0.0")){
+                    LoanCollectionAdapter_Distance = String.valueOf(a.getDistance());
+                    System.out.println("Here LoanCollectionAdapter_Distance: "+LoanCollectionAdapter_Distance);
+                }
 
                 //on Item Click save Name of Member
                 Global.saveStringInSharedPref(context,"FullNameFromAdapter",String.valueOf(a.getMemberName()));
@@ -286,7 +293,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
     @Override
     public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
         super.onViewDetachedFromWindow(holder);
-        holder.setIsRecyclable(false); // to prevent ImageView from being disappeared when scrolled upwards
+        holder.setIsRecyclable(false);
     }
 
 
