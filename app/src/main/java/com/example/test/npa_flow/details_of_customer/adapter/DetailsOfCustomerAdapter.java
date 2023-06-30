@@ -1,11 +1,14 @@
 package com.example.test.npa_flow.details_of_customer.adapter;
 
+import static com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter.LoanCollectionAdapter_Distance;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -284,8 +287,20 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
             //if ( a.getLable().contentEquals("Village"))
             if (a.getButtonLable().contentEquals("Capture")) {
-                Intent i = new Intent(context, GoogleMapsActivity.class); //for Google Maps
-                context.startActivity(i);
+
+                //check if Location Turned On
+                LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                boolean isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                        locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+                if(!isLocationEnabled){
+                    Global.showToast(context, "Please Turn Location On");
+                }
+                else{
+                    Intent i = new Intent(context, GoogleMapsActivity.class); //for Google Maps
+                    context.startActivity(i);
+                }
+
 
                 if (Global.getStringFromSharedPref(context, "formattedDistanceInKm") != null) {
                     Global.removeStringInSharedPref(context, "formattedDistanceInKm"); // Remove previously stored distance
@@ -301,6 +316,12 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
             ViewGroup.LayoutParams layoutParams = holder.binding.txtDetailName.getLayoutParams();
             layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             holder.binding.txtDetailName.setLayoutParams(layoutParams);
+
+            //LoanCollectionAdapter_Distance - By default it will display beside Pincode Only if it is not 0.0
+            if ((a.getValue()!=null && LoanCollectionAdapter_Distance != null) &&
+                    (!LoanCollectionAdapter_Distance.isEmpty() && !LoanCollectionAdapter_Distance.contentEquals("0.0")) ){
+                holder.binding.txtDetailName.setText(a.getValue() + ", " + LoanCollectionAdapter_Distance + "Km");
+            }
 
             if (Global.getStringFromSharedPref(context, "formattedDistanceInKm").isEmpty()) {
                 //  holder.binding.txtDetailName.setText(a.getValue());
