@@ -39,6 +39,7 @@ public class StatusOfCustomerActivity extends AppCompatActivity {
     public static String toDate;
     public String searchedDateRange;
     boolean isCalendarClicked = false;
+    public static boolean isFromStatusOfCustomerActivity = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -270,5 +271,20 @@ public class StatusOfCustomerActivity extends AppCompatActivity {
         // datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 7));
 
         datePickerDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(getIntent().hasExtra("isFromLoanCollectionAdapterToStatusOfCustomerActivity")){
+            isFromStatusOfCustomerActivity = true;
+            super.onBackPressed();
+        }
+
+        else{
+            isFromStatusOfCustomerActivity = false;
+            super.onBackPressed();
+        }
+
     }
 }

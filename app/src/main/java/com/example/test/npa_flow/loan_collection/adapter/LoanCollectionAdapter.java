@@ -201,6 +201,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
             String dataSetId = a.getDataSetId().toString();
             Intent i = new Intent(context, StatusOfCustomerActivity.class);
             i.putExtra("dataSetId",dataSetId);
+            i.putExtra("isFromLoanCollectionAdapterToStatusOfCustomerActivity","isFromLoanCollectionAdapterToStatusOfCustomerActivity");
             context.startActivity(i);
         });
 
