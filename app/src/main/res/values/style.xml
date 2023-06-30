@@ -133,5 +133,12 @@
         <item name="colorAccent">@color/textBlue</item>
     </style>
 
+    <style name="BackArrowStyle">
+        <item name="android:layout_width">@dimen/_25sdp</item>
+        <item name="android:layout_height">@dimen/_25sdp</item>
+        <item name="android:src">@drawable/back_arrow</item>
+        <item name="tint">@color/white</item>
+    </style>
+
 
 </resources>
