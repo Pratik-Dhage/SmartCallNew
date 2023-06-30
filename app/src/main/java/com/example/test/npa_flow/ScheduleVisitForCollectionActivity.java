@@ -29,6 +29,7 @@ import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
+import com.example.test.schedule_flow.visits_for_the_day.adapter.VisitsForTheDayAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -260,6 +261,9 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
             //Payment Mode -> Schedule Visit For Collection (SVFC)
             if(binding.btnUpdateSchedule.getText()==getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromPaymentMode_ScheduleVisitForCollection")){
+
+                // in NearByCustomerActivity show VisitNearbyCustomer button when Schedule Visit For Collection is clicked in PaymentModeActivity
+                VisitsForTheDayAdapter.showNearByCustomerButton = true;
 
                 //get scheduleDateTime
                 getScheduleDateTime();

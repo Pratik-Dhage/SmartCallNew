@@ -33,13 +33,14 @@ import com.example.test.schedule_flow.ScheduleDetailsActivity;
 import com.example.test.schedule_flow.calls_for_the_day.CallsForTheDayActivity;
 import com.example.test.schedule_flow.schedule_for_the_day.ScheduleForTheDayAdapter;
 import com.example.test.schedule_flow.visits_for_the_day.VisitsForTheDayActivity;
+import com.example.test.schedule_flow.visits_for_the_day.adapter.VisitsForTheDayAdapter;
 
 public class MainActivity3API extends AppCompatActivity {
 
     ActivityMainActivity3ApiBinding binding;
     View view;
     MainDashBoardViewModel mainDashBoardViewModel;
-    public static boolean showCallIcon = false; // for call icon to be visible when coming from Visits For The Day Flow to be True Else False
+    public static boolean showCallIcon = false; // for call icon to be visible in DetailsOfCustomerAdapter when coming from Visits For The Day Flow to be True Else False
     public static String UserID ;
     public static String BranchCode ;
 
@@ -92,7 +93,7 @@ public class MainActivity3API extends AppCompatActivity {
         binding.setViewModel(mainDashBoardViewModel);
 
         showCallIcon = false; //from Visits For The Day Flow to be True Else False
-
+        VisitsForTheDayAdapter.showNearByCustomerButton = false ; //in NearByCustomerActivity - from Visits For The Day Flow to be True Else False
        /* if(getIntent().hasExtra("userName")){
             binding.txtWelcomeUser.setText("Welcome "+getIntent().getStringExtra("userName"));
 
