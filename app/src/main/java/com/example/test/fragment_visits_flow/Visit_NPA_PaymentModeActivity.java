@@ -34,6 +34,9 @@ import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.dao.UserNameDao;
+import com.example.test.roomDB.database.LeadListDB;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -130,9 +133,17 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
                 btnGenerateReceipt.setOnClickListener(v2->{
 
+                    // Get UserName , UserID , BranchCode from RoomDB
+
+                    MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+                    UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+
+                    MainActivity3API.UserID = mPinDao.getUserID();
+                    MainActivity3API.BranchCode = mPinDao.getBranchCode();
+
                     String dataSetId = getIntent().getStringExtra("dataSetId");
-                    String userId = "CA_01_001";
-                    String username = "CallingAgent1";
+                    String userId =  MainActivity3API.UserID;   //"CA_01_001";
+                    String username =  userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID()); // "CallingAgent1";
                     String amount_paid = Global.getStringFromSharedPref(this,"Amount_Paid");
 
                     //original URL
