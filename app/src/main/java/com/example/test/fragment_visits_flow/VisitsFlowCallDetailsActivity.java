@@ -1,11 +1,15 @@
 package com.example.test.fragment_visits_flow;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.telephony.PhoneStateListener;
@@ -33,6 +37,8 @@ import java.util.List;
 public class VisitsFlowCallDetailsActivity extends AppCompatActivity {
 
     public static String visits_FirstName,visits_MobileNumber;
+
+    public static int visitsCallRequestCode = 1;
 
     //to send using Post method
     public static int send_callAttemptNo;
@@ -155,6 +161,33 @@ public class VisitsFlowCallDetailsActivity extends AppCompatActivity {
     }
 
 
+    // Request made in DetailsOfCustomerAdapter on clicking ivCallLogo in VisitsForTheDayFlow
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+       if(visitsCallRequestCode == requestCode){
+           if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+               Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + VisitsFlowCallDetailsActivity.visits_MobileNumber));
+               startActivity(dial);
+
+               try{
+
+                   getCallRecordingAndCallLogs(this);
+
+               }
+               catch(Exception e){
+                   if(e.getLocalizedMessage() != null){
+                       System.out.println("Here Visits Call Exception :"+e.getLocalizedMessage());
+                   }
+                  e.printStackTrace();
+               }
+
+           }
+       }
+    }
+
     public void storeCallCountInRoomDB(String firstName, String phoneNumber) {
 
         LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
@@ -220,7 +253,10 @@ public class VisitsFlowCallDetailsActivity extends AppCompatActivity {
 
                             Log.d("Here byte_array to String:", bytes_array.toString()) ;
                         } catch (Exception e) {
-                            Log.d("Here Call Recording Exception:", e.getLocalizedMessage());
+                            if(e.getLocalizedMessage()!=null){
+                                Log.d("Here Call Recording Exception:", e.getLocalizedMessage());
+                            }
+
                             e.printStackTrace();
                         }
                         finally {
