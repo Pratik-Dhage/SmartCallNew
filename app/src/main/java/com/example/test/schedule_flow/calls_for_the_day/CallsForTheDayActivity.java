@@ -77,11 +77,14 @@ public class CallsForTheDayActivity extends AppCompatActivity {
                     callsForTheDayViewModel.arrListCallsForTheDayData.clear();
                     setUpCallsForTheDayRecyclerViewData();
                     callsForTheDayViewModel.arrListCallsForTheDayData.addAll(result);
+
+
+                    if(result.isEmpty()){
+                        binding.txtNoDataForCalls.setVisibility(View.VISIBLE);
+                    }
+
                 }
 
-                if(result.isEmpty()){
-                    Global.showToast(this,"No Data For Calls");
-                }
 
 
 

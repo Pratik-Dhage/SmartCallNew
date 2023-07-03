@@ -76,11 +76,14 @@ public class VisitsForTheDayActivity extends AppCompatActivity {
                     visitsForTheDayViewModel.arrListVisitsForTheDayData.clear();
                     setUpVisitsForTheDayRecyclerViewData();
                     visitsForTheDayViewModel.arrListVisitsForTheDayData.addAll(result);
+
+
+                    if(result.isEmpty()){
+                        binding.txtNoDataForVisits.setVisibility(View.VISIBLE);
+                    }
+
                 }
 
-                if(result.isEmpty()){
-                    Global.showToast(this,"No Data for Visits");
-                }
 
 
 
