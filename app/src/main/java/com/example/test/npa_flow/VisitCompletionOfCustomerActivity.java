@@ -299,7 +299,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                                 if(e.getLocalizedMessage()!=null){
                                     Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                                 }
-
+                                e.printStackTrace();
                             }
 
                       /*  Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
@@ -335,6 +335,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                                 if(e.getLocalizedMessage()!=null){
                                     Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                                 }
+                                e.printStackTrace();
                             }
 
                         }
@@ -495,6 +496,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                                 if(e.getLocalizedMessage()!=null){
                                     Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                                 }
+                                e.printStackTrace();
                             }
 
                        /* Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
@@ -528,6 +530,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                                 if(e.getLocalizedMessage()!=null){
                                     Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                                 }
+                                e.printStackTrace();
                             }
 
                         }
@@ -686,6 +689,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                                 if(e.getLocalizedMessage()!=null){
                                     Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                                 }
+                                e.printStackTrace();
                             }
 
                         /*Intent i = new Intent(VisitCompletionOfCustomerActivity.this, NearByCustomersActivity.class);
@@ -718,6 +722,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                                 if(e.getLocalizedMessage()!=null){
                                     Log.d("Here Post CallDetailsException",e.getLocalizedMessage());
                                 }
+                                e.printStackTrace();
                             }
 
                         }
