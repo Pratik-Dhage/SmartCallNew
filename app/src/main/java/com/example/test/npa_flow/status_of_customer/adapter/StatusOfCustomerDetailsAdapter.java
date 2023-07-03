@@ -16,6 +16,9 @@ import com.example.test.helper_classes.Global;
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.status_of_customer.model.Activity;
 import com.example.test.npa_flow.status_of_customer.model.ActivityDetail;
+import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.dao.UserNameDao;
+import com.example.test.roomDB.database.LeadListDB;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,8 +50,6 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
 
         Context context = holder.itemView.getContext();
 
-        String userName = Global.getStringFromSharedPref(context, "userName");
-        //  holder.binding.txtUserName.setText(userName);  //space is less to fit in row
 
         // format should be  -> 25th May 23,Friday,5:00pm
         if (a.getActivityDate() != null && a.getDay() != null && a.getActivityTime() != null) {
@@ -58,6 +59,12 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
        /* if (a.getActivityStatus() != null) {
             holder.binding.txtActivityStatus.setText(a.getActivityStatus());
         }*/
+
+        //Get UserName from RoomDB
+        MPinDao mPinDao = LeadListDB.getInstance(context).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(context).userNameDao();
+        // String userName = Global.getStringFromSharedPref(context, "userName");
+        String userName = userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
 
         if (userName != null) {
             holder.binding.txtUserName.setText(userName);

@@ -387,6 +387,8 @@
     <string name="near_by_customers">Near By Customers</string>
     <string name="distance_in_km">Distance in Km:</string>
     <string name="address_">Address:</string>
+    <string name="no_data_for_visits">No Data for Visits</string>
+    <string name="no_data_for_calls">No Data For Calls</string>
 
 
     <!--for Tenure-->
