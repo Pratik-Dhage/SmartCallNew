@@ -104,6 +104,12 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         else if(attemptFlow.contains("dnvtc")){
                             holder.binding.txtHeadStatusInfo.setText(R.string.did_not_visited_the_customer);
                         }
+                            // if No sttc OR dnvtc then hide txtHeadStatusInfo
+                        else{
+                            holder.binding.txtHeadStatusInfo.setVisibility(View.GONE);
+                        }
+
+
 
                         //2)Ready To Pay / Not Ready To Pay / Asked To Call Back Later / Visit Reschedule / Others
                         if (attemptFlow.contains("rtp")) {
@@ -125,6 +131,8 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                      else  if(attemptFlow.contains("o")){
                             holder.binding.txtMidStatusInfo1.setText(R.string.others);
                         }
+
+
 
                         //3)Send(Schedule) Visit For Collection / Send Link For Online Payment
                         // / FO Not Visited / Loan taken By Relative / Already Paid / Will Pay later
