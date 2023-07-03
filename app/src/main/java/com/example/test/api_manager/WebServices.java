@@ -184,11 +184,11 @@ public  class WebServices {
     //Visits For The Day - (CustomerDetailsActivity / Visit - NPA Details) - Did Not Visit The Customer - Visit Rescheduled
     //1) Customer Not Available ( Update Schedule , Skip & Proceed)
     public static String visit_rescheduled_customer_not_available_update_schedule = "activity/submitcall?flow=DNVTC-VR-CNA-US";
-    public static String visit_rescheduled_customer_not_available_skip_and_proceed = "activity/submitcall?flow=NVTC-VR-CNA-SNP";
+    public static String visit_rescheduled_customer_not_available_skip_and_proceed = "activity/submitcall?flow=DNVTC-VR-CNA-SNP";
 
     //2)Late For Visit (Reason to send to backend) (Update Schedule , Skip & Proceed)
     public static String visit_rescheduled_late_for_visit_update_schedule = "activity/submitcall?flow=DNVTC-VR-LFV-US";
-    public static String visit_rescheduled_late_for_visit_skip_and_proceed = "activity/submitcall?flow=NVTC-VR-LFV-SNP";
+    public static String visit_rescheduled_late_for_visit_skip_and_proceed = "activity/submitcall?flow=DNVTC-VR-LFV-SNP";
 
      //3)Others(Reason to send to backend) (Update Schedule , Skip & Proceed)
      public static String visit_rescheduled_others = "activity/submitcall?flow=DNVTC-VR-O";
