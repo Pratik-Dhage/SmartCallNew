@@ -252,6 +252,8 @@
     <string name="visit_npa_status">Visit - NPA Status</string>
     <string name="asked_to_visit_later">Asked To Visit Later</string>
     <string name="payment_already_made">Payment Already Made</string>
+    <string name="cash_payment">Cash Payment</string>
+    <string name="cheque_payment">Cheque Payment</string>
     <string name="cash_payment_space">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Cash Payment\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="cheque_payment_space">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Cheque Payment\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="send_link_for_online_payment_break">Send Link For \nOnline Payment</string>

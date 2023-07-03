@@ -136,6 +136,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
 
                         //3)Send(Schedule) Visit For Collection / Send Link For Online Payment
                         // / FO Not Visited / Loan taken By Relative / Already Paid / Will Pay later
+                        //Cash Amount Paid / Cheque Payment
                         // / Customer Not Available / Late For Visit / Others
 
                         if (attemptFlow.contains("svfc")) {
@@ -150,7 +151,16 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         } else if (attemptFlow.contains("ltbr")) {
                             holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo2.setText(R.string.loan_taken_by_relative_status_info);
-                        } else if (attemptFlow.contains("ap")) {
+                        }
+                        else if(attemptFlow.contains("cap")){
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.cash_payment);
+                        }
+                        else if(attemptFlow.contains("chp")){
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.cheque_payment);
+                        }
+                        else if (attemptFlow.contains("ap")) {
                             holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo2.setText(R.string.already_paid_status_info);
                         } else if (attemptFlow.contains("wpl")) {
