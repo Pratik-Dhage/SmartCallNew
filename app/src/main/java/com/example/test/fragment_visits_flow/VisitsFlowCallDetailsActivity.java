@@ -317,7 +317,7 @@ public class VisitsFlowCallDetailsActivity extends AppCompatActivity {
                     c.moveToPrevious(); // if you used moveToFirst() for first logs, you should this line to moveToNext
 
 
-                    Toast.makeText(getBaseContext(), phNumber + callDuration + callDayTimes + direction, Toast.LENGTH_LONG).show(); // you can use strings in this line
+                   // Toast.makeText(getBaseContext(), phNumber + callDuration + callDayTimes + direction, Toast.LENGTH_LONG).show(); // you can use strings in this line
                     System.out.println("CallLog: Phone Number" + phNumber + "\nDuration" + callDuration + "\nDate_n_Time" + callDayTimes + "\nType" + direction);
 
                     // To send to backend
