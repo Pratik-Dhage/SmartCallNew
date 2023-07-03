@@ -54,7 +54,7 @@ public  class WebServices {
 
     public static String SmartCall_BaseURL4 = "http://45.117.0.12:8081/";
 
-    public static String SmartCall_BaseURL5 = "http://45.113.189.27:8082/"; // FOR Client (Faster Response from Backend)
+    public static String SmartCall_BaseURL5 = "http://45.113.189.27:8082/"; // FOR Client (Faster Response from Backend) Production
 
     //for Login Authentication
     public static String Login_Authentication = "security/authenticateUser";
