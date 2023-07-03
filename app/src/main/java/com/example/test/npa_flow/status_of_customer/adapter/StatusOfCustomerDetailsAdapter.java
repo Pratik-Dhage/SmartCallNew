@@ -119,11 +119,12 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
 
 
                         //2)Ready To Pay / Not Ready To Pay / Asked To Call Back Later / Visit Reschedule / Others
-                        if (attemptFlow.contains("rtp")) {
-                            holder.binding.txtMidStatusInfo1.setText(R.string.ready_to_pay_status_info);
-                        }
-                     else  if (attemptFlow.contains("nrtp")) {
+
+                      if (attemptFlow.contains("nrtp")) {
                             holder.binding.txtMidStatusInfo1.setText(R.string.not_ready_to_pay_status_info);
+                        }
+                    else  if (attemptFlow.contains("rtp")) {
+                            holder.binding.txtMidStatusInfo1.setText(R.string.ready_to_pay_status_info);
                         }
                     else  if (attemptFlow.contains("atcl")) {
                             holder.binding.txtMidStatusInfo1.setText(R.string.asked_to_call_back_later_status_info);

@@ -389,6 +389,7 @@
     <string name="address_">Address:</string>
     <string name="no_data_for_visits">No Data for Visits</string>
     <string name="no_data_for_calls">No Data For Calls</string>
+    <string name="call_initiated">Call Initiated</string>
 
 
     <!--for Tenure-->
