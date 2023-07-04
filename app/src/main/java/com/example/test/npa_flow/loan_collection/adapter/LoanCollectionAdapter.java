@@ -170,6 +170,9 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
             //DetailsOfCustomer Only visible if Status is Pending
             if(a.getActionStatus().toLowerCase().contains("pending")){
 
+                LoanCollectionActivity.LoanCollectionLayoutAdapterPosition = holder.getAdapterPosition();
+                System.out.println("Here LoanCollectionAdapter Position:"+holder.getAdapterPosition());
+
                 //Use LoanCollectionAdapter_Distance value in DetailsOfCustomerAdapter beside Pincode
                 if(a.getDistance()!=null && !String.valueOf(a.getDistance()).contentEquals("0.0")){
                     LoanCollectionAdapter_Distance = String.valueOf(a.getDistance());

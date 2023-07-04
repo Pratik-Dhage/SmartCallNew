@@ -23,6 +23,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -61,7 +62,7 @@ public class LoanCollectionActivity extends AppCompatActivity {
     LoanCollectionViewModel loanCollectionViewModel;
     private Location currentLocation;
    // public static int LocationRequestCode = 1 ; //used in LoanCollectionAdapterClass for if Location is not Enabled
-
+   public static int LoanCollectionLayoutAdapterPosition = 0; // by default it is 0 , getting position from LoanCollectionAdapter
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,6 +163,16 @@ public class LoanCollectionActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         recyclerView.setAdapter(new LoanCollectionAdapter(loanCollectionViewModel.arrList_LoanCollectionList, currentLocation));
+
+        // go to previously stored adapter item position
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        if(LoanCollectionLayoutAdapterPosition!=0){
+            System.out.println("Here LoanCollectionLayoutAdapterPosition:"+LoanCollectionLayoutAdapterPosition);
+            assert layoutManager != null;
+            layoutManager.scrollToPosition(LoanCollectionLayoutAdapterPosition);
+
+        }
+
     }
 
     @Override
