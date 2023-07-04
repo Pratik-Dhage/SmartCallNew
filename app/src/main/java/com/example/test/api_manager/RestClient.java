@@ -14,6 +14,7 @@ import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel
 import com.example.test.npa_flow.status_of_customer.model.Activity;
 import com.example.test.otp.model.OTPGenerateOTPResponseModel;
 import com.example.test.otp.model.OTPValidateOTPResponseModel;
+import com.example.test.roomDB.model.CallDetailsListRoomModel;
 import com.example.test.schedule_flow.calls_for_the_day.model.CallsForTheDayResponseModel;
 import com.example.test.schedule_flow.model.ScheduleVisitDetails;
 import com.example.test.schedule_flow.visits_for_the_day.model.VisitsForTheDayResponseModel;
@@ -106,6 +107,11 @@ public interface RestClient {
     //for Call Details (CALLS FOR THE DAY FLOW & NPA FLOW)
     @POST
     Observable<String> post_call_details(@Url String url, @Body List<CallDetails> callDetails);
+
+    //for Call Details From ROOM DB for NotSpokeToCustomer - NumberIsBusy/SwitchedOff buttons  (CALLS FOR THE DAY FLOW & NPA FLOW)
+    //After 3 attempts are made navigate to SubmitCompletionActivityOfCustomer
+    @POST
+    Observable<String> post_call_details_from_roomDB(@Url String url, @Body List<CallDetailsListRoomModel> callDetailsFromRoomDB);
 
     //FOR VISITS FOR  THE DAY (NOT READY TO PAY FLOWS)
     @POST
