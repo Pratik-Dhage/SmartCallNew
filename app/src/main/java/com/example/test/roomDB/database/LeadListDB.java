@@ -6,6 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.test.roomDB.dao.CallDetailsListDao;
 import com.example.test.roomDB.dao.CustomerDao;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.LeadDao;
@@ -14,6 +15,7 @@ import com.example.test.roomDB.dao.NearByCustomerDao;
 import com.example.test.roomDB.dao.NotSpokeToCustomerDao;
 import com.example.test.roomDB.dao.UserDao;
 import com.example.test.roomDB.dao.UserNameDao;
+import com.example.test.roomDB.model.CallDetailsListRoomModel;
 import com.example.test.roomDB.model.CustomerLocationRoomModel;
 import com.example.test.roomDB.model.LeadCallModelRoom;
 import com.example.test.roomDB.model.LeadModelRoom;
@@ -25,7 +27,9 @@ import com.example.test.roomDB.model.UserNameRoomModel;
 
 import kotlin.jvm.Synchronized;
 
-@Database(entities = {LeadModelRoom.class, LeadCallModelRoom.class, UserLocationRoomModel.class, CustomerLocationRoomModel.class, MPinRoomModel.class, UserNameRoomModel.class, NearByCustomerRoomModel.class, NotSpokeToCustomerRoomModel.class},version = 11)
+@Database(entities = {LeadModelRoom.class, LeadCallModelRoom.class, UserLocationRoomModel.class, CustomerLocationRoomModel.class,
+        MPinRoomModel.class, UserNameRoomModel.class, NearByCustomerRoomModel.class,
+        NotSpokeToCustomerRoomModel.class, CallDetailsListRoomModel.class},version = 13)
 public abstract class LeadListDB extends RoomDatabase {
 
     public abstract LeadDao leadDao();
@@ -36,6 +40,7 @@ public abstract class LeadListDB extends RoomDatabase {
     public abstract UserNameDao userNameDao();
     public abstract NearByCustomerDao nearByCustomerDao();
     public abstract NotSpokeToCustomerDao notSpokeToCustomerDao();
+    public abstract CallDetailsListDao callDetailsListDao();
 
     private static LeadListDB leadListDBInstance= null; // the instance will be created only once
 
