@@ -197,6 +197,7 @@
     <string name="no_response_busy">No Response/ \nBusy</string>
     <string name="not_reachable_switched_off">Not Reachable/ \nSwitched Off</string>
     <string name="number_is_invalid">Number Is \nInvalid</string>
+    <string name="number_is_invalid_">Number Is Invalid</string>
     <string name="spoke_to_friend_family_member">Spoke To Friend/ \nFamily Member</string>
     <string name="source_of_lead">Source of Lead</string>
     <string name="sir_madam">Sir/Madam,are you interested in any loan such as personal loan, home loan etc?</string>
