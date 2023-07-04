@@ -40,14 +40,13 @@
 
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
+            style="@style/BackArrowStyle"
             android:layout_marginStart="@dimen/_10sdp"
             android:src="@drawable/back_arrow"
             app:layout_constraintBottom_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/toolbar"
-            app:tint="@color/white" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <ImageView
             android:id="@+id/ivCalendar"
