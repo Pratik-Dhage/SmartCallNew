@@ -178,6 +178,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
             Intent i = new Intent(NotSpokeToCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("detailsList",detailsList);
+            i.putExtra("isFromNotSpokeToCustomer_NumberInvalid","isFromNotSpokeToCustomer_NumberInvalid");
             startActivity(i);
         });
 

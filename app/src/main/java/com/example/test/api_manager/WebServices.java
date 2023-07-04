@@ -200,6 +200,9 @@ public  class WebServices {
     public static String visit_did_not_visit_others = "activity/submitcall?flow=DNVTC–O";
 
 
+    //DID NOT SPOKE TO CUSTOMER - NUMBER IS INVALID
+    public static String notSpokeToCustomer_numberIsInvalid = "activity/submitcall?flow=DNSTC-INV";
+
 
     //FOR SCHEDULE DETAILS (Calender Icon In DashBoard)
     public static String schedule_details_in_dashboard = "activity/scheduledVisits?userId=";

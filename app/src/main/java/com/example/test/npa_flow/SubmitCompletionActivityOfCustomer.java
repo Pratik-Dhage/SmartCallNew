@@ -196,6 +196,13 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
         binding.btnSubmitNoChange.setOnClickListener(v->{
 
+            //NotSpokeToCustomerActivity - Number is Invalid
+            if(getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberInvalid(dataSetId);
+                navigateToDashBoard();
+            }
+
             //Visit-NPA Reschedule -> Others -> Proceed
             if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")){
                 String dataSetId = getIntent().getStringExtra("dataSetId");
@@ -427,6 +434,13 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
         binding.btnSubmitNeedToUpdateDetails.setOnClickListener(v->{
 
+            //NotSpokeToCustomerActivity - Number is Invalid
+            if(getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberInvalid(dataSetId);
+                navigateToDashBoard();
+            }
+
             //Visit-NPA Reschedule -> Others -> Proceed
             if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")){
                 String dataSetId = getIntent().getStringExtra("dataSetId");
@@ -656,6 +670,13 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         });
 
         binding.btnSubmitEscalateToBM.setOnClickListener(v->{
+
+            //NotSpokeToCustomerActivity - Number is Invalid
+            if(getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberInvalid(dataSetId);
+                navigateToDashBoard();
+            }
 
             //Visit-NPA Reschedule -> Others -> Proceed
             if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")){

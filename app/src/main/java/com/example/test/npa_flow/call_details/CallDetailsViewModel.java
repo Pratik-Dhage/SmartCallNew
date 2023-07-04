@@ -262,6 +262,21 @@ public class CallDetailsViewModel extends ViewModel {
 
     }
 
+    //11) NotSpokeToCustomerActivity -Number is Invalid (Note: CallDetails List used of Full /Partial Amt. Paid from DetailsOfCustomerActivity)
+    public void postCallDetailsNotSpokeToCustomer_NumberInvalid(String dataSetId){
+
+        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.notSpokeToCustomer_numberIsInvalid + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + "" +
+                        "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber="+"&reason=", callDetailsList_full_partial_amount)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        this::onHomeApiSuccess, this::onApiError
+                );
+
+    }
+
+
     private void onHomeApiSuccess(String result) {
         mutCallDetailsResponseApi.setValue(result);
     }
