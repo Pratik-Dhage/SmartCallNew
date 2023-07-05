@@ -33,11 +33,10 @@
         <TextView
             android:id="@+id/txtMember"
             style="@style/common_text_style"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:ellipsize="end"
-            android:maxLength="12"
             android:maxLines="1"
             android:textStyle="normal"
             app:layout_constraintStart_toEndOf="@id/txtDate"
