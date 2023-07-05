@@ -429,6 +429,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade,dataSetId,"","","","","");
+                      navigateToDashBoard();
                 }
                 else{
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
@@ -667,6 +668,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade,dataSetId,"","","","","");
+                    navigateToDashBoard();
                 }
                 else{
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
@@ -903,6 +905,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
                 if(NetworkUtilities.getConnectivityStatus(this)){
                     visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade,dataSetId,"","","","","");
+                    navigateToDashBoard();
                 }
                 else{
                     Global.showSnackBar(view,getString(R.string.check_internet_connection));
