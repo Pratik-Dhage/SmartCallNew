@@ -210,7 +210,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
 
                     if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
-                        Global.showToast(this,"Payment Complete");
+                      //  Global.showToast(this,"Payment Complete");
 
                         String dataSetId = getIntent().getStringExtra("dataSetId");
                         if(NetworkUtilities.getConnectivityStatus(this)){
@@ -410,7 +410,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
 
             if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
-                Global.showToast(this,"Payment Complete");
+              //  Global.showToast(this,"Payment Complete");
 
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 if(NetworkUtilities.getConnectivityStatus(this)){
@@ -604,7 +604,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             }
 
             if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
-                Global.showToast(this,"Payment Complete");
+              //  Global.showToast(this,"Payment Complete");
 
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 if(NetworkUtilities.getConnectivityStatus(this)){
