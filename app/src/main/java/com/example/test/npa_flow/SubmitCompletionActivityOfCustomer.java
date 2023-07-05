@@ -111,10 +111,13 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
             callDetailsViewModel.getMutCallDetailsResponseApi().observe(this, result -> {
 
                 if(result!=null){
-                    Global.showToast(this,"Server Response:"+result);
+                   // Global.showToast(this,"Server Response:"+result);
+                    Global.showSnackBar(view, result);
+                    System.out.println("Here Server Response: "+result);
                 }
                 if(result==null){
-                    Global.showToast(this,"Server Response: Null");
+                   // Global.showToast(this,"Server Response: Null");
+                    System.out.println("Here Server Response: "+result);
                 }
 
             });
@@ -141,10 +144,13 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
             visitsFlowViewModel.getMutVisitsCallDetailsResponseApi().observe(this,result->{
 
                 if(result!=null){
-                    Global.showToast(this,"Server Response:"+result);
+                   // Global.showToast(this,"Server Response:"+result);
+                    Global.showSnackBar(view, result);
+                    System.out.println("Here Server Response: "+result);
                 }
                 if(result==null){
-                    Global.showToast(this,"Server Response: Null");
+                    //Global.showToast(this,"Server Response: Null");
+                    System.out.println("Here Server Response: "+result);
                 }
 
             });
