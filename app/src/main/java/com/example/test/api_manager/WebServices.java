@@ -206,6 +206,12 @@ public  class WebServices {
     //DID NOT SPOKE TO CUSTOMER - NUMBER IS INVALID
     public static String notSpokeToCustomer_numberIsInvalid = "activity/submitcall?flow=DNSTC-INV";
 
+    //DID NOT SPOKE TO CUSTOMER - NUMBER BUSY
+    public static String notSpokeToCustomer_numberIsBusy = "activity/submitcall?flow=DNSTC-NRB";
+
+    //DID NOT SPOKE TO CUSTOMER - NUMBER SWITCH OFF
+    public static String notSpokeToCustomer_numberSwitchedOff = "activity/submitcall?flow=DNSTC-NSF";
+
 
     //FOR SCHEDULE DETAILS (Calender Icon In DashBoard)
     public static String schedule_details_in_dashboard = "activity/scheduledVisits?userId=";
