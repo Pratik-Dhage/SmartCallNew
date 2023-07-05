@@ -20,6 +20,7 @@ import android.database.Cursor;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.CallLog;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -115,7 +116,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
        // sendCallLogDetailsList();
     }
 
-    //for Full/Partial Amount Paid
+    //for Full/Partial Amount Paid / NotSpokeToCustomerActivity- Number is Invalid
     public  List<CallDetails> sendCallLogDetailsList_FullPartialAmountPaid() {
         // String pattern = "dd-MM-yyyy HH:mm:ss"; // Pattern to match the date format
         String pattern = "yyyy-MM-dd HH:mm:ss"; // Pattern to match the date format
@@ -131,6 +132,12 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             //CallDetails Object
             callDetails.setCallDateTime(callDateTime);
 
+        }
+        else if(send_callDateTime == null){
+            Date date = new Date();
+            String callDateTime = dateFormat.format(date);
+            //CallDetails Object
+            callDetails.setCallDateTime(callDateTime);
         }
 
         callDetails.setScheduledCallDateTime(""); // scheduleDateTime will be null for Full/Partial Amount Paid
@@ -170,8 +177,12 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                 String callDateTime = dateFormat.format(date);
                    //CallDetails Object
                 callDetails.setCallDateTime(callDateTime);
-
-
+        }
+        else if(send_callDateTime == null){
+            Date date = new Date();
+            String callDateTime = dateFormat.format(date);
+            //CallDetails Object
+            callDetails.setCallDateTime(callDateTime);
         }
 
        // ScheduleVisitForCollectionActivity scheduleVisitForCollectionActivity = new ScheduleVisitForCollectionActivity();
@@ -219,8 +230,12 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             String callDateTime = dateFormat.format(date);
             //CallDetails Object
             callDetails.setCallDateTime(callDateTime);
-
-
+        }
+        else if(send_callDateTime == null){
+            Date date = new Date();
+            String callDateTime = dateFormat.format(date);
+            //CallDetails Object
+            callDetails.setCallDateTime(callDateTime);
         }
 
         // ScheduleVisitForCollectionActivity scheduleVisitForCollectionActivity = new ScheduleVisitForCollectionActivity();
@@ -518,12 +533,8 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                 //Store Call Count in RoomDB
               //  storeCallCountInRoomDB(FullName, Mobile_Number);
 
-                try {
 
-                   /* // Register the broadcast receiver in your activity or service
-                    MyBroadCastReceiverClass receiver = new MyBroadCastReceiverClass();
-                    IntentFilter filter = new IntentFilter(Intent.ACTION_NEW_OUTGOING_CALL);
-                    registerReceiver(receiver, filter);*/
+                try {
 
                    getCallRecordingAndCallLogs();
 
@@ -533,26 +544,36 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                     System.out.println("Here Call Error:" + e);
                 }
 
-                //From CallsForTheDayAdapter
-                if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null){
-                    System.out.println("Here isFromCallsForTheDayAdapter_DetailsOfCustomerActivity");
-                    Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
-                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                    i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
-                    startActivity(i);
-                }
 
-                else{
-                    // From NPA (Assigned)
-                    // While Call is going , Move the User to Next Activity
-                    System.out.println("Here fromNPA_DetailsOfCustomerActivity");
-                    Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
-                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                    startActivity(i);
-                }
+                //Initiate Call button visible after call made and ivCallLogo invisible
+                binding.ivCall.setVisibility(View.INVISIBLE);
+                binding.btnCallInitiated.setVisibility(View.VISIBLE);
 
 
             }
+
+        });
+
+        binding.btnCallInitiated.setOnClickListener(v1->{
+
+            //From CallsForTheDayAdapter
+            if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null){
+                System.out.println("Here isFromCallsForTheDayAdapter_DetailsOfCustomerActivity");
+                Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
+                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
+                startActivity(i);
+            }
+
+            else{
+                // From NPA (Assigned)
+                // While Call is going , Move the User to Next Activity
+                System.out.println("Here fromNPA_DetailsOfCustomerActivity");
+                Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
+                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                startActivity(i);
+            }
+
 
         });
 
@@ -589,11 +610,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
                 try {
 
-                    // Register the broadcast receiver in your activity or service
-                    /*MyBroadCastReceiverClass receiver = new MyBroadCastReceiverClass();
-                    IntentFilter filter = new IntentFilter(Intent.ACTION_NEW_OUTGOING_CALL);
-                    registerReceiver(receiver, filter);
-*/
+
                     getCallRecordingAndCallLogs();
 
                     //Store Call Count in RoomDB
@@ -604,23 +621,11 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                     Global.showSnackBar(view, "Call Error" + e);
                 }
 
-                //From CallsForTheDayAdapter
-                if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null){
-                    System.out.println("Here isFromCallsForTheDayAdapter_DetailsOfCustomerActivity");
-                    Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
-                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                    i.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
-                    startActivity(i);
-                }
 
-                else {
-                    //From NPA (Assigned)
-                    // While Call is going , Move the User to Next Activity
-                    System.out.println("Here fromNPA_DetailsOfCustomerActivity");
-                    Intent i = new Intent(this, CallDetailOfCustomerActivity.class);
-                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                    startActivity(i);
-                }
+
+                //Initiate Call button visible after call made and ivCallLogo invisible
+                binding.ivCall.setVisibility(View.INVISIBLE);
+                binding.btnCallInitiated.setVisibility(View.VISIBLE);
 
 
             } else {
@@ -723,11 +728,11 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                             System.out.println("Here DetailsOfCustomerActivity AfterCall BranchCode:"+MainActivity3API.BranchCode);
 
 
-                            // From NPA (Assigned)
+                            /*// From NPA (Assigned)
                             // While Call is going , Move the User to Next Activity
                             Intent i = new Intent(DetailsOfCustomerActivity.this, CallDetailOfCustomerActivity.class);
                             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                            startActivity(i);
+                            startActivity(i);*/
 
                         }
 
@@ -822,10 +827,22 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
     }
 
 
-    // For Getting Calculated Balance Interest Result back from SharedPreference
+    @Override
+    public void onBackPressed() {
+
+        binding.ivCall.setVisibility(View.VISIBLE);
+        binding.btnCallInitiated.setVisibility(View.INVISIBLE);
+        super.onBackPressed();
+    }
+
     @Override
     protected void onResume() {
-        initializeFields();
+
+       // initializeFields();
+        Global.removeStringInSharedPref(this, "Amount_Paid"); // remove Amount Paid from SharePreferences for next activities to have New value
+        setToolBarTitle();
+
+
         onClickListener();
         initObserver();
         callDetailsOfCustomerApi();
