@@ -48,7 +48,7 @@ public  class WebServices {
     //Smart Call BaseURL
     public static String SmartCall_BaseURL = "https://192.168.1.101:8433/";
 
-    public static String SmartCall_BaseURL2 = "http://43.239.52.151:8081/"; // FOR Testing purpose
+    public static String SmartCall_BaseURL2 = "http://43.239.52.151:8082/"; // FOR Testing purpose
 
     public static String SmartCall_BaseURL3 = "http://192.168.1.100:8081/";
 
@@ -167,17 +167,20 @@ public  class WebServices {
 
   //*** Visit For The Day - Visited The Customer ***
 
-    //Visit For The Day - Visit-NPA Notification (Visits For The Day Not Ready To Pay Flow)
+    //1)Visit For The Day - Visit-NPA Notification (Visits For The Day Not Ready To Pay Flow)
     public static String visit_not_ready_to_pay_lack_of_funds ="activity/submitcall?flow=NRTP-LOF";
     public static String visit_not_ready_to_pay_claims_payment_made ="activity/submitcall?flow=NRTP-CPM";
     public static String visit_not_ready_to_pay_not_taken_loan ="activity/submitcall?flow=NRTP-NTL";
     public static String visit_not_ready_to_pay_loan_taken_by_relative ="activity/submitcall?flow=NRTP-LTBR";
     public static String visit_not_ready_to_pay_will_pay_lumpsump ="activity/submitcall?flow=NRTP-WPLS";
 
-    //Visit For The Day - Visit-NPA Payment Mode ((Visits For The Day Ready To Pay Flow))
+    //2)Visit For The Day - Visit-NPA Payment Mode ((Visits For The Day Ready To Pay Flow))
     public static String visit_ready_to_pay_send_link_for_online_payment ="activity/submitcall?flow=RTP-SLFOP";
     public static String visit_ready_to_pay_cash_payment ="activity/submitcallCheque?flow=RTP-CAP";
     public static String visit_ready_to_pay_cheque_payment = "activity/submitcallCheque?flow=RTP-CHP";
+
+    //3)Visit For The Day - Visit-NPA Status (Asked To Visit Later)
+    public static String visit_asked_to_visit_later ="activity/submitcall?flow=VTC-ATVL";
 
     //*** Visit For The Day - Did Not Visit The Customer
 
