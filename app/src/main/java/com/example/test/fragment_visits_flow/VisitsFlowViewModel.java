@@ -63,7 +63,7 @@ public class VisitsFlowViewModel extends ViewModel {
 
     }
 
-    //**FOR VISITS FLOW - DID NOT VISIT THE CUSTOMER
+    //**FOR VISITS FLOW - DID NOT VISIT THE CUSTOMER & VISITED THE CUSTOMER->ASKED TO VISIT LATER
     //1) Did Not Visit The Customer - Visit Rescheduled - Customer Not Available
     //2) Did Not Visit The Customer - Visit Rescheduled - Late For Visit
     //3) Did Not Visit The Customer - Visit Rescheduled - Others
