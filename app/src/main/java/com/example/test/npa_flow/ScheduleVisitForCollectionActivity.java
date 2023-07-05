@@ -1,9 +1,11 @@
 package com.example.test.npa_flow;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -99,10 +101,13 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
             callDetailsViewModel.getMutCallDetailsResponseApi().observe(this, result -> {
 
                 if(result!=null){
-                    Global.showToast(this,"Server Response:"+result);
+                  //  Global.showToast(this,"Server Response:"+result);
+                    Global.showSnackBar(view, result);
+                    System.out.println("Here Server Response: "+result);
                 }
                 if(result==null){
-                    Global.showToast(this,"Server Response: Null");
+                   // Global.showToast(this,"Server Response: Null");
+                    System.out.println("Here Server Response: "+result);
                 }
 
             });
@@ -364,6 +369,25 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
             Global.saveStringInSharedPref(this,"scheduleVisitForCollection_dateTime",scheduleVisitForCollection_dateTime);
 
 
+    }
+
+    public void showAlertDialogForPermission(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(ScheduleVisitForCollectionActivity.this);
+
+        builder.setTitle("Alert")
+                .setMessage("Permission needed")
+                .setCancelable(true)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // OK button clicked
+                        dialog.dismiss();
+                    }
+                });
+
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
