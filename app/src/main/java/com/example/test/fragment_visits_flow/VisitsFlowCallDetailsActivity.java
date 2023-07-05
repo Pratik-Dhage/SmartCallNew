@@ -89,6 +89,12 @@ public class VisitsFlowCallDetailsActivity extends AppCompatActivity {
 
 
         }
+        else if(send_callDateTime == null){
+            Date date = new Date();
+            String callDateTime = dateFormat.format(date);
+            //CallDetails Object
+            callDetails.setCallDateTime(callDateTime);
+        }
 
         if (send_callDuration != null) {
             callDetails.setCallDuration(Integer.parseInt(send_callDuration));
