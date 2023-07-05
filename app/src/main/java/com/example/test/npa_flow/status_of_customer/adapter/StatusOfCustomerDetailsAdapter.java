@@ -104,21 +104,27 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     if (details.getAttemptFlow() != null) {
                         String attemptFlow = details.getAttemptFlow().toLowerCase();
 
-                        //1)Spoke To The Customer / Did Not Visit The Customer
+                        //1)Spoke To The Customer / Did Not Spoke To The Customer / Did Not Visit The Customer / Visited The Customer
                         if (attemptFlow.contains("sttc")) {
                             holder.binding.txtHeadStatusInfo.setText(R.string.spoke_to_The_customer_status_info);
                         }
                         else if(attemptFlow.contains("dnvtc")){
                             holder.binding.txtHeadStatusInfo.setText(R.string.did_not_visited_the_customer);
                         }
-                            // if No sttc OR dnvtc then hide txtHeadStatusInfo
+                        else if(attemptFlow.contains("dnstc")){
+                            holder.binding.txtHeadStatusInfo.setText(R.string.did_not_speak_to_ncustomer);
+                        }
+                        else if(attemptFlow.contains("vtc")){
+                            holder.binding.txtHeadStatusInfo.setText(R.string.visited_the_customer);
+                        }
+                            // if No sttc OR dnstc OR dnvtc OR vtc then hide txtHeadStatusInfo
                         else{
                             holder.binding.txtHeadStatusInfo.setVisibility(View.GONE);
                         }
 
 
 
-                        //2)Ready To Pay / Not Ready To Pay / Asked To Call Back Later / Visit Reschedule / Others
+                        //2)Ready To Pay / Not Ready To Pay / Asked To Call Back Later / Visit Reschedule / Others / Invalid Number / Asked To Visit Later
 
                       if (attemptFlow.contains("nrtp")) {
                             holder.binding.txtMidStatusInfo1.setText(R.string.not_ready_to_pay_status_info);
@@ -133,12 +139,19 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                             holder.binding.txtScheduleDateStatusInfo.setVisibility(View.GONE);
                             //  holder.binding.txtScheduleTimeStatusInfo.setVisibility(View.GONE);
                         }
+                    else if(attemptFlow.contains("atvl")){
+                          holder.binding.txtMidStatusInfo1.setText(R.string.asked_to_visit_later);
+                      }
+
                     else  if(attemptFlow.contains("vr")){
                             holder.binding.txtMidStatusInfo1.setText(R.string.visit_rescheduled);
                         }
                      else  if(attemptFlow.contains("o")){
                             holder.binding.txtMidStatusInfo1.setText(R.string.others);
                         }
+                     else if(attemptFlow.contains("inv")){
+                          holder.binding.txtMidStatusInfo1.setText(R.string.number_is_invalid_);
+                      }
 
 
 
