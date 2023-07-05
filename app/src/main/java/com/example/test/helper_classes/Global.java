@@ -2,6 +2,7 @@ package com.example.test.helper_classes;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,7 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
@@ -63,6 +66,8 @@ public class Global {
 
     public static void showSnackBar(View view, String str){
         Snackbar snackBar = Snackbar.make(view,str,Snackbar.LENGTH_SHORT);
+        View snackBarView = snackBar.getView();
+        snackBarView.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.textBlue));
         snackBar.show();
     }
 
