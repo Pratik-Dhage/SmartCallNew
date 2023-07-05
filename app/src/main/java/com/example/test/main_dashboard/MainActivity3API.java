@@ -182,7 +182,7 @@ public class MainActivity3API extends AppCompatActivity {
 
 
                         binding.labelPendingMembersAssignedValue.setText(String.valueOf(totalPendingCalls)); //Pending Assigned
-                        binding.labelInProcessMembersAssignedValue.setText(String.valueOf(totalInProcessCalls));
+                        binding.labelInProcessMembersAssignedValue.setText(String.valueOf(totalInProcessCalls)); //InProcess Assigned
                         binding.labelCompletedMembersAssignedValue.setText(String.valueOf(totalCompletedCalls)); //Completed Assigned
                     }
 
