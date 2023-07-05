@@ -277,6 +277,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
             String dataSetId = getIntent().getStringExtra("dataSetId");
             i.putExtra("dataSetId",dataSetId);
             i.putExtra("detailsList",detailsList);
+            i.putExtra("isFromVisit_NPAStatus_AskedToVisitLater","isFromVisit_NPAStatus_AskedToVisitLater");
             startActivity(i);
         });
 

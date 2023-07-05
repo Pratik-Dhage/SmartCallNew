@@ -185,7 +185,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
         binding.btnUpdateSchedule.setOnClickListener(v -> {
 
-            Global.showToast(ScheduleVisitForCollectionActivity.this, getResources().getString(R.string.schedule_update_successfully));
+          //  Global.showToast(ScheduleVisitForCollectionActivity.this, getResources().getString(R.string.schedule_update_successfully));
 
             //on Clicking update call this api   callDetailsViewModel.postCallDetails with ScheduleDateTime
             //in pattern   String pattern = "yyyy-MM-dd HH:mm:ss"; // Pattern to match the date format
@@ -233,6 +233,17 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                 }
 
             }
+
+            //Visit_NPA_StatusActivity -> Asked To Visit Later - Update Schedule
+            if(binding.btnUpdateSchedule.getText()==getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromVisit_NPAStatus_AskedToVisitLater")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String visitedTheCustomer_AskedToVisitLater = WebServices.visit_asked_to_visit_later;
+                //get scheduleDateTime
+                getScheduleDateTime();
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(visitedTheCustomer_AskedToVisitLater,dataSetId,scheduleVisitForCollection_dateTime,"","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+            }
+
 
             //Visit_NPA_NotAvailableActivity -> Customer Not Available -> Update Schedule
             if(binding.btnUpdateSchedule.getText()==getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable")){
