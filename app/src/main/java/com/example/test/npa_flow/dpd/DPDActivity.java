@@ -57,6 +57,7 @@ public class DPDActivity extends AppCompatActivity {
         binding.setViewModel(dpdViewModel);
 
         LoanCollectionActivity.LoanCollectionLayoutAdapterPosition = 0; // Reset to 0 to reset adapter position
+        Global.removeStringInSharedPref(this,"LoanCollectionLayoutAdapterPosition"); // remove LoanCollectionAdapterPosition to reset flow
         System.out.println("Here DPDActivity LoanCollectionLayoutAdapterPosition:"+LoanCollectionActivity.LoanCollectionLayoutAdapterPosition);
 
         // Get UserName , UserID , BranchCode

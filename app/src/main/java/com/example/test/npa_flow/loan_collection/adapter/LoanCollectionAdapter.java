@@ -171,6 +171,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
             if(a.getActionStatus().toLowerCase().contains("pending")){
 
                 LoanCollectionActivity.LoanCollectionLayoutAdapterPosition = holder.getAdapterPosition();
+                Global.saveStringInSharedPref(context,"LoanCollectionLayoutAdapterPosition",String.valueOf(holder.getAdapterPosition()));
                 System.out.println("Here LoanCollectionAdapter Position:"+holder.getAdapterPosition());
 
                 //Use LoanCollectionAdapter_Distance value in DetailsOfCustomerAdapter beside Pincode

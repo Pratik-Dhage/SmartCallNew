@@ -172,6 +172,23 @@ public class LoanCollectionActivity extends AppCompatActivity {
             layoutManager.scrollToPosition(LoanCollectionLayoutAdapterPosition);
 
         }
+        // Getting LoanCollection Adapter Position from SharedPreference
+        else{
+            try{
+                String LoanCollectionLayoutAdapterPosition = Global.getStringFromSharedPref(this,"LoanCollectionLayoutAdapterPosition");
+
+               if(null!=LoanCollectionLayoutAdapterPosition && !LoanCollectionLayoutAdapterPosition.isEmpty() ){
+                   int LoanCollectionAdapterPosition = Integer.parseInt(LoanCollectionLayoutAdapterPosition);
+                   assert layoutManager != null;
+                   layoutManager.scrollToPosition(LoanCollectionAdapterPosition);
+               }
+
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }
         recyclerView.setAdapter(new LoanCollectionAdapter(loanCollectionViewModel.arrList_LoanCollectionList, currentLocation));
 
 
@@ -423,6 +440,7 @@ public class LoanCollectionActivity extends AppCompatActivity {
             initObserver();
             //to get LoanCollectionAdapterPosition
             setUpLoanCollectionList_RecyclerView(); // acts as refresh to show correct Attempt No. And Distance in Km
+           System.out.println("Here LoanCollectionLayoutAdapterPosition from SharedPref:"+Global.getStringFromSharedPref(this,"LoanCollectionLayoutAdapterPosition"));
 
         }
 
