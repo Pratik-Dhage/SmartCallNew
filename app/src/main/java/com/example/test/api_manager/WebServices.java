@@ -50,7 +50,7 @@ public  class WebServices {
 
     public static String SmartCall_BaseURL2 = "http://43.239.52.151:8082/"; // FOR Testing purpose
 
-    public static String SmartCall_BaseURL3 = "http://192.168.1.100:8081/";
+    public static String SmartCall_BaseURL3 = "http://192.168.1.100:8082/";
 
     public static String SmartCall_BaseURL4 = "http://45.117.0.12:8081/";
 
