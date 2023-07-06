@@ -28,11 +28,14 @@ import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.example.test.roomDB.dao.CallDetailsListDao;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
+import com.example.test.roomDB.model.CallDetailsListRoomModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
@@ -201,6 +204,33 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
 
         binding.btnSubmitNoChange.setOnClickListener(v->{
+
+            //NotSpokeToCustomer - NumberIsBusy
+            if(getIntent().hasExtra("isFromNotSpokeToCustomer_NoResponseBusy")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+
+                CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+
+              List<CallDetailsListRoomModel> callDetailsListRoomModelList =  callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                System.out.println("Here MobileNumber: "+DetailsOfCustomerActivity.Mobile_Number);
+
+                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy,dataSetId,callDetailsListRoomModelList);
+                 navigateToDashBoard();
+            }
+
+            //NotSpokeToCustomer - SwitchOff
+            if(getIntent().hasExtra("isFromNotSpokeToCustomer_SwitchOff")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+
+                CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+
+                List<CallDetailsListRoomModel> callDetailsListRoomModelList =  callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                System.out.println("Here MobileNumber: "+DetailsOfCustomerActivity.Mobile_Number);
+
+                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff,dataSetId,callDetailsListRoomModelList);
+                navigateToDashBoard();
+            }
+
 
             //NotSpokeToCustomerActivity - Number is Invalid
             if(getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")){
@@ -441,6 +471,32 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
         binding.btnSubmitNeedToUpdateDetails.setOnClickListener(v->{
 
+            //NotSpokeToCustomer - NumberIsBusy
+            if(getIntent().hasExtra("isFromNotSpokeToCustomer_NoResponseBusy")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+
+                CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+
+                List<CallDetailsListRoomModel> callDetailsListRoomModelList =  callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                System.out.println("Here MobileNumber: "+DetailsOfCustomerActivity.Mobile_Number);
+
+                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy,dataSetId,callDetailsListRoomModelList);
+                navigateToDashBoard();
+            }
+
+            //NotSpokeToCustomer - SwitchOff
+            if(getIntent().hasExtra("isFromNotSpokeToCustomer_SwitchOff")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+
+                CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+
+                List<CallDetailsListRoomModel> callDetailsListRoomModelList =  callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                System.out.println("Here MobileNumber: "+DetailsOfCustomerActivity.Mobile_Number);
+
+                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff,dataSetId,callDetailsListRoomModelList);
+                navigateToDashBoard();
+            }
+
             //NotSpokeToCustomerActivity - Number is Invalid
             if(getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")){
                 String dataSetId = getIntent().getStringExtra("dataSetId");
@@ -678,6 +734,32 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         });
 
         binding.btnSubmitEscalateToBM.setOnClickListener(v->{
+
+            //NotSpokeToCustomer - NumberIsBusy
+            if(getIntent().hasExtra("isFromNotSpokeToCustomer_NoResponseBusy")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+
+                CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+
+                List<CallDetailsListRoomModel> callDetailsListRoomModelList =  callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                System.out.println("Here MobileNumber: "+DetailsOfCustomerActivity.Mobile_Number);
+
+                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy,dataSetId,callDetailsListRoomModelList);
+                navigateToDashBoard();
+            }
+
+            //NotSpokeToCustomer - SwitchOff
+            if(getIntent().hasExtra("isFromNotSpokeToCustomer_SwitchOff")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+
+                CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+
+                List<CallDetailsListRoomModel> callDetailsListRoomModelList =  callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                System.out.println("Here MobileNumber: "+DetailsOfCustomerActivity.Mobile_Number);
+
+                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff,dataSetId,callDetailsListRoomModelList);
+                navigateToDashBoard();
+            }
 
             //NotSpokeToCustomerActivity - Number is Invalid
             if(getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")){
