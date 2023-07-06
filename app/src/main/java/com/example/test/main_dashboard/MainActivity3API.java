@@ -328,7 +328,6 @@ public class MainActivity3API extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
 
         // Get UserName , UserID , BranchCode
 
@@ -348,5 +347,25 @@ public class MainActivity3API extends AppCompatActivity {
 
         System.out.println("Here MainActivity3Api onResume() UserID:"+UserID);
         System.out.println("Here MainActivity3Api onResume() BranchCode:"+BranchCode);
+
+
+        initializeFields();
+        onClickListener();
+
+        if(NetworkUtilities.getConnectivityStatus(this)){
+            callDashBoardApi();
+            callScheduleForTheDayApi();
+        }
+
+        else{
+            Global.showToast(this,getString(R.string.check_internet_connection));
+        }
+
+        initObserver();
+        initObserverScheduleForTheDay();
+
+
+        super.onResume();
     }
+
 }
