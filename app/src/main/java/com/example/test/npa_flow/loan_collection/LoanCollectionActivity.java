@@ -162,16 +162,19 @@ public class LoanCollectionActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        recyclerView.setAdapter(new LoanCollectionAdapter(loanCollectionViewModel.arrList_LoanCollectionList, currentLocation));
 
         // go to previously stored adapter item position
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        // LoanCollectionLayoutAdapterPosition will be Reset in DPDActivity
         if(LoanCollectionLayoutAdapterPosition!=0){
             System.out.println("Here LoanCollectionLayoutAdapterPosition:"+LoanCollectionLayoutAdapterPosition);
             assert layoutManager != null;
             layoutManager.scrollToPosition(LoanCollectionLayoutAdapterPosition);
 
         }
+        recyclerView.setAdapter(new LoanCollectionAdapter(loanCollectionViewModel.arrList_LoanCollectionList, currentLocation));
+
+
 
     }
 
@@ -418,7 +421,8 @@ public class LoanCollectionActivity extends AppCompatActivity {
             int DPD_row_position = getIntent().getIntExtra("DPD_row_position", 0);
             call_LoanCollectionList_Api(DPD_row_position);
             initObserver();
-            //setUpLoanCollectionList_RecyclerView(); // acts as refresh to show correct Attempt No. And Distance in Km
+            //to get LoanCollectionAdapterPosition
+            setUpLoanCollectionList_RecyclerView(); // acts as refresh to show correct Attempt No. And Distance in Km
 
         }
 

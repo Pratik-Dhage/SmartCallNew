@@ -56,6 +56,9 @@ public class DPDActivity extends AppCompatActivity {
         dpdViewModel = new ViewModelProvider(this).get(DPD_ViewModel.class);
         binding.setViewModel(dpdViewModel);
 
+        LoanCollectionActivity.LoanCollectionLayoutAdapterPosition = 0; // Reset to 0 to reset adapter position
+        System.out.println("Here DPDActivity LoanCollectionLayoutAdapterPosition:"+LoanCollectionActivity.LoanCollectionLayoutAdapterPosition);
+
         // Get UserName , UserID , BranchCode
         MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
         UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
