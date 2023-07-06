@@ -13,6 +13,7 @@ import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.ScheduleVisitForCollectionActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
+import com.example.test.roomDB.model.CallDetailsListRoomModel;
 
 import java.util.List;
 
@@ -267,6 +268,20 @@ public class CallDetailsViewModel extends ViewModel {
 
         subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.notSpokeToCustomer_numberIsInvalid + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + "" +
                         "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber="+"&reason=", callDetailsList_full_partial_amount)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        this::onHomeApiSuccess, this::onApiError
+                );
+
+    }
+
+    //12) NotSpokeToCustomerActivity - Number is Busy / Switched Off
+    public void postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(String apiType,String dataSetId,List<CallDetailsListRoomModel>callDetailsListFromRoomDB){
+
+        subscribtion = (Disposable) Global.apiService().post_call_details_from_roomDB(apiType + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + "" +
+                        "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber="+"&reason=", callDetailsListFromRoomDB)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
