@@ -52,9 +52,9 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //  setContentView(R.layout.activity_schedule_visit_for_collection);
 
+
         initializeFields();
         onClickListener();
-
         initObserver();
     }
 
@@ -65,6 +65,10 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
         callDetailsViewModel = new ViewModelProvider(this).get(CallDetailsViewModel.class);
         visitsFlowViewModel = new ViewModelProvider(this).get(VisitsFlowViewModel.class);
+
+        // button Update/Update Schedule will be clickable initially
+        binding.btnUpdateSchedule.setClickable(true);
+        System.out.println("Here Update/Update Schedule Clickable:true");
 
         //for current date
         DatePicker datePicker = binding.datePickerCalendarView;
@@ -185,110 +189,122 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
         binding.btnUpdateSchedule.setOnClickListener(v -> {
 
-          //  Global.showToast(ScheduleVisitForCollectionActivity.this, getResources().getString(R.string.schedule_update_successfully));
+        //To Check if Button Update / Update Schedule is Clicked Once or not
+            if(binding.btnUpdateSchedule.isClickable())
+                System.out.println("Here Button Update/Update Schedule Clickable:true");
+            {
 
-            //on Clicking update call this api   callDetailsViewModel.postCallDetails with ScheduleDateTime
-            //in pattern   String pattern = "yyyy-MM-dd HH:mm:ss"; // Pattern to match the date format
+                //  Global.showToast(ScheduleVisitForCollectionActivity.this, getResources().getString(R.string.schedule_update_successfully));
 
-            //UPDATE BUTTON (FOR SPOKE TO CUSTOMER -NOT READY TO PAY - WILL PAY LATER -UPDATE )(Payment Info Of Customer Activity)
-            if(binding.btnUpdateSchedule.getText()==getString(R.string.update)){
-                if(getIntent().hasExtra("will_pay_later_update")){
-                    getScheduleDateTime();
-                    String dataSetId = getIntent().getStringExtra("dataSetId");
-                    String will_pay_later_update = "will pay later update";
-                    DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
-                    //using payment type as will pay later-> update
-                    callDetailsViewModel.postScheduledDateTime(dataSetId,will_pay_later_update,scheduleVisitForCollection_dateTime,detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
-                }
-            }
+                //on Clicking update call this api   callDetailsViewModel.postCallDetails with ScheduleDateTime
+                //in pattern   String pattern = "yyyy-MM-dd HH:mm:ss"; // Pattern to match the date format
 
-            // UPDATE BUTTON (FOR ASKED TO CALL LATER AND WILL PAY LATER FLOW)
-            if(  binding.btnUpdateSchedule.getText()==getString(R.string.update)){
-
-                if(getIntent().hasExtra("isWillPayLater")){
-                    //get scheduleDateTime
-                    getScheduleDateTime();
-                    String dataSetId = getIntent().getStringExtra("dataSetId");
-                    String will_pay_later = "will pay later";
-                    DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
-                    //using payment type as will pay later
-                    callDetailsViewModel.postScheduledDateTime(dataSetId,will_pay_later,scheduleVisitForCollection_dateTime,detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
-                }
-
-
-                //ASKED TO CALL BACK LATER(Payment Notification of Customer)
-                if(getIntent().hasExtra("isAskedToCallLater")){
-                    //get scheduleDateTime
-                    getScheduleDateTime();
-                    String dataSetId = getIntent().getStringExtra("dataSetId");
-                    DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
-                    callDetailsViewModel.postScheduledDateTime_ATCL(dataSetId,scheduleVisitForCollection_dateTime,detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
-
-                    //Reset Call Count of Mobile Number that will Appear in CallsForTheDay List
-                    if(getIntent().hasExtra("mobileNumberToResetCallCount") && getIntent().getStringExtra("mobileNumberToResetCallCount")!=null){
-                        String mobileNumberToResetCallCount = getIntent().getStringExtra("mobileNumberToResetCallCount");
-                        LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
-                        leadCallDao.UpdateLeadCalls(0,mobileNumberToResetCallCount);
+                //UPDATE BUTTON (FOR SPOKE TO CUSTOMER -NOT READY TO PAY - WILL PAY LATER -UPDATE )(Payment Info Of Customer Activity)
+                if (binding.btnUpdateSchedule.getText() == getString(R.string.update)) {
+                    if (getIntent().hasExtra("will_pay_later_update")) {
+                        getScheduleDateTime();
+                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                        String will_pay_later_update = "will pay later update";
+                        DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+                        //using payment type as will pay later-> update
+                        callDetailsViewModel.postScheduledDateTime(dataSetId, will_pay_later_update, scheduleVisitForCollection_dateTime, detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
                     }
                 }
 
-            }
+                // UPDATE BUTTON (FOR ASKED TO CALL LATER AND WILL PAY LATER FLOW)
+                if (binding.btnUpdateSchedule.getText() == getString(R.string.update)) {
 
-            //Visit_NPA_StatusActivity -> Asked To Visit Later - Update Schedule
-            if(binding.btnUpdateSchedule.getText()==getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromVisit_NPAStatus_AskedToVisitLater")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String visitedTheCustomer_AskedToVisitLater = WebServices.visit_asked_to_visit_later;
-                //get scheduleDateTime
-                getScheduleDateTime();
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(visitedTheCustomer_AskedToVisitLater,dataSetId,scheduleVisitForCollection_dateTime,"","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-            }
+                    if (getIntent().hasExtra("isWillPayLater")) {
+                        //get scheduleDateTime
+                        getScheduleDateTime();
+                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                        String will_pay_later = "will pay later";
+                        DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+                        //using payment type as will pay later
+                        callDetailsViewModel.postScheduledDateTime(dataSetId, will_pay_later, scheduleVisitForCollection_dateTime, detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
+                    }
 
 
-            //Visit_NPA_NotAvailableActivity -> Customer Not Available -> Update Schedule
-            if(binding.btnUpdateSchedule.getText()==getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String customerNotAvailable_UpdateSchedule = WebServices.visit_rescheduled_customer_not_available_update_schedule;
-                //get scheduleDateTime
-                getScheduleDateTime();
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(customerNotAvailable_UpdateSchedule,dataSetId,scheduleVisitForCollection_dateTime,"","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-            }
+                    //ASKED TO CALL BACK LATER(Payment Notification of Customer)
+                    if (getIntent().hasExtra("isAskedToCallLater")) {
+                        //get scheduleDateTime
+                        getScheduleDateTime();
+                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                        DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+                        callDetailsViewModel.postScheduledDateTime_ATCL(dataSetId, scheduleVisitForCollection_dateTime, detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
 
-            //Visit_NPA_NotAvailable -> Late For Visit -> Update Schedule
-            if(binding.btnUpdateSchedule.getText()==getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromVisitNPANotAvailableActivity_LateForVisit")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String lateForVisit_UpdateSchedule = WebServices.visit_rescheduled_late_for_visit_update_schedule;
-                //get scheduleDateTime
-                getScheduleDateTime();
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(lateForVisit_UpdateSchedule,dataSetId,scheduleVisitForCollection_dateTime,"","","","", VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-            }
+                        //Reset Call Count of Mobile Number that will Appear in CallsForTheDay List
+                        if (getIntent().hasExtra("mobileNumberToResetCallCount") && getIntent().getStringExtra("mobileNumberToResetCallCount") != null) {
+                            String mobileNumberToResetCallCount = getIntent().getStringExtra("mobileNumberToResetCallCount");
+                            LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
+                            leadCallDao.UpdateLeadCalls(0, mobileNumberToResetCallCount);
+                        }
+                    }
 
-            //Visit_NPA_NotAvailable -> Others -> Update Schedule
-            if(binding.btnUpdateSchedule.getText()==getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String others_SkipAndProceed = WebServices.visit_rescheduled_others;
-                //get scheduleDateTime
-                getScheduleDateTime();
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_SkipAndProceed,dataSetId,scheduleVisitForCollection_dateTime,"","","","",VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-            }
+                }
 
-            //Payment Mode -> Schedule Visit For Collection (SVFC)
-            if(binding.btnUpdateSchedule.getText()==getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromPaymentMode_ScheduleVisitForCollection")){
+                //Visit_NPA_StatusActivity -> Asked To Visit Later - Update Schedule
+                if (binding.btnUpdateSchedule.getText() == getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromVisit_NPAStatus_AskedToVisitLater")) {
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String visitedTheCustomer_AskedToVisitLater = WebServices.visit_asked_to_visit_later;
+                    //get scheduleDateTime
+                    getScheduleDateTime();
+                    VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                    visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(visitedTheCustomer_AskedToVisitLater, dataSetId, scheduleVisitForCollection_dateTime, "", "", "", "", "", visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                }
 
-                // in NearByCustomerActivity show VisitNearbyCustomer button when Schedule Visit For Collection is clicked in PaymentModeActivity
-                VisitsForTheDayAdapter.showNearByCustomerButton = true;
 
-                //get scheduleDateTime
-                getScheduleDateTime();
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
-                callDetailsViewModel.postScheduledDateTime_SVFC(dataSetId,scheduleVisitForCollection_dateTime,detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
+                //Visit_NPA_NotAvailableActivity -> Customer Not Available -> Update Schedule
+                if (binding.btnUpdateSchedule.getText() == getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable")) {
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String customerNotAvailable_UpdateSchedule = WebServices.visit_rescheduled_customer_not_available_update_schedule;
+                    //get scheduleDateTime
+                    getScheduleDateTime();
+                    VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                    visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(customerNotAvailable_UpdateSchedule, dataSetId, scheduleVisitForCollection_dateTime, "", "", "", "", "", visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                }
 
-            }
+                //Visit_NPA_NotAvailable -> Late For Visit -> Update Schedule
+                if (binding.btnUpdateSchedule.getText() == getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromVisitNPANotAvailableActivity_LateForVisit")) {
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String lateForVisit_UpdateSchedule = WebServices.visit_rescheduled_late_for_visit_update_schedule;
+                    //get scheduleDateTime
+                    getScheduleDateTime();
+                    VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                    visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(lateForVisit_UpdateSchedule, dataSetId, scheduleVisitForCollection_dateTime, "", "", "", "", VisitsFlowCallDetailsActivity.send_reason, visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                }
 
+                //Visit_NPA_NotAvailable -> Others -> Update Schedule
+                if (binding.btnUpdateSchedule.getText() == getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")) {
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String others_SkipAndProceed = WebServices.visit_rescheduled_others;
+                    //get scheduleDateTime
+                    getScheduleDateTime();
+                    VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                    visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_SkipAndProceed, dataSetId, scheduleVisitForCollection_dateTime, "", "", "", "", VisitsFlowCallDetailsActivity.send_reason, visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                }
+
+                //Payment Mode -> Schedule Visit For Collection (SVFC)
+                if (binding.btnUpdateSchedule.getText() == getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromPaymentMode_ScheduleVisitForCollection")) {
+
+                    // in NearByCustomerActivity show VisitNearbyCustomer button when Schedule Visit For Collection is clicked in PaymentModeActivity
+                    VisitsForTheDayAdapter.showNearByCustomerButton = true;
+
+                    //get scheduleDateTime
+                    getScheduleDateTime();
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+                    callDetailsViewModel.postScheduledDateTime_SVFC(dataSetId, scheduleVisitForCollection_dateTime, detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
+
+                }
+
+
+
+                //if Button Update / Update Schedule is Clicked Once , it will be UnClickable for 2nd time
+                binding.btnUpdateSchedule.setClickable(false);
+                System.out.println("Here Button Update/Update Schedule Clickable:false");
+
+            } //if Button Update/Update Schedule is Clickable ends here
 
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -418,6 +434,9 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
         System.out.println("Here ScheduleVisitForCustomerActivity onResume() UserID:"+MainActivity3API.UserID);
         System.out.println("Here ScheduleVisitForCustomerActivity onResume() BranchCode:"+MainActivity3API.BranchCode);
 
+        initializeFields();
+        onClickListener();
+        initObserver();
 
         super.onResume();
     }
