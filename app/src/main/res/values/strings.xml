@@ -381,7 +381,7 @@
     <string name="enter_10digit_mobile_number">Enter 10 Digit number  </string>
     <string name="name_cannot_be_empty">Name cannot be empty  </string>
     <string name="date_cannot_be_empty">Date cannot be empty  </string>
-    <string name="please_enter_all_cheque_details">Please Enter All Cheque Details  </string>
+    <string name="please_enter_proper_cheque_details">Please Enter Proper Cheque Details  </string>
     <string name="invalid_userID_contact_admin">Invalid UserID \nPlease Contact Admin</string>
     <string name="user_already_registered">User is Already Registered</string>
     <string name="already_registered">Already Registered</string>
@@ -391,6 +391,8 @@
     <string name="no_data_for_visits">No Data for Visits</string>
     <string name="no_data_for_calls">No Data For Calls</string>
     <string name="call_initiated">Call Initiated</string>
+    <string name="cheque_number_be_six_digit">Cheque No. must be 6 digit</string>
+    <string name="ifsc_code_be_eleven_digit">IFSC code  must be 11 digit</string>
 
 
     <!--for Tenure-->
