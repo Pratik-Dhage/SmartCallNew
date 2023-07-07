@@ -206,6 +206,9 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             if (binding.btnCompleteNoChange.isClickable())
                 System.out.println("Here Complete Button Clickable:true");
             {
+                  // Before any Respective Api is Called make it Un-clickable
+                binding.btnCompleteNoChange.setClickable(false);
+                System.out.println("Here Complete Button Clickable:false");
 
                 Global.saveStringInSharedPref(this, "notes", ""); //make Notes Empty After Complete
 
@@ -397,8 +400,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             }
 
 
-            binding.btnCompleteNoChange.setClickable(false);
-            System.out.println("Here Complete Button Clickable:false");
+
         } // button CompleteNoChange is Clicked or not ends here
 
         });
@@ -409,6 +411,9 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             if (binding.btnCompleteNeedToUpdateDetails.isClickable()){
                 System.out.println("Here Complete Button Clickable:true");
 
+                //Before any Respective Api call Make it Un-clickable
+                binding.btnCompleteNeedToUpdateDetails.setClickable(false);
+                System.out.println("Here Complete Button Clickable:false");
 
                 Global.saveStringInSharedPref(this, "notes", ""); //make Notes Empty After Complete
 
@@ -593,8 +598,6 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             }
 
 
-                binding.btnCompleteNeedToUpdateDetails.setClickable(false);
-                System.out.println("Here Complete Button Clickable:false");
         } // button CompleteNeedToUpdateDetails is Clicked Once or not ends here
 
         });
@@ -604,6 +607,10 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
             if (binding.btnCompleteEscalateToBM.isClickable()){
                 System.out.println("Here Complete Button Clickable:true");
+
+                //Before any Respective Api call make it Un-Clickable
+                binding.btnCompleteEscalateToBM.setClickable(false);
+                System.out.println("Here Complete Button is Clickable:false");
 
             Global.saveStringInSharedPref(this, "notes", ""); //make Notes Empty After Complete
 
@@ -786,8 +793,6 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             }
 
 
-            binding.btnCompleteEscalateToBM.setClickable(false);
-            System.out.println("Here Complete Button is Clickable:false");
 
         }// button Complete Escalate To BM is Clicked Once or not ends here
 

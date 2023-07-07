@@ -84,6 +84,11 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         visitsFlowViewModel = new ViewModelProvider(this).get(VisitsFlowViewModel.class);
          setToolBarTitle();
 
+         //initially button are Clickable
+         binding.btnSubmitNoChange.setClickable(true);
+         binding.btnSubmitNeedToUpdateDetails.setClickable(true);
+         binding.btnSubmitEscalateToBM.setClickable(true);
+
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
 
@@ -203,796 +208,801 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         });
 
 
-        binding.btnSubmitNoChange.setOnClickListener(v->{
+        binding.btnSubmitNoChange.setOnClickListener(v-> {
 
-            //NotSpokeToCustomer - NumberIsBusy
-            if(getIntent().hasExtra("isFromNotSpokeToCustomer_NoResponseBusy")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
+            //to check if Submit Button is clicked Once or not
+            if (binding.btnSubmitNoChange.isClickable())
+                System.out.println("Here Submit is Clickable:true");
+            {
 
-                CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+                binding.btnSubmitNoChange.setClickable(false);
+                System.out.println("Here Submit is Clickable:false");
 
-              List<CallDetailsListRoomModel> callDetailsListRoomModelList =  callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
-                System.out.println("Here MobileNumber: "+DetailsOfCustomerActivity.Mobile_Number);
-
-                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy,dataSetId,callDetailsListRoomModelList);
-                 navigateToDashBoard();
-            }
-
-            //NotSpokeToCustomer - SwitchOff
-            if(getIntent().hasExtra("isFromNotSpokeToCustomer_SwitchOff")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-
-                CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
-
-                List<CallDetailsListRoomModel> callDetailsListRoomModelList =  callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
-                System.out.println("Here MobileNumber: "+DetailsOfCustomerActivity.Mobile_Number);
-
-                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff,dataSetId,callDetailsListRoomModelList);
-                navigateToDashBoard();
-            }
-
-
-            //NotSpokeToCustomerActivity - Number is Invalid
-            if(getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberInvalid(dataSetId);
-                navigateToDashBoard();
-            }
-
-            //Visit-NPA Reschedule -> Others -> Proceed
-            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String others_proceed = WebServices.visit_did_not_visit_others;
-
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_proceed,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-                navigateToDashBoard();
-            }
-
-            //Visit-NPA Reschedule -> Payment Already Made -> Skip & Proceed
-            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String payment_already_made_skip_and_proceed = WebServices.visit_did_not_visit_payment_already_made;
-
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_skip_and_proceed,dataSetId,"","",",","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-                navigateToDashBoard();
-            }
-
-            //Visit-NPANotAvailable -> Others -> Skip & Proceed
-            if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String others_SkipAndProceed = WebServices.visit_rescheduled_others;
-
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_SkipAndProceed,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-                navigateToDashBoard();
-            }
-
-            //Visit-NPANotAvailable -> Late For Visit -> Skip & Proceed
-          else  if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_LateForVisit")){
-
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String lateForVisit_SkipAndProceed = WebServices.visit_rescheduled_late_for_visit_skip_and_proceed;
-
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(lateForVisit_SkipAndProceed,dataSetId,"","","","","", VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-                navigateToDashBoard();
-            }
-
-            //Visit-NPANotAvailable->Customer Not Available -> Skip & Proceed
-          else  if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable")){
-
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String customerNotAvailable_SkipAndProceed = WebServices.visit_rescheduled_customer_not_available_skip_and_proceed;
-
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(customerNotAvailable_SkipAndProceed,dataSetId,"","","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-                navigateToDashBoard();
-            }
-
-            //PAYMENT INFO OF CUSTOMER -> OTHERS
-            if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")){
-
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId,"","","","","");
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
-                        startActivity(i);
-                    }
-                },1000);
-
-            }
-
-            //PAYMENT INFO OF CUSTOMER-> NOT TAKEN LOAN
-            if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")){
-                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
-                startActivity(i);
-            }
-
-            //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
-            if(getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")){
-                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
-                startActivity(i);
-            }
-
-            //ALREADY PAID
-            if(getIntent().hasExtra("isAlreadyPaid")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                callDetailsViewModel.postScheduledDateTime_AP(dataSetId,"","","","","");
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
-                        startActivity(i);
-                    }
-                },1000);
-
-            }
-
-            //FO NOT VISITED
-            if(getIntent().hasExtra("isFoNotVisited")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-               //  dateOfVisitPromised = getIntent().getStringExtra("dateOfVisitPromised");
-               //  foName = getIntent().getStringExtra("foName");
-
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    callDetailsViewModel.postScheduledDateTime_FNV(dataSetId,"",dateOfVisitPromised,foName,"","");
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
-                            startActivity(i);
-                        }
-                    },1000);
-
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
-                }
-
-            }
-
-            //LOAN TAKEN BY RELATIVE
-            if(getIntent().hasExtra("isLoanTakenByRelative")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-               //  relativeName = getIntent().getStringExtra("relativeName");
-               //  relativeContact = getIntent().getStringExtra("relativeContact");
-
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    callDetailsViewModel.postScheduledDateTime_LTBR(dataSetId,"","","",relativeName,relativeContact,"LTBR");
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
-                            startActivity(i);
-                        }
-                    },1000);
-
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
-                }
-            }
-
-
-          //PAYMENT INFO WILL PAY LATER->WILL PAY LUMPSUM
-            if(getIntent().hasExtra("paymentInfo_WillPayLater")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId,"","","","","");
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
-                            startActivity(i);
-                        }
-                    },3000);
-                }
-                else {
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
-                }
-            }
-
-            //VISITS FOR THE DAY FLOW
-
-            //Visits Flow (Not Ready to Pay Lack Of Funds)
-                if(getIntent().hasExtra("NotReadyToPay_LackOfFunds")){
+                //NotSpokeToCustomer - NumberIsBusy
+                if (getIntent().hasExtra("isFromNotSpokeToCustomer_NoResponseBusy")) {
                     String dataSetId = getIntent().getStringExtra("dataSetId");
-                    String lackOfFunds = WebServices.visit_not_ready_to_pay_lack_of_funds;
-                    if(NetworkUtilities.getConnectivityStatus(this)){
-                        visitsFlowViewModel.postVisitsFlowCallDateTime(lackOfFunds,dataSetId,"","","","","");
-                    }
-                    else{
-                        Global.showSnackBar(view,getString(R.string.check_internet_connection));
-                    }
+
+                    CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+
+                    List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                    System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
+
+                    callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy, dataSetId, callDetailsListRoomModelList);
+                    navigateToDashBoard();
                 }
-
-            //Visits Flow (Not Ready to Pay Not Taken Loan)
-            if(getIntent().hasExtra("NotReadyToPay_NotTakenLoan")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String notTakenLoan = WebServices.visit_not_ready_to_pay_not_taken_loan;
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    visitsFlowViewModel.postVisitsFlowCallDateTime(notTakenLoan,dataSetId,"","","","","");
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
-                }
-            }
-
-             //Visits Flow (Not Ready to Pay Loan Taken By Relative)
-            if(getIntent().hasExtra("NotReadyToPay_LoanTakenByRelative")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String relativeName = getIntent().getStringExtra("relativeName");
-                String relativeContact = getIntent().getStringExtra("relativeContact");
-                String loanTakenByRelative = WebServices.visit_not_ready_to_pay_loan_taken_by_relative;
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    visitsFlowViewModel.postVisitsFlowCallDateTime(loanTakenByRelative,dataSetId,"","","",relativeName,relativeContact);
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
-                }
-            }
-
-            //Visits Flow (Not Ready to Pay Will Pay LumpSump)
-            if(getIntent().hasExtra("NotReadyToPay_WillPayLumpSump")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String willPayLumpSump = WebServices.visit_not_ready_to_pay_will_pay_lumpsump;
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    visitsFlowViewModel.postVisitsFlowCallDateTime(willPayLumpSump,dataSetId,"","","","","");
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
-                }
-            }
-
-            //Visits Flow (Not Ready to Pay Claims Payment Made)
-            if(getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade,dataSetId,"","","","","");
-                      navigateToDashBoard();
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
-                }
-            }
-
-
-        });
-
-        binding.btnSubmitNeedToUpdateDetails.setOnClickListener(v->{
-
-            //NotSpokeToCustomer - NumberIsBusy
-            if(getIntent().hasExtra("isFromNotSpokeToCustomer_NoResponseBusy")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-
-                CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
-
-                List<CallDetailsListRoomModel> callDetailsListRoomModelList =  callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
-                System.out.println("Here MobileNumber: "+DetailsOfCustomerActivity.Mobile_Number);
-
-                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy,dataSetId,callDetailsListRoomModelList);
-                navigateToDashBoard();
-            }
 
             //NotSpokeToCustomer - SwitchOff
-            if(getIntent().hasExtra("isFromNotSpokeToCustomer_SwitchOff")){
+            if (getIntent().hasExtra("isFromNotSpokeToCustomer_SwitchOff")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
 
                 CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
 
-                List<CallDetailsListRoomModel> callDetailsListRoomModelList =  callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
-                System.out.println("Here MobileNumber: "+DetailsOfCustomerActivity.Mobile_Number);
+                List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
 
-                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff,dataSetId,callDetailsListRoomModelList);
+                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff, dataSetId, callDetailsListRoomModelList);
                 navigateToDashBoard();
             }
 
+
             //NotSpokeToCustomerActivity - Number is Invalid
-            if(getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")){
+            if (getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberInvalid(dataSetId);
                 navigateToDashBoard();
             }
 
             //Visit-NPA Reschedule -> Others -> Proceed
-            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")){
+            if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String others_proceed = WebServices.visit_did_not_visit_others;
 
                 VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_proceed,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_proceed, dataSetId, "", "", "", "", "", VisitsFlowCallDetailsActivity.send_reason, visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
                 navigateToDashBoard();
             }
 
             //Visit-NPA Reschedule -> Payment Already Made -> Skip & Proceed
-            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")){
+            if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String payment_already_made_skip_and_proceed = WebServices.visit_did_not_visit_payment_already_made;
 
                 VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_skip_and_proceed,dataSetId,"","",",","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_skip_and_proceed, dataSetId, "", "", ",", "", "", "", visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
                 navigateToDashBoard();
             }
 
             //Visit-NPANotAvailable -> Others -> Skip & Proceed
-            if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")){
+            if (getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String others_SkipAndProceed = WebServices.visit_rescheduled_others;
 
                 VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_SkipAndProceed,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_SkipAndProceed, dataSetId, "", "", "", "", "", VisitsFlowCallDetailsActivity.send_reason, visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
                 navigateToDashBoard();
             }
 
             //Visit-NPANotAvailable -> Late For Visit -> Skip & Proceed
-            else  if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_LateForVisit")){
+            else if (getIntent().hasExtra("isFromVisitNPANotAvailableActivity_LateForVisit")) {
 
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String lateForVisit_SkipAndProceed = WebServices.visit_rescheduled_late_for_visit_skip_and_proceed;
 
                 VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(lateForVisit_SkipAndProceed,dataSetId,"","","","","", VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(lateForVisit_SkipAndProceed, dataSetId, "", "", "", "", "", VisitsFlowCallDetailsActivity.send_reason, visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
                 navigateToDashBoard();
             }
 
             //Visit-NPANotAvailable->Customer Not Available -> Skip & Proceed
-            else  if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable")){
+            else if (getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable")) {
 
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String customerNotAvailable_SkipAndProceed = WebServices.visit_rescheduled_customer_not_available_skip_and_proceed;
 
                 VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(customerNotAvailable_SkipAndProceed,dataSetId,"","","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(customerNotAvailable_SkipAndProceed, dataSetId, "", "", "", "", "", "", visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
                 navigateToDashBoard();
             }
 
             //PAYMENT INFO OF CUSTOMER -> OTHERS
-            if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")){
+            if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")) {
 
                 String dataSetId = getIntent().getStringExtra("dataSetId");
-                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId,"","","","","");
+                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "");
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
                         startActivity(i);
                     }
-                },1000);
+                }, 1000);
+
             }
 
             //PAYMENT INFO OF CUSTOMER-> NOT TAKEN LOAN
-            if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")){
-                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+            if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")) {
+                Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
                 startActivity(i);
             }
 
             //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
-            if(getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")){
-                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+            if (getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")) {
+                Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
                 startActivity(i);
             }
 
             //ALREADY PAID
-            if(getIntent().hasExtra("isAlreadyPaid")){
+            if (getIntent().hasExtra("isAlreadyPaid")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
-                callDetailsViewModel.postScheduledDateTime_AP(dataSetId,"","","","","");
+                callDetailsViewModel.postScheduledDateTime_AP(dataSetId, "", "", "", "", "");
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
                         startActivity(i);
                     }
-                },1000);
+                }, 1000);
 
             }
 
             //FO NOT VISITED
-            if(getIntent().hasExtra("isFoNotVisited")){
+            if (getIntent().hasExtra("isFoNotVisited")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 //  dateOfVisitPromised = getIntent().getStringExtra("dateOfVisitPromised");
                 //  foName = getIntent().getStringExtra("foName");
 
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    callDetailsViewModel.postScheduledDateTime_FNV(dataSetId,"",dateOfVisitPromised,foName,"","");
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    callDetailsViewModel.postScheduledDateTime_FNV(dataSetId, "", dateOfVisitPromised, foName, "", "");
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
                             startActivity(i);
                         }
-                    },1000);
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                    }, 1000);
+
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
 
             }
 
             //LOAN TAKEN BY RELATIVE
-            if(getIntent().hasExtra("isLoanTakenByRelative")){
+            if (getIntent().hasExtra("isLoanTakenByRelative")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 //  relativeName = getIntent().getStringExtra("relativeName");
                 //  relativeContact = getIntent().getStringExtra("relativeContact");
 
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    callDetailsViewModel.postScheduledDateTime_LTBR(dataSetId,"","","",relativeName,relativeContact,"LTBR");
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    callDetailsViewModel.postScheduledDateTime_LTBR(dataSetId, "", "", "", relativeName, relativeContact, "LTBR");
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
                             startActivity(i);
                         }
-                    },1000);
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                    }, 1000);
+
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
             }
 
 
             //PAYMENT INFO WILL PAY LATER->WILL PAY LUMPSUM
-            if(getIntent().hasExtra("paymentInfo_WillPayLater")){
+            if (getIntent().hasExtra("paymentInfo_WillPayLater")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId,"","","","","");
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId, "", "", "", "", "");
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
                             startActivity(i);
                         }
-                    },3000);
-                }
-                else {
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                    }, 3000);
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
             }
 
             //VISITS FOR THE DAY FLOW
 
             //Visits Flow (Not Ready to Pay Lack Of Funds)
-            if(getIntent().hasExtra("NotReadyToPay_LackOfFunds")){
+            if (getIntent().hasExtra("NotReadyToPay_LackOfFunds")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String lackOfFunds = WebServices.visit_not_ready_to_pay_lack_of_funds;
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    visitsFlowViewModel.postVisitsFlowCallDateTime(lackOfFunds,dataSetId,"","","","","");
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(lackOfFunds, dataSetId, "", "", "", "", "");
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
             }
 
             //Visits Flow (Not Ready to Pay Not Taken Loan)
-            if(getIntent().hasExtra("NotReadyToPay_NotTakenLoan")){
+            if (getIntent().hasExtra("NotReadyToPay_NotTakenLoan")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String notTakenLoan = WebServices.visit_not_ready_to_pay_not_taken_loan;
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    visitsFlowViewModel.postVisitsFlowCallDateTime(notTakenLoan,dataSetId,"","","","","");
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(notTakenLoan, dataSetId, "", "", "", "", "");
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
             }
 
             //Visits Flow (Not Ready to Pay Loan Taken By Relative)
-            if(getIntent().hasExtra("NotReadyToPay_LoanTakenByRelative")){
+            if (getIntent().hasExtra("NotReadyToPay_LoanTakenByRelative")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String relativeName = getIntent().getStringExtra("relativeName");
                 String relativeContact = getIntent().getStringExtra("relativeContact");
                 String loanTakenByRelative = WebServices.visit_not_ready_to_pay_loan_taken_by_relative;
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    visitsFlowViewModel.postVisitsFlowCallDateTime(loanTakenByRelative,dataSetId,"","","",relativeName,relativeContact);
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(loanTakenByRelative, dataSetId, "", "", "", relativeName, relativeContact);
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
             }
 
             //Visits Flow (Not Ready to Pay Will Pay LumpSump)
-            if(getIntent().hasExtra("NotReadyToPay_WillPayLumpSump")){
+            if (getIntent().hasExtra("NotReadyToPay_WillPayLumpSump")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String willPayLumpSump = WebServices.visit_not_ready_to_pay_will_pay_lumpsump;
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    visitsFlowViewModel.postVisitsFlowCallDateTime(willPayLumpSump,dataSetId,"","","","","");
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(willPayLumpSump, dataSetId, "", "", "", "", "");
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
             }
-
 
             //Visits Flow (Not Ready to Pay Claims Payment Made)
-            if(getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")){
+            if (getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade,dataSetId,"","","","","");
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade, dataSetId, "", "", "", "", "");
                     navigateToDashBoard();
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
             }
+
+
+        }// button SubmitNoChange is Clicked Once or not ends here
 
         });
 
-        binding.btnSubmitEscalateToBM.setOnClickListener(v->{
+        binding.btnSubmitNeedToUpdateDetails.setOnClickListener(v-> {
 
-            //NotSpokeToCustomer - NumberIsBusy
-            if(getIntent().hasExtra("isFromNotSpokeToCustomer_NoResponseBusy")){
-                String dataSetId = getIntent().getStringExtra("dataSetId");
+            if (binding.btnSubmitNeedToUpdateDetails.isClickable())
+            System.out.println("Here Submit Button is Clickable:true");
+            {
 
-                CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+                binding.btnSubmitNeedToUpdateDetails.setClickable(false);
+                System.out.println("Here Submit Button is Clickable:false");
 
-                List<CallDetailsListRoomModel> callDetailsListRoomModelList =  callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
-                System.out.println("Here MobileNumber: "+DetailsOfCustomerActivity.Mobile_Number);
+                //NotSpokeToCustomer - NumberIsBusy
+                if (getIntent().hasExtra("isFromNotSpokeToCustomer_NoResponseBusy")) {
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
 
-                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy,dataSetId,callDetailsListRoomModelList);
-                navigateToDashBoard();
-            }
+                    CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+
+                    List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                    System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
+
+                    callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy, dataSetId, callDetailsListRoomModelList);
+                    navigateToDashBoard();
+                }
 
             //NotSpokeToCustomer - SwitchOff
-            if(getIntent().hasExtra("isFromNotSpokeToCustomer_SwitchOff")){
+            if (getIntent().hasExtra("isFromNotSpokeToCustomer_SwitchOff")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
 
                 CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
 
-                List<CallDetailsListRoomModel> callDetailsListRoomModelList =  callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
-                System.out.println("Here MobileNumber: "+DetailsOfCustomerActivity.Mobile_Number);
+                List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
 
-                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff,dataSetId,callDetailsListRoomModelList);
+                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff, dataSetId, callDetailsListRoomModelList);
                 navigateToDashBoard();
             }
 
             //NotSpokeToCustomerActivity - Number is Invalid
-            if(getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")){
+            if (getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberInvalid(dataSetId);
                 navigateToDashBoard();
             }
 
             //Visit-NPA Reschedule -> Others -> Proceed
-            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")){
+            if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String others_proceed = WebServices.visit_did_not_visit_others;
 
                 VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_proceed,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_proceed, dataSetId, "", "", "", "", "", VisitsFlowCallDetailsActivity.send_reason, visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
                 navigateToDashBoard();
             }
 
             //Visit-NPA Reschedule -> Payment Already Made -> Skip & Proceed
-            if(getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")){
+            if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String payment_already_made_skip_and_proceed = WebServices.visit_did_not_visit_payment_already_made;
 
                 VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_skip_and_proceed,dataSetId,"","",",","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_skip_and_proceed, dataSetId, "", "", ",", "", "", "", visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
                 navigateToDashBoard();
             }
 
             //Visit-NPANotAvailable -> Others -> Skip & Proceed
-            if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")){
+            if (getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String others_SkipAndProceed = WebServices.visit_rescheduled_others;
 
                 VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_SkipAndProceed,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_SkipAndProceed, dataSetId, "", "", "", "", "", VisitsFlowCallDetailsActivity.send_reason, visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
                 navigateToDashBoard();
             }
 
             //Visit-NPANotAvailable -> Late For Visit -> Skip & Proceed
-            else  if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_LateForVisit")){
+            else if (getIntent().hasExtra("isFromVisitNPANotAvailableActivity_LateForVisit")) {
 
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String lateForVisit_SkipAndProceed = WebServices.visit_rescheduled_late_for_visit_skip_and_proceed;
 
                 VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(lateForVisit_SkipAndProceed,dataSetId,"","","","","", VisitsFlowCallDetailsActivity.send_reason,visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(lateForVisit_SkipAndProceed, dataSetId, "", "", "", "", "", VisitsFlowCallDetailsActivity.send_reason, visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
                 navigateToDashBoard();
             }
 
             //Visit-NPANotAvailable->Customer Not Available -> Skip & Proceed
-            else  if(getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable")){
+            else if (getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable")) {
 
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String customerNotAvailable_SkipAndProceed = WebServices.visit_rescheduled_customer_not_available_skip_and_proceed;
 
                 VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(customerNotAvailable_SkipAndProceed,dataSetId,"","","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(customerNotAvailable_SkipAndProceed, dataSetId, "", "", "", "", "", "", visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
                 navigateToDashBoard();
             }
 
             //PAYMENT INFO OF CUSTOMER -> OTHERS
-            if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")){
+            if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")) {
 
                 String dataSetId = getIntent().getStringExtra("dataSetId");
-                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId,"","","","","");
+                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "");
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
                         startActivity(i);
                     }
-                },1000);
-
+                }, 1000);
             }
 
             //PAYMENT INFO OF CUSTOMER-> NOT TAKEN LOAN
-            if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")){
-                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+            if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")) {
+                Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
                 startActivity(i);
             }
 
             //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
-            if(getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")){
-                Intent i =new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+            if (getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")) {
+                Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
                 startActivity(i);
             }
 
             //ALREADY PAID
-            if(getIntent().hasExtra("isAlreadyPaid")){
+            if (getIntent().hasExtra("isAlreadyPaid")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
-                callDetailsViewModel.postScheduledDateTime_AP(dataSetId,"","","","","");
+                callDetailsViewModel.postScheduledDateTime_AP(dataSetId, "", "", "", "", "");
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
                         startActivity(i);
                     }
-                },1000);
+                }, 1000);
 
             }
 
             //FO NOT VISITED
-            if(getIntent().hasExtra("isFoNotVisited")){
+            if (getIntent().hasExtra("isFoNotVisited")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 //  dateOfVisitPromised = getIntent().getStringExtra("dateOfVisitPromised");
                 //  foName = getIntent().getStringExtra("foName");
 
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    callDetailsViewModel.postScheduledDateTime_FNV(dataSetId,"",dateOfVisitPromised,foName,"","");
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    callDetailsViewModel.postScheduledDateTime_FNV(dataSetId, "", dateOfVisitPromised, foName, "", "");
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
                             startActivity(i);
                         }
-                    },1000);
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                    }, 1000);
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
 
             }
 
             //LOAN TAKEN BY RELATIVE
-            if(getIntent().hasExtra("isLoanTakenByRelative")){
+            if (getIntent().hasExtra("isLoanTakenByRelative")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 //  relativeName = getIntent().getStringExtra("relativeName");
                 //  relativeContact = getIntent().getStringExtra("relativeContact");
 
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    callDetailsViewModel.postScheduledDateTime_LTBR(dataSetId,"","","",relativeName,relativeContact,"LTBR");
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    callDetailsViewModel.postScheduledDateTime_LTBR(dataSetId, "", "", "", relativeName, relativeContact, "LTBR");
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
                             startActivity(i);
                         }
-                    },1000);
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                    }, 1000);
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
             }
 
 
             //PAYMENT INFO WILL PAY LATER->WILL PAY LUMPSUM
-            if(getIntent().hasExtra("paymentInfo_WillPayLater")){
+            if (getIntent().hasExtra("paymentInfo_WillPayLater")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId,"","","","","");
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId, "", "", "", "", "");
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
                             startActivity(i);
                         }
-                    },3000);
-                }
-                else {
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                    }, 3000);
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
             }
 
             //VISITS FOR THE DAY FLOW
 
             //Visits Flow (Not Ready to Pay Lack Of Funds)
-            if(getIntent().hasExtra("NotReadyToPay_LackOfFunds")){
+            if (getIntent().hasExtra("NotReadyToPay_LackOfFunds")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String lackOfFunds = WebServices.visit_not_ready_to_pay_lack_of_funds;
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    visitsFlowViewModel.postVisitsFlowCallDateTime(lackOfFunds,dataSetId,"","","","","");
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(lackOfFunds, dataSetId, "", "", "", "", "");
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
             }
 
             //Visits Flow (Not Ready to Pay Not Taken Loan)
-            if(getIntent().hasExtra("NotReadyToPay_NotTakenLoan")){
+            if (getIntent().hasExtra("NotReadyToPay_NotTakenLoan")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String notTakenLoan = WebServices.visit_not_ready_to_pay_not_taken_loan;
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    visitsFlowViewModel.postVisitsFlowCallDateTime(notTakenLoan,dataSetId,"","","","","");
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(notTakenLoan, dataSetId, "", "", "", "", "");
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
             }
 
             //Visits Flow (Not Ready to Pay Loan Taken By Relative)
-            if(getIntent().hasExtra("NotReadyToPay_LoanTakenByRelative")){
+            if (getIntent().hasExtra("NotReadyToPay_LoanTakenByRelative")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String relativeName = getIntent().getStringExtra("relativeName");
                 String relativeContact = getIntent().getStringExtra("relativeContact");
                 String loanTakenByRelative = WebServices.visit_not_ready_to_pay_loan_taken_by_relative;
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    visitsFlowViewModel.postVisitsFlowCallDateTime(loanTakenByRelative,dataSetId,"","","",relativeName,relativeContact);
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(loanTakenByRelative, dataSetId, "", "", "", relativeName, relativeContact);
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
             }
 
             //Visits Flow (Not Ready to Pay Will Pay LumpSump)
-            if(getIntent().hasExtra("NotReadyToPay_WillPayLumpSump")){
+            if (getIntent().hasExtra("NotReadyToPay_WillPayLumpSump")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String willPayLumpSump = WebServices.visit_not_ready_to_pay_will_pay_lumpsump;
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    visitsFlowViewModel.postVisitsFlowCallDateTime(willPayLumpSump,dataSetId,"","","","","");
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(willPayLumpSump, dataSetId, "", "", "", "", "");
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
             }
 
 
             //Visits Flow (Not Ready to Pay Claims Payment Made)
-            if(getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")){
+            if (getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
-                if(NetworkUtilities.getConnectivityStatus(this)){
-                    visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade,dataSetId,"","","","","");
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade, dataSetId, "", "", "", "", "");
                     navigateToDashBoard();
-                }
-                else{
-                    Global.showSnackBar(view,getString(R.string.check_internet_connection));
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
             }
+
+
+        }//button SubmitNeedToUpdateDetails is clicked once or not ends here
+
+        });
+
+        binding.btnSubmitEscalateToBM.setOnClickListener(v-> {
+
+            if (binding.btnSubmitEscalateToBM.isClickable())
+            System.out.println("Here Submit is Clickable:true");
+            {
+
+                binding.btnSubmitEscalateToBM.setClickable(false);
+                System.out.println("Here Submit is Clickable:false");
+
+                //NotSpokeToCustomer - NumberIsBusy
+                if (getIntent().hasExtra("isFromNotSpokeToCustomer_NoResponseBusy")) {
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+
+                    CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+
+                    List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                    System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
+
+                    callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy, dataSetId, callDetailsListRoomModelList);
+                    navigateToDashBoard();
+                }
+
+            //NotSpokeToCustomer - SwitchOff
+            if (getIntent().hasExtra("isFromNotSpokeToCustomer_SwitchOff")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+
+                CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+
+                List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
+
+                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff, dataSetId, callDetailsListRoomModelList);
+                navigateToDashBoard();
+            }
+
+            //NotSpokeToCustomerActivity - Number is Invalid
+            if (getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberInvalid(dataSetId);
+                navigateToDashBoard();
+            }
+
+            //Visit-NPA Reschedule -> Others -> Proceed
+            if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String others_proceed = WebServices.visit_did_not_visit_others;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_proceed, dataSetId, "", "", "", "", "", VisitsFlowCallDetailsActivity.send_reason, visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPA Reschedule -> Payment Already Made -> Skip & Proceed
+            if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String payment_already_made_skip_and_proceed = WebServices.visit_did_not_visit_payment_already_made;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_skip_and_proceed, dataSetId, "", "", ",", "", "", "", visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPANotAvailable -> Others -> Skip & Proceed
+            if (getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String others_SkipAndProceed = WebServices.visit_rescheduled_others;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_SkipAndProceed, dataSetId, "", "", "", "", "", VisitsFlowCallDetailsActivity.send_reason, visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPANotAvailable -> Late For Visit -> Skip & Proceed
+            else if (getIntent().hasExtra("isFromVisitNPANotAvailableActivity_LateForVisit")) {
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String lateForVisit_SkipAndProceed = WebServices.visit_rescheduled_late_for_visit_skip_and_proceed;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(lateForVisit_SkipAndProceed, dataSetId, "", "", "", "", "", VisitsFlowCallDetailsActivity.send_reason, visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //Visit-NPANotAvailable->Customer Not Available -> Skip & Proceed
+            else if (getIntent().hasExtra("isFromVisitNPANotAvailableActivity_CustomerNotAvailable")) {
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String customerNotAvailable_SkipAndProceed = WebServices.visit_rescheduled_customer_not_available_skip_and_proceed;
+
+                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(customerNotAvailable_SkipAndProceed, dataSetId, "", "", "", "", "", "", visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                navigateToDashBoard();
+            }
+
+            //PAYMENT INFO OF CUSTOMER -> OTHERS
+            if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")) {
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
+                        startActivity(i);
+                    }
+                }, 1000);
+
+            }
+
+            //PAYMENT INFO OF CUSTOMER-> NOT TAKEN LOAN
+            if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")) {
+                Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
+                startActivity(i);
+            }
+
+            //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
+            if (getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")) {
+                Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
+                startActivity(i);
+            }
+
+            //ALREADY PAID
+            if (getIntent().hasExtra("isAlreadyPaid")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                callDetailsViewModel.postScheduledDateTime_AP(dataSetId, "", "", "", "", "");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
+                        startActivity(i);
+                    }
+                }, 1000);
+
+            }
+
+            //FO NOT VISITED
+            if (getIntent().hasExtra("isFoNotVisited")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                //  dateOfVisitPromised = getIntent().getStringExtra("dateOfVisitPromised");
+                //  foName = getIntent().getStringExtra("foName");
+
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    callDetailsViewModel.postScheduledDateTime_FNV(dataSetId, "", dateOfVisitPromised, foName, "", "");
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
+                            startActivity(i);
+                        }
+                    }, 1000);
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
+                }
+
+            }
+
+            //LOAN TAKEN BY RELATIVE
+            if (getIntent().hasExtra("isLoanTakenByRelative")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                //  relativeName = getIntent().getStringExtra("relativeName");
+                //  relativeContact = getIntent().getStringExtra("relativeContact");
+
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    callDetailsViewModel.postScheduledDateTime_LTBR(dataSetId, "", "", "", relativeName, relativeContact, "LTBR");
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
+                            startActivity(i);
+                        }
+                    }, 1000);
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
+                }
+            }
+
+
+            //PAYMENT INFO WILL PAY LATER->WILL PAY LUMPSUM
+            if (getIntent().hasExtra("paymentInfo_WillPayLater")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId, "", "", "", "", "");
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
+                            startActivity(i);
+                        }
+                    }, 3000);
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
+                }
+            }
+
+            //VISITS FOR THE DAY FLOW
+
+            //Visits Flow (Not Ready to Pay Lack Of Funds)
+            if (getIntent().hasExtra("NotReadyToPay_LackOfFunds")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String lackOfFunds = WebServices.visit_not_ready_to_pay_lack_of_funds;
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(lackOfFunds, dataSetId, "", "", "", "", "");
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
+                }
+            }
+
+            //Visits Flow (Not Ready to Pay Not Taken Loan)
+            if (getIntent().hasExtra("NotReadyToPay_NotTakenLoan")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String notTakenLoan = WebServices.visit_not_ready_to_pay_not_taken_loan;
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(notTakenLoan, dataSetId, "", "", "", "", "");
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
+                }
+            }
+
+            //Visits Flow (Not Ready to Pay Loan Taken By Relative)
+            if (getIntent().hasExtra("NotReadyToPay_LoanTakenByRelative")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String relativeName = getIntent().getStringExtra("relativeName");
+                String relativeContact = getIntent().getStringExtra("relativeContact");
+                String loanTakenByRelative = WebServices.visit_not_ready_to_pay_loan_taken_by_relative;
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(loanTakenByRelative, dataSetId, "", "", "", relativeName, relativeContact);
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
+                }
+            }
+
+            //Visits Flow (Not Ready to Pay Will Pay LumpSump)
+            if (getIntent().hasExtra("NotReadyToPay_WillPayLumpSump")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String willPayLumpSump = WebServices.visit_not_ready_to_pay_will_pay_lumpsump;
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(willPayLumpSump, dataSetId, "", "", "", "", "");
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
+                }
+            }
+
+
+            //Visits Flow (Not Ready to Pay Claims Payment Made)
+            if (getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
+                if (NetworkUtilities.getConnectivityStatus(this)) {
+                    visitsFlowViewModel.postVisitsFlowCallDateTime(claimsPaymentMade, dataSetId, "", "", "", "", "");
+                    navigateToDashBoard();
+                } else {
+                    Global.showSnackBar(view, getString(R.string.check_internet_connection));
+                }
+            }
+
+        }// button SubmitEscalateToBM clicked once or not ends here
 
         });
     }
