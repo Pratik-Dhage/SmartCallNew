@@ -194,6 +194,10 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                 System.out.println("Here Button Update/Update Schedule Clickable:true");
             {
 
+                //if Button Update / Update Schedule is Clicked Once , it will be UnClickable for 2nd time
+                binding.btnUpdateSchedule.setClickable(false);
+                System.out.println("Here Button Update/Update Schedule Clickable:false");
+
                 //  Global.showToast(ScheduleVisitForCollectionActivity.this, getResources().getString(R.string.schedule_update_successfully));
 
                 //on Clicking update call this api   callDetailsViewModel.postCallDetails with ScheduleDateTime
@@ -298,11 +302,6 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
                 }
 
-
-
-                //if Button Update / Update Schedule is Clicked Once , it will be UnClickable for 2nd time
-                binding.btnUpdateSchedule.setClickable(false);
-                System.out.println("Here Button Update/Update Schedule Clickable:false");
 
             } //if Button Update/Update Schedule is Clickable ends here
 
