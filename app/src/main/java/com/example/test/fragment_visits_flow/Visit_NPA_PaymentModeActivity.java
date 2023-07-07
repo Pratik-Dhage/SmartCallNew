@@ -208,6 +208,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
                   //for Cheque Date
                   edtPleaseEnterChequeDate.setOnFocusChangeListener((v1, hasFocus) -> {
+                      if(hasFocus)
                       showDatePickerDialogAndSetDate(edtPleaseEnterChequeDate);
                   });
 

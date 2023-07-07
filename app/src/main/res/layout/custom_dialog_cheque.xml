@@ -26,6 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--MaxLength for ChequeNumber is 6 digit-->
         <EditText
             android:id="@+id/edtPleaseEnterChequeNumber"
             android:layout_width="@dimen/_170sdp"
@@ -34,7 +35,7 @@
             android:digits="0123456789"
             android:hint="@string/please_enter_cheque_no"
             android:inputType="number"
-            android:maxLength="10"
+            android:maxLength="6"
             android:maxLines="1"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,14 +56,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edtPleaseEnterChequeNumber" />
 
+        <!--IFSC code is 11 characters Long , with Alphabets & Numbers ,
+        No Special Characters Allowed -->
         <EditText
             android:id="@+id/edtPleaseEnterIfscCode"
             android:layout_width="@dimen/_170sdp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:hint="@string/please_enter_ifsc_code"
-            android:inputType="textEmailAddress"
-            android:maxLength="15"
+            android:inputType="text"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            android:maxLength="11"
             android:maxLines="1"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +82,7 @@
             android:digits="0123456789"
             android:hint="@string/please_enter_amount"
             android:inputType="number"
-            android:maxLength="15"
+            android:maxLength="10"
             android:maxLines="1"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
