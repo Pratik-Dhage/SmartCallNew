@@ -145,6 +145,8 @@
             app:layout_constraintTop_toTopOf="@+id/txtMidStatusInfo3"
             app:layout_constraintStart_toEndOf="@+id/txtMidStatusInfo3"
             android:visibility="gone"
+            android:textColor="@color/black"
+            android:textStyle="normal"
             android:textSize="@dimen/_11ssp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

@@ -98,6 +98,11 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     holder.binding.txtScheduleDateStatusInfo.setText("Scheduled Date and Time: " + a.getScheduleDate() + "," + a.getScheduleTime());
                 }
 
+                //AmountCollected
+                if(null!=a.getAmountCollected()){
+                    holder.binding.txtAmountCollected.setVisibility(View.VISIBLE);
+                    holder.binding.txtAmountCollected.setText("Rs. "+a.getAmountCollected());
+                }
 
                 // Status Info
                 for (ActivityDetail details : a.getActivityDetails()) {
