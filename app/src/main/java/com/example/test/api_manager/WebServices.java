@@ -176,8 +176,8 @@ public  class WebServices {
 
     //2)Visit For The Day - Visit-NPA Payment Mode ((Visits For The Day Ready To Pay Flow))
     public static String visit_ready_to_pay_send_link_for_online_payment ="activity/submitcall?flow=RTP-SLFOP";
-    public static String visit_ready_to_pay_cash_payment ="activity/submitcallCheque?flow=RTP-CAP";
-    public static String visit_ready_to_pay_cheque_payment = "activity/submitcallCheque?flow=RTP-CHP";
+    public static String visit_ready_to_pay_cash_payment ="activity/submitcallCheque?flow=VTC-RTP-CAP";
+    public static String visit_ready_to_pay_cheque_payment = "activity/submitcallCheque?flow=VTC-RTP-CHP";
 
     //3)Visit For The Day - Visit-NPA Status (Asked To Visit Later)
     public static String visit_asked_to_visit_later ="activity/submitcall?flow=VTC-ATVL";
