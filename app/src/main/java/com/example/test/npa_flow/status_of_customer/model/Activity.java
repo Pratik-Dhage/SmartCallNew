@@ -23,6 +23,7 @@ public class Activity implements Serializable {
     private String activityStatus;
     private String scheduleDate;
     private String scheduleTime;
+    private String amountCollected;
     private List<ActivityDetail> activityDetails;
     private Activity childActivity;
     public Long getActivityId() {
@@ -130,5 +131,13 @@ public class Activity implements Serializable {
 
     public void setScheduleTime(String scheduleTime) {
         this.scheduleTime = scheduleTime;
+    }
+
+    public String getAmountCollected() {
+        return amountCollected;
+    }
+
+    public void setAmountCollected(String amountCollected) {
+        this.amountCollected = amountCollected;
     }
 }
