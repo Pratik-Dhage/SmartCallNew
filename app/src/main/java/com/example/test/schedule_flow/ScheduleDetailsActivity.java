@@ -98,6 +98,7 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
 
         if (NetworkUtilities.getConnectivityStatus(this)) {
 
+            binding.loadingProgressBar.setVisibility(View.VISIBLE);
            scheduleDetailsViewModel.getMutActivity_ResponseApi().observe(this,result->{
 
                if(result!=null){
@@ -107,6 +108,7 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
                    setUpScheduledVisitDetailsRecyclerView();
               //  System.out.println("ScheduleDetailsList: "+arrangeDates(result));
                    scheduleDetailsViewModel.arrList_scheduledVisitDetails_Data.addAll(result);
+                   binding.loadingProgressBar.setVisibility(View.GONE);
 
                }
 
