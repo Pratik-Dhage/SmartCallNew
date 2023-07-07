@@ -32,11 +32,14 @@ import com.example.test.api_manager.RestClient;
 import com.example.test.api_manager.WebServices;
 import com.example.test.api_manager.RestClient;
 import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.notes_history.NotesHistoryResponseModel;
 import com.example.test.notes_history.NotesHistoryViewModel;
 import com.example.test.notes_history.adapter.NotesHistoryAdapter;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -330,5 +333,20 @@ public class Global {
 
     }
 
+
+    public static void getUserID_BranchCode_UserName_From_RoomDB(Context context){
+        // Get UserName , UserID , BranchCode
+
+        MPinDao mPinDao = LeadListDB.getInstance(context).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(context).userNameDao();
+
+        String userName = userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+        MainActivity3API.UserID = mPinDao.getUserID();
+        MainActivity3API.BranchCode = mPinDao.getBranchCode();
+
+        System.out.println("Here Global UserID From RoomDB:"+ MainActivity3API.UserID);
+        System.out.println("Here Global BranchCode From RoomDB:"+MainActivity3API.BranchCode);
+
+    }
 
 }
