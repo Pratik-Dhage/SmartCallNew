@@ -3,6 +3,7 @@ package com.example.test.helper_classes;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -349,4 +350,12 @@ public class Global {
 
     }
 
+    public static boolean isLocationEnabled(Context context){
+
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        boolean isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        return isLocationEnabled;
+    }
 }

@@ -393,6 +393,7 @@
     <string name="call_initiated">Call Initiated</string>
     <string name="cheque_number_be_six_digit">Cheque No. must be 6 digit</string>
     <string name="ifsc_code_be_eleven_digit">IFSC code  must be 11 digit</string>
+    <string name="navigate">Navigate</string>
 
 
     <!--for Tenure-->
