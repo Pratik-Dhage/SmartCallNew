@@ -52,6 +52,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
     private Location currentLocation;
     public static String LoanCollectionAdapter_Distance ="0.0"; //initial value
+    public static String LoanCollectionAdapter_dataSetId ="";
 
     public LoanCollectionAdapter() {
         //to use dataSetId in DetailsOfCustomerViewModel
@@ -125,23 +126,32 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
             holder.binding.txtPinCode.setText(a.getPinCode());
         }
 
+        //if lat long not null , send to DetailsOfCustomerAdapter ,
+        // on clicking Navigate button(beside Capture button)  navigate to  GoogleMaps
+        if(  (null!= a.getLattitute() && null!= a.getLongitute() ) && null!=a.getDataSetId()) {
+            System.out.println("Here Latitude:"+a.getLattitute()+" & Longitude:"+a.getLongitute());
+            //convert BigDecimal corresponding to double value
+            DetailsOfCustomerAdapter.latitudeFromLoanCollectionResponse = a.getLattitute().doubleValue();
+            DetailsOfCustomerAdapter.longitudeFromLoanCollectionResponse = a.getLongitute().doubleValue();
+            DetailsOfCustomerAdapter.dataSetId = a.getDataSetId().toString(); // to pass in Save Location API
+
+        }
+
+
         //opens Google Maps
         holder.binding.ivMap.setOnClickListener(v->{
 
             System.out.println("Here LoanCollectionAdapter ivMap Location msg");
             //check if Location Turned On
-            LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-            boolean isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                    locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-            if(!isLocationEnabled){
+            if(!Global.isLocationEnabled(context)){
                 Global.showToast(context, "Please Turn Location On");
                 // Open location settings
                /* Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 ((Activity) context).startActivityForResult(intent, LoanCollectionActivity.LocationRequestCode);*/
             }
 
-            else if(isLocationEnabled) {
+            else if(Global.isLocationEnabled(context)) {
 
                 if(null != currentLocation) {
                     Intent googleMapsIntent = new Intent(context, GoogleMapsActivity.class);
@@ -165,6 +175,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
 
         holder.itemView.setOnClickListener(v->{
+            System.out.println("Here LoanCollectionAdapter dataSetId:"+a.getDataSetId().toString());
 
             CallsForTheDayAdapter.isFromCallsForTheDayAdapter = null; // to Reset CallsForTheDayFlow  & GOTO NPA flow
             //DetailsOfCustomer Only visible if Status is Pending
@@ -183,10 +194,10 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
                 //on Item Click save Name of Member
                 Global.saveStringInSharedPref(context,"FullNameFromAdapter",String.valueOf(a.getMemberName()));
                 MainActivity3API.showCallIcon = false; // //from Visits For The Day Flow to be True Else False
-                String dataSetId = a.getDataSetId().toString();
+                LoanCollectionAdapter_dataSetId = a.getDataSetId().toString();
                 DetailsOfCustomerAdapter.dataSetId = a.getDataSetId().toString(); // store dataSetId for Saving Location of Customer along with LatLong,Distance in DetailsOfCustomerAdapter
                 Intent i = new Intent(context, DetailsOfCustomerActivity.class);
-                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("dataSetId", DetailsOfCustomerAdapter.dataSetId);
                 context.startActivity(i);
             }
 
