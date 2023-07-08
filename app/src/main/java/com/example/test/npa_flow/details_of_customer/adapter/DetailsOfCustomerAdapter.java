@@ -3,6 +3,7 @@ package com.example.test.npa_flow.details_of_customer.adapter;
 import static android.content.Context.TELEPHONY_SERVICE;
 //import static androidx.core.app.AppOpsManagerCompat.Api23Impl.getSystemService;
 import static com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter.LoanCollectionAdapter_Distance;
+import static com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter.LoanCollectionAdapter_dataSetId;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -45,6 +46,7 @@ import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
+import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 import com.example.test.npa_flow.save_location.SaveLocationOfCustomerViewModel;
 
 import java.io.ByteArrayOutputStream;
@@ -61,13 +63,18 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
     ArrayList<DetailsOfCustomerResponseModel> detailsOfCustomer_responseModelArrayList;
 
-    public static String dataSetId; // used in LoanCollectionAdapter for saving location when Capture Button is Clicked
+    public static String dataSetId; // used in LoanCollectionAdapter for saving location when Capture/Navigate Button is Clicked
 
     public DetailsOfCustomerAdapter(ArrayList<DetailsOfCustomerResponseModel> detailsOfCustomer_responseModelArrayList) {
         this.detailsOfCustomer_responseModelArrayList = detailsOfCustomer_responseModelArrayList;
     }
 
      public static String phoneNumber =""; //to use in VisitsFlowCallDetailsActivity to Call if permission already granted
+
+    // Get LatLong from LoanCollectionAdapter and use in DetailsOfCustomer Page
+    // on Clicking Navigate Button it will navigate to Google Maps and get the distance
+    public static double latitudeFromLoanCollectionResponse, longitudeFromLoanCollectionResponse;
+
 
     //For Calculating Balance Interest
     Double Total_due;
@@ -320,6 +327,26 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
         }
 
+        //for Navigate Button
+        holder.binding.btnNavigate.setOnClickListener(v->{
+
+            if(!Global.isLocationEnabled(context)){
+                Global.showToast(context, "Please Turn Location On");
+            }
+            else if (Global.isLocationEnabled(context)){
+
+                System.out.println("Here DetailsOfCustomerAdapter dataSetId:"+LoanCollectionAdapter.LoanCollectionAdapter_dataSetId);
+                // send Latitude and Longitude Obtained from LoanCollectionResponse
+                Intent latLongIntent = new Intent(context, GoogleMapsActivity.class);
+                latLongIntent.putExtra("latitudeFromDetailsOfCustomerAdapter",latitudeFromLoanCollectionResponse);
+                latLongIntent.putExtra("longitudeFromDetailsOfCustomerAdapter", longitudeFromLoanCollectionResponse);
+                latLongIntent.putExtra("LatLongFromDetailsOfCustomerAdapter","LatLongFromDetailsOfCustomerAdapter");
+                latLongIntent.putExtra("dataSetId", LoanCollectionAdapter.LoanCollectionAdapter_dataSetId);
+                context.startActivity(latLongIntent);
+            }
+
+        });
+
         //for Capture Button
         holder.binding.btnDetail.setOnClickListener(v -> {
 
@@ -327,15 +354,14 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
             if (a.getButtonLable().contentEquals("Capture")) {
 
                 //check if Location Turned On
-                LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                boolean isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                        locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-                if(!isLocationEnabled){
+                if(!Global.isLocationEnabled(context)){
                     Global.showToast(context, "Please Turn Location On");
                 }
-                else{
+                else if (Global.isLocationEnabled(context)){
                     Intent i = new Intent(context, GoogleMapsActivity.class); //for Google Maps
+                    i.putExtra("isFromDetailsOfCustomerAdapter_CaptureButton","isFromDetailsOfCustomerAdapter_CaptureButton");
+                    i.putExtra("dataSetId", LoanCollectionAdapter.LoanCollectionAdapter_dataSetId);
                     context.startActivity(i);
                 }
 
@@ -384,9 +410,10 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
         }
 
-        //for Button
+        //for Button & Navigate Button(If Capture Button is Visible , then Navigate Button will also be Visible)
         if (Objects.equals(a.getButton(), "Y")) {
             holder.binding.btnDetail.setVisibility(View.VISIBLE);
+            holder.binding.btnNavigate.setVisibility(View.VISIBLE);
             holder.binding.btnDetail.setText(a.getButtonLable().toString());
 
         }
