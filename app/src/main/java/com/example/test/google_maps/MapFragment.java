@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import android.provider.Settings;
 import android.util.Log;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 import com.example.test.R;
 import com.example.test.databinding.FragmentMapBinding;
 import com.example.test.helper_classes.Global;
+import com.example.test.npa_flow.save_location.SaveLocationOfCustomerViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -94,7 +97,7 @@ public class MapFragment extends Fragment {
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lodhaMallLatLng, 15));
                 }
 
-                //coming from LoanCollectionAdapter
+                //coming from LoanCollectionAdapter red ivMap
                 double latitude = GoogleMapsActivity.latitude;
                 double longitude = GoogleMapsActivity.longitude;
                 if(GoogleMapsActivity.isFromLoanCollectionAdapter!=null){
@@ -103,6 +106,33 @@ public class MapFragment extends Fragment {
                     markerOptions.position(latLngFromLoanCollectionAdapter);
                     googleMap.addMarker(markerOptions);
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromLoanCollectionAdapter, 15));
+                }
+
+                //coming from DetailsOfCustomerAdapter Navigate Button with LatLong
+                if(GoogleMapsActivity.LatLongFromDetailsOfCustomerAdapter!=null){
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    LatLng latLngFromLoanCollectionAdapter = new LatLng(GoogleMapsActivity.latitudeFromDetailsOfCustomerAdapter,GoogleMapsActivity.longitudeFromDetailsOfCustomerAdapter);
+                    markerOptions.position(latLngFromLoanCollectionAdapter);
+                    googleMap.addMarker(markerOptions);
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromLoanCollectionAdapter, 15));
+
+                    // get Distance between User and that Marker LatLong
+                    getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
+                    getDistanceBetweenMarkerAndUser(GoogleMapsActivity.latitudeFromDetailsOfCustomerAdapter,GoogleMapsActivity.longitudeFromDetailsOfCustomerAdapter);
+                }
+
+                //coming from DetailsOfCustomerAdapter Capture Button
+                if(GoogleMapsActivity.isFromDetailsOfCustomerAdapter_CaptureButton!=null){
+
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    LatLng latLngFromLoanCollectionAdapter = new LatLng(userMarkerLatitude,userMarkerLongitude);
+                    markerOptions.position(latLngFromLoanCollectionAdapter);
+                    googleMap.addMarker(markerOptions);
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromLoanCollectionAdapter, 15));
+
+                    // get Distance between User and that Marker LatLong
+                    getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
+                    getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
                 }
 
                 //coming from VisitsForTheDayAdapter
@@ -161,7 +191,7 @@ public class MapFragment extends Fragment {
             }
         });
 
-          getCurrentLocationAndDistance();
+         // getCurrentLocationAndDistance();
         return binding.getRoot();
     }
 
@@ -183,8 +213,9 @@ public class MapFragment extends Fragment {
 
             // Location services are disabled, prompt/navigate the user to turn them on in Settings Screen UI
             Global.showToast(getActivity().getApplicationContext(), "Please Turn Location On");
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(intent);
+
+           /* Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);*/
         }
 
     }
@@ -319,6 +350,16 @@ public class MapFragment extends Fragment {
 
                     //Save Distance in SharedPreference
                     Global.saveStringInSharedPref(getContext(),"formattedDistanceInKm",formattedDistanceInKm);
+
+                    // Update location
+                    String dataSetId = GoogleMapsActivity.dataSetId;
+                    SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider(MapFragment.this).get(SaveLocationOfCustomerViewModel.class);
+
+                   if(null != dataSetId){
+                       System.out.println("Here dataSetId:"+dataSetId);
+                       saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(userMarkerLatitude),String.valueOf(userMarkerLongitude),formattedDistanceInKm);
+                   }
+
                 }
 
             }, null);
