@@ -31,6 +31,10 @@ public class GoogleMapsActivity extends AppCompatActivity {
    public static String isFromVisitsForTheDayAdapter;
     public static double latitude_callsForTheDay, longitude_callsForTheDay;
    public static String isFromCallsForTheDayAdapter;
+   public static double latitudeFromDetailsOfCustomerAdapter , longitudeFromDetailsOfCustomerAdapter;
+   public static String LatLongFromDetailsOfCustomerAdapter ;
+   public static String dataSetId;
+   public static String isFromDetailsOfCustomerAdapter_CaptureButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +51,20 @@ public class GoogleMapsActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_google_maps);
         view = binding.getRoot();
 
+         dataSetId = getIntent().getStringExtra("dataSetId"); // for MapFragment
+
         //From LoanCollectionAdapter
         latitude = getIntent().getDoubleExtra("latitude",0.0);
         longitude = getIntent().getDoubleExtra("longitude",0.0);
         isFromLoanCollectionAdapter = getIntent().getStringExtra("isFromLoanCollectionAdapter");
+
+        // LatLong from loanCollectionAdapter Response Sent to DetailsOfCustomerAdapter for Navigate Button
+        latitudeFromDetailsOfCustomerAdapter = getIntent().getDoubleExtra("latitudeFromDetailsOfCustomerAdapter",0.0);
+        longitudeFromDetailsOfCustomerAdapter = getIntent().getDoubleExtra("longitudeFromDetailsOfCustomerAdapter",0.0);
+        LatLongFromDetailsOfCustomerAdapter = getIntent().getStringExtra("LatLongFromDetailsOfCustomerAdapter");
+
+        //From DetailsOfCustomerAdapter Capture Button
+        isFromDetailsOfCustomerAdapter_CaptureButton = getIntent().getStringExtra("isFromDetailsOfCustomerAdapter_CaptureButton");
 
         //FromVisitsForTheDayAdapter
        latitude_visitsForTheDay = getIntent().getDoubleExtra("latitude_visitsForTheDay",0.0);
@@ -83,16 +97,29 @@ public class GoogleMapsActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         System.out.println("Here onBackPressed() GoogleMapsActivity");
-        if(getIntent().hasExtra("isFromLoanCollectionAdapter_ivMap")){
+        if(getIntent().hasExtra("isFromLoanCollectionAdapter_ivMap") || getIntent().hasExtra("LatLongFromDetailsOfCustomerAdapter")){
 
             //Save Location of Customer API
             if(NetworkUtilities.getConnectivityStatus(this)){
                 SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider(this).get(SaveLocationOfCustomerViewModel.class);
 
                 String savedDistance = Global.getStringFromSharedPref(this, "formattedDistanceInKm");
-                String dataSetId = getIntent().getStringExtra("dataSetId");
+                 dataSetId = getIntent().getStringExtra("dataSetId");
                 if(savedDistance!=null){
-                    saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(MapFragment.userMarkerLatitude),String.valueOf(MapFragment.userMarkerLongitude),savedDistance);
+
+                    //coming from LoanCollectionAdapter on red ivMap clicking
+                    if(getIntent().hasExtra("isFromLoanCollectionAdapter_ivMap") ){
+                        System.out.println("Here from LoanCollectionAdapter on red ivMap clicking dataSetId:"+dataSetId);
+                        saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(MapFragment.userMarkerLatitude),String.valueOf(MapFragment.userMarkerLongitude),savedDistance);
+                    }
+
+                    // Coming From DetailsOfCustomerAdapter Navigate button clicking
+                    else if (getIntent().hasExtra(LatLongFromDetailsOfCustomerAdapter)){
+                        System.out.println("Here from DetailsOfCustomerAdapter Navigate button clicking dataSetId:"+dataSetId);
+                        saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(latitudeFromDetailsOfCustomerAdapter),String.valueOf(longitudeFromDetailsOfCustomerAdapter),savedDistance);
+                    }
+
+
                     System.out.println("Here savedDistance: "+savedDistance);
                     initObserverSavedLocationOfCustomer(this);
 
@@ -130,4 +157,11 @@ public class GoogleMapsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        initializeFields();
+        onClickListener();
+        setUpFragmentForGoogleMaps();
+        super.onResume();
+    }
 }
