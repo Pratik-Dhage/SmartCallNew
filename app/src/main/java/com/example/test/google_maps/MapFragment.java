@@ -86,7 +86,7 @@ public class MapFragment extends Fragment {
                 }
 
 // If we were able to obtain the coordinates, add the marker to the map and animate the camera
-                if (lodhaMallLatLng != null) {
+              /*  if (lodhaMallLatLng != null) {
                     // Create a MarkerOptions object and set its position and title
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(lodhaMallLatLng);
@@ -95,9 +95,9 @@ public class MapFragment extends Fragment {
                     // Add the marker to the map and animate the camera to center on the marker
                     googleMap.addMarker(markerOptions);
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lodhaMallLatLng, 15));
-                }
+                }*/
 
-                //coming from LoanCollectionAdapter red ivMap
+                //coming from LoanCollectionAdapter red ivMap - Marker on User's Current Location
                 double latitude = GoogleMapsActivity.latitude;
                 double longitude = GoogleMapsActivity.longitude;
                 if(GoogleMapsActivity.isFromLoanCollectionAdapter!=null){
@@ -124,15 +124,34 @@ public class MapFragment extends Fragment {
                 //coming from DetailsOfCustomerAdapter Capture Button
                 if(GoogleMapsActivity.isFromDetailsOfCustomerAdapter_CaptureButton!=null){
 
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    LatLng latLngFromLoanCollectionAdapter = new LatLng(userMarkerLatitude,userMarkerLongitude);
-                    markerOptions.position(latLngFromLoanCollectionAdapter);
-                    googleMap.addMarker(markerOptions);
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromLoanCollectionAdapter, 15));
+                    // by Default Capture button will  Red Mark Lodha Mall
+                    if (lodhaMallLatLng != null) {
+                        // Create a MarkerOptions object and set its position and title
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.position(lodhaMallLatLng);
+                        markerOptions.title("Lodha Xperia Mall");
 
-                    // get Distance between User and that Marker LatLong
-                    getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
-                    getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
+                        googleMap.addMarker(markerOptions);
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lodhaMallLatLng, 15));
+                        // get Distance between User and that Marker LatLong
+                        getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
+                        getDistanceBetweenMarkerAndUser(lodhaMallLatLng.latitude,lodhaMallLatLng.longitude);
+                    }
+
+                    // When User Changes the Marker
+                    else {
+
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        LatLng latLngFromLoanCollectionAdapter = new LatLng(userMarkerLatitude,userMarkerLongitude);
+                        markerOptions.position(latLngFromLoanCollectionAdapter);
+                        googleMap.addMarker(markerOptions);
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromLoanCollectionAdapter, 15));
+
+                        // get Distance between User and that Marker LatLong
+                        getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
+                        getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
+                    }
+
                 }
 
                 //coming from VisitsForTheDayAdapter
