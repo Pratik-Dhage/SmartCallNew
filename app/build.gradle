@@ -98,8 +98,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-places:17.0.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     //for Direction Api
-    implementation 'com.google.maps.android:android-maps-utils:2.2.0'
-
+    implementation 'com.google.maps.android:android-maps-utils:3.1.0'
+    //implementation 'com.google.maps.android:polyutil:1.3.1'
+    implementation 'com.google.maps:google-maps-services:0.18.0'
 
 
     //for PDF  view
