@@ -40,6 +40,7 @@ import com.example.test.roomDB.database.LeadListDB;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
@@ -208,18 +209,24 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
                   //for Cheque Date
                   edtPleaseEnterChequeDate.setOnFocusChangeListener((v1, hasFocus) -> {
-                      if(hasFocus)
+                      if(hasFocus){
+                          showDatePickerDialogAndSetDate(edtPleaseEnterChequeDate);
+                      }
+                  });
+
+                  edtPleaseEnterChequeDate.setOnClickListener(v1->{
                       showDatePickerDialogAndSetDate(edtPleaseEnterChequeDate);
                   });
 
+
                   btnProceed.setOnClickListener(v2->{
 
-                      if(edtPleaseEnterChequeDate.getText().toString().isEmpty() || edtPleaseEnterChequeNumber.getText().toString().isEmpty()
-                      || edtPleaseEnterBankName.getText().toString().isEmpty() || edtPleaseEnterIfscCode.getText().toString().isEmpty() ||
-                              edtPleaseEnterAmount.getText().toString().isEmpty()){
+                      // Validations for Cheque Details
+                      if( !validateChequeDetails() ) {
 
-                          Global.showToast(this,getString(R.string.please_enter_all_cheque_details));
+                          Global.showToast(this,getString(R.string.please_enter_proper_cheque_details));
                       }
+
 
                       else{
 
@@ -280,6 +287,41 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
     }
 
+    private boolean validateChequeDetails(){
+        View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_cheque, null);
+        EditText edtPleaseEnterChequeDate = customDialog.findViewById(R.id.edtPleaseEnterChequeDate);
+        EditText edtPleaseEnterChequeNumber = customDialog.findViewById(R.id.edtPleaseEnterChequeNumber);
+        EditText edtPleaseEnterBankName = customDialog.findViewById(R.id.edtPleaseEnterBankName);
+        EditText edtPleaseEnterIfscCode = customDialog.findViewById(R.id.edtPleaseEnterIfscCode);
+        EditText edtPleaseEnterAmount = customDialog.findViewById(R.id.edtPleaseEnterAmount);
+
+        if(edtPleaseEnterChequeDate.getText().toString().isEmpty()){
+            return false;
+        }
+
+        if(edtPleaseEnterBankName.getText().toString().isEmpty()){
+            return false;
+        }
+
+        if(edtPleaseEnterAmount.getText().toString().isEmpty()){
+            return false;
+        }
+
+        //Cheque Number must be  6
+        if(edtPleaseEnterChequeNumber.getText().toString().length() < 6 || edtPleaseEnterChequeNumber.getText().toString().isEmpty()){
+            edtPleaseEnterChequeNumber.setError(getResources().getString(R.string.cheque_number_be_six_digit));
+            return false;
+        }
+
+        //IFSC code must be 11 digit
+        if(edtPleaseEnterIfscCode.getText().toString().length() < 11 || edtPleaseEnterIfscCode.getText().toString().isEmpty()){
+            edtPleaseEnterIfscCode.setError(getResources().getString(R.string.ifsc_code_be_eleven_digit));
+            return  false;
+        }
+
+        return true;
+    }
+
     private void showDatePickerDialogAndSetDate(EditText editText) {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -290,9 +332,13 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                        // Format the selected date with leading zeros
+                        String formattedDayOfMonth = String.format(Locale.getDefault(), "%02d", dayOfMonth);
+                        String formattedMonth = String.format(Locale.getDefault(), "%02d", month + 1);
+                        String selectedDate = formattedDayOfMonth + "/" + formattedMonth + "/" + year;
+
                         // Set the selected date to the EditText
-                       // String selectedDate = (month + 1) + "/" + dayOfMonth + "/" + year;
-                        String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
                         editText.setText(selectedDate);
                     }
                 }, year, month, dayOfMonth);
