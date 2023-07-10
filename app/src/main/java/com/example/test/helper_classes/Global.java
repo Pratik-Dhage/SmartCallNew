@@ -2,9 +2,16 @@ package com.example.test.helper_classes;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.support.v4.media.MediaBrowserCompat;
 import android.text.Editable;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Patterns;
@@ -21,7 +28,10 @@ import android.widget.Toast;
 
 import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.text.HtmlCompat;
+import androidx.core.view.ContentInfoCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
@@ -39,6 +49,7 @@ import com.example.test.notes_history.NotesHistoryViewModel;
 import com.example.test.notes_history.adapter.NotesHistoryAdapter;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.example.test.npa_flow.loan_collection.GpsLocationListner;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
@@ -358,4 +369,90 @@ public class Global {
 
         return isLocationEnabled;
     }
+
+    //Convert the HTML instruction to String
+    public static String  htmlToNormalString(String htmlString){
+
+        // Convert the HTML instruction to a Spanned object
+        Spanned spannedInstruction =  HtmlCompat.fromHtml(htmlString, HtmlCompat.FROM_HTML_MODE_LEGACY);
+        return spannedInstruction.toString();
+    }
+
+    public static void navigateToGoogleMaps( Context context , double userLatitude , double userLongitude ,double  MarkerLatitude , double MarkerLongitude){
+
+        String uri = "https://www.google.com/maps/dir/?api=1&origin=" +
+                userLatitude + "," + userLongitude +
+                "&destination=" + MarkerLatitude + "," + MarkerLongitude;
+
+// Create an intent with the Google Maps URI
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+
+// Set the package to explicitly open the Google Maps app
+        intent.setPackage("com.google.android.apps.maps");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+
+    }
+
+    public static Location getDeviceLocation(Context context) {
+        Location currentLocation = null;
+        System.out.println("Method called");
+        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions((Activity) context, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+        }else {
+
+            Double latitude;
+            Double longitude;
+            LocationManager locationManager;
+            locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            boolean gpsProviderEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            boolean networkProviderEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            GpsLocationListner gpsLocationListener = new GpsLocationListner();
+            if (gpsProviderEnabled) {
+                locationManager.requestLocationUpdates(
+                        LocationManager.GPS_PROVIDER,
+                        5000,
+                        0F,
+                        gpsLocationListener
+                );
+            }
+            if (networkProviderEnable) {
+                locationManager.requestLocationUpdates(
+                        LocationManager.NETWORK_PROVIDER,
+                        5000,
+                        0F,
+                        gpsLocationListener
+                );
+            }
+
+            Location lastKnownLocationByGps =
+                    locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location lastKnownLocationByNetwork =
+                    locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (lastKnownLocationByGps != null && lastKnownLocationByNetwork != null) {
+                if (lastKnownLocationByGps.getAccuracy() > lastKnownLocationByNetwork.getAccuracy()) {
+                    currentLocation = lastKnownLocationByGps;
+                    latitude = currentLocation.getLatitude();
+                    longitude = currentLocation.getLongitude();
+                    // use latitude and longitude as per your need
+                } else {
+                    currentLocation = lastKnownLocationByNetwork;
+                    latitude = currentLocation.getLatitude();
+                    longitude = currentLocation.getLongitude();
+                    // use latitude and longitude as per your need
+                }
+            } else if (lastKnownLocationByGps != null) {
+                currentLocation = lastKnownLocationByGps;
+                latitude = currentLocation.getLatitude();
+                longitude = currentLocation.getLongitude();
+            } else if (lastKnownLocationByNetwork != null) {
+                currentLocation = lastKnownLocationByNetwork;
+                latitude = currentLocation.getLatitude();
+                longitude = currentLocation.getLongitude();
+            }
+        }
+        return currentLocation;
+    }
+
+
 }
