@@ -51,7 +51,7 @@ public class GoogleMapsActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_google_maps);
         view = binding.getRoot();
 
-         dataSetId = getIntent().getStringExtra("dataSetId"); // for MapFragment
+         dataSetId = getIntent().getStringExtra("dataSetId"); // for MapFragment (coming from ivMap(LoanCollectionAdapter) & Capture Button(DetailsOfCustomerAdapter))
 
         //From LoanCollectionAdapter
         latitude = getIntent().getDoubleExtra("latitude",0.0);
@@ -97,7 +97,9 @@ public class GoogleMapsActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         System.out.println("Here onBackPressed() GoogleMapsActivity");
-        if(getIntent().hasExtra("isFromLoanCollectionAdapter_ivMap") || getIntent().hasExtra("LatLongFromDetailsOfCustomerAdapter")){
+        if(getIntent().hasExtra("isFromLoanCollectionAdapter_ivMap") || getIntent().hasExtra("isFromVisitsForTheDayAdapter") ||
+
+        getIntent().hasExtra("LatLongFromDetailsOfCustomerAdapter")){
 
             //Save Location of Customer API
             if(NetworkUtilities.getConnectivityStatus(this)){
@@ -108,15 +110,17 @@ public class GoogleMapsActivity extends AppCompatActivity {
                 if(savedDistance!=null){
 
                     //coming from LoanCollectionAdapter on red ivMap clicking
-                    if(getIntent().hasExtra("isFromLoanCollectionAdapter_ivMap") ){
+                    //coming from VisitForTheDayAdapter on red ivMap clicking
+                    if(getIntent().hasExtra("isFromLoanCollectionAdapter_ivMap") || getIntent().hasExtra("isFromVisitsForTheDayAdapter")){
                         System.out.println("Here from LoanCollectionAdapter on red ivMap clicking dataSetId:"+dataSetId);
+                        System.out.println("Here from VisitForTheDayAdapter on red ivMap clicking dataSetId:"+dataSetId);
                         saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(MapFragment.userMarkerLatitude),String.valueOf(MapFragment.userMarkerLongitude),savedDistance);
                     }
 
-                    // Coming From DetailsOfCustomerAdapter Navigate button clicking
-                    else if (getIntent().hasExtra(LatLongFromDetailsOfCustomerAdapter)){
-                        System.out.println("Here from DetailsOfCustomerAdapter Navigate button clicking dataSetId:"+dataSetId);
-                        saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(latitudeFromDetailsOfCustomerAdapter),String.valueOf(longitudeFromDetailsOfCustomerAdapter),savedDistance);
+                    // Coming From DetailsOfCustomerAdapter Capture button clicking
+                    else if (getIntent().hasExtra(isFromDetailsOfCustomerAdapter_CaptureButton)){
+                        System.out.println("Here from DetailsOfCustomerAdapter Capture button clicking dataSetId:"+dataSetId);
+                        saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(MapFragment.userMarkerLatitude),String.valueOf(MapFragment.userMarkerLongitude),savedDistance);
                     }
 
 
