@@ -65,8 +65,8 @@ public class MainActivity3API extends AppCompatActivity {
         }
 */
 
-        UserID = mPinDao.getUserID(Global.getStringFromSharedPref(this,"MPin"));
-        BranchCode = mPinDao.getBranchCode(Global.getStringFromSharedPref(this,"MPin"));
+        UserID = mPinDao.getUserID();
+        BranchCode = mPinDao.getBranchCode();
 
         initializeFields();
         onClickListener();
@@ -94,6 +94,7 @@ public class MainActivity3API extends AppCompatActivity {
 
         showCallIcon = false; //from Visits For The Day Flow to be True Else False
         VisitsForTheDayAdapter.showNearByCustomerButton = false ; //in NearByCustomerActivity - from Visits For The Day Flow to be True Else False
+        LoanCollectionActivity.isFromLoanCollection_NPA_Flow =false; // for Navigation Button in DetailsOfCustomerAdapter to Navigate only from NPA flow
        /* if(getIntent().hasExtra("userName")){
             binding.txtWelcomeUser.setText("Welcome "+getIntent().getStringExtra("userName"));
 
@@ -402,4 +403,13 @@ public class MainActivity3API extends AppCompatActivity {
         super.onResume();
     }
 
+    @Override
+    protected void onDestroy() {
+
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        UserID = mPinDao.getUserID();
+        BranchCode = mPinDao.getBranchCode();
+
+        super.onDestroy();
+    }
 }
