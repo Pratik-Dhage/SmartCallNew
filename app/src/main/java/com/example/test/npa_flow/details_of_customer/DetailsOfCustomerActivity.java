@@ -54,6 +54,7 @@ import com.example.test.npa_flow.call_details.CallDetailsViewModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
+import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
@@ -846,6 +847,11 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         onClickListener();
         initObserver();
         callDetailsOfCustomerApi();
+
+        //if User Was on GoogleMaps App & resumes DetailsOfCustomerActivity
+        Global.getStringFromSharedPref(this,"formattedDistanceInKm");
+        Global.getStringFromSharedPref(this,"latitudeFromLoanCollectionAdapter");
+        Global.getStringFromSharedPref(this,"longitudeFromLoanCollectionAdapter");
 
         // Get UserName , UserID , BranchCode
 
