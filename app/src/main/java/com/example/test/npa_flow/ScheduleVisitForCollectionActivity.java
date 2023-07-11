@@ -97,6 +97,9 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
         System.out.println("Here ScheduleVisitForCustomerActivity initializeFields() UserID:"+MainActivity3API.UserID);
         System.out.println("Here ScheduleVisitForCustomerActivity initializeFields() BranchCode:"+MainActivity3API.BranchCode);
 
+          CallDetailsViewModel.userId =  mPinDao.getUserID(); // for Calling Agent to not go null
+        System.out.println("Here ScheduleVisitForCustomerActivity CallingAgent UserID:"+CallDetailsViewModel.userId);
+
     }
 
     private void initObserver(){
@@ -432,6 +435,9 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
         System.out.println("Here ScheduleVisitForCustomerActivity onResume() UserID:"+MainActivity3API.UserID);
         System.out.println("Here ScheduleVisitForCustomerActivity onResume() BranchCode:"+MainActivity3API.BranchCode);
+
+        CallDetailsViewModel.userId =  mPinDao.getUserID(); // for Calling Agent to not go null
+        System.out.println("Here ScheduleVisitForCustomerActivity CallingAgent UserID:"+CallDetailsViewModel.userId);
 
         initializeFields();
         onClickListener();
