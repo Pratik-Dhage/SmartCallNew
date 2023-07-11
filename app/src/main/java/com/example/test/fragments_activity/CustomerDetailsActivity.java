@@ -23,6 +23,9 @@ import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.dao.UserNameDao;
+import com.example.test.roomDB.database.LeadListDB;
 
 public class CustomerDetailsActivity extends AppCompatActivity {
 
@@ -169,6 +172,21 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     // For Getting Calculated Balance Interest Result back from SharedPreference
     @Override
     protected void onResume() {
+
+        //if User Was on GoogleMaps App & resumes CustomerDetailsActivity
+        Global.getStringFromSharedPref(this,"formattedDistanceInKm");
+        Global.getStringFromSharedPref(this,"latitudeFromLoanCollectionAdapter");
+        Global.getStringFromSharedPref(this,"longitudeFromLoanCollectionAdapter");
+
+        //Get UserIdD & BranchCode
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+
+        String userName = userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+
+        MainActivity3API.UserID = mPinDao.getUserID();
+        MainActivity3API.BranchCode = mPinDao.getBranchCode();
+
         initializeFields();
         onClickListener();
         initObserver();
