@@ -15,6 +15,9 @@ import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.status_of_customer.adapter.StatusOfCustomerDetailsAdapter;
+import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.dao.UserNameDao;
+import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.schedule_flow.visits_for_the_day.adapter.VisitsForTheDayAdapter;
 
 public class VisitsForTheDayActivity extends AppCompatActivity {
@@ -51,6 +54,19 @@ public class VisitsForTheDayActivity extends AppCompatActivity {
 
         //Whenever List is Loaded remove previously stored formattedDistanceInKm
         Global.removeStringInSharedPref(this, "formattedDistanceInKm");
+
+        //Get UserIdD & BranchCode
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+
+        String userName = userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
+
+        MainActivity3API.UserID = mPinDao.getUserID();
+        MainActivity3API.BranchCode = mPinDao.getBranchCode();
+
+        System.out.println("Here VisitsForTheDay initializeFields() UserID:"+MainActivity3API.UserID);
+        System.out.println("Here VisitsForTheDay initializeFields() BranchCode:"+MainActivity3API.BranchCode);
+
 
     }
 
