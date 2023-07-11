@@ -60,7 +60,7 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
         }
 
         if(a.getDistance()!=null){
-            holder.binding.txtDistance.setText(String.valueOf(a.getDistance()));
+          //  holder.binding.txtDistance.setText(String.valueOf(a.getDistance()));
         }
 
         if(a.getLocation()!=null){
