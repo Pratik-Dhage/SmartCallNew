@@ -3,6 +3,7 @@ package com.example.test.helper_classes;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -392,6 +393,20 @@ public class Global {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
 
+    }
+
+    public static boolean isGoogleMapsInstalled(Context context)
+    {
+        try
+        {
+            ApplicationInfo info = context.getPackageManager().getApplicationInfo("com.google.android.apps.maps", 0 );
+            return true;
+        }
+        catch(PackageManager.NameNotFoundException e)
+        {
+           e.printStackTrace();
+            return false;
+        }
     }
 
     public static Location getDeviceLocation(Context context) {
