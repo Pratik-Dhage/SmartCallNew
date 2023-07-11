@@ -81,25 +81,22 @@
             app:layout_constraintTop_toTopOf="@+id/labelDetailName"
             tools:text="@string/capture" />
 
-        <!--Navigate Button-->
+        <!--ImageView As Navigate Button-->
         <ImageView
             android:id="@+id/btnNavigate"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/_3sdp"
             app:layout_constraintTop_toTopOf="@id/btnDetail"
             app:layout_constraintBottom_toBottomOf="@id/btnDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_corner_bg"
-            android:backgroundTint="@color/green"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
             android:gravity="center"
-            android:src="@drawable/location"
-            android:padding="@dimen/_5sdp"
+            android:src="@drawable/navigate_icon"
             android:text="@string/navigate"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:visibility="gone"
-            app:tint="@color/white" />
+            />
 
 
         <!-- Save Button for Amount Paid-->
