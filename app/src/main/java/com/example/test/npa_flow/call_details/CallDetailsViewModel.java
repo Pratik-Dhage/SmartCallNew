@@ -38,7 +38,7 @@ public class CallDetailsViewModel extends ViewModel {
     }
 
 
-    String userId = MainActivity3API.UserID;
+   public static String userId = MainActivity3API.UserID ;
 
     DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
     List<CallDetails> callDetailsList = detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater(); //for Will Pay Later,SVFC,Asked To call Back,Already Paid
@@ -46,6 +46,8 @@ public class CallDetailsViewModel extends ViewModel {
 
 
     public void postCallDetails(String dataSetId, String payment_type, String complete_action) {
+
+        System.out.println("CallDetailsViewModel CallingAgent:"+userId);
 
         //1)PARTIAL AMOUNT PAID
         if (payment_type.contentEquals("from_payment_status_partial_amt_paid")) {
@@ -139,6 +141,9 @@ public class CallDetailsViewModel extends ViewModel {
 
     //3)WILL PAY LATER (STTC- RTP - SLFOP - WPL)
     public void postScheduledDateTime(String dataSetId, String payment_type, String scheduleVisitForCollection_dateTime,List<CallDetails> callDetailsList) {
+
+        System.out.println("CallDetailsViewModel CallingAgent:"+userId);
+
         //WILL PAY LATER
         if (payment_type.contentEquals("will pay later")) {
             subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_will_pay_later + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
@@ -166,6 +171,9 @@ public class CallDetailsViewModel extends ViewModel {
 
     //4)PAYMENT MODE - (SVFC)SCHEDULE VISIT FOR COLLECTION BUTTON CLICK
     public void postScheduledDateTime_SVFC(String dataSetId, String scheduleVisitForCollection_dateTime, List<CallDetails> callDetailsList) {
+
+        System.out.println("CallDetailsViewModel CallingAgent:"+userId);
+
         subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_send_visit_for_collection + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber="+"&reason=", callDetailsList)
                 .subscribeOn(Schedulers.io())
@@ -179,6 +187,9 @@ public class CallDetailsViewModel extends ViewModel {
 
     //5)PAYMENT NOTIFICATION - ASKED TO CALL BACK LATER BUTTON CLICK(ATCL->Asked to Call Later)
     public void postScheduledDateTime_ATCL(String dataSetId, String scheduleVisitForCollection_dateTime, List<CallDetails> callDetailsList) {
+
+        System.out.println("CallDetailsViewModel CallingAgent:"+userId);
+
         subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_asked_to_call_later + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber="+"&reason=", callDetailsList)
                 .subscribeOn(Schedulers.io())
@@ -200,6 +211,9 @@ public class CallDetailsViewModel extends ViewModel {
 
     //6)PAYMENT INFORMATION OF CUSTOMER ACTIVITY - FO NOT VISITED (FNV)BUTTON CLICK
     public void postScheduledDateTime_FNV(String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber) {
+
+        System.out.println("CallDetailsViewModel CallingAgent:"+userId);
+
         subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_fo_not_visited + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber+"&reason=", detailsOfCustomerActivity.sendCallLogDetailsList_FNV_LTBR("FNV"))
                 .subscribeOn(Schedulers.io())
@@ -213,6 +227,9 @@ public class CallDetailsViewModel extends ViewModel {
 
     //7)PAYMENT INFORMATION OF CUSTOMER ACTIVITY - LOAN TAKEN BY RELATIVE (LTBR)BUTTON CLICK
     public void postScheduledDateTime_LTBR(String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber, String type) {
+
+        System.out.println("CallDetailsViewModel CallingAgent:"+userId);
+
         subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_loan_taken_by_relative + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber+"&reason=", detailsOfCustomerActivity.sendCallLogDetailsList_FNV_LTBR("LTBR"))
                 .subscribeOn(Schedulers.io())
@@ -226,6 +243,9 @@ public class CallDetailsViewModel extends ViewModel {
 
     //8)PAYMENT INFORMATION OF CUSTOMER ACTIVITY - ALREADY PAID (AP)BUTTON CLICK
     public void postScheduledDateTime_AP(String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber) {
+
+        System.out.println("CallDetailsViewModel CallingAgent:"+userId);
+
         subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_already_paid + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber+"&reason=", callDetailsList)
                 .subscribeOn(Schedulers.io())
@@ -239,6 +259,9 @@ public class CallDetailsViewModel extends ViewModel {
 
     //9)PAYMENT INFORMATION OF CUSTOMER ACTIVITY - WILL PAY LATER -> WILL PAY LUMPSUMP
     public void postScheduledDateTime_WPLS(String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber) {
+
+        System.out.println("CallDetailsViewModel CallingAgent:"+userId);
+
         subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_will_pay_lump_sump + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber+"&reason=", callDetailsList)
                 .subscribeOn(Schedulers.io())
@@ -252,6 +275,9 @@ public class CallDetailsViewModel extends ViewModel {
 
     //10)PAYMENT INFORMATION OF CUSTOMER ACTIVITY -> OTHERS
     public void postScheduledDateTime_OTHERS(String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber) {
+
+        System.out.println("CallDetailsViewModel CallingAgent:"+userId);
+
         subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_payment_info_others + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber+"&reason=", callDetailsList)
                 .subscribeOn(Schedulers.io())
@@ -266,6 +292,8 @@ public class CallDetailsViewModel extends ViewModel {
     //11) NotSpokeToCustomerActivity -Number is Invalid (Note: CallDetails List used of Full /Partial Amt. Paid from DetailsOfCustomerActivity)
     public void postCallDetailsNotSpokeToCustomer_NumberInvalid(String dataSetId){
 
+        System.out.println("CallDetailsViewModel CallingAgent:"+userId);
+
         subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.notSpokeToCustomer_numberIsInvalid + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + "" +
                         "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber="+"&reason=", callDetailsList_full_partial_amount)
                 .subscribeOn(Schedulers.io())
@@ -279,6 +307,8 @@ public class CallDetailsViewModel extends ViewModel {
 
     //12) NotSpokeToCustomerActivity - Number is Busy / Switched Off
     public void postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(String apiType,String dataSetId,List<CallDetailsListRoomModel>callDetailsListFromRoomDB){
+
+        System.out.println("CallDetailsViewModel CallingAgent:"+userId);
 
         subscribtion = (Disposable) Global.apiService().post_call_details_from_roomDB(apiType + "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + "" +
                         "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber="+"&reason=", callDetailsListFromRoomDB)
