@@ -31,6 +31,7 @@ import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.schedule_flow.ScheduleDetailsActivity;
 import com.example.test.schedule_flow.calls_for_the_day.CallsForTheDayActivity;
+import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAdapter;
 import com.example.test.schedule_flow.schedule_for_the_day.ScheduleForTheDayAdapter;
 import com.example.test.schedule_flow.visits_for_the_day.VisitsForTheDayActivity;
 import com.example.test.schedule_flow.visits_for_the_day.adapter.VisitsForTheDayAdapter;
@@ -95,13 +96,9 @@ public class MainActivity3API extends AppCompatActivity {
         showCallIcon = false; //from Visits For The Day Flow to be True Else False
         VisitsForTheDayAdapter.showNearByCustomerButton = false ; //in NearByCustomerActivity - from Visits For The Day Flow to be True Else False
         LoanCollectionActivity.isFromLoanCollection_NPA_Flow =false; // for Navigation Button in DetailsOfCustomerAdapter to Navigate only from NPA flow
-       /* if(getIntent().hasExtra("userName")){
-            binding.txtWelcomeUser.setText("Welcome "+getIntent().getStringExtra("userName"));
 
-            // Store UserName in SharedPreference and Use in StatusOfCustomerDetailsAdapter
-            String userName = getIntent().getStringExtra("userName");
-            Global.saveStringInSharedPref(this,"userName",userName);
-        }*/
+        CallsForTheDayAdapter.isFromCallsForTheDayAdapter = null; // for Navigate Button to be Only visible in NPA/ VisitsForTheDayFlow
+
 
 
 
