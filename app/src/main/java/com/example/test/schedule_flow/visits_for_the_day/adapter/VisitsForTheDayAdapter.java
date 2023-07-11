@@ -15,10 +15,12 @@ import com.example.test.R;
 import com.example.test.databinding.ItemStatusDetailsOfCustomerBinding;
 import com.example.test.databinding.ItemVisitsForTheDayBinding;
 import com.example.test.fragments_activity.CustomerDetailsActivity;
+import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.google_maps.MapFragment;
 import com.example.test.helper_classes.Global;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
+import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 import com.example.test.npa_flow.status_of_customer.StatusOfCustomerActivity;
 import com.example.test.npa_flow.status_of_customer.adapter.StatusOfCustomerDetailsAdapter;
 import com.example.test.npa_flow.status_of_customer.model.Activity;
@@ -116,11 +118,22 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
                 String latitude = String.valueOf(a.getLattitute());
                 String longitude = String.valueOf(a.getLongitute());
 
-                Intent googleMapsIntent = new Intent(context, MapFragment.class);
-                googleMapsIntent.putExtra("latitude_visitsForTheDay", Double.parseDouble(latitude));
-                googleMapsIntent.putExtra("longitude_visitsForTheDay", Double.parseDouble(longitude));
-                googleMapsIntent.putExtra("isFromVisitsForTheDayAdapter","isFromVisitsForTheDayAdapter");
-                context.startActivity(googleMapsIntent);
+                if(!Global.isLocationEnabled(context)){
+                    Global.showToast(context, "Please Turn Location On");
+                }
+
+                else{
+
+                    Intent googleMapsIntent = new Intent(context, GoogleMapsActivity.class);
+                    googleMapsIntent.putExtra("latitude_visitsForTheDay", Double.parseDouble(latitude));
+                    googleMapsIntent.putExtra("longitude_visitsForTheDay", Double.parseDouble(longitude));
+                    googleMapsIntent.putExtra("isFromVisitsForTheDayAdapter","isFromVisitsForTheDayAdapter");
+                    googleMapsIntent.putExtra("dataSetId",String.valueOf(a.getDataSetId()));
+                    context.startActivity(googleMapsIntent);
+
+
+                }
+
 
             }
 
@@ -133,10 +146,20 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
               //DetailsOfCustomer Only visible if Status is Pending
               if(a.getActionStatus().toLowerCase().contains("pending")){
 
+                  System.out.println("Here VisitsForTheDayAdapter dataSetId:"+a.getDataSetId().toString());
                   String dataSetId = a.getDataSetId().toString();
+                  LoanCollectionAdapter.LoanCollectionAdapter_dataSetId = a.getDataSetId().toString();
                   Intent i = new Intent(context, CustomerDetailsActivity.class);
-                  i.putExtra("dataSetId",dataSetId);
+                  i.putExtra("dataSetId",LoanCollectionAdapter.LoanCollectionAdapter_dataSetId); // for Saving UpdatedLocation on Capture Button click
                   context.startActivity(i);
+
+                  // to display in DetailsOfCustomerAdapter
+                  Global.saveStringInSharedPref(context,"formattedDistanceInKm",String.valueOf(a.getDistance()));
+
+                  // for Navigate Button in DetailsOfCustomerAdapter , to navigate to GoogleMaps
+                  Global.saveStringInSharedPref(context,"latitudeFromLoanCollectionAdapter",String.valueOf(a.getLattitute()));
+                  Global.saveStringInSharedPref(context,"longitudeFromLoanCollectionAdapter",String.valueOf(a.getLongitute()));
+
 
               }
           });
