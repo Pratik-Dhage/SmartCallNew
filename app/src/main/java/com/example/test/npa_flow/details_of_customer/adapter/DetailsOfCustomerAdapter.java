@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.LocationManager;
@@ -46,8 +47,10 @@ import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
+import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 import com.example.test.npa_flow.save_location.SaveLocationOfCustomerViewModel;
+import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAdapter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -330,22 +333,68 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         //for Navigate Button
         holder.binding.btnNavigate.setOnClickListener(v->{
 
-            if(!Global.isLocationEnabled(context)){
-                Global.showToast(context, "Please Turn Location On");
-            }
-            else if (Global.isLocationEnabled(context)){
+            //Navigate Button will work only from NPA flow & VisitsForTheDayFlow
 
-                System.out.println("Here DetailsOfCustomerAdapter dataSetId:"+LoanCollectionAdapter.LoanCollectionAdapter_dataSetId);
-                // send Latitude and Longitude Obtained from LoanCollectionResponse
-                Intent latLongIntent = new Intent(context, GoogleMapsActivity.class);
+            //BackGround Location Access is mandatory for Android 11 & Higher
+
+                if(!Global.isLocationEnabled(context) || !Global.isBackgroundLocationAccessEnabled((Activity) context)){
+                    Global.showToast(context, "Please Turn Location On");
+                }
+                else if (Global.isLocationEnabled(context) && Global.isBackgroundLocationAccessEnabled((Activity) context) &&
+                        (Global.getStringFromSharedPref(context,"latitudeFromLoanCollectionAdapter")!=null) && Global.getStringFromSharedPref(context,"longitudeFromLoanCollectionAdapter")!=null ){
+
+                    System.out.println("Here DetailsOfCustomerAdapter dataSetId:"+LoanCollectionAdapter.LoanCollectionAdapter_dataSetId);
+                    System.out.println("Here LatitudeFromDetailsOfCustomerAdapter:"+Global.getStringFromSharedPref(context,"latitudeFromLoanCollectionAdapter")+" & LongitudeFromDetailsOfCustomerAdapter:"+Global.getStringFromSharedPref(context,"longitudeFromLoanCollectionAdapter"));
+
+                    System.out.println("Here isBackGroundLocationEnabled:"+ Global.isBackgroundLocationAccessEnabled((Activity) context));
+                /*Intent latLongIntent = new Intent(context, GoogleMapsActivity.class);
                 latLongIntent.putExtra("latitudeFromDetailsOfCustomerAdapter",latitudeFromLoanCollectionResponse);
                 latLongIntent.putExtra("longitudeFromDetailsOfCustomerAdapter", longitudeFromLoanCollectionResponse);
                 latLongIntent.putExtra("LatLongFromDetailsOfCustomerAdapter","LatLongFromDetailsOfCustomerAdapter");
                 latLongIntent.putExtra("dataSetId", LoanCollectionAdapter.LoanCollectionAdapter_dataSetId);
-                context.startActivity(latLongIntent);
-            }
+                context.startActivity(latLongIntent);*/
+
+                       try{
+                           //  Navigate To Google Maps App for Direction (coming from Either NPA OR VisitsForTheDay)
+                           double userLatitude =  Global.getDeviceLocation(context).getLatitude();
+                           double userLongitude =  Global.getDeviceLocation(context).getLongitude();
+                           double latitudeFromLoanCollectionResponse = Double.parseDouble(Global.getStringFromSharedPref(context,"latitudeFromLoanCollectionAdapter"));
+                           double longitudeFromLoanCollectionResponse = Double.parseDouble(Global.getStringFromSharedPref(context,"longitudeFromLoanCollectionAdapter"));
+
+
+                           String uri = "https://www.google.com/maps/dir/?api=1&origin=" +
+                                   userLatitude + "," + userLongitude +
+                                   "&destination=" + latitudeFromLoanCollectionResponse + "," + longitudeFromLoanCollectionResponse;
+
+
+
+                           // Create an intent with the Google Maps URI
+                           Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+
+                           // Set the package to explicitly open the Google Maps app
+                           intent.setPackage("com.google.android.apps.maps");
+                           intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //used when launching an activity from a context that is not an activity
+
+                           //if GoogleMaps installed
+                           if(Global.isGoogleMapsInstalled(context)){
+                               System.out.println("isGoogleMaps installed: true");
+                               context.startActivity(intent);
+                           }
+                           //if GoogleMaps not installed
+                           else{
+                               Global.showToast(context,"Kindly install GoogleMaps");
+                           }
+
+                       }
+                       catch (Exception e)
+                       {
+                           e.printStackTrace();
+                       }
+
+                }
 
         });
+
 
         //for Capture Button
         holder.binding.btnDetail.setOnClickListener(v -> {
@@ -411,7 +460,8 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         }
 
         //for Button & Navigate Button(If Capture Button is Visible , then Navigate Button will also be Visible)
-        if (Objects.equals(a.getButton(), "Y")) {
+        //Navigate & Capture Button Only visible for NPA & VisitsForTheDay
+        if (Objects.equals(a.getButton(), "Y") && CallsForTheDayAdapter.isFromCallsForTheDayAdapter==null) {
             holder.binding.btnDetail.setVisibility(View.VISIBLE);
             holder.binding.btnNavigate.setVisibility(View.VISIBLE);
             holder.binding.btnDetail.setText(a.getButtonLable().toString());
@@ -465,7 +515,9 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         // DetailsOfCustomerAdapter.dataSetId != null && GoogleMapsActivity.latitude!=null && GoogleMapsActivity.longitude!=null
         if(DetailsOfCustomerAdapter.dataSetId!=null && savedDistance !=null ){
 
-            if((String.valueOf(MapFragment.userMarkerLatitude)!=null && String.valueOf(MapFragment.userMarkerLongitude)!=null)){
+            // Save LatLong if userMarkerLatitude!=0.0  && userMarkerLongitude!=0.0
+            if((String.valueOf(MapFragment.userMarkerLatitude)!=null &&  MapFragment.userMarkerLatitude!=0.0) &&
+                    ( String.valueOf(MapFragment.userMarkerLongitude)!=null  && MapFragment.userMarkerLongitude!=0.0)){
 
                 System.out.println("Here DetailsOfCustomerAdapter dataSetId:"+DetailsOfCustomerAdapter.dataSetId);
                 System.out.println("Here DetailsOfCustomerAdapter Latitude:"+MapFragment.userMarkerLatitude);
@@ -507,13 +559,13 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
     @Override
     public void onViewAttachedToWindow(@NonNull MyViewHolderClass holder) {
         super.onViewAttachedToWindow(holder);
-        holder.setIsRecyclable(true);
+       // holder.setIsRecyclable(true);
     }
 
     @Override
     public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
         super.onViewDetachedFromWindow(holder);
-        holder.setIsRecyclable(false); // to prevent data from being disappeared when scrolled upwards
+       // holder.setIsRecyclable(false); // to prevent data from being disappeared when scrolled upwards
     }
 
     @SuppressLint("NotifyDataSetChanged")
