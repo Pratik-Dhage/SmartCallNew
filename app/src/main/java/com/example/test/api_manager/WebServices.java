@@ -257,7 +257,7 @@ public  class WebServices {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 //.baseUrl(WebServices.Domain2)
                 //.baseUrl(WebServices.Domain)
-                .baseUrl(SmartCall_BaseURL2)
+                .baseUrl(SmartCall_BaseURL5)
                 .client(okHttpClient)
                 .build();
 
