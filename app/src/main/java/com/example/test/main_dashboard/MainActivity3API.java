@@ -95,7 +95,7 @@ public class MainActivity3API extends AppCompatActivity {
 
         showCallIcon = false; //from Visits For The Day Flow to be True Else False
         VisitsForTheDayAdapter.showNearByCustomerButton = false ; //in NearByCustomerActivity - from Visits For The Day Flow to be True Else False
-        LoanCollectionActivity.isFromLoanCollection_NPA_Flow =false; // for Navigation Button in DetailsOfCustomerAdapter to Navigate only from NPA flow
+
 
         CallsForTheDayAdapter.isFromCallsForTheDayAdapter = null; // for Navigate Button to be Only visible in NPA/ VisitsForTheDayFlow
 
