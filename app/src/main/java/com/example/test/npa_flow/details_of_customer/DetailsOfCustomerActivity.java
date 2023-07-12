@@ -634,6 +634,59 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                 Global.showSnackBar(view, getResources().getString(R.string.permission_to_call_denied));
             }
         }
+
+        //coming from DetailsOfCustomerAdapter Navigation Button Click
+        if (requestCode == Global.REQUEST_BACKGROUND_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Background location access permission granted
+               navigateToGoogleMapsForNavigation();
+            } else {
+                // Background location access permission denied
+                Global.isBackgroundLocationAccessEnabled(this); // request BackGroundLocation Again
+            }
+        }
+    }
+
+    public void navigateToGoogleMapsForNavigation(){
+
+        try{
+            //  Navigate To Google Maps App for Direction (coming from Either NPA OR VisitsForTheDay)
+            double userLatitude =  Global.getDeviceLocation(this).getLatitude();
+            double userLongitude =  Global.getDeviceLocation(this).getLongitude();
+            double latitudeFromLoanCollectionResponse = Double.parseDouble(Global.getStringFromSharedPref(this,"latitudeFromLoanCollectionAdapter"));
+            double longitudeFromLoanCollectionResponse = Double.parseDouble(Global.getStringFromSharedPref(this,"longitudeFromLoanCollectionAdapter"));
+
+
+            String uri = "https://www.google.com/maps/dir/?api=1&origin=" +
+                    userLatitude + "," + userLongitude +
+                    "&destination=" + latitudeFromLoanCollectionResponse + "," + longitudeFromLoanCollectionResponse;
+
+
+
+            // Create an intent with the Google Maps URI
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+
+            // Set the package to explicitly open the Google Maps app
+            intent.setPackage("com.google.android.apps.maps");
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //used when launching an activity from a context that is not an activity
+
+            //if GoogleMaps installed
+            if(Global.isGoogleMapsInstalled(this)){
+                System.out.println("isGoogleMaps installed: true");
+               startActivity(intent);
+            }
+            //if GoogleMaps not installed
+            else{
+                Global.showToast(this,String.valueOf(R.string.kindly_install_google_maps));
+            }
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
     }
 
 
