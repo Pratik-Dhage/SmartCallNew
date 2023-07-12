@@ -1,5 +1,6 @@
 package com.example.test.helper_classes;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,8 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
+import android.os.UserHandle;
 import android.support.v4.media.MediaBrowserCompat;
 import android.text.Editable;
 import android.text.Html;
@@ -370,6 +373,24 @@ public class Global {
 
         return isLocationEnabled;
     }
+
+    // Required for Android 11(R) & Higher
+    public static final int REQUEST_BACKGROUND_LOCATION = 101;
+    public static boolean isBackgroundLocationAccessEnabled(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            int permissionState = ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_BACKGROUND_LOCATION);
+            if (permissionState == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, REQUEST_BACKGROUND_LOCATION);
+                return false;
+            }
+        } else {
+            // Background location access is always granted prior to Android Q
+            return true;
+        }
+    }
+
 
     //Convert the HTML instruction to String
     public static String  htmlToNormalString(String htmlString){
