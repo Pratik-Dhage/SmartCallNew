@@ -1,5 +1,6 @@
 package com.example.test.fragments_activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.example.test.fragment_visits_flow.Visit_NPA_StatusActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.roomDB.dao.MPinDao;
@@ -169,7 +172,28 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
 
     }
-    // For Getting Calculated Balance Interest Result back from SharedPreference
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        //coming from DetailsOfCustomerAdapter Navigation Button Click
+        if (requestCode == Global.REQUEST_BACKGROUND_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Background location access permission granted
+
+                DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+                detailsOfCustomerActivity.navigateToGoogleMapsForNavigation();
+            } else {
+                // Background location access permission denied
+                Global.isBackgroundLocationAccessEnabled(this); // request BackGroundLocation Again
+            }
+        }
+    }
+
+
+
+
     @Override
     protected void onResume() {
 
