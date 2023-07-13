@@ -1,11 +1,13 @@
 package com.example.test.schedule_flow.visits_for_the_day;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 
@@ -14,6 +16,7 @@ import com.example.test.databinding.ActivityVisitsForTheDayBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.status_of_customer.adapter.StatusOfCustomerDetailsAdapter;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
@@ -133,6 +136,23 @@ public class VisitsForTheDayActivity extends AppCompatActivity {
         binding.ivHome.setOnClickListener(v->{
             startActivity(new Intent(this, MainActivity3API.class));
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        //coming from VisitsForTheDayAdapter ivMap Click
+        if (requestCode == Global.REQUEST_BACKGROUND_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Background location access permission granted
+                DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+                detailsOfCustomerActivity.navigateToGoogleMapsForNavigation();
+            } else {
+                // Background location access permission denied
+                Global.isBackgroundLocationAccessEnabled(this); // request BackGroundLocation Again
+            }
+        }
     }
 
     @Override
