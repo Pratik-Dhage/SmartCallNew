@@ -380,13 +380,16 @@ public class Global {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             int permissionState = ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_BACKGROUND_LOCATION);
             if (permissionState == PackageManager.PERMISSION_GRANTED) {
+                System.out.println("Here BackGroundLocation Permission: true");
                 return true;
             } else {
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, REQUEST_BACKGROUND_LOCATION);
+                System.out.println("Here Requesting BackGroundLocation Permission");
                 return false;
             }
         } else {
             // Background location access is always granted prior to Android Q
+            System.out.println("Here BackGroundLocation Permission: true");
             return true;
         }
     }
