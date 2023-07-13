@@ -126,32 +126,24 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
             holder.binding.txtPinCode.setText(a.getPinCode());
         }
 
-        //if lat long not null , send to DetailsOfCustomerAdapter ,
-        // on clicking Navigate button(beside Capture button)  navigate to  GoogleMaps
-        if(  (null!= a.getLattitute() && null!= a.getLongitute() ) && null!=a.getDataSetId()) {
-            System.out.println("Here Latitude:"+a.getLattitute()+" & Longitude:"+a.getLongitute());
-            //convert BigDecimal corresponding to double value
-            DetailsOfCustomerAdapter.latitudeFromLoanCollectionResponse = a.getLattitute().doubleValue();
-            DetailsOfCustomerAdapter.longitudeFromLoanCollectionResponse = a.getLongitute().doubleValue();
-            DetailsOfCustomerAdapter.dataSetId = a.getDataSetId().toString(); // to pass in Save Location API
-
-        }
 
 
         //opens Google Maps
         holder.binding.ivMap.setOnClickListener(v->{
 
-            System.out.println("Here LoanCollectionAdapter ivMap Location msg");
-            //check if Location Turned On
+            //will Open GoogleMaps in app when Status is Pending
+            if(a.getActionStatus().toLowerCase().contains("pending")){
 
-            if(!Global.isLocationEnabled(context)){
-                Global.showToast(context, "Please Turn Location On");
-                // Open location settings
+                System.out.println("Here LoanCollectionAdapter ivMap Location msg");
+                //check if Location Turned On
+                if(!Global.isLocationEnabled(context) || !Global.isBackgroundLocationAccessEnabled((Activity) context)){
+                    Global.showToast(context, "Please Turn Location On");
+                    // Open location settings
                /* Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 ((Activity) context).startActivityForResult(intent, LoanCollectionActivity.LocationRequestCode);*/
-            }
+                }
 
-            else if(Global.isLocationEnabled(context)) {
+                else if(Global.isLocationEnabled(context) && Global.isBackgroundLocationAccessEnabled((Activity) context)) {
 
                 if(null != currentLocation) {
                     Intent googleMapsIntent = new Intent(context, GoogleMapsActivity.class);
@@ -170,6 +162,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
 
             }
 
+            }
 
         });
 
@@ -189,7 +182,25 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
                 if(a.getDistance()!=null && !String.valueOf(a.getDistance()).contentEquals("0.0")){
                     LoanCollectionAdapter_Distance = String.valueOf(a.getDistance());
                     System.out.println("Here LoanCollectionAdapter_Distance: "+LoanCollectionAdapter_Distance);
+                    Global.saveStringInSharedPref(context,"formattedDistanceInKm", LoanCollectionAdapter.LoanCollectionAdapter_Distance);
                 }
+
+
+                //if lat long not null , send to DetailsOfCustomerAdapter ,
+                // on clicking Navigate button(beside Capture button)  navigate to  GoogleMaps
+                if(  (null!= a.getLattitute() && null!= a.getLongitute() ) && null!=a.getDataSetId()) {
+                    System.out.println("Here Latitude:"+a.getLattitute()+" & Longitude:"+a.getLongitute());
+                    //convert BigDecimal corresponding to double value
+                    DetailsOfCustomerAdapter.latitudeFromLoanCollectionResponse = a.getLattitute().doubleValue();
+                    DetailsOfCustomerAdapter.longitudeFromLoanCollectionResponse = a.getLongitute().doubleValue();
+                    DetailsOfCustomerAdapter.dataSetId = a.getDataSetId().toString(); // to pass in Save Location API
+
+                    //Save LatLong for Navigate Button in DetailsOfCustomerAdapter Also in DetailsOfCustomerActivity onResume()
+                    Global.saveStringInSharedPref(context,"latitudeFromLoanCollectionAdapter",String.valueOf(a.getLattitute()));
+                    Global.saveStringInSharedPref(context,"longitudeFromLoanCollectionAdapter",String.valueOf(a.getLongitute()));
+
+                }
+
 
                 //on Item Click save Name of Member
                 Global.saveStringInSharedPref(context,"FullNameFromAdapter",String.valueOf(a.getMemberName()));
@@ -309,7 +320,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
     @Override
     public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
         super.onViewDetachedFromWindow(holder);
-        holder.setIsRecyclable(false);
+        holder.setIsRecyclable(true);
     }
 
 
