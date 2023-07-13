@@ -56,6 +56,8 @@ public  class WebServices {
 
     public static String SmartCall_BaseURL5 = "http://45.113.189.27:8082/"; // FOR Client (Faster Response from Backend) Production
 
+    public static String SmartCall_BaseURL6 = "http://45.114.143.87:8082/"; // new Server 13/07/2023
+
     //for Login Authentication
     public static String Login_Authentication = "security/authenticateUser";
     //you have to pass the User object as request body to the service
@@ -257,7 +259,7 @@ public  class WebServices {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 //.baseUrl(WebServices.Domain2)
                 //.baseUrl(WebServices.Domain)
-                .baseUrl(SmartCall_BaseURL5)
+                .baseUrl(SmartCall_BaseURL6)
                 .client(okHttpClient)
                 .build();
 
