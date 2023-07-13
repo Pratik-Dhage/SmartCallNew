@@ -404,10 +404,10 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
                 //check if Location Turned On
 
-                if(!Global.isLocationEnabled(context)){
+                if(!Global.isLocationEnabled(context)  || !Global.isBackgroundLocationAccessEnabled((Activity) context)){
                     Global.showToast(context, "Please Turn Location On");
                 }
-                else if (Global.isLocationEnabled(context)){
+                else if (Global.isLocationEnabled(context) && Global.isBackgroundLocationAccessEnabled((Activity) context)){
                     Intent i = new Intent(context, GoogleMapsActivity.class); //for Google Maps
                     i.putExtra("isFromDetailsOfCustomerAdapter_CaptureButton","isFromDetailsOfCustomerAdapter_CaptureButton");
                     i.putExtra("dataSetId", LoanCollectionAdapter.LoanCollectionAdapter_dataSetId);
