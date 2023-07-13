@@ -36,6 +36,7 @@ import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 import com.example.test.npa_flow.status_of_customer.StatusOfCustomerActivity;
@@ -198,8 +199,22 @@ public class LoanCollectionActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 101)
+        if (requestCode == 101) {
             currentLocation = getDeviceLocation();
+        }
+
+        //coming from LoanCollectionAdapter ivMap Click
+        if (requestCode == Global.REQUEST_BACKGROUND_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Background location access permission granted
+                DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+                detailsOfCustomerActivity.navigateToGoogleMapsForNavigation();
+            } else {
+                // Background location access permission denied
+                Global.isBackgroundLocationAccessEnabled(this); // request BackGroundLocation Again
+            }
+        }
+
     }
 
     private void initObserver() {
