@@ -1,6 +1,7 @@
 package com.example.test.schedule_flow.visits_for_the_day.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -23,7 +24,6 @@ import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 import com.example.test.npa_flow.status_of_customer.StatusOfCustomerActivity;
 import com.example.test.npa_flow.status_of_customer.adapter.StatusOfCustomerDetailsAdapter;
-import com.example.test.npa_flow.status_of_customer.model.Activity;
 import com.example.test.schedule_flow.visits_for_the_day.model.VisitsForTheDayResponseModel;
 
 import java.util.ArrayList;
@@ -118,11 +118,11 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
                 String latitude = String.valueOf(a.getLattitute());
                 String longitude = String.valueOf(a.getLongitute());
 
-                if(!Global.isLocationEnabled(context)){
+                if(!Global.isLocationEnabled(context) || !Global.isBackgroundLocationAccessEnabled((Activity) context)){
                     Global.showToast(context, "Please Turn Location On");
                 }
 
-                else{
+                else if (Global.isLocationEnabled(context) && Global.isBackgroundLocationAccessEnabled((Activity) context) ){
 
                     Intent googleMapsIntent = new Intent(context, GoogleMapsActivity.class);
                     googleMapsIntent.putExtra("latitude_visitsForTheDay", Double.parseDouble(latitude));
