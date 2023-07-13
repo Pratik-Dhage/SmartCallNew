@@ -177,7 +177,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        //coming from DetailsOfCustomerAdapter Navigation Button Click
+        //coming from DetailsOfCustomerAdapter Navigation/Capture Button Click
         if (requestCode == Global.REQUEST_BACKGROUND_LOCATION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Background location access permission granted
