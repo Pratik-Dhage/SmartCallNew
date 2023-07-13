@@ -1,8 +1,10 @@
 package com.example.test.google_maps;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -10,6 +12,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
@@ -27,6 +30,8 @@ import android.widget.TextView;
 import com.example.test.R;
 import com.example.test.databinding.FragmentMapBinding;
 import com.example.test.helper_classes.Global;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
+import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.save_location.SaveLocationOfCustomerViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,6 +39,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.DirectionsApi;
+import com.google.maps.DirectionsApiRequest;
+import com.google.maps.GeoApiContext;
+import com.google.maps.android.PolyUtil;
+import com.google.maps.model.DirectionsLeg;
+import com.google.maps.model.DirectionsResult;
+import com.google.maps.model.DirectionsRoute;
+import com.google.maps.model.DirectionsStep;
 
 import java.io.IOException;
 import java.util.List;
@@ -108,18 +122,7 @@ public class MapFragment extends Fragment {
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromLoanCollectionAdapter, 15));
                 }
 
-                //coming from DetailsOfCustomerAdapter Navigate Button with LatLong
-                if(GoogleMapsActivity.LatLongFromDetailsOfCustomerAdapter!=null){
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    LatLng latLngFromLoanCollectionAdapter = new LatLng(GoogleMapsActivity.latitudeFromDetailsOfCustomerAdapter,GoogleMapsActivity.longitudeFromDetailsOfCustomerAdapter);
-                    markerOptions.position(latLngFromLoanCollectionAdapter);
-                    googleMap.addMarker(markerOptions);
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromLoanCollectionAdapter, 15));
 
-                    // get Distance between User and that Marker LatLong
-                    getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
-                    getDistanceBetweenMarkerAndUser(GoogleMapsActivity.latitudeFromDetailsOfCustomerAdapter,GoogleMapsActivity.longitudeFromDetailsOfCustomerAdapter);
-                }
 
                 //coming from DetailsOfCustomerAdapter Capture Button
                 if(GoogleMapsActivity.isFromDetailsOfCustomerAdapter_CaptureButton!=null){
@@ -135,11 +138,19 @@ public class MapFragment extends Fragment {
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lodhaMallLatLng, 15));
                         // get Distance between User and that Marker LatLong
                         getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
-                        getDistanceBetweenMarkerAndUser(lodhaMallLatLng.latitude,lodhaMallLatLng.longitude);
+                       // getDistanceBetweenMarkerAndUser(lodhaMallLatLng.latitude,lodhaMallLatLng.longitude);
+
+                        //if User doesn't Click on Maps for New Marker position, Assign userMarkerLatLong as default LodhaMallLatLong
+                        userMarkerLatitude = lodhaMallLatLng.latitude;
+                        userMarkerLongitude = lodhaMallLatLng.longitude;
+
+                        getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE); //Show Progress bar
+                        getCurrentLocation(googleMap); //User Marker
+                        getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
                     }
 
                     // When User Changes the Marker
-                    else {
+                   /* else {
 
                         MarkerOptions markerOptions = new MarkerOptions();
                         LatLng latLngFromLoanCollectionAdapter = new LatLng(userMarkerLatitude,userMarkerLongitude);
@@ -150,11 +161,18 @@ public class MapFragment extends Fragment {
                         // get Distance between User and that Marker LatLong
                         getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
                         getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
-                    }
+
+                        //Save userMarker LatLong ,
+                        // if User comes back to Details Page (DetailsOfCustomerAdapter) & clicks Navigate Button - Navigate To GoogleMaps for Direction
+                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(userMarkerLatitude));
+                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"longitudeFromLoanCollectionAdapter",String.valueOf(userMarkerLongitude));
+
+                        System.out.println("Here Capture Button userMarkerLatitude:"+userMarkerLatitude+" &userMarkerLongitude:"+userMarkerLongitude);
+                    }*/
 
                 }
 
-                //coming from VisitsForTheDayAdapter
+                //coming from VisitsForTheDayAdapter ivMap
                 double latitude_visitsForTheDay = GoogleMapsActivity.latitude_visitsForTheDay;
                 double longitude_visitsForTheDay = GoogleMapsActivity.longitude_visitsForTheDay;
                 if(GoogleMapsActivity.isFromVisitsForTheDayAdapter!=null){
@@ -163,6 +181,14 @@ public class MapFragment extends Fragment {
                     markerOptions.position(latLngFromVisitsForTheDayAdapter);
                     googleMap.addMarker(markerOptions);
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromVisitsForTheDayAdapter, 15));
+
+                    //if User doesn't change the Marker
+                    userMarkerLatitude = latitude_visitsForTheDay;
+                    userMarkerLongitude = longitude_visitsForTheDay;
+
+                    getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE); //Show Progress bar
+                    getCurrentLocation(googleMap); //User Marker
+                    getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
                 }
 
                 //coming from CallsForTheDayAdapter
@@ -184,6 +210,7 @@ public class MapFragment extends Fragment {
                    // Global.showToast(getContext(),getString(R.string.location_not_found));
                 }
 
+                //When User Clicks on Maps for New Marker Location coming From Capture Button(DetailsOfCustomerAdapter) OR ivMap(LoanCollectionAdapter)
 
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
@@ -203,7 +230,29 @@ public class MapFragment extends Fragment {
                         userMarkerLatitude = latLng.latitude;
                         userMarkerLongitude = latLng.longitude;
 
-                        //Calculate Distance between New Marker position and User's Device
+                        //Save userMarker LatLong ,
+                        // if User comes back to Details Page (DetailsOfCustomerAdapter) & clicks Navigate Button - Navigate To GoogleMaps for Direction
+                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(userMarkerLatitude));
+                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"longitudeFromLoanCollectionAdapter",String.valueOf(userMarkerLongitude));
+
+                        System.out.println("Here Capture Button userMarkerLatitude:"+userMarkerLatitude+" &userMarkerLongitude:"+userMarkerLongitude);
+
+
+                        getCurrentLocation(googleMap); //Marks User Current Location
+
+                        /*// Draw a polyline to show the direction from the User to the New  User Marker
+                        LatLng origin = new LatLng(userLatitude, userLongitude);
+                        LatLng destination = new LatLng( userMarkerLatitude,  userMarkerLongitude);
+                        PolylineOptions polylineOptions = new PolylineOptions()
+                                .add(origin, destination)
+                                .color(Color.BLUE)
+                                .width(5f);
+                        googleMap.addPolyline(polylineOptions);*/
+
+
+
+
+                        //Calculate Distance between New Marker position and User's Device And UpdateLocation Api is called
                         getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
                     }
                 });
@@ -235,6 +284,53 @@ public class MapFragment extends Fragment {
 
            /* Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(intent);*/
+        }
+
+    }
+
+    //for Navigate Button & for New Marker Position
+    private void getCurrentLocation(GoogleMap googleMap){
+
+        if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Request the location permission if it is not granted
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        }
+
+        //for Android Version 11 & Higher
+        if(!Global.isBackgroundLocationAccessEnabled(getActivity())){
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, Global.REQUEST_BACKGROUND_LOCATION);
+        }
+
+
+        else {
+
+            if (locationManager == null) {
+                locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            }
+
+            // Get the device location
+            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, new LocationListener() {
+                @Override
+                public void onLocationChanged(@NonNull Location location) {
+                    // Do something with the location
+                    double latitude = location.getLatitude();
+                    double longitude = location.getLongitude();
+
+                    userLatitude = latitude;
+                    userLongitude = longitude;
+
+                     // for User(Origin) Marker
+                    LatLng userLatLng = new LatLng(userLatitude, userLongitude);
+                    MarkerOptions userMarkerOptions = new MarkerOptions()
+                            .position(userLatLng)
+                            .title("User");
+                    googleMap.addMarker(userMarkerOptions);
+
+                }
+
+            }, null);
         }
 
     }
@@ -306,7 +402,7 @@ public class MapFragment extends Fragment {
 
     }
 
-    private void getDistanceBetweenMarkerAndUser(double userMarkerLatitude, double userMarkerLongitude){
+    public  void getDistanceBetweenMarkerAndUser(double userMarkerLatitude, double userMarkerLongitude){
 
 
         if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -314,7 +410,14 @@ public class MapFragment extends Fragment {
         ) {
             // Request the location permission if it is not granted
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-        } else {
+        }
+
+        //for Android Version 11 & Higher
+        if(!Global.isBackgroundLocationAccessEnabled(getActivity())){
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, Global.REQUEST_BACKGROUND_LOCATION);
+        }
+
+        else {
 
             if (locationManager == null) {
                 locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -371,13 +474,21 @@ public class MapFragment extends Fragment {
                     Global.saveStringInSharedPref(getContext(),"formattedDistanceInKm",formattedDistanceInKm);
 
                     // Update location
-                    String dataSetId = GoogleMapsActivity.dataSetId;
-                    SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider(MapFragment.this).get(SaveLocationOfCustomerViewModel.class);
+                    try{
+                        String dataSetId = GoogleMapsActivity.dataSetId;
+                        SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider(MapFragment.this).get(SaveLocationOfCustomerViewModel.class);
 
-                   if(null != dataSetId){
-                       System.out.println("Here dataSetId:"+dataSetId);
-                       saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(userMarkerLatitude),String.valueOf(userMarkerLongitude),formattedDistanceInKm);
-                   }
+                        if(null != dataSetId){
+                            System.out.println("Here dataSetId:"+dataSetId);
+                            saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(userMarkerLatitude),String.valueOf(userMarkerLongitude),formattedDistanceInKm);
+                            System.out.println("Here userMarkerLatitude:"+userMarkerLatitude+" "+"userMarkerLongitude:"+userMarkerLongitude);
+                        }
+                    }
+                    catch(Exception e){
+                        e.printStackTrace();
+                    }
+
+
 
                 }
 
@@ -404,6 +515,19 @@ public class MapFragment extends Fragment {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
             }
 
+        }
+
+        //for BackGroundLocation for Android 11 & Higher
+        //coming from DetailsOfCustomerAdapter Navigation Button Click
+        if (requestCode == Global.REQUEST_BACKGROUND_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Background location access permission granted
+                DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+                detailsOfCustomerActivity.navigateToGoogleMapsForNavigation();
+            } else {
+                // Background location access permission denied
+                Global.isBackgroundLocationAccessEnabled(getActivity()); // request BackGroundLocation Again
+            }
         }
     }
 }
