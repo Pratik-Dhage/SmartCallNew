@@ -635,7 +635,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             }
         }
 
-        //coming from DetailsOfCustomerAdapter Navigation Button Click
+        //coming from DetailsOfCustomerAdapter Navigation/Capture Button Click
         if (requestCode == Global.REQUEST_BACKGROUND_LOCATION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Background location access permission granted
