@@ -1,6 +1,8 @@
 package com.example.test.google_maps;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
@@ -9,6 +11,7 @@ import androidx.lifecycle.ViewModelStoreOwner;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -18,6 +21,7 @@ import com.example.test.databinding.ActivityGoogleMapsBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.loan_collection.LoanCollectionViewModel;
 import com.example.test.npa_flow.save_location.SaveLocationOfCustomerViewModel;
 
@@ -91,6 +95,41 @@ public class GoogleMapsActivity extends AppCompatActivity {
         binding.ivHome.setOnClickListener(v->{
             startActivity(new Intent(this, MainActivity3API.class));
         });
+    }
+
+    // For Location Permission (For Versions - till Android 10 & Android 11 & above )
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        //requestCode used in getDistanceBetweenMarkerAndUser()
+        if(requestCode == 1){
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permissions granted
+                MapFragment mapFragment = new MapFragment();
+                mapFragment.getDistanceBetweenMarkerAndUser(MapFragment.userMarkerLatitude,MapFragment.userMarkerLongitude);
+
+            } else {
+                // Permissions denied
+                // Request the location permission if it is not granted
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            }
+
+        }
+
+        //for BackGroundLocation for Android 11 & Higher
+        //coming from DetailsOfCustomerAdapter Navigation Button Click
+        if (requestCode == Global.REQUEST_BACKGROUND_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Background location access permission granted
+                DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+                detailsOfCustomerActivity.navigateToGoogleMapsForNavigation();
+            } else {
+                // Background location access permission denied
+                Global.isBackgroundLocationAccessEnabled(this); // request BackGroundLocation Again
+            }
+        }
     }
 
     @Override
