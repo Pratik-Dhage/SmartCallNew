@@ -55,8 +55,8 @@ public class MainActivity3API extends AppCompatActivity {
 
         // Get UserID , BranchCode , UserName from RoomDB
         MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
-        System.out.println("Here UserID in MainActivity3API From RoomDB :"+mPinDao.getUserID(getIntent().getStringExtra("MPin")));
-        System.out.println("Here BranchCode in MainActivity3API From RoomDB :"+mPinDao.getBranchCode(getIntent().getStringExtra("MPin")));
+        System.out.println("Here UserID in MainActivity3API From RoomDB :"+mPinDao.getUserID());
+        System.out.println("Here BranchCode in MainActivity3API From RoomDB :"+mPinDao.getBranchCode());
 
        /* if(getIntent().hasExtra("isFromLoginWithMPin")){
 
