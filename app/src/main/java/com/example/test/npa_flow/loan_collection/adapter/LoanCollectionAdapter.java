@@ -320,7 +320,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
     @Override
     public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
         super.onViewDetachedFromWindow(holder);
-        holder.setIsRecyclable(true);
+        holder.setIsRecyclable(true); // for distance in Km to keep fetching New distance everytime
     }
 
 
