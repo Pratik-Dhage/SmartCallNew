@@ -99,7 +99,7 @@ public class MainActivity3API extends AppCompatActivity {
 
         CallsForTheDayAdapter.isFromCallsForTheDayAdapter = null; // for Navigate Button to be Only visible in NPA/ VisitsForTheDayFlow
 
-
+        System.out.println("Android Version:"+Global.getAndroidVersionAndApiLevel());
 
 
          if(LoginActivity.userName!=null){

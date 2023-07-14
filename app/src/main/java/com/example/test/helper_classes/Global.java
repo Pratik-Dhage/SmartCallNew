@@ -394,6 +394,17 @@ public class Global {
         }
     }
 
+    //For Getting User Device Android Version
+    public static String getAndroidVersionAndApiLevel() {
+        String versionName = "";
+
+        try {
+            versionName = String.valueOf(Build.VERSION.RELEASE)+" API Level:"+ Build.VERSION.SDK_INT;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return versionName;
+    }
 
     //Convert the HTML instruction to String
     public static String  htmlToNormalString(String htmlString){
