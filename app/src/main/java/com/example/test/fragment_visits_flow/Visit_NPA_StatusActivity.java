@@ -347,10 +347,16 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
 
             btnProceed.setOnClickListener(v2 -> {
+
+                String reason = edtPleaseSpecify.getText().toString().trim();
+                VisitsFlowCallDetailsActivity.send_reason =  edtPleaseSpecify.getText().toString().trim(); //to send to Backend Server
+
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 i.putExtra("dataSetId",dataSetId);
                 i.putExtra("detailsList",detailsList);
+                i.putExtra("reason",reason);
+                i.putExtra("isFromVisitNPAStatusActivity_Others","isFromVisitNPAStatusActivity_Others");
                 i.putExtra("isFromVisitNPAStatusActivity","isFromVisitNPAStatusActivity");
                 startActivity(i);
             });

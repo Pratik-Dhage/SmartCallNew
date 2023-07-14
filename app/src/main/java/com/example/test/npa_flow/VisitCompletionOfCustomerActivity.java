@@ -216,6 +216,15 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
             //Visits For The Day Flow
 
+                //VisitForTheDay-> Visited The Customer -> Others
+                if(getIntent().hasExtra("isFromVisitNPAStatusActivity_Others")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String reason = getIntent().getStringExtra("reason");
+                    String visitedTheCustomer_Others = WebServices.visit_others;
+                    visitsFlowViewModel.postVisitsFlowCallDateTime_Others(visitedTheCustomer_Others,dataSetId,"","","","","",reason);
+                     navigateToNearByCustomerActivity();
+                }
+
             // VisitsForTheDay->Did Not Visit The Customer-> Payment Already Made
             if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
@@ -422,6 +431,15 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
             //Visits For The Day Flow
 
+                //VisitForTheDay-> Visited The Customer -> Others
+                if(getIntent().hasExtra("isFromVisitNPAStatusActivity_Others")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String reason = getIntent().getStringExtra("reason");
+                    String visitedTheCustomer_Others = WebServices.visit_others;
+                    visitsFlowViewModel.postVisitsFlowCallDateTime_Others(visitedTheCustomer_Others,dataSetId,"","","","","",reason);
+                    navigateToNearByCustomerActivity();
+                }
+
             // VisitsForTheDay->Did Not Visit The Customer-> Payment Already Made
             if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
@@ -619,6 +637,15 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             //3 Scenarios 1) Calls For The Day Flow 2) Call Details Flow (NPA List) 3) Visits For The Day Flow
 
             //Visits For The Day Flow
+
+                //VisitForTheDay-> Visited The Customer -> Others
+                if(getIntent().hasExtra("isFromVisitNPAStatusActivity_Others")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String reason = getIntent().getStringExtra("reason");
+                    String visitedTheCustomer_Others = WebServices.visit_others;
+                    visitsFlowViewModel.postVisitsFlowCallDateTime_Others(visitedTheCustomer_Others,dataSetId,"","","","","",reason);
+                    navigateToNearByCustomerActivity();
+                }
 
             // VisitsForTheDay->Did Not Visit The Customer-> Payment Already Made
             if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")) {
@@ -830,6 +857,16 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
     }
 
+    private void navigateToNearByCustomerActivity(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(VisitCompletionOfCustomerActivity.this,NearByCustomersActivity.class);
+                startActivity(i);
+            }
+        },1000);
+
+    }
 
     @Override
     protected void onResume() {
