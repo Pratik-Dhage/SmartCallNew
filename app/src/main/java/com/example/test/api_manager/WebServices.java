@@ -184,6 +184,9 @@ public  class WebServices {
     //3)Visit For The Day - Visit-NPA Status (Asked To Visit Later)
     public static String visit_asked_to_visit_later ="activity/submitcall?flow=VTC-ATVL";
 
+    //4)Visit For The Day - Visit-NPA Status (Others)
+    public static String visit_others = "activity/submitcall?flow=VTC-OTH";
+
     //*** Visit For The Day - Did Not Visit The Customer
 
     //Visits For The Day - (CustomerDetailsActivity / Visit - NPA Details) - Did Not Visit The Customer - Visit Rescheduled

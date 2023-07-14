@@ -79,6 +79,19 @@ public class VisitsFlowViewModel extends ViewModel {
 
     }
 
+    //FOR VISITS FLOW - VISITED THE CUSTOMER - OTHERS
+    public void postVisitsFlowCallDateTime_Others(String ApiType,String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber,String reason) {
+        subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+                        "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber+"&reason="+reason,callDetailsList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        this::onHomeApiSuccess, this::onApiError
+                );
+
+    }
+
 
     private void onHomeApiSuccess(String result) {
         mutVisitsFlowCallDetailsResponseApi.setValue(result);
