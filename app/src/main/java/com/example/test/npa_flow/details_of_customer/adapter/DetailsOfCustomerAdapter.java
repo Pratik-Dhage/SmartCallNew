@@ -565,7 +565,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
     @Override
     public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
         super.onViewDetachedFromWindow(holder);
-       // holder.setIsRecyclable(false); // to prevent data from being disappeared when scrolled upwards
+        holder.setIsRecyclable(false); // for Distance in Km beside Capture button to not Disappear
     }
 
     @SuppressLint("NotifyDataSetChanged")
