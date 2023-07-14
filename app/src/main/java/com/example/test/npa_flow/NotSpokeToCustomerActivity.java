@@ -115,7 +115,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                 System.out.println("Here isFromCallsForTheDayAdapter_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
 
-                if(null!= DetailsOfCustomerActivity.FullName && null!= DetailsOfCustomerActivity.Mobile_Number){
+                if(null!= DetailsOfCustomerActivity.FullName || null!= DetailsOfCustomerActivity.Mobile_Number){
 
                     //if CallCount is becoming 4 then Navigate to SubmitCompletionActivityOfCustomer
                     if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==2){
@@ -141,7 +141,10 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                 System.out.println("Here isFromNPA_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
 
-                if(null!= DetailsOfCustomerActivity.FullName && null!= DetailsOfCustomerActivity.Mobile_Number){
+                System.out.println("DetailsOfCustomerActivity.FullName"+DetailsOfCustomerActivity.FullName);
+                System.out.println("DetailsOfCustomerActivity.Mobile_Number"+DetailsOfCustomerActivity.Mobile_Number);
+
+                if(null!= DetailsOfCustomerActivity.FullName || null!= DetailsOfCustomerActivity.Mobile_Number){
 
                     //if CallCount is becoming 4 then Navigate to SubmitCompletionActivityOfCustomer
                     if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==2){
@@ -172,7 +175,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                 System.out.println("Here isFromCallsForTheDayAdapter_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
 
-                if(null!= DetailsOfCustomerActivity.FullName && null!= DetailsOfCustomerActivity.Mobile_Number){
+                if(null!= DetailsOfCustomerActivity.FullName || null!= DetailsOfCustomerActivity.Mobile_Number){
 
                     //if CallCount is becoming 4 then Navigate to SubmitCompletionActivityOfCustomer
                     if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==2){
@@ -198,7 +201,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                 System.out.println("Here isFromNPA_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
 
-                if(null!= DetailsOfCustomerActivity.FullName && null!= DetailsOfCustomerActivity.Mobile_Number){
+                if(null!= DetailsOfCustomerActivity.FullName || null!= DetailsOfCustomerActivity.Mobile_Number){
 
                     //if CallCount is becoming 4 then Navigate to SubmitCompletionActivityOfCustomer
                     if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==2){
