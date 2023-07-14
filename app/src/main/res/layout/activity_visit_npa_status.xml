@@ -258,6 +258,7 @@
                 android:backgroundTint="@color/barnRed"
                 android:text="@string/payment_already_made"
                 android:textStyle="normal"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@id/btnNotReadyToPay"
                 app:layout_constraintStart_toStartOf="@id/btnNotReadyToPay"
                 app:layout_constraintTop_toBottomOf="@id/btnNotReadyToPay"
@@ -269,13 +270,13 @@
                 style="@style/CustomButtonStyle"
                 android:layout_width="@dimen/_136sdp"
                 android:layout_height="@dimen/_45sdp"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:backgroundTint="@color/grey"
                 android:text="@string/others"
                 android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnAskedToVisitLater" />
+                app:layout_constraintEnd_toEndOf="@id/btnNotReadyToPay"
+                app:layout_constraintStart_toStartOf="@id/btnNotReadyToPay"
+                app:layout_constraintTop_toBottomOf="@id/btnNotReadyToPay"
+                app:layout_constraintTop_toTopOf="@id/btnAskedToVisitLater"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
