@@ -222,6 +222,7 @@
             app:layout_constraintTop_toTopOf="@id/btnClaimsPaymentMade" />
 
 
+        <!--Claims Payment Made Renamed to Payment Already Made as text on button-->
         <Button
             android:id="@+id/btnClaimsPaymentMade"
             style="@style/CustomButtonStyle"
@@ -230,7 +231,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:backgroundTint="@color/red"
-            android:text="@string/claims_payment_made"
+            android:text="@string/payment_already_made"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivHistory" />

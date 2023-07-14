@@ -112,6 +112,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
                    ivFileUpload.setVisibility(View.GONE);
                    btnUploadReceipt.setVisibility(View.INVISIBLE);
 
+                  // <!--Claims Payment Made Renamed to Payment Already Made as text on button-->
                    txtProceed.setOnClickListener(v -> {
                        Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                        i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
@@ -212,6 +213,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
       });
 
+      // <!--Claims Payment Made Renamed to Payment Already Made as text on button-->
         binding.btnClaimsPaymentMade.setOnClickListener(v->{
 
             customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
@@ -239,6 +241,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
             });
 
+            //<!--Claims Payment Made Renamed to Payment Already Made as text on button-->
             txtSkipAndProceed.setOnClickListener(v1 -> {
                 Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));

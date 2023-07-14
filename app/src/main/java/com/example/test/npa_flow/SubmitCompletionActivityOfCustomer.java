@@ -460,6 +460,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
             }
 
             //Visits Flow (Not Ready to Pay Claims Payment Made)
+                //<!--Claims Payment Made Renamed to Payment Already Made as text on button-->
             if (getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
@@ -726,6 +727,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
 
             //Visits Flow (Not Ready to Pay Claims Payment Made)
+                //<!--Claims Payment Made Renamed to Payment Already Made as text on button-->
             if (getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
@@ -991,6 +993,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
 
             //Visits Flow (Not Ready to Pay Claims Payment Made)
+                //<!--Claims Payment Made Renamed to Payment Already Made as text on button-->
             if (getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String claimsPaymentMade = WebServices.visit_not_ready_to_pay_claims_payment_made;
