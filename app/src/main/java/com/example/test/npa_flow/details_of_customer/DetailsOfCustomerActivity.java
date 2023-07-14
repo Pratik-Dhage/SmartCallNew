@@ -338,12 +338,19 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                         }
                     });
 
+                    //Get Name for Storing Call Attempts , Name is at index = 0 in result(DetailsOfCustomerResponseModel)
+                   if(result.get(0).getLable().toLowerCase().contains("name")){
+                       System.out.println("DetailsOFCustomerFullName:"+result.get(0).getValue().toString());
+                       DetailsOfCustomerActivity.FullName = result.get(0).getValue().toString();
+                   }
+
                     //Get Name , Mobile Number , Schedule Time  for Calling Purpose and Storing Call Attempts
-                    result.iterator().forEachRemaining(it -> {
+                    result.forEach(it -> {
                         String lowercase_label = String.valueOf(it.getLable()).toLowerCase(); //make labels lowercase
 
                         if (lowercase_label.contains("name")) {
-                            FullName = String.valueOf(it.getValue()); //store name
+                          //  FullName = String.valueOf(it.getValue()); //store name
+                          //  System.out.println("DetailsOfCustomerActivity.FullName"+DetailsOfCustomerActivity.FullName);
                             Global.saveStringInSharedPref(this,"FullName",FullName); //save in SharedPreference fro checking Call Attempt No.
                         }
 
