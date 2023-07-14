@@ -745,9 +745,9 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         binding.btnSubmitEscalateToBM.setOnClickListener(v-> {
 
             if (binding.btnSubmitEscalateToBM.isClickable())
-            System.out.println("Here Submit is Clickable:true");
-            {
 
+            {
+                System.out.println("Here Submit is Clickable:true");
                 binding.btnSubmitEscalateToBM.setClickable(false);
                 System.out.println("Here Submit is Clickable:false");
 
