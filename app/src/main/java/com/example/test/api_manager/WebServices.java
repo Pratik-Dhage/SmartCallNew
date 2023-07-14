@@ -171,7 +171,7 @@ public  class WebServices {
 
     //1)Visit For The Day - Visit-NPA Notification (Visits For The Day Not Ready To Pay Flow)
     public static String visit_not_ready_to_pay_lack_of_funds ="activity/submitcall?flow=NRTP-LOF";
-    public static String visit_not_ready_to_pay_claims_payment_made ="activity/submitcall?flow=NRTP-CPM";
+    public static String visit_not_ready_to_pay_claims_payment_made ="activity/submitcall?flow=NRTP-CPM"; // Button Claims Payment Made Label renamed as Payment Already Made
     public static String visit_not_ready_to_pay_not_taken_loan ="activity/submitcall?flow=NRTP-NTL";
     public static String visit_not_ready_to_pay_loan_taken_by_relative ="activity/submitcall?flow=NRTP-LTBR";
     public static String visit_not_ready_to_pay_will_pay_lumpsump ="activity/submitcall?flow=NRTP-WPLS";
