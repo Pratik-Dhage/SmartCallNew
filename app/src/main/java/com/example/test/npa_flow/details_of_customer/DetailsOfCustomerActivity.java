@@ -91,6 +91,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
     public static byte[] send_callRecordingInByteArray;
     public static String send_callNotes;
     public static int send_callAttemptNo;
+    public static String send_reason;
     public  String send_callScheduledTime  ;
     public  String send_DateOfVisitPromised;
     public  String send_FoName;
@@ -210,6 +211,10 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
         if(String.valueOf(send_callAttemptNo)!=null){
             callDetails.setAttemptNo(send_callAttemptNo);
+        }
+
+        if(send_reason!=null){
+            callDetails.setReason(send_reason);
         }
 
         callDetailsList.add(callDetails);

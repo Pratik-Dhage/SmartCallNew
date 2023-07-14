@@ -36,6 +36,7 @@ import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
@@ -384,9 +385,14 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
 
             btnProceed.setOnClickListener(v2 -> {
+
+                String reason = edtPleaseSpecify.getText().toString().trim(); //to send along API
+                DetailsOfCustomerActivity.send_reason = edtPleaseSpecify.getText().toString().trim(); //to send to BackEnd Server
+
                 Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
+                i.putExtra("reason",reason);
                 i.putExtra("isPaymentInfoOfCustomerActivity_Others","isPaymentInfoOfCustomerActivity_Others");
                 startActivity(i);
             });

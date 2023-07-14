@@ -308,7 +308,8 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
             if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")) {
 
                 String dataSetId = getIntent().getStringExtra("dataSetId");
-                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "");
+                String reason = getIntent().getStringExtra("reason");
+                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "",reason);
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -480,8 +481,9 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         binding.btnSubmitNeedToUpdateDetails.setOnClickListener(v-> {
 
             if (binding.btnSubmitNeedToUpdateDetails.isClickable())
-            System.out.println("Here Submit Button is Clickable:true");
+
             {
+                System.out.println("Here Submit Button is Clickable:true");
 
                 binding.btnSubmitNeedToUpdateDetails.setClickable(false);
                 System.out.println("Here Submit Button is Clickable:false");
@@ -577,7 +579,8 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
             if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")) {
 
                 String dataSetId = getIntent().getStringExtra("dataSetId");
-                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "");
+                String reason = getIntent().getStringExtra("reason");
+                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "",reason);
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -842,7 +845,8 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
             if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")) {
 
                 String dataSetId = getIntent().getStringExtra("dataSetId");
-                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "");
+                String reason = getIntent().getStringExtra("reason");
+                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "",reason);
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
