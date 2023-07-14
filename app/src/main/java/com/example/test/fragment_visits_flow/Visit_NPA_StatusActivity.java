@@ -348,7 +348,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
             btnProceed.setOnClickListener(v2 -> {
 
-                String reason = edtPleaseSpecify.getText().toString().trim();
+                String reason = edtPleaseSpecify.getText().toString().trim(); // for sending along with Api
                 VisitsFlowCallDetailsActivity.send_reason =  edtPleaseSpecify.getText().toString().trim(); //to send to Backend Server
 
                 Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
