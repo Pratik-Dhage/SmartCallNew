@@ -136,9 +136,14 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
 
             btnProceed.setOnClickListener(v2 -> {
+
+                String reason = edtPleaseSpecify.getText().toString().trim();
+                DetailsOfCustomerActivity.send_reason = edtPleaseSpecify.getText().toString().trim();
+
                 Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList",detailsList);
+                i.putExtra("reason",reason);
                 i.putExtra("isPaymentNotificationOfCustomer_Others","isPaymentNotificationOfCustomer_Others");
                 startActivity(i);
             });

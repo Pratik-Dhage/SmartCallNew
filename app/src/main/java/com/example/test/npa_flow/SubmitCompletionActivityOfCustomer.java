@@ -329,8 +329,12 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
             //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
             if (getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")) {
-                Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
-                startActivity(i);
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String reason = getIntent().getStringExtra("reason");
+
+                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "",reason);
+                navigateToDashBoard();
             }
 
             //ALREADY PAID
@@ -599,8 +603,12 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
             //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
             if (getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")) {
-                Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
-                startActivity(i);
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String reason = getIntent().getStringExtra("reason");
+
+                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "",reason);
+                navigateToDashBoard();
             }
 
             //ALREADY PAID
@@ -866,8 +874,12 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
             //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
             if (getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")) {
-                Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
-                startActivity(i);
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String reason = getIntent().getStringExtra("reason");
+
+                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "",reason);
+                navigateToDashBoard();
             }
 
             //ALREADY PAID
