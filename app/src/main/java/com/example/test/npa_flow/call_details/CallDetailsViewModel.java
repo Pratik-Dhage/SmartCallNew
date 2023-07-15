@@ -273,7 +273,8 @@ public class CallDetailsViewModel extends ViewModel {
 
     }
 
-    //10)PAYMENT INFORMATION OF CUSTOMER ACTIVITY -> OTHERS   & PAYMENT NOTIFICATION OF CUSTOMER  -> STTC-OTH
+    //10)PAYMENT INFORMATION OF CUSTOMER ACTIVITY -> OTHERS & PAYMENT INFORMATION OF CUSTOMER ACTIVITY -> NOT TAKEN LOAN
+    // & PAYMENT NOTIFICATION OF CUSTOMER  -> STTC-OTH
     public void postScheduledDateTime_OTHERS(String apiType,String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber,String reason) {
 
         System.out.println("CallDetailsViewModel CallingAgent:"+userId);

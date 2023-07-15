@@ -158,14 +158,17 @@ public  class WebServices {
     //FOR ALREADY PAID (PAYMENT INFORMATION OF CUSTOMER ACTIVITY (NOT READY TO PAY))
     public static String call_details_already_paid ="activity/submitcall?flow=STTC-NRTP-AP";
 
-  //FOR WILL PAY LUMPSUMP(PAYMENT INFORMATION OF CUSTOMER ACTIVITY - WILL PAY LATER -> WILL PAY LUMPSUMP)
+  //FOR WILL PAY LUMPSUMP(PAYMENT INFORMATION OF CUSTOMER ACTIVITY  (NOT READY TO PAY) - WILL PAY LATER -> WILL PAY LUMPSUMP)
   public static String call_details_will_pay_lump_sump ="activity/submitcall?flow=STTC-NRTP-WPL-WPLS";
 
-    //FOR WILL PAY LATER - UPDATE(PAYMENT INFORMATION OF CUSTOMER ACTIVITY - WILL PAY LATER -> UPDATE)
+    //FOR WILL PAY LATER - UPDATE(PAYMENT INFORMATION OF CUSTOMER ACTIVITY (NOT READY TO PAY) - WILL PAY LATER -> UPDATE)
   public static String call_details_will_pay_later_update = "activity/submitcall?flow=STTC-NRTP-WPL-UPDATE";
 
-  //FOR OTHERS (PAYMENT INFORMATION OF CUSTOMER ACTIVITY - OTHERS)
+  //FOR OTHERS (PAYMENT INFORMATION OF CUSTOMER ACTIVITY (NOT READY TO PAY) - OTHERS)
     public static String call_details_payment_info_others = "activity/submitcall?flow=STTC-NRTP-OTHERS";
+
+    //FOR NOT TAKEN LOAN (PAYMENT INFORMATION OF CUSTOMER ACTIVITY (NOT READY TO PAY) - NOT TAKEN LOAN)
+    public static String call_details_payment_info_not_taken_loan = "activity/submitcall?flow=STTC-NRTP-NTL";
 
     //FOR (PAYMENT NOTIFICATION OF CUSTOMER - STTC -OTH)
     public static String call_details_spoke_to_customer_others = "activity/submitcall?flow=STTC-OTH";

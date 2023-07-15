@@ -325,8 +325,12 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
             //PAYMENT INFO OF CUSTOMER-> NOT TAKEN LOAN
             if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")) {
-                Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
-                startActivity(i);
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String payment_info_not_taken_loan = WebServices.call_details_payment_info_not_taken_loan;
+
+                callDetailsViewModel.postScheduledDateTime_OTHERS(payment_info_not_taken_loan,dataSetId, "", "", "", "", "","");
+                navigateToDashBoard();
             }
 
             //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
@@ -614,8 +618,11 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
             //PAYMENT INFO OF CUSTOMER-> NOT TAKEN LOAN
             if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")) {
-                Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
-                startActivity(i);
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String payment_info_not_taken_loan = WebServices.call_details_payment_info_not_taken_loan;
+
+                callDetailsViewModel.postScheduledDateTime_OTHERS(payment_info_not_taken_loan,dataSetId, "", "", "", "", "","");
+                navigateToDashBoard();
             }
 
             //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
@@ -901,8 +908,11 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
             //PAYMENT INFO OF CUSTOMER-> NOT TAKEN LOAN
             if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")) {
-                Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
-                startActivity(i);
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                String payment_info_not_taken_loan = WebServices.call_details_payment_info_not_taken_loan;
+
+                callDetailsViewModel.postScheduledDateTime_OTHERS(payment_info_not_taken_loan,dataSetId, "", "", "", "", "","");
+                navigateToDashBoard();
             }
 
             //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS
