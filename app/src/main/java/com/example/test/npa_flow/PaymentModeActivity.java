@@ -49,7 +49,7 @@ public class PaymentModeActivity extends AppCompatActivity {
     }
 
     private void setToolBarTitle(){
-        if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null ){
+        if(getIntent().hasExtra("isFromCallsForTheDayAdapter") ){
             binding.txtToolbarHeading.setText(R.string.calls_for_the_day_npa_details);
         }
     }

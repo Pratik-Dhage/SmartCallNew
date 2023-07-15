@@ -57,8 +57,8 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
     }
 
     private void setToolBarTitle(){
-        if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null ){
-            binding.txtToolbarHeading.setText(R.string.calls_for_the_day_npa_details);
+        if(getIntent().hasExtra("isFromCallsForTheDayAdapter") ){
+            binding.txtToolbarHeading.setText(R.string.calls_for_the_day_customer_response);
         }
     }
 
