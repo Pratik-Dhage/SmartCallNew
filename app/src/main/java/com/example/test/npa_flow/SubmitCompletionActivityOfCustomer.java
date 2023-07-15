@@ -309,7 +309,9 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String reason = getIntent().getStringExtra("reason");
-                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "",reason);
+
+                String payment_info_of_customer_others =   WebServices.call_details_payment_info_others;
+                callDetailsViewModel.postScheduledDateTime_OTHERS(payment_info_of_customer_others,dataSetId, "", "", "", "", "",reason);
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -333,7 +335,8 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String reason = getIntent().getStringExtra("reason");
 
-                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "",reason);
+                String spoke_to_customer_others = WebServices.call_details_spoke_to_customer_others;
+                callDetailsViewModel.postScheduledDateTime_OTHERS(spoke_to_customer_others,dataSetId, "", "", "", "", "",reason);
                 navigateToDashBoard();
             }
 
@@ -595,7 +598,10 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String reason = getIntent().getStringExtra("reason");
-                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "",reason);
+
+                String payment_info_of_customer_others =   WebServices.call_details_payment_info_others;
+
+                callDetailsViewModel.postScheduledDateTime_OTHERS(payment_info_of_customer_others,dataSetId, "", "", "", "", "",reason);
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -618,7 +624,9 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String reason = getIntent().getStringExtra("reason");
 
-                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "",reason);
+                String spoke_to_customer_others = WebServices.call_details_spoke_to_customer_others;
+
+                callDetailsViewModel.postScheduledDateTime_OTHERS(spoke_to_customer_others,dataSetId, "", "", "", "", "",reason);
                 navigateToDashBoard();
             }
 
@@ -876,7 +884,10 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String reason = getIntent().getStringExtra("reason");
-                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "",reason);
+
+                String payment_info_of_customer_others =   WebServices.call_details_payment_info_others;
+
+                callDetailsViewModel.postScheduledDateTime_OTHERS(payment_info_of_customer_others,dataSetId, "", "", "", "", "",reason);
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -900,7 +911,9 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 String reason = getIntent().getStringExtra("reason");
 
-                callDetailsViewModel.postScheduledDateTime_OTHERS(dataSetId, "", "", "", "", "",reason);
+                String spoke_to_customer_others = WebServices.call_details_spoke_to_customer_others;
+
+                callDetailsViewModel.postScheduledDateTime_OTHERS(spoke_to_customer_others,dataSetId, "", "", "", "", "",reason);
                 navigateToDashBoard();
             }
 

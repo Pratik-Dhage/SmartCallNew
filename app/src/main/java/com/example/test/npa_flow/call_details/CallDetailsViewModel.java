@@ -274,11 +274,11 @@ public class CallDetailsViewModel extends ViewModel {
     }
 
     //10)PAYMENT INFORMATION OF CUSTOMER ACTIVITY -> OTHERS   & PAYMENT NOTIFICATION OF CUSTOMER  -> STTC-OTH
-    public void postScheduledDateTime_OTHERS(String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber,String reason) {
+    public void postScheduledDateTime_OTHERS(String apiType,String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber,String reason) {
 
         System.out.println("CallDetailsViewModel CallingAgent:"+userId);
 
-        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_payment_info_others + "&dataSetId=" + dataSetId + "&callingAgent=" + MainActivity3API.UserID + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+        subscribtion = (Disposable) Global.apiService().post_call_details(apiType + "&dataSetId=" + dataSetId + "&callingAgent=" + MainActivity3API.UserID + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber+"&reason="+reason, callDetailsList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
