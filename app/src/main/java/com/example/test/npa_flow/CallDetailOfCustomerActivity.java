@@ -59,7 +59,7 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
     }
 
     private void setToolBarTitle(){
-        if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null ){
+        if(getIntent().hasExtra("isFromCallsForTheDayAdapter") ){
             binding.txtToolbarHeading.setText(R.string.calls_for_the_day_npa_details);
         }
     }
@@ -146,7 +146,7 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
         binding.btnSpokeToCustomer.setOnClickListener(v -> {
 
                     //From CallsForTheDayAdapter
-                    if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null || Global.getStringFromSharedPref(this,"isFromCallsForTheDayAdapter")!=null){
+                    if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null ){
                         System.out.println("Here isFromCallsForTheDayAdapter_CallDetailOfCustomerActivity");
                         Intent i = new Intent(this, PaymentNotificationOfCustomerActivity.class);
                         i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
@@ -169,7 +169,7 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
         binding.btnNotSpokeToCustomer.setOnClickListener(v->{
 
             //From CallsForTheDayAdapter
-            if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null || Global.getStringFromSharedPref(this,"isFromCallsForTheDayAdapter")!=null){
+            if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null ){
                 System.out.println("Here isFromCallsForTheDayAdapter");
                 Intent i = new Intent(CallDetailOfCustomerActivity.this,NotSpokeToCustomerActivity.class);
                 i.putExtra("dataSetId",getIntent().getStringExtra("dataSetId"));
