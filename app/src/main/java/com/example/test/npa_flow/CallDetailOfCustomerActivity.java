@@ -59,10 +59,11 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
     }
 
     private void setToolBarTitle(){
-        if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null || Global.getStringFromSharedPref(this,"isFromCallsForTheDayAdapter")!=null){
+        if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null ){
             binding.txtToolbarHeading.setText(R.string.calls_for_the_day_npa_details);
         }
     }
+
 
     private void initializeFields() {
 

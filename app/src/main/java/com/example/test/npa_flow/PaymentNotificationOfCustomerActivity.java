@@ -28,6 +28,7 @@ import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,8 +57,8 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
     }
 
     private void setToolBarTitle(){
-        if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
-            binding.txtToolbarHeading.setText(R.string.calls_for_the_day_customer_response);
+        if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null ){
+            binding.txtToolbarHeading.setText(R.string.calls_for_the_day_npa_details);
         }
     }
 
