@@ -435,6 +435,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String notTakenLoan = WebServices.visit_not_ready_to_pay_not_taken_loan;
                 if (NetworkUtilities.getConnectivityStatus(this)) {
                     visitsFlowViewModel.postVisitsFlowCallDateTime(notTakenLoan, dataSetId, "", "", "", "", "");
+                      navigateToNearByCustomerActivity();
                 } else {
                     Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
@@ -717,6 +718,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String notTakenLoan = WebServices.visit_not_ready_to_pay_not_taken_loan;
                 if (NetworkUtilities.getConnectivityStatus(this)) {
                     visitsFlowViewModel.postVisitsFlowCallDateTime(notTakenLoan, dataSetId, "", "", "", "", "");
+                        navigateToNearByCustomerActivity();
                 } else {
                     Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
@@ -998,6 +1000,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String notTakenLoan = WebServices.visit_not_ready_to_pay_not_taken_loan;
                 if (NetworkUtilities.getConnectivityStatus(this)) {
                     visitsFlowViewModel.postVisitsFlowCallDateTime(notTakenLoan, dataSetId, "", "", "", "", "");
+                     navigateToNearByCustomerActivity();
                 } else {
                     Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
