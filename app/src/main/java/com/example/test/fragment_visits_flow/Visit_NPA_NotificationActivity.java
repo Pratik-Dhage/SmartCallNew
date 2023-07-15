@@ -344,9 +344,15 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
 
              btnProceed.setOnClickListener(v2 -> {
+
+                 String reason = edtPleaseSpecify.getText().toString().trim(); // to send along Api
+                 VisitsFlowCallDetailsActivity.send_reason = edtPleaseSpecify.getText().toString().trim(); //to send to backend
+
                  Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                  i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                  i.putExtra("detailsList",detailsList);
+                 i.putExtra("reason",reason);
+                 i.putExtra("isFromVisitNPANotificationActivity_Others","isFromVisitNPANotificationActivity_Others");
                  i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
                  startActivity(i);
              });

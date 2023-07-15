@@ -477,6 +477,16 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 }
             }
 
+                //VisitFlow-NotReadyToPay - Others
+                if(getIntent().hasExtra("isFromVisitNPANotificationActivity_Others")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String reason = getIntent().getStringExtra("reason");
+
+                    String visited_the_customer_not_ready_to_pay_others = WebServices.visit_not_ready_to_pay_others;
+                    visitsFlowViewModel.postVisitsFlowCallDateTime_Others(visited_the_customer_not_ready_to_pay_others,dataSetId,"","","","","",reason);
+                    navigateToNearByCustomerActivity();
+                }
+
 
         }// button SubmitNoChange is Clicked Once or not ends here
 
@@ -751,6 +761,16 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
             }
 
 
+                //VisitFlow-NotReadyToPay - Others
+                if(getIntent().hasExtra("isFromVisitNPANotificationActivity_Others")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String reason = getIntent().getStringExtra("reason");
+
+                    String visited_the_customer_not_ready_to_pay_others = WebServices.visit_not_ready_to_pay_others;
+                    visitsFlowViewModel.postVisitsFlowCallDateTime_Others(visited_the_customer_not_ready_to_pay_others,dataSetId,"","","","","",reason);
+                    navigateToNearByCustomerActivity();
+                }
+
         }//button SubmitNeedToUpdateDetails is clicked once or not ends here
 
         });
@@ -1021,6 +1041,16 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 }
             }
 
+                //VisitFlow-NotReadyToPay - Others
+                if(getIntent().hasExtra("isFromVisitNPANotificationActivity_Others")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String reason = getIntent().getStringExtra("reason");
+
+                    String visited_the_customer_not_ready_to_pay_others = WebServices.visit_not_ready_to_pay_others;
+                    visitsFlowViewModel.postVisitsFlowCallDateTime_Others(visited_the_customer_not_ready_to_pay_others,dataSetId,"","","","","",reason);
+                    navigateToNearByCustomerActivity();
+                }
+
         }// button SubmitEscalateToBM clicked once or not ends here
 
         });
@@ -1040,6 +1070,18 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         },1000);
 
     }
+
+    private void navigateToNearByCustomerActivity(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,NearByCustomersActivity.class);
+                startActivity(i);
+            }
+        },1000);
+
+    }
+
 
 
     @Override
