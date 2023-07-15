@@ -461,7 +461,8 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
         //for Button & Navigate Button(If Capture Button is Visible , then Navigate Button will also be Visible)
         //Navigate & Capture Button Only visible for NPA & VisitsForTheDay using condition CallsForTheDayAdapter.isFromCallsForTheDayAdapter==null
-        if (Objects.equals(a.getButton(), "Y") && CallsForTheDayAdapter.isFromCallsForTheDayAdapter==null) {
+        if (Objects.equals(a.getButton(), "Y") && ( CallsForTheDayAdapter.isFromCallsForTheDayAdapter==null
+                || Global.getStringFromSharedPref(context,"isFromCallsForTheDayAdapter")==null) ) {
             holder.binding.btnDetail.setVisibility(View.VISIBLE);
             holder.binding.btnNavigate.setVisibility(View.VISIBLE);
             holder.binding.btnDetail.setText(a.getButtonLable().toString());
