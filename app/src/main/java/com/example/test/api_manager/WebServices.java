@@ -167,7 +167,10 @@ public  class WebServices {
   //FOR OTHERS (PAYMENT INFORMATION OF CUSTOMER ACTIVITY - OTHERS)
     public static String call_details_payment_info_others = "activity/submitcall?flow=STTC-NRTP-OTHERS";
 
-  //*** Visit For The Day - Visited The Customer ***
+    //FOR (PAYMENT NOTIFICATION OF CUSTOMER - STTC -OTH)
+    public static String call_details_spoke_to_customer_others = "activity/submitcall?flow=STTC-OTH";
+
+  //*** Visit For The Day - Visited The Customer ***0
 
     //1)Visit For The Day - Visit-NPA Notification (Visits For The Day Not Ready To Pay Flow)
     public static String visit_not_ready_to_pay_lack_of_funds ="activity/submitcall?flow=NRTP-LOF";
@@ -175,6 +178,7 @@ public  class WebServices {
     public static String visit_not_ready_to_pay_not_taken_loan ="activity/submitcall?flow=NRTP-NTL";
     public static String visit_not_ready_to_pay_loan_taken_by_relative ="activity/submitcall?flow=NRTP-LTBR";
     public static String visit_not_ready_to_pay_will_pay_lumpsump ="activity/submitcall?flow=NRTP-WPLS";
+    public static String visit_not_ready_to_pay_others = "activity/submitcall?flow=VTC-NRTP-OTH";
 
     //2)Visit For The Day - Visit-NPA Payment Mode ((Visits For The Day Ready To Pay Flow))
     public static String visit_ready_to_pay_send_link_for_online_payment ="activity/submitcall?flow=RTP-SLFOP";
