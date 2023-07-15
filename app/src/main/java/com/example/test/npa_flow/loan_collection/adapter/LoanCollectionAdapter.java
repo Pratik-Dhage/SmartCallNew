@@ -170,6 +170,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
         holder.itemView.setOnClickListener(v->{
             System.out.println("Here LoanCollectionAdapter dataSetId:"+a.getDataSetId().toString());
 
+            Global.saveStringInSharedPref(context,"isFromCallsForTheDayAdapter",null); //to reset the Flows
             CallsForTheDayAdapter.isFromCallsForTheDayAdapter = null; // to Reset CallsForTheDayFlow  & GOTO NPA flow
             //DetailsOfCustomer Only visible if Status is Pending
             if(a.getActionStatus().toLowerCase().contains("pending")){
