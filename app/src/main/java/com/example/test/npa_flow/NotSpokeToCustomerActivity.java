@@ -70,6 +70,25 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
 
         notSpokeToCustomer = false;
+
+        // **For DetailsOfCustomerActivity.FullName &  DetailsOfCustomerActivity.Mobile_Number to Not go Null **
+
+        //Get FullName from detailsList
+       if(detailsList.get(0).getLable().toLowerCase().contains("name")) {
+           DetailsOfCustomerActivity.FullName = detailsList.get(0).getValue().toString();
+       }
+
+       //Get MobileNumber from detailsList
+       detailsList.forEach(it->{
+           if (it.getLable().toLowerCase().contains("mobile") || it.getLable().toLowerCase().contains("phone")){
+               DetailsOfCustomerActivity.Mobile_Number = String.valueOf(it.getValue());
+           }
+       });
+
+
+        System.out.println("DetailsOfCustomerActivity.FullName:"+DetailsOfCustomerActivity.FullName);
+        System.out.println("DetailsOfCustomerActivity.Mobile_Number:"+ DetailsOfCustomerActivity.Mobile_Number);
+
     }
 
 

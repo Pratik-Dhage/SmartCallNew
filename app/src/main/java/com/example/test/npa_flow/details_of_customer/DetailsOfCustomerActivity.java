@@ -342,6 +342,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                    if(result.get(0).getLable().toLowerCase().contains("name")){
                        System.out.println("DetailsOFCustomerFullName:"+result.get(0).getValue().toString());
                        DetailsOfCustomerActivity.FullName = result.get(0).getValue().toString();
+
                    }
 
                     //Get Name , Mobile Number , Schedule Time  for Calling Purpose and Storing Call Attempts
@@ -356,12 +357,10 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
                         if (lowercase_label.contains("mobile") || lowercase_label.contains("phone")) {
 
-                            //test purpose as Mobile number from back end is Long/Double
-                           // DecimalFormat decimalFormat = new DecimalFormat("#");
-                          //  String mobile_number = decimalFormat.format(it.getValue());
 
                             Mobile_Number = String.valueOf(it.getValue()); //store mobile_no
                             System.out.println("Here Mobile Number: "+Mobile_Number);
+
                         }
 
                     });
