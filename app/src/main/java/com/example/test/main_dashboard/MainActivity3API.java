@@ -97,8 +97,9 @@ public class MainActivity3API extends AppCompatActivity {
         VisitsForTheDayAdapter.showNearByCustomerButton = false ; //in NearByCustomerActivity - from Visits For The Day Flow to be True Else False
 
 
-        Global.saveStringInSharedPref(this,"isFromCallsForTheDayAdapter",null); //to reset the Flows
+       // Global.saveStringInSharedPref(this,"isFromCallsForTheDayAdapter",null); //to reset the Flows
         CallsForTheDayAdapter.isFromCallsForTheDayAdapter=null ; // for Navigate Button to be Only visible in NPA/ VisitsForTheDayFlow
+        System.out.println("Here MainActivity3Api isFromCallsForTheDayAdapter "+ CallsForTheDayAdapter.isFromCallsForTheDayAdapter);
 
         System.out.println("Android Version:"+Global.getAndroidVersionAndApiLevel()); // to get User's Device Android Version
 
