@@ -121,6 +121,10 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
         if(a.getMobileNumber()!=null){
          holder.binding.txtMobileNumber.setText(a.getMobileNumber());
         }
+        // to set empty if Mobile Number is null //This else block is needed
+        else{
+            holder.binding.txtMobileNumber.setText("");
+        }
 
         if(a.getPinCode()!=null){
             holder.binding.txtPinCode.setText(a.getPinCode());
