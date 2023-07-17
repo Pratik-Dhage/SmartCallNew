@@ -146,6 +146,13 @@ public class GoogleMapsActivity extends AppCompatActivity {
 
                 String savedDistance = Global.getStringFromSharedPref(this, "formattedDistanceInKm");
                  dataSetId = getIntent().getStringExtra("dataSetId");
+
+                 //get from SHaredPreference stored in LoanCollectionAdapter
+                 if(null == dataSetId){
+                     dataSetId = Global.getStringFromSharedPref(this,"dataSetId");
+                 }
+
+
                 if(savedDistance!=null){
 
                     //coming from LoanCollectionAdapter on red ivMap clicking
