@@ -153,6 +153,11 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
                   i.putExtra("dataSetId",LoanCollectionAdapter.LoanCollectionAdapter_dataSetId); // for Saving UpdatedLocation on Capture Button click
                   context.startActivity(i);
 
+                  // to use in DetailsOfCustomerAdapter on Capture Button click to updateLocation in case dataSetId goes null
+                  //in case where coming Back from GoogleMaps App and again clicking Capture Button
+                  //in getDistanceBetweenMarkerAndUser()
+                  Global.saveStringInSharedPref(context,"dataSetId",String.valueOf(a.getDataSetId()));
+
                   // to display in DetailsOfCustomerAdapter
                   Global.saveStringInSharedPref(context,"formattedDistanceInKm",String.valueOf(a.getDistance()));
 

@@ -217,6 +217,11 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
                 Intent i = new Intent(context, DetailsOfCustomerActivity.class);
                 i.putExtra("dataSetId", DetailsOfCustomerAdapter.dataSetId);
                 context.startActivity(i);
+
+                // to use in DetailsOfCustomerAdapter on Capture Button click to updateLocation in case dataSetId goes null
+                //in case where coming Back from GoogleMaps App and again clicking Capture Button
+                //in getDistanceBetweenMarkerAndUser()
+                Global.saveStringInSharedPref(context,"dataSetId",String.valueOf(a.getDataSetId()));
             }
 
             /*
