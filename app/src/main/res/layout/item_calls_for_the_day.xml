@@ -161,7 +161,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_2sdp"
             android:textStyle="normal"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintEnd_toStartOf="@id/ivMap"
             app:layout_constraintTop_toTopOf="parent"
             android:text="@string/km" />
@@ -173,7 +173,7 @@
             android:layout_height="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_5sdp"
             android:src="@drawable/location"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/txtDistance"
             app:layout_constraintBottom_toBottomOf="@id/txtDistance"

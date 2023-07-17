@@ -1,6 +1,7 @@
 package com.example.test.schedule_flow.calls_for_the_day.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.example.test.helper_classes.Global;
 import com.example.test.npa_flow.CallDetailOfCustomerActivity;
 import com.example.test.npa_flow.NotSpokeToCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
+import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 import com.example.test.npa_flow.status_of_customer.StatusOfCustomerActivity;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.NotSpokeToCustomerDao;
@@ -60,7 +62,7 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
         }
 
         if(a.getDistance()!=null){
-          //  holder.binding.txtDistance.setText(String.valueOf(a.getDistance()));
+            holder.binding.txtDistance.setText(String.valueOf(a.getDistance()));
         }
 
         if(a.getLocation()!=null){
@@ -124,11 +126,21 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
                 String latitude = String.valueOf(a.getLattitute());
                 String longitude = String.valueOf(a.getLongitute());
 
-                Intent googleMapsIntent = new Intent(context, GoogleMapsActivity.class);
-                googleMapsIntent.putExtra("latitude_callsForTheDay", Double.parseDouble(latitude));
-                googleMapsIntent.putExtra("longitude_callsForTheDay", Double.parseDouble(longitude));
-                googleMapsIntent.putExtra("isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter");
-                context.startActivity(googleMapsIntent);
+                if(!Global.isLocationEnabled(context) || !Global.isBackgroundLocationAccessEnabled((Activity) context)){
+                    Global.showToast(context, "Please Turn Location On");
+                }
+
+                else if (Global.isLocationEnabled(context) && Global.isBackgroundLocationAccessEnabled((Activity) context) ){
+
+                    Intent googleMapsIntent = new Intent(context, GoogleMapsActivity.class);
+                    googleMapsIntent.putExtra("latitude_visitsForTheDay", Double.parseDouble(latitude));
+                    googleMapsIntent.putExtra("longitude_visitsForTheDay", Double.parseDouble(longitude));
+                    googleMapsIntent.putExtra("isFromVisitsForTheDayAdapter","isFromVisitsForTheDayAdapter");
+                    googleMapsIntent.putExtra("dataSetId",String.valueOf(a.getDataSetId()));
+                    context.startActivity(googleMapsIntent);
+
+
+                }
 
             }
 
@@ -151,6 +163,19 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
                 i.putExtra("dataSetId",dataSetId);
                 i.putExtra("isFromCallsForTheDayAdapter",isFromCallsForTheDayAdapter);
                 context.startActivity(i);
+
+                // to use in DetailsOfCustomerAdapter on Capture Button click to updateLocation in case dataSetId goes null
+                //in case where coming Back from GoogleMaps App and again clicking Capture Button
+                //in getDistanceBetweenMarkerAndUser()
+                Global.saveStringInSharedPref(context,"dataSetId",String.valueOf(a.getDataSetId()));
+
+                // to display in DetailsOfCustomerAdapter
+                Global.saveStringInSharedPref(context,"formattedDistanceInKm",String.valueOf(a.getDistance()));
+                LoanCollectionAdapter.LoanCollectionAdapter_Distance = String.valueOf(a.getDistance()); //it will only display if it is not 0.0km
+
+                // for Navigate Button in DetailsOfCustomerAdapter , to navigate to GoogleMaps
+                Global.saveStringInSharedPref(context,"latitudeFromLoanCollectionAdapter",String.valueOf(a.getLattitute()));
+                Global.saveStringInSharedPref(context,"longitudeFromLoanCollectionAdapter",String.valueOf(a.getLongitute()));
 
             }
         });
