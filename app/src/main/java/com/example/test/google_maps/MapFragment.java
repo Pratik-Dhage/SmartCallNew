@@ -48,6 +48,7 @@ import com.google.maps.model.DirectionsLeg;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.DirectionsStep;
+import com.google.maps.model.TravelMode;
 
 import java.io.IOException;
 import java.util.List;
@@ -61,6 +62,9 @@ public class MapFragment extends Fragment {
     double userLongitude;
    public static  double userMarkerLatitude; //for when user clicks on new locations
    public static double userMarkerLongitude; //for when user clicks on new locations
+    String formattedDistanceInKm ="0";
+    String dataSetId;
+    long distanceInKm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -442,45 +446,98 @@ public class MapFragment extends Fragment {
                     System.out.println("Here MarkerLatitude & MarkerLongitude: "+userMarkerLatitude+" "+userMarkerLongitude);
 
                     // Calculate the distance between the user's location and the marker using Location.distanceBetween() in Meters
-                    float[] distance = new float[1];
+                  /*  float[] distance = new float[1];
                     Location.distanceBetween(userLatLng.latitude, userLatLng.longitude, userMarkerLatitude, userMarkerLongitude, distance);
 
                     // Convert the distance from Meters To Kilometers
                     float distanceInKm = distance[0] / 1000;
                     String formattedDistanceInKm = String.format("%.2f", distanceInKm);
+*/
+
+                    //Calculate Distance between user's LatLong and userMarker's LatLong using Google's Directions Api
+                    com.google.maps.model.LatLng originLatLng = new com.google.maps.model.LatLng(userLatitude, userLongitude);
+                    com.google.maps.model.LatLng destinationLatLng = new com.google.maps.model.LatLng(userMarkerLatitude, userMarkerLongitude);
+
+                    GeoApiContext geoApiContext = new GeoApiContext.Builder()
+                            .apiKey("AIzaSyDsqxiDX4Pqfn7NUYzKFS2Nn2H4W5ywtaQ")
+                            .build();
+
+                    com.google.maps.DirectionsApi.newRequest(geoApiContext)
+                            .origin(originLatLng)
+                            .destination(destinationLatLng)
+                            .mode(TravelMode.WALKING) //Travel Mode is Walking (can use Driving)
+                            .setCallback(new com.google.maps.PendingResult.Callback<com.google.maps.model.DirectionsResult>() {
+                                @Override
+                                public void onResult(com.google.maps.model.DirectionsResult result) {
+                                    if (result.routes != null && result.routes.length > 0) {
+                                        long distanceInMeters = result.routes[0].legs[0].distance.inMeters;
+
+                                        //convert Meters to Kilometers
+                                         distanceInKm = distanceInMeters / 1000;
+                                         formattedDistanceInKm = String.valueOf(distanceInKm);
+
+                                        // Use runOnUiThread to update the UI safely
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+
+                                                setNewDistanceAndUpdateLocation(formattedDistanceInKm);
+
+                                            }
+                                        });
+
+                                        System.out.println("Distance: " + distanceInKm + " Km");
+
+                                    } else {
+                                        System.out.println("Error: No route found");
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Throwable e) {
+                                    System.out.println("Error calculating distance: " + e.getMessage());
+                                }
 
 
+                            });
+
+
+                    /*// set New formattedDistanceInKm as TextView
                     try{
                         TextView txtDistance = getActivity().findViewById(R.id.txtDistance);
 
-                        if(!formattedDistanceInKm.isEmpty()){
+                        if(!String.valueOf(distanceInKm).isEmpty()){
                             getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.GONE); //Dismiss ProgressBar
                             txtDistance.setVisibility(View.VISIBLE);
-                            txtDistance.setText(formattedDistanceInKm);
+                            txtDistance.setText(String.valueOf(distanceInKm));
                         }
 
                         System.out.println("Marker Distance in Km:" + distanceInKm);
                     }
                     catch(Exception e){
-                        System.out.println("Here Distance Exception:"+e.getLocalizedMessage());
+                        System.out.println("Here Distance Exception:"+e);
                     }
-
-
-
-                    // Log the distance
-                    // Log.d("MapsActivity", "Distance from user to Lodha Xperia Mall: " + distanceInKm + " km");
 
                     //Save Distance in SharedPreference
                     Global.saveStringInSharedPref(getContext(),"formattedDistanceInKm",formattedDistanceInKm);
 
                     // Update location
                     try{
-                        String dataSetId = GoogleMapsActivity.dataSetId;
+                         dataSetId = GoogleMapsActivity.dataSetId;
                         SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider(MapFragment.this).get(SaveLocationOfCustomerViewModel.class);
 
                         if(null != dataSetId){
                             System.out.println("Here dataSetId:"+dataSetId);
-                            saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(userMarkerLatitude),String.valueOf(userMarkerLongitude),formattedDistanceInKm);
+                            saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(userMarkerLatitude),String.valueOf(userMarkerLongitude),String.valueOf(distanceInKm));
+                            System.out.println("Here userMarkerLatitude:"+userMarkerLatitude+" "+"userMarkerLongitude:"+userMarkerLongitude);
+                        }
+
+                        //if dataSetId == null , in case User Again clicks on Capture Button
+                        else {
+                            // get from Shared Preference stored in LoanCollectionAdapter
+                            dataSetId = Global.getStringFromSharedPref(getActivity(),"dataSetId");
+                            System.out.println("Here dataSetId:"+dataSetId);
+                            saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(userMarkerLatitude),String.valueOf(userMarkerLongitude),String.valueOf(distanceInKm));
                             System.out.println("Here userMarkerLatitude:"+userMarkerLatitude+" "+"userMarkerLongitude:"+userMarkerLongitude);
                         }
                     }
@@ -488,12 +545,53 @@ public class MapFragment extends Fragment {
                         e.printStackTrace();
                     }
 
-
+*/
 
                 }
 
             }, null);
         }
+
+    }
+
+    public void setNewDistanceAndUpdateLocation(String formattedDistanceInKm){
+
+        // set New formattedDistanceInKm as TextView
+        try{
+            TextView txtDistance = getActivity().findViewById(R.id.txtDistance);
+
+            if(!formattedDistanceInKm.isEmpty()){
+                getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.GONE); //Dismiss ProgressBar
+                txtDistance.setVisibility(View.VISIBLE);
+                txtDistance.setText(String.valueOf(formattedDistanceInKm));
+            }
+
+            System.out.println("Marker Distance in Km:" + formattedDistanceInKm);
+        }
+        catch(Exception e){
+            System.out.println("Here Distance Exception:"+e);
+        }
+
+        //Save Distance in SharedPreference
+        Global.saveStringInSharedPref(getContext(),"formattedDistanceInKm",formattedDistanceInKm);
+
+        // Update location
+        try{
+            dataSetId = GoogleMapsActivity.dataSetId;
+            SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider(MapFragment.this).get(SaveLocationOfCustomerViewModel.class);
+
+            if(null != dataSetId){
+                System.out.println("Here dataSetId:"+dataSetId);
+                saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(userMarkerLatitude),String.valueOf(userMarkerLongitude),formattedDistanceInKm);
+                System.out.println("Here userMarkerLatitude:"+userMarkerLatitude+" "+"userMarkerLongitude:"+userMarkerLongitude);
+            }
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+
 
     }
 
