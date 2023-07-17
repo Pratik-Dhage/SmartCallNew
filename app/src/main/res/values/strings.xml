@@ -395,6 +395,8 @@
     <string name="ifsc_code_be_eleven_digit">IFSC code  must be 11 digit</string>
     <string name="navigate">Navigate</string>
     <string name="kindly_install_google_maps">Kindly install GoogleMaps</string>
+    <string name="start_visit">Start Visit</string>
+    <string name="stop_visit">\u00A0Stop Visit\u00A0</string>
 
 
     <!--for Tenure-->

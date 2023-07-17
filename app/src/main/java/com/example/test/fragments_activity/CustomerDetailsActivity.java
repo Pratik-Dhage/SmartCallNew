@@ -3,6 +3,8 @@ package com.example.test.fragments_activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,8 +15,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityCustomerDetailsBinding;
@@ -37,6 +38,10 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     ActivityCustomerDetailsBinding binding;
     View view;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
+
+    // for getting User LatLong on clicking Start Visit , initial values will be 0.0
+    double userLatitude = 0.0;
+    double userLongitude = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +159,65 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
       });
 
+      //Start Visit
+      binding.btnStartVisit.setOnClickListener(v->{
+          // get LatLong of User
 
+          if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+              ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+          }
+
+        else if(!Global.isLocationEnabled(this) || !Global.isBackgroundLocationAccessEnabled(this)){
+              Global.showToast(this, "Please Turn Location On");
+          }
+
+          else if(Global.isLocationEnabled(this) && Global.isBackgroundLocationAccessEnabled(this)){
+
+              try{
+                   userLatitude = Global.getDeviceLocation(this).getLatitude();
+                   userLongitude = Global.getDeviceLocation(this).getLongitude();
+
+                  System.out.println("Here userLatitude:"+userLatitude+" userLongitude:"+userLongitude);
+
+              }
+              catch (Exception e){
+                  e.printStackTrace();
+              }
+          }
+
+
+      });
+
+      //Stop Visit
+      binding.btnStopVisit.setOnClickListener(v->{
+
+          View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_stop_visit, null);
+          ImageView ivClose = customDialog.findViewById(R.id.ivClose);
+          Button btnYes = customDialog.findViewById(R.id.btnYes);
+
+          AlertDialog.Builder builder = new AlertDialog.Builder(this);
+          builder.setView(customDialog);
+          builder.setCancelable(true);
+          final AlertDialog dialog = builder.create();
+          dialog.show();
+
+           btnYes.setOnClickListener(v1->{
+               // make button Visited & Not Visited visible
+               binding.btnVisitedTheCustomer.setVisibility(View.VISIBLE);
+               binding.btnDidNotVisitTheCustomer.setVisibility(View.VISIBLE);
+
+               //make button StartVisit & Stop Visit invisible
+               binding.btnStartVisit.setVisibility(View.INVISIBLE);
+               binding.btnStopVisit.setVisibility(View.INVISIBLE);
+
+               dialog.dismiss();
+           });
+
+          ivClose.setOnClickListener(v2->{
+              dialog.dismiss();
+          });
+
+      });
 
         //for Notes
         binding.ivNotesIcon.setOnClickListener(v->{
@@ -176,6 +239,17 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        //on clicking Start Visit to get User LatLong
+        if(requestCode == 101){
+            userLatitude = Global.getDeviceLocation(this).getLatitude();
+            userLongitude = Global.getDeviceLocation(this).getLongitude();
+
+            System.out.println("Here userLatitude:"+userLatitude+" userLongitude:"+userLongitude);
+        }
+        else{
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+        }
 
         //coming from DetailsOfCustomerAdapter Navigation/Capture Button Click
         if (requestCode == Global.REQUEST_BACKGROUND_LOCATION) {
