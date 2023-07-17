@@ -52,6 +52,7 @@ import com.google.maps.model.TravelMode;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 public class MapFragment extends Fragment {
 
@@ -64,7 +65,7 @@ public class MapFragment extends Fragment {
    public static double userMarkerLongitude; //for when user clicks on new locations
     String formattedDistanceInKm ="0";
     String dataSetId;
-    long distanceInKm;
+    double distanceInKm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -466,6 +467,7 @@ public class MapFragment extends Fragment {
                             .origin(originLatLng)
                             .destination(destinationLatLng)
                             .mode(TravelMode.WALKING) //Travel Mode is Walking (can use Driving)
+                           // .avoid(DirectionsApi.RouteRestriction.HIGHWAYS)
                             .setCallback(new com.google.maps.PendingResult.Callback<com.google.maps.model.DirectionsResult>() {
                                 @Override
                                 public void onResult(com.google.maps.model.DirectionsResult result) {
@@ -473,8 +475,8 @@ public class MapFragment extends Fragment {
                                         long distanceInMeters = result.routes[0].legs[0].distance.inMeters;
 
                                         //convert Meters to Kilometers
-                                         distanceInKm = distanceInMeters / 1000;
-                                         formattedDistanceInKm = String.valueOf(distanceInKm);
+                                         distanceInKm = distanceInMeters / 1000.0;
+                                         formattedDistanceInKm = String.format("%.2f", distanceInKm); // Format to two decimal places
 
                                         // Use runOnUiThread to update the UI safely
                                         getActivity().runOnUiThread(new Runnable() {
