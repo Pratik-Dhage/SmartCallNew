@@ -1,28 +1,32 @@
 package com.example.test.api_manager;
 
 
+
 //import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
+import okhttp3.Credentials;
+import okhttp3.Interceptor;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 // TO Authenticate the credentials before calling the API
 public class AuthInterceptor implements Interceptor {
-    private String authToken;
+    private final String userName;
+    private final String password;
 
-    public AuthInterceptor(String token) {
-        this.authToken = token;
+    public AuthInterceptor(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Request request = chain.request();
+        okhttp3.Request request = chain.request();
         Request authenticatedRequest = request.newBuilder()
-                .header("Authorization", "Bearer " + authToken)
+                .header("Authorization", Credentials.basic(userName, password))
                 .build();
         return chain.proceed(authenticatedRequest);
     }
