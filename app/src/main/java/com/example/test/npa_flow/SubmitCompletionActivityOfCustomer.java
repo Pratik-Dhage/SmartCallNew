@@ -431,6 +431,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String lackOfFunds = WebServices.visit_not_ready_to_pay_lack_of_funds;
                 if (NetworkUtilities.getConnectivityStatus(this)) {
                     visitsFlowViewModel.postVisitsFlowCallDateTime(lackOfFunds, dataSetId, "", "", "", "", "");
+                     navigateToNearByCustomerActivity();
                 } else {
                     Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
@@ -456,6 +457,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String loanTakenByRelative = WebServices.visit_not_ready_to_pay_loan_taken_by_relative;
                 if (NetworkUtilities.getConnectivityStatus(this)) {
                     visitsFlowViewModel.postVisitsFlowCallDateTime(loanTakenByRelative, dataSetId, "", "", "", relativeName, relativeContact);
+                    navigateToNearByCustomerActivity();
                 } else {
                     Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
@@ -467,6 +469,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 String willPayLumpSump = WebServices.visit_not_ready_to_pay_will_pay_lumpsump;
                 if (NetworkUtilities.getConnectivityStatus(this)) {
                     visitsFlowViewModel.postVisitsFlowCallDateTime(willPayLumpSump, dataSetId, "", "", "", "", "");
+                     navigateToNearByCustomerActivity();
                 } else {
                     Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
