@@ -218,7 +218,6 @@
                 android:backgroundTint="@color/green"
                 android:text="@string/visited_the_customer_space"
                 android:textStyle="normal"
-                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
@@ -233,13 +232,12 @@
                 android:backgroundTint="@color/red"
                 android:text="@string/not_visited_the_customer"
                 android:textStyle="normal"
-                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnVisitedTheCustomer" />
 
 
-            <!--Start Visit-->
+            <!--&lt;!&ndash;Start Visit&ndash;&gt;
             <Button
                 android:id="@+id/btnStartVisit"
                 style="@style/CustomButtonStyle"
@@ -253,7 +251,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
 
-            <!--Stop Visit-->
+            &lt;!&ndash;Stop Visit&ndash;&gt;
             <Button
                 android:id="@+id/btnStopVisit"
                 style="@style/CustomButtonStyle"
@@ -266,7 +264,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnVisitedTheCustomer" />
-
+-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

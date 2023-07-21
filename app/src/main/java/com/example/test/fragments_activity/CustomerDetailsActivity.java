@@ -159,65 +159,8 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
       });
 
-      //Start Visit
-      binding.btnStartVisit.setOnClickListener(v->{
-          // get LatLong of User
-
-          if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-              ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
-          }
-
-        else if(!Global.isLocationEnabled(this) || !Global.isBackgroundLocationAccessEnabled(this)){
-              Global.showToast(this, "Please Turn Location On");
-          }
-
-          else if(Global.isLocationEnabled(this) && Global.isBackgroundLocationAccessEnabled(this)){
-
-              try{
-                   userLatitude = Global.getDeviceLocation(this).getLatitude();
-                   userLongitude = Global.getDeviceLocation(this).getLongitude();
-
-                  System.out.println("Here userLatitude:"+userLatitude+" userLongitude:"+userLongitude);
-
-              }
-              catch (Exception e){
-                  e.printStackTrace();
-              }
-          }
 
 
-      });
-
-      //Stop Visit
-      binding.btnStopVisit.setOnClickListener(v->{
-
-          View customDialog = LayoutInflater.from(this).inflate(R.layout.custom_dialog_stop_visit, null);
-          ImageView ivClose = customDialog.findViewById(R.id.ivClose);
-          Button btnYes = customDialog.findViewById(R.id.btnYes);
-
-          AlertDialog.Builder builder = new AlertDialog.Builder(this);
-          builder.setView(customDialog);
-          builder.setCancelable(true);
-          final AlertDialog dialog = builder.create();
-          dialog.show();
-
-           btnYes.setOnClickListener(v1->{
-               // make button Visited & Not Visited visible
-               binding.btnVisitedTheCustomer.setVisibility(View.VISIBLE);
-               binding.btnDidNotVisitTheCustomer.setVisibility(View.VISIBLE);
-
-               //make button StartVisit & Stop Visit invisible
-               binding.btnStartVisit.setVisibility(View.INVISIBLE);
-               binding.btnStopVisit.setVisibility(View.INVISIBLE);
-
-               dialog.dismiss();
-           });
-
-          ivClose.setOnClickListener(v2->{
-              dialog.dismiss();
-          });
-
-      });
 
         //for Notes
         binding.ivNotesIcon.setOnClickListener(v->{
