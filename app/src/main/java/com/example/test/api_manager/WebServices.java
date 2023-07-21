@@ -15,6 +15,7 @@ import com.google.gson.GsonBuilder;
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -57,6 +58,8 @@ public  class WebServices {
     public static String SmartCall_BaseURL5 = "http://45.113.189.27:8082/"; // FOR Client (Faster Response from Backend) Production
 
     public static String SmartCall_BaseURL6 = "http://45.114.143.87:8082/"; // new Server 13/07/2023
+
+    public static String SmartCall_BaseURL7 = "https://@aakhyatechapps.com/"; // new BaseURL 19/07/2023 (https - secured)
 
     //for Login Authentication
     public static String Login_Authentication = "security/authenticateUser";
@@ -165,7 +168,7 @@ public  class WebServices {
   public static String call_details_will_pay_later_update = "activity/submitcall?flow=STTC-NRTP-WPL-UPDATE";
 
   //FOR OTHERS (PAYMENT INFORMATION OF CUSTOMER ACTIVITY (NOT READY TO PAY) - OTHERS)
-    public static String call_details_payment_info_others = "activity/submitcall?flow=STTC-NRTP-OTHERS";
+    public static String call_details_payment_info_others = "activity/submitcall?flow=STTC-NRTP-OTH";
 
     //FOR NOT TAKEN LOAN (PAYMENT INFORMATION OF CUSTOMER ACTIVITY (NOT READY TO PAY) - NOT TAKEN LOAN)
     public static String call_details_payment_info_not_taken_loan = "activity/submitcall?flow=STTC-NRTP-NTL";
@@ -176,15 +179,15 @@ public  class WebServices {
   //*** Visit For The Day - Visited The Customer ***0
 
     //1)Visit For The Day - Visit-NPA Notification (Visits For The Day Not Ready To Pay Flow)
-    public static String visit_not_ready_to_pay_lack_of_funds ="activity/submitcall?flow=NRTP-LOF";
-    public static String visit_not_ready_to_pay_claims_payment_made ="activity/submitcall?flow=NRTP-CPM"; // Button Claims Payment Made Label renamed as Payment Already Made
-    public static String visit_not_ready_to_pay_not_taken_loan ="activity/submitcall?flow=NRTP-NTL";
-    public static String visit_not_ready_to_pay_loan_taken_by_relative ="activity/submitcall?flow=NRTP-LTBR";
-    public static String visit_not_ready_to_pay_will_pay_lumpsump ="activity/submitcall?flow=NRTP-WPLS";
+    public static String visit_not_ready_to_pay_lack_of_funds ="activity/submitcall?flow=VTC-NRTP-LOF";
+    public static String visit_not_ready_to_pay_claims_payment_made ="activity/submitcall?flow=VTC-NRTP-CPM"; // Button Claims Payment Made Label renamed as Payment Already Made
+    public static String visit_not_ready_to_pay_not_taken_loan ="activity/submitcall?flow=VTC-NRTP-NTL";
+    public static String visit_not_ready_to_pay_loan_taken_by_relative ="activity/submitcall?flow=VTC-NRTP-LTBR";
+    public static String visit_not_ready_to_pay_will_pay_lumpsump ="activity/submitcall?flow=VTC-NRTP-WPLS";
     public static String visit_not_ready_to_pay_others = "activity/submitcall?flow=VTC-NRTP-OTH";
 
     //2)Visit For The Day - Visit-NPA Payment Mode ((Visits For The Day Ready To Pay Flow))
-    public static String visit_ready_to_pay_send_link_for_online_payment ="activity/submitcall?flow=RTP-SLFOP";
+    public static String visit_ready_to_pay_send_link_for_online_payment ="activity/submitcall?flow=VTC-RTP-SLFOP";
     public static String visit_ready_to_pay_cash_payment ="activity/submitcallCheque?flow=VTC-RTP-CAP";
     public static String visit_ready_to_pay_cheque_payment = "activity/submitcallCheque?flow=VTC-RTP-CHP";
 
@@ -257,7 +260,8 @@ public  class WebServices {
         okHttpBuilder.readTimeout(2, TimeUnit.MINUTES).build();
         okHttpBuilder.writeTimeout(2, TimeUnit.MINUTES);
         okHttpBuilder.addInterceptor(logging);
-        //okHttpBuilder.addInterceptor(new AuthInterceptor("your-auth-token")) // to authenticate credential before calling the api
+        AuthInterceptor authInterceptor = new AuthInterceptor("Admin","abcd_1234");
+        okHttpBuilder.addInterceptor(authInterceptor);// to authenticate credential before calling the api
         OkHttpClient okHttpClient = okHttpBuilder.build();
 
         //Gson gson = new GsonBuilder().setLenient().registerTypeAdapter(Type.class,new TypeAdapter()).create();
