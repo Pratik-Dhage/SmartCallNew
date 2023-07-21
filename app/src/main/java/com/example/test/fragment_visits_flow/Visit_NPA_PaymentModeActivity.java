@@ -211,11 +211,13 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                   edtPleaseEnterChequeDate.setOnFocusChangeListener((v1, hasFocus) -> {
                       if(hasFocus){
                           showDatePickerDialogAndSetDate(edtPleaseEnterChequeDate);
+                          edtPleaseEnterChequeDate.setError(null);
                       }
                   });
 
                   edtPleaseEnterChequeDate.setOnClickListener(v1->{
                       showDatePickerDialogAndSetDate(edtPleaseEnterChequeDate);
+                      edtPleaseEnterChequeDate.setError(null);
                   });
 
 
