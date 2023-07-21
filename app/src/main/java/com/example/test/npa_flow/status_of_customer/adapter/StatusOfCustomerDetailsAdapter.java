@@ -164,6 +164,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         // / FO Not Visited / Loan taken By Relative / Already Paid / Will Pay later
                         //Cash Amount Paid / Cheque Payment
                         // / Customer Not Available / Late For Visit / Others
+                        //Not Taken Loan
 
                         if (attemptFlow.contains("svfc")) {
                             holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
@@ -204,6 +205,10 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         else if(attemptFlow.contains("o")){
                             holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo2.setText(R.string.others);
+                        }
+                        else if(attemptFlow.contains("ntl")){
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.not_taken_loan);
                         }
 
 
