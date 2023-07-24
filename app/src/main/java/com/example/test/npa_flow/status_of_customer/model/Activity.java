@@ -24,6 +24,9 @@ public class Activity implements Serializable {
     private String scheduleDate;
     private String scheduleTime;
     private String amountCollected;
+    private String bankName;
+    private String chequeDate;
+    private String chequeNumber;
     private List<ActivityDetail> activityDetails;
     private Activity childActivity;
     public Long getActivityId() {
@@ -139,5 +142,29 @@ public class Activity implements Serializable {
 
     public void setAmountCollected(String amountCollected) {
         this.amountCollected = amountCollected;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getChequeDate() {
+        return chequeDate;
+    }
+
+    public void setChequeDate(String chequeDate) {
+        this.chequeDate = chequeDate;
+    }
+
+    public String getChequeNumber() {
+        return chequeNumber;
+    }
+
+    public void setChequeNumber(String chequeNumber) {
+        this.chequeNumber = chequeNumber;
     }
 }

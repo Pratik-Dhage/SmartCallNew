@@ -151,6 +151,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <TextView
+            android:id="@+id/txtBankName"
+            tools:text="BankName"
+            android:layout_marginStart="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@+id/txtAmountCollected"
+            app:layout_constraintStart_toStartOf="@+id/txtMidStatusInfo3"
+            android:visibility="gone"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:textSize="@dimen/_11ssp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txtChequeNumber"
+            tools:text="BankName"
+            android:layout_marginStart="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@+id/txtBankName"
+            app:layout_constraintStart_toStartOf="@+id/txtMidStatusInfo3"
+            android:visibility="gone"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:textSize="@dimen/_11ssp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txtChequeDate"
+            tools:text="BankName"
+            android:layout_marginStart="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@+id/txtChequeNumber"
+            app:layout_constraintStart_toStartOf="@+id/txtMidStatusInfo3"
+            android:visibility="gone"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:textSize="@dimen/_11ssp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
       <!--  <TextView
             android:id="@+id/txtBottomMainStatusInfo"
             app:layout_constraintTop_toBottomOf="@id/txtMidStatusInfo3"

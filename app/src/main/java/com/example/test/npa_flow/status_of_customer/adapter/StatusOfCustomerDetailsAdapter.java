@@ -104,6 +104,24 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     holder.binding.txtAmountCollected.setText("Rs. "+a.getAmountCollected());
                 }
 
+                //BankName
+               if(null!= a.getBankName()){
+                   holder.binding.txtBankName.setVisibility(View.VISIBLE);
+                   holder.binding.txtBankName.setText(a.getBankName());
+               }
+
+               //ChequeNumber
+                if(null!= a.getChequeNumber()){
+                    holder.binding.txtChequeNumber.setVisibility(View.VISIBLE);
+                    holder.binding.txtChequeNumber.setText("ChequeNumber: "+a.getChequeNumber());
+                }
+
+                //ChequeDate
+                if(null!= a.getChequeDate()){
+                    holder.binding.txtChequeDate.setVisibility(View.VISIBLE);
+                    holder.binding.txtChequeDate.setText("ChequeDate: "+a.getChequeDate());
+                }
+
                 // Status Info
                 for (ActivityDetail details : a.getActivityDetails()) {
                     if (details.getAttemptFlow() != null) {
