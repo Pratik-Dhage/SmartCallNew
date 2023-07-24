@@ -59,7 +59,7 @@ public  class WebServices {
 
     public static String SmartCall_BaseURL6 = "http://45.114.143.87:8082/"; // new Server 13/07/2023
 
-    public static String SmartCall_BaseURL7 = "https://@aakhyatechapps.com/"; // new BaseURL 19/07/2023 (https - secured)
+    public static String SmartCall_BaseURL7 = "https://aakhyatechapps.com/"; // new BaseURL 19/07/2023 (https - secured)
 
     //for Login Authentication
     public static String Login_Authentication = "security/authenticateUser";
