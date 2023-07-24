@@ -17,6 +17,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +42,7 @@ import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -255,7 +258,10 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 ImageView ivClose = customDialogDateOfVisitPromised.findViewById(R.id.ivClose);
                 Button btnProceed = customDialogDateOfVisitPromised.findViewById(R.id.btnProceed);
                 EditText edtDateOfVisitPromised = customDialogDateOfVisitPromised.findViewById(R.id.edtDateOfVisitPromised);
+                TextInputLayout tilDateOfVisitPromised = customDialogDateOfVisitPromised.findViewById(R.id.tilDateOfVisitPromised);
                 EditText edtFoName = customDialogDateOfVisitPromised.findViewById(R.id.edtFoName);
+                TextInputLayout tilFoName = customDialogDateOfVisitPromised.findViewById(R.id.tilFoName);
+
 
                 AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
                 builder2.setView(customDialogDateOfVisitPromised);
@@ -268,23 +274,43 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 });
 
                 edtDateOfVisitPromised.setOnClickListener(v3->{
+                    tilDateOfVisitPromised.setError(null);
                     showDatePickerDialogAndSetDate(edtDateOfVisitPromised);
                 });
 
                 edtDateOfVisitPromised.setOnFocusChangeListener((v2,hasFocus)->{
                     if(hasFocus){
+                        tilDateOfVisitPromised.setError(null);
                         showDatePickerDialogAndSetDate(edtDateOfVisitPromised);
                     }
                 });
+
+          //Customer TextWatcher For edtFoName
+                edtFoName.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        tilFoName.setError(null);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                    }
+                });
+
+
 
 
                 btnProceed.setOnClickListener(v2->{
 
                     if(edtDateOfVisitPromised.getText().toString().isEmpty()){
-                        edtDateOfVisitPromised.setError(getString(R.string.date_cannot_be_empty));
+                        tilDateOfVisitPromised.setError(getString(R.string.date_cannot_be_empty));
                     }
                     else if(edtFoName.getText().toString().isEmpty()){
-                        edtFoName.setError(getString(R.string.name_cannot_be_empty));
+                        tilFoName.setError(getString(R.string.name_cannot_be_empty));
                     }
                     else{
 
@@ -440,6 +466,8 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             ImageView ivCancel2 = customDialogEditable.findViewById(R.id.ivCancel);
             EditText edtRelativeName = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
             EditText edtRelativeContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
+            TextInputLayout tilSpecifyName = customDialogEditable.findViewById(R.id.tilSpecifyName);
+            TextInputLayout tilSpecifyContact = customDialogEditable.findViewById(R.id.tilSpecifyContact);
 
             Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
 
@@ -451,16 +479,48 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
             dialog2.show();
 
+            ivCancel2.setOnClickListener(v2 -> {
+                dialog2.dismiss();
+                });
+
+
+                //TextWatcher for edtRelativeName
+                edtRelativeName.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        tilSpecifyName.setError(null);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {}
+                });
+
+                //TextWatcher for  edtRelativeContact
+                edtRelativeContact.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        tilSpecifyContact.setError(null);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {}
+                });
 
 
             btnProceed.setOnClickListener(v2 -> {
 
                 if(edtRelativeName.getText().toString().isEmpty()){
-                    edtRelativeName.setError(getString(R.string.name_cannot_be_empty));
+                    tilSpecifyName.setError(getString(R.string.name_cannot_be_empty));
                 }
 
               else  if(edtRelativeContact.length()!=10){
-                    edtRelativeContact.setError(getString(R.string.enter_10digit_mobile_number));
+                    tilSpecifyContact.setError(getString(R.string.enter_10digit_mobile_number));
                 }
 
                 else{
@@ -481,9 +541,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
             });
 
-            ivCancel2.setOnClickListener(v2 -> {
-                dialog2.dismiss();
-            });
+
 
             });
 

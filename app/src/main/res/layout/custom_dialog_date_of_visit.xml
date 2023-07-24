@@ -14,31 +14,61 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/_10sdp">
 
-        <EditText
-            android:id="@+id/edtDateOfVisitPromised"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:hint="@string/date_of_visit_promised"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/edtFoName"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:hint="@string/fo_name"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textAlignment="center"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDateOfVisitPromised"
+           style="@style/text_input_layout"
+            app:hintEnabled="false"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtDateOfVisitPromised" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtDateOfVisitPromised"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/date_of_visit_promised"
+                android:inputType="text"
+                android:background="@color/white"
+                android:maxLines="1"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilFoName"
+            style="@style/text_input_layout"
+            app:hintEnabled="false"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilDateOfVisitPromised">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtFoName"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:hint="@string/fo_name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                 />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
         <Button
             android:id="@+id/btnProceed"
@@ -51,7 +81,7 @@
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtFoName" />
+            app:layout_constraintTop_toBottomOf="@id/tilFoName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
