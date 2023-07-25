@@ -35,6 +35,7 @@ import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -281,6 +282,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+        //This Button is Kept Hidden(As it is not required)
         binding.btnPaymentAlreadyMade.setOnClickListener(v->{
 
             customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
@@ -332,6 +334,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
             Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
             EditText edtPleaseSpecify = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
+            TextInputLayout tilSpecify = customDialogEditable.findViewById(R.id.tilSpecifyName);
             EditText edtPleaseSpecifyContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
             edtPleaseSpecify.setHint(getString(R.string.please_specify));
             edtPleaseSpecifyContact.setVisibility(View.GONE);
@@ -345,20 +348,30 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
             dialog.show();
 
+            //TextWatcher For Others
+          Global.CustomTextWatcher(edtPleaseSpecify , tilSpecify);
 
             btnProceed.setOnClickListener(v2 -> {
 
-                String reason = edtPleaseSpecify.getText().toString().trim(); // for sending along with Api
-                VisitsFlowCallDetailsActivity.send_reason =  edtPleaseSpecify.getText().toString().trim(); //to send to Backend Server
+                if(edtPleaseSpecify.getText().toString().isEmpty()){
+                    tilSpecify.setError(getResources().getString(R.string.please_specify_reason));
+                }
 
-                Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                i.putExtra("dataSetId",dataSetId);
-                i.putExtra("detailsList",detailsList);
-                i.putExtra("reason",reason);
-                i.putExtra("isFromVisitNPAStatusActivity_Others","isFromVisitNPAStatusActivity_Others");
-                i.putExtra("isFromVisitNPAStatusActivity","isFromVisitNPAStatusActivity");
-                startActivity(i);
+                else{
+                    String reason = edtPleaseSpecify.getText().toString().trim(); // for sending along with Api
+                    VisitsFlowCallDetailsActivity.send_reason =  edtPleaseSpecify.getText().toString().trim(); //to send to Backend Server
+
+                    Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    i.putExtra("dataSetId",dataSetId);
+                    i.putExtra("detailsList",detailsList);
+                    i.putExtra("reason",reason);
+                    i.putExtra("isFromVisitNPAStatusActivity_Others","isFromVisitNPAStatusActivity_Others");
+                    i.putExtra("isFromVisitNPAStatusActivity","isFromVisitNPAStatusActivity");
+                    startActivity(i);
+                }
+
+
             });
 
             ivCancel.setOnClickListener(v1 -> {

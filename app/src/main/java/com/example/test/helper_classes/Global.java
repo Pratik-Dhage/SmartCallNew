@@ -58,6 +58,7 @@ import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -504,5 +505,23 @@ public class Global {
         return currentLocation;
     }
 
+
+
+    public static void CustomTextWatcher(EditText edtPleaseSpecify , TextInputLayout tilSpecify){
+
+        //TextWatcher for Others
+        edtPleaseSpecify.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tilSpecify.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
 
 }

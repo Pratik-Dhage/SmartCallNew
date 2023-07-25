@@ -396,6 +396,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
             Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
             EditText edtPleaseSpecify = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
+            TextInputLayout tilSpecify = customDialogEditable.findViewById(R.id.tilSpecifyName);
             EditText edtPleaseSpecifyContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
             edtPleaseSpecify.setHint(getString(R.string.please_specify));
             edtPleaseSpecifyContact.setVisibility(View.GONE);
@@ -409,18 +410,27 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
             dialog.show();
 
+            //TextWatcher For Others
+            Global.CustomTextWatcher(edtPleaseSpecify , tilSpecify);
 
             btnProceed.setOnClickListener(v2 -> {
 
-                String reason = edtPleaseSpecify.getText().toString().trim(); //to send along API
-                DetailsOfCustomerActivity.send_reason = edtPleaseSpecify.getText().toString().trim(); //to send to BackEnd Server
+                if(edtPleaseSpecify.getText().toString().isEmpty()){
+                    tilSpecify.setError(getResources().getString(R.string.please_specify_reason));
+                }
 
-                Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
-                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                i.putExtra("detailsList", detailsList);
-                i.putExtra("reason",reason);
-                i.putExtra("isPaymentInfoOfCustomerActivity_Others","isPaymentInfoOfCustomerActivity_Others");
-                startActivity(i);
+                else{
+                    String reason = edtPleaseSpecify.getText().toString().trim(); //to send along API
+                    DetailsOfCustomerActivity.send_reason = edtPleaseSpecify.getText().toString().trim(); //to send to BackEnd Server
+
+                    Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("detailsList", detailsList);
+                    i.putExtra("reason",reason);
+                    i.putExtra("isPaymentInfoOfCustomerActivity_Others","isPaymentInfoOfCustomerActivity_Others");
+                    startActivity(i);
+                }
+
             });
 
             ivCancel.setOnClickListener(v1 -> {

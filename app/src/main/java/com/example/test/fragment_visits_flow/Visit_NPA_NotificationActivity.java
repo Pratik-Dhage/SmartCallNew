@@ -35,6 +35,7 @@ import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
@@ -275,7 +276,9 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
           View customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
             ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
             EditText edtRelativeName = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
+            TextInputLayout tilSpecifyName = customDialogEditable.findViewById(R.id.tilSpecifyName);
             EditText edtRelativeContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
+            TextInputLayout tilSpecifyContact = customDialogEditable.findViewById(R.id.tilSpecifyContact);
             Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -286,23 +289,41 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
             dialog.show();
 
+            //TextWatcher for Relative Name
+            Global.CustomTextWatcher(edtRelativeName,tilSpecifyName);
+
+            //TextWatcher for relative Contact
+            Global.CustomTextWatcher(edtRelativeContact,tilSpecifyContact);
 
             btnProceed.setOnClickListener(v2 -> {
 
-              String relativeName  = edtRelativeName.getText().toString().trim();
-              String relativeContact  = edtRelativeContact.getText().toString().trim();
+                if(edtRelativeName.getText().toString().isEmpty()){
+                    tilSpecifyName.setError(getString(R.string.name_cannot_be_empty));
+                }
 
-              VisitsFlowCallDetailsActivity.send_RelativeName = relativeName;
-              VisitsFlowCallDetailsActivity.send_RelativeContact = relativeContact;
+                else  if(edtRelativeContact.length()!=10){
+                    tilSpecifyContact.setError(getString(R.string.enter_10digit_mobile_number));
+                }
 
-                Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
-                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                i.putExtra("detailsList",detailsList);
-                i.putExtra("relativeName",relativeName);
-                i.putExtra("relativeContact",relativeContact);
-                i.putExtra("NotReadyToPay_LoanTakenByRelative","NotReadyToPay_LoanTakenByRelative");
-                i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
-                startActivity(i);
+                else{
+
+                    String relativeName  = edtRelativeName.getText().toString().trim();
+                    String relativeContact  = edtRelativeContact.getText().toString().trim();
+
+                    VisitsFlowCallDetailsActivity.send_RelativeName = relativeName;
+                    VisitsFlowCallDetailsActivity.send_RelativeContact = relativeContact;
+
+                    Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("detailsList",detailsList);
+                    i.putExtra("relativeName",relativeName);
+                    i.putExtra("relativeContact",relativeContact);
+                    i.putExtra("NotReadyToPay_LoanTakenByRelative","NotReadyToPay_LoanTakenByRelative");
+                    i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
+                    startActivity(i);
+                }
+
+
             });
 
             ivCancel.setOnClickListener(v1 -> {
@@ -329,6 +350,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
              Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
              EditText edtPleaseSpecify = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
+             TextInputLayout tilSpecify = customDialogEditable.findViewById(R.id.tilSpecifyName);
              EditText edtPleaseSpecifyContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
              edtPleaseSpecify.setHint(getString(R.string.please_specify));
              edtPleaseSpecifyContact.setVisibility(View.GONE);
@@ -342,19 +364,29 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
              dialog.show();
 
+             //TextWatcher For Others
+             Global.CustomTextWatcher(edtPleaseSpecify , tilSpecify);
 
              btnProceed.setOnClickListener(v2 -> {
 
-                 String reason = edtPleaseSpecify.getText().toString().trim(); // to send along Api
-                 VisitsFlowCallDetailsActivity.send_reason = edtPleaseSpecify.getText().toString().trim(); //to send to backend
+                 if(edtPleaseSpecify.getText().toString().isEmpty()){
+                     tilSpecify.setError(getResources().getString(R.string.please_specify_reason));
+                 }
 
-                 Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
-                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                 i.putExtra("detailsList",detailsList);
-                 i.putExtra("reason",reason);
-                 i.putExtra("isFromVisitNPANotificationActivity_Others","isFromVisitNPANotificationActivity_Others");
-                 i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
-                 startActivity(i);
+                 else{
+                     String reason = edtPleaseSpecify.getText().toString().trim(); // to send along Api
+                     VisitsFlowCallDetailsActivity.send_reason = edtPleaseSpecify.getText().toString().trim(); //to send to backend
+
+                     Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
+                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                     i.putExtra("detailsList",detailsList);
+                     i.putExtra("reason",reason);
+                     i.putExtra("isFromVisitNPANotificationActivity_Others","isFromVisitNPANotificationActivity_Others");
+                     i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
+                     startActivity(i);
+                 }
+
+
              });
 
              ivCancel.setOnClickListener(v1 -> {
