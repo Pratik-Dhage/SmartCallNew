@@ -13,83 +13,145 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/_10sdp">
 
-        <EditText
-            android:id="@+id/edtPleaseEnterChequeDate"
-            android:layout_width="@dimen/_170sdp"
-            android:layout_height="wrap_content"
+        <!--ChequeDate-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilChequeDate"
+            style="@style/text_input_layout"
+            android:layout_marginStart="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_30sdp"
-            android:hint="@string/please_enter_cheque_date"
-            android:inputType="date"
-            android:maxLines="1"
-            android:textAlignment="center"
+            android:layout_marginEnd="@dimen/_30sdp"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPleaseEnterChequeDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:hint="@string/please_enter_cheque_date"
+                android:inputType="date"
+                android:maxLines="1"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <!--MaxLength for ChequeNumber is 6 digit-->
-        <EditText
-            android:id="@+id/edtPleaseEnterChequeNumber"
-            android:layout_width="@dimen/_170sdp"
-            android:layout_height="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilChequeNumber"
+            style="@style/text_input_layout"
+            android:layout_marginStart="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:digits="0123456789"
-            android:hint="@string/please_enter_cheque_no"
-            android:inputType="number"
-            android:maxLength="6"
-            android:maxLines="1"
-            android:textAlignment="center"
+            android:layout_marginEnd="@dimen/_30sdp"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtPleaseEnterChequeDate" />
+            app:layout_constraintTop_toBottomOf="@+id/tilChequeDate">
 
-        <EditText
-            android:id="@+id/edtPleaseEnterBankName"
-            android:layout_width="@dimen/_170sdp"
-            android:layout_height="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPleaseEnterChequeNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:digits="0123456789"
+                android:hint="@string/please_enter_cheque_no"
+                android:inputType="number"
+                android:maxLength="6"
+                android:maxLines="1"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--BankName-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilBankName"
+            style="@style/text_input_layout"
+            android:layout_marginStart="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:hint="@string/please_enter_bank_name"
-            android:inputType="text"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ. "
-            android:maxLength="30"
-            android:maxLines="1"
-            android:textAlignment="center"
+            android:layout_marginEnd="@dimen/_30sdp"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtPleaseEnterChequeNumber" />
+            app:layout_constraintTop_toBottomOf="@id/tilChequeNumber">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPleaseEnterBankName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ. "
+                android:hint="@string/please_enter_bank_name"
+                android:inputType="text"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <!--IFSC code is 11 characters Long , with Alphabets & Numbers ,
         No Special Characters Allowed -->
-        <EditText
-            android:id="@+id/edtPleaseEnterIfscCode"
-            android:layout_width="@dimen/_170sdp"
-            android:layout_height="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilIFSCCode"
+            style="@style/text_input_layout"
+            android:layout_marginStart="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:hint="@string/please_enter_ifsc_code"
-            android:inputType="text"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-            android:maxLength="11"
-            android:maxLines="1"
-            android:textAlignment="center"
+            android:layout_marginEnd="@dimen/_30sdp"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtPleaseEnterBankName" />
+            app:layout_constraintTop_toBottomOf="@id/tilBankName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPleaseEnterIfscCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+                android:hint="@string/please_enter_ifsc_code"
+                android:inputType="text"
+                android:maxLength="11"
+                android:maxLines="1"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-        <EditText
-            android:id="@+id/edtPleaseEnterAmount"
-            android:layout_width="@dimen/_170sdp"
-            android:layout_height="wrap_content"
+        <!--ChequeAmount-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilChequeAmount"
+            style="@style/text_input_layout"
+            android:layout_marginStart="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:digits="0123456789"
-            android:hint="@string/please_enter_amount"
-            android:inputType="number"
-            android:maxLength="10"
-            android:maxLines="1"
-            android:textAlignment="center"
+            android:layout_marginEnd="@dimen/_30sdp"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtPleaseEnterIfscCode" />
+            app:layout_constraintTop_toBottomOf="@id/tilIFSCCode">
 
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPleaseEnterAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:digits="0123456789"
+                android:hint="@string/please_enter_amount"
+                android:inputType="number"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnProceed"
@@ -102,7 +164,7 @@
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtPleaseEnterAmount" />
+            app:layout_constraintTop_toBottomOf="@id/tilChequeAmount" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

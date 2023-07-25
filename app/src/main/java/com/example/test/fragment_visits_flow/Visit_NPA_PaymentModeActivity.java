@@ -15,6 +15,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +39,7 @@ import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAd
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -193,11 +196,15 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                   ImageView ivCancel = customDialog.findViewById(R.id.ivCancel);
                   Button btnProceed = customDialog.findViewById(R.id.btnProceed);
                   EditText edtPleaseEnterChequeDate = customDialog.findViewById(R.id.edtPleaseEnterChequeDate);
+                  TextInputLayout tilChequeDate = customDialog.findViewById(R.id.tilChequeDate);
                   EditText edtPleaseEnterChequeNumber = customDialog.findViewById(R.id.edtPleaseEnterChequeNumber);
+                  TextInputLayout tilChequeNumber = customDialog.findViewById(R.id.tilChequeNumber);
                   EditText edtPleaseEnterBankName = customDialog.findViewById(R.id.edtPleaseEnterBankName);
+                  TextInputLayout tilBankName = customDialog.findViewById(R.id.tilBankName);
                   EditText edtPleaseEnterIfscCode = customDialog.findViewById(R.id.edtPleaseEnterIfscCode);
+                  TextInputLayout tilIFSCCode = customDialog.findViewById(R.id.tilIFSCCode);
                   EditText edtPleaseEnterAmount = customDialog.findViewById(R.id.edtPleaseEnterAmount);
-
+                  TextInputLayout tilChequeAmount = customDialog.findViewById(R.id.tilChequeAmount);
 
                   AlertDialog.Builder builder = new AlertDialog.Builder(this);
                   builder.setView(customDialog);
@@ -211,42 +218,45 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                   edtPleaseEnterChequeDate.setOnFocusChangeListener((v1, hasFocus) -> {
                       if(hasFocus){
                           showDatePickerDialogAndSetDate(edtPleaseEnterChequeDate);
-                          edtPleaseEnterChequeDate.setError(null);
+                          tilChequeDate.setError(null);
                       }
                   });
 
                   edtPleaseEnterChequeDate.setOnClickListener(v1->{
                       showDatePickerDialogAndSetDate(edtPleaseEnterChequeDate);
-                      edtPleaseEnterChequeDate.setError(null);
+                      tilChequeDate.setError(null);
                   });
 
+                  //TextWatcher for Cheque
+                  CustomTextWatcherForCheque(edtPleaseEnterChequeNumber,tilChequeNumber,edtPleaseEnterBankName,tilBankName,edtPleaseEnterIfscCode,tilIFSCCode,edtPleaseEnterAmount,tilChequeAmount);
 
                   btnProceed.setOnClickListener(v2->{
 
                       // Validations for Cheque Details
 
                       if(edtPleaseEnterChequeDate.getText().toString().isEmpty()){
-                          edtPleaseEnterChequeDate.setError(getResources().getString(R.string.please_enter_cheque_date));
+                          tilChequeDate.setError(getResources().getString(R.string.please_enter_cheque_date));
                       }
 
-                    else  if(edtPleaseEnterBankName.getText().toString().isEmpty()){
-                          edtPleaseEnterBankName.setError(getResources().getString(R.string.please_enter_bank_name));
-                      }
-
-                   else  if(edtPleaseEnterAmount.getText().toString().isEmpty()){
-                          edtPleaseEnterAmount.setError(getResources().getString(R.string.please_enter_amount));
-                      }
 
                       //Cheque Number must be  6
                   else if(edtPleaseEnterChequeNumber.getText().toString().length() < 6 || edtPleaseEnterChequeNumber.getText().toString().isEmpty()){
-                          edtPleaseEnterChequeNumber.setError(getResources().getString(R.string.cheque_number_be_six_digit));
+                          tilChequeNumber.setError(getResources().getString(R.string.cheque_number_be_six_digit));
                   }
+
+                      else  if(edtPleaseEnterBankName.getText().toString().isEmpty()){
+                          tilBankName.setError(getResources().getString(R.string.please_enter_bank_name));
+                      }
+
 
                       //IFSC code must be 11 digit
                    else if(edtPleaseEnterIfscCode.getText().toString().length() < 11 || edtPleaseEnterIfscCode.getText().toString().isEmpty()){
-                          edtPleaseEnterIfscCode.setError(getResources().getString(R.string.ifsc_code_be_eleven_digit));
+                          tilIFSCCode.setError(getResources().getString(R.string.ifsc_code_be_eleven_digit));
                    }
 
+                      else  if(edtPleaseEnterAmount.getText().toString().isEmpty()){
+                          tilChequeAmount.setError(getResources().getString(R.string.please_enter_amount));
+                      }
 
 
                       else{
@@ -307,6 +317,67 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
 
     }
+
+    private void CustomTextWatcherForCheque(EditText edtPleaseEnterChequeNumber, TextInputLayout tilChequeNumber, EditText edtPleaseEnterBankName, TextInputLayout tilBankName, EditText edtPleaseEnterIfscCode, TextInputLayout tilIFSCCode, EditText edtPleaseEnterAmount, TextInputLayout tilChequeAmount) {
+
+        //ChequeNumber
+      edtPleaseEnterChequeNumber.addTextChangedListener(new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+          @Override
+          public void onTextChanged(CharSequence s, int start, int before, int count) {
+            tilChequeNumber.setError(null);
+          }
+
+          @Override
+          public void afterTextChanged(Editable s) {}
+      });
+
+      //BankName
+        edtPleaseEnterBankName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tilBankName.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        //IFSC Code
+        edtPleaseEnterIfscCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tilIFSCCode.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        //ChequeAmount
+        edtPleaseEnterAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tilChequeAmount.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+    }
+
 
 
     private void showDatePickerDialogAndSetDate(EditText editText) {
