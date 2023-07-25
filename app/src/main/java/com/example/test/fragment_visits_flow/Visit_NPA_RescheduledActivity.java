@@ -34,6 +34,7 @@ import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
@@ -304,6 +305,7 @@ public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
 
             Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
             EditText edtPleaseSpecify = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
+            TextInputLayout tilSpecify = customDialogEditable.findViewById(R.id.tilSpecifyName);
             EditText edtPleaseSpecifyContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
             edtPleaseSpecify.setHint(getString(R.string.please_specify));
             edtPleaseSpecifyContact.setVisibility(View.GONE);
@@ -317,17 +319,27 @@ public class Visit_NPA_RescheduledActivity extends AppCompatActivity {
 
             dialog.show();
 
+            //TextWatcher For Others
+            Global.CustomTextWatcher(edtPleaseSpecify , tilSpecify);
 
             btnProceed.setOnClickListener(v2 -> {
 
-                VisitsFlowCallDetailsActivity.send_reason = edtPleaseSpecify.getText().toString().trim();
+                if(edtPleaseSpecify.getText().toString().isEmpty()){
+                    tilSpecify.setError(getResources().getString(R.string.please_specify_reason));
+                }
 
-                Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
-                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                i.putExtra("detailsList",detailsList);
-                i.putExtra("isFromVisitNPARescheduleActivity","isFromVisitNPARescheduleActivity");
-                i.putExtra("isFromVisitNPARescheduleActivity_Others","isFromVisitNPARescheduleActivity_Others");
-                startActivity(i);
+                else{
+                    VisitsFlowCallDetailsActivity.send_reason = edtPleaseSpecify.getText().toString().trim();
+
+                    Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("detailsList",detailsList);
+                    i.putExtra("isFromVisitNPARescheduleActivity","isFromVisitNPARescheduleActivity");
+                    i.putExtra("isFromVisitNPARescheduleActivity_Others","isFromVisitNPARescheduleActivity_Others");
+                    startActivity(i);
+                }
+
+
             });
 
             ivCancel.setOnClickListener(v1 -> {
