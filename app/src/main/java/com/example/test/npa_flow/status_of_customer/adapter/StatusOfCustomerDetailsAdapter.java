@@ -169,7 +169,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     else  if(attemptFlow.contains("vr")){
                             holder.binding.txtMidStatusInfo1.setText(R.string.visit_rescheduled);
                         }
-                     else  if(attemptFlow.contains("oth")){
+                     else  if(attemptFlow.contains("o") || attemptFlow.contains("oth")){
                             holder.binding.txtMidStatusInfo1.setText(R.string.others);
                         }
                      else if(attemptFlow.contains("inv")){
@@ -220,7 +220,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                             holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo2.setText(R.string.late_for_visit);
                         }
-                        else if(attemptFlow.contains("oth")){
+                        else if(attemptFlow.contains("o") || attemptFlow.contains("oth")){
 
                             //if flow=STTC-OTH then Hide txtMidStatusInfo2 cause it will also display Others
                             //to avoid displaying Others twice(2nd & 3rd row)
