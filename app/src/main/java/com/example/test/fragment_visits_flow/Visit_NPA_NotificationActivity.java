@@ -273,16 +273,16 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
         binding.btnLoanTakenByRelative.setOnClickListener(v->{
 
-          View customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
-            ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
-            EditText edtRelativeName = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
-            TextInputLayout tilSpecifyName = customDialogEditable.findViewById(R.id.tilSpecifyName);
-            EditText edtRelativeContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
-            TextInputLayout tilSpecifyContact = customDialogEditable.findViewById(R.id.tilSpecifyContact);
-            Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
+          View customDialogLoanTakenByRelative = LayoutInflater.from(this).inflate(R.layout.custom_dialog_loan_taken_by_relative, null);
+            ImageView ivCancel = customDialogLoanTakenByRelative.findViewById(R.id.ivCancel);
+            EditText edtRelativeName = customDialogLoanTakenByRelative.findViewById(R.id.edtPleaseSpecifyName);
+            TextInputLayout tilSpecifyName = customDialogLoanTakenByRelative.findViewById(R.id.tilSpecifyName);
+            EditText edtRelativeContact = customDialogLoanTakenByRelative.findViewById(R.id.edtPleaseSpecifyContact);
+            TextInputLayout tilSpecifyContact = customDialogLoanTakenByRelative.findViewById(R.id.tilSpecifyContact);
+            Button btnProceed = customDialogLoanTakenByRelative.findViewById(R.id.btnProceed);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialogEditable);
+            builder.setView(customDialogLoanTakenByRelative);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
            // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

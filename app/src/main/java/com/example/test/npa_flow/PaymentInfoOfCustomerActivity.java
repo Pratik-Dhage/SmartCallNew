@@ -55,6 +55,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
     View view;
     View customDialogImagePicker;
     View customDialogEditable;
+    View customDialogLoanTakenByRelative;
     View customDialogCaptureDetails;
     View customDialogDateOfVisitPromised;
     private ActivityResultLauncher<Intent> pickImageLauncher;
@@ -472,17 +473,17 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             //Editable Dialog
             btnCaptureDetails.setOnClickListener(v1->{
 
-                 customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
-            ImageView ivCancel2 = customDialogEditable.findViewById(R.id.ivCancel);
-            EditText edtRelativeName = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
-            EditText edtRelativeContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
-            TextInputLayout tilSpecifyName = customDialogEditable.findViewById(R.id.tilSpecifyName);
-            TextInputLayout tilSpecifyContact = customDialogEditable.findViewById(R.id.tilSpecifyContact);
+                customDialogLoanTakenByRelative = LayoutInflater.from(this).inflate(R.layout.custom_dialog_loan_taken_by_relative, null);
+            ImageView ivCancel2 = customDialogLoanTakenByRelative.findViewById(R.id.ivCancel);
+            EditText edtRelativeName = customDialogLoanTakenByRelative.findViewById(R.id.edtPleaseSpecifyName);
+            EditText edtRelativeContact = customDialogLoanTakenByRelative.findViewById(R.id.edtPleaseSpecifyContact);
+            TextInputLayout tilSpecifyName = customDialogLoanTakenByRelative.findViewById(R.id.tilSpecifyName);
+            TextInputLayout tilSpecifyContact = customDialogLoanTakenByRelative.findViewById(R.id.tilSpecifyContact);
 
-            Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
+            Button btnProceed = customDialogLoanTakenByRelative.findViewById(R.id.btnProceed);
 
             AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-            builder2.setView(customDialogEditable);
+            builder2.setView(customDialogLoanTakenByRelative);
             final AlertDialog dialog2 = builder2.create();
             dialog2.setCancelable(true);
             //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -495,32 +496,11 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
 
                 //TextWatcher for edtRelativeName
-                edtRelativeName.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                Global.CustomTextWatcher(edtRelativeName,tilSpecifyName);
 
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        tilSpecifyName.setError(null);
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {}
-                });
 
                 //TextWatcher for  edtRelativeContact
-                edtRelativeContact.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        tilSpecifyContact.setError(null);
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {}
-                });
+                Global.CustomTextWatcher(edtRelativeContact,tilSpecifyContact);
 
 
             btnProceed.setOnClickListener(v2 -> {
