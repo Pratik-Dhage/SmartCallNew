@@ -27,6 +27,8 @@ public class Activity implements Serializable {
     private String bankName;
     private String chequeDate;
     private String chequeNumber;
+    private String relativeName;
+    private String relativeContactNumber;
     private List<ActivityDetail> activityDetails;
     private Activity childActivity;
     public Long getActivityId() {
@@ -166,5 +168,21 @@ public class Activity implements Serializable {
 
     public void setChequeNumber(String chequeNumber) {
         this.chequeNumber = chequeNumber;
+    }
+
+    public String getRelativeName() {
+        return relativeName;
+    }
+
+    public void setRelativeName(String relativeName) {
+        this.relativeName = relativeName;
+    }
+
+    public String getRelativeContactNumber() {
+        return relativeContactNumber;
+    }
+
+    public void setRelativeContactNumber(String relativeContactNumber) {
+        this.relativeContactNumber = relativeContactNumber;
     }
 }

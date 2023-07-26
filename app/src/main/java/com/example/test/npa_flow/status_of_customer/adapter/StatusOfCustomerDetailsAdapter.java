@@ -2,6 +2,8 @@ package com.example.test.npa_flow.status_of_customer.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,6 +97,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
 
                 //Schedule Date And Time in Status info
                 if (a.getScheduleDate() != null && a.getScheduleTime() != null) {
+                    holder.binding.txtScheduleDateStatusInfo.setVisibility(View.VISIBLE);
                     holder.binding.txtScheduleDateStatusInfo.setText("Scheduled Date and Time: " + a.getScheduleDate() + "," + a.getScheduleTime());
                 }
 
@@ -122,8 +125,30 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     holder.binding.txtChequeDate.setText("ChequeDate: "+a.getChequeDate());
                 }
 
+                //RelativeName
+                if(null!=a.getRelativeName()){
+                  holder.binding.txtRelativeName.setVisibility(View.VISIBLE);
+                  holder.binding.txtRelativeName.setText("Name: "+a.getRelativeName());
+                }
+
+                //RelativeContact
+                if(null!=a.getRelativeContactNumber()){
+                    holder.binding.txtRelativeContact.setVisibility(View.VISIBLE);
+                    holder.binding.txtRelativeContact.setText("Contact: "+a.getRelativeContactNumber());
+                }
+
+
+
                 // Status Info
                 for (ActivityDetail details : a.getActivityDetails()) {
+
+                    //Notes
+                    if(null!=details.getAttemptNotes()){
+                        holder.binding.labelNotes.setVisibility(View.VISIBLE);
+                        holder.binding.txtNotes.setVisibility(View.VISIBLE);
+                        holder.binding.txtNotes.setText(details.getAttemptNotes());
+                    }
+
                     if (details.getAttemptFlow() != null) {
                         String attemptFlow = details.getAttemptFlow().toLowerCase();
 
