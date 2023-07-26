@@ -43,11 +43,23 @@ public class MainDashBoardAdapter extends RecyclerView.Adapter<MainDashBoardAdap
         DashBoardResponseModel a = dashBoardResponseModelArrayList.get(position);
         Context context = holder.itemView.getContext();
 
-        holder.binding.txtDashBoardListName.setText(a.getQueueName());
+        if(null!=a.getQueueName()){
+            holder.binding.txtDashBoardListName.setText(a.getQueueName());
+        }
 
-       holder.binding.txtCompletedMembersAssigned.setText(a.getCompletedCalls().toString());
-        holder.binding.txtPendingMembersAssigned.setText(a.getPendingCalls().toString());
-       holder.binding.txtInProcessMembersAssigned.setText(a.getInprocessCalls().toString());
+        if(null!=a.getCompletedCalls()){
+            holder.binding.txtCompletedMembersAssigned.setText(a.getCompletedCalls().toString());
+        }
+
+        if(null!=a.getPendingCalls()){
+            holder.binding.txtPendingMembersAssigned.setText(a.getPendingCalls().toString());
+        }
+
+        if(null!=a.getInprocessCalls()){
+            holder.binding.txtInProcessMembersAssigned.setText(a.getInprocessCalls().toString());
+        }
+
+
 
         //for Total Assigned Members( for Marketing, Collection, Welcome Call,Renewal respectively)
       //  int totalMembers = a.getCompletedCalls()+a.getPendingCalls();
