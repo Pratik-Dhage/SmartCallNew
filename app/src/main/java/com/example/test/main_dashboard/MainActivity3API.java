@@ -211,6 +211,17 @@ public class MainActivity3API extends AppCompatActivity {
 
         });
 
+        //handle  error response
+        mainDashBoardViewModel.getMutErrorResponse().observe(this, error -> {
+
+            if (error != null && !error.isEmpty()) {
+                Global.showSnackBar(view, error);
+                System.out.println("Here AssignedDashBoardError: " + error);
+            } else {
+                Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+            }
+        });
+
     }
 
     private void initObserverScheduleForTheDay(){
@@ -242,7 +253,7 @@ public class MainActivity3API extends AppCompatActivity {
 
             if (error != null && !error.isEmpty()) {
                 Global.showSnackBar(view, error);
-                System.out.println("Here: " + error);
+                System.out.println("Here ScheduleForTheDayError: " + error);
             } else {
                 Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
             }
