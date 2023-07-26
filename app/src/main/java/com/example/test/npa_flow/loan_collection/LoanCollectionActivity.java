@@ -158,8 +158,16 @@ public class LoanCollectionActivity extends AppCompatActivity {
         try {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
-            }else
+            }
+            else if (!Global.isBackgroundLocationAccessEnabled(this)){
+                //request BackGroundLocation Access
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, Global.REQUEST_BACKGROUND_LOCATION);
+                System.out.println("Here Requesting BackGroundLocation Permission");
+            }
+
+            else
                 currentLocation = getDeviceLocation();
+            System.out.println("Here BackGroundLocation Permission Granted");
         } catch (Exception e) {
             e.printStackTrace();
         }
