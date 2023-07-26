@@ -59,8 +59,10 @@ public class ScheduleForTheDayAdapter extends RecyclerView.Adapter<ScheduleForTh
         }
 
         //for Total = Completed + Pending
-        long total = a.getComplete() + a.getPending();
-        holder.binding.txtTotalScheduleForTheDay.setText(String.valueOf(total));
+        if(null!=a.getComplete() && null!=a.getPending()){
+            long total = a.getComplete() + a.getPending();
+            holder.binding.txtTotalScheduleForTheDay.setText(String.valueOf(total));
+        }
 
        holder.binding.ivRightArrowScheduleForTheDay.setOnClickListener(v->{
 
