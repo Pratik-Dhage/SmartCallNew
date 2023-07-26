@@ -78,7 +78,7 @@ public interface RestClient {
     //DashBoard
     //Only @POST request can have request @BODY
     @POST("dashboard/getDashBoardForUser?")
-//@POST
+    //@POST("dashboardapi/postDashBoardForUser?")
     Observable<List<DashBoardResponseModel>> getDashBoardData(
             @Body UserModel userModel
     );
