@@ -213,7 +213,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!--Only for LTBR flow-->
+        <!--Only for LTBR(LoanTakenByRelative) flow-->
         <TextView
             android:id="@+id/txtRelativeName"
             tools:text="RelativeName"
@@ -228,7 +228,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!--Only for LTBR flow-->
+        <!--Only for LTBR(LoanTakenByRelative) flow-->
         <TextView
             android:id="@+id/txtRelativeContact"
             tools:text="RelativeName"
@@ -243,13 +243,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <!--Only FNV(FO Not Visited) flow-->
+        <TextView
+            android:id="@+id/txtFOName"
+            tools:text="RelativeName"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            app:layout_constraintTop_toBottomOf="@+id/txtRelativeContact"
+            app:layout_constraintStart_toStartOf="@+id/txtMidStatusInfo3"
+            android:visibility="gone"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:textSize="@dimen/_11ssp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!--Only FNV(FO Not Visited) flow-->
+        <TextView
+            android:id="@+id/txtDateOfVisitPromised"
+            tools:text="RelativeName"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            app:layout_constraintTop_toBottomOf="@+id/txtFOName"
+            app:layout_constraintStart_toStartOf="@+id/txtMidStatusInfo3"
+            android:visibility="gone"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:textSize="@dimen/_11ssp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
 
         <TextView
             android:id="@+id/labelNotes"
             android:text="@string/notes"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_3sdp"
-            app:layout_constraintTop_toBottomOf="@+id/txtRelativeContact"
+            app:layout_constraintTop_toBottomOf="@+id/txtDateOfVisitPromised"
             app:layout_constraintStart_toStartOf="@+id/txtMidStatusInfo3"
             android:visibility="gone"
             android:textColor="@color/black"
