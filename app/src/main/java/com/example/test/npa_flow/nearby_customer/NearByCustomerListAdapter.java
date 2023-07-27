@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.test.R;
 import com.example.test.databinding.ItemLoanCollectionBinding;
 import com.example.test.fragments_activity.CustomerDetailsActivity;
+import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
+import com.example.test.schedule_flow.visits_for_the_day.adapter.VisitsForTheDayAdapter;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,7 @@ public class NearByCustomerListAdapter extends RecyclerView.Adapter<NearByCustom
 
     private Location currentLocation;
     ArrayList<LoanCollectionListResponseModel> loanCollectionListResponseModelArrayList;
+    public static boolean isFromNearByCustomerAdapter = true;
 
     public NearByCustomerListAdapter(ArrayList<LoanCollectionListResponseModel> loanCollectionListResponseModelArrayList, Location location) {
         this.loanCollectionListResponseModelArrayList = loanCollectionListResponseModelArrayList;
@@ -93,6 +96,10 @@ public class NearByCustomerListAdapter extends RecyclerView.Adapter<NearByCustom
         }
 
         holder.itemView.setOnClickListener(v->{
+
+            VisitsForTheDayAdapter.showNearByCustomerButton = true; //Only for Visits
+            MainActivity3API.showCallIcon = true; //Only for Visits
+            isFromNearByCustomerAdapter = true; // for Back To Member List Button in NearByCustomerActivity
 
             //DetailsOfCustomer Only visible if Status is Pending
             if(a.getActionStatus().toLowerCase().contains("pending")){

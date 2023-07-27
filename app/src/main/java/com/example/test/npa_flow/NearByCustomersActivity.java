@@ -20,6 +20,7 @@ import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 import com.example.test.npa_flow.nearby_customer.NearByCustomerListActivity;
+import com.example.test.npa_flow.nearby_customer.NearByCustomerListAdapter;
 import com.example.test.npa_flow.nearby_customer.NearByCustomerViewModel;
 import com.example.test.schedule_flow.calls_for_the_day.CallsForTheDayActivity;
 import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAdapter;
@@ -65,8 +66,14 @@ public class NearByCustomersActivity extends AppCompatActivity {
 
         binding.btnBackToMemberList.setOnClickListener(v->{
 
+            //Coming from NearByCustomerListActivity
+            if( NearByCustomerListAdapter.isFromNearByCustomerAdapter){
+                Intent i = new Intent(this, NearByCustomerListActivity.class);
+                startActivity(i);
+            }
+
             //Coming From VisitsForTheDay coz Call Icon Only visible in VisitsForTheDay flow
-            if(MainActivity3API.showCallIcon){
+          else if(MainActivity3API.showCallIcon){
                 Intent i = new Intent(this, VisitsForTheDayActivity.class);
                 startActivity(i);
             }

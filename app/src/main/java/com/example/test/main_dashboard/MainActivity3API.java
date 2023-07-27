@@ -26,6 +26,7 @@ import com.example.test.login.LoginWithMPinActivity;
 import com.example.test.main_dashboard.adapter.MainDashBoardAdapter;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
+import com.example.test.npa_flow.nearby_customer.NearByCustomerListAdapter;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
@@ -95,7 +96,7 @@ public class MainActivity3API extends AppCompatActivity {
 
         showCallIcon = false; //from Visits For The Day Flow to be True Else False
         VisitsForTheDayAdapter.showNearByCustomerButton = false ; //in NearByCustomerActivity - from Visits For The Day Flow to be True Else False
-
+        NearByCustomerListAdapter.isFromNearByCustomerAdapter = false; //in NearByCustomerActivity - from NearByCustomerListActivity to be True Else False
 
        // Global.saveStringInSharedPref(this,"isFromCallsForTheDayAdapter",null); //to reset the Flows
        // CallsForTheDayAdapter.isFromCallsForTheDayAdapter=null ; // for Navigate Button to be Only visible in NPA/ VisitsForTheDayFlow
