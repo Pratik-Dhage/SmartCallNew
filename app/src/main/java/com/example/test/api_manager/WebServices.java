@@ -227,6 +227,9 @@ public  class WebServices {
     //DID NOT SPOKE TO CUSTOMER - NUMBER SWITCH OFF
     public static String notSpokeToCustomer_numberSwitchedOff = "activity/submitcall?flow=DNSTC-NSF";
 
+    //DID NOT SPOKE TO CUSTOMER - PHYSICAL VISIT REQUIRED
+    public static String notSpokeToCustomer_physicalVisitRequired = "activity/submitcall?flow=DNSTC-PVR";
+
 
     //FOR SCHEDULE DETAILS (Calender Icon In DashBoard)
     public static String schedule_details_in_dashboard = "activity/scheduledVisits?userId=";

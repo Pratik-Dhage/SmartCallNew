@@ -305,6 +305,16 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
                 }
 
+                //NotSpokeToCustomer-> Physical Visit Required
+                if( binding.btnUpdateSchedule.getText() == getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromNotSpokeToCustomer_PhysicalVisitRequired")){
+
+                    getScheduleDateTime();
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+                    callDetailsViewModel.postScheduledDateTime_PVR(dataSetId, scheduleVisitForCollection_dateTime, detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
+
+                }
+
 
             } //if Button Update/Update Schedule is Clickable ends here
 

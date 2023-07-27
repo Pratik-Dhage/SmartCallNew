@@ -256,10 +256,10 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        binding.btnSpokeToFriendFamilyMember.setOnClickListener(v->{
-            Intent i = new Intent(NotSpokeToCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
+        binding.btnPhysicalVisitRequired.setOnClickListener(v->{
+            Intent i = new Intent(NotSpokeToCustomerActivity.this, ScheduleVisitForCollectionActivity.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-            i.putExtra("detailsList",detailsList);
+            i.putExtra("isFromNotSpokeToCustomer_PhysicalVisitRequired","isFromNotSpokeToCustomer_PhysicalVisitRequired");
             startActivity(i);
         });
 

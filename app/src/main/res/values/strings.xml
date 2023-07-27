@@ -398,6 +398,7 @@
     <string name="start_visit">Start Visit</string>
     <string name="stop_visit">\u00A0Stop Visit\u00A0</string>
     <string name="notes">Notes: </string>
+    <string name="physical_visit_required">Physical Visit Required</string>
 
 
     <!--for Tenure-->
