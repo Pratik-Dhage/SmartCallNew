@@ -19,6 +19,7 @@ import com.example.test.fragments_activity.CustomerDetailsActivity;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
+import com.example.test.npa_flow.status_of_customer.StatusOfCustomerActivity;
 import com.example.test.schedule_flow.visits_for_the_day.adapter.VisitsForTheDayAdapter;
 
 import java.util.ArrayList;
@@ -110,8 +111,14 @@ public class NearByCustomerListAdapter extends RecyclerView.Adapter<NearByCustom
                 context.startActivity(i);
             }
 
+        });
 
-
+        //for Status , Navigate to StatusOfCustomerActivity
+        holder.binding.ivStatusInfo.setOnClickListener(v->{
+            String dataSetId = a.getDataSetId().toString();
+            Intent i = new Intent(context, StatusOfCustomerActivity.class);
+            i.putExtra("dataSetId",dataSetId);
+            context.startActivity(i);
         });
 
     }
