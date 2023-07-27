@@ -183,7 +183,8 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
 
 
 
-                        //2)Ready To Pay / Not Ready To Pay / Asked To Call Back Later / Visit Reschedule / Others / Invalid Number / Asked To Visit Later
+                        //2)Ready To Pay / Not Ready To Pay / Asked To Call Back Later / Visit Reschedule /
+                        // Others / Invalid Number / Asked To Visit Later / NoResponseBusy / NotReachableSwitchedOff
 
                       if (attemptFlow.contains("nrtp")) {
                             holder.binding.txtMidStatusInfo1.setText(R.string.not_ready_to_pay_status_info);
@@ -191,6 +192,13 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     else  if (attemptFlow.contains("rtp")) {
                             holder.binding.txtMidStatusInfo1.setText(R.string.ready_to_pay_status_info);
                         }
+                    else if(attemptFlow.contains("nrb")){
+                        holder.binding.txtMidStatusInfo1.setText(R.string.no_response_busy_);
+                      }
+                    else if (attemptFlow.contains("nrs")){
+                          holder.binding.txtMidStatusInfo1.setText(R.string.not_reachable_switched_off_);
+                      }
+
                     else  if (attemptFlow.contains("atcl")) {
                             holder.binding.txtMidStatusInfo1.setText(R.string.asked_to_call_back_later_status_info);
                             holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
