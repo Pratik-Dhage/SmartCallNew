@@ -306,7 +306,7 @@ public class CallDetailsViewModel extends ViewModel {
 
     }
 
-    //12) NotSpokeToCustomerActivity - Number is Busy / Switched Off
+    //12) NotSpokeToCustomerActivity - Number is Busy / Switched Off Without ScheduleDateTime
     public void postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(String apiType,String dataSetId,List<CallDetailsListRoomModel>callDetailsListFromRoomDB){
 
         System.out.println("CallDetailsViewModel CallingAgent:"+userId);
@@ -321,6 +321,23 @@ public class CallDetailsViewModel extends ViewModel {
                 );
 
     }
+
+    //NotSpokeToCustomerActivity - Number is Busy / Switched Off With ScheduleDateTime
+    public void postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff_WithScheduleDateTime(String apiType,String dataSetId,String scheduleVisitForCollection_dateTime,List<CallDetails> callDetailsList){
+
+        System.out.println("CallDetailsViewModel CallingAgent:"+userId);
+
+        subscribtion = (Disposable) Global.apiService().post_call_details(apiType + "&dataSetId=" + dataSetId + "&callingAgent=" + MainActivity3API.UserID + "&scheduledDateTime=" +scheduleVisitForCollection_dateTime +
+                        "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber="+"&reason=", callDetailsList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        this::onHomeApiSuccess, this::onApiError
+                );
+
+    }
+
 
     //13) NotSpokeToCustomerActivity-(PVR)PHYSICAL VISIT REQUIRED
     public void postScheduledDateTime_PVR(String dataSetId, String scheduleVisitForCollection_dateTime, List<CallDetails> callDetailsList) {
