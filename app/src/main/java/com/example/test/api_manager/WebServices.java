@@ -221,11 +221,11 @@ public  class WebServices {
     //DID NOT SPOKE TO CUSTOMER - NUMBER IS INVALID
     public static String notSpokeToCustomer_numberIsInvalid = "activity/submitcall?flow=DNSTC-INV";
 
-    //DID NOT SPOKE TO CUSTOMER - NUMBER BUSY
+    //DID NOT SPOKE TO CUSTOMER - NUMBER BUSY (No Response/Busy)
     public static String notSpokeToCustomer_numberIsBusy = "activity/submitcall?flow=DNSTC-NRB";
 
-    //DID NOT SPOKE TO CUSTOMER - NUMBER SWITCH OFF
-    public static String notSpokeToCustomer_numberSwitchedOff = "activity/submitcall?flow=DNSTC-NSF";
+    //DID NOT SPOKE TO CUSTOMER - NUMBER SWITCH OFF (Not Reachable / Switched Off)
+    public static String notSpokeToCustomer_numberSwitchedOff = "activity/submitcall?flow=DNSTC-NRS";
 
     //DID NOT SPOKE TO CUSTOMER - PHYSICAL VISIT REQUIRED
     public static String notSpokeToCustomer_physicalVisitRequired = "activity/submitcall?flow=DNSTC-PVR";
