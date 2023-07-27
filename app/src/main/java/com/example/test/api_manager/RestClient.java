@@ -125,6 +125,10 @@ public interface RestClient {
     @GET
     Observable<List<LoanCollectionListResponseModel>> getLoanCollectionList(@Url String url);
 
+    //NearByCustomerList , using LoanCollectionResponseModel
+    @GET
+    Observable<List<LoanCollectionListResponseModel>> getNearByCustomersList(@Url String url);
+
     //Details of Customer
     @GET
     Observable<List<DetailsOfCustomerResponseModel>> getDetailsOfCustomerList(@Url String url);

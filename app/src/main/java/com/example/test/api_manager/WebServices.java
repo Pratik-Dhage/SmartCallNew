@@ -250,6 +250,11 @@ public  class WebServices {
     //http://43.239.52.151:8081/transactionDataSet/updateLocation?dataSetId=...&lat=....&lon=...&dist=...
     public static String save_location_of_customer = "transactionDataSet/updateLocation?";
 
+    //For Visit NearBy Customer
+    //http://45.114.143.87:8082/transactionDataSet/getNearByCustomers?userId=<User Id>&lat=<lattitude of the current user position>&lon=<longitute of the current user position>
+    public static String visit_nearBy_customers = "transactionDataSet/getNearByCustomers?";
+
+
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 
