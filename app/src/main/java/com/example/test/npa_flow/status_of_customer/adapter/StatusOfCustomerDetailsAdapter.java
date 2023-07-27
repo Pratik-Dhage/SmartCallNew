@@ -137,6 +137,17 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     holder.binding.txtRelativeContact.setText("Contact: "+a.getRelativeContactNumber());
                 }
 
+               //FO Name
+                if(null!=a.getFoName()){
+                    holder.binding.txtFOName.setVisibility(View.VISIBLE);
+                    holder.binding.txtFOName.setText("FO Name: "+a.getFoName());
+                }
+
+                //FO Date Of Visit Promised
+                if(null!=a.getDateOfVisit()){
+                    holder.binding.txtDateOfVisitPromised.setVisibility(View.VISIBLE);
+                    holder.binding.txtDateOfVisitPromised.setText("Date Of Visit: "+a.getDateOfVisit());
+                }
 
 
                 // Status Info
