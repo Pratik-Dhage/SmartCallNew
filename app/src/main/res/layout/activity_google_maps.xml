@@ -86,6 +86,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <Button
+        android:id="@+id/btnSaveDistance"
+        app:layout_constraintStart_toEndOf="@+id/txtDistance"
+        android:layout_marginStart="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="@+id/txtDistance"
+        app:layout_constraintBottom_toBottomOf="@id/txtDistance"
+        android:layout_width="wrap_content"
+        android:visibility="visible"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/green"
+        android:text="@string/save"
+       style="@style/ButtonStyle"/>
+
     <TextView
         android:id="@+id/labelAddress"
         android:text="@string/address_"
@@ -120,7 +133,7 @@
         android:id="@+id/googleMapsFrameLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_50sdp"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
