@@ -446,21 +446,22 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                 //  holder.binding.txtDetailName.setText(a.getValue());
             } else {
 
+
                 String savedDistance = Global.getStringFromSharedPref(context, "formattedDistanceInKm");
-                if(a.getValue()!=null){
+
+                // Call Save Location of Customer API Here
+                callSaveLocationOfCustomerAPI(context,savedDistance);
+                //initObserverSavedLocationOfCustomer
+                initObserverSavedLocationOfCustomer(context);
+
+                if(a.getValue()!=null && GoogleMapsActivity.saveDistanceBoolean){
                     holder.binding.txtDetailName.setText(a.getValue() + ", " + savedDistance + "Km");}
-             else
+             else if( GoogleMapsActivity.saveDistanceBoolean)
                 {
                   holder.binding.txtDetailName.setText(savedDistance + "Km");
               }
 
 
-
-                // Call Save Location of Customer API Here
-               callSaveLocationOfCustomerAPI(context,savedDistance);
-
-                //initObserverSavedLocationOfCustomer
-             initObserverSavedLocationOfCustomer(context);
             }
 
         }
@@ -531,7 +532,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                 System.out.println("Here DetailsOfCustomerAdapter Longitude:"+ MapFragment.userMarkerLongitude);
 
                 //Save Location of Customer API
-                if(NetworkUtilities.getConnectivityStatus(context)){
+                if(NetworkUtilities.getConnectivityStatus(context) && GoogleMapsActivity.saveDistanceBoolean){
                     saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(DetailsOfCustomerAdapter.dataSetId,String.valueOf(MapFragment.userMarkerLatitude),String.valueOf(MapFragment.userMarkerLongitude),savedDistance);
                 }
 
