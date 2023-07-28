@@ -28,12 +28,16 @@ public class CallDetailsListRoomModel {
     @ColumnInfo(name = "notes")
     private String notes;
 
+    @ColumnInfo(name = "attemptNo")
+    private int attemptNo;
+
     //Constructor
-    public CallDetailsListRoomModel(String fullName, String phoneNumber, String callDateTime, int callDuration) {
+    public CallDetailsListRoomModel(String fullName, String phoneNumber, String callDateTime, int callDuration, int attemptNo) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.callDateTime = callDateTime;
         this.callDuration = callDuration;
+        this.attemptNo = attemptNo;
     }
 
     public int getId() {
@@ -82,5 +86,13 @@ public class CallDetailsListRoomModel {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public int getAttemptNo() {
+        return attemptNo;
+    }
+
+    public void setAttemptNo(int attemptNo) {
+        this.attemptNo = attemptNo;
     }
 }

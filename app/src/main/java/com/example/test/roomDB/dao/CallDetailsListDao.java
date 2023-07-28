@@ -29,7 +29,9 @@ public interface CallDetailsListDao {
     String getCallDateTimeUsingMobileNumber(String phoneNumber);
 
     //id is needed because data is being fetched for same mobileNumber . So id is used to differentiate items in List
-    @Query("SELECT id,callDateTime,callDuration FROM call_details_table WHERE phoneNumber =:phoneNumber")
+    @Query("SELECT id,callDateTime,callDuration,attemptNo FROM call_details_table WHERE phoneNumber =:phoneNumber")
     List<CallDetailsListRoomModel> getCallLogDetailsUsingMobileNumber(String phoneNumber);
 
+    @Query("UPDATE call_details_table SET attemptNo=:attemptNo where phoneNumber =:phoneNumber")
+    void UpdateAttemptNo(int attemptNo,String phoneNumber);
 }
