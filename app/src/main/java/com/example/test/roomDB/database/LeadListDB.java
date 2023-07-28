@@ -29,7 +29,7 @@ import kotlin.jvm.Synchronized;
 
 @Database(entities = {LeadModelRoom.class, LeadCallModelRoom.class, UserLocationRoomModel.class, CustomerLocationRoomModel.class,
         MPinRoomModel.class, UserNameRoomModel.class, NearByCustomerRoomModel.class,
-        NotSpokeToCustomerRoomModel.class, CallDetailsListRoomModel.class},version = 13)
+        NotSpokeToCustomerRoomModel.class, CallDetailsListRoomModel.class},version = 14)
 public abstract class LeadListDB extends RoomDatabase {
 
     public abstract LeadDao leadDao();
