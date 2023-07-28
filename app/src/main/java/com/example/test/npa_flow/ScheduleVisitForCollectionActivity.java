@@ -27,15 +27,18 @@ import com.example.test.npa_flow.call_details.CallDetailsViewModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
+import com.example.test.roomDB.dao.CallDetailsListDao;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
+import com.example.test.roomDB.model.CallDetailsListRoomModel;
 import com.example.test.schedule_flow.visits_for_the_day.adapter.VisitsForTheDayAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
@@ -312,6 +315,30 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                     String dataSetId = getIntent().getStringExtra("dataSetId");
                     DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
                     callDetailsViewModel.postScheduledDateTime_PVR(dataSetId, scheduleVisitForCollection_dateTime, detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
+
+                }
+
+                //NotSpokeToCustomer - No Response/Busy
+                if(binding.btnUpdateSchedule.getText() == getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromNotSpokeToCustomer_NoResponseBusy")){
+
+                    getScheduleDateTime();
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    System.out.println("Here NoResponseBusy dataSetId:"+dataSetId);
+                    String physicalVisitRequired = WebServices.notSpokeToCustomer_physicalVisitRequired; //using DNSTC-PVR flow for Member to appear in VisitsFlow at 4th Attempt
+                    DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+                    callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff_WithScheduleDateTime(physicalVisitRequired,dataSetId, scheduleVisitForCollection_dateTime, detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
+
+                }
+
+                //NotSpokeToCustomer - Not Reachable/Switched Off
+                if(binding.btnUpdateSchedule.getText() == getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromNotSpokeToCustomer_SwitchOff")){
+
+                    getScheduleDateTime();
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    System.out.println("Here NotReachableSwitchOff dataSetId:"+dataSetId);
+                    String physicalVisitRequired = WebServices.notSpokeToCustomer_physicalVisitRequired;//using DNSTC-PVR flow for Member to appear in VisitsFlow at 4th Attempt
+                    DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
+                    callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff_WithScheduleDateTime(physicalVisitRequired,dataSetId, scheduleVisitForCollection_dateTime, detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
 
                 }
 
