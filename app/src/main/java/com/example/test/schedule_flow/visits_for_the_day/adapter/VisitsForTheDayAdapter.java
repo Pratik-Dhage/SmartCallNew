@@ -194,7 +194,7 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
     @Override
     public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
         super.onViewDetachedFromWindow(holder);
-        holder.setIsRecyclable(false);
+        holder.setIsRecyclable(true); //for Distance
     }
 
     @SuppressLint("NotifyDataSetChanged")
