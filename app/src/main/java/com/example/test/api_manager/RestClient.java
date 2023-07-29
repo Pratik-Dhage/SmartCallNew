@@ -109,7 +109,7 @@ public interface RestClient {
     Observable<String> post_call_details(@Url String url, @Body List<CallDetails> callDetails);
 
     //for Call Details From ROOM DB for NotSpokeToCustomer - NumberIsBusy/SwitchedOff buttons  (CALLS FOR THE DAY FLOW & NPA FLOW)
-    //After 3 attempts are made navigate to SubmitCompletionActivityOfCustomer
+    //At 5th attempt  navigate to ScheduleVisitForCollectionActivity(Means 4 attempts are completed with CallLogDetailsFromRoomDB sent to Backend)
     @POST
     Observable<String> post_call_details_from_roomDB(@Url String url, @Body List<CallDetailsListRoomModel> callDetailsFromRoomDB);
 
