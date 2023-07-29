@@ -198,8 +198,8 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
             String phoneNumber=DetailsOfCustomerActivity.Mobile_Number; // get Phone Number from DetailsOfCustomerActivity
             String first_Name = DetailsOfCustomerActivity.FullName;
 
-            if(leadCallDao.getCallCountUsingPhoneNumber(phoneNumber)>2){
-                leadCallDao.UpdateLeadCalls(0,phoneNumber); // if leadCallCount >2 make it back to zero
+            if(leadCallDao.getCallCountUsingPhoneNumber(phoneNumber)>4){
+                leadCallDao.UpdateLeadCalls(0,phoneNumber); // if leadCallCount >4 as(0,1,2,3) make it back to zero for Hand gestures
             }
 
             //   int callCount =  leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
@@ -219,6 +219,10 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
                     case 1:holder.binding.ivCallsAttempt.setImageResource(R.drawable.attempttwo);
                         break;
                     case 2 : holder.binding.ivCallsAttempt.setImageResource(R.drawable.attemptthree);
+                        break;
+                    case 3: holder.binding.ivCallsAttempt.setImageResource(R.drawable.attemptfour);
+                        break;
+                    case 4 : holder.binding.ivCallsAttempt.setImageResource(R.drawable.attemptfiveblue);
                         break;
 
                 }
@@ -254,6 +258,10 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
                         break;
                     case 2 : holder.binding.ivCallsAttempt.setImageResource(R.drawable.attemptthree);
                         break;
+                    case 3: holder.binding.ivCallsAttempt.setImageResource(R.drawable.attemptfour);
+                        break;
+                    case 4 : holder.binding.ivCallsAttempt.setImageResource(R.drawable.attemptfiveblue);
+                        break;
 
                 }
 
@@ -277,7 +285,7 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
     @Override
     public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
         super.onViewDetachedFromWindow(holder);
-        holder.setIsRecyclable(false);
+        holder.setIsRecyclable(true); // for distance in Km to keep fetching New distance everytime
     }
 
     @SuppressLint("NotifyDataSetChanged")

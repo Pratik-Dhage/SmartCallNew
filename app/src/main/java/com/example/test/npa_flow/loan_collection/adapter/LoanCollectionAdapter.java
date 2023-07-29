@@ -252,8 +252,8 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
             String phoneNumber=DetailsOfCustomerActivity.Mobile_Number; // get Phone Number from DetailsOfCustomerActivity
             String first_Name = DetailsOfCustomerActivity.FullName;
 
-            if(leadCallDao.getCallCountUsingPhoneNumber(phoneNumber)>3){
-                leadCallDao.UpdateLeadCalls(0,phoneNumber); // if leadCallCount >3 make it back to zero
+            if(leadCallDao.getCallCountUsingPhoneNumber(phoneNumber)>4){
+                leadCallDao.UpdateLeadCalls(0,phoneNumber); // if leadCallCount >4 as(0,1,2,3) make it back to zero for Hand gestures
             }
 
          //   int callCount =  leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
@@ -275,7 +275,9 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
                     case 2 : holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptthree);
                         break;
                     case 3: holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptfour);
-                    break;
+                        break;
+                    case 4 : holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptfiveblue);
+                        break;
 
                 }
             }
@@ -312,6 +314,8 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
                    case 2 : holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptthree);
                        break;
                    case 3: holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptfour);
+                       break;
+                   case 4 : holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptfiveblue);
                        break;
                }
 
