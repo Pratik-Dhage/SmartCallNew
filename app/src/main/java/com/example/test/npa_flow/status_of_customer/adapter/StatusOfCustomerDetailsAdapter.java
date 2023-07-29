@@ -72,19 +72,6 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
             holder.binding.txtUserName.setText(userName);
         }
 
-        //This is inside Status info
-        if (a.getActivityStatus() != null) {
-
-            // Complete / Pending
-           /* if (a.getActivityStatus().toLowerCase().contains("complete")) {
-                holder.binding.txtBottomMainStatusInfo.setText("Complete");
-            }
-            if (a.getActivityStatus().toLowerCase().contains("pending")) {
-                holder.binding.txtBottomMainStatusInfo.setText("Pending");
-            }*/
-
-
-        }
 
 
         holder.binding.ivDownArrowStatus.setOnClickListener(v -> {
