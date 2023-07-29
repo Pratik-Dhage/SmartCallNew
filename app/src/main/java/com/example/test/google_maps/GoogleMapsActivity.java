@@ -141,12 +141,12 @@ public class GoogleMapsActivity extends AppCompatActivity {
                     System.out.println("Here savedDistance: "+savedDistance);
                     initObserverSavedLocationOfCustomer(this);
 
-                    new Handler().postDelayed(new Runnable() {
+                   /* new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             performBackPressedAction();
                         }
-                    }, 2000);
+                    }, 2000);*/
                 }
                 else if(savedDistance==null){
                     Global.showSnackBar(view,getResources().getString(R.string.something_went_wrong));
@@ -274,12 +274,12 @@ public class GoogleMapsActivity extends AppCompatActivity {
                         System.out.println("Here savedDistance: "+savedDistance);
                         initObserverSavedLocationOfCustomer(this);
 
-                        new Handler().postDelayed(new Runnable() {
+                       /* new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 performBackPressedAction();
                             }
-                        }, 1000);
+                        }, 1000);*/
                     }
                 else if(savedDistance==null){
                     Global.showSnackBar(view,getResources().getString(R.string.something_went_wrong));
@@ -312,6 +312,13 @@ public class GoogleMapsActivity extends AppCompatActivity {
 
                 //  Global.showToast(context,result);
                 System.out.println("Here SavedDistanceOfCustomerResponse: "+result);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        performBackPressedAction();
+                    }
+                }, 2000);
             }
         });
     }
