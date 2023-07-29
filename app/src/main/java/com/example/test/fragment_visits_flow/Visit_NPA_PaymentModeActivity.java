@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -102,13 +103,27 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
         binding.btnSendLinkForOnlinePayment.setOnClickListener(v->{
 
-            Intent i = new Intent(this, PaymentModeStatusActivity.class);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Pending Requirement");
+            builder.setMessage("This requirement is pending");
+            builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            //Commented for Temporary Basis as Payment Gateway Requirement will come here later from Client
+
+            /* Intent i = new Intent(this, PaymentModeStatusActivity.class);
             String dataSetId = getIntent().getStringExtra("dataSetId");
             i.putExtra("dataSetId",dataSetId);
             i.putExtra("isVisitsReadyToPaySendLinkForOnlinePayment","isVisitsReadyToPaySendLinkForOnlinePayment");
             i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity","isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
             i.putExtra("detailsList",detailsList);
-            startActivity(i);
+            startActivity(i);*/
         });
 
         //for Cash Payment
