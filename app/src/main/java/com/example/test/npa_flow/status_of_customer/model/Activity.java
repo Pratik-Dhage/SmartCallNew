@@ -31,6 +31,7 @@ public class Activity implements Serializable {
     private String relativeContactNumber;
     private String foName;
     private String dateOfVisit;
+    private String reason;
     private List<ActivityDetail> activityDetails;
     private Activity childActivity;
     public Long getActivityId() {
@@ -202,5 +203,13 @@ public class Activity implements Serializable {
 
     public void setDateOfVisit(String dateOfVisit) {
         this.dateOfVisit = dateOfVisit;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }

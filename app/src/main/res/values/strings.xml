@@ -208,7 +208,7 @@
     <string name="yes_the_lead_nis_interested">Yes, the lead \nis interested</string>
     <string name="no_the_lead_nis_not_interested">No the lead \nis not interested</string>
     <string name="which_products_are_you_interested_in">Which products are you interested in?</string>
-    <string name="will_pay_lumpsum">\u00A0Will pay LumpSump\u00A0</string>
+    <string name="will_pay_lumpsum">\u00A0Will pay LumpSum\u00A0</string>
     <string name="already_paid">Already Paid</string>
     <string name="upload">Upload</string>
     <string name="upload_file">Upload File</string>
@@ -371,7 +371,7 @@
     <string name="will_pay_later_status_info">Will Pay Later</string>
     <string name="full_amount_paid_status_info">Full Amount Paid</string>
     <string name="partial_Amount_paid_status_info">Partial Amount Paid</string>
-    <string name="will_pay_lump_sump_status_info">Will Pay Lump sump</string>
+    <string name="will_pay_lump_sump_status_info">Will Pay Lump sum</string>
     <string name="please_select_from_date">Please Select From Date</string>
     <string name="please_select_to_date">Please Select To Date</string>
     <string name="mpin_is_incorrect">MPin is Incorrect</string>

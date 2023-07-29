@@ -149,6 +149,12 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     holder.binding.txtDateOfVisitPromised.setText("Date Of Visit: "+a.getDateOfVisit());
                 }
 
+                //Other (with reason)
+                if(null!=a.getReason()){
+                    holder.binding.txtReasonOthers.setVisibility(View.VISIBLE);
+                    holder.binding.txtReasonOthers.setText("Reason: "+a.getReason());
+                }
+
 
                 // Status Info
                 for (ActivityDetail details : a.getActivityDetails()) {
