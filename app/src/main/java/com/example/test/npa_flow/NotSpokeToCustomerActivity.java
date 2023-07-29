@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +17,13 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.test.R;
+import com.example.test.api_manager.WebServices;
 import com.example.test.databinding.ActivityNotSpokeToCustomerBinding;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.call_details.CallDetailsViewModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
@@ -37,12 +40,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
     ActivityNotSpokeToCustomerBinding binding;
     View view;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
+    CallDetailsViewModel callDetailsViewModel;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
     public static boolean notSpokeToCustomer = false; // for Call Attempts(Hands) to display ONLY in Case if User Did Not Spoke To Customer
 
@@ -56,6 +61,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         initializeFields();
         setUpDetailsOfCustomerRecyclerView();
         onClickListener();
+        initObserver();
 
     }
 
@@ -64,6 +70,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_not_spoke_to_customer);
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
+        callDetailsViewModel = new ViewModelProvider(this).get(CallDetailsViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
 
         //get detailsList
@@ -98,6 +105,41 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
         recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsList));
     }
+
+    private void initObserver(){
+
+        if(NetworkUtilities.getConnectivityStatus(this)) {
+            callDetailsViewModel.getMutCallDetailsResponseApi().observe(this, result -> {
+
+                if(result!=null){
+                    // Global.showToast(this,"Server Response:"+result);
+                    Global.showSnackBar(view, result);
+                    System.out.println("Here Server Response: "+result);
+
+                    //Remove CallDetails
+                    // After NoResponse/Busy & NotReachableSwitchOff Api Call to send 1 New List Everytime
+                    CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+                    callDetailsListDao.deleteCallDetailsListUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                }
+
+
+            });
+
+            //to handle error
+            callDetailsViewModel.getMutErrorResponse().observe(this,error->{
+                if (error != null && !error.isEmpty()) {
+                    Global.showSnackBar(view, error);
+                    System.out.println("Here error : " + error);
+                    //Here error : End of input at line 1 column 1 path $ (if Server response body is empty, we get this error)
+                }
+            });
+
+        }
+        else{
+            Global.showSnackBar(view,getString(R.string.check_internet_connection));
+        }
+    }
+
 
 
     private void onClickListener() {
@@ -136,9 +178,10 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
                 if(null!= DetailsOfCustomerActivity.FullName || null!= DetailsOfCustomerActivity.Mobile_Number){
 
-                    //if CallCount is becoming 4 then Navigate to SubmitCompletionActivityOfCustomer
-                    if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==2){
-                        navigateToSubmitActivity("NoResponseBusy");
+                    //if CallCount is becoming 5(0,1,2,3,4)
+                    //At 5th Attempt Navigate to ScheduleVisitForCollectionActivity
+                    if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==4){
+                        navigateToScheduleVisitForCollectionActivity("NoResponseBusy");
                         storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number); //to remove hand gesture
                         storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0); //to get 3 CallDateTime,CallDuration
                     }
@@ -146,8 +189,14 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                     else{
                         storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number);
                         storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0);
-                        Intent i = new Intent(this, CallsForTheDayActivity.class);
-                        startActivity(i);
+
+                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                        CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+                        List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                        System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
+                        callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy, dataSetId, callDetailsListRoomModelList);
+                        navigateToCallsForTheDayList();
+
                     }
 
                 }
@@ -165,21 +214,24 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
                 if(null!= DetailsOfCustomerActivity.FullName || null!= DetailsOfCustomerActivity.Mobile_Number){
 
-                    //if CallCount is becoming 4 then Navigate to SubmitCompletionActivityOfCustomer
-                    if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==2){
-                        navigateToSubmitActivity("NoResponseBusy");
+                    //if CallCount is becoming 5(0,1,2,3,4)
+                    //At 5th Attempt Navigate to ScheduleVisitForCollectionActivity
+                    if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==4){
+                        navigateToScheduleVisitForCollectionActivity("NoResponseBusy");
                         storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number); //to remove hand gesture
                         storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0); //to get 3 CallDateTime,CallDuration
                     }
                     else{
                         storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number);
                         storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0);
-                        // Get DPD_row_position saved in SharedPreference in DPD_Adapter Class
-                        int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this, "DPD_row_position"));
 
-                        Intent i = new Intent(NotSpokeToCustomerActivity.this, LoanCollectionActivity.class);
-                        i.putExtra("DPD_row_position", DPD_row_position);
-                        startActivity(i);
+                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                        CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+                        List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                        System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
+                        callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy, dataSetId, callDetailsListRoomModelList);
+                         navigateToNPAList();
+
                     }
 
                 }
@@ -196,9 +248,10 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
                 if(null!= DetailsOfCustomerActivity.FullName || null!= DetailsOfCustomerActivity.Mobile_Number){
 
-                    //if CallCount is becoming 4 then Navigate to SubmitCompletionActivityOfCustomer
-                    if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==2){
-                        navigateToSubmitActivity("SwitchOff");
+                    //if CallCount is becoming 5(0,1,2,3,4)
+                    //At 5th Attempt Navigate to ScheduleVisitForCollectionActivity
+                    if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==4){
+                        navigateToScheduleVisitForCollectionActivity("SwitchOff");
                         storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number); //to remove hand gesture
                         storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0); //to get 3 CallDateTime,CallDuration
                     }
@@ -206,8 +259,13 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
                         storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number);
                         storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0);
-                        Intent i = new Intent(this, CallsForTheDayActivity.class);
-                        startActivity(i);
+
+                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                        CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+                        List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                        System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
+                        callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff, dataSetId, callDetailsListRoomModelList);
+                        navigateToCallsForTheDayList();
                     }
 
                 }
@@ -222,9 +280,10 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
                 if(null!= DetailsOfCustomerActivity.FullName || null!= DetailsOfCustomerActivity.Mobile_Number){
 
-                    //if CallCount is becoming 4 then Navigate to SubmitCompletionActivityOfCustomer
-                    if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==2){
-                        navigateToSubmitActivity("SwitchOff");
+                    //if CallCount is becoming 5(0,1,2,3,4)
+                    //At 5th Attempt Navigate to ScheduleVisitForCollectionActivity
+                    if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==4){
+                        navigateToScheduleVisitForCollectionActivity("SwitchOff");
                         storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number); //to remove hand gesture
                         storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0); //to get 3 CallDateTime,CallDuration
                     }
@@ -232,12 +291,12 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                         storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number);
                         storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0);
 
-                        // Get DPD_row_position saved in SharedPreference in DPD_Adapter Class
-                        int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this, "DPD_row_position"));
-
-                        Intent i = new Intent(NotSpokeToCustomerActivity.this, LoanCollectionActivity.class);
-                        i.putExtra("DPD_row_position", DPD_row_position);
-                        startActivity(i);
+                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                        CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
+                        List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                        System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
+                        callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff, dataSetId, callDetailsListRoomModelList);
+                        navigateToNPAList();
                     }
 
                 }
@@ -265,11 +324,11 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
     }
 
-    public void navigateToSubmitActivity(String apiType){
+    public void navigateToScheduleVisitForCollectionActivity(String apiType){
 
 
         if(apiType.contentEquals("NoResponseBusy")){
-            Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
+            Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("detailsList",detailsList);
             i.putExtra("isFromNotSpokeToCustomer_NoResponseBusy","isFromNotSpokeToCustomer_NoResponseBusy");
@@ -277,13 +336,38 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
         }
         else if( apiType.contentEquals("SwitchOff")){
-            Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
+            Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("detailsList",detailsList);
             i.putExtra("isFromNotSpokeToCustomer_SwitchOff","isFromNotSpokeToCustomer_SwitchOff");
             startActivity(i);
         }
 
+    }
+
+    private void navigateToCallsForTheDayList(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(NotSpokeToCustomerActivity.this, CallsForTheDayActivity.class);
+                startActivity(i);
+            }
+        },1000);
+    }
+
+    private void navigateToNPAList(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                // Get DPD_row_position saved in SharedPreference in DPD_Adapter Class
+                int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(NotSpokeToCustomerActivity.this, "DPD_row_position"));
+                Intent i = new Intent(NotSpokeToCustomerActivity.this, LoanCollectionActivity.class);
+                i.putExtra("DPD_row_position", DPD_row_position);
+                startActivity(i);
+
+            }
+        },1000);
     }
 
     public int getCallCountFromRoomDB(String phoneNumber){
@@ -300,8 +384,27 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         try{
             Date date = new Date();
             String formattedCallDateTime = dateFormat.format(date);
-            CallDetailsListRoomModel callDetailsListRoomModel = new CallDetailsListRoomModel(fullName,phoneNumber,formattedCallDateTime,callDuration);
+
+            // Check the current attemptNo for the phoneNumber in the database
+
+            LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
+           // int callCount = leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
+
+            int currentAttemptNo = leadCallDao.getCallCountUsingPhoneNumber(phoneNumber); //using callCount same as attemptNo.
+            System.out.println(currentAttemptNo);
+            CallDetailsListRoomModel callDetailsListRoomModel = new CallDetailsListRoomModel(fullName,phoneNumber,formattedCallDateTime,callDuration,currentAttemptNo);
             callDetailsListDao.insert(callDetailsListRoomModel);
+
+
+         // If attemptNo is at attemptNo=5 i.e (0,1,2,3,4) then make it zero
+            if (currentAttemptNo > 5) {
+                currentAttemptNo=0;
+            }
+            callDetailsListDao.UpdateAttemptNo(currentAttemptNo,phoneNumber);
+
+
+
+
             // Will get 1st CallDateTime in Logcat for all 3 calls as it is fetching using same mobileNumber
             System.out.println("Here CallDetailsDateTimeFromDB:"+callDetailsListDao.getCallDateTimeUsingMobileNumber(phoneNumber));
         }
@@ -320,9 +423,9 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         LeadCallModelRoom leadCallModelRoom = new LeadCallModelRoom(callCount, firstName, phoneNumber);
 
         leadCallDao.insert(leadCallModelRoom);
-        //  if Call Count >2 then make it to zero
+        //  if CallCount=5 means (0,1,2,3,4) then make it to zero
 
-        if (callCount > 2) {
+        if (callCount > 5) {
             callCount = 0;
         }
 
