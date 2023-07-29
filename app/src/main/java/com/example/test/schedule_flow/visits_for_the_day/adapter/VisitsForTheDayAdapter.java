@@ -21,6 +21,7 @@ import com.example.test.google_maps.MapFragment;
 import com.example.test.helper_classes.Global;
 import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
+import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 import com.example.test.npa_flow.status_of_customer.StatusOfCustomerActivity;
 import com.example.test.npa_flow.status_of_customer.adapter.StatusOfCustomerDetailsAdapter;
@@ -146,6 +147,28 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
               //DetailsOfCustomer Only visible if Status is Pending
               if(a.getActionStatus().toLowerCase().contains("pending")){
 
+                  //Use LoanCollectionAdapter_Distance value in DetailsOfCustomerAdapter beside Pincode
+                  if(a.getDistance()!=null && !String.valueOf(a.getDistance()).contentEquals("0.0")){
+                      LoanCollectionAdapter.LoanCollectionAdapter_Distance = String.valueOf(a.getDistance());
+                      System.out.println("Here LoanCollectionAdapter_Distance: "+LoanCollectionAdapter.LoanCollectionAdapter_Distance);
+                      Global.saveStringInSharedPref(context,"formattedDistanceInKm", LoanCollectionAdapter.LoanCollectionAdapter_Distance);
+                  }
+
+                  //if lat long not null , send to DetailsOfCustomerAdapter ,
+                  // on clicking Navigate button(beside Capture button)  navigate to  GoogleMaps
+                  if(  (null!= a.getLattitute() && null!= a.getLongitute() ) && null!=a.getDataSetId()) {
+                      System.out.println("Here Latitude:"+a.getLattitute()+" & Longitude:"+a.getLongitute());
+                      //convert BigDecimal corresponding to double value
+                      DetailsOfCustomerAdapter.latitudeFromLoanCollectionResponse = Double.parseDouble(String.valueOf(a.getLattitute()));
+                      DetailsOfCustomerAdapter.longitudeFromLoanCollectionResponse = Double.parseDouble(String.valueOf(a.getLongitute()));
+                      DetailsOfCustomerAdapter.dataSetId = a.getDataSetId().toString(); // to pass in Save Location API
+
+                      //Save LatLong for Navigate Button in DetailsOfCustomerAdapter Also in DetailsOfCustomerActivity onResume()
+                      Global.saveStringInSharedPref(context,"latitudeFromLoanCollectionAdapter",String.valueOf(a.getLattitute()));
+                      Global.saveStringInSharedPref(context,"longitudeFromLoanCollectionAdapter",String.valueOf(a.getLongitute()));
+
+                  }
+
                   System.out.println("Here VisitsForTheDayAdapter dataSetId:"+a.getDataSetId().toString());
                   String dataSetId = a.getDataSetId().toString();
                   LoanCollectionAdapter.LoanCollectionAdapter_dataSetId = a.getDataSetId().toString();
@@ -188,13 +211,17 @@ public class VisitsForTheDayAdapter extends RecyclerView.Adapter<VisitsForTheDay
     @Override
     public void onViewAttachedToWindow(@NonNull MyViewHolderClass holder) {
         super.onViewAttachedToWindow(holder);
-        holder.setIsRecyclable(true);
+        if(GoogleMapsActivity.saveDistanceBoolean && GoogleMapsActivity.isSaveButtonClicked){
+            holder.setIsRecyclable(true);
+        }
     }
 
     @Override
     public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
         super.onViewDetachedFromWindow(holder);
-        holder.setIsRecyclable(true); //for Distance
+        if(GoogleMapsActivity.saveDistanceBoolean && GoogleMapsActivity.isSaveButtonClicked){
+            holder.setIsRecyclable(true); // for distance in Km to keep fetching New distance everytime
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

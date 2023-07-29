@@ -43,7 +43,7 @@ public class GoogleMapsActivity extends AppCompatActivity {
    public static String isFromDetailsOfCustomerAdapter_CaptureButton;
 
     public static boolean saveDistanceBoolean = false; //to Save Distance
-    boolean isSaveButtonClicked = false;
+    public static boolean isSaveButtonClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +62,7 @@ public class GoogleMapsActivity extends AppCompatActivity {
 
          dataSetId = getIntent().getStringExtra("dataSetId"); // for MapFragment (coming from ivMap(LoanCollectionAdapter) & Capture Button(DetailsOfCustomerAdapter))
           isSaveButtonClicked = false; // initially it will be false
+          saveDistanceBoolean = false; // initially it will be false
 
         //From LoanCollectionAdapter
         latitude = getIntent().getDoubleExtra("latitude",0.0);
@@ -109,7 +110,7 @@ public class GoogleMapsActivity extends AppCompatActivity {
 
                 saveDistanceBoolean = true;
             //Save Location of Customer API
-            if(NetworkUtilities.getConnectivityStatus(this) && saveDistanceBoolean && !binding.txtDistance.getText().toString().isEmpty()){
+            if(NetworkUtilities.getConnectivityStatus(this) && saveDistanceBoolean && !binding.txtDistance.getText().toString().isEmpty() && isSaveButtonClicked){
                 SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider(this).get(SaveLocationOfCustomerViewModel.class);
 
                 String savedDistance = Global.getStringFromSharedPref(this, "formattedDistanceInKm");

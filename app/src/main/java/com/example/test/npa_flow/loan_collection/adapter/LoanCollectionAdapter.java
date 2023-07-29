@@ -333,13 +333,19 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
     @Override
     public void onViewAttachedToWindow(@NonNull MyViewHolderClass holder) {
         super.onViewAttachedToWindow(holder);
-        holder.setIsRecyclable(true);
+        if(GoogleMapsActivity.saveDistanceBoolean && GoogleMapsActivity.isSaveButtonClicked){
+            holder.setIsRecyclable(true);
+        }
+
     }
 
     @Override
     public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
         super.onViewDetachedFromWindow(holder);
-        holder.setIsRecyclable(true); // for distance in Km to keep fetching New distance everytime
+        if(GoogleMapsActivity.saveDistanceBoolean && GoogleMapsActivity.isSaveButtonClicked){
+            holder.setIsRecyclable(true); // for distance in Km to keep fetching New distance everytime
+        }
+
     }
 
 
