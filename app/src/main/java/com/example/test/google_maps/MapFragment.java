@@ -117,14 +117,27 @@ public class MapFragment extends Fragment {
                 }*/
 
                 //coming from LoanCollectionAdapter red ivMap - Marker on User's Current Location
-                double latitude = GoogleMapsActivity.latitude;
-                double longitude = GoogleMapsActivity.longitude;
                 if(GoogleMapsActivity.isFromLoanCollectionAdapter!=null){
+
+                    double latitude = GoogleMapsActivity.latitude;
+                    double longitude = GoogleMapsActivity.longitude;
+
                     MarkerOptions markerOptions = new MarkerOptions();
                     LatLng latLngFromLoanCollectionAdapter = new LatLng(latitude,longitude);
                     markerOptions.position(latLngFromLoanCollectionAdapter);
                     googleMap.addMarker(markerOptions);
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromLoanCollectionAdapter, 15));
+
+                    //if User does not Marks on GoogleMaps For New Marker
+                    //then User's Current Device Location will become Member's Location
+
+                    getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
+                    getDistanceBetweenMarkerAndUser(latitude,longitude);
+
+                    // For Navigate Button in DetailsOFCustomerAdapter
+                    Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(latitude));
+                    Global.saveStringInSharedPref(getActivity().getApplicationContext(),"longitudeFromLoanCollectionAdapter",String.valueOf(longitude));
+
                 }
 
 
@@ -148,6 +161,17 @@ public class MapFragment extends Fragment {
 
                         googleMap.addMarker(markerOptions);
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userDeviceLatLng, 15));
+
+                        //if User does not Marks on GoogleMaps For New Marker
+                        //then User's Current Device Location will become Member's Location
+
+                        getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
+                        getDistanceBetweenMarkerAndUser(userLatitude,userLongitude);
+
+                        // For Navigate Button in DetailsOFCustomerAdapter
+                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(userLatitude));
+                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"longitudeFromLoanCollectionAdapter",String.valueOf(userLongitude));
+
                     }
 
                     else{
@@ -155,34 +179,47 @@ public class MapFragment extends Fragment {
                     }
 
 
-                   /* if (lodhaMallLatLng != null) {
-                        // Create a MarkerOptions object and set its position and title
-                        MarkerOptions markerOptions = new MarkerOptions();
-                        markerOptions.position(lodhaMallLatLng);
-                        markerOptions.title("Lodha Xperia Mall");
-
-                        googleMap.addMarker(markerOptions);
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lodhaMallLatLng, 15));
-                        // get Distance between User and that Marker LatLong
-                        getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
-                       // getDistanceBetweenMarkerAndUser(lodhaMallLatLng.latitude,lodhaMallLatLng.longitude);
-
-                        //if User doesn't Click on Maps for New Marker position, Assign userMarkerLatLong as default LodhaMallLatLong
-                        userMarkerLatitude = lodhaMallLatLng.latitude;
-                        userMarkerLongitude = lodhaMallLatLng.longitude;
-
-                        getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE); //Show Progress bar
-                        getCurrentLocation(googleMap); //User Marker
-                        getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
-                    }*/
-
-
                 }
 
-                //coming from VisitsForTheDayAdapter ivMap
-                double latitude_visitsForTheDay = GoogleMapsActivity.latitude_visitsForTheDay;
-                double longitude_visitsForTheDay = GoogleMapsActivity.longitude_visitsForTheDay;
+                //coming from VisitsForTheDayAdapter ivMap - Marker on User's Current Location
                 if(GoogleMapsActivity.isFromVisitsForTheDayAdapter!=null){
+
+                    double userLatitude = Global.getDeviceLocation(getActivity()).getLatitude();
+                    double userLongitude = Global.getDeviceLocation(getActivity()).getLongitude();
+
+                    LatLng userDeviceLatLng = new LatLng(userLatitude,userLongitude);
+                    System.out.println("VisitForTheDay ivMap userLatitude:"+userLatitude+" userLongitude"+userLongitude);
+
+                    if(userDeviceLatLng!=null){
+
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.position(userDeviceLatLng);
+                        markerOptions.title("User's Location");
+
+                        googleMap.addMarker(markerOptions);
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userDeviceLatLng, 15));
+
+                        //if User does not Marks on GoogleMaps For New Marker
+                        //then User's Current Device Location will become Member's Location
+
+                        getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
+                        getDistanceBetweenMarkerAndUser(userLatitude,userLongitude);
+
+                        // For Navigate Button in DetailsOFCustomerAdapter
+                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(userLatitude));
+                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"longitudeFromLoanCollectionAdapter",String.valueOf(userLongitude));
+
+                    }
+
+                    else{
+                        getCurrentLocation(googleMap); //User Marker
+                    }
+
+
+
+                   /* double latitude_visitsForTheDay = GoogleMapsActivity.latitude_visitsForTheDay;
+                    double longitude_visitsForTheDay = GoogleMapsActivity.longitude_visitsForTheDay;
+
                     MarkerOptions markerOptions = new MarkerOptions();
                     LatLng latLngFromVisitsForTheDayAdapter = new LatLng(latitude_visitsForTheDay,longitude_visitsForTheDay);
                     markerOptions.position(latLngFromVisitsForTheDayAdapter);
@@ -195,7 +232,7 @@ public class MapFragment extends Fragment {
 
                     getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE); //Show Progress bar
                     getCurrentLocation(googleMap); //User Marker
-                    getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
+                    getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);*/
                 }
 
                 //coming from CallsForTheDayAdapter
@@ -222,6 +259,9 @@ public class MapFragment extends Fragment {
                 googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
+
+                        //for setting Message in showAlertDialogToSaveDistance() in GoogleMapsActivity
+                        GoogleMapsActivity.isMapMarkerClicked = true; // if User clicks on Map for New Marker Position
 
                         getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE); //Show Progress bar
                         getActivity().findViewById(R.id.txtDistance).setVisibility(View.INVISIBLE);
