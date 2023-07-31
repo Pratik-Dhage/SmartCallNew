@@ -89,7 +89,7 @@
     <Button
         android:id="@+id/btnSaveDistance"
         app:layout_constraintStart_toEndOf="@+id/txtDistance"
-        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_30sdp"
         app:layout_constraintTop_toTopOf="@+id/txtDistance"
         app:layout_constraintBottom_toBottomOf="@id/txtDistance"
         android:layout_width="wrap_content"
