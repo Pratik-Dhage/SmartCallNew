@@ -45,6 +45,8 @@ public class GoogleMapsActivity extends AppCompatActivity {
     public static boolean saveDistanceBoolean = false; //to Save Distance
     public static boolean isSaveButtonClicked = false;
 
+    public static boolean isMapMarkerClicked = false; // if User clicks on Maps for New Marker Position ,used to setMessage in showAlertDialogToSaveDistance()
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +65,7 @@ public class GoogleMapsActivity extends AppCompatActivity {
          dataSetId = getIntent().getStringExtra("dataSetId"); // for MapFragment (coming from ivMap(LoanCollectionAdapter) & Capture Button(DetailsOfCustomerAdapter))
           isSaveButtonClicked = false; // initially it will be false
           saveDistanceBoolean = false; // initially it will be false
+          isMapMarkerClicked = false; // initially it will be false
 
         //From LoanCollectionAdapter
         latitude = getIntent().getDoubleExtra("latitude",0.0);
@@ -106,53 +109,12 @@ public class GoogleMapsActivity extends AppCompatActivity {
 
         binding.btnSaveDistance.setOnClickListener(v->{
 
-            isSaveButtonClicked = true;
-
-                saveDistanceBoolean = true;
             //Save Location of Customer API
-            if(NetworkUtilities.getConnectivityStatus(this) && saveDistanceBoolean && !binding.txtDistance.getText().toString().isEmpty() && isSaveButtonClicked){
-                SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider(this).get(SaveLocationOfCustomerViewModel.class);
-
-                String savedDistance = Global.getStringFromSharedPref(this, "formattedDistanceInKm");
-                dataSetId = getIntent().getStringExtra("dataSetId");
-
-                //get from SHaredPreference stored in LoanCollectionAdapter
-                if(null == dataSetId){
-                    dataSetId = Global.getStringFromSharedPref(this,"dataSetId");
-                }
-
-
-                if(savedDistance!=null && saveDistanceBoolean){
-
-                    //coming from LoanCollectionAdapter on red ivMap clicking
-                    //coming from VisitForTheDayAdapter on red ivMap clicking
-                    if(getIntent().hasExtra("isFromLoanCollectionAdapter_ivMap") || getIntent().hasExtra("isFromVisitsForTheDayAdapter")){
-                        System.out.println("Here from LoanCollectionAdapter on red ivMap clicking dataSetId:"+dataSetId);
-                        System.out.println("Here from VisitForTheDayAdapter on red ivMap clicking dataSetId:"+dataSetId);
-                        saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(MapFragment.userMarkerLatitude),String.valueOf(MapFragment.userMarkerLongitude),savedDistance);
-                    }
-
-                    // Coming From DetailsOfCustomerAdapter Capture button clicking
-                    else if (getIntent().hasExtra(isFromDetailsOfCustomerAdapter_CaptureButton)){
-                        System.out.println("Here from DetailsOfCustomerAdapter Capture button clicking dataSetId:"+dataSetId);
-                        saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(MapFragment.userMarkerLatitude),String.valueOf(MapFragment.userMarkerLongitude),savedDistance);
-                    }
-
-
-                    System.out.println("Here savedDistance: "+savedDistance);
-                    initObserverSavedLocationOfCustomer(this);
-
-                   /* new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            performBackPressedAction();
-                        }
-                    }, 2000);*/
-                }
-                else if(savedDistance==null){
-                    Global.showSnackBar(view,getResources().getString(R.string.something_went_wrong));
-                }
-
+            try{
+                showAlertDialogToSaveDistance();
+            }
+            catch (Exception e){
+                System.out.println("Here Save Location Exception:"+e);
             }
 
         });
@@ -199,19 +161,65 @@ public class GoogleMapsActivity extends AppCompatActivity {
     private void showAlertDialogToSaveDistance() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirm Action");
-        builder.setMessage("Save Distance?");
+        if(GoogleMapsActivity.isMapMarkerClicked){
+            builder.setMessage("Save Marked Location?");
+        }
+        else {
+            builder.setMessage("Save Current Location?");
+        }
 
 
+  // Yes Button Click
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                saveDistanceBoolean = true;
                isSaveButtonClicked = true;
-              binding.btnSaveDistance.performClick();
+             // binding.btnSaveDistance.performClick();
+
+                if(NetworkUtilities.getConnectivityStatus(GoogleMapsActivity.this) && saveDistanceBoolean && !binding.txtDistance.getText().toString().isEmpty() && isSaveButtonClicked){
+                    SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider(GoogleMapsActivity.this).get(SaveLocationOfCustomerViewModel.class);
+
+                    String savedDistance = Global.getStringFromSharedPref(GoogleMapsActivity.this, "formattedDistanceInKm");
+                    dataSetId = getIntent().getStringExtra("dataSetId");
+
+                    //get from SHaredPreference stored in LoanCollectionAdapter
+                    if(null == dataSetId){
+                        dataSetId = Global.getStringFromSharedPref(GoogleMapsActivity.this,"dataSetId");
+                    }
+
+
+                    if(savedDistance!=null && saveDistanceBoolean){
+
+                        //coming from LoanCollectionAdapter on red ivMap clicking
+                        //coming from VisitForTheDayAdapter on red ivMap clicking
+                        if(getIntent().hasExtra("isFromLoanCollectionAdapter_ivMap") || getIntent().hasExtra("isFromVisitsForTheDayAdapter")){
+                            System.out.println("Here from LoanCollectionAdapter on red ivMap clicking dataSetId:"+dataSetId);
+                            System.out.println("Here from VisitForTheDayAdapter on red ivMap clicking dataSetId:"+dataSetId);
+                            saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(MapFragment.userMarkerLatitude),String.valueOf(MapFragment.userMarkerLongitude),savedDistance);
+                        }
+
+                        // Coming From DetailsOfCustomerAdapter Capture button clicking
+                        else if (getIntent().hasExtra(isFromDetailsOfCustomerAdapter_CaptureButton)){
+                            System.out.println("Here from DetailsOfCustomerAdapter Capture button clicking dataSetId:"+dataSetId);
+                            saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(MapFragment.userMarkerLatitude),String.valueOf(MapFragment.userMarkerLongitude),savedDistance);
+                        }
+
+
+                        System.out.println("Here savedDistance: "+savedDistance);
+                        initObserverSavedLocationOfCustomer(GoogleMapsActivity.this);
+
+                    }
+                    else if(savedDistance==null){
+                        Global.showSnackBar(view,getResources().getString(R.string.something_went_wrong));
+                    }
+
+                }
+
             }
         });
 
-
+        // No Button Click
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -235,7 +243,7 @@ public class GoogleMapsActivity extends AppCompatActivity {
 
 
            //if Save Button is clicked
-      else  if(saveDistanceBoolean && !binding.txtDistance.getText().toString().isEmpty() && isSaveButtonClicked){
+    /*  else  if(saveDistanceBoolean && !binding.txtDistance.getText().toString().isEmpty() && isSaveButtonClicked){
 
             System.out.println("Here onBackPressed() GoogleMapsActivity");
             if(getIntent().hasExtra("isFromLoanCollectionAdapter_ivMap") || getIntent().hasExtra("isFromVisitsForTheDayAdapter") ||
@@ -275,12 +283,12 @@ public class GoogleMapsActivity extends AppCompatActivity {
                         System.out.println("Here savedDistance: "+savedDistance);
                         initObserverSavedLocationOfCustomer(this);
 
-                       /* new Handler().postDelayed(new Runnable() {
+                       *//* new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 performBackPressedAction();
                             }
-                        }, 1000);*/
+                        }, 1000);*//*
                     }
                 else if(savedDistance==null){
                     Global.showSnackBar(view,getResources().getString(R.string.something_went_wrong));
@@ -296,7 +304,7 @@ public class GoogleMapsActivity extends AppCompatActivity {
         else{
           performBackPressedAction();
         }
-
+*/
 
     }
 
@@ -313,6 +321,7 @@ public class GoogleMapsActivity extends AppCompatActivity {
 
                 //  Global.showToast(context,result);
                 System.out.println("Here SavedDistanceOfCustomerResponse: "+result);
+                Global.showSnackBar(view,result);
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
