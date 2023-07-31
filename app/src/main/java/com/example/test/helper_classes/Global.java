@@ -135,6 +135,21 @@ public class Global {
 
 */
 
+    public static boolean isValidMobileNumber(Context context,String mobileNumber){
+
+        if(mobileNumber.isEmpty()){
+           Global.showToast(context,"Mobile number cannot be empty");
+            return false;
+        }
+
+       else if(mobileNumber.startsWith("0") || !mobileNumber.matches("^[1-9][0-9]{9}$")){
+            Global.showToast(context,"Please Enter proper Mobile Number");
+            return false;
+        }
+
+        return true;
+    }
+
     //To Display Notes_Edit Dialog (Calls / NPA Flow)
     public static void showNotesEditDialog(Context context){
 
