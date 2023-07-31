@@ -58,18 +58,10 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
             holder.binding.txtStatusDetailsOfCustomer.setText(a.getActivityDate() + "," + a.getDay() + "," + a.getActivityTime()); //Activity Date and Activity Time Used here
         }
 
-       /* if (a.getActivityStatus() != null) {
-            holder.binding.txtActivityStatus.setText(a.getActivityStatus());
-        }*/
 
-        //Get UserName from RoomDB
-        MPinDao mPinDao = LeadListDB.getInstance(context).mPinDao();
-        UserNameDao userNameDao = LeadListDB.getInstance(context).userNameDao();
-        // String userName = Global.getStringFromSharedPref(context, "userName");
-        String userName = userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID());
 
-        if (userName != null) {
-            holder.binding.txtUserName.setText(userName);
+        if (a.getUserName() != null) {
+            holder.binding.txtUserName.setText(a.getUserName());
         }
 
 
