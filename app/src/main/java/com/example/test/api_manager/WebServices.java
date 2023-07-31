@@ -258,6 +258,10 @@ public  class WebServices {
     public static String visit_nearBy_customers = "transactionDataSet/getNearByCustomers?";
 
 
+    //For Radio Button customDialogRadioButton Reasons
+    //http://45.114.143.87:8082/classifier/getClassifiersByKey?key=VISITREASON
+    public static String radio_buttons_reason = "classifier/getClassifiersByKey?key=VISITREASON";
+
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 

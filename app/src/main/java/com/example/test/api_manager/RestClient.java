@@ -11,6 +11,7 @@ import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseMo
 import com.example.test.npa_flow.dpd.DPD_ResponseModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionListResponseModel;
 //import com.example.test.npa_flow.save_location.SaveLocationOfCustomerModel;
+import com.example.test.npa_flow.radio_buttons.RadioButtonReasons;
 import com.example.test.npa_flow.status_of_customer.model.Activity;
 import com.example.test.otp.model.OTPGenerateOTPResponseModel;
 import com.example.test.otp.model.OTPValidateOTPResponseModel;
@@ -145,5 +146,8 @@ public interface RestClient {
     @GET
     //Observable<SaveLocationOfCustomerModel> getSavedLocationOfCustomer(@Url String url);
     Observable<String> getSavedLocationOfCustomer(@Url String url);
+
+    @GET
+    Observable<List<RadioButtonReasons>> getRadioButtonReasons(@Url String url);
 
 }

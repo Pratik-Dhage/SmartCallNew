@@ -14,14 +14,35 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/_10sdp">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/toolBarStyle"
+            android:background="@color/textBlue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/txtToolbarHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/reason_for_visit"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp" />
+
+
+        </androidx.appcompat.widget.Toolbar>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRadioButton"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/toolbar"
             tools:listitem="@layout/item_radio_button"
             tools:itemCount="5"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -35,7 +56,7 @@
             android:layout_height="@dimen/_45sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:backgroundTint="@color/green"
-            android:text="@string/proceed"
+            android:text="@string/schedule_visit"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,6 +73,6 @@
         android:layout_marginEnd="8dp"
         android:clickable="true"
         android:src="@drawable/cancel_close"
-        app:tint="@color/red" />
+        app:tint="@color/white" />
 
 </RelativeLayout>

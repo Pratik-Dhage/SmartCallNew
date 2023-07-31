@@ -30,6 +30,8 @@ import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseMo
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
+import com.example.test.npa_flow.radio_buttons.RadioButtonsReasonAdapter;
+import com.example.test.npa_flow.radio_buttons.RadioButtonsViewModel;
 import com.example.test.roomDB.dao.CallDetailsListDao;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.database.LeadListDB;
@@ -50,9 +52,10 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
     View view;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
     CallDetailsViewModel callDetailsViewModel;
+    RadioButtonsViewModel radioButtonsViewModel;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
     public static boolean notSpokeToCustomer = false; // for Call Attempts(Hands) to display ONLY in Case if User Did Not Spoke To Customer
-
+    public static boolean isRadioButtonSelected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,8 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         setUpDetailsOfCustomerRecyclerView();
         onClickListener();
         initObserver();
+        callRadioButtonReasonApi();
+        initObserverRadioButtonData();
 
     }
 
@@ -73,12 +78,14 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         callDetailsViewModel = new ViewModelProvider(this).get(CallDetailsViewModel.class);
+        radioButtonsViewModel = new ViewModelProvider(this).get(RadioButtonsViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
 
         notSpokeToCustomer = false;
+        isRadioButtonSelected = false; //initially it will be false, in RadioButtonReasonAdapter only when radioButton is clicked it will be true
 
         // **For DetailsOfCustomerActivity.FullName &  DetailsOfCustomerActivity.Mobile_Number to Not go Null **
 
@@ -106,6 +113,40 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
         recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsList));
+    }
+
+
+    private void callRadioButtonReasonApi(){
+        if(NetworkUtilities.getConnectivityStatus(this)){
+            radioButtonsViewModel.getRadioButtonsReason_Data();
+        }
+        else{
+            Global.showSnackBar(view,getString(R.string.check_internet_connection));
+        }
+    }
+
+    private void initObserverRadioButtonData(){
+        if(NetworkUtilities.getConnectivityStatus(this)){
+            radioButtonsViewModel.getMutRadioButtonsReason_ResponseApi().observe(this,result2->{
+
+                if(result2!=null){
+                    radioButtonsViewModel.arrList_RadioButtonsReason_Data.addAll(result2);
+                }
+            });
+
+            radioButtonsViewModel.getMutErrorResponse().observe(this,error->{
+                if (error != null && !error.isEmpty()) {
+                    Global.showSnackBar(view, error);
+                    System.out.println("Here error : " + error);
+                    //Here error : End of input at line 1 column 1 path $ (if Server response body is empty, we get this error)
+                }
+            });
+        }
+
+        else{
+            Global.showSnackBar(view,getString(R.string.check_internet_connection));
+        }
+
     }
 
     private void initObserver(){
@@ -321,39 +362,39 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         // Send Reason Compulsory
         binding.btnPhysicalVisitRequired.setOnClickListener(v->{
 
-           View customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
-            ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
+           View customDialogRadioButton = LayoutInflater.from(this).inflate(R.layout.custom_dialog_radio_button, null);
+            ImageView ivCancel = customDialogRadioButton.findViewById(R.id.ivCancel);
 
-            Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
-            EditText edtPleaseSpecify = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
-            TextInputLayout tilSpecify = customDialogEditable.findViewById(R.id.tilSpecifyName);
-            EditText edtPleaseSpecifyContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
-            edtPleaseSpecify.setHint(getString(R.string.please_specify));
-            edtPleaseSpecifyContact.setVisibility(View.GONE);
+            Button btnProceed = customDialogRadioButton.findViewById(R.id.btnProceed);
+            RecyclerView recyclerView = customDialogRadioButton.findViewById(R.id.rvRadioButton);
 
+
+            //call RadioButtonReason Api
+
+
+
+            //setUpRadioButtonDataRecyclerView()
+            radioButtonsViewModel.updateRadioButtonReasons_Data();
+            recyclerView.setAdapter(new RadioButtonsReasonAdapter(radioButtonsViewModel.arrList_RadioButtonsReason_Data));
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialogEditable);
+            builder.setView(customDialogRadioButton);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
             dialog.show();
 
-            //TextWatcher For Others
-            Global.CustomTextWatcher(edtPleaseSpecify , tilSpecify);
 
             btnProceed.setOnClickListener(v1->{
 
-                if(edtPleaseSpecify.getText().toString().isEmpty()){
-                    tilSpecify.setError(getResources().getString(R.string.please_specify_reason));
-                }
+                    if(!isRadioButtonSelected){
+                        Global.showSnackBar(view,"Please Select Reason");
+                    }
 
-                else {
-                    String reason = edtPleaseSpecify.getText().toString().trim();
-                    DetailsOfCustomerActivity.send_reason = edtPleaseSpecify.getText().toString().trim();
+                else  {
 
                     Intent i = new Intent(NotSpokeToCustomerActivity.this, ScheduleVisitForCollectionActivity.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                    i.putExtra("reason",reason);
+                    i.putExtra("reason",DetailsOfCustomerActivity.send_reason);
                     i.putExtra("isFromNotSpokeToCustomer_PhysicalVisitRequired","isFromNotSpokeToCustomer_PhysicalVisitRequired");
                     startActivity(i);
 
