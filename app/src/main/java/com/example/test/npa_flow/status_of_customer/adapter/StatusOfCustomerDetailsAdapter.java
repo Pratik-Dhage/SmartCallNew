@@ -176,7 +176,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
 
 
 
-                        //2)Ready To Pay / Not Ready To Pay / Asked To Call Back Later / Visit Reschedule /
+                        //2)Ready To Pay / Not Ready To Pay / Asked To Call Back Later / Visit Reschedule / Physical Visit Required
                         // Others / Invalid Number / Asked To Visit Later / NoResponseBusy / NotReachableSwitchedOff
 
                       if (attemptFlow.contains("nrtp")) {
@@ -201,6 +201,10 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         }
                     else if(attemptFlow.contains("atvl")){
                           holder.binding.txtMidStatusInfo1.setText(R.string.asked_to_visit_later);
+                      }
+
+                    else if(attemptFlow.contains("pvr")){
+                          holder.binding.txtMidStatusInfo1.setText(R.string.physical_visit_required);
                       }
 
                     else  if(attemptFlow.contains("vr")){
