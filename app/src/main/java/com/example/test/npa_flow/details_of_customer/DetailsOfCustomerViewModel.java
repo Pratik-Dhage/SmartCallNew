@@ -26,6 +26,12 @@ public class DetailsOfCustomerViewModel extends ViewModel {
         return mutDetailsOfCustomer_ResponseApi;
     }
 
+    //for Saving/Updating Alternate Number of Customer
+    private final MutableLiveData<String> mutSaveAlternateNumber_ResponseApi = new MutableLiveData<>();
+    public MutableLiveData<String> getMutSaveAlternateNumber_ResponseApi(){
+        return mutSaveAlternateNumber_ResponseApi;
+    }
+
     public MutableLiveData<String> getMutErrorResponse() {
         return mutErrorResponse;
     }
@@ -94,4 +100,18 @@ public class DetailsOfCustomerViewModel extends ViewModel {
     }
 
 
+    //for Saving/Updating Alternate Number of Customer
+    public void saveAlternateNumber_Data(String dataSetId, String alternateNumber){
+        subscribtion = (Disposable) Global.apiService().saveAlternateNumber( WebServices.detail_of_customer_common+"dataSetId="+ dataSetId +"&alternateNumber="+alternateNumber )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        this::onHomeApiSuccess, this::onApiError
+                );
+    }
+
+    private void onHomeApiSuccess(String result) {
+        mutSaveAlternateNumber_ResponseApi.setValue(result);
+    }
 }
