@@ -147,7 +147,12 @@ public interface RestClient {
     //Observable<SaveLocationOfCustomerModel> getSavedLocationOfCustomer(@Url String url);
     Observable<String> getSavedLocationOfCustomer(@Url String url);
 
+    //Radio Buttons Reason
     @GET
     Observable<List<RadioButtonReasons>> getRadioButtonReasons(@Url String url);
+
+    //Save Alternate Number
+    @GET
+    Observable<String> saveAlternateNumber(@Url String url);
 
 }

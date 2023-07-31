@@ -262,6 +262,10 @@ public  class WebServices {
     //http://45.114.143.87:8082/classifier/getClassifiersByKey?key=VISITREASON
     public static String radio_buttons_reason = "classifier/getClassifiersByKey?key=VISITREASON";
 
+    //For Saving/Update Alternate Number of Customer
+  //http://45.114.143.87:8082/transactionDataSet/updateAlternateNumber?dataSetId=<datasetid for the record>&alternateNumber=<Alternate number>
+    public static String saveAlternateNumber = "transactionDataSet/updateAlternateNumber?";
+
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 
