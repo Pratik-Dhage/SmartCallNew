@@ -340,12 +340,12 @@ public class CallDetailsViewModel extends ViewModel {
 
 
     //13) NotSpokeToCustomerActivity-(PVR)PHYSICAL VISIT REQUIRED
-    public void postScheduledDateTime_PVR(String dataSetId, String scheduleVisitForCollection_dateTime, List<CallDetails> callDetailsList) {
+    public void postScheduledDateTime_PVR(String dataSetId, String scheduleVisitForCollection_dateTime, String reason,List<CallDetails> callDetailsList) {
 
         System.out.println("CallDetailsViewModel CallingAgent:"+userId);
 
         subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.notSpokeToCustomer_physicalVisitRequired + "&dataSetId=" + dataSetId + "&callingAgent=" + MainActivity3API.UserID + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
-                        "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber="+"&reason=", callDetailsList)
+                        "&dateOfVisitPromised=" + "&foName=" + "&relativeName=" + "&relativeContactNumber="+"&reason="+reason, callDetailsList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -35,6 +36,7 @@ import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.CallDetailsListRoomModel;
 import com.example.test.roomDB.model.LeadCallModelRoom;
 import com.example.test.schedule_flow.calls_for_the_day.CallsForTheDayActivity;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -315,11 +317,54 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+
+        // Send Reason Compulsory
         binding.btnPhysicalVisitRequired.setOnClickListener(v->{
-            Intent i = new Intent(NotSpokeToCustomerActivity.this, ScheduleVisitForCollectionActivity.class);
-            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-            i.putExtra("isFromNotSpokeToCustomer_PhysicalVisitRequired","isFromNotSpokeToCustomer_PhysicalVisitRequired");
-            startActivity(i);
+
+           View customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
+            ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
+
+            Button btnProceed = customDialogEditable.findViewById(R.id.btnProceed);
+            EditText edtPleaseSpecify = customDialogEditable.findViewById(R.id.edtPleaseSpecifyName);
+            TextInputLayout tilSpecify = customDialogEditable.findViewById(R.id.tilSpecifyName);
+            EditText edtPleaseSpecifyContact = customDialogEditable.findViewById(R.id.edtPleaseSpecifyContact);
+            edtPleaseSpecify.setHint(getString(R.string.please_specify));
+            edtPleaseSpecifyContact.setVisibility(View.GONE);
+
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(customDialogEditable);
+            final AlertDialog dialog = builder.create();
+            dialog.setCancelable(true);
+            dialog.show();
+
+            //TextWatcher For Others
+            Global.CustomTextWatcher(edtPleaseSpecify , tilSpecify);
+
+            btnProceed.setOnClickListener(v1->{
+
+                if(edtPleaseSpecify.getText().toString().isEmpty()){
+                    tilSpecify.setError(getResources().getString(R.string.please_specify_reason));
+                }
+
+                else {
+                    String reason = edtPleaseSpecify.getText().toString().trim();
+                    DetailsOfCustomerActivity.send_reason = edtPleaseSpecify.getText().toString().trim();
+
+                    Intent i = new Intent(NotSpokeToCustomerActivity.this, ScheduleVisitForCollectionActivity.class);
+                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                    i.putExtra("reason",reason);
+                    i.putExtra("isFromNotSpokeToCustomer_PhysicalVisitRequired","isFromNotSpokeToCustomer_PhysicalVisitRequired");
+                    startActivity(i);
+
+                }
+
+                });
+
+            ivCancel.setOnClickListener(v1 -> {
+                dialog.dismiss();
+            });
+
         });
 
     }
