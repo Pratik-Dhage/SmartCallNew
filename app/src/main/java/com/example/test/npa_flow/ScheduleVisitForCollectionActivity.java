@@ -313,8 +313,9 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
                     getScheduleDateTime();
                     String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String reason = getIntent().getStringExtra("reason");
                     DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
-                    callDetailsViewModel.postScheduledDateTime_PVR(dataSetId, scheduleVisitForCollection_dateTime, detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
+                    callDetailsViewModel.postScheduledDateTime_PVR(dataSetId, scheduleVisitForCollection_dateTime, reason,detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
 
                 }
 
@@ -324,7 +325,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                     getScheduleDateTime();
                     String dataSetId = getIntent().getStringExtra("dataSetId");
                     System.out.println("Here NoResponseBusy dataSetId:"+dataSetId);
-                    String physicalVisitRequired = WebServices.notSpokeToCustomer_physicalVisitRequired; //using DNSTC-PVR flow for Member to appear in VisitsFlow at 4th Attempt
+                    String physicalVisitRequired = WebServices.notSpokeToCustomer_physicalVisitRequired; //using DNSTC-PVR flow for Member to appear in VisitsFlow at 5th Attempt
                     DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
                     callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff_WithScheduleDateTime(physicalVisitRequired,dataSetId, scheduleVisitForCollection_dateTime, detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
 
@@ -336,7 +337,7 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                     getScheduleDateTime();
                     String dataSetId = getIntent().getStringExtra("dataSetId");
                     System.out.println("Here NotReachableSwitchOff dataSetId:"+dataSetId);
-                    String physicalVisitRequired = WebServices.notSpokeToCustomer_physicalVisitRequired;//using DNSTC-PVR flow for Member to appear in VisitsFlow at 4th Attempt
+                    String physicalVisitRequired = WebServices.notSpokeToCustomer_physicalVisitRequired;//using DNSTC-PVR flow for Member to appear in VisitsFlow at 5th Attempt
                     DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
                     callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff_WithScheduleDateTime(physicalVisitRequired,dataSetId, scheduleVisitForCollection_dateTime, detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
 
