@@ -38,16 +38,14 @@
             android:id="@+id/edtDetail"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_75sdp"
-            android:layout_marginEnd="@dimen/_5sdp"
-            android:digits="0123456789,."
+            android:digits="0123456789"
             android:hint="@string/enter_amount"
             android:inputType="number"
             android:maxLength="10"
             android:textAlignment="center"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/labelDetailName"
-            app:layout_constraintEnd_toStartOf="@id/btnSaveAmountPaid"
+           app:layout_constraintStart_toEndOf="@id/labelDetailName"
             app:layout_constraintTop_toTopOf="@id/labelDetailName" />
 
 
@@ -97,6 +95,23 @@
             android:textColor="@color/white"
             android:visibility="gone"
             />
+
+        <!--Save Alternate Number Button-->
+
+        <!--Unlocked icon-->
+        <ImageView
+            android:id="@+id/ivSaveAlternateNumber"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/_3sdp"
+            app:layout_constraintTop_toTopOf="@id/edtDetail"
+            app:layout_constraintBottom_toBottomOf="@id/edtDetail"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:gravity="center"
+            android:src="@drawable/unlocked"
+            android:visibility="gone"
+            app:tint="@color/textBlue" />
+
 
 
         <!-- Save Button for Amount Paid-->
