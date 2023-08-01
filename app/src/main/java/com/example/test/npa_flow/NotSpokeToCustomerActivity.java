@@ -130,6 +130,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
             radioButtonsViewModel.getMutRadioButtonsReason_ResponseApi().observe(this,result2->{
 
                 if(result2!=null){
+                    radioButtonsViewModel.arrList_RadioButtonsReason_Data.clear();
                     radioButtonsViewModel.arrList_RadioButtonsReason_Data.addAll(result2);
                 }
             });
