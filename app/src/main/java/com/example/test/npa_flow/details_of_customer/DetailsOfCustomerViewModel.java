@@ -102,7 +102,7 @@ public class DetailsOfCustomerViewModel extends ViewModel {
 
     //for Saving/Updating Alternate Number of Customer
     public void saveAlternateNumber_Data(String dataSetId, String alternateNumber){
-        subscribtion = (Disposable) Global.apiService().saveAlternateNumber( WebServices.detail_of_customer_common+"dataSetId="+ dataSetId +"&alternateNumber="+alternateNumber )
+        subscribtion = (Disposable) Global.apiService().saveAlternateNumber( WebServices.saveAlternateNumber+"dataSetId="+ dataSetId +"&alternateNumber="+alternateNumber )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
