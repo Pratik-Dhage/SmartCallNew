@@ -97,7 +97,11 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
        //Get MobileNumber from detailsList
        detailsList.forEach(it->{
            if (it.getLable().toLowerCase().contains("mobile") || it.getLable().toLowerCase().contains("phone")){
-               DetailsOfCustomerActivity.Mobile_Number = String.valueOf(it.getValue());
+
+             if(null!=it.getValue()){
+                 DetailsOfCustomerActivity.Mobile_Number = String.valueOf(it.getValue());
+             }
+
            }
        });
 
@@ -500,24 +504,30 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
     public void storeCallCountInRoomDB(String firstName, String phoneNumber) {
 
-        LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
-        int callCount = leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
-        callCount++; //callCount+1
-        LeadCallModelRoom leadCallModelRoom = new LeadCallModelRoom(callCount, firstName, phoneNumber);
+        if(null!=phoneNumber){
 
-        leadCallDao.insert(leadCallModelRoom);
-        //  if CallCount=5 means (0,1,2,3,4) then make it to zero
+            LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
+            int callCount = leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
+            callCount++; //callCount+1
+            LeadCallModelRoom leadCallModelRoom = new LeadCallModelRoom(callCount, firstName, phoneNumber);
 
-        if (callCount > 5) {
-            callCount = 0;
+            leadCallDao.insert(leadCallModelRoom);
+            //  if CallCount=5 means (0,1,2,3,4) then make it to zero
+
+            if (callCount > 5) {
+                callCount = 0;
+            }
+
+            leadCallDao.UpdateLeadCalls(callCount, phoneNumber);
+
+            // Global.showToast(this, "Call Count for " + phoneNumber + " is: " + leadCallDao.getCallCountUsingPhoneNumber(phoneNumber));
+            System.out.println("Here Call Count for " + phoneNumber + " is: " + leadCallDao.getCallCountUsingPhoneNumber(phoneNumber));
+
+            DetailsOfCustomerActivity.send_callAttemptNo = callCount;
+
         }
 
-        leadCallDao.UpdateLeadCalls(callCount, phoneNumber);
 
-       // Global.showToast(this, "Call Count for " + phoneNumber + " is: " + leadCallDao.getCallCountUsingPhoneNumber(phoneNumber));
-        System.out.println("Here Call Count for " + phoneNumber + " is: " + leadCallDao.getCallCountUsingPhoneNumber(phoneNumber));
-
-        DetailsOfCustomerActivity.send_callAttemptNo = callCount;
     }
 
 
