@@ -369,10 +369,6 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
             RecyclerView recyclerView = customDialogRadioButton.findViewById(R.id.rvRadioButton);
 
 
-            //call RadioButtonReason Api
-
-
-
             //setUpRadioButtonDataRecyclerView()
             radioButtonsViewModel.updateRadioButtonReasons_Data();
             recyclerView.setAdapter(new RadioButtonsReasonAdapter(radioButtonsViewModel.arrList_RadioButtonsReason_Data));
@@ -527,8 +523,11 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         initializeFields();
-        onClickListener();
         setUpDetailsOfCustomerRecyclerView();
+        onClickListener();
+        initObserver();
+        callRadioButtonReasonApi();
+        initObserverRadioButtonData();
         super.onResume();
     }
 }
