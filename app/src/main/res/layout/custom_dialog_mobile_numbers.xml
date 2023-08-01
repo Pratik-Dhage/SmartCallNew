@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="@dimen/_20sdp"
+    android:layout_marginEnd="@dimen/_20sdp"
+    android:backgroundTint="@color/white">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_10sdp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/toolBarStyle"
+            android:background="@color/textBlue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/txtToolbarHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/select_no_to_call"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp" />
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <!--Default / Primary Mobile Number-->
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"/>
+
+        <TextView
+            android:id="@+id/txtRadioButton1"
+            app:layout_constraintStart_toEndOf="@id/radioButton1"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@id/radioButton1"
+            app:layout_constraintBottom_toBottomOf="@id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/common_text_style"
+            android:visibility="gone"
+            tools:text="1234567890"/>
+
+      <!--Alternate Mobile Number-->
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            app:layout_constraintTop_toBottomOf="@id/radioButton1"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="@dimen/_20sdp"
+            android:visibility="gone"
+            android:layout_height="@dimen/_20sdp"/>
+
+        <TextView
+            android:id="@+id/txtRadioButton2"
+            app:layout_constraintStart_toEndOf="@id/radioButton2"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@id/radioButton2"
+            app:layout_constraintBottom_toBottomOf="@id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            style="@style/common_text_style"
+            tools:text="9876543210"/>
+
+
+
+        <Button
+            android:id="@+id/btnProceed"
+            style="@style/CustomButtonStyle"
+            android:layout_width="@dimen/_136sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:backgroundTint="@color/green"
+            android:text="@string/proceed"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/radioButton2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/ivCancel"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:src="@drawable/cancel_close"
+        app:tint="@color/white" />
+
+</RelativeLayout>
