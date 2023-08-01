@@ -6,15 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.UserHandle;
-import android.support.v4.media.MediaBrowserCompat;
 import android.text.Editable;
-import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -30,29 +26,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.text.HtmlCompat;
-import androidx.core.view.ContentInfoCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import com.example.test.R;
 import com.example.test.api_manager.RestClient;
 import com.example.test.api_manager.WebServices;
-import com.example.test.api_manager.RestClient;
 import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.notes_history.NotesHistoryResponseModel;
 import com.example.test.notes_history.NotesHistoryViewModel;
 import com.example.test.notes_history.adapter.NotesHistoryAdapter;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
-import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.loan_collection.GpsLocationListner;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
@@ -62,8 +54,6 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import io.reactivex.disposables.Disposable;
 
 public class Global {
 
@@ -148,6 +138,17 @@ public class Global {
         }
 
         return true;
+    }
+
+    public static void hideConstraintLayoutSecondHalf(ConstraintLayout constraintLayout, boolean hideValue){
+
+        if(hideValue){
+            constraintLayout.setVisibility(View.GONE);
+        }
+        else{
+            constraintLayout.setVisibility(View.VISIBLE);
+        }
+
     }
 
     //To Display Notes_Edit Dialog (Calls / NPA Flow)
