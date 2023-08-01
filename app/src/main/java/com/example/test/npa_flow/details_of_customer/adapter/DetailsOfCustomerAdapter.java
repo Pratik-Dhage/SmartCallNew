@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -24,11 +25,16 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LifecycleOwner;
@@ -45,8 +51,10 @@ import com.example.test.google_maps.MapFragment;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.PaymentModeActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 import com.example.test.npa_flow.save_location.SaveLocationOfCustomerViewModel;
@@ -428,8 +436,21 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
             }
         });
 
+        //for Location
+        if (a.getLable().contentEquals("Location")) {
+
+            // if Distance in Km is not Null
+            if(null!=a.getValue()){
+                // Setting Width of txtDetailName programmatically in case of Location
+                ViewGroup.LayoutParams layoutParams = holder.binding.txtDetailName.getLayoutParams();
+                layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                holder.binding.txtDetailName.setLayoutParams(layoutParams);
+                holder.binding.txtDetailName.setText(String.valueOf(a.getValue())+" Km");//Keep String.valueOf()
+            }
+        }
+
         // for Distance between User and Address
-        if (a.getLable().contentEquals("Pincode")) {
+       /* if (a.getLable().contentEquals("Pincode")) {
 
             // Setting Width of txtDetailName programmatically in case of Pincode
             ViewGroup.LayoutParams layoutParams = holder.binding.txtDetailName.getLayoutParams();
@@ -464,6 +485,74 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
             }
 
+        }*/
+
+        //for Alternate Number
+
+        if(a.getLable().contentEquals("Alternate Number")){
+            holder.binding.edtDetail.setHint("");
+
+           if(null!= a.getValue()){
+               holder.binding.edtDetail.setText(String.valueOf(a.getValue()));
+               holder.binding.ivSaveAlternateNumber.setImageResource(R.drawable.locked);
+
+           }
+
+
+            holder.binding.ivSaveAlternateNumber.setVisibility(View.VISIBLE);
+
+            textWatcherForEditText(holder.binding.edtDetail,holder.binding.ivSaveAlternateNumber );
+
+            holder.binding.ivSaveAlternateNumber.setOnClickListener(v->{
+
+
+                if(Global.isValidMobileNumber(context,holder.binding.edtDetail.getText().toString().trim())){
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Save Alternate Number");
+                    builder.setMessage("Are you sure?");
+
+                    //Yes Button
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            String alternateNumber =holder.binding.edtDetail.getText().toString().trim();
+
+                            if(!Global.isValidMobileNumber(context,alternateNumber)){
+
+                            }
+                            else if (Global.isValidMobileNumber(context,holder.binding.edtDetail.getText().toString().trim())){
+
+                                if(null!=DetailsOfCustomerAdapter.dataSetId ){
+                                    System.out.println("Here Alternate Number dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" AlternateNumber:"+alternateNumber);
+
+                                    if(NetworkUtilities.getConnectivityStatus(context)){
+                                        callSaveAlternateMobileNumberApi(context,DetailsOfCustomerAdapter.dataSetId,alternateNumber);
+                                        initObserverSaveAlternateNumber(context,holder.binding.ivSaveAlternateNumber,holder.binding.edtDetail);
+                                    }
+
+                                }
+
+                            }
+
+                        }
+                    });
+                    //No Button
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                }
+
+
+
+            });
         }
 
         //for Button & Navigate Button(If Capture Button is Visible , then Navigate Button will also be Visible)
@@ -482,7 +571,11 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
             holder.binding.edtDetail.setVisibility(View.VISIBLE);
             holder.binding.txtDetailName.setVisibility(View.INVISIBLE);
 
-            //for Amount Paid
+        }
+
+        //for Amount Paid
+        if(a.getLable().contentEquals("Amount Paid")){
+
             holder.binding.edtDetail.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -500,7 +593,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
             if(!Global.getStringFromSharedPref(context,"Amount_Paid").isEmpty()){
                 String Amount_Paid = Global.getStringFromSharedPref(context,"Amount_Paid");
-                 holder.binding.edtDetail.setText(Amount_Paid);
+                holder.binding.edtDetail.setText(Amount_Paid);
             }
 
         }
@@ -562,6 +655,38 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                 Global.showToast(context,"Check internet connection");
             }
         });
+    }
+
+    //for Saving Alternate MobileNumber
+    public void callSaveAlternateMobileNumberApi(Context context ,String dataSetId , String alternateMobileNumber){
+
+        DetailsOfCustomerViewModel detailsOfCustomerViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(DetailsOfCustomerViewModel.class);
+        detailsOfCustomerViewModel.saveAlternateNumber_Data(dataSetId,alternateMobileNumber);
+    }
+
+    public void initObserverSaveAlternateNumber(Context context, ImageView imageView, EditText editText){
+        DetailsOfCustomerViewModel detailsOfCustomerViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(DetailsOfCustomerViewModel.class);
+        detailsOfCustomerViewModel.getMutSaveAlternateNumber_ResponseApi().observe((LifecycleOwner)context,result->{
+
+            if(result!=null){
+                Global.showToast(context,result);
+                Global.hideKeyboard((Activity)context);
+                imageView.setImageResource(R.drawable.locked);
+                editText.clearFocus();
+            }
+        });
+
+        //handle error response
+        detailsOfCustomerViewModel .getMutErrorResponse().observe((LifecycleOwner)context, error -> {
+
+            if (error != null && !error.isEmpty()) {
+                Global.showToast(context, error);
+                System.out.println("Here: " + error);
+            } else {
+                Global.showToast(context,"Check internet connection");
+            }
+        });
+
     }
 
     @Override
@@ -740,6 +865,42 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         return bytesArray;
     }
 
+    //For Alternate Number
+   public void textWatcherForEditText(EditText editText, ImageView imageView){
 
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(editText.getText().toString().length()==10){
+
+                    //Show Constraint Layout SecondHalf if editText is 10 digits
+                    Global.hideConstraintLayoutSecondHalf(DetailsOfCustomerActivity.constraintLayoutSecondHalf,false);
+
+                }
+
+                //After typing if user deletes & makes editText empty
+                else if(editText.getText().toString().isEmpty()){
+                    editText.clearFocus();
+                    Global.hideConstraintLayoutSecondHalf(DetailsOfCustomerActivity.constraintLayoutSecondHalf,false);
+                }
+
+                else{
+                    imageView.setImageResource(R.drawable.unlocked);
+                    //Hide Constraint Layout SecondHalf
+                    Global.hideConstraintLayoutSecondHalf(DetailsOfCustomerActivity.constraintLayoutSecondHalf,true);
+
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+   }
 
 }
