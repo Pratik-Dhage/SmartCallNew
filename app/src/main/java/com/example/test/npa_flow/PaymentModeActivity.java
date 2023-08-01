@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -93,7 +94,23 @@ public class PaymentModeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //From CallsForTheDayAdapter
+                AlertDialog.Builder builder = new AlertDialog.Builder(PaymentModeActivity.this);
+                builder.setTitle("Pending Requirement");
+                builder.setMessage("This requirement is pending");
+                builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+                //Commented for Temporary Basis as Payment Gateway Requirement will come here later from Client
+
+               /* //From CallsForTheDayAdapter
                 if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
                     Intent i = new Intent(PaymentModeActivity.this, PaymentModeStatusActivity.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
@@ -108,7 +125,7 @@ public class PaymentModeActivity extends AppCompatActivity {
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                     i.putExtra("detailsList",detailsList);
                     startActivity(i);
-                }
+                }*/
 
 
             }
