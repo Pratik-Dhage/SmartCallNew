@@ -100,6 +100,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
              if(null!=it.getValue()){
                  DetailsOfCustomerActivity.Mobile_Number = String.valueOf(it.getValue());
+                 System.out.println("Here NotSpokeToCustomerActivity detailsList Mobile Number:"+DetailsOfCustomerActivity.Mobile_Number);
              }
 
            }
