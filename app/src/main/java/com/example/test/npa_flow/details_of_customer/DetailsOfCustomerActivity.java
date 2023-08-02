@@ -1,10 +1,9 @@
 package com.example.test.npa_flow.details_of_customer;
 
-import static com.example.test.npa_flow.ScheduleVisitForCollectionActivity.scheduleVisitForCollection_dateTime;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -12,15 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.CallLog;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -28,33 +24,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.example.test.R;
-import com.example.test.broadcast_receiver.MyBroadCastReceiverClass;
-import com.example.test.call_status.CallStatusActivity;
 import com.example.test.databinding.ActivityDetailsOfCustomer2Binding;
-import com.example.test.databinding.ActivityDetailsOfCustomerBinding;
-import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
-import com.example.test.fragments_activity.CustomerDetailsActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
-import com.example.test.notes_history.NotesHistoryViewModel;
 import com.example.test.npa_flow.CallDetailOfCustomerActivity;
-import com.example.test.npa_flow.NearByCustomersActivity;
-import com.example.test.npa_flow.ScheduleVisitForCollectionActivity;
-import com.example.test.npa_flow.SubmitCompletionActivityOfCustomer;
-import com.example.test.npa_flow.WebViewActivity;
 import com.example.test.npa_flow.call_details.CallDetails;
-import com.example.test.npa_flow.call_details.CallDetailsViewModel;
-import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
-import com.example.test.npa_flow.dpd.adapter.DPD_Adapter;
-import com.example.test.npa_flow.loan_collection.adapter.LoanCollectionAdapter;
 import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
@@ -65,14 +46,12 @@ import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAd
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class DetailsOfCustomerActivity extends AppCompatActivity {
 
@@ -81,6 +60,8 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
     public static String FullName; //for storing call attempts
     public static String Mobile_Number; //for calling purpose
+    public static String Alternate_Mobile_Number; //for calling purpose if Primary Mobile Number is Invalid/ SwitchOff etc.
+    public static String selectedMobileNumber;
   public static int REQUEST_CALL = 1; // can use any integer value
 
     //To Send to Backend Using Post Method
@@ -98,6 +79,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
     public  String send_RelativeName;
     public  String send_RelativeContact;
     public static String visits_FirstName , visits_MobileNumber;
+    public static ConstraintLayout constraintLayoutSecondHalf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +88,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
         initializeFields();
         onClickListener();
-        //  getDetailsOfCustomerDataFromApi(); // will act as initObserver
+
 
         initObserver();
         if (NetworkUtilities.getConnectivityStatus(this)) {
@@ -115,7 +97,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             Global.showToast(this, getString(R.string.check_internet_connection));
         }
 
-       // sendCallLogDetailsList();
+
     }
 
     //for Full/Partial Amount Paid / NotSpokeToCustomerActivity- Number is Invalid
@@ -357,11 +339,22 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
                         if (lowercase_label.contains("mobile") || lowercase_label.contains("phone")) {
 
-
-                            Mobile_Number = String.valueOf(it.getValue()); //store mobile_no
-                            System.out.println("Here Mobile Number: "+Mobile_Number);
+                               if(null!=it.getValue()){
+                                   Mobile_Number = String.valueOf(it.getValue()); //store mobile_no
+                                   System.out.println("Here Mobile Number: "+Mobile_Number);
+                               }
 
                         }
+
+                        //for Alternate Mobile Number
+                        if(lowercase_label.contains("alternate")){
+
+                            if(null!= it.getValue()){
+                                Alternate_Mobile_Number = String.valueOf(it.getValue());
+                                System.out.println("Here Alternate Number: "+it.getValue());
+                            }
+                        }
+
 
                     });
 
@@ -499,6 +492,13 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
         Global.removeStringInSharedPref(this, "Amount_Paid"); // remove Amount Paid from SharePreferences for next activities to have New value
           setToolBarTitle();
+
+        constraintLayoutSecondHalf = binding.clSecondHalf;
+
+        //Initial values will be empty ,
+        // after calling callDetailsOfCustomerApi() , values of MobileNumber & Alternate_Mobile_Number will be set
+        Mobile_Number = "";
+        Alternate_Mobile_Number = "";
     }
 
     private void setUpDetailsOfCustomerRecyclerView() {
@@ -535,9 +535,22 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                         Manifest.permission.READ_CALL_LOG,
                         Manifest.permission.RECORD_AUDIO}, REQUEST_CALL);
             } else {
-                // Permission has already been granted, make the call
-                String phoneNumber = Mobile_Number; //use mobile number fetched from result(API Response)
-              //  Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+
+                if(noMobileNumberExists()){
+                    System.out.println("No Mobile Number exists");
+                }
+
+              else  if(onlyOneMobileNumberExists()){
+                    System.out.println("Selected Mobile Number:"+selectedMobileNumber);
+                }
+                else{
+                    selectedMobileNumberDialog();
+                }
+
+
+               /* // Permission has already been granted, make the call
+               // String phoneNumber = Mobile_Number; //use mobile number fetched from result(API Response)
+               //  Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
                 Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
                 startActivity(dial);
                 System.out.println("Here Mobile Number: "+phoneNumber);
@@ -559,7 +572,8 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
                 //Initiate Call button visible after call made and ivCallLogo invisible
                 binding.ivCall.setVisibility(View.INVISIBLE);
-                binding.btnCallInitiated.setVisibility(View.VISIBLE);
+                binding.btnCallInitiated.setVisibility(View.VISIBLE);*/
+
 
 
             }
@@ -614,7 +628,20 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CALL) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission is granted, make the call
+
+                if(noMobileNumberExists()){
+                    System.out.println("No Mobile Number exists");
+                }
+
+                else  if(onlyOneMobileNumberExists()){
+                    System.out.println("Selected Mobile Number:"+selectedMobileNumber);
+                }
+                else{
+                    selectedMobileNumberDialog();
+                }
+
+
+               /* // Permission is granted, make the call
                 String phoneNumber = Mobile_Number; //use mobile number fetched from result(API Response)
                // Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
                 Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
@@ -637,7 +664,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
                 //Initiate Call button visible after call made and ivCallLogo invisible
                 binding.ivCall.setVisibility(View.INVISIBLE);
-                binding.btnCallInitiated.setVisibility(View.VISIBLE);
+                binding.btnCallInitiated.setVisibility(View.VISIBLE);*/
 
 
             } else {
@@ -793,11 +820,10 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                             System.out.println("Here DetailsOfCustomerActivity AfterCall BranchCode:"+MainActivity3API.BranchCode);
 
 
-                            /*// From NPA (Assigned)
-                            // While Call is going , Move the User to Next Activity
-                            Intent i = new Intent(DetailsOfCustomerActivity.this, CallDetailOfCustomerActivity.class);
-                            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                            startActivity(i);*/
+                             //Initiate Call button visible after call made and ivCallLogo invisible
+                           binding.ivCall.setVisibility(View.INVISIBLE);
+                           binding.btnCallInitiated.setVisibility(View.VISIBLE);
+                           binding.btnCallInitiated.performClick();
 
                         }
 
@@ -829,7 +855,9 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
                     // phNumber = c.getString(c.getColumnIndexOrThrow(CallLog.Calls.NUMBER));
                     //phNumber = getIntent().getStringExtra("phoneNumber"); // for getting current phoneNumber
-                    phNumber = Mobile_Number; //Customer/Member Mobile Number
+
+                    //phNumber = Mobile_Number; //Customer/Member Mobile Number
+                    phNumber = selectedMobileNumber;
                     callDate = c.getString(c.getColumnIndexOrThrow(CallLog.Calls.DATE));
                     callDuration = c.getString(c.getColumnIndexOrThrow(CallLog.Calls.DURATION));
                     dateFormat = new Date(Long.valueOf(callDate));
@@ -889,6 +917,184 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         byte[] bytesArray = bos.toByteArray();
 
         return bytesArray;
+    }
+
+    //if Primary Number & Alternate Number both does not exists
+    private boolean noMobileNumberExists(){
+
+        if(null==DetailsOfCustomerActivity.Mobile_Number || DetailsOfCustomerActivity.Mobile_Number.isEmpty()
+                && (null==Alternate_Mobile_Number || Alternate_Mobile_Number.isEmpty() )  )
+        {
+            binding.ivCall.setVisibility(View.INVISIBLE);
+            binding.btnCallInitiated.setVisibility(View.VISIBLE);
+            binding.btnCallInitiated.performClick();
+
+            return  true;
+        }
+
+        return false;
+    }
+
+
+    //if Only One Mobile Number exists ( Primary Mobile Number OR  Alternate Mobile number)
+    private boolean onlyOneMobileNumberExists(){
+
+        //if only Primary Mobile Number exists
+        if(null!=DetailsOfCustomerActivity.Mobile_Number && !DetailsOfCustomerActivity.Mobile_Number.isEmpty()
+                && (null==Alternate_Mobile_Number || Alternate_Mobile_Number.isEmpty() )  )
+        {
+            selectedMobileNumber = DetailsOfCustomerActivity.Mobile_Number;
+
+            String phoneNumber = selectedMobileNumber;
+            //  Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+            Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+            startActivity(dial);
+            System.out.println("Here Mobile Number: "+phoneNumber);
+
+            try {
+                getCallRecordingAndCallLogs();
+
+            } catch (Exception e) {
+                Global.showSnackBar(view, "Call Error" + e);
+                System.out.println("Here Call Error:" + e);
+            }
+
+            return  true;
+        }
+
+        // if only Alternate Mobile Number exists
+      else  if( null!=Alternate_Mobile_Number && !Alternate_Mobile_Number.isEmpty()
+            && (null==DetailsOfCustomerActivity.Mobile_Number || DetailsOfCustomerActivity.Mobile_Number.isEmpty())
+
+        ){
+             selectedMobileNumber = Alternate_Mobile_Number;
+
+            String phoneNumber = selectedMobileNumber;
+            //  Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+            Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+            startActivity(dial);
+            System.out.println("Here Mobile Number: "+phoneNumber);
+
+            try {
+                getCallRecordingAndCallLogs();
+
+            } catch (Exception e) {
+                Global.showSnackBar(view, "Call Error" + e);
+                System.out.println("Here Call Error:" + e);
+            }
+
+            return  true;
+        }
+
+        return false;
+    }
+
+
+    // To select Between Primary Mobile Number & Alternate Mobile number
+    private void selectedMobileNumberDialog(){
+
+       selectedMobileNumber = DetailsOfCustomerActivity.Mobile_Number; //By default
+
+        View customDialogMobileNumber = LayoutInflater.from(this).inflate(R.layout.custom_dialog_mobile_numbers, null);
+        ImageView ivCancel = customDialogMobileNumber.findViewById(R.id.ivCancel);
+        Button btnProceed = customDialogMobileNumber.findViewById(R.id.btnProceed);
+        RadioButton radioButton1 = customDialogMobileNumber.findViewById(R.id.radioButton1);
+        RadioButton radioButton2 = customDialogMobileNumber.findViewById(R.id.radioButton2);
+        TextView txtRadioButton1 = customDialogMobileNumber.findViewById(R.id.txtRadioButton1);
+        TextView txtRadioButton2 = customDialogMobileNumber.findViewById(R.id.txtRadioButton2);
+
+
+        if(null!=DetailsOfCustomerActivity.Mobile_Number && !DetailsOfCustomerActivity.Mobile_Number.isEmpty()){
+            radioButton1.setVisibility(View.VISIBLE);
+            radioButton1.setChecked(true); //By default Primary Mobile Number coming from Api response will be selected
+            txtRadioButton1.setVisibility(View.VISIBLE);
+            txtRadioButton1.setText(DetailsOfCustomerActivity.Mobile_Number);
+
+        }
+
+        if(null!=Alternate_Mobile_Number && !Alternate_Mobile_Number.isEmpty()){
+            radioButton2.setVisibility(View.VISIBLE);
+            txtRadioButton2.setVisibility(View.VISIBLE);
+            txtRadioButton2.setText(Alternate_Mobile_Number);
+        }
+
+
+        //for RadioButton 1
+        radioButton1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+            if(isChecked){
+                radioButton2.setChecked(false);
+            }
+        });
+
+        //for RadioButton 2
+        radioButton2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+            if(isChecked){
+                radioButton1.setChecked(false);
+            }
+        });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(customDialogMobileNumber);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+
+
+        btnProceed.setOnClickListener(v->{
+
+            if(radioButton1.isChecked()){
+                 selectedMobileNumber= DetailsOfCustomerActivity.Mobile_Number;
+                 System.out.println("Selected Mobile Number Primary:"+DetailsOfCustomerActivity.Mobile_Number);
+
+                String phoneNumber = selectedMobileNumber;
+                //  Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+                Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+                startActivity(dial);
+                System.out.println("Here Mobile Number: "+phoneNumber);
+
+
+                try {
+                    getCallRecordingAndCallLogs();
+
+                } catch (Exception e) {
+                    Global.showSnackBar(view, "Call Error" + e);
+                    System.out.println("Here Call Error:" + e);
+                }
+
+            }
+
+            else if(radioButton2.isChecked()){
+                selectedMobileNumber = Alternate_Mobile_Number ;
+                System.out.println("Selected Alternate Number Primary:"+Alternate_Mobile_Number);
+
+                String phoneNumber = selectedMobileNumber;
+                //  Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+                Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
+                startActivity(dial);
+                System.out.println("Here Mobile Number: "+phoneNumber);
+
+
+                try {
+                    getCallRecordingAndCallLogs();
+
+                } catch (Exception e) {
+                    Global.showSnackBar(view, "Call Error" + e);
+                    System.out.println("Here Call Error:" + e);
+                }
+
+            }
+
+
+
+        });
+
+        ivCancel.setOnClickListener(v->{
+            dialog.dismiss();
+        });
+
+
     }
 
 
