@@ -673,6 +673,14 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                 Global.hideKeyboard((Activity)context);
                 imageView.setImageResource(R.drawable.locked);
                 editText.clearFocus();
+
+                // After Saving Alternate Number in DetailsOfCustomerActivity , at same instance User may try to Call on saved Alternate Number
+                // so call Details Of Customer API
+                if(null!= DetailsOfCustomerAdapter.dataSetId){
+                    System.out.println("Here Alternate Number dataSetId for calling Details Of Customer API:"+DetailsOfCustomerAdapter.dataSetId);
+                    detailsOfCustomerViewModel.getDetailsOfCustomer_Data(DetailsOfCustomerAdapter.dataSetId);
+                }
+
             }
         });
 
