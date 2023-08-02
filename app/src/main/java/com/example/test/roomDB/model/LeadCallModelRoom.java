@@ -2,6 +2,7 @@ package com.example.test.roomDB.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "lead_call_table")
@@ -20,12 +21,22 @@ public class LeadCallModelRoom {
     private String lastName;   //Lead Last Name
     @ColumnInfo(name = "phoneNumber")
     private String phoneNumber; //Lead Mobile Number
+    @ColumnInfo(name = "dataSetId")
+    private String dataSetId;   //dataSetId
 
+    //Only Used in NotSpokeToCustomerActivity & CallStatusActivity
+    @Ignore //  RoomDB will Ignore this Constructor
     public LeadCallModelRoom(int leadCalls, String firstName, String phoneNumber) {
         this.leadCalls = leadCalls;
         this.firstName = firstName;
        // this.lastName = lastName;
         this.phoneNumber = phoneNumber;
+    }
+
+    // Used in NotSpokeToCustomerActivity to store call count based on dataSetId
+    public LeadCallModelRoom(int leadCalls,  String dataSetId) {
+        this.leadCalls = leadCalls;
+        this.dataSetId = dataSetId;
     }
 
     public int getId() {
@@ -66,5 +77,13 @@ public class LeadCallModelRoom {
 
     public void setLeadCalls(int leadCalls) {
         this.leadCalls = leadCalls;
+    }
+
+    public String getDataSetId() {
+        return dataSetId;
+    }
+
+    public void setDataSetId(String dataSetId) {
+        this.dataSetId = dataSetId;
     }
 }

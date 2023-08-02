@@ -27,4 +27,13 @@ public interface LeadCallDao {
 
     @Query("SELECT firstName FROM lead_call_table WHERE phoneNumber =:phone_Number")
     String getFullNameUsingPhoneNumber(String phone_Number);
+
+
+    // *** Call Counts Based On Unique dataSetId *** //
+
+    @Query("SELECT leadCalls FROM lead_call_table WHERE dataSetId =:dataSetId")
+    int getCallCountUsingDataSetId(String dataSetId);
+
+    @Query("UPDATE lead_call_table SET leadCalls=:leadsCount where dataSetId =:dataSetId")
+    void UpdateLeadCallsUsingDataSetId(int leadsCount,String dataSetId);
 }
