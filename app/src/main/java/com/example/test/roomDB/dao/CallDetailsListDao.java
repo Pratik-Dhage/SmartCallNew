@@ -34,4 +34,19 @@ public interface CallDetailsListDao {
 
     @Query("UPDATE call_details_table SET attemptNo=:attemptNo where phoneNumber =:phoneNumber")
     void UpdateAttemptNo(int attemptNo,String phoneNumber);
+
+    //*** CallDetailsList Using dataSetId *** //
+
+    @Query("DELETE FROM call_details_table WHERE dataSetId =:dataSetId")
+    void deleteCallDetailsListUsingDataSetId(String dataSetId);
+
+    @Query("SELECT callDateTime FROM call_details_table WHERE dataSetId =:dataSetId")
+    String getCallDateTimeUsingDataSetId(String dataSetId);
+
+    @Query("SELECT id,callDateTime,callDuration,attemptNo FROM call_details_table WHERE dataSetId =:dataSetId")
+    List<CallDetailsListRoomModel> getCallLogDetailsUsingDataSetId(String dataSetId);
+
+    @Query("UPDATE call_details_table SET attemptNo=:attemptNo where dataSetId =:dataSetId")
+    void UpdateAttemptNoUsingDataSetId(int attemptNo,String dataSetId);
+
 }

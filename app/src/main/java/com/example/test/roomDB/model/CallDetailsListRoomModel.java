@@ -31,13 +31,16 @@ public class CallDetailsListRoomModel {
     @ColumnInfo(name = "attemptNo")
     private int attemptNo;
 
+    @ColumnInfo(name = "dataSetId")
+    private String dataSetId;
+
     //Constructor
-    public CallDetailsListRoomModel(String fullName, String phoneNumber, String callDateTime, int callDuration, int attemptNo) {
-        this.fullName = fullName;
-        this.phoneNumber = phoneNumber;
+    //Only Used in NotSpokeToCustomerActivity to store call details
+    public CallDetailsListRoomModel( String callDateTime, int callDuration, int attemptNo, String dataSetId) {
         this.callDateTime = callDateTime;
         this.callDuration = callDuration;
         this.attemptNo = attemptNo;
+        this.dataSetId = dataSetId;
     }
 
     public int getId() {
@@ -94,5 +97,13 @@ public class CallDetailsListRoomModel {
 
     public void setAttemptNo(int attemptNo) {
         this.attemptNo = attemptNo;
+    }
+
+    public String getDataSetId() {
+        return dataSetId;
+    }
+
+    public void setDataSetId(String dataSetId) {
+        this.dataSetId = dataSetId;
     }
 }
