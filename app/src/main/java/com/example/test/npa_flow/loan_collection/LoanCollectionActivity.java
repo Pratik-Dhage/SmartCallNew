@@ -114,6 +114,10 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         LoanCollectionAdapter.LoanCollectionAdapter_Distance ="0.0"; //initial value
 
+        // Whenever LoanCollection list is Loaded ,
+        // DetailsOfCustomerActivity.Mobile_Number & DetailsOfCustomerActivity.Alternate_Mobile_Number will be empty
+        DetailsOfCustomerActivity.Mobile_Number = "";
+        DetailsOfCustomerActivity.Alternate_Mobile_Number = "";
     }
 
     private void setToolbarTitle() {
