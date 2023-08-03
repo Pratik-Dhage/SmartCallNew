@@ -45,7 +45,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
     View customDialogEditable;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
-    String mobileNumberToResetCallCount;
+    String dataSetId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,24 +96,17 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
         binding.btnAskedToCallBackLater.setOnClickListener(v -> {
 
-           //send mobileNumber To ScheduleVisitForCollectionActivity to Reset Call Count in CallsForTheDayAdapter
-          /*  detailsList.forEach(it->{
-                if(it.getLable().toLowerCase().contains("mobile")){
-                    System.out.println("Here AskedToCallBackLaterMobileNumber"+ it.getValue());
-                    mobileNumberToResetCallCount = String.valueOf(it.getValue());
-                }
-            });*/
+             dataSetId = getIntent().getStringExtra("dataSetId");
 
-            if(null!= DetailsOfCustomerActivity.Mobile_Number){
-                mobileNumberToResetCallCount = DetailsOfCustomerActivity.Mobile_Number;
-                System.out.println("Here AskedToCallBackLaterMobileNumber"+ mobileNumberToResetCallCount);
+            if(null!= dataSetId){
+                System.out.println("Here AskedToCallBackLater dataSetId: "+dataSetId);
             }
 
             Intent i = new Intent(PaymentNotificationOfCustomerActivity.this, ScheduleVisitForCollectionActivity.class);
             i.putExtra("isFromPaymentNotificationOfCustomerActivity", "isFromPaymentNotificationOfCustomerActivity");
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("isAskedToCallLater","isAskedToCallLater");
-            i.putExtra("mobileNumberToResetCallCount",mobileNumberToResetCallCount);
+            i.putExtra("dataSetIdToResetCallCount","dataSetIdToResetCallCount");
             startActivity(i);
 
         });
