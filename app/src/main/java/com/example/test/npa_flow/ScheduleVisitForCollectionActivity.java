@@ -243,11 +243,11 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                         DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
                         callDetailsViewModel.postScheduledDateTime_ATCL(dataSetId, scheduleVisitForCollection_dateTime, detailsOfCustomerActivity.sendCallLogDetailsList_WillPayLater());
 
-                        //Reset Call Count of Mobile Number that will Appear in CallsForTheDay List
-                        if (getIntent().hasExtra("mobileNumberToResetCallCount") && getIntent().getStringExtra("mobileNumberToResetCallCount") != null) {
-                            String mobileNumberToResetCallCount = getIntent().getStringExtra("mobileNumberToResetCallCount");
+                        //Reset Call Count of dataSetId that will Appear in CallsForTheDay List
+                        if (getIntent().hasExtra("dataSetIdToResetCallCount") ) {
+                            System.out.println("Here ScheduleVisitForCollection AskedToCallBackLater dataSetId"+ dataSetId);
                             LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
-                            leadCallDao.UpdateLeadCalls(0, mobileNumberToResetCallCount);
+                            leadCallDao.UpdateLeadCallsUsingDataSetId(0, dataSetId);
                         }
                     }
 
