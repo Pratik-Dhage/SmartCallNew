@@ -114,6 +114,10 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         LoanCollectionAdapter.LoanCollectionAdapter_Distance ="0.0"; //initial value
 
+        //UserID & BranchCode from RoomDB
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        MainActivity3API.UserID = mPinDao.getUserID();
+        MainActivity3API.BranchCode = mPinDao.getBranchCode();
 
     }
 
