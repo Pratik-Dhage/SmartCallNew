@@ -34,6 +34,7 @@ import com.example.test.npa_flow.radio_buttons.RadioButtonsReasonAdapter;
 import com.example.test.npa_flow.radio_buttons.RadioButtonsViewModel;
 import com.example.test.roomDB.dao.CallDetailsListDao;
 import com.example.test.roomDB.dao.LeadCallDao;
+import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.CallDetailsListRoomModel;
 import com.example.test.roomDB.model.LeadCallModelRoom;
@@ -109,6 +110,13 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
         System.out.println("DetailsOfCustomerActivity.FullName:"+DetailsOfCustomerActivity.FullName);
         System.out.println("DetailsOfCustomerActivity.Mobile_Number:"+ DetailsOfCustomerActivity.Mobile_Number);
+        System.out.println("NotSpokeToCustomerActivity Selected Mobile_Number:"+ DetailsOfCustomerActivity.selectedMobileNumber);
+
+
+        //UserID & BranchCode from RoomDB
+        MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+        MainActivity3API.UserID = mPinDao.getUserID();
+        MainActivity3API.BranchCode = mPinDao.getBranchCode();
 
     }
 
@@ -255,7 +263,6 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                        // String dataSetId = getIntent().getStringExtra("dataSetId");
                         CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
                         List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingDataSetId(dataSetId);
-                        System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
                         callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy, dataSetId, callDetailsListRoomModelList);
                        // navigateToCallsForTheDayList();
 
@@ -290,7 +297,6 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                        // String dataSetId = getIntent().getStringExtra("dataSetId");
                         CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
                         List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingDataSetId(dataSetId);
-                        System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
                         callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy, dataSetId, callDetailsListRoomModelList);
                         // navigateToNPAList();
 
@@ -329,7 +335,6 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                        // String dataSetId = getIntent().getStringExtra("dataSetId");
                         CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
                         List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingDataSetId(dataSetId);
-                        System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
                         callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff, dataSetId, callDetailsListRoomModelList);
                        // navigateToCallsForTheDayList();
                     }
@@ -360,7 +365,6 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                       //  String dataSetId = getIntent().getStringExtra("dataSetId");
                         CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
                         List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingDataSetId(dataSetId);
-                        System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
                         callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff, dataSetId, callDetailsListRoomModelList);
                         //navigateToNPAList();
                     }
