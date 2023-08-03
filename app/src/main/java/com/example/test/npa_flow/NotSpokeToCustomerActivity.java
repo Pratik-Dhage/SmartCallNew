@@ -168,7 +168,16 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                     //Remove CallDetails
                     // After NoResponse/Busy & NotReachableSwitchOff Api Call to send 1 New List Everytime
                     CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
-                    callDetailsListDao.deleteCallDetailsListUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    callDetailsListDao.deleteCallDetailsListUsingDataSetId(dataSetId);
+
+                    // Navigate To Respective List after Server Response
+                    if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                        navigateToCallsForTheDayList();
+                    }
+                    else{
+                        navigateToNPAList();
+                    }
                 }
 
 
@@ -220,31 +229,35 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
 
         binding.btnNoResponseBusy.setOnClickListener(v -> {
+
+            String dataSetId = getIntent().getStringExtra("dataSetId");
+            System.out.println("NoResponseBusy dataSetId:"+dataSetId);
+
             //From CallsForTheDayAdapter
             if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
                 System.out.println("Here isFromCallsForTheDayAdapter_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
 
-                if(null!= DetailsOfCustomerActivity.FullName || null!= DetailsOfCustomerActivity.Mobile_Number){
+                if(null!= dataSetId){
 
                     //if CallCount is becoming 5(0,1,2,3,4)
                     //At 5th Attempt Navigate to ScheduleVisitForCollectionActivity
-                    if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==4){
+                    if(getCallCountFromRoomDB(dataSetId)==4){
                         navigateToScheduleVisitForCollectionActivity("NoResponseBusy");
-                        storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number); //to remove hand gesture
-                        storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0); //to get 3 CallDateTime,CallDuration
+                        storeCallCountInRoomDB(dataSetId); //to remove hand gesture
+                        storeCallDetailsInRoomDB(0,dataSetId); //to get  CallDateTime,CallDuration
                     }
 
                     else{
-                        storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number);
-                        storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0);
+                        storeCallCountInRoomDB(dataSetId);
+                        storeCallDetailsInRoomDB(0,dataSetId);
 
-                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                       // String dataSetId = getIntent().getStringExtra("dataSetId");
                         CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
-                        List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                        List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingDataSetId(dataSetId);
                         System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
                         callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy, dataSetId, callDetailsListRoomModelList);
-                        navigateToCallsForTheDayList();
+                       // navigateToCallsForTheDayList();
 
                     }
 
@@ -259,27 +272,27 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
 
                 System.out.println("DetailsOfCustomerActivity.FullName"+DetailsOfCustomerActivity.FullName);
-                System.out.println("DetailsOfCustomerActivity.Mobile_Number"+DetailsOfCustomerActivity.Mobile_Number);
+                System.out.println("DetailsOfCustomerActivity.selectedMobileNumber"+DetailsOfCustomerActivity.selectedMobileNumber);
 
-                if(null!= DetailsOfCustomerActivity.FullName || null!= DetailsOfCustomerActivity.Mobile_Number){
+                if(null!= dataSetId){
 
                     //if CallCount is becoming 5(0,1,2,3,4)
                     //At 5th Attempt Navigate to ScheduleVisitForCollectionActivity
-                    if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==4){
+                    if(getCallCountFromRoomDB(dataSetId)==4){
                         navigateToScheduleVisitForCollectionActivity("NoResponseBusy");
-                        storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number); //to remove hand gesture
-                        storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0); //to get 3 CallDateTime,CallDuration
+                        storeCallCountInRoomDB(dataSetId); //to remove hand gesture
+                        storeCallDetailsInRoomDB(0, dataSetId); //to get  CallDateTime,CallDuration
                     }
                     else{
-                        storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number);
-                        storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0);
+                        storeCallCountInRoomDB(dataSetId);
+                        storeCallDetailsInRoomDB(0,dataSetId);
 
-                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                       // String dataSetId = getIntent().getStringExtra("dataSetId");
                         CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
-                        List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                        List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingDataSetId(dataSetId);
                         System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
                         callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberIsBusy, dataSetId, callDetailsListRoomModelList);
-                         navigateToNPAList();
+                        // navigateToNPAList();
 
                     }
 
@@ -290,31 +303,35 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         });
 
         binding.btnNotReachableSwitchedOff.setOnClickListener(v -> {
+
+            String dataSetId = getIntent().getStringExtra("dataSetId");
+            System.out.println("NotReachableSwitchOff dataSetId:"+dataSetId);
+
             //From CallsForTheDayAdapter
             if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
                 System.out.println("Here isFromCallsForTheDayAdapter_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
 
-                if(null!= DetailsOfCustomerActivity.FullName || null!= DetailsOfCustomerActivity.Mobile_Number){
+                if(null!= dataSetId){
 
                     //if CallCount is becoming 5(0,1,2,3,4)
                     //At 5th Attempt Navigate to ScheduleVisitForCollectionActivity
-                    if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==4){
+                    if(getCallCountFromRoomDB(dataSetId)==4){
                         navigateToScheduleVisitForCollectionActivity("SwitchOff");
-                        storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number); //to remove hand gesture
-                        storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0); //to get 3 CallDateTime,CallDuration
+                        storeCallCountInRoomDB(dataSetId); //to remove hand gesture
+                        storeCallDetailsInRoomDB(0, dataSetId); //to get  CallDateTime,CallDuration
                     }
                     else{
 
-                        storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number);
-                        storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0);
+                        storeCallCountInRoomDB(dataSetId);
+                        storeCallDetailsInRoomDB(0, dataSetId);
 
-                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                       // String dataSetId = getIntent().getStringExtra("dataSetId");
                         CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
-                        List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                        List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingDataSetId(dataSetId);
                         System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
                         callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff, dataSetId, callDetailsListRoomModelList);
-                        navigateToCallsForTheDayList();
+                       // navigateToCallsForTheDayList();
                     }
 
                 }
@@ -327,25 +344,25 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                 System.out.println("Here isFromNPA_NotSpokeToCustomerActivity");
                 notSpokeToCustomer = true; // if Not Spoke To Customer is True Only then Show Call Attempts(Hands)
 
-                if(null!= DetailsOfCustomerActivity.FullName || null!= DetailsOfCustomerActivity.Mobile_Number){
+                if(null!= dataSetId){
 
                     //if CallCount is becoming 5(0,1,2,3,4)
                     //At 5th Attempt Navigate to ScheduleVisitForCollectionActivity
-                    if(getCallCountFromRoomDB(DetailsOfCustomerActivity.Mobile_Number)==4){
+                    if(getCallCountFromRoomDB(dataSetId)==4){
                         navigateToScheduleVisitForCollectionActivity("SwitchOff");
-                        storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number); //to remove hand gesture
-                        storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0); //to get 3 CallDateTime,CallDuration
+                        storeCallCountInRoomDB(dataSetId); //to remove hand gesture
+                        storeCallDetailsInRoomDB(0,dataSetId); //to get  CallDateTime,CallDuration
                     }
                     else{
-                        storeCallCountInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number);
-                        storeCallDetailsInRoomDB(DetailsOfCustomerActivity.FullName,DetailsOfCustomerActivity.Mobile_Number,0);
+                        storeCallCountInRoomDB(dataSetId);
+                        storeCallDetailsInRoomDB(0,dataSetId);
 
-                        String dataSetId = getIntent().getStringExtra("dataSetId");
+                      //  String dataSetId = getIntent().getStringExtra("dataSetId");
                         CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
-                        List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingMobileNumber(DetailsOfCustomerActivity.Mobile_Number);
+                        List<CallDetailsListRoomModel> callDetailsListRoomModelList = callDetailsListDao.getCallLogDetailsUsingDataSetId(dataSetId);
                         System.out.println("Here MobileNumber: " + DetailsOfCustomerActivity.Mobile_Number);
                         callDetailsViewModel.postCallDetailsNotSpokeToCustomer_NumberIsBusy_SwitchedOff(WebServices.notSpokeToCustomer_numberSwitchedOff, dataSetId, callDetailsListRoomModelList);
-                        navigateToNPAList();
+                        //navigateToNPAList();
                     }
 
                 }
@@ -458,13 +475,13 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         },1000);
     }
 
-    public int getCallCountFromRoomDB(String phoneNumber){
+    public int getCallCountFromRoomDB(String dataSetId){
         LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
-        System.out.println("Here getCallCountFromRoomDB for :"+phoneNumber+" is "+leadCallDao.getCallCountUsingPhoneNumber(phoneNumber));
-        return leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
+        System.out.println("Here getCallCountFromRoomDB for :"+dataSetId+" is "+leadCallDao.getCallCountUsingDataSetId(dataSetId));
+        return leadCallDao.getCallCountUsingDataSetId(dataSetId);
     }
 
-    public void storeCallDetailsInRoomDB(String fullName ,String phoneNumber  ,int callDuration){
+    public void storeCallDetailsInRoomDB(int callDuration, String dataSetId){
         CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
 
         String pattern = "yyyy-MM-dd HH:mm:ss"; // Pattern to match the date format
@@ -478,9 +495,9 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
             LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
            // int callCount = leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
 
-            int currentAttemptNo = leadCallDao.getCallCountUsingPhoneNumber(phoneNumber); //using callCount same as attemptNo.
+            int currentAttemptNo = leadCallDao.getCallCountUsingDataSetId(dataSetId); //using callCount as attemptNo.
             System.out.println(currentAttemptNo);
-            CallDetailsListRoomModel callDetailsListRoomModel = new CallDetailsListRoomModel(fullName,phoneNumber,formattedCallDateTime,callDuration,currentAttemptNo);
+            CallDetailsListRoomModel callDetailsListRoomModel = new CallDetailsListRoomModel(formattedCallDateTime,callDuration,currentAttemptNo,dataSetId);
             callDetailsListDao.insert(callDetailsListRoomModel);
 
 
@@ -488,13 +505,13 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
             if (currentAttemptNo > 5) {
                 currentAttemptNo=0;
             }
-            callDetailsListDao.UpdateAttemptNo(currentAttemptNo,phoneNumber);
+            callDetailsListDao.UpdateAttemptNoUsingDataSetId(currentAttemptNo,dataSetId);
 
 
 
 
-            // Will get 1st CallDateTime in Logcat for all 3 calls as it is fetching using same mobileNumber
-            System.out.println("Here CallDetailsDateTimeFromDB:"+callDetailsListDao.getCallDateTimeUsingMobileNumber(phoneNumber));
+            // Will get  CallDateTime in Logcat
+            System.out.println("Here CallDetailsDateTimeFromDB:"+callDetailsListDao.getCallDateTimeUsingDataSetId(dataSetId));
         }
         catch(Exception e ){
             e.printStackTrace();
@@ -503,14 +520,14 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
     }
 
 
-    public void storeCallCountInRoomDB(String firstName, String phoneNumber) {
+    public void storeCallCountInRoomDB( String dataSetId) {
 
-        if(null!=phoneNumber){
+        if( null!= dataSetId){
 
             LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
-            int callCount = leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
+            int callCount = leadCallDao.getCallCountUsingDataSetId(dataSetId);
             callCount++; //callCount+1
-            LeadCallModelRoom leadCallModelRoom = new LeadCallModelRoom(callCount, firstName, phoneNumber);
+            LeadCallModelRoom leadCallModelRoom = new LeadCallModelRoom(callCount, dataSetId);
 
             leadCallDao.insert(leadCallModelRoom);
             //  if CallCount=5 means (0,1,2,3,4) then make it to zero
@@ -519,10 +536,10 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                 callCount = 0;
             }
 
-            leadCallDao.UpdateLeadCalls(callCount, phoneNumber);
+            leadCallDao.UpdateLeadCallsUsingDataSetId(callCount, dataSetId);
 
-            // Global.showToast(this, "Call Count for " + phoneNumber + " is: " + leadCallDao.getCallCountUsingPhoneNumber(phoneNumber));
-            System.out.println("Here Call Count for " + phoneNumber + " is: " + leadCallDao.getCallCountUsingPhoneNumber(phoneNumber));
+            System.out.println("Here Call Count for "+ dataSetId + " is:" +leadCallDao.getCallCountUsingDataSetId(dataSetId));
+           // System.out.println("Here Call Count for " + phoneNumber + " is: " + leadCallDao.getCallCountUsingPhoneNumber(phoneNumber));
 
             DetailsOfCustomerActivity.send_callAttemptNo = callCount;
 
