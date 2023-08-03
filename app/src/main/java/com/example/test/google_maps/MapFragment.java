@@ -119,24 +119,30 @@ public class MapFragment extends Fragment {
                 //coming from LoanCollectionAdapter red ivMap - Marker on User's Current Location
                 if(GoogleMapsActivity.isFromLoanCollectionAdapter!=null){
 
-                    double latitude = GoogleMapsActivity.latitude;
-                    double longitude = GoogleMapsActivity.longitude;
+                    try{
+                        double latitude = GoogleMapsActivity.latitude;
+                        double longitude = GoogleMapsActivity.longitude;
 
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    LatLng latLngFromLoanCollectionAdapter = new LatLng(latitude,longitude);
-                    markerOptions.position(latLngFromLoanCollectionAdapter);
-                    googleMap.addMarker(markerOptions);
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromLoanCollectionAdapter, 15));
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        LatLng latLngFromLoanCollectionAdapter = new LatLng(latitude,longitude);
+                        markerOptions.position(latLngFromLoanCollectionAdapter);
+                        googleMap.addMarker(markerOptions);
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromLoanCollectionAdapter, 15));
 
-                    //if User does not Marks on GoogleMaps For New Marker
-                    //then User's Current Device Location will become Member's Location
+                        //if User does not Marks on GoogleMaps For New Marker
+                        //then User's Current Device Location will become Member's Location
 
-                    getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
-                    getDistanceBetweenMarkerAndUser(latitude,longitude);
+                        getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
+                        getDistanceBetweenMarkerAndUser(latitude,longitude);
 
-                    // For Navigate Button in DetailsOFCustomerAdapter
-                    Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(latitude));
-                    Global.saveStringInSharedPref(getActivity().getApplicationContext(),"longitudeFromLoanCollectionAdapter",String.valueOf(longitude));
+                        // For Navigate Button in DetailsOFCustomerAdapter
+                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(latitude));
+                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"longitudeFromLoanCollectionAdapter",String.valueOf(longitude));
+
+                    }catch (Exception e){
+                        System.out.println("LoanCollectionAdapter red ivMap Exception"+e);
+                    }
+
 
                 }
 
@@ -147,72 +153,82 @@ public class MapFragment extends Fragment {
 
                     // by Default Capture button will  Red Mark User's Device Location
 
-                    double userLatitude = Global.getDeviceLocation(getActivity()).getLatitude();
-                    double userLongitude = Global.getDeviceLocation(getActivity()).getLongitude();
+                    try{
+                        double userLatitude = Global.getDeviceLocation(getActivity()).getLatitude();
+                        double userLongitude = Global.getDeviceLocation(getActivity()).getLongitude();
 
-                    LatLng userDeviceLatLng = new LatLng(userLatitude,userLongitude);
-                    System.out.println("Capture Button userLatitude:"+userLatitude+" userLongitude"+userLongitude);
+                        LatLng userDeviceLatLng = new LatLng(userLatitude,userLongitude);
+                        System.out.println("Capture Button userLatitude:"+userLatitude+" userLongitude"+userLongitude);
 
-                    if(userDeviceLatLng!=null){
+                        if(userDeviceLatLng!=null){
 
-                        MarkerOptions markerOptions = new MarkerOptions();
-                        markerOptions.position(userDeviceLatLng);
-                        markerOptions.title("User's Location");
+                            MarkerOptions markerOptions = new MarkerOptions();
+                            markerOptions.position(userDeviceLatLng);
+                            markerOptions.title("User's Location");
 
-                        googleMap.addMarker(markerOptions);
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userDeviceLatLng, 15));
+                            googleMap.addMarker(markerOptions);
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userDeviceLatLng, 15));
 
-                        //if User does not Marks on GoogleMaps For New Marker
-                        //then User's Current Device Location will become Member's Location
+                            //if User does not Marks on GoogleMaps For New Marker
+                            //then User's Current Device Location will become Member's Location
 
-                        getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
-                        getDistanceBetweenMarkerAndUser(userLatitude,userLongitude);
+                            getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
+                            getDistanceBetweenMarkerAndUser(userLatitude,userLongitude);
 
-                        // For Navigate Button in DetailsOFCustomerAdapter
-                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(userLatitude));
-                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"longitudeFromLoanCollectionAdapter",String.valueOf(userLongitude));
+                            // For Navigate Button in DetailsOFCustomerAdapter
+                            Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(userLatitude));
+                            Global.saveStringInSharedPref(getActivity().getApplicationContext(),"longitudeFromLoanCollectionAdapter",String.valueOf(userLongitude));
 
+                        }
+
+                        else{
+                            getCurrentLocation(googleMap); //User Marker
+                        }
+                    }catch (Exception e){
+                        System.out.println("Capture Button Exception"+e);
                     }
-
-                    else{
-                        getCurrentLocation(googleMap); //User Marker
-                    }
-
 
                 }
 
                 //coming from VisitsForTheDayAdapter ivMap - Marker on User's Current Location
                 if(GoogleMapsActivity.isFromVisitsForTheDayAdapter!=null){
 
-                    double userLatitude = Global.getDeviceLocation(getActivity()).getLatitude();
-                    double userLongitude = Global.getDeviceLocation(getActivity()).getLongitude();
+                    try{
 
-                    LatLng userDeviceLatLng = new LatLng(userLatitude,userLongitude);
-                    System.out.println("VisitForTheDay ivMap userLatitude:"+userLatitude+" userLongitude"+userLongitude);
+                        double userLatitude = Global.getDeviceLocation(getActivity()).getLatitude();
+                        double userLongitude = Global.getDeviceLocation(getActivity()).getLongitude();
 
-                    if(userDeviceLatLng!=null){
+                        LatLng userDeviceLatLng = new LatLng(userLatitude,userLongitude);
+                        System.out.println("VisitForTheDay ivMap userLatitude:"+userLatitude+" userLongitude"+userLongitude);
 
-                        MarkerOptions markerOptions = new MarkerOptions();
-                        markerOptions.position(userDeviceLatLng);
-                        markerOptions.title("User's Location");
+                        if(userDeviceLatLng!=null){
 
-                        googleMap.addMarker(markerOptions);
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userDeviceLatLng, 15));
+                            MarkerOptions markerOptions = new MarkerOptions();
+                            markerOptions.position(userDeviceLatLng);
+                            markerOptions.title("User's Location");
 
-                        //if User does not Marks on GoogleMaps For New Marker
-                        //then User's Current Device Location will become Member's Location
+                            googleMap.addMarker(markerOptions);
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userDeviceLatLng, 15));
 
-                        getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
-                        getDistanceBetweenMarkerAndUser(userLatitude,userLongitude);
+                            //if User does not Marks on GoogleMaps For New Marker
+                            //then User's Current Device Location will become Member's Location
 
-                        // For Navigate Button in DetailsOFCustomerAdapter
-                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(userLatitude));
-                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"longitudeFromLoanCollectionAdapter",String.valueOf(userLongitude));
+                            getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
+                            getDistanceBetweenMarkerAndUser(userLatitude,userLongitude);
 
-                    }
+                            // For Navigate Button in DetailsOFCustomerAdapter
+                            Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(userLatitude));
+                            Global.saveStringInSharedPref(getActivity().getApplicationContext(),"longitudeFromLoanCollectionAdapter",String.valueOf(userLongitude));
 
-                    else{
-                        getCurrentLocation(googleMap); //User Marker
+                        }
+
+                        else{
+                            getCurrentLocation(googleMap); //User Marker
+                        }
+
+
+                    }catch (Exception e){
+                        System.out.println("VisitsForTheDayAdapter ivMap Exception:"+e);
                     }
 
 
@@ -236,14 +252,21 @@ public class MapFragment extends Fragment {
                 }
 
                 //coming from CallsForTheDayAdapter
-                double latitude_callsForTheDay = GoogleMapsActivity.latitude_callsForTheDay;
-                double longitude_callsForTheDay = GoogleMapsActivity.longitude_callsForTheDay;
                 if(GoogleMapsActivity.isFromCallsForTheDayAdapter!=null){
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    LatLng latLngFromCallsForTheDayAdapter = new LatLng(latitude_callsForTheDay,longitude_callsForTheDay);
-                    markerOptions.position(latLngFromCallsForTheDayAdapter);
-                    googleMap.addMarker(markerOptions);
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromCallsForTheDayAdapter, 15));
+
+                    try{
+                        double latitude_callsForTheDay = GoogleMapsActivity.latitude_callsForTheDay;
+                        double longitude_callsForTheDay = GoogleMapsActivity.longitude_callsForTheDay;
+
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        LatLng latLngFromCallsForTheDayAdapter = new LatLng(latitude_callsForTheDay,longitude_callsForTheDay);
+                        markerOptions.position(latLngFromCallsForTheDayAdapter);
+                        googleMap.addMarker(markerOptions);
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromCallsForTheDayAdapter, 15));
+
+                    }catch (Exception e){
+                        System.out.println("CallsForTheDayAdapter ivMap Exception:"+e);
+                    }
                 }
 
 
