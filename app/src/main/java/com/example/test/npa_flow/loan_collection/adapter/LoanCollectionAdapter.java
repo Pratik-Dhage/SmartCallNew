@@ -105,7 +105,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
                 holder.binding.txtStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.blueButton) );
             }
 
-            if(a.getActionStatus().toLowerCase().contains("re-assigned")){
+            if(a.getActionStatus().toLowerCase().contains("re_assigned")){
                 holder.binding.txtStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.purple) );
             }
 
@@ -243,85 +243,32 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
             context.startActivity(i);
         });
 
-        //for setting Call Attempts ImageView to Selected Item(Member) for Calling
-        LeadCallDao leadCallDao = LeadListDB.getInstance(context).leadCallDao();
 
-        // get mobile Number and Name from DetailsOfCustomerActivity
-        if(DetailsOfCustomerActivity.Mobile_Number!=null ){
 
-            String phoneNumber=DetailsOfCustomerActivity.Mobile_Number; // get Phone Number from DetailsOfCustomerActivity
-            String first_Name = DetailsOfCustomerActivity.FullName;
+        //to Display Hand Gestures for Not Spoke To The Customer dataSetId only for PENDING Status from RoomDB
 
-            if(leadCallDao.getCallCountUsingPhoneNumber(phoneNumber)>4){
-                leadCallDao.UpdateLeadCalls(0,phoneNumber); // if leadCallCount >4 as(0,1,2,3) make it back to zero for Hand gestures
+        if(null!= a.getActionStatus() && a.getActionStatus().toLowerCase().contains("pending")){
+
+            LeadCallDao leadCallDao = LeadListDB.getInstance(context).leadCallDao();
+
+            int callCount =  leadCallDao.getCallCountUsingDataSetId(String.valueOf(a.getDataSetId()));
+
+            switch (callCount){
+
+                case 0:  holder.binding.ivLoanCollectionAttempt.setVisibility(View.INVISIBLE);
+                    break;
+                case 1:holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attempttwo);
+                    break;
+                case 2 : holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptthree);
+                    break;
+                case 3: holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptfour);
+                    break;
+                case 4 : holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptfiveblue);
+                    break;
             }
-
-         //   int callCount =  leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
-            int callCount =  leadCallDao.getCallCountUsingPhoneNumber(phoneNumber);
-
-            // match Name coming from api list  and name stored in SharedPreferences in this Adapter on ItemView Click
-               String FullNameFromAdapter = Global.getStringFromSharedPref(context,"FullNameFromAdapter");
-
-            // Show Call Attempts(Hands) Only If Not Spoke To Customer is True(No Response/Busy And Not Reachable/Switched Off)
-            if(FullNameFromAdapter.contains(String.valueOf(a.getMemberName())) && NotSpokeToCustomerActivity.notSpokeToCustomer==true){
-
-
-                switch (callCount){
-
-                    case 0:  holder.binding.ivLoanCollectionAttempt.setVisibility(View.INVISIBLE);
-                        break;
-                    case 1:holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attempttwo);
-                        break;
-                    case 2 : holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptthree);
-                        break;
-                    case 3: holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptfour);
-                        break;
-                    case 4 : holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptfiveblue);
-                        break;
-
-                }
-            }
-
-            //Store Not Spoke To Customer Name , Mobile Number , true for Not Spoke To customer
-            if(null!=DetailsOfCustomerActivity.FullName && null!= DetailsOfCustomerActivity.Mobile_Number){
-              if(NotSpokeToCustomerActivity.notSpokeToCustomer==true){
-
-                  NotSpokeToCustomerDao notSpokeToCustomerDao = LeadListDB.getInstance(context).notSpokeToCustomerDao();
-                  NotSpokeToCustomerRoomModel notSpokeToCustomerRoomModel = new NotSpokeToCustomerRoomModel(true,a.getMemberName(),DetailsOfCustomerActivity.Mobile_Number);
-                   notSpokeToCustomerDao.insert(notSpokeToCustomerRoomModel);
-                   System.out.println("Here MobileNumber NotSpokeToCustomer: "+notSpokeToCustomerDao.getMobileNumberWhoNotSpokeWithCustomer(DetailsOfCustomerActivity.Mobile_Number));
-              }
-            }
-
-
 
         }
 
-        //to Display Hand Gestures for Not Spoke To The Customer Mobile Numbers from RoomDB
-        NotSpokeToCustomerDao notSpokeToCustomerDao = LeadListDB.getInstance(context).notSpokeToCustomerDao();
-       if( (null!=notSpokeToCustomerDao.getMobileNumberWhoNotSpokeWithCustomer(a.getMobileNumber()) && null!= a.getMobileNumber()) && (null!= a.getActionStatus() && a.getActionStatus().toLowerCase().contains("pending") )){
-
-           if(notSpokeToCustomerDao.getMobileNumberWhoNotSpokeWithCustomer(a.getMobileNumber()).contentEquals(a.getMobileNumber())){
-
-               int callCount =  leadCallDao.getCallCountUsingPhoneNumber(String.valueOf(a.getMobileNumber()));
-
-               switch (callCount){
-
-                   case 0:  holder.binding.ivLoanCollectionAttempt.setVisibility(View.INVISIBLE);
-                       break;
-                   case 1:holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attempttwo);
-                       break;
-                   case 2 : holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptthree);
-                       break;
-                   case 3: holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptfour);
-                       break;
-                   case 4 : holder.binding.ivLoanCollectionAttempt.setImageResource(R.drawable.attemptfiveblue);
-                       break;
-               }
-
-           }
-
-       }
 
     }
 
@@ -333,19 +280,31 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
     @Override
     public void onViewAttachedToWindow(@NonNull MyViewHolderClass holder) {
         super.onViewAttachedToWindow(holder);
-        if(GoogleMapsActivity.saveDistanceBoolean && GoogleMapsActivity.isSaveButtonClicked){
+
+        holder.setIsRecyclable(false); // for hand gestures to not disappear
+
+        /*if(GoogleMapsActivity.saveDistanceBoolean && GoogleMapsActivity.isSaveButtonClicked){
             holder.setIsRecyclable(true);
         }
-
+        else{
+            holder.setIsRecyclable(false);
+        }
+*/
     }
 
     @Override
     public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
         super.onViewDetachedFromWindow(holder);
-        if(GoogleMapsActivity.saveDistanceBoolean && GoogleMapsActivity.isSaveButtonClicked){
+
+        holder.setIsRecyclable(false); // for hand gestures to not disappear
+
+       /* if(GoogleMapsActivity.saveDistanceBoolean && GoogleMapsActivity.isSaveButtonClicked){
             holder.setIsRecyclable(true); // for distance in Km to keep fetching New distance everytime
         }
-
+        else{
+            holder.setIsRecyclable(false);
+        }
+*/
     }
 
 
