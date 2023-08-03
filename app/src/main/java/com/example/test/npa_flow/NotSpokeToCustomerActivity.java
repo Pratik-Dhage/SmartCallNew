@@ -252,8 +252,8 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                     //At 5th Attempt Navigate to ScheduleVisitForCollectionActivity
                     if(getCallCountFromRoomDB(dataSetId)==4){
                         navigateToScheduleVisitForCollectionActivity("NoResponseBusy");
-                        storeCallCountInRoomDB(dataSetId); //to remove hand gesture
-                        storeCallDetailsInRoomDB(0,dataSetId); //to get  CallDateTime,CallDuration
+                       // storeCallCountInRoomDB(dataSetId); //to remove hand gesture
+                      //  storeCallDetailsInRoomDB(0,dataSetId); //to get  CallDateTime,CallDuration
                     }
 
                     else{
@@ -287,8 +287,8 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                     //At 5th Attempt Navigate to ScheduleVisitForCollectionActivity
                     if(getCallCountFromRoomDB(dataSetId)==4){
                         navigateToScheduleVisitForCollectionActivity("NoResponseBusy");
-                        storeCallCountInRoomDB(dataSetId); //to remove hand gesture
-                        storeCallDetailsInRoomDB(0, dataSetId); //to get  CallDateTime,CallDuration
+                       // storeCallCountInRoomDB(dataSetId); //to remove hand gesture
+                     //   storeCallDetailsInRoomDB(0, dataSetId); //to get  CallDateTime,CallDuration
                     }
                     else{
                         storeCallCountInRoomDB(dataSetId);
@@ -324,8 +324,8 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                     //At 5th Attempt Navigate to ScheduleVisitForCollectionActivity
                     if(getCallCountFromRoomDB(dataSetId)==4){
                         navigateToScheduleVisitForCollectionActivity("SwitchOff");
-                        storeCallCountInRoomDB(dataSetId); //to remove hand gesture
-                        storeCallDetailsInRoomDB(0, dataSetId); //to get  CallDateTime,CallDuration
+                      //  storeCallCountInRoomDB(dataSetId); //to remove hand gesture
+                      //  storeCallDetailsInRoomDB(0, dataSetId); //to get  CallDateTime,CallDuration
                     }
                     else{
 
@@ -355,8 +355,8 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                     //At 5th Attempt Navigate to ScheduleVisitForCollectionActivity
                     if(getCallCountFromRoomDB(dataSetId)==4){
                         navigateToScheduleVisitForCollectionActivity("SwitchOff");
-                        storeCallCountInRoomDB(dataSetId); //to remove hand gesture
-                        storeCallDetailsInRoomDB(0,dataSetId); //to get  CallDateTime,CallDuration
+                       // storeCallCountInRoomDB(dataSetId); //to remove hand gesture
+                     //   storeCallDetailsInRoomDB(0,dataSetId); //to get  CallDateTime,CallDuration
                     }
                     else{
                         storeCallCountInRoomDB(dataSetId);
@@ -488,6 +488,9 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
     public void storeCallDetailsInRoomDB(int callDuration, String dataSetId){
         CallDetailsListDao callDetailsListDao = LeadListDB.getInstance(this).callDetailsListDao();
 
+        callDetailsListDao.deleteCallDetailsListUsingDataSetId(dataSetId); //to delete previous call details list if exists
+        System.out.println("Before Storing CallDetailsListFromRoomDB Size for: "+dataSetId+" is "+callDetailsListDao.getCountOfCallDetailsListUsingDataSetId(dataSetId));
+
         String pattern = "yyyy-MM-dd HH:mm:ss"; // Pattern to match the date format
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
         try{
@@ -516,6 +519,8 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
             // Will get  CallDateTime in Logcat
             System.out.println("Here CallDetailsDateTimeFromDB:"+callDetailsListDao.getCallDateTimeUsingDataSetId(dataSetId));
+            System.out.println("After Storing CallDetailsListFromRoomDB Size for: "+dataSetId+" is "+callDetailsListDao.getCountOfCallDetailsListUsingDataSetId(dataSetId));
+
         }
         catch(Exception e ){
             e.printStackTrace();

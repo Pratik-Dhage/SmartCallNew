@@ -49,4 +49,7 @@ public interface CallDetailsListDao {
     @Query("UPDATE call_details_table SET attemptNo=:attemptNo where dataSetId =:dataSetId")
     void UpdateAttemptNoUsingDataSetId(int attemptNo,String dataSetId);
 
+    @Query("SELECT COUNT(*) FROM call_details_table WHERE dataSetId =:dataSetId")
+    int getCountOfCallDetailsListUsingDataSetId(String dataSetId);
+
 }

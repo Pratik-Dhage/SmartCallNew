@@ -33,6 +33,7 @@ import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.roomDB.model.CallDetailsListRoomModel;
+import com.example.test.roomDB.model.LeadCallModelRoom;
 import com.example.test.schedule_flow.visits_for_the_day.adapter.VisitsForTheDayAdapter;
 
 import java.text.SimpleDateFormat;
@@ -322,8 +323,9 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                 //NotSpokeToCustomer - No Response/Busy
                 if(binding.btnUpdateSchedule.getText() == getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromNotSpokeToCustomer_NoResponseBusy")){
 
-                    getScheduleDateTime();
                     String dataSetId = getIntent().getStringExtra("dataSetId");
+                    sendFinalAttemptAndUpdateCallCount(dataSetId); // after 5th Attempt make call count to zero to remove hand gesture
+                    getScheduleDateTime();
                     System.out.println("Here NoResponseBusy dataSetId:"+dataSetId);
                     String physicalVisitRequired = WebServices.notSpokeToCustomer_physicalVisitRequired; //using DNSTC-PVR flow for Member to appear in VisitsFlow at 5th Attempt
                     DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
@@ -334,8 +336,9 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
                 //NotSpokeToCustomer - Not Reachable/Switched Off
                 if(binding.btnUpdateSchedule.getText() == getString(R.string.update_schedule_space) && getIntent().hasExtra("isFromNotSpokeToCustomer_SwitchOff")){
 
-                    getScheduleDateTime();
                     String dataSetId = getIntent().getStringExtra("dataSetId");
+                    sendFinalAttemptAndUpdateCallCount(dataSetId); // after 5th Attempt make call count to zero to remove hand gesture
+                    getScheduleDateTime();
                     System.out.println("Here NotReachableSwitchOff dataSetId:"+dataSetId);
                     String physicalVisitRequired = WebServices.notSpokeToCustomer_physicalVisitRequired;//using DNSTC-PVR flow for Member to appear in VisitsFlow at 5th Attempt
                     DetailsOfCustomerActivity detailsOfCustomerActivity = new DetailsOfCustomerActivity();
@@ -438,23 +441,17 @@ public class ScheduleVisitForCollectionActivity extends AppCompatActivity {
 
     }
 
-    public void showAlertDialogForPermission(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(ScheduleVisitForCollectionActivity.this);
+    public void sendFinalAttemptAndUpdateCallCount(String dataSetId) {
 
-        builder.setTitle("Alert")
-                .setMessage("Permission needed")
-                .setCancelable(true)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // OK button clicked
-                        dialog.dismiss();
-                    }
-                });
+        if( null!= dataSetId){
+            DetailsOfCustomerActivity.send_callAttemptNo = 5; //sending final Attempt No. as 5
+
+            LeadCallDao leadCallDao = LeadListDB.getInstance(this).leadCallDao();
+            leadCallDao.UpdateLeadCallsUsingDataSetId(0, dataSetId); //after 5th Attempt make call count to zero to remove hand gesture
+            System.out.println("Here Call Count for "+ dataSetId + " is:" +leadCallDao.getCallCountUsingDataSetId(dataSetId));
+        }
 
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
     @Override
