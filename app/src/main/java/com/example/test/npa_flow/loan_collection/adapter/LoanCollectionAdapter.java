@@ -213,7 +213,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
                 Global.saveStringInSharedPref(context,"FullNameFromAdapter",String.valueOf(a.getMemberName()));
                 MainActivity3API.showCallIcon = false; // //from Visits For The Day Flow to be True Else False
                 LoanCollectionAdapter_dataSetId = a.getDataSetId().toString();
-                DetailsOfCustomerAdapter.dataSetId = a.getDataSetId().toString(); // store dataSetId for Saving Location of Customer along with LatLong,Distance in DetailsOfCustomerAdapter
+                DetailsOfCustomerAdapter.dataSetId = a.getDataSetId().toString(); // store dataSetId for Saving Alternate No. , Saving Location of Customer along with LatLong,Distance in DetailsOfCustomerAdapter
                 Intent i = new Intent(context, DetailsOfCustomerActivity.class);
                 i.putExtra("dataSetId", DetailsOfCustomerAdapter.dataSetId);
                 context.startActivity(i);
