@@ -112,6 +112,20 @@
             android:visibility="gone"
             app:tint="@color/textBlue" />
 
+       <!-- Locked Icon-->
+        <ImageView
+            android:id="@+id/ivLockedIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/_3sdp"
+            app:layout_constraintTop_toTopOf="@id/edtDetail"
+            app:layout_constraintBottom_toBottomOf="@id/edtDetail"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:gravity="center"
+            android:src="@drawable/locked"
+            android:visibility="gone"
+            app:tint="@color/textBlue" />
+
 
 
         <!-- Save Button for Amount Paid-->
