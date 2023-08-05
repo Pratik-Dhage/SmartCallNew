@@ -10,6 +10,8 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -26,6 +28,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -39,12 +43,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.test.R;
 import com.example.test.api_manager.RestClient;
 import com.example.test.api_manager.WebServices;
+import com.example.test.fragment_visits_flow.Visit_NPA_NotAvailableActivity;
+import com.example.test.fragment_visits_flow.Visit_NPA_NotificationActivity;
+import com.example.test.fragment_visits_flow.Visit_NPA_PaymentModeActivity;
+import com.example.test.fragment_visits_flow.Visit_NPA_RescheduledActivity;
+import com.example.test.fragment_visits_flow.Visit_NPA_StatusActivity;
 import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
+import com.example.test.fragments_activity.CustomerDetailsActivity;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.notes_history.NotesHistoryResponseModel;
 import com.example.test.notes_history.NotesHistoryViewModel;
 import com.example.test.notes_history.adapter.NotesHistoryAdapter;
+import com.example.test.npa_flow.CallDetailOfCustomerActivity;
+import com.example.test.npa_flow.NotSpokeToCustomerActivity;
+import com.example.test.npa_flow.PaymentInfoOfCustomerActivity;
+import com.example.test.npa_flow.PaymentModeActivity;
+import com.example.test.npa_flow.PaymentModeStatusActivity;
+import com.example.test.npa_flow.PaymentNotificationOfCustomerActivity;
+import com.example.test.npa_flow.SubmitCompletionActivityOfCustomer;
+import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
+import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.npa_flow.loan_collection.GpsLocationListner;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
@@ -52,6 +72,11 @@ import com.example.test.roomDB.database.LeadListDB;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -140,16 +165,177 @@ public class Global {
         return true;
     }
 
-    public static void hideConstraintLayoutSecondHalf(ConstraintLayout constraintLayout, boolean hideValue){
+    public static List<DetailsOfCustomerResponseModel> getUpdatedDetailsList( ArrayList<DetailsOfCustomerResponseModel> detailsList){
+
+        // to find the index of the item with label "Alternate Number"
+        int indexToUpdate = -1;
+        for (int i = 0; i < detailsList.size(); i++) {
+            DetailsOfCustomerResponseModel item = detailsList.get(i);
+            if ("Alternate Number".equals(item.getLable())) {
+                indexToUpdate = i;
+                break;
+            }
+        }
+
+        // If the item is found, update its value
+        if (indexToUpdate != -1 && null!= DetailsOfCustomerAdapter.alternateNumber) {
+            detailsList.get(indexToUpdate).setValue(DetailsOfCustomerAdapter.alternateNumber);
+        }
+
+         return detailsList;
+    }
+
+    public static void showHideConstraintLayoutSecondHalf(Activity activity, boolean hideValue){
 
         if(hideValue){
-            constraintLayout.setVisibility(View.GONE);
+           // hide
+            hideConstraintLayoutSecondHalf(activity);
         }
         else{
-            constraintLayout.setVisibility(View.VISIBLE);
+            //show
+            showConstraintLayoutSecondHalf(activity);
         }
 
     }
+
+    public static void showConstraintLayoutSecondHalf(Activity activity){
+
+        //NPA - 9 Activities
+        if(activity instanceof DetailsOfCustomerActivity){
+            DetailsOfCustomerActivity detailsOfCustomerActivity = (DetailsOfCustomerActivity) activity;
+            detailsOfCustomerActivity.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+        else if(activity instanceof CallDetailOfCustomerActivity) {
+            CallDetailOfCustomerActivity callDetailOfCustomerActivity = (CallDetailOfCustomerActivity) activity;
+            callDetailOfCustomerActivity.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+        else if(activity instanceof NotSpokeToCustomerActivity){
+            NotSpokeToCustomerActivity notSpokeToCustomerActivity =(NotSpokeToCustomerActivity) activity;
+            notSpokeToCustomerActivity.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+        else if(activity instanceof PaymentNotificationOfCustomerActivity){
+            PaymentNotificationOfCustomerActivity paymentNotificationOfCustomerActivity = (PaymentNotificationOfCustomerActivity) activity;
+            paymentNotificationOfCustomerActivity.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+        else if(activity instanceof PaymentModeActivity){
+            PaymentModeActivity paymentModeActivity = (PaymentModeActivity) activity;
+            paymentModeActivity.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+        else if (activity instanceof PaymentInfoOfCustomerActivity){
+            PaymentInfoOfCustomerActivity paymentInfoOfCustomerActivity = (PaymentInfoOfCustomerActivity) activity;
+            paymentInfoOfCustomerActivity.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+        else if(activity instanceof PaymentModeStatusActivity){
+            PaymentModeStatusActivity paymentModeStatusActivity = (PaymentModeStatusActivity) activity;
+            paymentModeStatusActivity.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+        else if(activity instanceof SubmitCompletionActivityOfCustomer){
+            SubmitCompletionActivityOfCustomer submitCompletionActivityOfCustomer = (SubmitCompletionActivityOfCustomer) activity;
+            submitCompletionActivityOfCustomer.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+        else if(activity instanceof VisitCompletionOfCustomerActivity){
+            VisitCompletionOfCustomerActivity visitCompletionOfCustomerActivity = (VisitCompletionOfCustomerActivity) activity;
+            visitCompletionOfCustomerActivity.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+
+        //VisitsFlow - 6 Activities
+        else if(activity instanceof CustomerDetailsActivity){
+            CustomerDetailsActivity customerDetailsActivity = (CustomerDetailsActivity) activity;
+            customerDetailsActivity.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+        else if(activity instanceof Visit_NPA_StatusActivity){
+            Visit_NPA_StatusActivity visit_npa_statusActivity = (Visit_NPA_StatusActivity) activity;
+            visit_npa_statusActivity.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+        else if(activity instanceof Visit_NPA_RescheduledActivity){
+            Visit_NPA_RescheduledActivity visit_npa_rescheduledActivity = (Visit_NPA_RescheduledActivity) activity;
+            visit_npa_rescheduledActivity.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+        else if(activity instanceof Visit_NPA_PaymentModeActivity){
+            Visit_NPA_PaymentModeActivity visit_npa_paymentModeActivity = (Visit_NPA_PaymentModeActivity) activity;
+            visit_npa_paymentModeActivity.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+        else if(activity instanceof Visit_NPA_NotificationActivity){
+            Visit_NPA_NotificationActivity visit_npa_notificationActivity = (Visit_NPA_NotificationActivity) activity;
+            visit_npa_notificationActivity.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+        else if(activity instanceof Visit_NPA_NotAvailableActivity){
+            Visit_NPA_NotAvailableActivity visit_npa_notAvailableActivity = (Visit_NPA_NotAvailableActivity) activity;
+            visit_npa_notAvailableActivity.getBinding().clSecondHalf.setVisibility(View.VISIBLE);
+        }
+
+
+    }
+
+    public static void hideConstraintLayoutSecondHalf(Activity activity){
+
+        //NPA - 9 Activities
+        if(activity instanceof DetailsOfCustomerActivity){
+            DetailsOfCustomerActivity detailsOfCustomerActivity = (DetailsOfCustomerActivity) activity;
+            detailsOfCustomerActivity.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+        else if(activity instanceof CallDetailOfCustomerActivity) {
+            CallDetailOfCustomerActivity callDetailOfCustomerActivity = (CallDetailOfCustomerActivity) activity;
+            callDetailOfCustomerActivity.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+        else if(activity instanceof NotSpokeToCustomerActivity){
+            NotSpokeToCustomerActivity notSpokeToCustomerActivity =(NotSpokeToCustomerActivity) activity;
+            notSpokeToCustomerActivity.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+        else if(activity instanceof PaymentNotificationOfCustomerActivity){
+            PaymentNotificationOfCustomerActivity paymentNotificationOfCustomerActivity = (PaymentNotificationOfCustomerActivity) activity;
+            paymentNotificationOfCustomerActivity.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+        else if(activity instanceof PaymentModeActivity){
+            PaymentModeActivity paymentModeActivity = (PaymentModeActivity) activity;
+            paymentModeActivity.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+        else if (activity instanceof PaymentInfoOfCustomerActivity){
+            PaymentInfoOfCustomerActivity paymentInfoOfCustomerActivity = (PaymentInfoOfCustomerActivity) activity;
+            paymentInfoOfCustomerActivity.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+        else if(activity instanceof PaymentModeStatusActivity){
+            PaymentModeStatusActivity paymentModeStatusActivity = (PaymentModeStatusActivity) activity;
+            paymentModeStatusActivity.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+        else if(activity instanceof SubmitCompletionActivityOfCustomer){
+            SubmitCompletionActivityOfCustomer submitCompletionActivityOfCustomer = (SubmitCompletionActivityOfCustomer) activity;
+            submitCompletionActivityOfCustomer.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+        else if(activity instanceof VisitCompletionOfCustomerActivity){
+            VisitCompletionOfCustomerActivity visitCompletionOfCustomerActivity = (VisitCompletionOfCustomerActivity) activity;
+            visitCompletionOfCustomerActivity.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+
+        //VisitsFlow - 6 Activities
+        else if(activity instanceof CustomerDetailsActivity){
+            CustomerDetailsActivity customerDetailsActivity = (CustomerDetailsActivity) activity;
+            customerDetailsActivity.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+        else if(activity instanceof Visit_NPA_StatusActivity){
+            Visit_NPA_StatusActivity visit_npa_statusActivity = (Visit_NPA_StatusActivity) activity;
+            visit_npa_statusActivity.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+        else if(activity instanceof Visit_NPA_RescheduledActivity){
+            Visit_NPA_RescheduledActivity visit_npa_rescheduledActivity = (Visit_NPA_RescheduledActivity) activity;
+            visit_npa_rescheduledActivity.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+        else if(activity instanceof Visit_NPA_PaymentModeActivity){
+            Visit_NPA_PaymentModeActivity visit_npa_paymentModeActivity = (Visit_NPA_PaymentModeActivity) activity;
+            visit_npa_paymentModeActivity.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+        else if(activity instanceof Visit_NPA_NotificationActivity){
+            Visit_NPA_NotificationActivity visit_npa_notificationActivity = (Visit_NPA_NotificationActivity) activity;
+            visit_npa_notificationActivity.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+        else if(activity instanceof Visit_NPA_NotAvailableActivity){
+            Visit_NPA_NotAvailableActivity visit_npa_notAvailableActivity = (Visit_NPA_NotAvailableActivity) activity;
+            visit_npa_notAvailableActivity.getBinding().clSecondHalf.setVisibility(View.GONE);
+        }
+
+
+    }
+
 
     //To Display Notes_Edit Dialog (Calls / NPA Flow)
     public static void showNotesEditDialog(Context context){
