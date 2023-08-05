@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LifecycleOwner;
@@ -45,13 +46,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.test.R;
 import com.example.test.api_manager.WebServices;
 import com.example.test.databinding.ItemDetailsOfCustomerBinding;
+import com.example.test.fragment_visits_flow.Visit_NPA_NotAvailableActivity;
+import com.example.test.fragment_visits_flow.Visit_NPA_NotificationActivity;
+import com.example.test.fragment_visits_flow.Visit_NPA_PaymentModeActivity;
+import com.example.test.fragment_visits_flow.Visit_NPA_RescheduledActivity;
+import com.example.test.fragment_visits_flow.Visit_NPA_StatusActivity;
 import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
+import com.example.test.fragments_activity.AlternateNumberApiCall;
+import com.example.test.fragments_activity.CustomerDetailsActivity;
 import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.google_maps.MapFragment;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.CallDetailOfCustomerActivity;
+import com.example.test.npa_flow.NotSpokeToCustomerActivity;
+import com.example.test.npa_flow.PaymentInfoOfCustomerActivity;
 import com.example.test.npa_flow.PaymentModeActivity;
+import com.example.test.npa_flow.PaymentModeStatusActivity;
+import com.example.test.npa_flow.PaymentNotificationOfCustomerActivity;
+import com.example.test.npa_flow.SubmitCompletionActivityOfCustomer;
+import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
@@ -75,8 +90,10 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
     ArrayList<DetailsOfCustomerResponseModel> detailsOfCustomer_responseModelArrayList;
 
     public static String dataSetId; // used in LoanCollectionAdapter for saving location when Capture/Navigate Button is Clicked
-
-    public DetailsOfCustomerAdapter(ArrayList<DetailsOfCustomerResponseModel> detailsOfCustomer_responseModelArrayList) {
+    private Context context;
+    public static AppCompatActivity activity;
+    public DetailsOfCustomerAdapter(AppCompatActivity activity,ArrayList<DetailsOfCustomerResponseModel> detailsOfCustomer_responseModelArrayList) {
+        this.activity = activity;
         this.detailsOfCustomer_responseModelArrayList = detailsOfCustomer_responseModelArrayList;
     }
 
@@ -95,9 +112,12 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
     String InterestRate;
     String BalanceInterestResult;
 
+  public static String alternateNumber;
+  public static boolean isSavingAlternateNumber = false;
+
     @NonNull
     @Override
-    public MyViewHolderClass onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolderClass onCreateViewHolder( @NonNull ViewGroup parent, int viewType) {
 
         ItemDetailsOfCustomerBinding view = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_details_of_customer, parent, false);
         return new MyViewHolderClass(view);
@@ -108,7 +128,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
     public void onBindViewHolder(@NonNull MyViewHolderClass holder, int position) {
 
         DetailsOfCustomerResponseModel a = detailsOfCustomer_responseModelArrayList.get(position);
-        Context context = holder.itemView.getContext();
+        context = holder.itemView.getContext();
 
         // Sort by number in getSequence coming from DetailsOfCustomerResponseModel
         detailsOfCustomer_responseModelArrayList.sort(Comparator.comparingInt(DetailsOfCustomerResponseModel::getSequence));
@@ -144,137 +164,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         }
 
 
-/*
 
-        //for Name And Loan A/c No. Creating conflicts
-        if (a.getLable().contentEquals("Name") || a.getLable().contentEquals("Loan A/c No.")) {
-            holder.binding.txtDetailName.setVisibility(View.VISIBLE);
-            holder.binding.edtDetail.setVisibility(View.GONE);
-            holder.binding.viewLine.setVisibility(View.INVISIBLE);
-        }
-
-        //for  Last Interest Paid On
-        if(a.getLable().contentEquals("Last Interest Paid On") ){
-
-            String input = a.getValue();
-            Log.d("Date from response",input);
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-            LocalDateTime dateTime = LocalDateTime.parse(input, inputFormatter);
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            String output = dateTime.format(outputFormatter);
-//            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-//            try {
-//                Date output = sdf.parse(input);
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-            holder.binding.txtDetailName.setText(a.getValue());
-        }
-        //for DOB
-        if(a.getLable().contentEquals("DOB") ){
-
-            String input = a.getValue();
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-            LocalDateTime dateTime = LocalDateTime.parse(input, inputFormatter);
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            String output = dateTime.format(outputFormatter);
-            holder.binding.txtDetailName.setText(output);
-        }
-
-
-
-        //for Amount Paid
-        if (a.getLable().contentEquals("Amount Paid") ) {
-
-            holder.binding.txtDetailName.setVisibility(View.VISIBLE);
-            holder.binding.edtDetail.setOnFocusChangeListener((v, hasFocus) -> {
-
-                holder.binding.btnSaveAmountPaid.setVisibility(View.VISIBLE);
-               // holder.binding.btnDetail.setText(R.string.save);
-
-            });
-
-            holder.binding.btnSaveAmountPaid.setOnClickListener(v -> {
-
-                   String Amount_Paid = holder.binding.edtDetail.getText().toString();
-
-                   Global.saveStringInSharedPref(context, "Amount_Paid", Amount_Paid); //save Amount Paid in SharedPreference
-                   // Global.showToast(context,"Saved");
-                    holder.binding.btnSaveAmountPaid.setVisibility(View.GONE);
-            });
-
-
-            if (!Global.getStringFromSharedPref(context, "Amount_Paid").isEmpty()) {
-
-                String Amount_Paid_From_SharedPreference = Global.getStringFromSharedPref(context, "Amount_Paid");
-                holder.binding.edtDetail.setText(Amount_Paid_From_SharedPreference);
-
-            }
-
-        }
-
-        //for Total Payable as on (Total Due + Balance Interest)
-        if (a.getLable().contentEquals("Total payable as on") ) {
-
-            if (a.getValue() != null || !a.getValue().isEmpty()) {  //if Total Payable is Coming from API
-                holder.binding.txtDetailName.setText(a.getValue());
-                holder.binding.edtDetail.setVisibility(View.GONE);
-            }
-
-            if (a.getValue().isEmpty() || a.getValue().contentEquals("") || a.getValue() == null) { // If Total Payable not coming from API
-
-                if (TotalDue != null && BalanceInterestResult != null && !BalanceInterestResult.isEmpty() && !TotalDue.isEmpty()) {
-                    Double TotalPayableAsOn = Double.parseDouble(TotalDue) + Double.parseDouble(BalanceInterestResult);
-                    holder.binding.txtDetailName.setText(String.valueOf(TotalPayableAsOn));
-                }
-
-                if (BalanceInterestResult == null || TotalDue == null) {
-                    holder.binding.txtDetailName.setText("");//Empty
-                }
-
-            }
-
-        }
-
-
-
-        //For Total Due and Interest Rate to Calculate in Balance Interest Calculation Activity
-        if (a.getLable().contentEquals("Total Due") ) {
-            Total_due = Double.parseDouble(a.getValue());
-            TotalDue = Total_due.toString();
-            holder.binding.btnDetail.setVisibility(View.GONE);
-        }
-
-        if (a.getLable().contentEquals("Interest Rate") ) {
-            Interest_rate = Double.parseDouble(a.getValue());
-            InterestRate = Interest_rate.toString();
-            holder.binding.btnDetail.setVisibility(View.GONE);
-        }
-
-
-        //for Balance Interest Result
-        if (a.getLable().contentEquals("Balance Interest as on") ) {
-
-            if (a.getValue() != null || !a.getValue().isEmpty()) {  // if BalanceInterest is coming from API
-                holder.binding.txtDetailName.setText(a.getValue());
-                holder.binding.edtDetail.setVisibility(View.GONE);
-            }
-
-
-            if (a.getValue().contentEquals("") || a.getValue() == null) { //if BalanceInterest Not coming from API
-
-                if (Global.getStringFromSharedPref(context, "BalanceInterestResult") != null) {
-
-                    BalanceInterestResult = Global.getStringFromSharedPref(context, "BalanceInterestResult");
-                    holder.binding.txtDetailName.setText(BalanceInterestResult);
-
-                }
-
-            }
-
-        }
-
-*/
 
         //for Call Icon to be visible when coming from Visits For The Day(DashBoard)
         if(MainActivity3API.showCallIcon ){
@@ -449,62 +339,45 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
             }
         }
 
-        // for Distance between User and Address
-       /* if (a.getLable().contentEquals("Pincode")) {
 
-            // Setting Width of txtDetailName programmatically in case of Pincode
-            ViewGroup.LayoutParams layoutParams = holder.binding.txtDetailName.getLayoutParams();
-            layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            holder.binding.txtDetailName.setLayoutParams(layoutParams);
-
-            //LoanCollectionAdapter_Distance - By default it will display beside Pincode Only if it is not 0.0
-            if ((a.getValue()!=null && LoanCollectionAdapter_Distance != null) &&
-                    (!LoanCollectionAdapter_Distance.isEmpty() && !LoanCollectionAdapter_Distance.contentEquals("0.0")) ){
-                holder.binding.txtDetailName.setText(a.getValue() + ", " + LoanCollectionAdapter_Distance + "Km");
-            }
-
-            if (Global.getStringFromSharedPref(context, "formattedDistanceInKm").isEmpty()) {
-                //  holder.binding.txtDetailName.setText(a.getValue());
-            } else {
-
-
-                String savedDistance = Global.getStringFromSharedPref(context, "formattedDistanceInKm");
-
-                // Call Save Location of Customer API Here
-                callSaveLocationOfCustomerAPI(context,savedDistance);
-                //initObserverSavedLocationOfCustomer
-                initObserverSavedLocationOfCustomer(context);
-
-                if(a.getValue()!=null && GoogleMapsActivity.saveDistanceBoolean){
-                    holder.binding.txtDetailName.setText(a.getValue() + ", " + savedDistance + "Km");}
-             else if( GoogleMapsActivity.saveDistanceBoolean)
-                {
-                  holder.binding.txtDetailName.setText(savedDistance + "Km");
-              }
-
-
-            }
-
-        }*/
 
         //for Alternate Number
-
         if(a.getLable().contentEquals("Alternate Number")){
+            holder.binding.txtDetailName.setVisibility(View.GONE);
             holder.binding.edtDetail.setHint("");
 
+            // if Alternate Number is pre-populated -> Disable edtDetail
            if(null!= a.getValue()){
                holder.binding.edtDetail.setText(String.valueOf(a.getValue()));
-               holder.binding.ivSaveAlternateNumber.setImageResource(R.drawable.locked);
-
+               holder.binding.ivLockedIcon.setVisibility(View.VISIBLE);
+               holder.binding.ivSaveAlternateNumber.setVisibility(View.GONE);
+               holder.binding.edtDetail.setEnabled(false);
+           }
+           else{
+               holder.binding.ivSaveAlternateNumber.setVisibility(View.VISIBLE);
            }
 
+                //on clicking Lock icon-> Allow editing Alternate Number
+            holder.binding.ivLockedIcon.setOnClickListener(v->{
+                holder.binding.ivSaveAlternateNumber.setVisibility(View.VISIBLE);
+                holder.binding.ivLockedIcon.setVisibility(View.GONE);
+                holder.binding.edtDetail.setEnabled(true);
 
-            holder.binding.ivSaveAlternateNumber.setVisibility(View.VISIBLE);
+                //for hiding clSecondHalf
+                Global.showHideConstraintLayoutSecondHalf(activity,true);
+            });
+
+           //for hiding clSecondHalf on click on editText
+            holder.binding.edtDetail.setOnFocusChangeListener((v,hasFocus)->{
+
+                if(hasFocus){
+                    Global.showHideConstraintLayoutSecondHalf(activity,true);
+                }
+            });
+
 
             textWatcherForEditText(holder.binding.edtDetail,holder.binding.ivSaveAlternateNumber );
-
-            holder.binding.ivSaveAlternateNumber.setOnClickListener(v->{
-
+            holder.binding.ivSaveAlternateNumber.setOnClickListener(v1->{
 
                 if(Global.isValidMobileNumber(context,holder.binding.edtDetail.getText().toString().trim())){
 
@@ -512,29 +385,26 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                     builder.setTitle("Save Alternate Number");
                     builder.setMessage("Are you sure?");
 
-                    //Yes Button
+                    //Yes Button , Lock the Alternate Number
                     builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            String alternateNumber =holder.binding.edtDetail.getText().toString().trim();
+                             alternateNumber = holder.binding.edtDetail.getText().toString().trim();
 
-                            if(!Global.isValidMobileNumber(context,alternateNumber)){
+                            holder.binding.edtDetail.setEnabled(false);
+                            holder.binding.ivLockedIcon.setVisibility(View.VISIBLE);
+                            holder.binding.ivSaveAlternateNumber.setVisibility(View.GONE);
 
-                            }
-                            else if (Global.isValidMobileNumber(context,holder.binding.edtDetail.getText().toString().trim())){
+                            //After Saving if User Calls On Alternate No.
+                            DetailsOfCustomerActivity.Alternate_Mobile_Number =alternateNumber;
 
-                                if(null!=DetailsOfCustomerAdapter.dataSetId ){
-                                    System.out.println("Here Alternate Number dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" AlternateNumber:"+alternateNumber);
+                            //After Saving Alternate No. show clSecondHalf
+                            Global.showHideConstraintLayoutSecondHalf(activity,false);
 
-                                    if(NetworkUtilities.getConnectivityStatus(context)){
-                                        callSaveAlternateMobileNumberApi(context,DetailsOfCustomerAdapter.dataSetId,alternateNumber);
-                                        initObserverSaveAlternateNumber(context,holder.binding.ivSaveAlternateNumber,holder.binding.edtDetail);
-                                    }
-
-                                }
-
-                            }
+                            //boolean value to save Alternate No. on Button clicks for Activities that contain DetailsOfCustomerAdapter
+                            isSavingAlternateNumber = true;
+                             System.out.println("isSaveAlternateNumber:"+isSavingAlternateNumber);
 
                         }
                     });
@@ -542,6 +412,12 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                     builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+
+                            isSavingAlternateNumber =false;
+
+                            //if User does not want to save Alternate Number
+                            Global.showHideConstraintLayoutSecondHalf(activity,false);
+
                             dialog.dismiss();
                         }
                     });
@@ -553,6 +429,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
 
             });
+
         }
 
         //for Button & Navigate Button(If Capture Button is Visible , then Navigate Button will also be Visible)
@@ -610,92 +487,11 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         return detailsOfCustomer_responseModelArrayList.size();
     }
 
-    public void callSaveLocationOfCustomerAPI(Context context, String savedDistance){
-        SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(SaveLocationOfCustomerViewModel.class);
 
-        // DetailsOfCustomerAdapter.dataSetId != null && GoogleMapsActivity.latitude!=null && GoogleMapsActivity.longitude!=null
-        if(DetailsOfCustomerAdapter.dataSetId!=null && savedDistance !=null ){
-
-            // Save LatLong if userMarkerLatitude!=0.0  && userMarkerLongitude!=0.0
-            if((String.valueOf(MapFragment.userMarkerLatitude)!=null &&  MapFragment.userMarkerLatitude!=0.0) &&
-                    ( String.valueOf(MapFragment.userMarkerLongitude)!=null  && MapFragment.userMarkerLongitude!=0.0)){
-
-                System.out.println("Here DetailsOfCustomerAdapter dataSetId:"+DetailsOfCustomerAdapter.dataSetId);
-                System.out.println("Here DetailsOfCustomerAdapter Latitude:"+MapFragment.userMarkerLatitude);
-                System.out.println("Here DetailsOfCustomerAdapter Longitude:"+ MapFragment.userMarkerLongitude);
-
-                //Save Location of Customer API
-                if(NetworkUtilities.getConnectivityStatus(context) && GoogleMapsActivity.saveDistanceBoolean){
-                    saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(DetailsOfCustomerAdapter.dataSetId,String.valueOf(MapFragment.userMarkerLatitude),String.valueOf(MapFragment.userMarkerLongitude),savedDistance);
-                }
-
-            }
-
-        }
-    }
-
-    public void initObserverSavedLocationOfCustomer(Context context){
-        SaveLocationOfCustomerViewModel saveLocationOfCustomerViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(SaveLocationOfCustomerViewModel.class);
-
-        saveLocationOfCustomerViewModel.getMutSaveLocationOfCustomerResponseApi().observe((LifecycleOwner) context, result->{
-            if(result!=null){
-
-              //  Global.showToast(context,result);
-                System.out.println("Here SavedDistanceOfCustomerResponse: "+result);
-            }
-        });
-
-        //handle  error response
-        saveLocationOfCustomerViewModel.getMutErrorResponse().observe((LifecycleOwner)context, error -> {
-
-            if (error != null && !error.isEmpty()) {
-                Global.showToast(context, error);
-                System.out.println("Here: " + error);
-            } else {
-                Global.showToast(context,"Check internet connection");
-            }
-        });
-    }
 
     //for Saving Alternate MobileNumber
-    public void callSaveAlternateMobileNumberApi(Context context ,String dataSetId , String alternateMobileNumber){
 
-        DetailsOfCustomerViewModel detailsOfCustomerViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(DetailsOfCustomerViewModel.class);
-        detailsOfCustomerViewModel.saveAlternateNumber_Data(dataSetId,alternateMobileNumber);
-    }
 
-    public void initObserverSaveAlternateNumber(Context context, ImageView imageView, EditText editText){
-        DetailsOfCustomerViewModel detailsOfCustomerViewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(DetailsOfCustomerViewModel.class);
-        detailsOfCustomerViewModel.getMutSaveAlternateNumber_ResponseApi().observe((LifecycleOwner)context,result->{
-
-            if(result!=null){
-                Global.showToast(context,result);
-                Global.hideKeyboard((Activity)context);
-                imageView.setImageResource(R.drawable.locked);
-                editText.clearFocus();
-
-                // After Saving Alternate Number in DetailsOfCustomerActivity , at same instance User may try to Call on saved Alternate Number
-                // so call Details Of Customer API
-                if(null!= DetailsOfCustomerAdapter.dataSetId){
-                    System.out.println("Here Alternate Number dataSetId for calling Details Of Customer API:"+DetailsOfCustomerAdapter.dataSetId);
-                    detailsOfCustomerViewModel.getDetailsOfCustomer_Data(DetailsOfCustomerAdapter.dataSetId);
-                }
-
-            }
-        });
-
-        //handle error response
-        detailsOfCustomerViewModel .getMutErrorResponse().observe((LifecycleOwner)context, error -> {
-
-            if (error != null && !error.isEmpty()) {
-                Global.showToast(context, error);
-                System.out.println("Here: " + error);
-            } else {
-                Global.showToast(context,"Check internet connection");
-            }
-        });
-
-    }
 
     @Override
     public void onViewAttachedToWindow(@NonNull MyViewHolderClass holder) {
@@ -886,20 +682,21 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                 if(editText.getText().toString().length()==10){
 
                     //Show Constraint Layout SecondHalf if editText is 10 digits
-                    Global.hideConstraintLayoutSecondHalf(DetailsOfCustomerActivity.constraintLayoutSecondHalf,false);
+                    Global.showHideConstraintLayoutSecondHalf(activity,false);
 
                 }
 
                 //After typing if user deletes & makes editText empty
-                else if(editText.getText().toString().isEmpty()){
+               /* else if(editText.getText().toString().isEmpty()){
                     editText.clearFocus();
-                    Global.hideConstraintLayoutSecondHalf(DetailsOfCustomerActivity.constraintLayoutSecondHalf,false);
-                }
+                    Global.showHideConstraintLayoutSecondHalf(activity,false);
+                }*/
 
                 else{
                     imageView.setImageResource(R.drawable.unlocked);
+
                     //Hide Constraint Layout SecondHalf
-                    Global.hideConstraintLayoutSecondHalf(DetailsOfCustomerActivity.constraintLayoutSecondHalf,true);
+                    Global.showHideConstraintLayoutSecondHalf(activity,true);
 
                 }
 
@@ -910,5 +707,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         });
 
    }
+
+
 
 }
