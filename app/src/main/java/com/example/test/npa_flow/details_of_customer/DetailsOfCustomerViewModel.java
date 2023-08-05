@@ -1,5 +1,6 @@
 package com.example.test.npa_flow.details_of_customer;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -38,9 +39,8 @@ public class DetailsOfCustomerViewModel extends ViewModel {
 
 
     public ArrayList<DetailsOfCustomerResponseModel> arrList_DetailsOfCustomer_Data = new ArrayList<>();
-    public DetailsOfCustomerAdapter detailsOfCustomerAdapter = new DetailsOfCustomerAdapter(arrList_DetailsOfCustomer_Data);
+    public DetailsOfCustomerAdapter detailsOfCustomerAdapter = new DetailsOfCustomerAdapter(DetailsOfCustomerAdapter.activity,arrList_DetailsOfCustomer_Data);
     public void updateDetailsOfCustomer_Data() {  detailsOfCustomerAdapter.setData(arrList_DetailsOfCustomer_Data); }
-
 
  public int dpd_row_position ; //this will set queue according to position
 
