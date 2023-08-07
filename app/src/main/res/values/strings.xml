@@ -403,6 +403,9 @@
     <string name="physical_visit_required">Physical Visit Required</string>
     <string name="reason_for_visit">Reason For Visit</string>
     <string name="select_no_to_call">Select No. to Call</string>
+    <string name="complete">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Complete\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
+    <string name="schedule_a_call">Schedule a Call</string>
+    <string name="schedule_a_visit">Schedule a Visit</string>
 
 
     <!--for Tenure-->
