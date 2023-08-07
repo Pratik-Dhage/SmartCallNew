@@ -20,8 +20,10 @@ import android.widget.TimePicker;
 import com.example.test.R;
 import com.example.test.api_manager.WebServices;
 import com.example.test.databinding.ActivityVisitCompletionOfCustomerBinding;
+import com.example.test.databinding.ActivityVisitNpaNotAvailableBinding;
 import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
 import com.example.test.fragment_visits_flow.VisitsFlowViewModel;
+import com.example.test.fragments_activity.AlternateNumberApiCall;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
@@ -90,6 +92,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
+        detailsList = (ArrayList<DetailsOfCustomerResponseModel>) Global.getUpdatedDetailsList(detailsList); //to get Updated List
         setUpToolbarTitle();
 
         //initially buttons will be clickable
@@ -117,7 +120,7 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsList));
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(this,detailsList));
     }
 
 
@@ -192,15 +195,32 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Call Save Alternate Number API
+                if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                    System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                    AlternateNumberApiCall.saveAlternateNumber(VisitCompletionOfCustomerActivity.this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+                }
                 onBackPressed();
             }
         });
 
         binding.ivHome.setOnClickListener(v -> {
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
         binding.btnCompleteNoChange.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
 
             //To check if button Complete is Clicked Once or not
             if (binding.btnCompleteNoChange.isClickable())
@@ -415,8 +435,14 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
         });
 
-
+        //kept Hidden for Temporary Basis
         binding.btnCompleteNeedToUpdateDetails.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
 
             if (binding.btnCompleteNeedToUpdateDetails.isClickable()){
                 System.out.println("Here Complete Button Clickable:true");
@@ -622,8 +648,14 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
         });
 
-
+        //kept Hidden for Temporary Basis
         binding.btnCompleteEscalateToBM.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
 
             if (binding.btnCompleteEscalateToBM.isClickable()){
                 System.out.println("Here Complete Button Clickable:true");
@@ -874,5 +906,9 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
         onClickListener();
         setUpDetailsOfCustomerRecyclerView();
         super.onResume();
+    }
+
+    public ActivityVisitCompletionOfCustomerBinding getBinding(){
+        return binding;
     }
 }

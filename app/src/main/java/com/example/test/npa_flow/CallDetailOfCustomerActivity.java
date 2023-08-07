@@ -17,6 +17,7 @@ import android.widget.TimePicker;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityCallDetailOfCustomerBinding;
+import com.example.test.fragments_activity.AlternateNumberApiCall;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
@@ -72,6 +73,12 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
         setToolBarTitle();
+
+        //Call Save Alternate Number API
+        if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+            System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+            AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+        }
     }
 
     private void callDetailsOfCustomerApi(){
@@ -85,7 +92,7 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(this,detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
     }
 
     private void initObserver(){
@@ -114,7 +121,7 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
             detailsOfCustomerViewModel.getMutErrorResponse().observe(this, error -> {
 
                 if (error != null && !error.isEmpty()) {
-                    Global.showSnackBar(view, error);
+                  //  Global.showSnackBar(view, error);
                     System.out.println("Here: " + error);
                 } else {
                     Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
@@ -135,15 +142,33 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Call Save Alternate Number API
+                if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                    System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                    AlternateNumberApiCall.saveAlternateNumber(CallDetailOfCustomerActivity.this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+                }
                 onBackPressed();
             }
         });
 
         binding.ivHome.setOnClickListener(v->{
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
         binding.btnSpokeToCustomer.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
 
                     //From CallsForTheDayAdapter
                     if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null ){
@@ -167,6 +192,12 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
         });
 
         binding.btnNotSpokeToCustomer.setOnClickListener(v->{
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
 
             //From CallsForTheDayAdapter
             if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null ){
@@ -263,5 +294,9 @@ public class CallDetailOfCustomerActivity extends AppCompatActivity {
         initObserver();
         callDetailsOfCustomerApi();
         super.onResume();
+    }
+
+    public ActivityCallDetailOfCustomerBinding getBinding(){
+        return binding;
     }
 }

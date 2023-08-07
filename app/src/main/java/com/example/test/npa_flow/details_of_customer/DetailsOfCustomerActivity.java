@@ -29,7 +29,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.test.R;
+import com.example.test.databinding.ActivityCallDetailOfCustomerBinding;
 import com.example.test.databinding.ActivityDetailsOfCustomer2Binding;
+import com.example.test.fragments_activity.AlternateNumberApiCall;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
@@ -169,11 +171,11 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             callDetails.setCallDateTime(callDateTime);
         }
 
-       // ScheduleVisitForCollectionActivity scheduleVisitForCollectionActivity = new ScheduleVisitForCollectionActivity();
-        //send_callScheduledTime = scheduleVisitForCollectionActivity.();
-        String scheduleVisitForCollection_dateTime = Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime");
-        send_callScheduledTime = scheduleVisitForCollection_dateTime;
 
+        if(null!= Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime")){
+            String scheduleVisitForCollection_dateTime = Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime");
+            send_callScheduledTime = scheduleVisitForCollection_dateTime;
+        }
         if(send_callScheduledTime!=null ){
             callDetails.setScheduledCallDateTime(send_callScheduledTime); // for Will Pay Later flow
             Global.saveStringInSharedPref(this,"scheduleVisitForCollection_dateTime",""); // make empty to reset
@@ -346,13 +348,14 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
                         }
 
-                        //for Alternate Mobile Number
+                        //for Alternate Mobile Number either coming from API OR DetailsOFCustomerAdapter
                         if(lowercase_label.contains("alternate")){
 
                             if(null!= it.getValue()){
                                 Alternate_Mobile_Number = String.valueOf(it.getValue());
                                 System.out.println("Here Alternate Number: "+it.getValue());
                             }
+
                         }
 
 
@@ -371,8 +374,9 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             detailsOfCustomerViewModel.getMutErrorResponse().observe(this, error -> {
 
                 if (error != null && !error.isEmpty()) {
-                    Global.showSnackBar(view, error);
-                    System.out.println("Here: " + error);
+                  //  Global.showSnackBar(view, "DetailsOfCustomerActivity Exception: "+error);
+                    System.out.println("Here DetailsOfCustomerActivity Exception: " + error);
+
                 } else {
                     Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
                 }
@@ -383,100 +387,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
     }
 
-    private void getDetailsOfCustomerDataFromApi() {
-        if (getIntent().hasExtra("dataSetId")) {
 
-            String dataSetId = getIntent().getStringExtra("dataSetId");
-
-            if (NetworkUtilities.getConnectivityStatus(this)) {
-
-                binding.loadingProgressBar.setVisibility(View.VISIBLE);
-                detailsOfCustomerViewModel.getDetailsOfCustomer_Data(dataSetId); // call Details Of Customer API
-
-                detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this, result -> {
-
-                    if (result != null) {
-
-                        binding.loadingProgressBar.setVisibility(View.INVISIBLE);
-
-                      /*  result.iterator().forEachRemaining(it->{
-
-                            if(it.getSequence()==1){
-                                binding.txtName.setText(it.getValue()); //Name
-                            }
-
-                            if(it.getSequence()==2){
-                                binding.txtVillageName.setText(it.getValue()); //Village Name
-                            }
-
-
-                            if(it.getSequence()==4){
-                                binding.txtMobileNumber.setText(it.getValue()); //Mobile No.
-                            }
-
-                            if(it.getSequence()==5){
-                                binding.txtAadharNumber.setText(it.getValue()); //Aadhaar No.
-                            }
-
-                            if(it.getSequence()==6){
-                                binding.txtDOB.setText(it.getValue()); //Date of Birth
-                            }
-
-                            if(it.getSequence()==7){
-                                binding.txtFatherName.setText(it.getValue()); //Father's Name
-                            }
-
-                            if(it.getSequence()==8){
-                                binding.txtLoanAccountNumber.setText(it.getValue()); //Loan Acc. No.
-                            }
-
-                            if(it.getSequence()==9){
-                                binding.txtProduct.setText(it.getValue()); //Product
-                            }
-
-                            if(it.getSequence()==10){
-                                binding.txtAmountDueAsOnAmount.setText(it.getValue()); //Amt. Due as OutStanding Balance
-                            }
-
-                            if(it.getSequence()==12){
-                                binding.txtTotalAmountPaid.setText(it.getValue()); // Total Amount Paid
-                            }
-
-                            if(it.getSequence()==13){
-                                binding.txtBalanceInterest.setText(it.getValue()); //Balance Interest
-                            }
-
-                            if(it.getSequence()==14){
-                                binding.txtTotalPayableAmount.setText(it.getValue()); //Total Payable Amount
-                            }
-
-                        });*/
-
-                    }
-
-
-                });
-
-
-                //handle  error response
-                detailsOfCustomerViewModel.getMutErrorResponse().observe(this, error -> {
-
-                    if (error != null && !error.isEmpty()) {
-                        Global.showSnackBar(view, error);
-                        System.out.println("Here: " + error);
-                    } else {
-                        Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
-                    }
-                });
-
-            } else {
-                Global.showToast(this, getString(R.string.check_internet_connection));
-            }
-
-        } else {
-            Global.showToast(this, getString(R.string.details_not_found));
-        }
-    }
 
     private void setToolBarTitle(){
         if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
@@ -484,7 +395,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         }
     }
 
-    private void initializeFields() {
+    public void initializeFields() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details_of_customer2);
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
@@ -505,19 +416,28 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(this,detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
     }
 
 
     private void onClickListener() {
-        binding.ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+
+        //Call Save Alternate Number API
+        if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+            System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+            AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+        }
+
+        binding.ivBack.setOnClickListener(v -> onBackPressed());
 
         binding.ivHome.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
+
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
@@ -535,6 +455,12 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                         Manifest.permission.READ_CALL_LOG,
                         Manifest.permission.RECORD_AUDIO}, REQUEST_CALL);
             } else {
+
+                //Call Save Alternate Number API
+                if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                    System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                    AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+                }
 
                 if(noMobileNumberExists()){
                     System.out.println("No Mobile Number exists");
@@ -1086,7 +1012,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
             }
 
-
+           dialog.dismiss(); // to disappear if DetailsOfCustomerActivity's onResume() is called
 
         });
 
@@ -1103,11 +1029,21 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
         binding.ivCall.setVisibility(View.VISIBLE);
         binding.btnCallInitiated.setVisibility(View.INVISIBLE);
+
+        //Call Save Alternate Number API
+        if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+            System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+            AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+        }
+
+
         super.onBackPressed();
     }
 
     @Override
     protected void onResume() {
+
+
 
        // initializeFields();
         Global.removeStringInSharedPref(this, "Amount_Paid"); // remove Amount Paid from SharePreferences for next activities to have New value
@@ -1143,5 +1079,8 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    public ActivityDetailsOfCustomer2Binding getBinding(){
+        return binding;
+    }
 
 }

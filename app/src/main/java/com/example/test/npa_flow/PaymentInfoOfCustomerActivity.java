@@ -34,6 +34,8 @@ import com.example.test.R;
 
 import com.example.test.databinding.ActivityPaymentInfoOfCustomer3Binding;
 import com.example.test.databinding.ActivityPaymentInfoOfCustomerBinding;
+import com.example.test.databinding.ActivityPaymentNotificationOfCustomerBinding;
+import com.example.test.fragments_activity.AlternateNumberApiCall;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
@@ -82,6 +84,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
+        detailsList = (ArrayList<DetailsOfCustomerResponseModel>) Global.getUpdatedDetailsList(detailsList); //to get Updated List
 
     }
 
@@ -90,7 +93,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsList));
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(this,detailsList));
     }
 
 
@@ -206,13 +209,39 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
     private void onClickListener() {
 
-        binding.ivBack.setOnClickListener(v -> onBackPressed());
+        binding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Call Save Alternate Number API
+                if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                    System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                    AlternateNumberApiCall.saveAlternateNumber(PaymentInfoOfCustomerActivity.this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+                }
+
+                onBackPressed();
+            }
+        });
 
         binding.ivHome.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
+
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
         binding.btnWillPayLater.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
+
             Intent i = new Intent(PaymentInfoOfCustomerActivity.this, ScheduleVisitForCollectionActivity.class);
             i.putExtra("isFromPaymentInfoOfCustomerActivity", "isFromPaymentInfoOfCustomerActivity");
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
@@ -224,6 +253,12 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
         });
 
         binding.btnFoNotVisited.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
 
             //Capture Details Dialog
             customDialogCaptureDetails = LayoutInflater.from(this).inflate(R.layout.custom_dialog_capture_details, null);
@@ -340,6 +375,13 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
         });
 
         binding.btnNotTakenLoan.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
+
             Intent i = new Intent(PaymentInfoOfCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("detailsList", detailsList);
@@ -348,6 +390,12 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
         });
 
         binding.btnAlreadyPaid.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
 
             customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
             ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivCancel);
@@ -391,6 +439,12 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
 
 
         binding.btnOthers.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
 
             customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
             ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
@@ -442,6 +496,12 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
         });
 
         binding.btnLoanTakenByRelative.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
 
             //Capture Details Dialog
             customDialogCaptureDetails = LayoutInflater.from(this).inflate(R.layout.custom_dialog_capture_details, null);
@@ -590,5 +650,9 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
         onClickListener();
         setUpDetailsOfCustomerRecyclerView();
         super.onResume();
+    }
+
+    public ActivityPaymentInfoOfCustomerBinding getBinding(){
+        return binding;
     }
 }

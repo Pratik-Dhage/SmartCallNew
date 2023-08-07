@@ -21,7 +21,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.test.R;
+import com.example.test.databinding.ActivityCallDetailOfCustomerBinding;
 import com.example.test.databinding.ActivityPaymentNotificationOfCustomerBinding;
+import com.example.test.fragments_activity.AlternateNumberApiCall;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
@@ -74,6 +76,7 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
+        detailsList = (ArrayList<DetailsOfCustomerResponseModel>) Global.getUpdatedDetailsList(detailsList); //to get Updated List
         setToolBarTitle();
     }
 
@@ -82,19 +85,42 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsList));
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(this,detailsList));
     }
 
 
     private void onClickListener() {
 
-        binding.ivBack.setOnClickListener(v -> onBackPressed());
+        binding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Call Save Alternate Number API
+                if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                    System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                    AlternateNumberApiCall.saveAlternateNumber(PaymentNotificationOfCustomerActivity.this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+                }
+                onBackPressed();
+            }
+        });
 
         binding.ivHome.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
         binding.btnAskedToCallBackLater.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
 
              dataSetId = getIntent().getStringExtra("dataSetId");
 
@@ -112,6 +138,12 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
         });
 
         binding.btnOthers.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
 
             customDialogEditable = LayoutInflater.from(this).inflate(R.layout.custom_dialog_editable, null);
             ImageView ivCancel = customDialogEditable.findViewById(R.id.ivCancel);
@@ -165,6 +197,12 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
 
         binding.btnReadyToPay.setOnClickListener(v -> {
 
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
+
             //From CallsForTheDayAdapter
             if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
                 Intent i = new Intent(PaymentNotificationOfCustomerActivity.this, PaymentModeActivity.class);
@@ -186,6 +224,12 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
         });
 
         binding.btnNotReadyToPay.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
 
             Intent i = new Intent(PaymentNotificationOfCustomerActivity.this, PaymentInfoOfCustomerActivity.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
@@ -219,5 +263,9 @@ public class PaymentNotificationOfCustomerActivity extends AppCompatActivity {
         onClickListener();
         setUpDetailsOfCustomerRecyclerView();
         super.onResume();
+    }
+
+    public ActivityPaymentNotificationOfCustomerBinding getBinding(){
+        return binding;
     }
 }

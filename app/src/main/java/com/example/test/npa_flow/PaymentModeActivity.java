@@ -18,6 +18,8 @@ import android.widget.TimePicker;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityPaymentModeBinding;
+import com.example.test.databinding.ActivityPaymentNotificationOfCustomerBinding;
+import com.example.test.fragments_activity.AlternateNumberApiCall;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
@@ -64,6 +66,7 @@ public class PaymentModeActivity extends AppCompatActivity {
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
+        detailsList = (ArrayList<DetailsOfCustomerResponseModel>) Global.getUpdatedDetailsList(detailsList); //to get Updated List
         setToolBarTitle();
     }
 
@@ -72,7 +75,7 @@ public class PaymentModeActivity extends AppCompatActivity {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsList));
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(this,detailsList));
     }
 
 
@@ -82,11 +85,24 @@ public class PaymentModeActivity extends AppCompatActivity {
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Call Save Alternate Number API
+                if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                    System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                    AlternateNumberApiCall.saveAlternateNumber(PaymentModeActivity.this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+                }
+
                 onBackPressed();
             }
         });
 
         binding.ivHome.setOnClickListener(v->{
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
@@ -132,16 +148,19 @@ public class PaymentModeActivity extends AppCompatActivity {
         });
 
 
-        binding.btnScheduleVisitForCollection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        binding.btnScheduleVisitForCollection.setOnClickListener(v -> {
 
-                Intent i = new Intent(PaymentModeActivity.this, ScheduleVisitForCollectionActivity.class);
-                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                i.putExtra("isFromPaymentMode_ScheduleVisitForCollection","isFromPaymentMode_ScheduleVisitForCollection");
-                startActivity(i);
-
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
             }
+
+            Intent i = new Intent(PaymentModeActivity.this, ScheduleVisitForCollectionActivity.class);
+            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+            i.putExtra("isFromPaymentMode_ScheduleVisitForCollection","isFromPaymentMode_ScheduleVisitForCollection");
+            startActivity(i);
+
         });
 
 
@@ -169,5 +188,9 @@ public class PaymentModeActivity extends AppCompatActivity {
         onClickListener();
         setUpDetailsOfCustomerRecyclerView();
         super.onResume();
+    }
+
+    public ActivityPaymentModeBinding getBinding(){
+        return binding;
     }
 }

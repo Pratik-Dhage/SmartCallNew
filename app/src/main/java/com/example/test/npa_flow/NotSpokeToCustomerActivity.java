@@ -19,7 +19,9 @@ import android.widget.TimePicker;
 
 import com.example.test.R;
 import com.example.test.api_manager.WebServices;
+import com.example.test.databinding.ActivityCallDetailOfCustomerBinding;
 import com.example.test.databinding.ActivityNotSpokeToCustomerBinding;
+import com.example.test.fragments_activity.AlternateNumberApiCall;
 import com.example.test.fragments_activity.BalanceInterestCalculationActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
@@ -84,6 +86,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
+        detailsList = (ArrayList<DetailsOfCustomerResponseModel>) Global.getUpdatedDetailsList(detailsList); //to get Updated List
 
         notSpokeToCustomer = false;
         isRadioButtonSelected = false; //initially it will be false, in RadioButtonReasonAdapter only when radioButton is clicked it will be true
@@ -125,7 +128,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsList));
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(this,detailsList));
     }
 
 
@@ -213,11 +216,24 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Call Save Alternate Number API
+                if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                    System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                    AlternateNumberApiCall.saveAlternateNumber(NotSpokeToCustomerActivity.this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+                }
+
                 onBackPressed();
             }
         });
 
         binding.ivHome.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
@@ -237,6 +253,12 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
 
         binding.btnNoResponseBusy.setOnClickListener(v -> {
+
+            //Call Save Alternate Number API
+            if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+                System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+                AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+            }
 
             String dataSetId = getIntent().getStringExtra("dataSetId");
             System.out.println("NoResponseBusy dataSetId:"+dataSetId);
@@ -567,5 +589,9 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
         callRadioButtonReasonApi();
         initObserverRadioButtonData();
         super.onResume();
+    }
+
+    public ActivityNotSpokeToCustomerBinding getBinding(){
+        return binding;
     }
 }
