@@ -90,7 +90,7 @@
         android:id="@+id/btnSaveDistance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txtDistance"
-        android:layout_marginEnd="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
         app:layout_constraintBottom_toBottomOf="@id/txtDistance"
         android:layout_width="wrap_content"
         android:visibility="visible"
