@@ -531,7 +531,7 @@ public class MapFragment extends Fragment {
                     com.google.maps.DirectionsApi.newRequest(geoApiContext)
                             .origin(originLatLng)
                             .destination(destinationLatLng)
-                            .mode(TravelMode.WALKING) //Travel Mode is Walking (can use Driving)
+                            .mode(TravelMode.DRIVING) //Travel Mode is Driving (can use Walking)
                            // .avoid(DirectionsApi.RouteRestriction.HIGHWAYS)
                             .setCallback(new com.google.maps.PendingResult.Callback<com.google.maps.model.DirectionsResult>() {
                                 @Override
@@ -541,7 +541,8 @@ public class MapFragment extends Fragment {
 
                                         //convert Meters to Kilometers
                                          distanceInKm = distanceInMeters / 1000.0;
-                                         formattedDistanceInKm = String.format("%.2f", distanceInKm); // Format to two decimal places
+                                       //  formattedDistanceInKm = String.format("%.2f", distanceInKm); // Format to two decimal places
+                                        formattedDistanceInKm = String.valueOf(distanceInKm); // Without any decimal place restriction
 
                                         // Use runOnUiThread to update the UI safely
                                         getActivity().runOnUiThread(new Runnable() {
@@ -654,6 +655,15 @@ public class MapFragment extends Fragment {
                 System.out.println("Here dataSetId:"+dataSetId);
                 saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(userMarkerLatitude),String.valueOf(userMarkerLongitude),formattedDistanceInKm);
                 System.out.println("Here userMarkerLatitude:"+userMarkerLatitude+" "+"userMarkerLongitude:"+userMarkerLongitude);
+            }
+
+            //if dataSetId goes null
+            else{
+                String dataSetId = Global.getStringFromSharedPref(getActivity(),"dataSetId");
+                System.out.println("Here dataSetId:"+dataSetId);
+                saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(userMarkerLatitude),String.valueOf(userMarkerLongitude),formattedDistanceInKm);
+                System.out.println("Here userMarkerLatitude:"+userMarkerLatitude+" "+"userMarkerLongitude:"+userMarkerLongitude);
+
             }
 
         }
