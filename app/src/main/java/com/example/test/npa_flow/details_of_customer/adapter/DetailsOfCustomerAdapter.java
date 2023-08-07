@@ -329,8 +329,15 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         //for Location
         if (a.getLable().contentEquals("Location")) {
 
+            if(GoogleMapsActivity.isSaveButtonClicked){
+                ViewGroup.LayoutParams layoutParams = holder.binding.txtDetailName.getLayoutParams();
+                layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+                holder.binding.txtDetailName.setLayoutParams(layoutParams);
+                holder.binding.txtDetailName.setText(Global.getStringFromSharedPref(context,"formattedDistanceInKm")+" Km");
+            }
+
             // if Distance in Km is not Null
-            if(null!=a.getValue()){
+          else  if(null!=a.getValue()){
                 // Setting Width of txtDetailName programmatically in case of Location
                 ViewGroup.LayoutParams layoutParams = holder.binding.txtDetailName.getLayoutParams();
                 layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -405,6 +412,23 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                             //boolean value to save Alternate No. on Button clicks for Activities that contain DetailsOfCustomerAdapter
                             isSavingAlternateNumber = true;
                              System.out.println("isSaveAlternateNumber:"+isSavingAlternateNumber);
+
+
+                            // to update Alternate no. where DetailsOfCustomerApi is called
+                            DetailsOfCustomerViewModel detailsOfCustomerViewModel = new DetailsOfCustomerViewModel();
+                            Global.getUpdatedDetailsList(detailsOfCustomer_responseModelArrayList);
+
+
+                             //call saveAlternateNumber Api
+                            if(null!= dataSetId){
+                                detailsOfCustomerViewModel.saveAlternateNumber_Data(dataSetId,alternateNumber);
+
+                            }
+                            //in case dataSetId goes null, getting it from LoanCollectionAdapter
+                            else {
+                                String dataSetId = Global.getStringFromSharedPref(context,"dataSetId");
+                                detailsOfCustomerViewModel.saveAlternateNumber_Data(dataSetId,alternateNumber);
+                            }
 
                         }
                     });
@@ -682,7 +706,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                 if(editText.getText().toString().length()==10){
 
                     //Show Constraint Layout SecondHalf if editText is 10 digits
-                    Global.showHideConstraintLayoutSecondHalf(activity,false);
+                  //  Global.showHideConstraintLayoutSecondHalf(activity,false);
 
                 }
 
