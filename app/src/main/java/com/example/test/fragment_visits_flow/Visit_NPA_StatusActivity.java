@@ -26,7 +26,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.test.R;
+import com.example.test.databinding.ActivityPaymentInfoOfCustomerBinding;
 import com.example.test.databinding.ActivityVisitNpaStatusBinding;
+import com.example.test.fragments_activity.AlternateNumberApiCall;
+import com.example.test.fragments_activity.CustomerDetailsActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
@@ -88,7 +91,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(this,detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
     }
 
 
@@ -118,7 +121,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
             detailsOfCustomerViewModel.getMutErrorResponse().observe(this, error -> {
 
                 if (error != null && !error.isEmpty()) {
-                    Global.showSnackBar(view, error);
+                   // Global.showSnackBar(view, error);
                     System.out.println("Here: " + error);
                 } else {
                     Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
@@ -241,6 +244,12 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
 
 
     private void onClickListener(){
+
+        //Call Save Alternate Number API
+        if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+            System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+            AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+        }
 
 
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
@@ -408,5 +417,9 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
         initObserver();
         callDetailsOfCustomerApi();
         super.onResume();
+    }
+
+    public ActivityVisitNpaStatusBinding getBinding(){
+        return binding;
     }
 }

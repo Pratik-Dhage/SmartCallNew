@@ -27,8 +27,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.test.R;
+import com.example.test.databinding.ActivityPaymentInfoOfCustomerBinding;
 import com.example.test.databinding.ActivityVisitNpaPaymentModeBinding;
 import com.example.test.fragment_visits_flow.generate_receipt.WebViewGenerateReceiptActivity;
+import com.example.test.fragments_activity.AlternateNumberApiCall;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
@@ -75,7 +77,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
-
+        detailsList = (ArrayList<DetailsOfCustomerResponseModel>) Global.getUpdatedDetailsList(detailsList); //to get Updated List
     }
 
 
@@ -83,12 +85,18 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsList));
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(this,detailsList));
     }
 
 
 
     private void onClickListener(){
+
+        //Call Save Alternate Number API
+        if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+            System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+            AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+        }
 
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -452,4 +460,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    public ActivityVisitNpaPaymentModeBinding getBinding(){
+        return binding;
+    }
 }

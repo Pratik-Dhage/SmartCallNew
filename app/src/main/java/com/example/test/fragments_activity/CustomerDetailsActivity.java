@@ -19,6 +19,7 @@ import android.widget.ImageView;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityCustomerDetailsBinding;
+import com.example.test.databinding.ActivityPaymentInfoOfCustomerBinding;
 import com.example.test.fragment_visits_flow.Visit_NPA_RescheduledActivity;
 import com.example.test.fragment_visits_flow.Visit_NPA_StatusActivity;
 import com.example.test.helper_classes.Global;
@@ -78,7 +79,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(this,detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data));
     }
 
     private void initObserver(){
@@ -114,7 +115,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             detailsOfCustomerViewModel.getMutErrorResponse().observe(this, error -> {
 
                 if (error != null && !error.isEmpty()) {
-                    Global.showSnackBar(view, error);
+                   // Global.showSnackBar(view, error);
                     System.out.println("Here: " + error);
                 } else {
                     Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
@@ -129,6 +130,12 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
 
     private void onClickListener() {
+
+        //Call Save Alternate Number API
+        if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+            System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+            AlternateNumberApiCall.saveAlternateNumber(CustomerDetailsActivity.this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+        }
 
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,5 +240,9 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         initObserver();
         callDetailsOfCustomerApi();
         super.onResume();
+    }
+
+    public ActivityCustomerDetailsBinding getBinding(){
+        return binding;
     }
 }

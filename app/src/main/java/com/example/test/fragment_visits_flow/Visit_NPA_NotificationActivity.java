@@ -26,6 +26,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.test.R;
 import com.example.test.databinding.ActivityVisitNpaNotificationBinding;
+import com.example.test.databinding.ActivityVisitNpaPaymentModeBinding;
+import com.example.test.fragments_activity.AlternateNumberApiCall;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
@@ -70,7 +72,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
-
+        detailsList = (ArrayList<DetailsOfCustomerResponseModel>) Global.getUpdatedDetailsList(detailsList); //to get Updated List
     }
 
 
@@ -78,7 +80,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
         detailsOfCustomerViewModel.updateDetailsOfCustomer_Data();
         RecyclerView recyclerView = binding.rvDetailsOfCustomer;
-        recyclerView.setAdapter(new DetailsOfCustomerAdapter(detailsList));
+        recyclerView.setAdapter(new DetailsOfCustomerAdapter(this,detailsList));
     }
 
 
@@ -194,6 +196,12 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
     }
 
      private void onClickListener(){
+
+         //Call Save Alternate Number API
+         if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
+             System.out.println("Save Alternate No. Api dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" Alternate No. :"+DetailsOfCustomerAdapter.alternateNumber);
+             AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
+         }
 
         binding.ivBack.setOnClickListener(v->{
             onBackPressed();
@@ -426,5 +434,9 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
         onClickListener();
         setUpDetailsOfCustomerRecyclerView();
         super.onResume();
+    }
+
+    public ActivityVisitNpaNotificationBinding getBinding(){
+        return binding;
     }
 }
