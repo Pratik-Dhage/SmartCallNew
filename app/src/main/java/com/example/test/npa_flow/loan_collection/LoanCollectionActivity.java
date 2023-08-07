@@ -119,6 +119,8 @@ public class LoanCollectionActivity extends AppCompatActivity {
         MainActivity3API.UserID = mPinDao.getUserID();
         MainActivity3API.BranchCode = mPinDao.getBranchCode();
 
+        GoogleMapsActivity.isSaveButtonClicked = false; // Only true if User clicks Yes OR Save button to save Location (Distance in Km)
+
     }
 
     private void setToolbarTitle() {
