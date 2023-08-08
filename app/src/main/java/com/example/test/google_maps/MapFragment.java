@@ -658,7 +658,7 @@ public class MapFragment extends Fragment {
             }
 
             //if dataSetId goes null
-            else{
+            else if (GoogleMapsActivity.isSaveButtonClicked && dataSetId == null){
                 String dataSetId = Global.getStringFromSharedPref(getActivity(),"dataSetId");
                 System.out.println("Here dataSetId:"+dataSetId);
                 saveLocationOfCustomerViewModel.getSavedLocationOfCustomerData(dataSetId,String.valueOf(userMarkerLatitude),String.valueOf(userMarkerLongitude),formattedDistanceInKm);
