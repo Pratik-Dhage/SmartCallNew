@@ -155,4 +155,7 @@ public interface RestClient {
     @GET
     Observable<String> saveAlternateNumber(@Url String url);
 
+    //Get Distance
+    @GET
+    Observable<Double> getDistanceUsingApi(@Url String url);
 }
