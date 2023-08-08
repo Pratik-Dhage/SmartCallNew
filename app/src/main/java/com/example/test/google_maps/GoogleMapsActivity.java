@@ -132,7 +132,10 @@ public class GoogleMapsActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permissions granted
                 MapFragment mapFragment = new MapFragment();
-                mapFragment.getDistanceBetweenMarkerAndUser(MapFragment.userMarkerLatitude,MapFragment.userMarkerLongitude);
+               // mapFragment.getDistanceBetweenMarkerAndUser(MapFragment.userMarkerLatitude,MapFragment.userMarkerLongitude);
+                //get Distance using Api
+                mapFragment.callGetDistanceUsingApi(mapFragment.userLatitude, mapFragment.userLongitude,mapFragment.userLatitude,mapFragment.userLongitude);
+                mapFragment.initObserverGetDistanceUsingApi();
 
             } else {
                 // Permissions denied

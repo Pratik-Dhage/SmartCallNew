@@ -57,7 +57,6 @@ import java.util.Locale;
 public class MapFragment extends Fragment {
 
     FragmentMapBinding binding;
-    LatLng lodhaMallLatLng;
     LocationManager locationManager;
     double userLatitude;
     double userLongitude;
@@ -67,6 +66,8 @@ public class MapFragment extends Fragment {
     String dataSetId;
     double distanceInKm;
 
+    DistanceViewModel distanceViewModel ;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class MapFragment extends Fragment {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_map, container, false);
         check_If_LocationTurnedOn();
+        distanceViewModel = new ViewModelProvider(getActivity()).get(DistanceViewModel.class);
 
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapFragment);
 
@@ -82,49 +84,18 @@ public class MapFragment extends Fragment {
             @Override
             public void onMapReady(GoogleMap googleMap) {
 
-                // Create a Geocoder object to handle geocoding
-                Geocoder geocoder = new Geocoder(getContext());
-
-// Define the address string for Lodha Xperia Mall
-                String addressString = "Lodha Xperia Mall, Kalyan Shil Road, Dombivli East, Maharashtra, India";
-
-// Declare a LatLng variable to hold the coordinates
-                lodhaMallLatLng = null;
-
-                try {
-                    // Use the Geocoder to get the address information
-                    List<Address> addresses = geocoder.getFromLocationName(addressString, 1);
-
-                    // If the Geocoder found a result, extract the latitude and longitude
-                    if (addresses != null && addresses.size() > 0) {
-                        Address address = addresses.get(0);
-                        lodhaMallLatLng = new LatLng(address.getLatitude(), address.getLongitude());
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-// If we were able to obtain the coordinates, add the marker to the map and animate the camera
-              /*  if (lodhaMallLatLng != null) {
-                    // Create a MarkerOptions object and set its position and title
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(lodhaMallLatLng);
-                    markerOptions.title("Lodha Xperia Mall");
-
-                    // Add the marker to the map and animate the camera to center on the marker
-                    googleMap.addMarker(markerOptions);
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lodhaMallLatLng, 15));
-                }*/
+                userLatitude = Global.getDeviceLocation(getActivity()).getLatitude();
+                userLongitude = Global.getDeviceLocation(getActivity()).getLongitude();
 
                 //coming from LoanCollectionAdapter red ivMap - Marker on User's Current Location
                 if(GoogleMapsActivity.isFromLoanCollectionAdapter!=null){
 
                     try{
-                        double latitude = GoogleMapsActivity.latitude;
-                        double longitude = GoogleMapsActivity.longitude;
+                       double userLatitude = Global.getDeviceLocation(getActivity()).getLatitude();
+                       double  userLongitude = Global.getDeviceLocation(getActivity()).getLongitude();
 
                         MarkerOptions markerOptions = new MarkerOptions();
-                        LatLng latLngFromLoanCollectionAdapter = new LatLng(latitude,longitude);
+                        LatLng latLngFromLoanCollectionAdapter = new LatLng(userLatitude,userLongitude);
                         markerOptions.position(latLngFromLoanCollectionAdapter);
                         googleMap.addMarker(markerOptions);
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromLoanCollectionAdapter, 15));
@@ -133,11 +104,13 @@ public class MapFragment extends Fragment {
                         //then User's Current Device Location will become Member's Location
 
                         getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
-                        getDistanceBetweenMarkerAndUser(latitude,longitude);
+                       // getDistanceBetweenMarkerAndUser(latitude,longitude);
+                        callGetDistanceUsingApi(userLatitude,userLongitude,userLatitude,userLongitude);
+                        initObserverGetDistanceUsingApi();
 
                         // For Navigate Button in DetailsOFCustomerAdapter
-                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(latitude));
-                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"longitudeFromLoanCollectionAdapter",String.valueOf(longitude));
+                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(userLatitude));
+                        Global.saveStringInSharedPref(getActivity().getApplicationContext(),"longitudeFromLoanCollectionAdapter",String.valueOf(userLongitude));
 
                     }catch (Exception e){
                         System.out.println("LoanCollectionAdapter red ivMap Exception"+e);
@@ -173,7 +146,9 @@ public class MapFragment extends Fragment {
                             //then User's Current Device Location will become Member's Location
 
                             getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
-                            getDistanceBetweenMarkerAndUser(userLatitude,userLongitude);
+                           // getDistanceBetweenMarkerAndUser(userLatitude,userLongitude);
+                            callGetDistanceUsingApi(userLatitude,userLongitude,userLatitude,userLongitude);
+                            initObserverGetDistanceUsingApi();
 
                             // For Navigate Button in DetailsOFCustomerAdapter
                             Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(userLatitude));
@@ -214,7 +189,9 @@ public class MapFragment extends Fragment {
                             //then User's Current Device Location will become Member's Location
 
                             getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
-                            getDistanceBetweenMarkerAndUser(userLatitude,userLongitude);
+                           // getDistanceBetweenMarkerAndUser(userLatitude,userLongitude);
+                            callGetDistanceUsingApi(userLatitude,userLongitude,userLatitude,userLongitude);
+                            initObserverGetDistanceUsingApi();
 
                             // For Navigate Button in DetailsOFCustomerAdapter
                             Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(userLatitude));
@@ -232,37 +209,46 @@ public class MapFragment extends Fragment {
                     }
 
 
-
-                   /* double latitude_visitsForTheDay = GoogleMapsActivity.latitude_visitsForTheDay;
-                    double longitude_visitsForTheDay = GoogleMapsActivity.longitude_visitsForTheDay;
-
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    LatLng latLngFromVisitsForTheDayAdapter = new LatLng(latitude_visitsForTheDay,longitude_visitsForTheDay);
-                    markerOptions.position(latLngFromVisitsForTheDayAdapter);
-                    googleMap.addMarker(markerOptions);
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromVisitsForTheDayAdapter, 15));
-
-                    //if User doesn't change the Marker
-                    userMarkerLatitude = latitude_visitsForTheDay;
-                    userMarkerLongitude = longitude_visitsForTheDay;
-
-                    getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE); //Show Progress bar
-                    getCurrentLocation(googleMap); //User Marker
-                    getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);*/
                 }
 
-                //coming from CallsForTheDayAdapter
+                //coming from CallsForTheDayAdapter ivMap - Marker on User's Current Location
                 if(GoogleMapsActivity.isFromCallsForTheDayAdapter!=null){
 
                     try{
-                        double latitude_callsForTheDay = GoogleMapsActivity.latitude_callsForTheDay;
-                        double longitude_callsForTheDay = GoogleMapsActivity.longitude_callsForTheDay;
 
-                        MarkerOptions markerOptions = new MarkerOptions();
-                        LatLng latLngFromCallsForTheDayAdapter = new LatLng(latitude_callsForTheDay,longitude_callsForTheDay);
-                        markerOptions.position(latLngFromCallsForTheDayAdapter);
-                        googleMap.addMarker(markerOptions);
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngFromCallsForTheDayAdapter, 15));
+                        double userLatitude = Global.getDeviceLocation(getActivity()).getLatitude();
+                        double userLongitude = Global.getDeviceLocation(getActivity()).getLongitude();
+
+                        LatLng userDeviceLatLng = new LatLng(userLatitude,userLongitude);
+                        System.out.println("CallsForTheDayAdapter ivMap userLatitude:"+userLatitude+" userLongitude"+userLongitude);
+
+                        if(userDeviceLatLng!=null){
+
+                            MarkerOptions markerOptions = new MarkerOptions();
+                            markerOptions.position(userDeviceLatLng);
+                            markerOptions.title("User's Location");
+
+                            googleMap.addMarker(markerOptions);
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userDeviceLatLng, 15));
+
+                            //if User does not Marks on GoogleMaps For New Marker
+                            //then User's Current Device Location will become Member's Location
+
+                            getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
+                            // getDistanceBetweenMarkerAndUser(userLatitude,userLongitude);
+                            callGetDistanceUsingApi(userLatitude,userLongitude,userLatitude,userLongitude);
+                            initObserverGetDistanceUsingApi();
+
+                            // For Navigate Button in DetailsOFCustomerAdapter
+                            Global.saveStringInSharedPref(getActivity().getApplicationContext(),"latitudeFromLoanCollectionAdapter",String.valueOf(userLatitude));
+                            Global.saveStringInSharedPref(getActivity().getApplicationContext(),"longitudeFromLoanCollectionAdapter",String.valueOf(userLongitude));
+
+                        }
+
+                        else{
+                            getCurrentLocation(googleMap); //User Marker
+                        }
+
 
                     }catch (Exception e){
                         System.out.println("CallsForTheDayAdapter ivMap Exception:"+e);
@@ -270,12 +256,6 @@ public class MapFragment extends Fragment {
                 }
 
 
-                else {
-                    // If we were not able to obtain the coordinates, log an error
-                    Log.e("MapsActivity", "Unable to geocode address: " + addressString);
-                    System.out.println("Unable to geocode address: " + addressString);
-                   // Global.showToast(getContext(),getString(R.string.location_not_found));
-                }
 
                 //When User Clicks on Maps for New Marker Location coming From Capture Button(DetailsOfCustomerAdapter) OR ivMap(LoanCollectionAdapter)
 
@@ -307,8 +287,15 @@ public class MapFragment extends Fragment {
 
                         System.out.println("Here Capture Button userMarkerLatitude:"+userMarkerLatitude+" &userMarkerLongitude:"+userMarkerLongitude);
 
+                        //Calculate Distance between New Marker position and User's Device And UpdateLocation Api is called
+                        // getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
 
-                      //  getCurrentLocation(googleMap); //Marks User Current Location
+                        userLatitude = Global.getDeviceLocation(getActivity()).getLatitude();
+                        userLongitude = Global.getDeviceLocation(getActivity()).getLongitude();
+
+                        callGetDistanceUsingApi(userLatitude,userLongitude,userMarkerLatitude,userMarkerLongitude);
+                        initObserverGetDistanceUsingApi();
+
 
                         /*// Draw a polyline to show the direction from the User to the New  User Marker
                         LatLng origin = new LatLng(userLatitude, userLongitude);
@@ -319,11 +306,6 @@ public class MapFragment extends Fragment {
                                 .width(5f);
                         googleMap.addPolyline(polylineOptions);*/
 
-
-
-
-                        //Calculate Distance between New Marker position and User's Device And UpdateLocation Api is called
-                        getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
                     }
                 });
             }
@@ -405,72 +387,7 @@ public class MapFragment extends Fragment {
 
     }
 
-    // For Test purpose Using  Xperia Mall as Destination
-    // Calculating Distance between  Xperia Mall and User's Device Location
-    private void getCurrentLocationAndDistance() {
 
-
-        if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // Request the location permission if it is not granted
-            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-        } else {
-
-            if (locationManager == null) {
-                locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            }
-
-            // Get the device location
-            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, new LocationListener() {
-                @Override
-                public void onLocationChanged(@NonNull Location location) {
-                    // Do something with the location
-                    double latitude = location.getLatitude();
-                    double longitude = location.getLongitude();
-
-                    userLatitude = latitude;
-                    userLongitude = longitude;
-
-
-                    // Create a LatLng object for the user's location
-                    LatLng userLatLng = new LatLng(userLatitude, userLongitude);
-
-                    // Calculate the distance between the user's location and the marker using Location.distanceBetween() in Meters
-                    float[] distance = new float[1];
-                    Location.distanceBetween(userLatLng.latitude, userLatLng.longitude, lodhaMallLatLng.latitude, lodhaMallLatLng.longitude, distance);
-
-                    // Convert the distance from Meters To Kilometers
-                    float distanceInKm = distance[0] / 1000;
-                    String formattedDistanceInKm = String.format("%.2f", distanceInKm);
-
-
-                    try{
-                        TextView txtDistance = getActivity().findViewById(R.id.txtDistance);
-
-                        if(!formattedDistanceInKm.isEmpty()){
-                            txtDistance.setText(formattedDistanceInKm);
-                        }
-
-                        System.out.println("Distance in Km:" + distanceInKm);
-                    }
-                    catch(Exception e){
-                        System.out.println("Here Distance Exception:"+e.getLocalizedMessage());
-                    }
-
-
-                    // Log the distance
-                   // Log.d("MapsActivity", "Distance from user to Lodha Xperia Mall: " + distanceInKm + " km");
-
-                    //Save Distance in SharedPreference
-                     Global.saveStringInSharedPref(getContext(),"formattedDistanceInKm",formattedDistanceInKm);
-                }
-
-            }, null);
-        }
-
-
-    }
 
     public  void getDistanceBetweenMarkerAndUser(double userMarkerLatitude, double userMarkerLongitude){
 
@@ -622,6 +539,38 @@ public class MapFragment extends Fragment {
 
     }
 
+    public void callGetDistanceUsingApi(double oriLat, double oriLon ,double destLat , double destLon){
+        distanceViewModel.getDistance(oriLat,oriLon,destLat,destLon);
+    }
+
+    public void initObserverGetDistanceUsingApi(){
+
+        getActivity().findViewById(R.id.progressBarDistance).setVisibility(View.VISIBLE);
+        distanceViewModel.getMutDistance_ResponseApi().observe(getActivity(),result->{
+
+            if(null!=result){
+               System.out.println("Distance Using Api : "+result);
+               formattedDistanceInKm = String.valueOf(result);
+               setNewDistanceAndUpdateLocation(formattedDistanceInKm);
+            }
+
+
+        });
+
+        //handle error
+        distanceViewModel.getMutErrorResponse().observe(this, error -> {
+
+            if (error != null && !error.isEmpty()) {
+                //  Global.showSnackBar(view, "DetailsOfCustomerActivity Exception: "+error);
+                System.out.println("Here DetailsOfCustomerActivity Exception: " + error);
+
+            } else {
+                Global.showToast(getActivity(), getResources().getString(R.string.check_internet_connection));
+            }
+        });
+
+    }
+
     public void setNewDistanceAndUpdateLocation(String formattedDistanceInKm){
 
         // set New formattedDistanceInKm as TextView
@@ -642,8 +591,6 @@ public class MapFragment extends Fragment {
         catch(Exception e){
             System.out.println("Here Distance Exception:"+e);
         }
-
-
 
 
         // Update location
@@ -685,7 +632,10 @@ public class MapFragment extends Fragment {
 
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permissions granted
-                getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
+                //getDistanceBetweenMarkerAndUser(userMarkerLatitude,userMarkerLongitude);
+                callGetDistanceUsingApi(userLatitude,userLongitude,userLatitude,userLongitude);
+                initObserverGetDistanceUsingApi();
+
 
             } else {
                 // Permissions denied
