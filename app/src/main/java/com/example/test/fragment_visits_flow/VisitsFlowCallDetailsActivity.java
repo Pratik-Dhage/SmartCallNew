@@ -154,13 +154,21 @@ public class VisitsFlowCallDetailsActivity extends AppCompatActivity {
             callDetails.setReason(send_reason);
         }
 
-        send_scheduleDateTime = Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime");
-        System.out.println("Here VisitFlowCallDetailsList send_scheduleDateTime before: "+Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime"));
-        if(send_scheduleDateTime!=null){
-            callDetails.setScheduledCallDateTime(send_scheduleDateTime);
-            Global.saveStringInSharedPref(this,"scheduleVisitForCollection_dateTime",""); // make empty to reset
-            System.out.println("Here VisitFlowCallDetailsList send_scheduleDateTime after: "+Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime"));
+        try{
+
+            send_scheduleDateTime = Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime");
+            System.out.println("Here VisitFlowCallDetailsList send_scheduleDateTime before: "+Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime"));
+            if(send_scheduleDateTime!=null){
+                callDetails.setScheduledCallDateTime(send_scheduleDateTime);
+                Global.saveStringInSharedPref(this,"scheduleVisitForCollection_dateTime",""); // make empty to reset
+                System.out.println("Here VisitFlowCallDetailsList send_scheduleDateTime after: "+Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime"));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("VisitFlowCallDetailsActivity send_scheduleDateTime Exception");
         }
+
 
         callDetailsList.add(callDetails);
         return callDetailsList;

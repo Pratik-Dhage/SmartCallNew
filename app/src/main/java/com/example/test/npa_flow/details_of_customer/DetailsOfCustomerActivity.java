@@ -171,15 +171,23 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             callDetails.setCallDateTime(callDateTime);
         }
 
+           try{
 
-        if(null!= Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime")){
-            String scheduleVisitForCollection_dateTime = Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime");
-            send_callScheduledTime = scheduleVisitForCollection_dateTime;
-        }
-        if(send_callScheduledTime!=null ){
-            callDetails.setScheduledCallDateTime(send_callScheduledTime); // for Will Pay Later flow
-            Global.saveStringInSharedPref(this,"scheduleVisitForCollection_dateTime",""); // make empty to reset
-        }
+               if(null!= Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime")){
+                   String scheduleVisitForCollection_dateTime = Global.getStringFromSharedPref(this,"scheduleVisitForCollection_dateTime");
+                   send_callScheduledTime = scheduleVisitForCollection_dateTime;
+               }
+               if(send_callScheduledTime!=null ){
+                   callDetails.setScheduledCallDateTime(send_callScheduledTime); // for Will Pay Later flow
+                   Global.saveStringInSharedPref(this,"scheduleVisitForCollection_dateTime",""); // make empty to reset
+               }
+
+           }
+           catch(Exception e){
+               e.printStackTrace();
+               System.out.println("Call Details WillPayLater send_callScheduledTime Exception");
+           }
+
 
         if (send_callDuration != null) {
             callDetails.setCallDuration(Integer.parseInt(send_callDuration));
