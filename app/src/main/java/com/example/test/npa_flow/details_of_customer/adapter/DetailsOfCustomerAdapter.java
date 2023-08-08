@@ -329,7 +329,8 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         //for Location
         if (a.getLable().contentEquals("Location")) {
 
-            if(GoogleMapsActivity.isSaveButtonClicked){
+            if(GoogleMapsActivity.isSaveButtonClicked && GoogleMapsActivity.saveDistanceBoolean){
+                System.out.println("LoanCollectionAdapter isSaveButtonClicked:"+GoogleMapsActivity.isSaveButtonClicked);
                 ViewGroup.LayoutParams layoutParams = holder.binding.txtDetailName.getLayoutParams();
                 layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                 holder.binding.txtDetailName.setLayoutParams(layoutParams);
