@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.test.R;
 import com.example.test.databinding.ActivityMainActivity3ApiBinding;
 import com.example.test.fragments_activity.ActivityOfFragments;
+import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.login.LoginActivity;
@@ -97,6 +98,8 @@ public class MainActivity3API extends AppCompatActivity {
         showCallIcon = false; //from Visits For The Day Flow to be True Else False
         VisitsForTheDayAdapter.showNearByCustomerButton = false ; //in NearByCustomerActivity - from Visits For The Day Flow to be True Else False
         NearByCustomerListAdapter.isFromNearByCustomerAdapter = false; //in NearByCustomerActivity - from NearByCustomerListActivity to be True Else False
+
+        GoogleMapsActivity.isSaveButtonClicked = false; // only true when Save OR yes button is clicked in GoogleMaps Activity
 
        // Global.saveStringInSharedPref(this,"isFromCallsForTheDayAdapter",null); //to reset the Flows
        // CallsForTheDayAdapter.isFromCallsForTheDayAdapter=null ; // for Navigate Button to be Only visible in NPA/ VisitsForTheDayFlow
