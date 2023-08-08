@@ -64,6 +64,7 @@ public class GoogleMapsActivity extends AppCompatActivity {
 
          dataSetId = getIntent().getStringExtra("dataSetId"); // for MapFragment (coming from ivMap(LoanCollectionAdapter) & Capture Button(DetailsOfCustomerAdapter))
           isSaveButtonClicked = false; // initially it will be false
+        System.out.println("GoogleMapsActivity isSaveButtonClicked:"+isSaveButtonClicked);
           saveDistanceBoolean = false; // initially it will be false
           isMapMarkerClicked = false; // initially it will be false
 
