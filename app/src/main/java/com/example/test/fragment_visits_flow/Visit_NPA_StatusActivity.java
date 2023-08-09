@@ -34,6 +34,7 @@ import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.ScheduleVisitForCollectionActivity;
+import com.example.test.npa_flow.SubmitCompletionActivityOfCustomer;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
@@ -370,7 +371,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
                     String reason = edtPleaseSpecify.getText().toString().trim(); // for sending along with Api
                     VisitsFlowCallDetailsActivity.send_reason =  edtPleaseSpecify.getText().toString().trim(); //to send to Backend Server
 
-                    Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
+                    Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                     String dataSetId = getIntent().getStringExtra("dataSetId");
                     i.putExtra("dataSetId",dataSetId);
                     i.putExtra("detailsList",detailsList);

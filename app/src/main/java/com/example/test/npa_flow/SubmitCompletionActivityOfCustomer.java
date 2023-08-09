@@ -244,6 +244,14 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 System.out.println("Here Submit is Clickable:false");
 
 
+                //VisitForTheDay-> Visited The Customer -> Others
+                if(getIntent().hasExtra("isFromVisitNPAStatusActivity_Others")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String reason = getIntent().getStringExtra("reason");
+                    String visitedTheCustomer_Others = WebServices.visit_others;
+                    visitsFlowViewModel.postVisitsFlowCallDateTime_Others(visitedTheCustomer_Others,dataSetId,"","","","","",reason);
+                    navigateToNearByCustomerActivity();
+                }
 
             //NotSpokeToCustomerActivity - Number is Invalid
             if (getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")) {
@@ -519,6 +527,14 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 binding.btnSubmitNeedToUpdateDetails.setClickable(false);
                 System.out.println("Here Submit Button is Clickable:false");
 
+                //VisitForTheDay-> Visited The Customer -> Others
+                if(getIntent().hasExtra("isFromVisitNPAStatusActivity_Others")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String reason = getIntent().getStringExtra("reason");
+                    String visitedTheCustomer_Others = WebServices.visit_others;
+                    visitsFlowViewModel.postVisitsFlowCallDateTime_Others(visitedTheCustomer_Others,dataSetId,"","","","","",reason);
+                    navigateToNearByCustomerActivity();
+                }
 
             //NotSpokeToCustomerActivity - Number is Invalid
             if (getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")) {
@@ -791,6 +807,14 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 binding.btnSubmitEscalateToBM.setClickable(false);
                 System.out.println("Here Submit is Clickable:false");
 
+                //VisitForTheDay-> Visited The Customer -> Others
+                if(getIntent().hasExtra("isFromVisitNPAStatusActivity_Others")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    String reason = getIntent().getStringExtra("reason");
+                    String visitedTheCustomer_Others = WebServices.visit_others;
+                    visitsFlowViewModel.postVisitsFlowCallDateTime_Others(visitedTheCustomer_Others,dataSetId,"","","","","",reason);
+                    navigateToNearByCustomerActivity();
+                }
 
             //NotSpokeToCustomerActivity - Number is Invalid
             if (getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")) {
