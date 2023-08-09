@@ -55,7 +55,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
 
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
-    public String navigateToPaymentModeStatusActivity;
+    public static boolean navigateToPaymentModeStatusActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +74,8 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
+
+        navigateToPaymentModeStatusActivity = false; // default value
 
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
@@ -161,6 +163,8 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
 
                 btnGenerateReceipt.setOnClickListener(v2->{
 
+                    navigateToPaymentModeStatusActivity = true;
+
                     // Get UserName , UserID , BranchCode from RoomDB
 
                     MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
@@ -186,7 +190,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                     intent.setDataAndType(uri,"application/pdf");
                     startActivity(intent);
 
-                    navigateToPaymentModeStatusActivity = "navigateToFullAmtPaid_PartialAmtPaid_WillPayLater_UI";
+                   // navigateToPaymentModeStatusActivity = "navigateToFullAmtPaid_PartialAmtPaid_WillPayLater_UI";
 
                     // for PDF view inside app
            /*     Intent i = new Intent(this,WebViewGenerateReceiptActivity.class);
@@ -439,7 +443,8 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
     protected void onResume() {
 
         // After Receipt is generated and User view it in PdfViewer App , on back pressed in PdfViewer app navigate to PaymentModeStatusActivity
-        if(navigateToPaymentModeStatusActivity!=null){
+        if(navigateToPaymentModeStatusActivity){
+            System.out.println("PaymentModeOnResume():"+navigateToPaymentModeStatusActivity);
             Intent i = new Intent(this, PaymentModeStatusActivity.class);
             String dataSetId = getIntent().getStringExtra("dataSetId");
             i.putExtra("dataSetId", dataSetId);
@@ -448,7 +453,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
             i.putExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity","isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity");
             startActivity(i);
 
-            navigateToPaymentModeStatusActivity = null ; // make it null to rest the flow
+            navigateToPaymentModeStatusActivity = false ; // make it false to reset the flow
         }
 
         else{
