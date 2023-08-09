@@ -2,6 +2,7 @@ package com.example.test.npa_flow.status_of_customer.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.icu.text.CaseMap;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.LayoutInflater;
@@ -25,7 +26,9 @@ import com.example.test.roomDB.database.LeadListDB;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusOfCustomerDetailsAdapter.MyViewHolderClass> {
@@ -145,7 +148,10 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         holder.binding.txtNotes.setText(details.getAttemptNotes());
                     }
 
-                    if (details.getAttemptFlow() != null) {
+                    checkAttemptFlowAndSetText(details,holder);
+
+
+                   /* if (details.getAttemptFlow() != null) {
                         String attemptFlow = details.getAttemptFlow().toLowerCase();
 
                         //1)Spoke To The Customer / Did Not Spoke To The Customer / Did Not Visit The Customer / Visited The Customer
@@ -300,7 +306,17 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                             holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo3.setText(R.string.skip_and_proceed);
                         }
-                    }
+
+                        //5) Schedule A Call / Schedule A Visit
+                        if(attemptFlow.contains("sc") || attemptFlow.contains("sac")){
+                            holder.binding.txtScheduleACallScheduleAVisit.setVisibility(View.VISIBLE);
+                            holder.binding.txtScheduleACallScheduleAVisit.setText(R.string.schedule_a_call);
+                        }
+                        else if(attemptFlow.contains("sv") || attemptFlow.contains("sav")){
+                            holder.binding.txtScheduleACallScheduleAVisit.setVisibility(View.VISIBLE);
+                            holder.binding.txtScheduleACallScheduleAVisit.setText(R.string.schedule_a_visit);
+                        }
+                    }*/
                 }
             }
         });
@@ -349,6 +365,189 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
     }
 
 */
+
+    public void checkAttemptFlowAndSetText(ActivityDetail details , MyViewHolderClass holder){
+
+        System.out.println("checkAttemptFlowAndSetText() called");
+
+        if (details.getAttemptFlow() != null) {
+            String attemptFlow = details.getAttemptFlow();
+
+            String[] flowSteps = attemptFlow.split("-");
+
+            List<String> stepList = new ArrayList<>(Arrays.asList(flowSteps));  // Create a list from the array
+
+            for (String step : stepList)
+            {
+                switch (step){
+
+                    //1)Spoke To The Customer / Did Not Spoke To The Customer / Did Not Visit The Customer / Visited The Customer
+                    case "STTC":
+                        holder.binding.txtHeadStatusInfo.setText(R.string.spoke_to_The_customer_status_info);
+                        break;
+                    case "DNVTC":
+                        holder.binding.txtHeadStatusInfo.setText(R.string.did_not_visited_the_customer);
+                        break;
+                    case "DNSTC" :
+                        holder.binding.txtHeadStatusInfo.setText(R.string.did_not_speak_to_ncustomer);
+                        break;
+                    case "VTC":
+                        holder.binding.txtHeadStatusInfo.setText(R.string.visited_the_customer);
+                        break;
+
+                    //2)Ready To Pay / Not Ready To Pay / Asked To Call Back Later / Visit Reschedule / Physical Visit Required
+                    // Others / Invalid Number / Asked To Visit Later / NoResponseBusy / NotReachableSwitchedOff
+
+                    case "NRTP":
+                        holder.binding.txtMidStatusInfo1.setText(R.string.not_ready_to_pay_status_info);
+                        break;
+                    case "RTP":
+                        holder.binding.txtMidStatusInfo1.setText(R.string.ready_to_pay_status_info);
+                        break;
+                    case "NRB":
+                        holder.binding.txtMidStatusInfo1.setText(R.string.no_response_busy_);
+                        break;
+                    case "NRS":
+                        holder.binding.txtMidStatusInfo1.setText(R.string.not_reachable_switched_off_);
+                        break;
+                    case "ATCL":
+                        holder.binding.txtMidStatusInfo1.setText(R.string.asked_to_call_back_later_status_info);
+                        break;
+                    case "ATVL":
+                        holder.binding.txtMidStatusInfo1.setText(R.string.asked_to_visit_later);
+                        break;
+                    case "PVR":
+                        holder.binding.txtMidStatusInfo1.setText(R.string.physical_visit_required);
+                        break;
+                    case "VR":
+                        holder.binding.txtMidStatusInfo1.setText(R.string.visit_rescheduled);
+                        break;
+                    case "OTH":
+                    case "O":
+                        // OTH used in 2nd and 3rd flow
+                        holder.binding.txtMidStatusInfo1.setText(R.string.others);
+                        //if flow=STTC-OTH then Hide txtMidStatusInfo2 cause it will also display Others
+                        //to avoid displaying Others twice(2nd & 3rd row)
+                        if(holder.binding.txtMidStatusInfo1.getText().equals("Others")){
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.GONE);
+                        }
+
+                        // display Others for 3rd row as in flow
+                        else{
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.others);
+                        }
+
+                        break;
+                    case "INV" :
+                        holder.binding.txtMidStatusInfo1.setText(R.string.number_is_invalid_);
+                        break;
+
+                    //3)Send(Schedule) Visit For Collection / Send Link For Online Payment
+                    // / FO Not Visited / Loan taken By Relative / Already Paid / Will Pay later
+                    //Cash Amount Paid / Cheque Payment
+                    // / Customer Not Available / Late For Visit / Others(managed in 2nd flow)
+                    //Not Taken Loan
+                    case "SVFC":
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.schedule_visit_for_collection_status_info);
+                        break;
+                    case "SLFOP":
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.send_link_for_online_payment_status_info);
+                        break;
+                    case "FNV":
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.fo_not_visited_status_info);
+                        break;
+                    case "LTBR":
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.loan_taken_by_relative_status_info);
+                        break;
+                    case "CAP":
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.cash_payment);
+                        break;
+                    case "CHP":
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.cheque_payment);
+                        break;
+                    case "AP":
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.already_paid_status_info);
+                        break;
+                    case "WPL":
+                        // WPL in 3rd and 4th flow
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.will_pay_later_status_info);
+
+                            if( holder.binding.txtMidStatusInfo2.getText().equals("Will Pay Later")){
+                                holder.binding.txtMidStatusInfo3.setVisibility(View.GONE);
+                            }
+                            else
+                            {
+                                holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                                holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_later_status_info);
+                            }
+
+                        break;
+                    case "CNA":
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.customer_not_available);
+                        break;
+                    case "LFV":
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.late_for_visit);
+                        break;
+                    case "NTL":
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.not_taken_loan);
+                        break;
+
+                    //4)Full Amt. Paid /Partial Amt. Paid/ Wil Pay Later(managed in 3rdFlow) / Will Pay Lump sump / Update / Update Schedule / Skip & Proceed
+                    case "FAP":
+                        holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo3.setText(R.string.full_amount_paid_status_info);
+                        break;
+                    case "PAP":
+                        holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo3.setText(R.string.partial_Amount_paid_status_info);
+                        break;
+                    case "WPLS":
+                        holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_lump_sump_status_info);
+                     break;
+                    case "UPDATE":
+                         holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                         holder.binding.txtMidStatusInfo3.setText(R.string.update);
+                         break;
+                    case "US":
+                        holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo3.setText(R.string.update_schedule);
+                        break;
+                    case "SNP":
+                        holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo3.setText(R.string.skip_and_proceed);
+                        break;
+
+                    //5) Schedule A Call / Schedule A Visit
+                    case "SC":
+                        holder.binding.txtScheduleACallScheduleAVisit.setVisibility(View.VISIBLE);
+                        holder.binding.txtScheduleACallScheduleAVisit.setText(R.string.schedule_a_call);
+                        break;
+                    case "SV":
+                        holder.binding.txtScheduleACallScheduleAVisit.setVisibility(View.VISIBLE);
+                        holder.binding.txtScheduleACallScheduleAVisit.setText(R.string.schedule_a_visit);
+                        break;
+
+                }
+
+            }
+
+
+        }
+
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     public ArrayList setData(ArrayList<Activity> data) {
