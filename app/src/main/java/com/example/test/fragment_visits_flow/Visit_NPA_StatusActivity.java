@@ -283,12 +283,24 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+        //Button Text is Need To Visit Later
         binding.btnAskedToVisitLater.setOnClickListener(v->{
             Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
             String dataSetId = getIntent().getStringExtra("dataSetId");
             i.putExtra("dataSetId",dataSetId);
             i.putExtra("detailsList",detailsList);
             i.putExtra("isFromVisit_NPAStatus_AskedToVisitLater","isFromVisit_NPAStatus_AskedToVisitLater");
+            startActivity(i);
+        });
+
+
+        binding.btnNeedToCallLater.setOnClickListener(v->{
+            Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+            String dataSetId = getIntent().getStringExtra("dataSetId");
+            i.putExtra("dataSetId",dataSetId);
+            i.putExtra("detailsList",detailsList);
+            i.putExtra("isFromVisit_NPAStatus_NeedToCallLater","isFromVisit_NPAStatus_NeedToCallLater");
+            i.putExtra("dataSetIdToResetCallCount","dataSetIdToResetCallCount");
             startActivity(i);
         });
 
@@ -378,6 +390,7 @@ public class Visit_NPA_StatusActivity extends AppCompatActivity {
                     i.putExtra("reason",reason);
                     i.putExtra("isFromVisitNPAStatusActivity_Others","isFromVisitNPAStatusActivity_Others");
                     i.putExtra("isFromVisitNPAStatusActivity","isFromVisitNPAStatusActivity");
+                    i.putExtra("dataSetIdToResetCallCount","dataSetIdToResetCallCount");
                     startActivity(i);
                 }
 
