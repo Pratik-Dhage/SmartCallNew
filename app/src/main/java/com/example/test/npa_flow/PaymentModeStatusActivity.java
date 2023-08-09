@@ -78,6 +78,11 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
 
+        //if Coming from Cash / Cheque Payment hide Will Pay Later button
+        if(getIntent().hasExtra("isVisitsReadyToPayCashPayment")||getIntent().hasExtra("isVisitsReadyToPayChequePayment")){
+            binding.btnWillPayLater.setVisibility(View.GONE);
+        }
+
         //get detailsList
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) getIntent().getSerializableExtra("detailsList");
         detailsList = (ArrayList<DetailsOfCustomerResponseModel>) Global.getUpdatedDetailsList(detailsList); //to get Updated List
@@ -286,39 +291,6 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                 AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
             }
 
-            customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
-            ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivCancel);
-            ImageView ivFileUpload = customDialogImagePicker.findViewById(R.id.ivFileUpload);
-            TextView txtSkipAndProceed = customDialogImagePicker.findViewById(R.id.txtSkipAndProceed);
-            Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
-
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialogImagePicker);
-            final AlertDialog dialog = builder.create();
-            dialog.setCancelable(true);
-           // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-            dialog.show();
-
-            // Visits For The Day Flow Do Not show Upload Receipt
-            if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
-                btnUploadReceipt.setVisibility(View.GONE);
-                ivFileUpload.setVisibility(View.GONE);
-                txtSkipAndProceed.setText(R.string.proceed); // Skip & Proceed will be Proceed (Visits For The Day Flow)
-            }
-
-            btnUploadReceipt.setOnClickListener(v2 -> {
-
-                // Open gallery to pick an image
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                pickImageLauncher.launch(Intent.createChooser(intent, "Select File"));
-
-
-            });
-
-            txtSkipAndProceed.setOnClickListener(v1 -> {
 
                 //From Calls For TheDay
                 if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
@@ -370,13 +342,6 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                     startActivity(i);
                 }
 
-            });
-
-            ivCancel.setOnClickListener(v1 -> {
-                dialog.dismiss();
-            });
-
-
         });
 
 
@@ -388,40 +353,6 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                 AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
             }
 
-            customDialogImagePicker = LayoutInflater.from(this).inflate(R.layout.custom_dialog_image_picker, null);
-            ImageView ivCancel = customDialogImagePicker.findViewById(R.id.ivCancel);
-            ImageView ivFileUpload = customDialogImagePicker.findViewById(R.id.ivFileUpload);
-            TextView txtSkipAndProceed = customDialogImagePicker.findViewById(R.id.txtSkipAndProceed);
-            Button btnUploadReceipt = customDialogImagePicker.findViewById(R.id.btnUploadReceipt);
-
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialogImagePicker);
-            final AlertDialog dialog = builder.create();
-            dialog.setCancelable(true);
-           // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-            dialog.show();
-
-            // Visits For The Day Flow Do Not show Upload Receipt
-            if(getIntent().hasExtra("isFromVisitsForTheDayFlow_Visit_NPA_PaymentModeActivity")){
-                btnUploadReceipt.setVisibility(View.GONE);
-                ivFileUpload.setVisibility(View.GONE);
-                txtSkipAndProceed.setText(R.string.proceed); // Skip & Proceed will be Proceed (Visits For The Day Flow)
-            }
-
-
-            btnUploadReceipt.setOnClickListener(v2 -> {
-
-                // Open gallery to pick an image
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                pickImageLauncher.launch(Intent.createChooser(intent, "Select File"));
-
-
-            });
-
-            txtSkipAndProceed.setOnClickListener(v1 -> {
 
                 //From Calls For The Day
                 if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
@@ -471,11 +402,8 @@ public class PaymentModeStatusActivity extends AppCompatActivity {
                     startActivity(i);
                 }
 
-            });
 
-            ivCancel.setOnClickListener(v1 -> {
-                dialog.dismiss();
-            });
+
 
 
         });
