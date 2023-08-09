@@ -461,7 +461,7 @@ public class Global {
         View customDialog = LayoutInflater.from(context).inflate(R.layout.custom_dialog_notes_history, null);
 
         TextView customNotesHistoryTextHeading = customDialog.findViewById(R.id.txtCustomDialog);
-        Button btnCloseDialog = customDialog.findViewById(R.id.btnCloseDialog);
+        ImageView ivClose = customDialog.findViewById(R.id.ivClose);
          recyclerViewNotesHistory = customDialog.findViewById(R.id.rvNotesHistory);
          progressBar = customDialog.findViewById(R.id.loadingProgressBar);
 
@@ -479,7 +479,7 @@ public class Global {
         initObserverNotesHistory(context); // initObserver
 
 
-        btnCloseDialog.setOnClickListener(new View.OnClickListener() {
+        ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
