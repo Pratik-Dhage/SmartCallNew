@@ -281,63 +281,101 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
         binding.btnLoanTakenByRelative.setOnClickListener(v->{
 
-          View customDialogLoanTakenByRelative = LayoutInflater.from(this).inflate(R.layout.custom_dialog_loan_taken_by_relative, null);
-            ImageView ivCancel = customDialogLoanTakenByRelative.findViewById(R.id.ivCancel);
-            EditText edtRelativeName = customDialogLoanTakenByRelative.findViewById(R.id.edtPleaseSpecifyName);
-            TextInputLayout tilSpecifyName = customDialogLoanTakenByRelative.findViewById(R.id.tilSpecifyName);
-            EditText edtRelativeContact = customDialogLoanTakenByRelative.findViewById(R.id.edtPleaseSpecifyContact);
-            TextInputLayout tilSpecifyContact = customDialogLoanTakenByRelative.findViewById(R.id.tilSpecifyContact);
-            Button btnProceed = customDialogLoanTakenByRelative.findViewById(R.id.btnProceed);
+            //Capture Details Dialog
+           View customDialogCaptureDetails = LayoutInflater.from(this).inflate(R.layout.custom_dialog_capture_details, null);
+            ImageView ivCancel = customDialogCaptureDetails.findViewById(R.id.ivCancel);
+            Button btnCaptureDetails = customDialogCaptureDetails.findViewById(R.id.btnCaptureDetails);
+            Button btnSkipAndProceed = customDialogCaptureDetails.findViewById(R.id.btnSkipAndProceed);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(customDialogLoanTakenByRelative);
+            builder.setView(customDialogCaptureDetails);
             final AlertDialog dialog = builder.create();
             dialog.setCancelable(true);
-           // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
             dialog.show();
 
-            //TextWatcher for Relative Name
-            Global.CustomTextWatcher(edtRelativeName,tilSpecifyName);
-
-            //TextWatcher for relative Contact
-            Global.CustomTextWatcher(edtRelativeContact,tilSpecifyContact);
-
-            btnProceed.setOnClickListener(v2 -> {
-
-                if(edtRelativeName.getText().toString().isEmpty()){
-                    tilSpecifyName.setError(getString(R.string.name_cannot_be_empty));
-                }
-
-                else  if(edtRelativeContact.length()!=10){
-                    tilSpecifyContact.setError(getString(R.string.enter_10digit_mobile_number));
-                }
-
-                else{
-
-                    String relativeName  = edtRelativeName.getText().toString().trim();
-                    String relativeContact  = edtRelativeContact.getText().toString().trim();
-
-                    VisitsFlowCallDetailsActivity.send_RelativeName = relativeName;
-                    VisitsFlowCallDetailsActivity.send_RelativeContact = relativeContact;
-
-                    Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
-                    i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
-                    i.putExtra("detailsList",detailsList);
-                    i.putExtra("relativeName",relativeName);
-                    i.putExtra("relativeContact",relativeContact);
-                    i.putExtra("NotReadyToPay_LoanTakenByRelative","NotReadyToPay_LoanTakenByRelative");
-                    i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
-                    startActivity(i);
-                }
-
-
-            });
-
-            ivCancel.setOnClickListener(v1 -> {
+            ivCancel.setOnClickListener(v1->{
                 dialog.dismiss();
             });
 
+            btnSkipAndProceed.setOnClickListener(v1->{
+
+                Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
+                i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                i.putExtra("detailsList",detailsList);
+                i.putExtra("relativeName","");
+                i.putExtra("relativeContact","");
+                i.putExtra("NotReadyToPay_LoanTakenByRelative","NotReadyToPay_LoanTakenByRelative");
+                i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
+                startActivity(i);
+            });
+
+
+
+            //Editable Dialog
+         btnCaptureDetails.setOnClickListener(v2->{
+
+             View customDialogLoanTakenByRelative = LayoutInflater.from(this).inflate(R.layout.custom_dialog_loan_taken_by_relative, null);
+             ImageView ivCancel2 = customDialogLoanTakenByRelative.findViewById(R.id.ivCancel);
+             EditText edtRelativeName = customDialogLoanTakenByRelative.findViewById(R.id.edtPleaseSpecifyName);
+             TextInputLayout tilSpecifyName = customDialogLoanTakenByRelative.findViewById(R.id.tilSpecifyName);
+             EditText edtRelativeContact = customDialogLoanTakenByRelative.findViewById(R.id.edtPleaseSpecifyContact);
+             TextInputLayout tilSpecifyContact = customDialogLoanTakenByRelative.findViewById(R.id.tilSpecifyContact);
+             Button btnProceed = customDialogLoanTakenByRelative.findViewById(R.id.btnProceed);
+
+             AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+             builder2.setView(customDialogLoanTakenByRelative);
+             final AlertDialog dialog2 = builder2.create();
+             dialog2.setCancelable(true);
+             // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+             dialog2.show();
+
+             ivCancel2.setOnClickListener(v1 -> {
+                 dialog2.dismiss();
+             });
+
+             //TextWatcher for Relative Name
+             Global.CustomTextWatcher(edtRelativeName,tilSpecifyName);
+
+             //TextWatcher for relative Contact
+             Global.CustomTextWatcher(edtRelativeContact,tilSpecifyContact);
+
+             btnProceed.setOnClickListener(v3 -> {
+
+                 if(edtRelativeName.getText().toString().isEmpty()){
+                     tilSpecifyName.setError(getString(R.string.name_cannot_be_empty));
+                 }
+
+                 else  if(edtRelativeContact.length()!=10){
+                     tilSpecifyContact.setError(getString(R.string.enter_10digit_mobile_number));
+                 }
+
+                 else if(!Global.isValidMobileNumber(this,edtRelativeContact.getText().toString().trim())){
+                     tilSpecifyContact.setError(getString(R.string.pls_enter_valid_number));
+                 }
+
+                 else{
+
+                     String relativeName  = edtRelativeName.getText().toString().trim();
+                     String relativeContact  = edtRelativeContact.getText().toString().trim();
+
+                     VisitsFlowCallDetailsActivity.send_RelativeName = relativeName;
+                     VisitsFlowCallDetailsActivity.send_RelativeContact = relativeContact;
+
+                     Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
+                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+                     i.putExtra("detailsList",detailsList);
+                     i.putExtra("relativeName",relativeName);
+                     i.putExtra("relativeContact",relativeContact);
+                     i.putExtra("NotReadyToPay_LoanTakenByRelative","NotReadyToPay_LoanTakenByRelative");
+                     i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
+                     startActivity(i);
+                 }
+
+
+             });
+
+         });
 
         });
 
@@ -391,6 +429,7 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
                      i.putExtra("reason",reason);
                      i.putExtra("isFromVisitNPANotificationActivity_Others","isFromVisitNPANotificationActivity_Others");
                      i.putExtra("isFromVisitNPANotificationActivity","isFromVisitNPANotificationActivity");
+                     i.putExtra("NotReadyToPay_Others","NotReadyToPay_Others");
                      startActivity(i);
                  }
 

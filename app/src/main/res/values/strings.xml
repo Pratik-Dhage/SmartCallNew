@@ -409,6 +409,7 @@
     <string name="submit_">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Submit\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="schedule_a_call">Schedule A Call</string>
     <string name="schedule_a_visit">Schedule A Visit</string>
+    <string name="pls_enter_valid_number">Please Enter Valid Number</string>
 
 
     <!--for Tenure-->
