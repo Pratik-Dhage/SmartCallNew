@@ -90,6 +90,7 @@
             android:layout_height="@dimen/_30sdp"
             android:layout_marginStart="@dimen/_1sdp"
             android:src="@drawable/upload_file"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/btnUploadReceipt"
             app:layout_constraintStart_toEndOf="@id/btnUploadReceipt"
             app:layout_constraintTop_toTopOf="@id/btnUploadReceipt"

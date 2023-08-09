@@ -254,6 +254,8 @@
     <string name="visit_npa_details">Visit - NPA Details</string>
     <string name="visit_npa_status">Visit - NPA Status</string>
     <string name="asked_to_visit_later">Asked To Visit Later</string>
+    <string name="need_to_visit_later">Need To Visit Later</string>
+    <string name="need_to_call_later">Need To Call Later</string>
     <string name="payment_already_made">Payment Already Made</string>
     <string name="cash_payment">Cash Payment</string>
     <string name="cheque_payment">Cheque Payment</string>
@@ -404,6 +406,7 @@
     <string name="reason_for_visit">Reason For Visit</string>
     <string name="select_no_to_call">Select No. to Call</string>
     <string name="complete">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Complete\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
+    <string name="submit_">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Submit\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="schedule_a_call">Schedule A Call</string>
     <string name="schedule_a_visit">Schedule A Visit</string>
 
