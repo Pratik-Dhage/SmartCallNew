@@ -272,10 +272,10 @@
             android:backgroundTint="@color/blueButton"
             android:text="@string/will_pay_lumpsum"
             android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="@id/btnClaimsPaymentMade"
-            app:layout_constraintStart_toStartOf="@id/btnClaimsPaymentMade"
-            app:layout_constraintTop_toBottomOf="@id/btnLoanTakenByRelative"
-            app:layout_constraintTop_toTopOf="@id/btnOthers" />
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnNotTakenLoan" />
 
 
         <Button
@@ -283,13 +283,14 @@
             style="@style/CustomButtonStyle"
             android:layout_width="@dimen/_136sdp"
             android:layout_height="@dimen/_45sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:backgroundTint="@color/grey"
             android:text="@string/others"
             android:textStyle="normal"
-            android:layout_marginStart="@dimen/_10sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnNotTakenLoan" />
+            app:layout_constraintEnd_toEndOf="@id/btnClaimsPaymentMade"
+            app:layout_constraintStart_toStartOf="@id/btnClaimsPaymentMade"
+            app:layout_constraintTop_toBottomOf="@id/btnLoanTakenByRelative"
+            app:layout_constraintTop_toTopOf="@id/btnWillPayLumpSump" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
