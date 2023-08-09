@@ -236,6 +236,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ivHistory" />
 
 
+            <!--Asked To Visit Later was previous text on this Button-->
             <Button
                 android:id="@+id/btnAskedToVisitLater"
                 style="@style/CustomButtonStyle"
@@ -244,7 +245,7 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:backgroundTint="@color/brightOrange"
-                android:text="@string/asked_to_visit_later"
+                android:text="@string/need_to_visit_later"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnReadyToPay" />
@@ -266,6 +267,19 @@
 
 
             <Button
+                android:id="@+id/btnNeedToCallLater"
+                style="@style/CustomButtonStyle"
+                android:layout_width="@dimen/_136sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:backgroundTint="@color/barnRed"
+                android:text="@string/need_to_call_later"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="@id/btnNotReadyToPay"
+                app:layout_constraintStart_toStartOf="@id/btnNotReadyToPay"
+                app:layout_constraintTop_toBottomOf="@id/btnNotReadyToPay"
+                app:layout_constraintTop_toTopOf="@id/btnAskedToVisitLater"/>
+
+            <Button
                 android:id="@+id/btnOthers"
                 style="@style/CustomButtonStyle"
                 android:layout_width="@dimen/_136sdp"
@@ -273,10 +287,10 @@
                 android:backgroundTint="@color/grey"
                 android:text="@string/others"
                 android:textStyle="normal"
-                app:layout_constraintEnd_toEndOf="@id/btnNotReadyToPay"
-                app:layout_constraintStart_toStartOf="@id/btnNotReadyToPay"
-                app:layout_constraintTop_toBottomOf="@id/btnNotReadyToPay"
-                app:layout_constraintTop_toTopOf="@id/btnAskedToVisitLater"/>
+                android:layout_marginTop="@dimen/_10sdp"
+               app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnNeedToCallLater"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
