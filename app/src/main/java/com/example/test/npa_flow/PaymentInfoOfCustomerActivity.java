@@ -573,6 +573,10 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                     tilSpecifyContact.setError(getString(R.string.enter_10digit_mobile_number));
                 }
 
+                else if(!Global.isValidMobileNumber(this,edtRelativeContact.getText().toString().trim())){
+                    tilSpecifyContact.setError(getString(R.string.pls_enter_valid_number));
+                }
+
                 else{
                     Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
