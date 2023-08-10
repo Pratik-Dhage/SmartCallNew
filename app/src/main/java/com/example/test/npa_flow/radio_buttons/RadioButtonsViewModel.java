@@ -36,6 +36,7 @@ public class RadioButtonsViewModel extends ViewModel {
     public void updateRadioButtonReasons_Data() { radioButtonsReasonAdapter.setData(arrList_RadioButtonsReason_Data); }
 
 
+      //for NotSpokeToCustomerActivity -> Physical Visit Required
     public void getRadioButtonsReason_Data(){
 
         subscribtion = (Disposable) Global.apiService().getRadioButtonReasons( WebServices.radio_buttons_reason)
