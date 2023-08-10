@@ -84,55 +84,55 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                 }
 
                 //AmountCollected
-                if(null!=a.getAmountCollected()){
+                if(null!=a.getAmountCollected() && !a.getAmountCollected().isEmpty()){
                     holder.binding.txtAmountCollected.setVisibility(View.VISIBLE);
                     holder.binding.txtAmountCollected.setText("Rs. "+a.getAmountCollected());
                 }
 
                 //BankName
-               if(null!= a.getBankName()){
+               if(null!= a.getBankName() && !a.getBankName().isEmpty()){
                    holder.binding.txtBankName.setVisibility(View.VISIBLE);
                    holder.binding.txtBankName.setText(a.getBankName());
                }
 
                //ChequeNumber
-                if(null!= a.getChequeNumber()){
+                if(null!= a.getChequeNumber() && !a.getChequeNumber().isEmpty()){
                     holder.binding.txtChequeNumber.setVisibility(View.VISIBLE);
                     holder.binding.txtChequeNumber.setText("ChequeNumber: "+a.getChequeNumber());
                 }
 
                 //ChequeDate
-                if(null!= a.getChequeDate()){
+                if(null!= a.getChequeDate() && !a.getChequeDate().isEmpty()){
                     holder.binding.txtChequeDate.setVisibility(View.VISIBLE);
                     holder.binding.txtChequeDate.setText("ChequeDate: "+a.getChequeDate());
                 }
 
                 //RelativeName
-                if(null!=a.getRelativeName()){
+                if(null!=a.getRelativeName() && !a.getRelativeName().isEmpty()){
                   holder.binding.txtRelativeName.setVisibility(View.VISIBLE);
                   holder.binding.txtRelativeName.setText("Name: "+a.getRelativeName());
                 }
 
                 //RelativeContact
-                if(null!=a.getRelativeContactNumber()){
+                if(null!=a.getRelativeContactNumber() && !a.getRelativeContactNumber().isEmpty()){
                     holder.binding.txtRelativeContact.setVisibility(View.VISIBLE);
                     holder.binding.txtRelativeContact.setText("Contact: "+a.getRelativeContactNumber());
                 }
 
                //FO Name
-                if(null!=a.getFoName()){
+                if(null!=a.getFoName() && !a.getFoName().isEmpty()){
                     holder.binding.txtFOName.setVisibility(View.VISIBLE);
                     holder.binding.txtFOName.setText("FO Name: "+a.getFoName());
                 }
 
                 //FO Date Of Visit Promised
-                if(null!=a.getDateOfVisit()){
+                if(null!=a.getDateOfVisit() && !a.getDateOfVisit().isEmpty()){
                     holder.binding.txtDateOfVisitPromised.setVisibility(View.VISIBLE);
                     holder.binding.txtDateOfVisitPromised.setText("Date Of Visit: "+a.getDateOfVisit());
                 }
 
                 //Other (with reason)
-                if(null!=a.getReason()){
+                if(null!=a.getReason() && !a.getReason().isEmpty()){
                     holder.binding.txtReasonOthers.setVisibility(View.VISIBLE);
                     holder.binding.txtReasonOthers.setText("Reason: "+a.getReason());
                 }
