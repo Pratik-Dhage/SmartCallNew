@@ -209,13 +209,13 @@ public  class WebServices {
     public static String visit_rescheduled_late_for_visit_skip_and_proceed = "activity/submitcall?flow=DNVTC-VR-LFV-SNP";
 
      //3)Others(Reason to send to backend) (Update Schedule , Skip & Proceed)
-     public static String visit_rescheduled_others = "activity/submitcall?flow=DNVTC-VR-O";
+     public static String visit_rescheduled_others = "activity/submitcall?flow=DNVTC-VR-OTH";
 
     //Visits For The Day - (CustomerDetailsActivity / Visit - NPA Details) - Did Not Visit The Customer - Payment Already Made
-    public static String visit_did_not_visit_payment_already_made = "activity/submitcall?flow=DNVTC";
+    public static String visit_did_not_visit_payment_already_made = "activity/submitcall?flow=DNVTC-PAM";
 
     //Visits For The Day - (CustomerDetailsActivity / Visit - NPA Details) - Did Not Visit The Customer - Others
-    public static String visit_did_not_visit_others = "activity/submitcall?flow=DNVTC–O";
+    public static String visit_did_not_visit_others = "activity/submitcall?flow=DNVTC–OTH";
 
 
     //DID NOT SPOKE TO CUSTOMER - NUMBER IS INVALID
@@ -266,6 +266,37 @@ public  class WebServices {
   //http://45.114.143.87:8082/transactionDataSet/updateAlternateNumber?dataSetId=<datasetid for the record>&alternateNumber=<Alternate number>
     public static String saveAlternateNumber = "transactionDataSet/updateAlternateNumber?";
 
+// For Distance in GoogleMaps
+    // http://45.114.143.87:8082/transactionDataSet/getDistance?oriLat=19.1644522&oriLon=73.0737986&destLat=19.1644522&destLon=73.0737986
+    public static String getDistanceUsingDistanceMatrixApi="transactionDataSet/getDistance?";
+
+
+    //*** Circular Flow ***
+    // 1)COMPLETE - Schedule A Call
+    public static  String completeScheduleACallCashPayment = "activity/submitcallCheque?flow=VTC-RTP-CAP"; //using same baseFlow for ScheduleVisit
+    public static String completeScheduleACallChequePayment = "activity/submitcallCheque?flow=VTC-RTP-CHP"; //using same baseFlow for ScheduleVisit
+
+    //2)COMPLETE - Schedule A Visit
+    public static String completeScheduleAVisitCashPayment = "activity/submitcallCheque?flow=VTC-RTP-CAP";
+    public static String completeScheduleAVisitChequePayment = "activity/submitcallCheque?flow=VTC-RTP-CHP";
+
+    //3)SUBMIT - Schedule A Call
+   public static String lackOfFundsScheduleCall = "activity/submitcall?flow=VTC-NRTP-LOF-SC";
+   public static String paymentAlreadyMadeScheduleCall = "activity/submitcall?flow=VTC-NRTP-CPM-SC"; // PaymentAlreadyMade = ClaimsPaymentMade
+   public static String notTakenLoanScheduleCall = "activity/submitcall?flow=VTC-NRTP-NTL-SC";
+   public static String loanTakenByRelativeScheduleCall = "activity/submitcall?flow=VTC-NRTP-LTBR-SC";
+   public static String willPayLumpSumScheduleCall = "activity/submitcall?flow=VTC-NRTP-WPLS-SC";
+   public static String others_VisitNPANotificationScheduleCall = "activity/submitcall?flow=VTC-NRTP-OTH-SC";
+
+    //4)SUBMIT - Schedule A Visit
+    public static String lackOfFundsScheduleVisit = "activity/submitcall?flow=VTC-NRTP-LOF-SV";
+    public static String paymentAlreadyMadeScheduleVisit = "activity/submitcall?flow=VTC-NRTP-CPM-SV"; // PaymentAlreadyMade = ClaimsPaymentMade
+    public static String notTakenLoanScheduleVisit = "activity/submitcall?flow=VTC-NRTP-NTL-SV";
+    public static String loanTakenByRelativeScheduleVisit = "activity/submitcall?flow=VTC-NRTP-LTBR-SV";
+    public static String willPayLumpSumScheduleVisit = "activity/submitcall?flow=VTC-NRTP-WPLS-SV";
+    public static String others_VisitNPANotificationScheduleVisit = "activity/submitcall?flow=VTC-NRTP-OTH-SV";
+
+
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 
@@ -289,7 +320,7 @@ public  class WebServices {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 //.baseUrl(WebServices.Domain2)
                 //.baseUrl(WebServices.Domain)
-                .baseUrl(SmartCall_BaseURL6)
+                .baseUrl(SmartCall_BaseURL5)
                 .client(okHttpClient)
                 .build();
 
