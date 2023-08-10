@@ -63,6 +63,20 @@ public class VisitsFlowViewModel extends ViewModel {
 
     }
 
+    //(CircularFlow)COMPLETE/SUBMIT - Schedule A Call / Schedule A Visit
+    public void postScheduleCall_ScheduleVisit(String ApiType,String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber,String reason,
+                                               String amountCollected,String chequeDate ,String chequeNumber ,String chequeAmount, String bankName, List<CallDetails> callDetailsList) {
+        subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+                        "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber +"&reason="+reason
+                        +"&amountCollected="+amountCollected + "&chequeDate="+chequeDate + "&chequeNumber="+chequeNumber + "&chequeAmount="+chequeAmount + "&bankName="+bankName,callDetailsList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(
+                        this::onHomeApiSuccess, this::onApiError
+                );
+    }
+
     //**FOR VISITS FLOW - DID NOT VISIT THE CUSTOMER & VISITED THE CUSTOMER->ASKED TO VISIT LATER
     //1) Did Not Visit The Customer - Visit Rescheduled - Customer Not Available
     //2) Did Not Visit The Customer - Visit Rescheduled - Late For Visit
