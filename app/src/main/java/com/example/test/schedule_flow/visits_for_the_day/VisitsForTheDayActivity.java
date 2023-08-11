@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityVisitsForTheDayBinding;
+import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
@@ -57,6 +58,11 @@ public class VisitsForTheDayActivity extends AppCompatActivity {
 
         //Whenever List is Loaded remove previously stored formattedDistanceInKm
         Global.removeStringInSharedPref(this, "formattedDistanceInKm");
+
+        // for Circular Flows(ScheduleCall/ScheduleVisit) reset values to empty values
+        VisitsFlowCallDetailsActivity.send_amountCollected = "";
+        VisitsFlowCallDetailsActivity.send_RelativeName = "";
+        VisitsFlowCallDetailsActivity.send_RelativeContact = "";
 
         //Get UserIdD & BranchCode
         MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
