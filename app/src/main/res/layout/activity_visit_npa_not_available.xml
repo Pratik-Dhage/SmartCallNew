@@ -210,41 +210,53 @@
         <Button
             android:id="@+id/btnCustomerNotAvailable"
             style="@style/CustomButtonStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_45sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:backgroundTint="@color/barnRed"
-            android:text="@string/customer_not_available"
+            android:text="@string/customer_not_available_multirow"
             android:textStyle="normal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/_20sdp"
             app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
+
+        <Button
+            android:id="@+id/btnNeedToCloseVisit"
+            style="@style/CustomButtonStyle"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:backgroundTint="@color/chilliRed"
+            android:text="@string/need_to_close_nvisit"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@id/btnCustomerNotAvailable" />
 
 
         <Button
             android:id="@+id/btnLateForVisit"
             style="@style/CustomButtonStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_45sdp"
-            android:layout_marginTop="@dimen/_5sdp"
             android:backgroundTint="@color/brightOrange"
-            android:text="@string/late_for_visit_space"
+            android:text="@string/late_for_visit"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnCustomerNotAvailable" />
+            android:layout_marginEnd="@dimen/_20sdp"
+            app:layout_constraintTop_toTopOf="@id/btnCustomerNotAvailable" />
 
         <Button
             android:id="@+id/btnOthers"
             style="@style/CustomButtonStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_120sdp"
             android:layout_height="@dimen/_45sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:backgroundTint="@color/grey"
             android:text="@string/others_space2"
             android:textStyle="normal"
+            android:layout_marginEnd="@dimen/_20sdp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnLateForVisit" />
 
 
