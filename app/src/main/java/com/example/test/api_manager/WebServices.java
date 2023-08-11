@@ -260,7 +260,9 @@ public  class WebServices {
 
     //For Radio Button customDialogRadioButton Reasons
     //http://45.114.143.87:8082/classifier/getClassifiersByKey?key=VISITREASON
-    public static String radio_buttons_reason = "classifier/getClassifiersByKey?key=VISITREASON";
+    public static String radio_buttons_reason = "classifier/getClassifiersByKey?key=VISITREASON"; //for Physical Visits Required (NotSPokeToCustomerActivity)
+
+    public static String radio_button_need_to_close_visit = "classifier/getClassifiersByKey?key=CLOSEVISIT"; // for Need To Close Visit (Visit_NPA_NotAvailableActivity)
 
     //For Saving/Update Alternate Number of Customer
   //http://45.114.143.87:8082/transactionDataSet/updateAlternateNumber?dataSetId=<datasetid for the record>&alternateNumber=<Alternate number>
@@ -281,6 +283,7 @@ public  class WebServices {
     public static String completeScheduleAVisitChequePayment = "activity/submitcallCheque?flow=VTC-RTP-CHP";
 
     //3)SUBMIT - Schedule A Call
+    //** Visited The Customer
    public static String lackOfFundsScheduleCall = "activity/submitcall?flow=VTC-NRTP-LOF-SC";
    public static String paymentAlreadyMadeScheduleCall = "activity/submitcall?flow=VTC-NRTP-CPM-SC"; // PaymentAlreadyMade = ClaimsPaymentMade
    public static String notTakenLoanScheduleCall = "activity/submitcall?flow=VTC-NRTP-NTL-SC";
@@ -288,13 +291,20 @@ public  class WebServices {
    public static String willPayLumpSumScheduleCall = "activity/submitcall?flow=VTC-NRTP-WPLS-SC";
    public static String others_VisitNPANotificationScheduleCall = "activity/submitcall?flow=VTC-NRTP-OTH-SC";
 
+   //**Did Not Visit The Customer
+   public static String needToCloseVisitScheduleCall = "activity/submitcall?flow=DNVTC-VR-NTCV-SC";
+
     //4)SUBMIT - Schedule A Visit
+    //** Visited The Customer
     public static String lackOfFundsScheduleVisit = "activity/submitcall?flow=VTC-NRTP-LOF-SV";
     public static String paymentAlreadyMadeScheduleVisit = "activity/submitcall?flow=VTC-NRTP-CPM-SV"; // PaymentAlreadyMade = ClaimsPaymentMade
     public static String notTakenLoanScheduleVisit = "activity/submitcall?flow=VTC-NRTP-NTL-SV";
     public static String loanTakenByRelativeScheduleVisit = "activity/submitcall?flow=VTC-NRTP-LTBR-SV";
     public static String willPayLumpSumScheduleVisit = "activity/submitcall?flow=VTC-NRTP-WPLS-SV";
     public static String others_VisitNPANotificationScheduleVisit = "activity/submitcall?flow=VTC-NRTP-OTH-SV";
+
+    //**Did Not Visit The Customer
+    public static String needToCloseVisitScheduleVisit = "activity/submitcall?flow=DNVTC-VR-NTCV-SV";
 
 
     public static RestClient create() {
