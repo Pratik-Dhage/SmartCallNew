@@ -59,10 +59,12 @@ public class VisitsForTheDayActivity extends AppCompatActivity {
         //Whenever List is Loaded remove previously stored formattedDistanceInKm
         Global.removeStringInSharedPref(this, "formattedDistanceInKm");
 
-        // for Circular Flows(ScheduleCall/ScheduleVisit) reset values to empty values
-        VisitsFlowCallDetailsActivity.send_amountCollected = "";
-        VisitsFlowCallDetailsActivity.send_RelativeName = "";
-        VisitsFlowCallDetailsActivity.send_RelativeContact = "";
+        // for Circular Flows(ScheduleCall/ScheduleVisit) reset values to null values / initial values as null
+        VisitsFlowCallDetailsActivity.send_amountCollected = null;
+        VisitsFlowCallDetailsActivity.send_RelativeName = null;
+        VisitsFlowCallDetailsActivity.send_RelativeContact = null;
+        VisitsFlowCallDetailsActivity.send_scheduleDateTime = null;
+        VisitsFlowCallDetailsActivity.send_callNotes = null;
 
         //Get UserIdD & BranchCode
         MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
