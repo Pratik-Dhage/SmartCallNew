@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/please_specify_name"
                 android:inputType="text|textMultiLine"
-                android:maxLines="2"
+                android:maxLines="5"
                 android:background="@color/white"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
