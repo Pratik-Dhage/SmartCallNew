@@ -278,9 +278,10 @@
     <string name="others_space">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Others\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="visit_npa_notavailable">Visit - NPA Not Available</string>
     <string name="customer_not_available">Customer Not Available</string>
+    <string name="customer_not_available_multirow">Customer Not \nAvailable</string>
     <string name="late_for_visit">Late for Visit</string>
     <string name="late_for_visit_space">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Late for Visit\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
-    <string name="others_space2">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Others\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
+    <string name="others_space2">\u00A0\u00A0\u00A0\u00A0\u00A0Others\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="credit_card">Credit Card</string>
     <string name="personal_loan">Personal Loan</string>
     <string name="pre_approved_offer_break">Pre Approved \nOffers!</string>
@@ -410,6 +411,10 @@
     <string name="schedule_a_call">Schedule A Call</string>
     <string name="schedule_a_visit">Schedule A Visit</string>
     <string name="pls_enter_valid_number">Please Enter Valid Number</string>
+    <string name="need_to_close_nvisit">Need To Close \nVisit</string>
+    <string name="need_to_close_visit_statusInfo">Need To Close Visit</string>
+    <string name="select_reason">Select Reason</string>
+    <string name="do_you_want_to_close_this_acc_permanently">Do you want to close \nthis account permanently?</string>
 
 
     <!--for Tenure-->
