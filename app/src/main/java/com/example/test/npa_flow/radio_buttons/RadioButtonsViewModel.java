@@ -31,15 +31,22 @@ public class RadioButtonsViewModel extends ViewModel {
     }
 
 
+    //For NotSpokeToCustomerActivity -PhysicalVisitRequired Button
     public ArrayList<RadioButtonReasons> arrList_RadioButtonsReason_Data  =new ArrayList<>();
     RadioButtonsReasonAdapter radioButtonsReasonAdapter = new RadioButtonsReasonAdapter(arrList_RadioButtonsReason_Data);
     public void updateRadioButtonReasons_Data() { radioButtonsReasonAdapter.setData(arrList_RadioButtonsReason_Data); }
 
+    //for Visit_NPA_NotAvailableActivity
+    public ArrayList<RadioButtonReasons> arrList_RadioButtonsReason_Data2  =new ArrayList<>();
+    RadioButtonsCloseVisitAdapter radioButtonsCloseVisitAdapter = new RadioButtonsCloseVisitAdapter(arrList_RadioButtonsReason_Data2);
+    public void updateRadioButtonCloseVisit_Data() { radioButtonsCloseVisitAdapter.setData(arrList_RadioButtonsReason_Data2); }
 
-      //for NotSpokeToCustomerActivity -> Physical Visit Required
-    public void getRadioButtonsReason_Data(){
 
-        subscribtion = (Disposable) Global.apiService().getRadioButtonReasons( WebServices.radio_buttons_reason)
+      //1)for NotSpokeToCustomerActivity -> Physical Visit Required
+    //2)Visit_NPA_NotAvailable -> Need To Close Visit
+    public void getRadioButtonsReason_Data(String apiType){
+
+        subscribtion = (Disposable) Global.apiService().getRadioButtonReasons( apiType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
