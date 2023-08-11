@@ -31,6 +31,7 @@
                 android:hint="@string/please_specify_name"
                 android:inputType="text|textMultiLine"
                 android:maxLines="5"
+                android:maxLength="200"
                 android:background="@color/white"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
