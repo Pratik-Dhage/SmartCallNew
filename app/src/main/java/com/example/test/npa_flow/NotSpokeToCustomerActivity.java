@@ -134,7 +134,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
 
     private void callRadioButtonReasonApi(){
         if(NetworkUtilities.getConnectivityStatus(this)){
-            radioButtonsViewModel.getRadioButtonsReason_Data();
+            radioButtonsViewModel.getRadioButtonsReason_Data(WebServices.radio_buttons_reason);
         }
         else{
             Global.showSnackBar(view,getString(R.string.check_internet_connection));
