@@ -447,7 +447,9 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     // / FO Not Visited / Loan taken By Relative / Already Paid / Will Pay later
                     //Cash Amount Paid / Cheque Payment
                     // / Customer Not Available / Late For Visit / Others(managed in 2nd flow)
-                    //Not Taken Loan
+                    //Lack Of Funds/ PaymentAlreadyMade / Not Taken Loan / Will Pay LumpSum(managed in 4th flow)
+                    //Need To Close Visit
+
                     case "SVFC":
                         holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                         holder.binding.txtMidStatusInfo2.setText(R.string.schedule_visit_for_collection_status_info);
@@ -481,14 +483,10 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                         holder.binding.txtMidStatusInfo2.setText(R.string.will_pay_later_status_info);
 
-                            if( holder.binding.txtMidStatusInfo2.getText().equals("Will Pay Later")){
-                                holder.binding.txtMidStatusInfo3.setVisibility(View.GONE);
-                            }
-                            else
-                            {
-                                holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
-                                holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_later_status_info);
-                            }
+                        //toggle Visibility
+                        int txtMidStatusInfo3VisibilityWillPayLater = holder.binding.txtMidStatusInfo2.getText().equals("Will Pay Later") ? View.GONE : View.VISIBLE;
+                        holder.binding.txtMidStatusInfo3.setVisibility(txtMidStatusInfo3VisibilityWillPayLater);
+                        holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_later_status_info);
 
                         break;
                     case "CNA":
@@ -503,8 +501,21 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                         holder.binding.txtMidStatusInfo2.setText(R.string.not_taken_loan);
                         break;
+                    case "LOF":
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.lack_of_funds);
+                        break;
+                    case "PAM":
+                    case "CPM": // ClaimsPaymentMade = PaymentAlreadyMade
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.payment_already_made);
+                        break;
+                    case "NTCV":
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.need_to_close_visit_statusInfo);
+                        break;
 
-                    //4)Full Amt. Paid /Partial Amt. Paid/ Wil Pay Later(managed in 3rdFlow) / Will Pay Lump sump / Update / Update Schedule / Skip & Proceed
+                        //4)Full Amt. Paid /Partial Amt. Paid/ Wil Pay Later(managed in 3rdFlow) / Will Pay Lump sump / Update / Update Schedule / Skip & Proceed
                     case "FAP":
                         holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
                         holder.binding.txtMidStatusInfo3.setText(R.string.full_amount_paid_status_info);
@@ -514,9 +525,18 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         holder.binding.txtMidStatusInfo3.setText(R.string.partial_Amount_paid_status_info);
                         break;
                     case "WPLS":
-                        holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+
+                        //WPLS in 3rd & 4th Flow
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.will_pay_lump_sump_status_info);
+
+                        //toggle visibility
+                        int txtMidStatusInfo3VisibilityWillPayLumpSum = holder.binding.txtMidStatusInfo2.getText().equals("Will Pay Lump Sum") ? View.GONE : View.VISIBLE;
+                        holder.binding.txtMidStatusInfo3.setVisibility(txtMidStatusInfo3VisibilityWillPayLumpSum);
                         holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_lump_sump_status_info);
-                     break;
+
+                        break;
+
                     case "UPDATE":
                          holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
                          holder.binding.txtMidStatusInfo3.setText(R.string.update);
