@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.test.R;
 import com.example.test.databinding.ItemRadioButtonBinding;
 import com.example.test.fragment_visits_flow.Visit_NPA_NotAvailableActivity;
+import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
 import com.example.test.npa_flow.SubmitCompletionActivityOfCustomer;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 
@@ -64,10 +65,10 @@ public class RadioButtonsCloseVisitAdapter extends RecyclerView.Adapter<RadioBut
                     selectedPosition = holder.getAdapterPosition();
                     notifyDataSetChanged();
                     Visit_NPA_NotAvailableActivity.isRadioButtonSelected = true;
-                    DetailsOfCustomerActivity.send_reason = a.getDescription();
+                    VisitsFlowCallDetailsActivity.send_reason = a.getDescription();
 
-                    Visit_NPA_NotAvailableActivity visit_npa_notAvailableActivity = new Visit_NPA_NotAvailableActivity();
-                    visit_npa_notAvailableActivity.showDialogCloseAccount(buttonView.getContext());
+                    Visit_NPA_NotAvailableActivity visit_npa_notAvailableActivity = (Visit_NPA_NotAvailableActivity) context;
+                    visit_npa_notAvailableActivity.showDialogCloseAccount();
 
                 }
 
@@ -76,7 +77,7 @@ public class RadioButtonsCloseVisitAdapter extends RecyclerView.Adapter<RadioBut
                     selectedPosition = holder.getAdapterPosition();
                     notifyDataSetChanged();
                     Visit_NPA_NotAvailableActivity.isRadioButtonSelected = true;
-                    DetailsOfCustomerActivity.send_reason = a.getDescription();
+                    VisitsFlowCallDetailsActivity.send_reason = a.getDescription();
                 }
 
             }
