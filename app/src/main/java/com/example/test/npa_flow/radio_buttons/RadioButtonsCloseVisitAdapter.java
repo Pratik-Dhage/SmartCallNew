@@ -30,7 +30,7 @@ public class RadioButtonsCloseVisitAdapter extends RecyclerView.Adapter<RadioBut
     ArrayList<RadioButtonReasons> radioButtonReasonsArrayList;
 
     private int selectedPosition = -1; // Initialize with an invalid position
-
+    public static int closeVisitReasonGenericId = -1; // initial value will be invalid
 
     public RadioButtonsCloseVisitAdapter(ArrayList<RadioButtonReasons> radioButtonReasonsArrayList) {
         this.radioButtonReasonsArrayList = radioButtonReasonsArrayList;
@@ -59,25 +59,45 @@ public class RadioButtonsCloseVisitAdapter extends RecyclerView.Adapter<RadioBut
         // Set an OnCheckedChangeListener for the radio button
         holder.binding.radioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-            if( a.getDescription()!=null && isChecked){
+            if( a.getDescription()!=null && a.getGenericId()!=null &&  isChecked){
 
-                if (((a.getDescription().equals("No Outstanding Dues") || a.getDescription().equals("Customer Relocated")))) {
+              //  No Outstanding Dues -> genericId = 16
+             //  Customer Relocated -> genericId = 18
+            // Payment Already Made -> genericId - 19
+            // Others -> genericId - 20
+
+                closeVisitReasonGenericId = a.getGenericId();
+
+                //For - No Outstanding Dues & Customer Relocated
+                if (((a.getGenericId().equals(16) || a.getGenericId().equals(18)))) {
                     selectedPosition = holder.getAdapterPosition();
                     notifyDataSetChanged();
                     Visit_NPA_NotAvailableActivity.isRadioButtonSelected = true;
                     VisitsFlowCallDetailsActivity.send_reason = a.getDescription();
-
                     Visit_NPA_NotAvailableActivity visit_npa_notAvailableActivity = (Visit_NPA_NotAvailableActivity) context;
                     visit_npa_notAvailableActivity.showDialogCloseAccount();
 
                 }
 
-                //if other Options are checked
-                else{
+                //For - Others
+                if (a.getGenericId().equals(20)){
+                    selectedPosition = holder.getAdapterPosition();
+                    notifyDataSetChanged();
+                    Visit_NPA_NotAvailableActivity.isRadioButtonSelected = true;
+                    Visit_NPA_NotAvailableActivity visit_npa_notAvailableActivity = (Visit_NPA_NotAvailableActivity) context;
+                    visit_npa_notAvailableActivity.showOthersDialog();
+
+                }
+
+                //For - Payment Already Made
+                if(a.getGenericId().equals(19)){
                     selectedPosition = holder.getAdapterPosition();
                     notifyDataSetChanged();
                     Visit_NPA_NotAvailableActivity.isRadioButtonSelected = true;
                     VisitsFlowCallDetailsActivity.send_reason = a.getDescription();
+                    Visit_NPA_NotAvailableActivity visit_npa_notAvailableActivity = (Visit_NPA_NotAvailableActivity) context;
+                    visit_npa_notAvailableActivity.showUploadReceiptDialog(context);
+
                 }
 
             }
