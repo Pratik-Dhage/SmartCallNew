@@ -196,6 +196,9 @@ public  class WebServices {
 
     //4)Visit For The Day - Visit-NPA Status (Others)
     public static String visit_others = "activity/submitcall?flow=VTC-OTH";
+    public static String visit_othersScheduleCall = "activity/submitcall?flow=VTC-OTH-SC"; //Circular Flow-ScheduleCall
+    public static String visit_othersScheduleVisit = "activity/submitcall?flow=VTC-OTH-SV"; //Circular Flow-ScheduleVisit
+
 
     //*** Visit For The Day - Did Not Visit The Customer
 
