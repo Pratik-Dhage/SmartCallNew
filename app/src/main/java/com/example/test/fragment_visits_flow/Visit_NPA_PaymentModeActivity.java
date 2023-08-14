@@ -2,6 +2,7 @@ package com.example.test.fragment_visits_flow;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -436,6 +437,25 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+    // After Receipt is generated and User view it in PdfViewer App ,
+    // on back pressed in PdfViewer app navigate to PaymentModeStatusActivity
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        System.out.println("onSaveInstanceState navigateToPaymentModeStatusActivity:"+navigateToPaymentModeStatusActivity);
+        if(navigateToPaymentModeStatusActivity){
+               outState.putBoolean("navigateToPaymentModeStatusActivity",true);
+        }
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        System.out.println("onRestoreInstanceState navigateToPaymentModeStatusActivity:"+navigateToPaymentModeStatusActivity);
+      //  navigateToPaymentModeStatusActivity = true;
+        navigateToPaymentModeStatusActivity =  savedInstanceState.getBoolean("navigateToPaymentModeStatusActivity",true);
+    }
 
 
     // For Getting Calculated Balance Interest Result back from SharedPreference
