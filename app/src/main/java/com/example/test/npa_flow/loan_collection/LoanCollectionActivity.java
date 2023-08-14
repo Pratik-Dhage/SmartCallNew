@@ -36,6 +36,7 @@ import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.NearByCustomersActivity;
 import com.example.test.npa_flow.VisitCompletionOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
@@ -110,7 +111,19 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         //Whenever List is Loaded Make Notes Empty in SharedPreferences
         Global.saveStringInSharedPref(this, "notes", ""); //make Notes Empty After Complete
-        DetailsOfCustomerActivity.send_callNotes = null; //Notes initial value as null
+
+        //Initial Values to be null Whenever List is loaded
+        DetailsOfCustomerActivity.send_callNotes = null;
+        DetailsOfCustomerActivity.send_RelativeName = null;
+        Global.saveStringInSharedPref(this,"relativeName",""); //empty relativeName
+        DetailsOfCustomerActivity.send_RelativeContact = null;
+        Global.saveStringInSharedPref(this,"relativeContact",""); //emptyRelativeContact
+        DetailsOfCustomerActivity.send_FoName = null;
+        Global.saveStringInSharedPref(this,"foName",""); //empty foName
+        DetailsOfCustomerActivity.send_DateOfVisitPromised = null;
+        Global.saveStringInSharedPref(this,"dateOfVisitPromised",""); //empty dateOfVisitPromised
+        DetailsOfCustomerActivity.send_callScheduledTime = null;
+        DetailsOfCustomerActivity.send_reason = null;
 
         setToolbarTitle();
 
@@ -123,6 +136,7 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         GoogleMapsActivity.isSaveButtonClicked = false; // Only true if User clicks Yes OR Save button to save Location (Distance in Km)
 
+        NearByCustomersActivity.backToMemberList = 1; //for NPA Flow
     }
 
     private void setToolbarTitle() {
