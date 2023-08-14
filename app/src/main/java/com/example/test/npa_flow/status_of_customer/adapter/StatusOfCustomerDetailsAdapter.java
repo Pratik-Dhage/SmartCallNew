@@ -377,6 +377,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
 
             List<String> stepList = new ArrayList<>(Arrays.asList(flowSteps));  // Create a list from the array
 
+            int position = 0;
             for (String step : stepList)
             {
                 switch (step){
@@ -425,15 +426,15 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     case "OTH":
                     case "O":
                         // OTH used in 2nd and 3rd flow
-                        holder.binding.txtMidStatusInfo1.setText(R.string.others);
-                        //if flow=STTC-OTH then Hide txtMidStatusInfo2 cause it will also display Others
-                        //to avoid displaying Others twice(2nd & 3rd row)
-                        if(holder.binding.txtMidStatusInfo1.getText().equals("Others")){
-                            holder.binding.txtMidStatusInfo2.setVisibility(View.GONE);
-                        }
 
-                        // display Others for 3rd row as in flow
-                        else{
+                        if (position == 1) //OTH in 2nd position (STTC-OTH)
+                        {
+                            holder.binding.txtMidStatusInfo1.setText(R.string.others);
+                            // For the 2nd position, hide txtMidStatusInfo2 to avoid displaying Others twice(2nd & 3rd row)
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.GONE);
+                        } else if (position == 2) //OTH in 3rd position (STTC-NRTP-OTH)
+                        {
+                            // For the 3rd position, display Others in txtMidStatusInfo2
                             holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo2.setText(R.string.others);
                         }
@@ -561,7 +562,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         break;
 
                 }
-
+                 position++; //for OTH
             }
 
 
