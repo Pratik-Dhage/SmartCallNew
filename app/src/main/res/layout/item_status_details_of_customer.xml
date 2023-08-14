@@ -139,44 +139,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <!--5)Schedule A Call / Schedule A Visit-->
-        <TextView
-            android:id="@+id/txtScheduleACall_ScheduleAVisit"
-            app:layout_constraintTop_toBottomOf="@id/txtMidStatusInfo3"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/black"
-            android:textStyle="normal"
-            android:layout_marginStart="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:textSize="@dimen/_11ssp"
-            android:visibility="gone"
-            tools:text="Schedule A Call / Schedule A Visit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
-
-        <!--6)ScheduleDateTime-->
-        <TextView
-            android:id="@+id/txtScheduleDateStatusInfo"
-            app:layout_constraintTop_toBottomOf="@id/txtScheduleACall_ScheduleAVisit"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/black"
-            android:textStyle="normal"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:visibility="gone"
-            android:layout_marginStart="@dimen/_5sdp"
-            android:textSize="@dimen/_11ssp"
-            tools:text="Schedule Date: 07-06-2023"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-       <!-- Only for Cash/Cheque Flow-->
+       <!--5) Only for Cash/Cheque Flow AmountCollected-->
         <TextView
             android:id="@+id/txtAmountCollected"
             tools:text="2000"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_3sdp"
-            app:layout_constraintTop_toBottomOf="@+id/txtScheduleDateStatusInfo"
+            app:layout_constraintTop_toBottomOf="@+id/txtMidStatusInfo3"
             app:layout_constraintStart_toStartOf="parent"
             android:visibility="gone"
             android:textColor="@color/black"
@@ -185,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!--Only for ChequeFlow-->
+        <!--6)Only for ChequeFlow-->
         <TextView
             android:id="@+id/txtBankName"
             tools:text="BankName"
@@ -200,7 +170,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!--Only for ChequeFlow-->
+        <!--7)Only for ChequeFlow-->
         <TextView
             android:id="@+id/txtChequeNumber"
             tools:text="123456"
@@ -215,7 +185,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!--Only for ChequeFlow-->
+        <!--8)Only for ChequeFlow-->
         <TextView
             android:id="@+id/txtChequeDate"
             tools:text="26/07/2023"
@@ -230,7 +200,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!--Only for LTBR(LoanTakenByRelative) flow-->
+        <!--9)Only for LTBR(LoanTakenByRelative) flow-->
         <TextView
             android:id="@+id/txtRelativeName"
             tools:text="RelativeName"
@@ -245,7 +215,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!--Only for LTBR(LoanTakenByRelative) flow-->
+        <!--10)Only for LTBR(LoanTakenByRelative) flow-->
         <TextView
             android:id="@+id/txtRelativeContact"
             tools:text="RelativeName"
@@ -260,7 +230,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!--Only FNV(FO Not Visited) flow-->
+        <!--11)Only FNV(FO Not Visited) flow-->
         <TextView
             android:id="@+id/txtFOName"
             tools:text="RelativeName"
@@ -275,7 +245,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!--Only FNV(FO Not Visited) flow-->
+        <!--12)Only FNV(FO Not Visited) flow-->
         <TextView
             android:id="@+id/txtDateOfVisitPromised"
             tools:text="RelativeName"
@@ -291,7 +261,7 @@
             android:layout_height="wrap_content"/>
 
 
-        <!--For All flows having Others with reason-->
+        <!--13)For All flows having Others with reason-->
         <TextView
             android:id="@+id/txtReasonOthers"
             tools:text="RelativeName"
@@ -306,12 +276,46 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+
+        <!--14)Schedule A Call / Schedule A Visit-->
+        <TextView
+            android:id="@+id/txtScheduleACall_ScheduleAVisit"
+            app:layout_constraintTop_toBottomOf="@id/txtReasonOthers"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:textSize="@dimen/_11ssp"
+            android:visibility="gone"
+            tools:text="Schedule A Call / Schedule A Visit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <!--15)ScheduleDateTime-->
+        <TextView
+            android:id="@+id/txtScheduleDateStatusInfo"
+            app:layout_constraintTop_toBottomOf="@id/txtScheduleACall_ScheduleAVisit"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:textSize="@dimen/_11ssp"
+            tools:text="Schedule Date: 07-06-2023"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+       <!--16)Notes Label-->
         <TextView
             android:id="@+id/labelNotes"
             android:text="@string/notes"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_3sdp"
-            app:layout_constraintTop_toBottomOf="@+id/txtReasonOthers"
+            app:layout_constraintTop_toBottomOf="@+id/txtScheduleDateStatusInfo"
             app:layout_constraintStart_toStartOf="parent"
             android:visibility="gone"
             android:textColor="@color/black"
@@ -320,6 +324,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <!--17)Notes Text-->
         <TextView
             android:id="@+id/txtNotes"
             tools:text="Customer was not at Home"
