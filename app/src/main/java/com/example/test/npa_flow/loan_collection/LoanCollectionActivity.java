@@ -31,6 +31,7 @@ import android.view.View;
 
 import com.example.test.R;
 import com.example.test.databinding.ActivityLoanCollectionBinding;
+import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
 import com.example.test.google_maps.GoogleMapsActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
@@ -107,8 +108,9 @@ public class LoanCollectionActivity extends AppCompatActivity {
 
         Global.removeStringInSharedPref(this, "formattedDistanceInKm");
 
-        //Whenever List is Loaded Make Notes Empty
+        //Whenever List is Loaded Make Notes Empty in SharedPreferences
         Global.saveStringInSharedPref(this, "notes", ""); //make Notes Empty After Complete
+        DetailsOfCustomerActivity.send_callNotes = null; //Notes initial value as null
 
         setToolbarTitle();
 
