@@ -75,11 +75,11 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
     public static String send_callNotes;
     public static int send_callAttemptNo;
     public static String send_reason;
-    public  String send_callScheduledTime  ;
-    public  String send_DateOfVisitPromised;
-    public  String send_FoName;
-    public  String send_RelativeName;
-    public  String send_RelativeContact;
+    public static String send_callScheduledTime  ;
+    public static String send_DateOfVisitPromised;
+    public static String send_FoName;
+    public static  String send_RelativeName;
+    public static String send_RelativeContact;
     public static String visits_FirstName , visits_MobileNumber;
     public static ConstraintLayout constraintLayoutSecondHalf;
 
@@ -242,7 +242,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
         send_callScheduledTime = scheduleVisitForCollection_dateTime;
 
         if(send_callScheduledTime!=null ){
-           // callDetails.setScheduledCallDateTime(send_callScheduledTime); // for Will Pay Later flow
+            callDetails.setScheduledCallDateTime(send_callScheduledTime); // for Circular flow
         }
 
         if (send_callDuration != null) {
@@ -349,7 +349,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
 
                         if (lowercase_label.contains("mobile") || lowercase_label.contains("phone")) {
 
-                               if(null!=it.getValue()){
+                               if(null!=it.getValue() && !it.getValue().toString().isEmpty() && !it.getValue().toString().equals("0")){
                                    Mobile_Number = String.valueOf(it.getValue()); //store mobile_no
                                    System.out.println("Here Mobile Number: "+Mobile_Number);
                                }
