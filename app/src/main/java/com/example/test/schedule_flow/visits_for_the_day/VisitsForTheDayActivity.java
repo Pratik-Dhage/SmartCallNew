@@ -17,6 +17,7 @@ import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.NearByCustomersActivity;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.npa_flow.status_of_customer.adapter.StatusOfCustomerDetailsAdapter;
 import com.example.test.roomDB.dao.MPinDao;
@@ -78,7 +79,7 @@ public class VisitsForTheDayActivity extends AppCompatActivity {
         System.out.println("Here VisitsForTheDay initializeFields() UserID:"+MainActivity3API.UserID);
         System.out.println("Here VisitsForTheDay initializeFields() BranchCode:"+MainActivity3API.BranchCode);
 
-
+        NearByCustomersActivity.backToMemberList = 3; //for VisitsForTheDayFlow
     }
 
     private void callVisitsForTheDayAPi() {

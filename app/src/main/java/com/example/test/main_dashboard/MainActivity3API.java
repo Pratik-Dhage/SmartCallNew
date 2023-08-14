@@ -26,6 +26,7 @@ import com.example.test.login.LoginActivity;
 import com.example.test.login.LoginWithMPinActivity;
 import com.example.test.main_dashboard.adapter.MainDashBoardAdapter;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
+import com.example.test.npa_flow.NearByCustomersActivity;
 import com.example.test.npa_flow.loan_collection.LoanCollectionActivity;
 import com.example.test.npa_flow.nearby_customer.NearByCustomerListAdapter;
 import com.example.test.roomDB.dao.MPinDao;
@@ -101,6 +102,7 @@ public class MainActivity3API extends AppCompatActivity {
 
         GoogleMapsActivity.isSaveButtonClicked = false; // only true when Save OR yes button is clicked in GoogleMaps Activity
 
+        NearByCustomersActivity.backToMemberList = 0; //initial Value
        // Global.saveStringInSharedPref(this,"isFromCallsForTheDayAdapter",null); //to reset the Flows
        // CallsForTheDayAdapter.isFromCallsForTheDayAdapter=null ; // for Navigate Button to be Only visible in NPA/ VisitsForTheDayFlow
        // System.out.println("Here MainActivity3Api isFromCallsForTheDayAdapter "+ CallsForTheDayAdapter.isFromCallsForTheDayAdapter);

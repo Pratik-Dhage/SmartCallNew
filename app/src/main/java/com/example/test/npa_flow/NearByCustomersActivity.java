@@ -33,6 +33,7 @@ public class NearByCustomersActivity extends AppCompatActivity {
     ActivityNearByCustomersBinding binding;
     View view;
     NearByCustomerViewModel nearByCustomerViewModel;
+    public static int backToMemberList = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,26 +67,8 @@ public class NearByCustomersActivity extends AppCompatActivity {
 
         binding.btnBackToMemberList.setOnClickListener(v->{
 
-            //Coming from NearByCustomerListActivity
-            if( NearByCustomerListAdapter.isFromNearByCustomerAdapter){
-                Intent i = new Intent(this, NearByCustomerListActivity.class);
-                startActivity(i);
-            }
-
-            //Coming From VisitsForTheDay coz Call Icon Only visible in VisitsForTheDay flow
-          else if(MainActivity3API.showCallIcon){
-                Intent i = new Intent(this, VisitsForTheDayActivity.class);
-                startActivity(i);
-            }
-
-            //Coming from CallsForTheDay flow
-         else if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null){
-                Intent i = new Intent(this, CallsForTheDayActivity.class);
-                startActivity(i);
-            }
-
             //Coming from LoanCollection List (NPA flow)
-         else if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter==null) {
+          if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter==null || backToMemberList==1) {
                 Intent i = new Intent(new Intent(this, LoanCollectionActivity.class));
                 int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this,"DPD_row_position"));
                 i.putExtra("DPD_row_position",DPD_row_position);
@@ -93,7 +76,23 @@ public class NearByCustomersActivity extends AppCompatActivity {
                 startActivity(i);
             }
 
+            //Coming from CallsForTheDay flow
+            else if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null || backToMemberList==2){
+                Intent i = new Intent(this, CallsForTheDayActivity.class);
+                startActivity(i);
+            }
 
+          //Coming From VisitsForTheDay coz Call Icon Only visible in VisitsForTheDay flow
+          else if(MainActivity3API.showCallIcon || backToMemberList==3){
+              Intent i = new Intent(this, VisitsForTheDayActivity.class);
+              startActivity(i);
+          }
+
+            //Coming from NearByCustomerListActivity
+           else if( NearByCustomerListAdapter.isFromNearByCustomerAdapter || backToMemberList==4){
+                Intent i = new Intent(this, NearByCustomerListActivity.class);
+                startActivity(i);
+            }
 
         });
 

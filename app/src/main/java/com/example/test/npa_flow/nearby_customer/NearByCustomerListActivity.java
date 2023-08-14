@@ -20,6 +20,7 @@ import com.example.test.databinding.ActivityNearByCustomersBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.NearByCustomersActivity;
 
 public class NearByCustomerListActivity extends AppCompatActivity {
 
@@ -49,6 +50,8 @@ public class NearByCustomerListActivity extends AppCompatActivity {
         view = binding.getRoot();
         nearByCustomerViewModel = new ViewModelProvider(this).get(NearByCustomerViewModel.class);
         currentLocation = Global.getDeviceLocation(this);
+
+        NearByCustomersActivity.backToMemberList = 4; //for NearByCustomerListFlow
     }
 
     private void callNearByCustomerApi(){

@@ -14,6 +14,7 @@ import com.example.test.databinding.ActivityCallsForTheDayBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
+import com.example.test.npa_flow.NearByCustomersActivity;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
@@ -67,8 +68,8 @@ public class CallsForTheDayActivity extends AppCompatActivity {
         System.out.println("Here CallsForTheDay initializeFields() UserID:"+MainActivity3API.UserID);
         System.out.println("Here CallsForTheDay initializeFields() BranchCode:"+MainActivity3API.BranchCode);
 
-
-    }
+        NearByCustomersActivity.backToMemberList = 2; // for CallsForTheDayFlow
+     }
 
 
     private void callCallForTheDayApi() {
