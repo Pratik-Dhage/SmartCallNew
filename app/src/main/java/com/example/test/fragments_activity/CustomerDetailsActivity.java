@@ -20,17 +20,21 @@ import android.widget.ImageView;
 import com.example.test.R;
 import com.example.test.databinding.ActivityCustomerDetailsBinding;
 import com.example.test.databinding.ActivityPaymentInfoOfCustomerBinding;
+import com.example.test.fragment_visits_flow.Visit_NPA_NotAvailableActivity;
 import com.example.test.fragment_visits_flow.Visit_NPA_RescheduledActivity;
 import com.example.test.fragment_visits_flow.Visit_NPA_StatusActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseModel;
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
+
+import java.util.ArrayList;
 
 public class CustomerDetailsActivity extends AppCompatActivity {
 
@@ -39,6 +43,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     ActivityCustomerDetailsBinding binding;
     View view;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
+    ArrayList<DetailsOfCustomerResponseModel> detailsList;
 
     // for getting User LatLong on clicking Start Visit , initial values will be 0.0
     double userLatitude = 0.0;
@@ -91,6 +96,8 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             detailsOfCustomerViewModel.getMutDetailsOfCustomer_ResponseApi().observe(this,result->{
 
                 if(result!=null) {
+
+                    detailsList = (ArrayList<DetailsOfCustomerResponseModel>) result; //pass to Visit_NPA_NotAvailableActivity
 
                     //for Hiding Amount Paid ONLY in Details Of Customer Activity and Customer Details Activity
                     result.iterator().forEachRemaining(it->{
@@ -159,9 +166,10 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         });
 
       binding.btnDidNotVisitTheCustomer.setOnClickListener(v->{
-          Intent i = new Intent(CustomerDetailsActivity.this, Visit_NPA_RescheduledActivity.class);
-          String dataSetId = getIntent().getStringExtra("dataSetId");
-          i.putExtra("dataSetId",dataSetId);
+
+          Intent i = new Intent(this, Visit_NPA_NotAvailableActivity.class);
+          i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+          i.putExtra("detailsList",detailsList);
           startActivity(i);
 
       });
