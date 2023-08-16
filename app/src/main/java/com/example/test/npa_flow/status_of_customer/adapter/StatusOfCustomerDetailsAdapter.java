@@ -92,7 +92,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                 //BankName
                if(null!= a.getBankName() && !a.getBankName().isEmpty()){
                    holder.binding.txtBankName.setVisibility(View.VISIBLE);
-                   holder.binding.txtBankName.setText(a.getBankName());
+                   holder.binding.txtBankName.setText("BankName: "+a.getBankName());
                }
 
                //ChequeNumber
@@ -398,6 +398,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
 
                     //2)Ready To Pay / Not Ready To Pay / Asked To Call Back Later / Visit Reschedule / Physical Visit Required
                     // Others / Invalid Number / Asked To Visit Later / NoResponseBusy / NotReachableSwitchedOff
+                    // / Customer Not Available / Late For Visit / Others
 
                     case "NRTP":
                         holder.binding.txtMidStatusInfo1.setText(R.string.not_ready_to_pay_status_info);
@@ -423,9 +424,18 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     case "VR":
                         holder.binding.txtMidStatusInfo1.setText(R.string.visit_rescheduled);
                         break;
+                    case "CNA":
+                        holder.binding.txtMidStatusInfo1.setText(R.string.customer_not_available);
+                        break;
+                    case "LFV":
+                        holder.binding.txtMidStatusInfo1.setText(R.string.late_for_visit);
+                        break;
                     case "OTH":
                     case "O":
-                        // OTH used in 2nd and 3rd flow
+                        holder.binding.txtMidStatusInfo1.setText(R.string.others);
+
+
+                        /*// OTH used in 2nd and 3rd flow
 
                         if (position == 1) //OTH in 2nd position (STTC-OTH)
                         {
@@ -437,7 +447,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                             // For the 3rd position, display Others in txtMidStatusInfo2
                             holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                             holder.binding.txtMidStatusInfo2.setText(R.string.others);
-                        }
+                        }*/
 
                         break;
                     case "INV" :
@@ -447,9 +457,8 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     //3)Send(Schedule) Visit For Collection / Send Link For Online Payment
                     // / FO Not Visited / Loan taken By Relative / Already Paid / Will Pay later
                     //Cash Amount Paid / Cheque Payment
-                    // / Customer Not Available / Late For Visit / Others(managed in 2nd flow)
                     //Lack Of Funds/ PaymentAlreadyMade / Not Taken Loan / Will Pay LumpSum(managed in 4th flow)
-                    //Need To Close Visit
+                    //Need To Close Visit / Submit
 
                     case "SVFC":
                         holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
@@ -490,15 +499,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_later_status_info);
 
                         break;
-                    case "CNA":
-                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
-                        holder.binding.txtMidStatusInfo2.setText(R.string.customer_not_available);
-                        break;
-                    case "LFV":
-                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
-                        holder.binding.txtMidStatusInfo2.setText(R.string.late_for_visit);
-                        break;
-                    case "NTL":
+                        case "NTL":
                         holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                         holder.binding.txtMidStatusInfo2.setText(R.string.not_taken_loan);
                         break;
@@ -515,7 +516,10 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                         holder.binding.txtMidStatusInfo2.setText(R.string.need_to_close_visit_statusInfo);
                         break;
-
+                    case "SU":
+                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                        holder.binding.txtMidStatusInfo2.setText(R.string.submit);
+                     break;
                         //4)Full Amt. Paid /Partial Amt. Paid/ Wil Pay Later(managed in 3rdFlow) / Will Pay Lump sump / Update / Update Schedule / Skip & Proceed
                     case "FAP":
                         holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);

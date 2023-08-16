@@ -276,6 +276,7 @@
     <string name="visit_npa_reschedule">Visit - NPA Reschedule</string>
     <string name="visit_rescheduled_space">\u00A0\u00A0\u00A0\u00A0Visit Rescheduled\u00A0\u00A0\u00A0\u00A0</string>
     <string name="visit_rescheduled">Visit Rescheduled</string>
+    <string name="reschedule_visit">Reschedule Visit</string>
     <string name="others_space">\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0Others\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0</string>
     <string name="visit_npa_notavailable">Visit - NPA Not Available</string>
     <string name="customer_not_available">Customer Not Available</string>
