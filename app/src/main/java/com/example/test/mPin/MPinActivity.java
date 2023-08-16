@@ -30,6 +30,8 @@ import com.example.test.success.SuccessActivity;
 
 import java.util.Objects;
 
+import in.aabhasjindal.otptextview.OTPListener;
+
 public class MPinActivity extends AppCompatActivity {
 
     ActivityMpinBinding binding;
@@ -44,6 +46,7 @@ public class MPinActivity extends AppCompatActivity {
 
         initializeFields();
         onClickListener();
+        otpInteractionListener();
     }
 
     private void initializeFields() {
@@ -106,14 +109,50 @@ public class MPinActivity extends AppCompatActivity {
     }
 
 
+    private void otpInteractionListener(){
+
+        //for Set New MPin
+        binding.setMpinView.setOtpListener(new OTPListener() {
+            @Override
+            public void onInteractionListener() {
+                binding.txtErrorPIN.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onOTPComplete(String otp) {
+            }
+        });
+
+        //for ReEnter MpPin
+        binding.reEnterMpinView.setOtpListener(new OTPListener() {
+            @Override
+            public void onInteractionListener() {
+            binding.txtErrorPIN.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onOTPComplete(String otp) {
+            }
+        });
+
+    }
+
     private boolean validation() {
 
-        //means if Set New mPin != Re_enter Pin with Null safety
-        if (!Objects.equals(binding.setMpinView.getOTP(), binding.reEnterMpinView.getOTP())) {
+        //if Pin digits are less than 4
+        if(binding.setMpinView.getOTP().length()< 4 || binding.reEnterMpinView.getOTP().length()< 4 ){
             binding.txtErrorPIN.setVisibility(View.VISIBLE);
+            binding.txtErrorPIN.setText(R.string.pin_must_be_4digits);
             return false;
         }
 
+        //means if Set New mPin != Re_enter Pin with Null safety and if Both have length==4
+      else  if (!Objects.equals(binding.setMpinView.getOTP(), binding.reEnterMpinView.getOTP()) &&
+                (binding.setMpinView.getOTP().length()== 4) && (binding.reEnterMpinView.getOTP().length()==4)) {
+            binding.txtErrorPIN.setVisibility(View.VISIBLE);
+            binding.txtErrorPIN.setText(R.string.pin_does_not_matching);
+            return false;
+        }
 
         return true;
     }
