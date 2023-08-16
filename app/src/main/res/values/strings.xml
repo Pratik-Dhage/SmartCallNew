@@ -265,9 +265,9 @@
     <string name="visit_npa_payment_mode">Visit - NPA Payment Mode</string>
     <string name="not_visited_the_customer">Did Not Visit The Customer</string>
     <string name="please_enter_cheque_date">Please Enter Cheque Date</string>
-    <string name="please_enter_cheque_no">Please Enter Cheque No.(6 digits)</string>
+    <string name="please_enter_cheque_no">Please Enter Cheque No.</string>
     <string name="please_enter_bank_name">Please Enter Bank Name</string>
-    <string name="please_enter_ifsc_code">Please Enter IFSC Code (11 digits)</string>
+    <string name="please_enter_ifsc_code">Please Enter IFSC Code</string>
     <string name="generate_receipt">Generate Receipt</string>
     <string name="visit_npa_notification">Visit - NPA Notification</string>
     <string name="lack_of_funds">Lack Of Funds</string>
