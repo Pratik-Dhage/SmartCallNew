@@ -208,13 +208,13 @@
 
 
             <Button
-                android:id="@+id/btnVisitRescheduled"
+                android:id="@+id/btnRescheduleVisit"
                 style="@style/CustomButtonStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_150sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:backgroundTint="@color/green"
-                android:text="@string/visit_rescheduled_space"
+                android:backgroundTint="@color/red"
+                android:text="@string/reschedule_visit"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -222,30 +222,31 @@
 
 
             <Button
-                android:id="@+id/btnPaymentAlreadyMade"
+                android:id="@+id/btnScheduleCall"
                 style="@style/CustomButtonStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_150sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:backgroundTint="@color/red"
-                android:text="@string/payment_already_made"
+                android:backgroundTint="@color/brightOrange"
+                android:text="@string/schedule_call"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnVisitRescheduled" />
+                app:layout_constraintTop_toBottomOf="@id/btnRescheduleVisit" />
 
             <Button
-                android:id="@+id/btnOthers"
+                android:id="@+id/btnSubmit"
                 style="@style/CustomButtonStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_150sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:backgroundTint="@color/grey"
-                android:text="@string/others_space"
+                android:backgroundTint="@color/green"
+                android:text="@string/submit"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnPaymentAlreadyMade" />
+                app:layout_constraintTop_toBottomOf="@id/btnScheduleCall" />
+
 
 
 
