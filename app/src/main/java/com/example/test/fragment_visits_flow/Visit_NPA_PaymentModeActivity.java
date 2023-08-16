@@ -431,7 +431,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                 }, year, month, dayOfMonth);
 
         // Set the minimum and maximum dates allowed
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+       // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000); //allow BackDates for ChequePayment
       //  datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + (1000*60*60*24*7));
 
         datePickerDialog.show();
