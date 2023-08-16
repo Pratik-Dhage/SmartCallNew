@@ -246,7 +246,7 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
 
         binding.btnCustomerNotAvailable.setOnClickListener(v -> {
 
-            Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+            Intent i = new Intent(this, Visit_NPA_RescheduledActivity.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("detailsList", detailsList);
             i.putExtra("isFromVisitNPANotAvailableActivity", "isFromVisitNPANotAvailableActivity");
@@ -315,7 +315,7 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
                 else{
                     VisitsFlowCallDetailsActivity.send_reason = edtPleaseSpecify.getText().toString().trim(); // send reason to Server
 
-                    Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                    Intent i = new Intent(this, Visit_NPA_RescheduledActivity.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                     i.putExtra("detailsList", detailsList);
                     i.putExtra("isFromVisitNPANotAvailableActivity", "isFromVisitNPANotAvailableActivity");
@@ -366,7 +366,7 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
                 else{
                     VisitsFlowCallDetailsActivity.send_reason = edtPleaseSpecify.getText().toString().trim();
 
-                    Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                    Intent i = new Intent(this, Visit_NPA_RescheduledActivity.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                     i.putExtra("detailsList", detailsList);
                     i.putExtra("isFromVisitNPANotAvailableActivity", "isFromVisitNPANotAvailableActivity");
