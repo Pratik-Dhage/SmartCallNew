@@ -15,6 +15,7 @@ import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.npa_flow.NearByCustomersActivity;
+import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerActivity;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
@@ -55,6 +56,19 @@ public class CallsForTheDayActivity extends AppCompatActivity {
 
         //Whenever List is Loaded remove previously stored formattedDistanceInKm
         Global.removeStringInSharedPref(this, "formattedDistanceInKm");
+
+        //Initial Values to be null Whenever List is loaded
+        DetailsOfCustomerActivity.send_callNotes = null;
+        DetailsOfCustomerActivity.send_RelativeName = null;
+        Global.saveStringInSharedPref(this,"relativeName",""); //empty relativeName
+        DetailsOfCustomerActivity.send_RelativeContact = null;
+        Global.saveStringInSharedPref(this,"relativeContact",""); //emptyRelativeContact
+        DetailsOfCustomerActivity.send_FoName = null;
+        Global.saveStringInSharedPref(this,"foName",""); //empty foName
+        DetailsOfCustomerActivity.send_DateOfVisitPromised = null;
+        Global.saveStringInSharedPref(this,"dateOfVisitPromised",""); //empty dateOfVisitPromised
+        DetailsOfCustomerActivity.send_callScheduledTime = null;
+        DetailsOfCustomerActivity.send_reason = null;
 
         //Get UserIdD & BranchCode
         MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
