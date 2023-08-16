@@ -35,8 +35,24 @@ public class VisitsFlowViewModel extends ViewModel {
     VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
     List<CallDetails> callDetailsList = visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow();
 
+    //for Generate Receipt Number
+    private final MutableLiveData<Long> mutVisitsFlowReceiptNumberResponseApi = new MutableLiveData<>();
+    public MutableLiveData<Long> getMutVisitsFlowReceiptNumberResponseApi() {
+        return mutVisitsFlowReceiptNumberResponseApi;
+    }
 
-    public void postVisitsFlowCallDateTime(String ApiType,String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber) {
+   public void getReceiptNumber(String dataSetId){
+       subscribtion = (Disposable) Global.apiService().getReceiptNumberUsingDataSetId(WebServices.generateReceiptNumber+dataSetId)
+        .subscribeOn(Schedulers.io())
+               .observeOn(AndroidSchedulers.mainThread())
+               .unsubscribeOn(Schedulers.io())
+               .subscribe(
+                       this::onHomeApiSuccess, this::onApiError
+               );
+   }
+
+
+    public void postVisitsFlowCallDateTime(String ApiType, String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber) {
         subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber+"&reason=",callDetailsList)
                 .subscribeOn(Schedulers.io())
@@ -109,6 +125,11 @@ public class VisitsFlowViewModel extends ViewModel {
 
     private void onHomeApiSuccess(String result) {
         mutVisitsFlowCallDetailsResponseApi.setValue(result);
+    }
+
+    //for ReceiptNumber
+    private void onHomeApiSuccess(Long result) {
+        mutVisitsFlowReceiptNumberResponseApi.setValue(result);
     }
 
     private void onApiError(Throwable error) {

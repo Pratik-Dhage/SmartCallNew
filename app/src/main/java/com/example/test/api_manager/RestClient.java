@@ -158,4 +158,7 @@ public interface RestClient {
     //Get Distance
     @GET
     Observable<Double> getDistanceUsingApi(@Url String url);
+
+    @GET
+    Observable<Long> getReceiptNumberUsingDataSetId(@Url String url);
 }
