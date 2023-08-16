@@ -193,6 +193,8 @@ public  class WebServices {
 
     //3)Visit For The Day - Visit-NPA Status (Asked To Visit Later)
     public static String visit_asked_to_visit_later ="activity/submitcall?flow=VTC-ATVL";
+    public static String visit_asked_to_call_later ="activity/submitcall?flow=VTC-ATCL"; //Need To Call Later Button
+
 
     //4)Visit For The Day - Visit-NPA Status (Others)
     public static String visit_others = "activity/submitcall?flow=VTC-OTH";
@@ -202,17 +204,30 @@ public  class WebServices {
 
     //*** Visit For The Day - Did Not Visit The Customer
 
-    //Visits For The Day - (CustomerDetailsActivity / Visit - NPA Details) - Did Not Visit The Customer - Visit Rescheduled
-    //1) Customer Not Available ( Update Schedule , Skip & Proceed)
-    public static String visit_rescheduled_customer_not_available_update_schedule = "activity/submitcall?flow=DNVTC-VR-CNA-US";
-    public static String visit_rescheduled_customer_not_available_skip_and_proceed = "activity/submitcall?flow=DNVTC-VR-CNA-SNP";
+    //Visits For The Day - (CustomerDetailsActivity / Visit - NPA Details) - Did Not Visit The Customer
+    //1) Customer Not Available
+    public static String did_not_visit_customer_CustomerNotAvailable_ScheduleVisit="activity/submitcall?flow=DNVTC-CNA-SV";
+    public static String did_not_visit_customer_CustomerNotAvailable_ScheduleCall="activity/submitcall?flow=DNVTC-CNA-SC";
+    public static String did_not_visit_customer_CustomerNotAvailable_Submit="activity/submitcall?flow=DNVTC-CNA-SU";
 
-    //2)Late For Visit (Reason to send to backend) (Update Schedule , Skip & Proceed)
-    public static String visit_rescheduled_late_for_visit_update_schedule = "activity/submitcall?flow=DNVTC-VR-LFV-US";
-    public static String visit_rescheduled_late_for_visit_skip_and_proceed = "activity/submitcall?flow=DNVTC-VR-LFV-SNP";
+    public static String visit_rescheduled_customer_not_available_update_schedule = "activity/submitcall?flow=DNVTC-VR-CNA-US"; //not needed
+    public static String visit_rescheduled_customer_not_available_skip_and_proceed = "activity/submitcall?flow=DNVTC-VR-CNA-SNP";  //not needed
 
-     //3)Others(Reason to send to backend) (Update Schedule , Skip & Proceed)
-     public static String visit_rescheduled_others = "activity/submitcall?flow=DNVTC-VR-OTH";
+
+    //2)Late For Visit (Reason to send to backend)
+    public static String did_not_visit_customer_LateForVisit_ScheduleVisit="activity/submitcall?flow=DNVTC-LFV-SV";
+    public static String did_not_visit_customer_LateForVisit_ScheduleCall="activity/submitcall?flow=DNVTC-LFV-SC";
+    public static String did_not_visit_customer_LateForVisit_Submit="activity/submitcall?flow=DNVTC-LFV-SU";
+
+    public static String visit_rescheduled_late_for_visit_update_schedule = "activity/submitcall?flow=DNVTC-VR-LFV-US"; //not needed
+    public static String visit_rescheduled_late_for_visit_skip_and_proceed = "activity/submitcall?flow=DNVTC-VR-LFV-SNP";//not needed
+
+     //3)Others(Reason to send to backend)
+     public static String did_not_visit_customer_Others_ScheduleVisit="activity/submitcall?flow=DNVTC-OTH-SV";
+     public static String did_not_visit_customer_Others_ScheduleCall="activity/submitcall?flow=DNVTC-OTH-SC";
+     public static String did_not_visit_customer_Others_Submit="activity/submitcall?flow=DNVTC-OTH-SU";
+
+     public static String visit_rescheduled_others = "activity/submitcall?flow=DNVTC-VR-OTH"; //not needed
 
     //Visits For The Day - (CustomerDetailsActivity / Visit - NPA Details) - Did Not Visit The Customer - Payment Already Made
     public static String visit_did_not_visit_payment_already_made = "activity/submitcall?flow=DNVTC-PAM";
@@ -271,10 +286,13 @@ public  class WebServices {
   //http://45.114.143.87:8082/transactionDataSet/updateAlternateNumber?dataSetId=<datasetid for the record>&alternateNumber=<Alternate number>
     public static String saveAlternateNumber = "transactionDataSet/updateAlternateNumber?";
 
-// For Distance in GoogleMaps
+ // For Distance in GoogleMaps
     // http://45.114.143.87:8082/transactionDataSet/getDistance?oriLat=19.1644522&oriLon=73.0737986&destLat=19.1644522&destLon=73.0737986
     public static String getDistanceUsingDistanceMatrixApi="transactionDataSet/getDistance?";
 
+  //For Generating Receipt Number
+    //http://45.113.189.27:8082/ activity/generateReceiptNo?dataSetId=<Data Set Id>
+    public static String generateReceiptNumber = "activity/generateReceiptNo?dataSetId=";
 
     //*** Circular Flow ***
     // 1)COMPLETE - Schedule A Call
@@ -297,6 +315,12 @@ public  class WebServices {
    //**Did Not Visit The Customer
    public static String needToCloseVisitScheduleCall = "activity/submitcall?flow=DNVTC-VR-NTCV-SC";
 
+   //PaymentInfoOfCustomer 4ButtonsScheduleCall (FNV,NTL,LTBR,OTH)
+    public static String foNotVisited_PaymentInfo_ScheduleCall = "activity/submitcall?flow=STTC-NRTP-FNV-SC";
+    public static String notTakenLoan_PaymentInfo_ScheduleCall = "activity/submitcall?flow=STTC-NRTP-NTL-SC";
+    public static String loanTakenByRelative_PaymentInfo_ScheduleCall = "activity/submitcall?flow=STTC-NRTP-LTBR-SC";
+    public static String others_PaymentInfo_ScheduleCall = "activity/submitcall?flow=STTC-NRTP-OTH-SC";
+
     //4)SUBMIT - Schedule A Visit
     //** Visited The Customer
     public static String lackOfFundsScheduleVisit = "activity/submitcall?flow=VTC-NRTP-LOF-SV";
@@ -308,6 +332,12 @@ public  class WebServices {
 
     //**Did Not Visit The Customer
     public static String needToCloseVisitScheduleVisit = "activity/submitcall?flow=DNVTC-VR-NTCV-SV";
+
+    //PaymentInfoOfCustomer 4ButtonsScheduleVisit (FNV,NTL,LTBR,OTH)
+    public static String foNotVisited_PaymentInfo_ScheduleVisit = "activity/submitcall?flow=STTC-NRTP-FNV-SV";
+    public static String notTakenLoan_PaymentInfo_ScheduleVisit = "activity/submitcall?flow=STTC-NRTP-NTL-SV";
+    public static String loanTakenByRelative_PaymentInfo_ScheduleVisit = "activity/submitcall?flow=STTC-NRTP-LTBR-SV";
+    public static String others_PaymentInfo_ScheduleVisit = "activity/submitcall?flow=STTC-NRTP-OTH-SV";
 
 
     public static RestClient create() {
