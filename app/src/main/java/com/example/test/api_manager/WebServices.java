@@ -175,6 +175,8 @@ public  class WebServices {
 
     //FOR (PAYMENT NOTIFICATION OF CUSTOMER - STTC -OTH)
     public static String call_details_spoke_to_customer_others = "activity/submitcall?flow=STTC-OTH";
+    public static String call_details_spoke_to_customer_others_ScheduleCall ="activity/submitcall?flow=STTC-OTH-SC";
+    public static String call_details_spoke_to_customer_others_ScheduleVisit ="activity/submitcall?flow=STTC-OTH-SV";
 
   //*** Visit For The Day - Visited The Customer ***0
 
