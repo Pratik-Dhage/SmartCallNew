@@ -205,7 +205,7 @@ public  class WebServices {
     //*** Visit For The Day - Did Not Visit The Customer
 
     //Visits For The Day - (CustomerDetailsActivity / Visit - NPA Details) - Did Not Visit The Customer
-    //1) Customer Not Available
+    //1) Customer Not Available With CircularFlow
     public static String did_not_visit_customer_CustomerNotAvailable_ScheduleVisit="activity/submitcall?flow=DNVTC-CNA-SV";
     public static String did_not_visit_customer_CustomerNotAvailable_ScheduleCall="activity/submitcall?flow=DNVTC-CNA-SC";
     public static String did_not_visit_customer_CustomerNotAvailable_Submit="activity/submitcall?flow=DNVTC-CNA-SU";
@@ -214,7 +214,7 @@ public  class WebServices {
     public static String visit_rescheduled_customer_not_available_skip_and_proceed = "activity/submitcall?flow=DNVTC-VR-CNA-SNP";  //not needed
 
 
-    //2)Late For Visit (Reason to send to backend)
+    //2)Late For Visit (Reason to send to backend) With CircularFlow
     public static String did_not_visit_customer_LateForVisit_ScheduleVisit="activity/submitcall?flow=DNVTC-LFV-SV";
     public static String did_not_visit_customer_LateForVisit_ScheduleCall="activity/submitcall?flow=DNVTC-LFV-SC";
     public static String did_not_visit_customer_LateForVisit_Submit="activity/submitcall?flow=DNVTC-LFV-SU";
@@ -222,12 +222,17 @@ public  class WebServices {
     public static String visit_rescheduled_late_for_visit_update_schedule = "activity/submitcall?flow=DNVTC-VR-LFV-US"; //not needed
     public static String visit_rescheduled_late_for_visit_skip_and_proceed = "activity/submitcall?flow=DNVTC-VR-LFV-SNP";//not needed
 
-     //3)Others(Reason to send to backend)
+     //3)Others(Reason to send to backend) With CircularFlow
      public static String did_not_visit_customer_Others_ScheduleVisit="activity/submitcall?flow=DNVTC-OTH-SV";
      public static String did_not_visit_customer_Others_ScheduleCall="activity/submitcall?flow=DNVTC-OTH-SC";
      public static String did_not_visit_customer_Others_Submit="activity/submitcall?flow=DNVTC-OTH-SU";
 
      public static String visit_rescheduled_others = "activity/submitcall?flow=DNVTC-VR-OTH"; //not needed
+
+    //4)Need To Close Visit With CircularFlow
+    public static String needToCloseVisit ="activity/submitcall?flow=DNVTC-NTCV-SU"; //on Yes Click
+    public static String needToCloseVisitScheduleCall = "activity/submitcall?flow=DNVTC-NTCV-SC"; //on No Click
+    public static String needToCloseVisitScheduleVisit = "activity/submitcall?flow=DNVTC-NTCV-SV"; //on No
 
     //Visits For The Day - (CustomerDetailsActivity / Visit - NPA Details) - Did Not Visit The Customer - Payment Already Made
     public static String visit_did_not_visit_payment_already_made = "activity/submitcall?flow=DNVTC-PAM";
@@ -312,10 +317,9 @@ public  class WebServices {
    public static String willPayLumpSumScheduleCall = "activity/submitcall?flow=VTC-NRTP-WPLS-SC";
    public static String others_VisitNPANotificationScheduleCall = "activity/submitcall?flow=VTC-NRTP-OTH-SC";
 
-   //**Did Not Visit The Customer
-   public static String needToCloseVisitScheduleCall = "activity/submitcall?flow=DNVTC-VR-NTCV-SC";
 
-   //PaymentInfoOfCustomer 4ButtonsScheduleCall (FNV,NTL,LTBR,OTH)
+   //PaymentInfoOfCustomer 5ButtonsScheduleCall (AP,FNV,NTL,LTBR,OTH)
+    public static String alreadyPaid_PaymentInfo_ScheduleCall = "activity/submitcall?flow=STTC-NRTP-AP-SC";
     public static String foNotVisited_PaymentInfo_ScheduleCall = "activity/submitcall?flow=STTC-NRTP-FNV-SC";
     public static String notTakenLoan_PaymentInfo_ScheduleCall = "activity/submitcall?flow=STTC-NRTP-NTL-SC";
     public static String loanTakenByRelative_PaymentInfo_ScheduleCall = "activity/submitcall?flow=STTC-NRTP-LTBR-SC";
@@ -330,10 +334,9 @@ public  class WebServices {
     public static String willPayLumpSumScheduleVisit = "activity/submitcall?flow=VTC-NRTP-WPLS-SV";
     public static String others_VisitNPANotificationScheduleVisit = "activity/submitcall?flow=VTC-NRTP-OTH-SV";
 
-    //**Did Not Visit The Customer
-    public static String needToCloseVisitScheduleVisit = "activity/submitcall?flow=DNVTC-VR-NTCV-SV";
 
-    //PaymentInfoOfCustomer 4ButtonsScheduleVisit (FNV,NTL,LTBR,OTH)
+    //PaymentInfoOfCustomer 5ButtonsScheduleVisit (AP,FNV,NTL,LTBR,OTH)
+    public static String alreadyPaid_PaymentInfo_ScheduleVisit = "activity/submitcall?flow=STTC-NRTP-AP-SV";
     public static String foNotVisited_PaymentInfo_ScheduleVisit = "activity/submitcall?flow=STTC-NRTP-FNV-SV";
     public static String notTakenLoan_PaymentInfo_ScheduleVisit = "activity/submitcall?flow=STTC-NRTP-NTL-SV";
     public static String loanTakenByRelative_PaymentInfo_ScheduleVisit = "activity/submitcall?flow=STTC-NRTP-LTBR-SV";
