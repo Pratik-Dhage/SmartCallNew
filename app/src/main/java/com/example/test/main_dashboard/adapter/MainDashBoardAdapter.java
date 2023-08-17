@@ -17,6 +17,7 @@ import com.example.test.databinding.ItemDashboardBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.lead.LeadsActivity;
 import com.example.test.main_dashboard.model.DashBoardResponseModel;
+import com.example.test.npa_flow.NearByCustomersActivity;
 import com.example.test.npa_flow.dpd.DPDActivity;
 
 import java.util.ArrayList;
@@ -103,7 +104,7 @@ public class MainDashBoardAdapter extends RecyclerView.Adapter<MainDashBoardAdap
                 break;
             case 1:
                 // Launch activity for item at position 1 i.e. NPA (Collection)
-
+                NearByCustomersActivity.backToMemberList = 1;
                 Intent intent1 = new Intent(context, DPDActivity.class);
                 context.startActivity(intent1);
                 break;

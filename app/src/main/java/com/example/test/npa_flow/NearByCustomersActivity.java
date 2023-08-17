@@ -110,6 +110,7 @@ public class NearByCustomersActivity extends AppCompatActivity {
 
                 else if(Global.isLocationEnabled(this) && Global.isBackgroundLocationAccessEnabled(this)){
 
+                    NearByCustomersActivity.backToMemberList = 4;
                    Intent i = new Intent(this, NearByCustomerListActivity.class);
                    startActivity(i);
                 }

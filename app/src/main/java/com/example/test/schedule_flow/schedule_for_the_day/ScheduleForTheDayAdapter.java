@@ -16,6 +16,7 @@ import com.example.test.databinding.ItemVisitsForTheDayBinding;
 import com.example.test.helper_classes.Global;
 import com.example.test.main_dashboard.MainActivity3API;
 import com.example.test.main_dashboard.model.DashBoardScheduleForTheDayModel;
+import com.example.test.npa_flow.NearByCustomersActivity;
 import com.example.test.schedule_flow.calls_for_the_day.CallsForTheDayActivity;
 import com.example.test.schedule_flow.visits_for_the_day.VisitsForTheDayActivity;
 import com.example.test.schedule_flow.visits_for_the_day.adapter.VisitsForTheDayAdapter;
@@ -67,15 +68,15 @@ public class ScheduleForTheDayAdapter extends RecyclerView.Adapter<ScheduleForTh
        holder.binding.ivRightArrowScheduleForTheDay.setOnClickListener(v->{
 
            if(a.getQueue().toLowerCase().contains("visit")){
+               NearByCustomersActivity.backToMemberList=3;
                MainActivity3API.showCallIcon = true;    //from Visits For The Day Flow to be True Else False
                Intent i = new Intent(context, VisitsForTheDayActivity.class);
                i.putExtra("isFromVisitsForTheDay","isFromVisitsForTheDay");
                context.startActivity(i);
-
            }
 
            else if(a.getQueue().toLowerCase().contains("call")) {
-
+               NearByCustomersActivity.backToMemberList =2;
                MainActivity3API.showCallIcon=false;    //from Visits For The Day Flow to be True Else False
                Intent i = new Intent(context, CallsForTheDayActivity.class);
                i.putExtra("isFromCallsForTheDay","isFromCallsForTheDay");
