@@ -580,7 +580,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         break;
 
                 }
-                 position++; //for OTH
+                 position++; //for WPL & WPLS
             }
 
 
