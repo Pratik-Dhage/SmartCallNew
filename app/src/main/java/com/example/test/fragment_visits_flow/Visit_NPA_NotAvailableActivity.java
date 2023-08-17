@@ -190,7 +190,7 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
 
             // for NeedToCloseVisit(No Outstanding Dues & Customer Relocated & Others & PaymentAlreadyMade)
             VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-            visitsFlowViewModel.postScheduleCall_ScheduleVisit("activity/submitcall?flow=DNVTC-VR-NTCV",dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,"","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+            visitsFlowViewModel.postScheduleCall_ScheduleVisit(WebServices.needToCloseVisit,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,"","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
             dialogYesNo.dismiss();
             dialogRadioButton.dismiss();
             initObserverScheduleCallScheduleVisit();
