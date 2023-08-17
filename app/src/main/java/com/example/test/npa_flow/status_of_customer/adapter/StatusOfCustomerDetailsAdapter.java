@@ -398,7 +398,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
 
                     //2)Ready To Pay / Not Ready To Pay / Asked To Call Back Later / Visit Reschedule / Physical Visit Required
                     // Others / Invalid Number / Asked To Visit Later / NoResponseBusy / NotReachableSwitchedOff
-                    // / Customer Not Available / Late For Visit / Others
+                    // / Customer Not Available / Late For Visit / Others / Need To Close Visit
 
                     case "NRTP":
                         holder.binding.txtMidStatusInfo1.setText(R.string.not_ready_to_pay_status_info);
@@ -430,6 +430,9 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     case "LFV":
                         holder.binding.txtMidStatusInfo1.setText(R.string.late_for_visit);
                         break;
+                    case "NTCV":
+                        holder.binding.txtMidStatusInfo1.setText(R.string.need_to_close_visit_statusInfo);
+                        break;
                     case "OTH":
                     case "O":
                         holder.binding.txtMidStatusInfo1.setText(R.string.others);
@@ -458,7 +461,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     // / FO Not Visited / Loan taken By Relative / Already Paid / Will Pay later
                     //Cash Amount Paid / Cheque Payment
                     //Lack Of Funds/ PaymentAlreadyMade / Not Taken Loan / Will Pay LumpSum(managed in 4th flow)
-                    //Need To Close Visit / Submit
+                    // Submit
 
                     case "SVFC":
                         holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
@@ -511,10 +514,6 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     case "CPM": // ClaimsPaymentMade = PaymentAlreadyMade
                         holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                         holder.binding.txtMidStatusInfo2.setText(R.string.payment_already_made);
-                        break;
-                    case "NTCV":
-                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
-                        holder.binding.txtMidStatusInfo2.setText(R.string.need_to_close_visit_statusInfo);
                         break;
                     case "SU":
                         holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
