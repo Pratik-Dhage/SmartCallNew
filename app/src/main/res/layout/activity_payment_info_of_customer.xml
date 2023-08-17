@@ -210,13 +210,13 @@
 
 
             <Button
-                android:id="@+id/btnWillPayLater"
+                android:id="@+id/btnWillPayLumpsum"
                 style="@style/CustomButtonStyle"
                 android:layout_width="@dimen/_136sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:backgroundTint="@color/blueButton"
-                android:text="@string/will_pay_later"
+                android:text="@string/will_pay_lumpsum_"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/btnAlreadyPaid" />
@@ -248,7 +248,7 @@
                 android:text="@string/fo_not_visited"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnWillPayLater" />
+                app:layout_constraintTop_toBottomOf="@id/btnWillPayLumpsum" />
 
             <Button
                 android:id="@+id/btnNotTakenLoan"
