@@ -54,6 +54,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
   ActivityVisitNpaPaymentModeBinding binding;
     View view;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
+    VisitsFlowViewModel visitsFlowViewModel;
 
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
     public static boolean navigateToPaymentModeStatusActivity;
@@ -75,6 +76,7 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
         view = binding.getRoot();
         detailsOfCustomerViewModel = new ViewModelProvider(this).get(DetailsOfCustomerViewModel.class);
         binding.setViewModel(detailsOfCustomerViewModel);
+        visitsFlowViewModel= new ViewModelProvider(this).get(VisitsFlowViewModel.class);
 
         navigateToPaymentModeStatusActivity = false; // default value
 
@@ -91,7 +93,64 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
         recyclerView.setAdapter(new DetailsOfCustomerAdapter(this,detailsList));
     }
 
+   private void callGenerateReceiptNumberApi(String dataSetId){
+        visitsFlowViewModel.getReceiptNumber(dataSetId);
+   }
 
+   private void initObserverReceiptNumber(){
+        visitsFlowViewModel.getMutVisitsFlowReceiptNumberResponseApi().observe(this,result->{
+
+            if(result!=null){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                System.out.println("Receipt Number for "+dataSetId+": "+result);
+
+                navigateToPaymentModeStatusActivity = true;
+
+                // Get UserName , UserID , BranchCode from RoomDB
+                MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
+                UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+                MainActivity3API.UserID = mPinDao.getUserID();
+                MainActivity3API.BranchCode = mPinDao.getBranchCode();
+
+               // String dataSetId = getIntent().getStringExtra("dataSetId");
+                String userId =  MainActivity3API.UserID;   //"CA_01_001";
+                String username =  userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID()); // "CallingAgent1";
+                String amount_paid = Global.getStringFromSharedPref(this,"Amount_Paid");
+
+                //original URL
+                String generateReceiptUrl = "http://43.239.52.151:8081/report/Receipt?output=PDF&dataSetId=238624&amtPaid=1645&userId=CA_01_001&userName=CallingAgent1";
+
+                // Using SmartCall_BaseURL5 for fast response
+                String generateReceiptUrl2 = "http://45.113.189.27:8082/report/Receipt_Reprint?output=PDF&dataSetId=" + dataSetId + "&amtPaid=" + amount_paid + "&userId=" + userId + "&userName=" + username +"&receiptNo="+result;
+
+                //for Navigating to PDF Viewer app installed in Device
+                Uri uri = Uri.parse(generateReceiptUrl2);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                intent.setDataAndType(uri,"application/pdf");
+                startActivity(intent);
+
+                // for PDF view inside app
+           /*     Intent i = new Intent(this,WebViewGenerateReceiptActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                startActivity(i);
+*/
+
+            }
+        });
+
+        //handle error response
+        visitsFlowViewModel.getMutErrorResponse().observe(this, error -> {
+
+            if (error != null && !error.isEmpty()) {
+                //  Global.showSnackBar(view, "DetailsOfCustomerActivity Exception: "+error);
+                System.out.println("Generate ReceiptNumber Exception: " + error);
+
+            } else {
+                Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+            }});
+
+
+   }
 
     private void onClickListener(){
 
@@ -163,41 +222,15 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                 VisitsFlowCallDetailsActivity.send_amountCollected = Global.getStringFromSharedPref(this,"Amount_Paid");
 
                 btnGenerateReceipt.setOnClickListener(v2->{
-
-                    navigateToPaymentModeStatusActivity = true;
-
-                    // Get UserName , UserID , BranchCode from RoomDB
-
-                    MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
-                    UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
-
-                    MainActivity3API.UserID = mPinDao.getUserID();
-                    MainActivity3API.BranchCode = mPinDao.getBranchCode();
-
                     String dataSetId = getIntent().getStringExtra("dataSetId");
-                    String userId =  MainActivity3API.UserID;   //"CA_01_001";
-                    String username =  userNameDao.getUserNameUsingUserIDInUserNameRoomDB(mPinDao.getUserID()); // "CallingAgent1";
-                    String amount_paid = Global.getStringFromSharedPref(this,"Amount_Paid");
-
-                    //original URL
-                    String generateReceiptUrl = "http://43.239.52.151:8081/report/Receipt?output=PDF&dataSetId=238624&amtPaid=1645&userId=CA_01_001&userName=CallingAgent1";
-
-                    // Using SmartCall_BaseURL5 for fast response
-                    String generateReceiptUrl2 = "http://45.113.189.27:8082/report/Receipt?output=PDF&dataSetId=" + dataSetId + "&amtPaid=" + amount_paid + "&userId=" + userId + "&userName=" + username;
-
-                    //for Navigating to PDF Viewer app installed in Device
-                    Uri uri = Uri.parse(generateReceiptUrl2);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    intent.setDataAndType(uri,"application/pdf");
-                    startActivity(intent);
-
-                   // navigateToPaymentModeStatusActivity = "navigateToFullAmtPaid_PartialAmtPaid_WillPayLater_UI";
-
-                    // for PDF view inside app
-           /*     Intent i = new Intent(this,WebViewGenerateReceiptActivity.class);
-                i.putExtra("dataSetId",dataSetId);
-                startActivity(i);
-*/
+                    System.out.println("DataSetId GenerateReceiptNumber:"+dataSetId);
+                    if(NetworkUtilities.getConnectivityStatus(this)){
+                          callGenerateReceiptNumberApi(dataSetId);
+                          initObserverReceiptNumber(); // ApiCall to generateReceipt inside initObserverReceiptNumber()
+                      }
+                      else {
+                          Global.showSnackBar(view, getResources().getString(R.string.check_internet_connection));
+                      }
                 });
 
                 ivCancel.setOnClickListener(v1->{
@@ -205,8 +238,6 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                 });
 
             }
-
-
 
         });
 
@@ -415,6 +446,15 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
+       // **Cheque Validity = 6 Months**
+        // For date 3 months ago from the current date
+        calendar.add(Calendar.MONTH, -3);
+        long threeMonthsAgo = calendar.getTimeInMillis();
+
+        // For date 3 months from the current date
+        calendar.add(Calendar.MONTH, 6); // Add 6 months to go 3 months into the future from the previously modified date
+        long threeMonthsFromNow = calendar.getTimeInMillis();
+
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -431,8 +471,11 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                 }, year, month, dayOfMonth);
 
         // Set the minimum and maximum dates allowed
-       // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000); //allow BackDates for ChequePayment
+        //datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000); //allow BackDates for ChequePayment
       //  datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + (1000*60*60*24*7));
+
+        datePickerDialog.getDatePicker().setMinDate(threeMonthsAgo); // 3 month ago from Current Date
+        datePickerDialog.getDatePicker().setMaxDate(threeMonthsFromNow); // 3 month Later from Current Date
 
         datePickerDialog.show();
     }
