@@ -377,7 +377,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
 
             List<String> stepList = new ArrayList<>(Arrays.asList(flowSteps));  // Create a list from the array
 
-            int position = 0;
+            int position = 0; //initial value
             for (String step : stepList)
             {
                 switch (step){
@@ -493,14 +493,22 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                         break;
                     case "WPL":
                         // WPL in 3rd and 4th flow
-                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                       /* holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                         holder.binding.txtMidStatusInfo2.setText(R.string.will_pay_later_status_info);
 
                         //toggle Visibility
                         int txtMidStatusInfo3VisibilityWillPayLater = holder.binding.txtMidStatusInfo2.getText().equals("Will Pay Later") ? View.GONE : View.VISIBLE;
                         holder.binding.txtMidStatusInfo3.setVisibility(txtMidStatusInfo3VisibilityWillPayLater);
-                        holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_later_status_info);
+                        holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_later_status_info);*/
 
+                        if(position==2){ //WPL for 3rd Position
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.will_pay_later_status_info);
+                        }
+                       else if(position==3){ //WPL for 4th Position
+                            holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_later_status_info);
+                        }
                         break;
                         case "NTL":
                         holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
@@ -531,16 +539,23 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                     case "WPLS":
 
                         //WPLS in 3rd & 4th Flow
-                        holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                       /* holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
                         holder.binding.txtMidStatusInfo2.setText(R.string.will_pay_lump_sump_status_info);
 
                         //toggle visibility
                         int txtMidStatusInfo3VisibilityWillPayLumpSum = holder.binding.txtMidStatusInfo2.getText().equals("Will Pay Lump Sum") ? View.GONE : View.VISIBLE;
                         holder.binding.txtMidStatusInfo3.setVisibility(txtMidStatusInfo3VisibilityWillPayLumpSum);
-                        holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_lump_sump_status_info);
+                        holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_lump_sump_status_info);*/
 
+                        if(position==2){ //WPLS for 3rd Position
+                            holder.binding.txtMidStatusInfo2.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo2.setText(R.string.will_pay_lump_sump_status_info);
+                        }
+                        else if(position==3){ //WPLS for 4th Position
+                            holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
+                            holder.binding.txtMidStatusInfo3.setText(R.string.will_pay_lump_sump_status_info);
+                        }
                         break;
-
                     case "UPDATE":
                          holder.binding.txtMidStatusInfo3.setVisibility(View.VISIBLE);
                          holder.binding.txtMidStatusInfo3.setText(R.string.update);
