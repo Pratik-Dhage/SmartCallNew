@@ -284,7 +284,7 @@
                 style="@style/CustomButtonStyle"
                 android:layout_width="@dimen/_136sdp"
                 android:layout_height="@dimen/_45sdp"
-                android:backgroundTint="@color/grey"
+                android:backgroundTint="@color/blueButton"
                 android:text="@string/others"
                 android:textStyle="normal"
                 android:layout_marginTop="@dimen/_10sdp"
