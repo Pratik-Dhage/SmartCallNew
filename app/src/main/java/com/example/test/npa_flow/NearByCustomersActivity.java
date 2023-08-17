@@ -67,8 +67,8 @@ public class NearByCustomersActivity extends AppCompatActivity {
 
         binding.btnBackToMemberList.setOnClickListener(v->{
 
-            //Coming from LoanCollection List (NPA flow)
-          if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter==null || backToMemberList==1) {
+            //Coming from LoanCollection List (NPA flow) //CallsForTheDayAdapter.isFromCallsForTheDayAdapter==null
+          if( backToMemberList==1) {
                 Intent i = new Intent(new Intent(this, LoanCollectionActivity.class));
                 int DPD_row_position = Integer.parseInt(Global.getStringFromSharedPref(this,"DPD_row_position"));
                 i.putExtra("DPD_row_position",DPD_row_position);
@@ -76,20 +76,20 @@ public class NearByCustomersActivity extends AppCompatActivity {
                 startActivity(i);
             }
 
-            //Coming from CallsForTheDay flow
-            else if(CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null || backToMemberList==2){
+            //Coming from CallsForTheDay flow //CallsForTheDayAdapter.isFromCallsForTheDayAdapter!=null
+            else if( backToMemberList==2){
                 Intent i = new Intent(this, CallsForTheDayActivity.class);
                 startActivity(i);
             }
 
-          //Coming From VisitsForTheDay coz Call Icon Only visible in VisitsForTheDay flow
-          else if(MainActivity3API.showCallIcon || backToMemberList==3){
+          //Coming From VisitsForTheDay coz Call Icon Only visible in VisitsForTheDay flow //MainActivity3API.showCallIcon
+          else if( backToMemberList==3){
               Intent i = new Intent(this, VisitsForTheDayActivity.class);
               startActivity(i);
           }
 
-            //Coming from NearByCustomerListActivity
-           else if( NearByCustomerListAdapter.isFromNearByCustomerAdapter || backToMemberList==4){
+            //Coming from NearByCustomerListActivity //NearByCustomerListAdapter.isFromNearByCustomerAdapter
+           else if(  backToMemberList==4){
                 Intent i = new Intent(this, NearByCustomerListActivity.class);
                 startActivity(i);
             }
