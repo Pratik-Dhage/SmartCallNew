@@ -257,12 +257,12 @@ public class CallDetailsViewModel extends ViewModel {
 
     }
 
-    //9)PAYMENT INFORMATION OF CUSTOMER ACTIVITY - WILL PAY LATER -> WILL PAY LUMPSUMP
+    //9)PAYMENT INFORMATION OF CUSTOMER ACTIVITY  -> WILL PAY LUMPSUMP
     public void postScheduledDateTime_WPLS(String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber) {
 
         System.out.println("CallDetailsViewModel CallingAgent:"+userId);
 
-        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_will_pay_lump_sump + "&dataSetId=" + dataSetId + "&callingAgent=" + MainActivity3API.UserID + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+        subscribtion = (Disposable) Global.apiService().post_call_details(WebServices.call_details_willPayLumpSum + "&dataSetId=" + dataSetId + "&callingAgent=" + MainActivity3API.UserID + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber+"&reason=", callDetailsList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
