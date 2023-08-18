@@ -70,6 +70,7 @@ public class ScheduleForTheDayAdapter extends RecyclerView.Adapter<ScheduleForTh
            if(a.getQueue().toLowerCase().contains("visit")){
                NearByCustomersActivity.backToMemberList=3;
                MainActivity3API.showCallIcon = true;    //from Visits For The Day Flow to be True Else False
+               Global.saveStringInSharedPref(context,"showCallIcon","true"); //also save in SharedPreference as app changes its state when call is made
                Intent i = new Intent(context, VisitsForTheDayActivity.class);
                i.putExtra("isFromVisitsForTheDay","isFromVisitsForTheDay");
                context.startActivity(i);
@@ -78,6 +79,7 @@ public class ScheduleForTheDayAdapter extends RecyclerView.Adapter<ScheduleForTh
            else if(a.getQueue().toLowerCase().contains("call")) {
                NearByCustomersActivity.backToMemberList =2;
                MainActivity3API.showCallIcon=false;    //from Visits For The Day Flow to be True Else False
+               Global.saveStringInSharedPref(context,"showCallIcon","false");
                Intent i = new Intent(context, CallsForTheDayActivity.class);
                i.putExtra("isFromCallsForTheDay","isFromCallsForTheDay");
                context.startActivity(i);

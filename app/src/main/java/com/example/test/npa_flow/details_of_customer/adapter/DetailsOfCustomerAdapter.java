@@ -167,7 +167,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
 
         //for Call Icon to be visible when coming from Visits For The Day(DashBoard)
-        if(MainActivity3API.showCallIcon ){
+        if(MainActivity3API.showCallIcon || Global.getStringFromSharedPref(context,"showCallIcon").equals("true") ){
             if(a.getLable().toLowerCase().contains("mobile")){
                 holder.binding.ivCallLogo.setVisibility(View.VISIBLE);
             }

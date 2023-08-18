@@ -97,6 +97,8 @@ public class MainActivity3API extends AppCompatActivity {
         binding.setViewModel(mainDashBoardViewModel);
 
         showCallIcon = false; //from Visits For The Day Flow to be True Else False
+        Global.saveStringInSharedPref(this,"showCallIcon","false");
+
         VisitsForTheDayAdapter.showNearByCustomerButton = false ; //in NearByCustomerActivity - from Visits For The Day Flow to be True Else False
         NearByCustomerListAdapter.isFromNearByCustomerAdapter = false; //in NearByCustomerActivity - from NearByCustomerListActivity to be True Else False
 
