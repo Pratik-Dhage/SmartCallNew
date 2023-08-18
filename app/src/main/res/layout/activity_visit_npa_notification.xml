@@ -270,7 +270,7 @@
             android:layout_width="@dimen/_136sdp"
             android:layout_height="@dimen/_45sdp"
             android:backgroundTint="@color/blueButton"
-            android:text="@string/will_pay_lumpsum"
+            android:text="@string/will_pay_lumpsum_"
             android:textStyle="normal"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_10sdp"
