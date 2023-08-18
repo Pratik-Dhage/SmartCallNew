@@ -155,7 +155,7 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
 
                 //for using in VisitCompletionOfCustomerActivity and redirecting to Calls For The Day List
                 isFromCallsForTheDayAdapter = "isFromCallsForTheDayAdapter";
-                Global.saveStringInSharedPref(context,"isFromCallsForTheDayAdapter","isFromCallsForTheDayAdapter"); // for checking if User coming from CallsForTheDay Flow
+                Global.saveStringInSharedPref(context,"isFromCallsForTheDayAdapter","true"); // for checking if User coming from CallsForTheDay Flow
                 System.out.println("Here isFromCallsForTheDayAdapter: "+isFromCallsForTheDayAdapter);
 
                 String dataSetId = a.getDataSetId().toString();

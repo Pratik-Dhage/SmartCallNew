@@ -174,7 +174,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
         holder.itemView.setOnClickListener(v->{
             System.out.println("Here LoanCollectionAdapter dataSetId:"+a.getDataSetId().toString());
 
-          //  Global.saveStringInSharedPref(context,"isFromCallsForTheDayAdapter",null); //to reset the Flows
+            Global.saveStringInSharedPref(context,"isFromCallsForTheDayAdapter","false"); //to goto NPA Flow
             CallsForTheDayAdapter.isFromCallsForTheDayAdapter = null; // to Reset CallsForTheDayFlow  & GOTO NPA flow
             System.out.println("Here LoanCollectionAdapter isFromCallsForTheDayAdapter:"+ CallsForTheDayAdapter.isFromCallsForTheDayAdapter);
 
