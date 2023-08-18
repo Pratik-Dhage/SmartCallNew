@@ -83,6 +83,7 @@ public class CallsForTheDayActivity extends AppCompatActivity {
         System.out.println("Here CallsForTheDay initializeFields() BranchCode:"+MainActivity3API.BranchCode);
 
         NearByCustomersActivity.backToMemberList = 2; // for CallsForTheDayFlow
+        Global.saveStringInSharedPref(this,"backToMemberList","2");
      }
 
 

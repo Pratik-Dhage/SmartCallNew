@@ -80,6 +80,7 @@ public class VisitsForTheDayActivity extends AppCompatActivity {
         System.out.println("Here VisitsForTheDay initializeFields() BranchCode:"+MainActivity3API.BranchCode);
 
         NearByCustomersActivity.backToMemberList = 3; //for VisitsForTheDayFlow
+        Global.saveStringInSharedPref(this,"backToMemberList","3");
     }
 
     private void callVisitsForTheDayAPi() {

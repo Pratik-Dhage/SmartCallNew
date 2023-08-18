@@ -137,6 +137,7 @@ public class LoanCollectionActivity extends AppCompatActivity {
         GoogleMapsActivity.isSaveButtonClicked = false; // Only true if User clicks Yes OR Save button to save Location (Distance in Km)
 
         NearByCustomersActivity.backToMemberList = 1; //for NPA Flow
+        Global.saveStringInSharedPref(this,"backToMemberList","1");
     }
 
     private void setToolbarTitle() {

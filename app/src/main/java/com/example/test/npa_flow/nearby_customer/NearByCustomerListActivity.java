@@ -52,6 +52,7 @@ public class NearByCustomerListActivity extends AppCompatActivity {
         currentLocation = Global.getDeviceLocation(this);
 
         NearByCustomersActivity.backToMemberList = 4; //for NearByCustomerListFlow
+        Global.saveStringInSharedPref(this,"backToMemberList","4");
     }
 
     private void callNearByCustomerApi(){
