@@ -201,14 +201,14 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                         // Permission has already been granted, make the call
                          phoneNumber = String.valueOf(a.getValue()); //use mobile number fetched from result(API Response)
 
-                        VisitsFlowCallDetailsActivity.visits_MobileNumber = phoneNumber; // store in variable to use in VisitsFlowCallDetailsActivity
+                      /*  VisitsFlowCallDetailsActivity.visits_MobileNumber = phoneNumber; // store in variable to use in VisitsFlowCallDetailsActivity
                        // Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
                           Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
-                        context.startActivity(dial);
+                        context.startActivity(dial);*/
 
                         try{
-
-                            getCallRecordingAndCallLogs(context);
+                             Global.showSelectedMobileNumberDialog(phoneNumber,alternateNumber,context);
+                           // getCallRecordingAndCallLogs(context);
                             System.out.println("Here Call Recording called");
 
                         }
@@ -360,9 +360,11 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                holder.binding.ivLockedIcon.setVisibility(View.VISIBLE);
                holder.binding.ivSaveAlternateNumber.setVisibility(View.GONE);
                holder.binding.edtDetail.setEnabled(false);
+               alternateNumber = String.valueOf(a.getValue());
            }
            else{
                holder.binding.ivSaveAlternateNumber.setVisibility(View.VISIBLE);
+               alternateNumber = null;
            }
 
                 //on clicking Lock icon-> Allow editing Alternate Number
@@ -553,7 +555,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
     }
 
-    public void getCallRecordingAndCallLogs(Context context) throws IOException {
+    public static void getCallRecordingAndCallLogs(Context context) throws IOException {
 
         //for Call Recoding in Internal Storage (here Filename is call_recording.mp3) (Convert to Byte Array and Send to Server)
         String filePath = context.getFilesDir().getAbsolutePath() + "/call_recording.mp3";
@@ -618,7 +620,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
     }
 
-    private void getCallLogs(Context context) {
+    private static void getCallLogs(Context context) {
 
         ContentResolver cr = context.getContentResolver();
         Cursor c = cr.query(CallLog.Calls.CONTENT_URI, null, null, null, null);
@@ -679,7 +681,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
     }
 
     // for Converting Audio(Call Recording(.mp3 format) to Byte Array)
-    public byte[] convertFileToByteArray(String path) throws IOException {
+    public static byte[]  convertFileToByteArray(String path) throws IOException {
 
         FileInputStream fis = new FileInputStream(path);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
