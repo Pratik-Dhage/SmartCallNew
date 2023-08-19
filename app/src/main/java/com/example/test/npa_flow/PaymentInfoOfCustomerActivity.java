@@ -133,6 +133,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                         i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                         i.putExtra("detailsList", detailsList);
                         i.putExtra("isAlreadyPaid","isAlreadyPaid");
+                        i.putExtra("isPaymentInfoOfCustomerActivity_AlreadyPaid","isPaymentInfoOfCustomerActivity_AlreadyPaid"); //for CircularFlow(ScheduleCall/ScheduleVisit)
                         startActivity(i);
                     });
 
@@ -234,7 +235,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
             startActivity(new Intent(this, MainActivity3API.class));
         });
 
-        binding.btnWillPayLater.setOnClickListener(v -> {
+        binding.btnWillPayLumpsum.setOnClickListener(v -> {
 
             //Call Save Alternate Number API
             if(null!= DetailsOfCustomerAdapter.alternateNumber && null!=DetailsOfCustomerAdapter.dataSetId){
@@ -242,12 +243,18 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 AlternateNumberApiCall.saveAlternateNumber(this,DetailsOfCustomerAdapter.alternateNumber,DetailsOfCustomerAdapter.dataSetId);
             }
 
-            Intent i = new Intent(PaymentInfoOfCustomerActivity.this, ScheduleVisitForCollectionActivity.class);
-            i.putExtra("isFromPaymentInfoOfCustomerActivity", "isFromPaymentInfoOfCustomerActivity");
+            /*Intent i = new Intent(PaymentInfoOfCustomerActivity.this, ScheduleVisitForCollectionActivity.class);
             i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
             i.putExtra("detailsList", detailsList);
             i.putExtra("paymentInfo_WillPayLater","paymentInfo_WillPayLater"); //Used For Will Pay LumpSump
             i.putExtra("will_pay_later_update","will_pay_later_update"); // Used For Will Pay Later ->Update
+            i.putExtra("isFromPaymentInfoOfCustomerActivity", "isFromPaymentInfoOfCustomerActivity");
+            startActivity(i);*/
+
+            Intent i = new Intent(PaymentInfoOfCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
+            i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
+            i.putExtra("detailsList", detailsList);
+            i.putExtra("isPaymentInfoOfCustomerActivity_WillPayLumpSum","isPaymentInfoOfCustomerActivity_WillPayLumpSum");
             startActivity(i);
 
         });
@@ -282,6 +289,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
                 i.putExtra("isFoNotVisited","isFoNotVisited");
+                i.putExtra("isPaymentInfoOfCustomerActivity_FoNotVisited","isPaymentInfoOfCustomerActivity_FoNotVisited"); //for Circular Flow
                 i.putExtra("dateOfVisitPromised","");
                 i.putExtra("foName","");
                 startActivity(i);
@@ -350,10 +358,14 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                     }
                     else{
 
+                        DetailsOfCustomerActivity.send_DateOfVisitPromised =edtDateOfVisitPromised.getText().toString().trim(); //to Send Along API
+                        DetailsOfCustomerActivity.send_FoName = edtFoName.getText().toString().trim(); //to send along API
+
                         Intent i = new Intent(PaymentInfoOfCustomerActivity.this, SubmitCompletionActivityOfCustomer.class);
                         i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                         i.putExtra("detailsList", detailsList);
                         i.putExtra("isFoNotVisited","isFoNotVisited");
+                        i.putExtra("isPaymentInfoOfCustomerActivity_FoNotVisited","isPaymentInfoOfCustomerActivity_FoNotVisited"); //for Circular Flow
                         i.putExtra("dateOfVisitPromised",edtDateOfVisitPromised.getText().toString().trim());//Date of Visit Promised
                         i.putExtra("foName",edtFoName.getText().toString().trim()); //FO Name
                         startActivity(i);
@@ -361,9 +373,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                         //Save DateOfVisitPromised and FoName in SharedPreference and use in DetailsOfCustomerActivity
                         Global.saveStringInSharedPref(this,"dateOfVisitPromised",edtDateOfVisitPromised.getText().toString().trim());
                         Global.saveStringInSharedPref(this,"foName",edtFoName.getText().toString().trim());
-
                     }
-
 
                 });
 
@@ -427,6 +437,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
                 i.putExtra("isAlreadyPaid","isAlreadyPaid");
+                i.putExtra("isPaymentInfoOfCustomerActivity_AlreadyPaid","isPaymentInfoOfCustomerActivity_AlreadyPaid"); //for CircularFlow(ScheduleCall/ScheduleVisit)
                 startActivity(i);
             });
 
@@ -525,6 +536,7 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                 i.putExtra("detailsList", detailsList);
                 i.putExtra("isLoanTakenByRelative","isLoanTakenByRelative");
+                i.putExtra("isPaymentInfoOfCustomerActivity_LoanTakenByRelative","isPaymentInfoOfCustomerActivity_LoanTakenByRelative"); //for Circular Flow
                 i.putExtra("relativeName","");
                 i.putExtra("relativeContact","");
                 startActivity(i);
@@ -578,10 +590,15 @@ public class PaymentInfoOfCustomerActivity extends AppCompatActivity {
                 }
 
                 else{
+
+                    DetailsOfCustomerActivity.send_RelativeName = edtRelativeName.getText().toString().trim(); //to Send Along API
+                    DetailsOfCustomerActivity.send_RelativeContact = edtRelativeContact.getText().toString().trim(); //to Send Along API
+
                     Intent i = new Intent(this, SubmitCompletionActivityOfCustomer.class);
                     i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                     i.putExtra("detailsList", detailsList);
                     i.putExtra("isLoanTakenByRelative","isLoanTakenByRelative");
+                    i.putExtra("isPaymentInfoOfCustomerActivity_LoanTakenByRelative","isPaymentInfoOfCustomerActivity_LoanTakenByRelative"); //for Circular Flow
                     i.putExtra("relativeName",edtRelativeName.getText().toString().trim()); //Relative Name
                     i.putExtra("relativeContact",edtRelativeContact.getText().toString().trim()); //Relative Contact
                     startActivity(i);
