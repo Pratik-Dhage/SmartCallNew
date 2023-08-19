@@ -183,7 +183,7 @@ public class NotSpokeToCustomerActivity extends AppCompatActivity {
                     callDetailsListDao.deleteCallDetailsListUsingDataSetId(dataSetId);
 
                     // Navigate To Respective List after Server Response
-                    if(getIntent().hasExtra("isFromCallsForTheDayAdapter")){
+                    if(getIntent().hasExtra("isFromCallsForTheDayAdapter")|| Global.getStringFromSharedPref(this,"isFromCallsForTheDayAdapter").equals("true")){
                         navigateToCallsForTheDayList();
                     }
                     else{
