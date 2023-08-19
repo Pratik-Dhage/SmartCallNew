@@ -161,11 +161,14 @@ public  class WebServices {
     //FOR ALREADY PAID (PAYMENT INFORMATION OF CUSTOMER ACTIVITY (NOT READY TO PAY))
     public static String call_details_already_paid ="activity/submitcall?flow=STTC-NRTP-AP";
 
+    ///FOR WILL PAY LUMPSUM(PAYMENT INFORMATION OF CUSTOMER ACTIVITY  (NOT READY TO PAY)
+    public static String call_details_willPayLumpSum ="activity/submitcall?flow=STTC-NRTP-WPLS";
+
   //FOR WILL PAY LUMPSUMP(PAYMENT INFORMATION OF CUSTOMER ACTIVITY  (NOT READY TO PAY) - WILL PAY LATER -> WILL PAY LUMPSUMP)
-  public static String call_details_will_pay_lump_sump ="activity/submitcall?flow=STTC-NRTP-WPL-WPLS";
+  public static String call_details_will_pay_lump_sump ="activity/submitcall?flow=STTC-NRTP-WPL-WPLS"; //not needed
 
     //FOR WILL PAY LATER - UPDATE(PAYMENT INFORMATION OF CUSTOMER ACTIVITY (NOT READY TO PAY) - WILL PAY LATER -> UPDATE)
-  public static String call_details_will_pay_later_update = "activity/submitcall?flow=STTC-NRTP-WPL-UPDATE";
+  public static String call_details_will_pay_later_update = "activity/submitcall?flow=STTC-NRTP-WPL-UPDATE"; //not needed
 
   //FOR OTHERS (PAYMENT INFORMATION OF CUSTOMER ACTIVITY (NOT READY TO PAY) - OTHERS)
     public static String call_details_payment_info_others = "activity/submitcall?flow=STTC-NRTP-OTH";
@@ -245,6 +248,7 @@ public  class WebServices {
 
     //DID NOT SPOKE TO CUSTOMER - NUMBER IS INVALID
     public static String notSpokeToCustomer_numberIsInvalid = "activity/submitcall?flow=DNSTC-INV";
+    public static String notSpokeToCustomer_numberIsInvalid_ScheduleVisit = "activity/submitcall?flow=DNSTC-INV-SV"; //CircularFlow(ScheduleCall will not come)
 
     //DID NOT SPOKE TO CUSTOMER - NUMBER BUSY (No Response/Busy)
     public static String notSpokeToCustomer_numberIsBusy = "activity/submitcall?flow=DNSTC-NRB";
@@ -320,7 +324,8 @@ public  class WebServices {
    public static String others_VisitNPANotificationScheduleCall = "activity/submitcall?flow=VTC-NRTP-OTH-SC";
 
 
-   //PaymentInfoOfCustomer 5ButtonsScheduleCall (AP,FNV,NTL,LTBR,OTH)
+   //PaymentInfoOfCustomer 6ButtonsScheduleCall (WPLS,AP,FNV,NTL,LTBR,OTH)
+    public static String willPayLumpSum_PaymentInfo_ScheduleCall = "activity/submitcall?flow=STTC-NRTP-WPLS-SC";
     public static String alreadyPaid_PaymentInfo_ScheduleCall = "activity/submitcall?flow=STTC-NRTP-AP-SC";
     public static String foNotVisited_PaymentInfo_ScheduleCall = "activity/submitcall?flow=STTC-NRTP-FNV-SC";
     public static String notTakenLoan_PaymentInfo_ScheduleCall = "activity/submitcall?flow=STTC-NRTP-NTL-SC";
@@ -337,7 +342,8 @@ public  class WebServices {
     public static String others_VisitNPANotificationScheduleVisit = "activity/submitcall?flow=VTC-NRTP-OTH-SV";
 
 
-    //PaymentInfoOfCustomer 5ButtonsScheduleVisit (AP,FNV,NTL,LTBR,OTH)
+    //PaymentInfoOfCustomer 6ButtonsScheduleVisit (WPLS,AP,FNV,NTL,LTBR,OTH)
+    public static String willPayLumpSum_PaymentInfo_ScheduleVisit = "activity/submitcall?flow=STTC-NRTP-WPLS-SV";
     public static String alreadyPaid_PaymentInfo_ScheduleVisit = "activity/submitcall?flow=STTC-NRTP-AP-SV";
     public static String foNotVisited_PaymentInfo_ScheduleVisit = "activity/submitcall?flow=STTC-NRTP-FNV-SV";
     public static String notTakenLoan_PaymentInfo_ScheduleVisit = "activity/submitcall?flow=STTC-NRTP-NTL-SV";
