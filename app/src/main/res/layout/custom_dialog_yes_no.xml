@@ -9,11 +9,33 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             style="@style/MainConstraintStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="@dimen/_170sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/toolBarStyle"
+                android:background="@color/textBlue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+               <!-- <TextView
+                    android:id="@+id/txtToolbarHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/reason_for_visit"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"
+                    android:textSize="@dimen/_13ssp" />-->
+
+
+            </androidx.appcompat.widget.Toolbar>
+
 
             <TextView
                 android:layout_marginTop="@dimen/_10sdp"
@@ -25,19 +47,19 @@
                 style="@style/common_text_style"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintTop_toBottomOf="@id/toolbar"
                 tools:text="This is a Custom Dialog Box"/>
 
             <ImageView
                 android:id="@+id/ivClose"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/toolbar"
+                app:layout_constraintBottom_toBottomOf="@id/toolbar"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="@dimen/_2sdp"
                 android:layout_marginEnd="@dimen/_2sdp"
                 android:src="@drawable/cancel_close"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
-                app:tint="@color/textBlue" />
+                app:tint="@color/white" />
 
             <Button
                 android:id="@+id/btnYes"
