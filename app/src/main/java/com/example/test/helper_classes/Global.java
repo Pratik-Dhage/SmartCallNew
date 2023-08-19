@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +73,7 @@ import com.example.test.roomDB.database.LeadListDB;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -724,6 +726,117 @@ public class Global {
             @Override
             public void afterTextChanged(Editable s) {}
         });
+    }
+
+    //for VisitsFlow for Calling on Primary OR Alternate Mobile Number
+    static String selectedMobileNumber ="" ;
+    public static void showSelectedMobileNumberDialog(String primaryMobileNumber , String alternateMobileNumber, Context context){
+
+        //select between Primary & Alternate
+        if(null!=primaryMobileNumber && !primaryMobileNumber.isEmpty()
+                && !primaryMobileNumber.equals("null") //checking this condition because getting String.valueOf() from DetailsOFCustomerAdapter
+                && null!= alternateMobileNumber && !alternateMobileNumber.isEmpty()){
+
+            View customDialogMobileNumber = LayoutInflater.from(context).inflate(R.layout.custom_dialog_mobile_numbers, null);
+            ImageView ivCancel = customDialogMobileNumber.findViewById(R.id.ivCancel);
+            Button btnProceed = customDialogMobileNumber.findViewById(R.id.btnProceed);
+            RadioButton radioButton1 = customDialogMobileNumber.findViewById(R.id.radioButton1);
+            RadioButton radioButton2 = customDialogMobileNumber.findViewById(R.id.radioButton2);
+            TextView txtRadioButton1 = customDialogMobileNumber.findViewById(R.id.txtRadioButton1);
+            TextView txtRadioButton2 = customDialogMobileNumber.findViewById(R.id.txtRadioButton2);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setView(customDialogMobileNumber);
+            final AlertDialog dialog = builder.create();
+            dialog.show();
+
+            ivCancel.setOnClickListener(v->{
+                dialog.dismiss();
+            });
+
+                //Primary Mobile Number
+                radioButton1.setVisibility(View.VISIBLE);
+                radioButton1.setChecked(true); //By default Primary Mobile Number coming from Api response will be selected
+                txtRadioButton1.setVisibility(View.VISIBLE);
+                txtRadioButton1.setText(primaryMobileNumber);
+
+
+              //Alternate Mobile Number
+                radioButton2.setVisibility(View.VISIBLE);
+                txtRadioButton2.setVisibility(View.VISIBLE);
+                txtRadioButton2.setText(alternateMobileNumber);
+
+
+            //for RadioButton 1
+            radioButton1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+                if(isChecked){
+                    radioButton2.setChecked(false);
+                }
+            });
+
+            //for RadioButton 2
+            radioButton2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+                if(isChecked){
+                    radioButton1.setChecked(false);
+                }
+            });
+
+            btnProceed.setOnClickListener(v->{
+
+                if(radioButton1.isChecked()){
+                    selectedMobileNumber = primaryMobileNumber;
+                }
+                else if(radioButton2.isChecked()){
+                    selectedMobileNumber = alternateMobileNumber;
+                }
+
+                VisitsFlowCallDetailsActivity.visits_MobileNumber = selectedMobileNumber; // store in variable to use in VisitsFlowCallDetailsActivity
+                // Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+                Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + selectedMobileNumber));
+                context.startActivity(dial);
+                try {
+                    DetailsOfCustomerAdapter.getCallRecordingAndCallLogs(context);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+               dialog.dismiss();
+            });
+
+        }
+
+        //only Primary mobileNumber exists
+       else if(null!=primaryMobileNumber && !primaryMobileNumber.isEmpty() && (null== alternateMobileNumber || alternateMobileNumber.isEmpty())){
+            selectedMobileNumber=primaryMobileNumber;
+
+            VisitsFlowCallDetailsActivity.visits_MobileNumber = selectedMobileNumber; // store in variable to use in VisitsFlowCallDetailsActivity
+            // Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+            Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + selectedMobileNumber));
+            context.startActivity(dial);
+            try {
+                DetailsOfCustomerAdapter.getCallRecordingAndCallLogs(context);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //only Alternate mobileNumber exists
+        else if(  primaryMobileNumber.isEmpty() || primaryMobileNumber.equals("null") //checking this condition because getting String.valueOf() from DetailsOFCustomerAdapter
+                && (null!= alternateMobileNumber && !alternateMobileNumber.isEmpty())){
+            selectedMobileNumber = alternateMobileNumber;
+          System.out.println("AlternateNumber"+alternateMobileNumber);
+            VisitsFlowCallDetailsActivity.visits_MobileNumber = selectedMobileNumber; // store in variable to use in VisitsFlowCallDetailsActivity
+            // Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+            Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + selectedMobileNumber));
+            context.startActivity(dial);
+            try {
+                DetailsOfCustomerAdapter.getCallRecordingAndCallLogs(context);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
 }
