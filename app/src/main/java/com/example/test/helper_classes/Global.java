@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -16,6 +18,7 @@ import android.text.Editable;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,8 +76,10 @@ import com.example.test.roomDB.database.LeadListDB;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -838,5 +843,32 @@ public class Global {
         }
 
     }
+
+    //for Converting ImageView To base64 String to send to server(for Uploading Receipt)
+    public static String convertImageViewToBase64String(ImageView imageView) {
+
+            BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+            Bitmap bitmap = drawable.getBitmap();
+
+            // convert the bitmap to a byte array:
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+            // Use Base64 encoding to convert the byte array to a string.
+           String imageBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            System.out.println("ImageView To Base64String:" + imageBase64);
+            System.out.println("ImageView To ByteArray:"+ Arrays.toString(byteArray));
+
+            try {
+                byteArrayOutputStream.close(); // Close the stream to prevent resource leaks.
+            } catch (Exception e) {
+                System.out.println("ImageView To String Exception:"+e);
+                e.printStackTrace();
+            }
+
+        return imageBase64;
+    }
+
 
 }
