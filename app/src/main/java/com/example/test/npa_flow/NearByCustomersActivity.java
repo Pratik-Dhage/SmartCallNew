@@ -49,7 +49,8 @@ public class NearByCustomersActivity extends AppCompatActivity {
         view = binding.getRoot();
         nearByCustomerViewModel = new ViewModelProvider(this).get(NearByCustomerViewModel.class);
 
-        if(VisitsForTheDayAdapter.showNearByCustomerButton == true){
+        //Button Visit NearBy Customers will only visible if coming from VisitsForTheDayFlow
+        if(VisitsForTheDayAdapter.showNearByCustomerButton || Global.getStringFromSharedPref(this,"backToMemberList").equals("3")){
             binding.btnVisitNearbyCustomers.setVisibility(View.VISIBLE);
         }
         else{
