@@ -84,8 +84,15 @@ public class MapFragment extends Fragment {
             @Override
             public void onMapReady(GoogleMap googleMap) {
 
-                userLatitude = Global.getDeviceLocation(getActivity()).getLatitude();
-                userLongitude = Global.getDeviceLocation(getActivity()).getLongitude();
+                try{
+                    userLatitude = Global.getDeviceLocation(getActivity()).getLatitude();
+                    userLongitude = Global.getDeviceLocation(getActivity()).getLongitude();
+                }
+                catch (Exception e){
+                    System.out.println("Device Location Exception:"+e);
+                    e.printStackTrace();
+                }
+
 
                 //coming from LoanCollectionAdapter red ivMap - Marker on User's Current Location
                 if(GoogleMapsActivity.isFromLoanCollectionAdapter!=null){
