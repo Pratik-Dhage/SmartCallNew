@@ -521,6 +521,12 @@ public class Visit_NPA_NotAvailableActivity extends AppCompatActivity {
                     btnUploadReceipt.setVisibility(View.INVISIBLE);
 
                     txtProceed.setOnClickListener(v -> {
+
+                        //to check if image is set on ImageView (View Receipt first only then it will be uploaded to server)
+                        if(null!=ivViewUploadedReceipt.getDrawable() && null!=txtUploadReceipt.getText().toString()){
+                            Global.convertImageViewToBase64String(ivViewUploadedReceipt); //to send to server
+                        }
+
                         dialogUploadReceipt.dismiss();
                         showDialogCloseAccount();
                     });

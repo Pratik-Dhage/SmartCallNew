@@ -117,6 +117,12 @@ public class Visit_NPA_NotificationActivity extends AppCompatActivity {
 
                   // <!--Claims Payment Made Renamed to Payment Already Made as text on button-->
                    txtProceed.setOnClickListener(v -> {
+
+                       //to check if image is set on ImageView (View Receipt first only then it will be uploaded to server)
+                       if(null!=ivViewUploadedReceipt.getDrawable() && null!=txtUploadReceipt.getText().toString()){
+                           Global.convertImageViewToBase64String(ivViewUploadedReceipt); //to send to server
+                       }
+
                        Intent i = new Intent(this, VisitCompletionOfCustomerActivity.class);
                        i.putExtra("dataSetId", getIntent().getStringExtra("dataSetId"));
                        i.putExtra("NotReadyToPay_ClaimsPaymentMade","NotReadyToPay_ClaimsPaymentMade");
