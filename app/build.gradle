@@ -92,7 +92,7 @@ dependencies {
    implementation 'com.github.aabhasr1:OtpView:v1.1.2'
 
     //volley
-    implementation 'com.android.volley:volley:1.2.1'
+  //  implementation 'com.android.volley:volley:1.2.1'
 
     //Google Places Api for getting Pinned Location Lat Long from Google Maps
     implementation 'com.google.android.gms:play-services-places:17.0.0'
@@ -103,7 +103,8 @@ dependencies {
     implementation 'com.google.maps:google-maps-services:0.18.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
 
-
+    //BackGround Location Permission(needed for Android 11 & Above)
+    implementation("se.warting.permissionsui:permissionsui:0.1.16")
 
     //for PDF  view
    // implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
