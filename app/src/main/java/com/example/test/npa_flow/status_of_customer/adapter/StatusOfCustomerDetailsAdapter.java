@@ -108,19 +108,19 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                 }
 
                 //RelativeName
-                if(null!=a.getRelativeName() && !a.getRelativeName().isEmpty()){
+                if(null!=a.getRelativeName() && !a.getRelativeName().isEmpty() && !a.getRelativeName().equals("null")){
                   holder.binding.txtRelativeName.setVisibility(View.VISIBLE);
                   holder.binding.txtRelativeName.setText("Name: "+a.getRelativeName());
                 }
 
                 //RelativeContact
-                if(null!=a.getRelativeContactNumber() && !a.getRelativeContactNumber().isEmpty()){
+                if(null!=a.getRelativeContactNumber() && !a.getRelativeContactNumber().isEmpty() && !a.getRelativeContactNumber().equals("null")){
                     holder.binding.txtRelativeContact.setVisibility(View.VISIBLE);
                     holder.binding.txtRelativeContact.setText("Contact: "+a.getRelativeContactNumber());
                 }
 
                //FO Name
-                if(null!=a.getFoName() && !a.getFoName().isEmpty()){
+                if(null!=a.getFoName() && !a.getFoName().isEmpty() && !a.getFoName().equals("null")){
                     holder.binding.txtFOName.setVisibility(View.VISIBLE);
                     holder.binding.txtFOName.setText("FO Name: "+a.getFoName());
                 }
