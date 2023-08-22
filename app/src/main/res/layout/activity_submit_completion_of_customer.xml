@@ -208,6 +208,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
+            <!--kept Hidden for Temporary Basis-->
             <Button
                 android:id="@+id/btnSubmitNoChange"
                 style="@style/CustomButtonStyle"
@@ -216,12 +217,13 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:backgroundTint="@color/barnRed"
                 android:text="@string/submit_no_change"
+                android:visibility="gone"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
 
-
+            <!--kept Hidden for Temporary Basis-->
             <Button
                 android:id="@+id/btnSubmitNeedToUpdateDetails"
                 style="@style/CustomButtonStyle"
@@ -232,11 +234,12 @@
                 android:text="@string/submit_need_to_update_details"
                 android:textStyle="normal"
                 android:textAlignment="center"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnSubmitNoChange" />
 
-
+            <!--kept Hidden for Temporary Basis-->
             <Button
                 android:id="@+id/btnSubmitEscalateToBM"
                 style="@style/CustomButtonStyle"
@@ -246,10 +249,55 @@
                 android:backgroundTint="@color/brightOrange"
                 android:text="@string/submit_escalate_to_bm"
                 android:textStyle="normal"
+                android:visibility="gone"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnSubmitNeedToUpdateDetails" />
+
+
+            <Button
+                android:id="@+id/btnSubmit"
+                style="@style/CustomButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:backgroundTint="@color/barnRed"
+                android:text="@string/submit_"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
+
+            <Button
+                android:id="@+id/btnSubmitScheduleACall"
+                style="@style/CustomButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:backgroundTint="@color/green"
+                android:text="@string/schedule_a_call"
+                android:textStyle="normal"
+                android:visibility="visible"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnSubmit" />
+
+            <Button
+                android:id="@+id/btnSubmitScheduleAVisit"
+                style="@style/CustomButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:backgroundTint="@color/brightOrange"
+                android:text="@string/schedule_a_visit"
+                android:textStyle="normal"
+                android:textAlignment="center"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnSubmitScheduleACall" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

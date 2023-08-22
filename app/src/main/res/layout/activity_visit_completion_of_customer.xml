@@ -208,6 +208,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
+            <!--Kept hidden for Temporary Basis-->
             <Button
                 android:id="@+id/btnCompleteNoChange"
                 style="@style/CustomButtonStyle"
@@ -217,11 +218,13 @@
                 android:backgroundTint="@color/barnRed"
                 android:text="@string/complete_no_change"
                 android:textStyle="normal"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
 
 
+            <!--Kept Hidden for Temporary Basis-->
             <Button
                 android:id="@+id/btnCompleteNeedToUpdateDetails"
                 style="@style/CustomButtonStyle"
@@ -231,12 +234,13 @@
                 android:backgroundTint="@color/green"
                 android:text="@string/complete_need_to_update_details"
                 android:textStyle="normal"
+                android:visibility="gone"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnCompleteNoChange" />
 
-
+            <!--Kept Hidden for Temporary Basis-->
             <Button
                 android:id="@+id/btnCompleteEscalateToBM"
                 style="@style/CustomButtonStyle"
@@ -247,10 +251,54 @@
                 android:text="@string/complete_escalate_to_bm"
                 android:textStyle="normal"
                 android:textAlignment="center"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnCompleteNeedToUpdateDetails" />
 
+
+            <Button
+                android:id="@+id/btnComplete"
+                style="@style/CustomButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:backgroundTint="@color/barnRed"
+                android:text="@string/complete"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivNotesIcon" />
+
+            <Button
+                android:id="@+id/btnCompleteScheduleACall"
+                style="@style/CustomButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:backgroundTint="@color/green"
+                android:text="@string/schedule_a_call"
+                android:textStyle="normal"
+                android:visibility="visible"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnComplete" />
+
+            <Button
+                android:id="@+id/btnCompleteScheduleAVisit"
+                style="@style/CustomButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:backgroundTint="@color/brightOrange"
+                android:text="@string/schedule_a_visit"
+                android:textStyle="normal"
+                android:textAlignment="center"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnCompleteScheduleACall" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
