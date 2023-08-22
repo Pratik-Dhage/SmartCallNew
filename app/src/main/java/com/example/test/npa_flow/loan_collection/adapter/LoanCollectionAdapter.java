@@ -157,11 +157,14 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
                     googleMapsIntent.putExtra("isFromLoanCollectionAdapter_ivMap","isFromLoanCollectionAdapter_ivMap");
                     googleMapsIntent.putExtra("dataSetId",String.valueOf(a.getDataSetId()));
                     context.startActivity(googleMapsIntent);
-
-
-
-                }else{
-                    Global.showToast(context, "Unable to get device location");
+                }
+                // if User Turns Location Off
+                else if (null==currentLocation){
+                    currentLocation = Global.getDeviceLocation(context);
+                    Global.showToast(context,context.getString(R.string.getting_device_location));
+                }
+                else{
+                    Global.showToast(context, context.getString(R.string.unable_to_get_device_location));
                 }
 
             }

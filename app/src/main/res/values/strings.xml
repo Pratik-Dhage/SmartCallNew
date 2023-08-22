@@ -418,6 +418,8 @@
     <string name="need_to_close_visit_statusInfo">Need To Close Visit</string>
     <string name="select_reason">Select Reason</string>
     <string name="do_you_want_to_close_this_acc_permanently">Do you want to close \nthis account permanently?</string>
+    <string name="getting_device_location">Getting Device Location</string>
+    <string name="unable_to_get_device_location">Unable to get device location</string>
 
 
     <!--for Tenure-->
