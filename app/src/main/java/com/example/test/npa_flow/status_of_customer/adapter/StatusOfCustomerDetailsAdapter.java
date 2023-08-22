@@ -142,7 +142,7 @@ public class StatusOfCustomerDetailsAdapter extends RecyclerView.Adapter<StatusO
                 for (ActivityDetail details : a.getActivityDetails()) {
 
                     //Notes
-                    if(null!=details.getAttemptNotes()){
+                    if(null!=details.getAttemptNotes() && !details.getAttemptNotes().isEmpty()){
                         holder.binding.labelNotes.setVisibility(View.VISIBLE);
                         holder.binding.txtNotes.setVisibility(View.VISIBLE);
                         holder.binding.txtNotes.setText(details.getAttemptNotes());
