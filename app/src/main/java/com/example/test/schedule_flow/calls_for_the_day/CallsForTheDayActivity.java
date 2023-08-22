@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,11 +22,15 @@ import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
 import com.example.test.schedule_flow.calls_for_the_day.adapter.CallsForTheDayAdapter;
 
+import kotlin.Unit;
+import se.warting.permissionsui.backgroundlocation.PermissionsUiContracts;
+
 public class CallsForTheDayActivity extends AppCompatActivity {
 
     ActivityCallsForTheDayBinding binding;
     View view;
     CallsForTheDayViewModel callsForTheDayViewModel;
+    ActivityResultLauncher<Unit> locationPermissionUI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +46,20 @@ public class CallsForTheDayActivity extends AppCompatActivity {
         } else {
             Global.showToast(this, getString(R.string.check_internet_connection));
         }
-
+       getLocationPermissionUI();
     }
 
-
+    private void getLocationPermissionUI(){
+        if(!Global.isBackgroundLocationAccessEnabled(this)){
+            //for Location & BackGround Location Permission using warting.permission.ui library
+            locationPermissionUI = registerForActivityResult(
+                    new PermissionsUiContracts.RequestBackgroundLocation(),
+                    success -> System.out.println("BackGroundLocation Access Granted")
+            );
+            locationPermissionUI.launch(null);
+            System.out.println("GetLocationPermissionUI called");
+        }
+    }
 
     private void initializeFields() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_calls_for_the_day);

@@ -1,5 +1,6 @@
 package com.example.test.npa_flow.dpd;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,12 +22,16 @@ import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
 
+import kotlin.Unit;
+import se.warting.permissionsui.backgroundlocation.PermissionsUiContracts;
+
 public class DPDActivity extends AppCompatActivity {
 
 
     ActivityDpdactivityBinding binding;
     View view ;
     DPD_ViewModel dpdViewModel;
+    ActivityResultLauncher<Unit> locationPermissionUI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +49,21 @@ public class DPDActivity extends AppCompatActivity {
         }
 
         onClickListener();
+        getLocationPermissionUI();
     }
+
+    private void getLocationPermissionUI(){
+        if(!Global.isBackgroundLocationAccessEnabled(this)){
+           //for Location & BackGround Location Permission using warting.permission.ui library
+            locationPermissionUI = registerForActivityResult(
+                    new PermissionsUiContracts.RequestBackgroundLocation(),
+                    success -> System.out.println("BackGroundLocation Access Granted")
+            );
+            locationPermissionUI.launch(null);
+            System.out.println("GetLocationPermissionUI called");
+        }
+    }
+
 
     private void call_DPD_Api() {
         dpdViewModel.getDPD_Data();
