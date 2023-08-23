@@ -1,5 +1,7 @@
 package com.example.test.npa_flow.loan_collection.adapter;
 
+import static androidx.core.content.ContextCompat.getColor;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -97,20 +99,20 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
             holder.binding.txtStatus.setText(a.getActionStatus());
 
             //set Colors for Status
-            if(a.getActionStatus().toLowerCase().contains("pending")){
-                holder.binding.txtStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.chilliRed) );
+            if(a.getActionStatus().equalsIgnoreCase("pending")){
+                holder.binding.txtStatus.setTextColor(getColor(holder.itemView.getContext(),R.color.chilliRed) );
             }
 
-            if(a.getActionStatus().toLowerCase().contains("in-process")){
-                holder.binding.txtStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.blueButton) );
+           else if(a.getActionStatus().equalsIgnoreCase("in-process")){
+                holder.binding.txtStatus.setTextColor(getColor(holder.itemView.getContext(),R.color.blueButton) );
             }
 
-            if(a.getActionStatus().toLowerCase().contains("re_assigned")){
-                holder.binding.txtStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.purple) );
+          else  if(a.getActionStatus().equalsIgnoreCase("re_assigned")){
+                holder.binding.txtStatus.setTextColor(getColor(holder.itemView.getContext(),R.color.purple) );
             }
 
-            if(a.getActionStatus().toLowerCase().contains("complete")){
-                holder.binding.txtStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.green) );
+          else  if(a.getActionStatus().equalsIgnoreCase("complete")){
+                holder.binding.txtStatus.setTextColor(getColor(holder.itemView.getContext(),R.color.green) );
                 holder.binding.ivLoanCollectionAttempt.setVisibility(View.INVISIBLE); // hide Attempt No. when Status:Complete
             }
 
@@ -283,31 +285,13 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
     @Override
     public void onViewAttachedToWindow(@NonNull MyViewHolderClass holder) {
         super.onViewAttachedToWindow(holder);
-
         holder.setIsRecyclable(false); // for hand gestures to not disappear
-
-        /*if(GoogleMapsActivity.saveDistanceBoolean && GoogleMapsActivity.isSaveButtonClicked){
-            holder.setIsRecyclable(true);
-        }
-        else{
-            holder.setIsRecyclable(false);
-        }
-*/
     }
 
     @Override
     public void onViewDetachedFromWindow(@NonNull MyViewHolderClass holder) {
         super.onViewDetachedFromWindow(holder);
-
         holder.setIsRecyclable(false); // for hand gestures to not disappear
-
-       /* if(GoogleMapsActivity.saveDistanceBoolean && GoogleMapsActivity.isSaveButtonClicked){
-            holder.setIsRecyclable(true); // for distance in Km to keep fetching New distance everytime
-        }
-        else{
-            holder.setIsRecyclable(false);
-        }
-*/
     }
 
 
