@@ -53,7 +53,7 @@ public class VisitsFlowViewModel extends ViewModel {
 
 
     public void postVisitsFlowCallDateTime(String ApiType, String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber) {
-        subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+        subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + MainActivity3API.UserID + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber+"&reason=",callDetailsList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -67,7 +67,7 @@ public class VisitsFlowViewModel extends ViewModel {
     //FOR VISITS FLOW-> READY TO PAY -> CHEQUE PAYMENT & CASH PAYMENT
     public void postVisitsFlowCallDateTimeCheque_Cash(String ApiType,String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber,
                                                  String amountCollected,String chequeDate ,String chequeNumber ,String chequeAmount, String bankName) {
-        subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+        subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + MainActivity3API.UserID + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber
                         +"&amountCollected="+amountCollected + "&chequeDate="+chequeDate + "&chequeNumber="+chequeNumber + "&chequeAmount="+chequeAmount + "&bankName="+bankName,callDetailsList)
                 .subscribeOn(Schedulers.io())
@@ -82,7 +82,7 @@ public class VisitsFlowViewModel extends ViewModel {
     //(CircularFlow)COMPLETE/SUBMIT - Schedule A Call / Schedule A Visit
     public void postScheduleCall_ScheduleVisit(String ApiType,String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber,String reason,
                                                String amountCollected,String chequeDate ,String chequeNumber ,String chequeAmount, String bankName, List<CallDetails> callDetailsList) {
-        subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+        subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + MainActivity3API.UserID + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber +"&reason="+reason
                         +"&amountCollected="+amountCollected + "&chequeDate="+chequeDate + "&chequeNumber="+chequeNumber + "&chequeAmount="+chequeAmount + "&bankName="+bankName,callDetailsList)
                 .subscribeOn(Schedulers.io())
@@ -98,7 +98,7 @@ public class VisitsFlowViewModel extends ViewModel {
     //2) Did Not Visit The Customer - Visit Rescheduled - Late For Visit
     //3) Did Not Visit The Customer - Visit Rescheduled - Others
     public void postVisitsFlow_DidNotVisitTheCustomer(String ApiType,String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber,String reason, List<CallDetails> callDetailsList) {
-        subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+        subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + MainActivity3API.UserID + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber +"&reason="+reason,callDetailsList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -111,7 +111,7 @@ public class VisitsFlowViewModel extends ViewModel {
 
     //FOR VISITS FLOW - VISITED THE CUSTOMER - OTHERS & VISITED THE CUSTOMER - NOT READY TO PAY - OTHERS
     public void postVisitsFlowCallDateTime_Others(String ApiType,String dataSetId, String scheduleVisitForCollection_dateTime, String dateOfVisitPromised, String foName, String relativeName, String relativeContactNumber,String reason) {
-        subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + userId + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
+        subscribtion = (Disposable) Global.apiService().post_call_details( ApiType+ "&dataSetId=" + dataSetId + "&callingAgent=" + MainActivity3API.UserID + "&scheduledDateTime=" + scheduleVisitForCollection_dateTime +
                         "&dateOfVisitPromised=" + dateOfVisitPromised + "&foName=" + foName + "&relativeName=" + relativeName + "&relativeContactNumber=" + relativeContactNumber+"&reason="+reason,callDetailsList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
