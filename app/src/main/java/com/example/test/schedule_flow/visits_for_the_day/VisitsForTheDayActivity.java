@@ -83,6 +83,7 @@ public class VisitsForTheDayActivity extends AppCompatActivity {
         VisitsFlowCallDetailsActivity.send_RelativeContact = null;
         VisitsFlowCallDetailsActivity.send_scheduleDateTime = null;
         VisitsFlowCallDetailsActivity.send_callNotes = null;
+        VisitsFlowCallDetailsActivity.send_reason = null;
 
         //Get UserIdD & BranchCode
         MPinDao mPinDao = LeadListDB.getInstance(this).mPinDao();
