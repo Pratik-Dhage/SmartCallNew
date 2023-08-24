@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Location;
 import android.location.LocationManager;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -97,6 +98,8 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
         this.detailsOfCustomer_responseModelArrayList = detailsOfCustomer_responseModelArrayList;
     }
 
+    private Location currentLocation;//User's Current location may change everytime when Capture button is clicked
+
      public static String phoneNumber =""; //to use in VisitsFlowCallDetailsActivity to Call if permission already granted
 
     // Get LatLong from LoanCollectionAdapter and use in DetailsOfCustomer Page
@@ -129,6 +132,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
 
         DetailsOfCustomerResponseModel a = detailsOfCustomer_responseModelArrayList.get(position);
         context = holder.itemView.getContext();
+        currentLocation = Global.getDeviceLocation(context); //for Capture Button
 
         // Sort by number in getSequence coming from DetailsOfCustomerResponseModel
         detailsOfCustomer_responseModelArrayList.sort(Comparator.comparingInt(DetailsOfCustomerResponseModel::getSequence));
@@ -301,11 +305,15 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
             if (a.getButtonLable().contentEquals("Capture")) {
 
                 //check if Location Turned On
-
                 if(!Global.isLocationEnabled(context)  || !Global.isBackgroundLocationAccessEnabled((Activity) context)){
-                    Global.showToast(context, "Please Turn Location On");
+                    Global.showLocationMessageDialog(context.getString(R.string.pls_turn_on_location),context);
                 }
-                else if (Global.isLocationEnabled(context) && Global.isBackgroundLocationAccessEnabled((Activity) context)){
+                // if User Turns Location Off / To get current Location everytime when user clicks Capture Button
+                else if (null==currentLocation){
+                    currentLocation = Global.getDeviceLocation(context);
+                    Global.showLocationMessageDialog(context.getString(R.string.getting_device_location),context);
+                }
+                else if (Global.isLocationEnabled(context) && Global.isBackgroundLocationAccessEnabled((Activity) context) && null!=currentLocation){
 
                     LoanCollectionAdapter.LoanCollectionAdapter_dataSetId = Global.getStringFromSharedPref(context,"dataSetId");
 
