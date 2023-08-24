@@ -361,7 +361,7 @@ public  class WebServices {
         okHttpBuilder.readTimeout(2, TimeUnit.MINUTES).build();
         okHttpBuilder.writeTimeout(2, TimeUnit.MINUTES);
         okHttpBuilder.addInterceptor(logging);
-        AuthInterceptor authInterceptor = new AuthInterceptor("Admin","abcd_1234");
+        AuthInterceptor authInterceptor = new AuthInterceptor("Admin","abcd1234");
         okHttpBuilder.addInterceptor(authInterceptor);// to authenticate credential before calling the api
         OkHttpClient okHttpClient = okHttpBuilder.build();
 
@@ -372,9 +372,7 @@ public  class WebServices {
         Retrofit retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                //.baseUrl(WebServices.Domain2)
-                //.baseUrl(WebServices.Domain)
-                .baseUrl(SmartCall_BaseURL5)
+                .baseUrl(SmartCall_BaseURL7)
                 .client(okHttpClient)
                 .build();
 
