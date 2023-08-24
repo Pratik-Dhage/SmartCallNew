@@ -198,16 +198,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        //on clicking Start Visit to get User LatLong
-        if(requestCode == 101){
-            userLatitude = Global.getDeviceLocation(this).getLatitude();
-            userLongitude = Global.getDeviceLocation(this).getLongitude();
-
-            System.out.println("Here userLatitude:"+userLatitude+" userLongitude:"+userLongitude);
-        }
-        else{
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
-        }
 
         //coming from DetailsOfCustomerAdapter Navigation/Capture Button Click
         if (requestCode == Global.REQUEST_BACKGROUND_LOCATION) {
