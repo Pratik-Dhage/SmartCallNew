@@ -143,7 +143,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
                 System.out.println("Here LoanCollectionAdapter ivMap Location msg");
                 //check if Location Turned On
                 if(!Global.isLocationEnabled(context) || !Global.isBackgroundLocationAccessEnabled((Activity) context)){
-                    Global.showToast(context, "Please Turn Location On");
+                    Global.showLocationMessageDialog(context.getString(R.string.pls_turn_on_location),context);
                     // Open location settings
                /* Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 ((Activity) context).startActivityForResult(intent, LoanCollectionActivity.LocationRequestCode);*/
@@ -163,7 +163,7 @@ public class LoanCollectionAdapter extends RecyclerView.Adapter<LoanCollectionAd
                 // if User Turns Location Off
                 else if (null==currentLocation){
                     currentLocation = Global.getDeviceLocation(context);
-                    Global.showToast(context,context.getString(R.string.getting_device_location));
+                    Global.showLocationMessageDialog(context.getString(R.string.getting_device_location),context);
                 }
                 else{
                     Global.showToast(context, context.getString(R.string.unable_to_get_device_location));
