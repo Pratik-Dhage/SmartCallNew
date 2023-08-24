@@ -249,12 +249,6 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                     System.out.println("Here LatitudeFromDetailsOfCustomerAdapter:"+Global.getStringFromSharedPref(context,"latitudeFromLoanCollectionAdapter")+" & LongitudeFromDetailsOfCustomerAdapter:"+Global.getStringFromSharedPref(context,"longitudeFromLoanCollectionAdapter"));
 
                     System.out.println("Here isBackGroundLocationEnabled:"+ Global.isBackgroundLocationAccessEnabled((Activity) context));
-                /*Intent latLongIntent = new Intent(context, GoogleMapsActivity.class);
-                latLongIntent.putExtra("latitudeFromDetailsOfCustomerAdapter",latitudeFromLoanCollectionResponse);
-                latLongIntent.putExtra("longitudeFromDetailsOfCustomerAdapter", longitudeFromLoanCollectionResponse);
-                latLongIntent.putExtra("LatLongFromDetailsOfCustomerAdapter","LatLongFromDetailsOfCustomerAdapter");
-                latLongIntent.putExtra("dataSetId", LoanCollectionAdapter.LoanCollectionAdapter_dataSetId);
-                context.startActivity(latLongIntent);*/
 
                        try{
                            //  Navigate To Google Maps App for Direction (coming from Either NPA OR VisitsForTheDay)
