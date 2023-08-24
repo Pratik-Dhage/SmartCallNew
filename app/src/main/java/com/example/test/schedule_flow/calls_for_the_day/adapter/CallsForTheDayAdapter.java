@@ -127,7 +127,7 @@ public class CallsForTheDayAdapter extends RecyclerView.Adapter<CallsForTheDayAd
                 String longitude = String.valueOf(a.getLongitute());
 
                 if(!Global.isLocationEnabled(context) || !Global.isBackgroundLocationAccessEnabled((Activity) context)){
-                    Global.showToast(context, "Please Turn Location On");
+                    Global.showLocationMessageDialog(context.getString(R.string.pls_turn_on_location),context);
                 }
 
                 else if (Global.isLocationEnabled(context) && Global.isBackgroundLocationAccessEnabled((Activity) context) ){
