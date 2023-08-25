@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.example.test.databinding.ActivityPaymentInfoOfCustomerBinding;
 import com.example.test.fragment_visits_flow.Visit_NPA_NotAvailableActivity;
 import com.example.test.fragment_visits_flow.Visit_NPA_RescheduledActivity;
 import com.example.test.fragment_visits_flow.Visit_NPA_StatusActivity;
+import com.example.test.fragment_visits_flow.VisitsFlowCallDetailsActivity;
 import com.example.test.helper_classes.Global;
 import com.example.test.helper_classes.NetworkUtilities;
 import com.example.test.main_dashboard.MainActivity3API;
@@ -44,6 +46,9 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     View view;
     DetailsOfCustomerViewModel detailsOfCustomerViewModel;
     ArrayList<DetailsOfCustomerResponseModel> detailsList;
+    public static int visitsCallRequestCode = 1;//for call purpose
+    public static String Mobile_Number,Alternate_Mobile_Number;
+
 
     // for getting User LatLong on clicking Start Visit , initial values will be 0.0
     double userLatitude = 0.0;
@@ -106,6 +111,27 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                             it.setEditable("");
                             Global.removeStringInSharedPref(this,"Amount_Paid"); // remove Amount Paid from SharePreferences for next activities to have New value
                         }
+
+                        if ( it.getLable().contains("mobile") ||  it.getLable().contains("phone")) {
+
+                            if(null!=it.getValue() && !it.getValue().toString().isEmpty() && !it.getValue().toString().equals("0")){
+                                Mobile_Number = String.valueOf(it.getValue()); //store mobile_no
+                                System.out.println("Here Mobile Number: "+Mobile_Number);
+                            }
+
+                        }
+
+                        //for Alternate Mobile Number either coming from API OR DetailsOFCustomerAdapter
+                        if( it.getLable().contains("alternate")){
+
+                            if(null!= it.getValue()){
+                                Alternate_Mobile_Number = String.valueOf(it.getValue());
+                                System.out.println("Here Alternate Number: "+it.getValue());
+                            }
+
+                        }
+
+
                     });
 
                     detailsOfCustomerViewModel.arrList_DetailsOfCustomer_Data.clear();
@@ -197,6 +223,37 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(visitsCallRequestCode == requestCode){
+
+            boolean allPermissionsGranted = true;
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                    allPermissionsGranted = false;
+                    break;
+                }
+            }
+
+            if (allPermissionsGranted){
+
+                try{
+                    Global.showSelectedMobileNumberDialog(Mobile_Number,Alternate_Mobile_Number,this);
+                }
+                catch(Exception e){
+                    if(e.getLocalizedMessage() != null){
+                        System.out.println("Here Visits Call Exception :"+e.getLocalizedMessage());
+                    }
+                    e.printStackTrace();
+                }
+
+            }
+            else {
+                // Permission is denied, show a message
+                Global.showSnackBar(view, getResources().getString(R.string.permission_to_call_denied));
+
+            }
+
+        }
 
 
         //coming from DetailsOfCustomerAdapter Navigation/Capture Button Click

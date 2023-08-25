@@ -185,6 +185,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                     //make an actual call
                     if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED ||
                             ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED ||
+                            ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED ||
                             ActivityCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
 
                     ) {
@@ -198,6 +199,7 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
                         ActivityCompat.requestPermissions(activity, new String[]{
                                 Manifest.permission.CALL_PHONE,
                                 Manifest.permission.READ_CALL_LOG,
+                                Manifest.permission.READ_PHONE_STATE,
                                 Manifest.permission.RECORD_AUDIO}, VisitsFlowCallDetailsActivity.visitsCallRequestCode);
                     }
                     else {
