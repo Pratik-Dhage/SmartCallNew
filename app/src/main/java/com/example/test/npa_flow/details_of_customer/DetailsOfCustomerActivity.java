@@ -454,6 +454,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
             //make an actual call
             if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED ||
                     ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED ||
+                    ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED ||
                     ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
 
             ) {
@@ -461,6 +462,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{
                         Manifest.permission.CALL_PHONE,
                         Manifest.permission.READ_CALL_LOG,
+                        Manifest.permission.READ_PHONE_STATE,
                         Manifest.permission.RECORD_AUDIO}, REQUEST_CALL);
             } else {
 
@@ -561,7 +563,17 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CALL) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            boolean allPermissionsGranted = true;
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                    allPermissionsGranted = false;
+                    break;
+                }
+            }
+           // if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            if (allPermissionsGranted) {
+                System.out.println("All Permissions Granted"+allPermissionsGranted);
 
                 if(noMobileNumberExists()){
                     System.out.println("No Mobile Number exists");
@@ -573,32 +585,6 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                 else{
                     selectedMobileNumberDialog();
                 }
-
-
-               /* // Permission is granted, make the call
-                String phoneNumber = Mobile_Number; //use mobile number fetched from result(API Response)
-               // Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
-                Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
-                startActivity(dial);
-
-                try {
-
-
-                    getCallRecordingAndCallLogs();
-
-                    //Store Call Count in RoomDB
-                  //  storeCallCountInRoomDB(FullName, Mobile_Number);
-
-                } catch (Exception e) {
-                    System.out.println("Here Error:" + e);
-                    Global.showSnackBar(view, "Call Error" + e);
-                }
-
-
-
-                //Initiate Call button visible after call made and ivCallLogo invisible
-                binding.ivCall.setVisibility(View.INVISIBLE);
-                binding.btnCallInitiated.setVisibility(View.VISIBLE);*/
 
 
             } else {
@@ -889,8 +875,8 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                 getCallRecordingAndCallLogs();
 
             } catch (Exception e) {
-                Global.showSnackBar(view, "Call Error" + e);
-                System.out.println("Here Call Error:" + e);
+                Global.showSnackBar(view, "Call Exception" + e);
+                System.out.println("Here Call Exception:" + e);
             }
 
             return  true;
