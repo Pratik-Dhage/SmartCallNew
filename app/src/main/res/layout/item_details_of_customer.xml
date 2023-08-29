@@ -42,8 +42,10 @@
             android:hint="@string/enter_amount"
             android:inputType="number"
             android:maxLength="10"
+            android:background="@drawable/edit_text_bottom_border"
             android:textAlignment="center"
             android:visibility="invisible"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@id/labelDetailName"
            app:layout_constraintStart_toEndOf="@id/labelDetailName"
             app:layout_constraintTop_toTopOf="@id/labelDetailName" />
