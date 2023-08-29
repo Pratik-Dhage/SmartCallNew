@@ -743,7 +743,7 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                              //Initiate Call button visible after call made and ivCallLogo invisible
                            binding.ivCall.setVisibility(View.INVISIBLE);
                            binding.btnCallInitiated.setVisibility(View.VISIBLE);
-                           binding.btnCallInitiated.performClick();
+                         //  binding.btnCallInitiated.performClick();
 
                         }
 
