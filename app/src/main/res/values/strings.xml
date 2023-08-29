@@ -421,6 +421,7 @@
     <string name="getting_device_location">Getting Device Location</string>
     <string name="pls_turn_on_location">Please Turn ON Device Location  </string>
     <string name="unable_to_get_device_location">Unable to get device location</string>
+    <string name="version">Ver 8.3</string>
 
 
     <!--for Tenure-->
