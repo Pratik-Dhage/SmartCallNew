@@ -19,6 +19,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -121,12 +122,17 @@ public class Visit_NPA_PaymentModeActivity extends AppCompatActivity {
                 String generateReceiptUrl = "http://43.239.52.151:8081/report/Receipt?output=PDF&dataSetId=238624&amtPaid=1645&userId=CA_01_001&userName=CallingAgent1";
 
                 // Using SmartCall_BaseURL5 for fast response
-                String generateReceiptUrl2 = "http://45.113.189.27:8082/report/Receipt_Reprint?output=PDF&dataSetId=" + dataSetId + "&amtPaid=" + amount_paid + "&userId=" + userId + "&userName=" + username +"&receiptNo="+result;
+                String generateReceiptUrl2 = "https://aakhyatechapps.com/report/Receipt_Reprint?output=PDF&dataSetId=" + dataSetId + "&amtPaid=" + amount_paid + "&userId=" + userId + "&userName=" + username +"&receiptNo="+result;
 
                 //for Navigating to PDF Viewer app installed in Device
                 Uri uri = Uri.parse(generateReceiptUrl2);
+                System.out.println("Generate Receipt for "+dataSetId+" "+generateReceiptUrl2);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 intent.setDataAndType(uri,"application/pdf");
+                // Add Basic Authorization header
+                String usernamePassword = "Admin:abcd1234";
+                String authHeader = "Basic " + Base64.encodeToString(usernamePassword.getBytes(), Base64.NO_WRAP);
+                intent.putExtra("Authorization", authHeader);
                 startActivity(intent);
 
                 // for PDF view inside app
