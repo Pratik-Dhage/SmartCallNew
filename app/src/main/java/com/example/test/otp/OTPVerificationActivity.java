@@ -181,7 +181,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
 
                 if(result!=null){
 
-                    Global.showToast(this,result.getOtpCode().toString());
+                  //  Global.showToast(this,result.getOtpCode().toString());
                     System.out.println("Here OTPVerificationActivity Resend OTP called: "+result.getOtpCode().toString());
                 }
 

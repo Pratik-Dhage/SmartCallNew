@@ -108,7 +108,7 @@ public class OTPActivity extends AppCompatActivity {
                     ){
 
                         //to display OTP code
-                        Global.showToast(this,"OTP Code: "+ result.getOtpCode());
+                       // Global.showToast(this,"OTP Code: "+ result.getOtpCode());
                         binding.txtUserIDError.setVisibility(View.GONE);
                         Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
                         i.putExtra("isFromRegisterPasswordActivity",isFromRegisterPasswordActivity);
@@ -122,7 +122,7 @@ public class OTPActivity extends AppCompatActivity {
                           //  && (!result.getAuthenticationResult().toString().toLowerCase().contains("invalid userid"))
                     ){
                         //to display OTP code
-                        Global.showToast(this,"OTP Code: "+ result.getOtpCode());
+                      //  Global.showToast(this,"OTP Code: "+ result.getOtpCode());
                         binding.txtUserIDError.setVisibility(View.GONE);
                         Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
                         isFromLoginForgotPassword = true;
@@ -158,7 +158,7 @@ public class OTPActivity extends AppCompatActivity {
                     else{
 
                         //to display OTP code
-                        Global.showToast(this,"OTP Code: "+ result.getOtpCode());
+                       // Global.showToast(this,"OTP Code: "+ result.getOtpCode());
 
                         Intent i = new Intent(OTPActivity.this, OTPVerificationActivity.class);
                         i.putExtra("userId",userId);
