@@ -169,7 +169,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
     private void callGenerateOTP_Api(){
 
         userId  = getIntent().getStringExtra("userId");;
-        otpViewModel.callGenerateOTP_Api(userId);
+        otpViewModel.callGenerateOTP_ApiEverytime(userId); // using this api to get OTP even if User is Already Registered
 
     }
 
@@ -214,6 +214,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
         //on Clicking Resend OTP
         binding.labelResendOTP.setOnClickListener(v1->{
             System.out.println("Resend OTP clicked");
+            startCountDownTimer();
             callGenerateOTP_Api();
             initObserverGenerateOTP();
 

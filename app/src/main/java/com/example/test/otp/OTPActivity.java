@@ -52,12 +52,27 @@ public class OTPActivity extends AppCompatActivity {
         binding.setViewModel(otpViewModel);
 
         isFromLoginForgotPassword = false; //initially isFromLoginForgotPassword will be false
+
+        // button SendOTP will be clickable initially
+        binding.btnSendOTP.setClickable(true);
+
     }
 
+    //Coming from LoginActivity Either from SignUp OR Forgot Password
+    //depending on it Respective Api will be called
     private void callGenerateOTP_Api(){
 
         userId  = binding.edtOTPUserId.getText().toString().trim();
-        otpViewModel.callGenerateOTP_Api(userId);
+
+        //coming from LoginActivity->ForgotPassword
+        if(getIntent().hasExtra("isFromLoginForgotPassword")){
+            otpViewModel.callGenerateOTP_ApiEverytime(userId);
+        }
+        //coming from LoginActivity->SignUp
+        else{
+            otpViewModel.callGenerateOTP_Api(userId);
+        }
+
 
         Global.saveStringInSharedPref(this,"userId",userId); // saving userId  for calling api in RegisterPasswordActivity for Setting And Resetting Password
     }
@@ -103,8 +118,8 @@ public class OTPActivity extends AppCompatActivity {
                     }
 
                     //if coming from ForgotPassword / Reset Password
-                    else  if(getIntent().hasExtra("isFromLoginForgotPassword") &&
-                            (!result.getAuthenticationResult().toString().toLowerCase().contains("invalid userid"))
+                    else  if(getIntent().hasExtra("isFromLoginForgotPassword")
+                          //  && (!result.getAuthenticationResult().toString().toLowerCase().contains("invalid userid"))
                     ){
                         //to display OTP code
                         Global.showToast(this,"OTP Code: "+ result.getOtpCode());
@@ -216,6 +231,13 @@ public class OTPActivity extends AppCompatActivity {
         binding.btnSendOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Global.hideKeyboard(OTPActivity.this);
+
+                //Send OTP button is clickable only once
+                if(!binding.edtOTPUserId.getText().toString().isEmpty()){
+                    binding.btnSendOTP.setClickable(false); // for OTPCode to be Received only once For First Time Users
+                }
 
                 if(NetworkUtilities.getConnectivityStatus(OTPActivity.this))
                 {

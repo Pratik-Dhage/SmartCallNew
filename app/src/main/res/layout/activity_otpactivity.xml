@@ -19,6 +19,20 @@
     tools:context=".otp.OTPActivity">
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:text="@string/version"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textAlignment="center"
+        android:textColor="@color/textBlue"
+        android:textSize="@dimen/_11ssp"
+        android:textStyle="normal" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayoutUserId"
         style="@style/text_input_layout"

@@ -67,6 +67,12 @@ public interface RestClient {
              @Body UserModel userModel
     );
 
+    //To Generate OTP when coming from LoginActivity-> ForgotPassword
+    @POST("security/forgotPassword")
+    Observable<OTPGenerateOTPResponseModel> otpGenerateApiEverytime(
+            @Body UserModel userModel
+    );
+
     //Validate OTP
     @POST("security/validateOtp")
    /* Observable<OTPValidateOTPResponseModel> otpValidateApi(

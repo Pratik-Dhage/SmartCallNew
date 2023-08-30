@@ -46,7 +46,7 @@ public class LoginWithOTPFragment extends Fragment {
     private void callGenerateOTP_Api(){
 
         userId  = binding.edtOTPUserId.getText().toString().trim();
-        otpViewModel.callGenerateOTP_Api(userId);
+        otpViewModel.callGenerateOTP_ApiEverytime(userId);
     }
 
     private void initObserver(){
