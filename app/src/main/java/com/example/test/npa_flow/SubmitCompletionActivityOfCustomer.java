@@ -1,5 +1,7 @@
 package com.example.test.npa_flow;
 
+import static com.example.test.npa_flow.ScheduleVisitForCollectionActivity.scheduleVisitForCollection_dateTime;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -31,6 +33,7 @@ import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerResponseMo
 import com.example.test.npa_flow.details_of_customer.DetailsOfCustomerViewModel;
 import com.example.test.npa_flow.details_of_customer.adapter.DetailsOfCustomerAdapter;
 import com.example.test.roomDB.dao.CallDetailsListDao;
+import com.example.test.roomDB.dao.LeadCallDao;
 import com.example.test.roomDB.dao.MPinDao;
 import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
@@ -67,7 +70,8 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
 
     private void setToolBarTitle(){
         if(getIntent().hasExtra("isFromVisitNPANotificationActivity") || getIntent().hasExtra("isFromVisitNPANotAvailableActivity")
-         || getIntent().hasExtra("isFromVisitNPARescheduleActivity")
+         || getIntent().hasExtra("isFromVisitNPARescheduleActivity") || getIntent().hasExtra("isFromVisitNPAStatusActivity_Others")
+         || getIntent().hasExtra("Visit_Npa_NotAvailable_NeedToCloseVisit")
         ){
             binding.txtToolbarHeading.setText(getString(R.string.visit_complete));
         }
@@ -85,6 +89,23 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         callDetailsViewModel = new ViewModelProvider(this).get(CallDetailsViewModel.class);
         visitsFlowViewModel = new ViewModelProvider(this).get(VisitsFlowViewModel.class);
          setToolBarTitle();
+
+         //coming from RadioButtonsCloseVisitAdapter(Visit_NPA_NotAvailableActivity - btnNeedToCloseVisit)
+         //display only 2 buttons ScheduleCall & ScheduleVisit
+        if(getIntent().hasExtra("Visit_Npa_NotAvailable_NeedToCloseVisit")){
+            if(getIntent().hasExtra("Visit_NPA_NotAvailableActivity_NeedToCloseVisit_PaymentAlreadyMade")){
+                binding.btnSubmit.setVisibility(View.VISIBLE);
+            }
+            else{
+                binding.btnSubmit.setVisibility(View.GONE);
+            }
+
+        }
+
+        //coming from NotSpokeToCustomer - NumberIsInvalid , hide ScheduleCall Button
+        if(getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")){
+            binding.btnSubmitScheduleACall.setVisibility(View.GONE);
+        }
 
          //initially button are Clickable
          binding.btnSubmitNoChange.setClickable(true);
@@ -215,7 +236,15 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
         //for Notes
         binding.ivNotesIcon.setOnClickListener(v -> {
 
-            Global.showNotesEditDialog(this);
+            //coming from NPA/CallsForTheDay
+            if(Global.getStringFromSharedPref(this,"backToMemberList").equals("1") || Global.getStringFromSharedPref(this,"backToMemberList").equals("2")) {
+                Global.showNotesEditDialog(this);
+            }
+            //coming from VisitsForTheDayFlow
+            else if(Global.getStringFromSharedPref(this,"backToMemberList").equals("3")){
+                Global.showNotesEditDialogVisits(this);
+            }
+
         });
 
         //for History
@@ -260,25 +289,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 navigateToDashBoard();
             }
 
-            //Visit-NPA Reschedule -> Others -> Proceed
-            if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")) {
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String others_proceed = WebServices.visit_did_not_visit_others;
 
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_proceed, dataSetId, "", "", "", "", "", VisitsFlowCallDetailsActivity.send_reason, visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-                navigateToDashBoard();
-            }
-
-            //Visit-NPA Reschedule -> Payment Already Made -> Skip & Proceed
-            if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")) {
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String payment_already_made_skip_and_proceed = WebServices.visit_did_not_visit_payment_already_made;
-
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_skip_and_proceed, dataSetId, "", "", ",", "", "", "", visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-                navigateToDashBoard();
-            }
 
             //Visit-NPANotAvailable -> Others -> Skip & Proceed
             if (getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")) {
@@ -413,19 +424,12 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
             }
 
 
-            //PAYMENT INFO WILL PAY LATER->WILL PAY LUMPSUM
-            if (getIntent().hasExtra("paymentInfo_WillPayLater")) {
+            //PAYMENT INFO ->WILL PAY LUMPSUM
+            if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_WillPayLumpSum")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 if (NetworkUtilities.getConnectivityStatus(this)) {
                     callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId, "", "", "", "", "");
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
-                            startActivity(i);
-                        }
-                    }, 3000);
+                    navigateToDashBoard();
                 } else {
                     Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
@@ -506,11 +510,19 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                     navigateToNearByCustomerActivity();
                 }
 
+                //Visit_NPA_NotAvailableActivity - NeedToCloseVisit - PaymentAlreadyMade
+                if(getIntent().hasExtra("Visit_NPA_NotAvailableActivity_NeedToCloseVisit_PaymentAlreadyMade")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                    visitsFlowViewModel.postScheduleCall_ScheduleVisit(WebServices.needToCloseVisit,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,"","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                     navigateToDashBoard();
+                }
 
         }// button SubmitNoChange is Clicked Once or not ends here
 
         });
 
+        //kept Hidden for Temporary Basis
         binding.btnSubmitNeedToUpdateDetails.setOnClickListener(v-> {
 
             //Call Save Alternate Number API
@@ -543,25 +555,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 navigateToDashBoard();
             }
 
-            //Visit-NPA Reschedule -> Others -> Proceed
-            if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")) {
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String others_proceed = WebServices.visit_did_not_visit_others;
 
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_proceed, dataSetId, "", "", "", "", "", VisitsFlowCallDetailsActivity.send_reason, visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-                navigateToDashBoard();
-            }
-
-            //Visit-NPA Reschedule -> Payment Already Made -> Skip & Proceed
-            if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")) {
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String payment_already_made_skip_and_proceed = WebServices.visit_did_not_visit_payment_already_made;
-
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_skip_and_proceed, dataSetId, "", "", ",", "", "", "", visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-                navigateToDashBoard();
-            }
 
             //Visit-NPANotAvailable -> Others -> Skip & Proceed
             if (getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")) {
@@ -696,19 +690,12 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
             }
 
 
-            //PAYMENT INFO WILL PAY LATER->WILL PAY LUMPSUM
-            if (getIntent().hasExtra("paymentInfo_WillPayLater")) {
+            //PAYMENT INFO ->WILL PAY LUMPSUM
+            if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_WillPayLumpSum")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 if (NetworkUtilities.getConnectivityStatus(this)) {
                     callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId, "", "", "", "", "");
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
-                            startActivity(i);
-                        }
-                    }, 3000);
+                    navigateToDashBoard();
                 } else {
                     Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
@@ -788,10 +775,19 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                     navigateToNearByCustomerActivity();
                 }
 
+                //Visit_NPA_NotAvailableActivity - NeedToCloseVisit - PaymentAlreadyMade
+                if(getIntent().hasExtra("Visit_NPA_NotAvailableActivity_NeedToCloseVisit_PaymentAlreadyMade")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                    visitsFlowViewModel.postScheduleCall_ScheduleVisit(WebServices.needToCloseVisit,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,"","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                    navigateToDashBoard();
+                }
+
         }//button SubmitNeedToUpdateDetails is clicked once or not ends here
 
         });
 
+        //kept Hidden for Temporary Basis
         binding.btnSubmitEscalateToBM.setOnClickListener(v-> {
 
             //Call Save Alternate Number API
@@ -823,25 +819,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 navigateToDashBoard();
             }
 
-            //Visit-NPA Reschedule -> Others -> Proceed
-            if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_Others")) {
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String others_proceed = WebServices.visit_did_not_visit_others;
 
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(others_proceed, dataSetId, "", "", "", "", "", VisitsFlowCallDetailsActivity.send_reason, visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-                navigateToDashBoard();
-            }
-
-            //Visit-NPA Reschedule -> Payment Already Made -> Skip & Proceed
-            if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")) {
-                String dataSetId = getIntent().getStringExtra("dataSetId");
-                String payment_already_made_skip_and_proceed = WebServices.visit_did_not_visit_payment_already_made;
-
-                VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
-                visitsFlowViewModel.postVisitsFlow_DidNotVisitTheCustomer(payment_already_made_skip_and_proceed, dataSetId, "", "", ",", "", "", "", visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
-                navigateToDashBoard();
-            }
 
             //Visit-NPANotAvailable -> Others -> Skip & Proceed
             if (getIntent().hasExtra("isFromVisitNPANotAvailableActivity_Others")) {
@@ -975,19 +953,12 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
             }
 
 
-            //PAYMENT INFO WILL PAY LATER->WILL PAY LUMPSUM
-            if (getIntent().hasExtra("paymentInfo_WillPayLater")) {
+            //PAYMENT INFO ->WILL PAY LUMPSUM
+            if (getIntent().hasExtra("isPaymentInfoOfCustomerActivity_WillPayLumpSum")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
                 if (NetworkUtilities.getConnectivityStatus(this)) {
                     callDetailsViewModel.postScheduledDateTime_WPLS(dataSetId, "", "", "", "", "");
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent i = new Intent(SubmitCompletionActivityOfCustomer.this, MainActivity3API.class);
-                            startActivity(i);
-                        }
-                    }, 3000);
+                    navigateToDashBoard();
                 } else {
                     Global.showSnackBar(view, getString(R.string.check_internet_connection));
                 }
@@ -1066,9 +1037,235 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                     navigateToNearByCustomerActivity();
                 }
 
+                //Visit_NPA_NotAvailableActivity - NeedToCloseVisit - PaymentAlreadyMade
+                if(getIntent().hasExtra("Visit_NPA_NotAvailableActivity_NeedToCloseVisit_PaymentAlreadyMade")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                    visitsFlowViewModel.postScheduleCall_ScheduleVisit(WebServices.needToCloseVisit,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,"","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                    navigateToDashBoard();
+                }
+
         }// button SubmitEscalateToBM clicked once or not ends here
 
         });
+
+
+        binding.btnSubmit.setOnClickListener(v->{
+            binding.btnSubmitNoChange.performClick();
+        });
+
+        binding.btnSubmitScheduleACall.setOnClickListener(v->{
+
+            //Visit_NPA_StatusActivity->Others
+            if(getIntent().hasExtra("isFromVisitNPAStatusActivity_Others")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("Submit_ScheduleACall","Submit_ScheduleACall"); //to Set Title
+                i.putExtra("isFromVisitNPAStatusActivity_Others_ScheduleCall","isFromVisitNPAStatusActivity_Others_ScheduleCall");
+                i.putExtra("dataSetIdToResetCallCount","dataSetIdToResetCallCount");
+                startActivity(i);
+            }
+
+            //Visit_NPA_NotificationActivity 6 Buttons-> LOF,PAM/CPM,NTL,LTBR,WPLS,OTH
+            if(getIntent().hasExtra("NotReadyToPay_LackOfFunds") || getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")
+            || getIntent().hasExtra("NotReadyToPay_NotTakenLoan") || getIntent().hasExtra("NotReadyToPay_LoanTakenByRelative")
+            || getIntent().hasExtra("NotReadyToPay_WillPayLumpSump") || getIntent().hasExtra("NotReadyToPay_Others")
+            )
+            {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("Submit_ScheduleACall","Submit_ScheduleACall"); //to Set Title
+                i.putExtra("dataSetIdToResetCallCount","dataSetIdToResetCallCount");
+                i.putExtra("isFromVisitNPANotification_6ButtonsScheduleCall","isFromVisitNPANotification_6ButtonsScheduleCall"); //to check in ScheduleVisitForCollection
+
+               if(getIntent().hasExtra("NotReadyToPay_LackOfFunds")){
+                  i.putExtra("NotReadyToPay_LackOfFunds","NotReadyToPay_LackOfFunds");
+               }
+               else if(getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")){
+                   i.putExtra("NotReadyToPay_ClaimsPaymentMade","NotReadyToPay_ClaimsPaymentMade");
+               }
+               else if(getIntent().hasExtra("NotReadyToPay_NotTakenLoan")){
+                   i.putExtra("NotReadyToPay_NotTakenLoan","NotReadyToPay_NotTakenLoan");
+               }
+               else if(getIntent().hasExtra("NotReadyToPay_LoanTakenByRelative")){
+                   i.putExtra("NotReadyToPay_LoanTakenByRelative","NotReadyToPay_LoanTakenByRelative");
+               }
+               else if(getIntent().hasExtra("NotReadyToPay_WillPayLumpSump")){
+                   i.putExtra("NotReadyToPay_WillPayLumpSump","NotReadyToPay_WillPayLumpSump");
+               }
+               else if(getIntent().hasExtra("NotReadyToPay_Others")){
+                   i.putExtra("NotReadyToPay_Others","NotReadyToPay_Others");
+               }
+
+                startActivity(i);
+            }
+
+            //Visit_NPA_NotAvailableActivity - showDialogCloseAccount() - No Button click
+            if(getIntent().hasExtra("Visit_Npa_NotAvailable_NeedToCloseVisit")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("Submit_ScheduleACall","Submit_ScheduleACall"); //to Set Title
+                i.putExtra("dataSetIdToResetCallCount","dataSetIdToResetCallCount");
+                i.putExtra("Visit_Npa_NotAvailable_NeedToCloseVisit_ScheduleCall","Visit_Npa_NotAvailable_NeedToCloseVisit_ScheduleCall");
+                startActivity(i);
+            }
+
+            //PaymentInfoOfCustomerActivity - 6 Buttons (WPLS,AP,FNV,NTL,LTBR,OTH)
+            if( getIntent().hasExtra("isPaymentInfoOfCustomerActivity_WillPayLumpSum") || getIntent().hasExtra("isPaymentInfoOfCustomerActivity_AlreadyPaid")  || getIntent().hasExtra("isPaymentInfoOfCustomerActivity_FoNotVisited") || getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")
+            || getIntent().hasExtra("isPaymentInfoOfCustomerActivity_LoanTakenByRelative")  || getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")
+
+            ){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("Submit_ScheduleACall","Submit_ScheduleACall"); //to Set Title
+                i.putExtra("dataSetIdToResetCallCount","dataSetIdToResetCallCount");
+                i.putExtra("PaymentInfoOfCustomerActivity6Buttons_ScheduleCall","PaymentInfoOfCustomerActivity6Buttons_ScheduleCall");
+
+                if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_WillPayLumpSum")){
+                    i.putExtra("isPaymentInfoOfCustomerActivity_WillPayLumpSum","isPaymentInfoOfCustomerActivity_WillPayLumpSum");
+                }
+
+                if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_AlreadyPaid")){
+                    i.putExtra("isPaymentInfoOfCustomerActivity_AlreadyPaid","isPaymentInfoOfCustomerActivity_AlreadyPaid");
+                }
+
+                if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_FoNotVisited")){
+                  i.putExtra("isPaymentInfoOfCustomerActivity_FoNotVisited","isPaymentInfoOfCustomerActivity_FoNotVisited");
+                }
+                if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")){
+                    i.putExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan","isPaymentInfoOfCustomerActivity_NotTakenLoan");
+                }
+                if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_LoanTakenByRelative")){
+                    i.putExtra("isPaymentInfoOfCustomerActivity_LoanTakenByRelative","isPaymentInfoOfCustomerActivity_LoanTakenByRelative");
+                }
+                if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")){
+                    i.putExtra("isPaymentInfoOfCustomerActivity_Others","isPaymentInfoOfCustomerActivity_Others");
+                }
+                startActivity(i);
+            }
+
+            //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS -> ScheduleCall
+            if (getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this,ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("Submit_ScheduleACall","Submit_ScheduleACall"); //to Set Title
+                i.putExtra("dataSetIdToResetCallCount","dataSetIdToResetCallCount");
+                i.putExtra("isPaymentNotificationOfCustomer_Others_ScheduleCall","isPaymentNotificationOfCustomer_Others_ScheduleCall");
+                startActivity(i);
+
+            }
+
+
+        });
+
+        binding.btnSubmitScheduleAVisit.setOnClickListener(v->{
+
+            //coming from NotSpokeToCustomer-> NumberIsInvalid-> Only Submit & ScheduleVisit button will display, ScheduleCall will be hidden
+            if(getIntent().hasExtra("isFromNotSpokeToCustomer_NumberInvalid")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("isFromNotSpokeToCustomer_NumberInvalid","isFromNotSpokeToCustomer_NumberInvalid");
+                startActivity(i);
+            }
+
+            //Visit_NPA_StatusActivity->Others
+            if(getIntent().hasExtra("isFromVisitNPAStatusActivity_Others")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("isFromVisitNPAStatusActivity_Others_ScheduleVisit","isFromVisitNPAStatusActivity_Others_ScheduleVisit");
+                startActivity(i);
+            }
+
+            //Visit_NPA_NotificationActivity 6 Buttons-> LOF,PAM/CPM,NTL,LTBR,WPLS,OTH
+            if(getIntent().hasExtra("NotReadyToPay_LackOfFunds") || getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")
+                    || getIntent().hasExtra("NotReadyToPay_NotTakenLoan") || getIntent().hasExtra("NotReadyToPay_LoanTakenByRelative")
+                    || getIntent().hasExtra("NotReadyToPay_WillPayLumpSump") || getIntent().hasExtra("NotReadyToPay_Others")
+            ){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("isFromVisitNPANotification_6ButtonsScheduleVisit","isFromVisitNPANotification_6ButtonsScheduleVisit"); //to check in ScheduleVisitForCollection
+
+                if(getIntent().hasExtra("NotReadyToPay_LackOfFunds")){
+                    i.putExtra("NotReadyToPay_LackOfFunds","NotReadyToPay_LackOfFunds");
+                }
+                else if(getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")){
+                    i.putExtra("NotReadyToPay_ClaimsPaymentMade","NotReadyToPay_ClaimsPaymentMade");
+                }
+                else if(getIntent().hasExtra("NotReadyToPay_NotTakenLoan")){
+                    i.putExtra("NotReadyToPay_NotTakenLoan","NotReadyToPay_NotTakenLoan");
+                }
+                else if(getIntent().hasExtra("NotReadyToPay_LoanTakenByRelative")){
+                    i.putExtra("NotReadyToPay_LoanTakenByRelative","NotReadyToPay_LoanTakenByRelative");
+                }
+                else if(getIntent().hasExtra("NotReadyToPay_WillPayLumpSump")){
+                    i.putExtra("NotReadyToPay_WillPayLumpSump","NotReadyToPay_WillPayLumpSump");
+                }
+                else if(getIntent().hasExtra("NotReadyToPay_Others")){
+                    i.putExtra("NotReadyToPay_Others","NotReadyToPay_Others");
+                }
+
+                startActivity(i);
+            }
+
+            //Visit_NPA_NotAvailableActivity - showDialogCloseAccount() - No Button click
+            if(getIntent().hasExtra("Visit_Npa_NotAvailable_NeedToCloseVisit")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("Visit_Npa_NotAvailable_NeedToCloseVisit_ScheduleVisit","Visit_Npa_NotAvailable_NeedToCloseVisit_ScheduleVisit");
+                startActivity(i);
+            }
+
+            //PaymentInfoOfCustomerActivity - 6 Buttons (WPLS,AP,FNV,NTL,LTBR,OTH)
+            if( getIntent().hasExtra("isPaymentInfoOfCustomerActivity_WillPayLumpSum")|| getIntent().hasExtra("isPaymentInfoOfCustomerActivity_AlreadyPaid") ||
+                    getIntent().hasExtra("isPaymentInfoOfCustomerActivity_FoNotVisited") || getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")
+                    || getIntent().hasExtra("isPaymentInfoOfCustomerActivity_LoanTakenByRelative")  || getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")
+
+            ){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("PaymentInfoOfCustomerActivity6Buttons_ScheduleVisit","PaymentInfoOfCustomerActivity6Buttons_ScheduleVisit");
+
+                if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_WillPayLumpSum")){
+                    i.putExtra("isPaymentInfoOfCustomerActivity_WillPayLumpSum","isPaymentInfoOfCustomerActivity_WillPayLumpSum");
+                }
+                if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_AlreadyPaid")){
+                    i.putExtra("isPaymentInfoOfCustomerActivity_AlreadyPaid","isPaymentInfoOfCustomerActivity_AlreadyPaid");
+                }
+                if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_FoNotVisited")){
+                    i.putExtra("isPaymentInfoOfCustomerActivity_FoNotVisited","isPaymentInfoOfCustomerActivity_FoNotVisited");
+                }
+                if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan")){
+                    i.putExtra("isPaymentInfoOfCustomerActivity_NotTakenLoan","isPaymentInfoOfCustomerActivity_NotTakenLoan");
+                }
+                if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_LoanTakenByRelative")){
+                    i.putExtra("isPaymentInfoOfCustomerActivity_LoanTakenByRelative","isPaymentInfoOfCustomerActivity_LoanTakenByRelative");
+                }
+                if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_Others")){
+                    i.putExtra("isPaymentInfoOfCustomerActivity_Others","isPaymentInfoOfCustomerActivity_Others");
+                }
+                startActivity(i);
+            }
+
+            //PAYMENT  NOTIFICATION OF CUSTOMER ->OTHERS -> ScheduleVisit
+            if (getIntent().hasExtra("isPaymentNotificationOfCustomer_Others")) {
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this,ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("isPaymentNotificationOfCustomer_Others_ScheduleVisit","isPaymentNotificationOfCustomer_Others_ScheduleVisit");
+                startActivity(i);
+            }
+
+            });
     }
 
     private void navigateToDashBoard(){
@@ -1082,7 +1279,7 @@ public class SubmitCompletionActivityOfCustomer extends AppCompatActivity {
                 Intent i = new Intent(SubmitCompletionActivityOfCustomer.this,MainActivity3API.class);
                 startActivity(i);
             }
-        },1000);
+        },2000);
 
     }
 

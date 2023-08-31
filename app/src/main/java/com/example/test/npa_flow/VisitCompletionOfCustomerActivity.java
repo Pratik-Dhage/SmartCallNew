@@ -236,15 +236,6 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
             //Visits For The Day Flow
 
-                //VisitForTheDay-> Visited The Customer -> Others
-                if(getIntent().hasExtra("isFromVisitNPAStatusActivity_Others")){
-                    String dataSetId = getIntent().getStringExtra("dataSetId");
-                    String reason = getIntent().getStringExtra("reason");
-                    String visitedTheCustomer_Others = WebServices.visit_others;
-                    visitsFlowViewModel.postVisitsFlowCallDateTime_Others(visitedTheCustomer_Others,dataSetId,"","","","","",reason);
-                     navigateToNearByCustomerActivity();
-                }
-
             // VisitsForTheDay->Did Not Visit The Customer-> Payment Already Made
             if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
@@ -268,8 +259,23 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                     } else if (getIntent().hasExtra("isVisitsReadyToPayCashPayment")) {
                         String cashPayment = WebServices.visit_ready_to_pay_cash_payment;
                         String amountCollected = Global.getStringFromSharedPref(this, "Amount_Paid");
-                        visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(cashPayment, dataSetId, "", "", "", "", "",
-                                amountCollected, "", "", "", "");
+
+                        //CashPayment - Partial Amt Paid
+                        if(getIntent().hasExtra("from_payment_status_partial_amt_paid")){
+                            String partialAmtPaid = "-PAP";
+                            visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(cashPayment+partialAmtPaid, dataSetId, "", "", "", "", "",
+                                    amountCollected, "", "", "", "");
+
+                        }
+                        //CashPayment - Full Amt Paid
+                       else if(getIntent().hasExtra("from_payment_status_full_amt_paid")){
+                           String fullAmtPaid = "-FAP";
+                            visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(cashPayment+fullAmtPaid, dataSetId, "", "", "", "", "",
+                                    amountCollected, "", "", "", "");
+
+                        }
+
+
                     } else if (getIntent().hasExtra("isVisitsReadyToPayChequePayment")) {
                         String chequePayment = WebServices.visit_ready_to_pay_cheque_payment;
                         String amountCollected = Global.getStringFromSharedPref(this, "Amount_Paid");
@@ -278,8 +284,21 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                         String chequeAmount = getIntent().getStringExtra("ChequeAmount");
                         String bankName = getIntent().getStringExtra("BankName");
 
-                        visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(chequePayment, dataSetId, "", "", "", "", "",
-                                amountCollected, chequeDate, chequeNumber, chequeAmount, bankName);
+                        //ChequePayment - Partial Amt PAid
+                        if(getIntent().hasExtra("from_payment_status_partial_amt_paid")){
+                            String partialAmtPaid = "-PAP";
+
+                            visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(chequePayment+partialAmtPaid, dataSetId, "", "", "", "", "",
+                                    amountCollected, chequeDate, chequeNumber, chequeAmount, bankName);
+                        }
+                        //ChequePayment - Full Amt Paid
+                        else if(getIntent().hasExtra("from_payment_status_full_amt_paid")){
+                            String fullAmtPaid = "-FAP";
+
+                            visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(chequePayment+fullAmtPaid, dataSetId, "", "", "", "", "",
+                                    amountCollected, chequeDate, chequeNumber, chequeAmount, bankName);
+                        }
+
                     }
 
                 } else {
@@ -430,6 +449,13 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             }
 
 
+                //Visit_NPA_NotAvailableActivity - NeedToCloseVisit - PaymentAlreadyMade
+                if(getIntent().hasExtra("Visit_NPA_NotAvailableActivity_NeedToCloseVisit_PaymentAlreadyMade")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                    visitsFlowViewModel.postScheduleCall_ScheduleVisit(WebServices.needToCloseVisit,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,"","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                    navigateToNearByCustomerActivity();
+                }
 
         } // button CompleteNoChange is Clicked or not ends here
 
@@ -457,15 +483,6 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
             //Visits For The Day Flow
 
-                //VisitForTheDay-> Visited The Customer -> Others
-                if(getIntent().hasExtra("isFromVisitNPAStatusActivity_Others")){
-                    String dataSetId = getIntent().getStringExtra("dataSetId");
-                    String reason = getIntent().getStringExtra("reason");
-                    String visitedTheCustomer_Others = WebServices.visit_others;
-                    visitsFlowViewModel.postVisitsFlowCallDateTime_Others(visitedTheCustomer_Others,dataSetId,"","","","","",reason);
-                    navigateToNearByCustomerActivity();
-                }
-
             // VisitsForTheDay->Did Not Visit The Customer-> Payment Already Made
             if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
@@ -489,8 +506,23 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                     } else if (getIntent().hasExtra("isVisitsReadyToPayCashPayment")) {
                         String cashPayment = WebServices.visit_ready_to_pay_cash_payment;
                         String amountCollected = Global.getStringFromSharedPref(this, "Amount_Paid");
-                        visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(cashPayment, dataSetId, "", "", "", "", "",
-                                amountCollected, "", "", "", "");
+
+                        //CashPayment - Partial Amt Paid
+                        if(getIntent().hasExtra("from_payment_status_partial_amt_paid")){
+                            String partialAmtPaid = "-PAP";
+                            visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(cashPayment+partialAmtPaid, dataSetId, "", "", "", "", "",
+                                    amountCollected, "", "", "", "");
+
+                        }
+                        //CashPayment - Full Amt Paid
+                        else if(getIntent().hasExtra("from_payment_status_full_amt_paid")){
+                            String fullAmtPaid = "-FAP";
+                            visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(cashPayment+fullAmtPaid, dataSetId, "", "", "", "", "",
+                                    amountCollected, "", "", "", "");
+
+                        }
+
+
                     } else if (getIntent().hasExtra("isVisitsReadyToPayChequePayment")) {
                         String chequePayment = WebServices.visit_ready_to_pay_cheque_payment;
                         String amountCollected = Global.getStringFromSharedPref(this, "Amount_Paid");
@@ -499,8 +531,21 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                         String chequeAmount = getIntent().getStringExtra("ChequeAmount");
                         String bankName = getIntent().getStringExtra("BankName");
 
-                        visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(chequePayment, dataSetId, "", "", "", "", "",
-                                amountCollected, chequeDate, chequeNumber, chequeAmount, bankName);
+                        //ChequePayment - Partial Amt PAid
+                        if(getIntent().hasExtra("from_payment_status_partial_amt_paid")){
+                            String partialAmtPaid = "-PAP";
+
+                            visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(chequePayment+partialAmtPaid, dataSetId, "", "", "", "", "",
+                                    amountCollected, chequeDate, chequeNumber, chequeAmount, bankName);
+                        }
+                        //ChequePayment - Full Amt Paid
+                        else if(getIntent().hasExtra("from_payment_status_full_amt_paid")){
+                            String fullAmtPaid = "-FAP";
+
+                            visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(chequePayment+fullAmtPaid, dataSetId, "", "", "", "", "",
+                                    amountCollected, chequeDate, chequeNumber, chequeAmount, bankName);
+                        }
+
                     }
 
                 } else {
@@ -644,6 +689,14 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             }
 
 
+                //Visit_NPA_NotAvailableActivity - NeedToCloseVisit - PaymentAlreadyMade
+                if(getIntent().hasExtra("Visit_NPA_NotAvailableActivity_NeedToCloseVisit_PaymentAlreadyMade")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                    visitsFlowViewModel.postScheduleCall_ScheduleVisit(WebServices.needToCloseVisit,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,"","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                    navigateToNearByCustomerActivity();
+                }
+
         } // button CompleteNeedToUpdateDetails is Clicked Once or not ends here
 
         });
@@ -670,15 +723,6 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
 
             //Visits For The Day Flow
 
-                //VisitForTheDay-> Visited The Customer -> Others
-                if(getIntent().hasExtra("isFromVisitNPAStatusActivity_Others")){
-                    String dataSetId = getIntent().getStringExtra("dataSetId");
-                    String reason = getIntent().getStringExtra("reason");
-                    String visitedTheCustomer_Others = WebServices.visit_others;
-                    visitsFlowViewModel.postVisitsFlowCallDateTime_Others(visitedTheCustomer_Others,dataSetId,"","","","","",reason);
-                    navigateToNearByCustomerActivity();
-                }
-
             // VisitsForTheDay->Did Not Visit The Customer-> Payment Already Made
             if (getIntent().hasExtra("isFromVisitNPARescheduleActivity_payment_already_made")) {
                 String dataSetId = getIntent().getStringExtra("dataSetId");
@@ -701,8 +745,22 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                     } else if (getIntent().hasExtra("isVisitsReadyToPayCashPayment")) {
                         String cashPayment = WebServices.visit_ready_to_pay_cash_payment;
                         String amountCollected = Global.getStringFromSharedPref(this, "Amount_Paid");
-                        visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(cashPayment, dataSetId, "", "", "", "", "",
-                                amountCollected, "", "", "", "");
+
+                        //CashPayment - Partial Amt Paid
+                        if(getIntent().hasExtra("from_payment_status_partial_amt_paid")){
+                            String partialAmtPaid = "-PAP";
+                            visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(cashPayment+partialAmtPaid, dataSetId, "", "", "", "", "",
+                                    amountCollected, "", "", "", "");
+
+                        }
+                        //CashPayment - Full Amt Paid
+                        else if(getIntent().hasExtra("from_payment_status_full_amt_paid")){
+                            String fullAmtPaid = "-FAP";
+                            visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(cashPayment+fullAmtPaid, dataSetId, "", "", "", "", "",
+                                    amountCollected, "", "", "", "");
+
+                        }
+
                     } else if (getIntent().hasExtra("isVisitsReadyToPayChequePayment")) {
                         String chequePayment = WebServices.visit_ready_to_pay_cheque_payment;
                         String amountCollected = Global.getStringFromSharedPref(this, "Amount_Paid");
@@ -711,8 +769,21 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
                         String chequeAmount = getIntent().getStringExtra("ChequeAmount");
                         String bankName = getIntent().getStringExtra("BankName");
 
-                        visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(chequePayment, dataSetId, "", "", "", "", "",
-                                amountCollected, chequeDate, chequeNumber, chequeAmount, bankName);
+                        //ChequePayment - Partial Amt PAid
+                        if(getIntent().hasExtra("from_payment_status_partial_amt_paid")){
+                            String partialAmtPaid = "-PAP";
+
+                            visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(chequePayment+partialAmtPaid, dataSetId, "", "", "", "", "",
+                                    amountCollected, chequeDate, chequeNumber, chequeAmount, bankName);
+                        }
+                        //ChequePayment - Full Amt Paid
+                        else if(getIntent().hasExtra("from_payment_status_full_amt_paid")){
+                            String fullAmtPaid = "-FAP";
+
+                            visitsFlowViewModel.postVisitsFlowCallDateTimeCheque_Cash(chequePayment+fullAmtPaid, dataSetId, "", "", "", "", "",
+                                    amountCollected, chequeDate, chequeNumber, chequeAmount, bankName);
+                        }
+
                     }
 
                 } else {
@@ -855,16 +926,178 @@ public class VisitCompletionOfCustomerActivity extends AppCompatActivity {
             }
 
 
+                //Visit_NPA_NotAvailableActivity - NeedToCloseVisit - PaymentAlreadyMade
+                if(getIntent().hasExtra("Visit_NPA_NotAvailableActivity_NeedToCloseVisit_PaymentAlreadyMade")){
+                    String dataSetId = getIntent().getStringExtra("dataSetId");
+                    VisitsFlowCallDetailsActivity visitsFlowCallDetailsActivity = new VisitsFlowCallDetailsActivity();
+                    visitsFlowViewModel.postScheduleCall_ScheduleVisit(WebServices.needToCloseVisit,dataSetId,"","","","","",VisitsFlowCallDetailsActivity.send_reason,"","","","","",visitsFlowCallDetailsActivity.sendCallLogDetailsList_VisitsFlow());
+                    navigateToNearByCustomerActivity();
+                }
 
         }// button Complete Escalate To BM is Clicked Once or not ends here
 
         });
 
 
+
+        binding.btnComplete.setOnClickListener(v->{
+            binding.btnCompleteNoChange.performClick();
+        });
+
+        binding.btnCompleteScheduleACall.setOnClickListener(v->{
+
+            //for Cash/ Cheque Flow
+            if(getIntent().hasExtra("isVisitsReadyToPayCashPayment") || getIntent().hasExtra("isVisitsReadyToPayChequePayment")){
+
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+
+                Intent i = new Intent(VisitCompletionOfCustomerActivity.this,ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("Complete_Schedule_A_Call","Complete_Schedule_A_Call");
+
+                if(getIntent().hasExtra("from_payment_status_full_amt_paid")){// Full Amt Paid
+                    i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
+                }
+                if(getIntent().hasExtra("from_payment_status_partial_amt_paid")){// Partial Amt Paid
+                    i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
+                }
+                if(getIntent().hasExtra("isVisitsReadyToPayCashPayment")){//Cash Payment
+                    i.putExtra("isVisitsReadyToPayCashPayment","isVisitsReadyToPayCashPayment");
+                }
+                if(getIntent().hasExtra("isVisitsReadyToPayChequePayment")){// Cheque Payment
+
+                    String chequeDate = getIntent().getStringExtra("ChequeDate");
+                    String chequeNumber = getIntent().getStringExtra("ChequeNumber");
+                    String chequeAmount = getIntent().getStringExtra("ChequeAmount");
+                    String bankName = getIntent().getStringExtra("BankName");
+
+                    i.putExtra("isVisitsReadyToPayChequePayment","isVisitsReadyToPayChequePayment");
+                    i.putExtra("ChequeDate",chequeDate);
+                    i.putExtra("ChequeNumber",chequeNumber);
+                    i.putExtra("ChequeAmount",chequeAmount);
+                    i.putExtra("BankName",bankName);
+
+                }
+
+                startActivity(i);
+            }
+
+            //Visit_NPA_Notification ->Payment Already Made/ClaimsPaymentMade -> Upload Receipt
+            if(getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(VisitCompletionOfCustomerActivity.this,ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("Complete_Schedule_A_Call","Complete_Schedule_A_Call");
+                i.putExtra("NotReadyToPay_ClaimsPaymentMade","NotReadyToPay_ClaimsPaymentMade");
+                i.putExtra("isFromVisitNPANotification_6ButtonsScheduleCall","isFromVisitNPANotification_6ButtonsScheduleCall");
+                i.putExtra("dataSetIdToResetCallCount","dataSetIdToResetCallCount");
+                 startActivity(i);
+            }
+
+            //Visit_NPA_NotAvailableActivity - showDialogCloseAccount() - No Button click
+            if(getIntent().hasExtra("Visit_Npa_NotAvailable_NeedToCloseVisit")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("Submit_ScheduleACall","Submit_ScheduleACall"); //to Set Title
+                i.putExtra("dataSetIdToResetCallCount","dataSetIdToResetCallCount");
+                i.putExtra("Visit_Npa_NotAvailable_NeedToCloseVisit_ScheduleCall","Visit_Npa_NotAvailable_NeedToCloseVisit_ScheduleCall");
+                startActivity(i);
+            }
+
+            //PaymentInfoOfCustomerActivity - AlreadyPaid
+            if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_AlreadyPaid")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("Submit_ScheduleACall","Submit_ScheduleACall"); //to Set Title
+                i.putExtra("dataSetIdToResetCallCount","dataSetIdToResetCallCount");
+                i.putExtra("PaymentInfoOfCustomerActivity6Buttons_ScheduleCall","PaymentInfoOfCustomerActivity6Buttons_ScheduleCall");//to fetch in ScheduleVisitForCollection
+                i.putExtra("isPaymentInfoOfCustomerActivity_AlreadyPaid","isPaymentInfoOfCustomerActivity_AlreadyPaid");
+                startActivity(i);
+            }
+
+        });
+
+        binding.btnCompleteScheduleAVisit.setOnClickListener(v->{
+
+            //for Cash/Cheque Flow
+            if(getIntent().hasExtra("isVisitsReadyToPayCashPayment") || getIntent().hasExtra("isVisitsReadyToPayChequePayment")){
+
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(VisitCompletionOfCustomerActivity.this,ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("Complete_Schedule_A_Visit","Complete_Schedule_A_Visit");
+
+                if(getIntent().hasExtra("from_payment_status_full_amt_paid")){// Full Amt Paid
+                    i.putExtra("from_payment_status_full_amt_paid","from_payment_status_full_amt_paid");
+                }
+                if(getIntent().hasExtra("from_payment_status_partial_amt_paid")){// Partial Amt Paid
+                    i.putExtra("from_payment_status_partial_amt_paid","from_payment_status_partial_amt_paid");
+                }
+                if(getIntent().hasExtra("isVisitsReadyToPayCashPayment")){//Cash Payment
+                    i.putExtra("isVisitsReadyToPayCashPayment","isVisitsReadyToPayCashPayment");
+                }
+                if(getIntent().hasExtra("isVisitsReadyToPayChequePayment")){// Cheque Payment
+
+                    String chequeDate = getIntent().getStringExtra("ChequeDate");
+                    String chequeNumber = getIntent().getStringExtra("ChequeNumber");
+                    String chequeAmount = getIntent().getStringExtra("ChequeAmount");
+                    String bankName = getIntent().getStringExtra("BankName");
+
+                    i.putExtra("isVisitsReadyToPayChequePayment","isVisitsReadyToPayChequePayment");
+                    i.putExtra("ChequeDate",chequeDate);
+                    i.putExtra("ChequeNumber",chequeNumber);
+                    i.putExtra("ChequeAmount",chequeAmount);
+                    i.putExtra("BankName",bankName);
+                }
+
+                startActivity(i);
+            }
+
+            //Visit_NPA_Notification ->Payment Already Made/ ClaimsPaymentMade -> Upload Receipt
+            if(getIntent().hasExtra("NotReadyToPay_ClaimsPaymentMade")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(VisitCompletionOfCustomerActivity.this,ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("NotReadyToPay_ClaimsPaymentMade","NotReadyToPay_ClaimsPaymentMade");
+                i.putExtra("isFromVisitNPANotification_6ButtonsScheduleVisit","isFromVisitNPANotification_6ButtonsScheduleVisit");
+                startActivity(i);
+            }
+
+            //Visit_NPA_NotAvailableActivity - showDialogCloseAccount() - No Button click
+            if(getIntent().hasExtra("Visit_Npa_NotAvailable_NeedToCloseVisit")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("Visit_Npa_NotAvailable_NeedToCloseVisit_ScheduleVisit","Visit_Npa_NotAvailable_NeedToCloseVisit_ScheduleVisit");
+                startActivity(i);
+            }
+
+            //PaymentInfoOfCustomerActivity - AlreadyPaid
+            if(getIntent().hasExtra("isPaymentInfoOfCustomerActivity_AlreadyPaid")){
+                String dataSetId = getIntent().getStringExtra("dataSetId");
+                Intent i = new Intent(this, ScheduleVisitForCollectionActivity.class);
+                i.putExtra("dataSetId",dataSetId);
+                i.putExtra("PaymentInfoOfCustomerActivity6Buttons_ScheduleVisit","PaymentInfoOfCustomerActivity6Buttons_ScheduleVisit");//to fetch in ScheduleVisitForCollection
+                i.putExtra("isPaymentInfoOfCustomerActivity_AlreadyPaid","isPaymentInfoOfCustomerActivity_AlreadyPaid");
+                startActivity(i);
+            }
+
+        });
+
         //for Notes
         binding.ivNotesIcon.setOnClickListener(v -> {
 
-            Global.showNotesEditDialog(this);
+            //coming from NPA/CallsForTheDay
+            if(Global.getStringFromSharedPref(this,"backToMemberList").equals("1") || Global.getStringFromSharedPref(this,"backToMemberList").equals("2")) {
+                Global.showNotesEditDialog(this);
+            }
+            //coming from VisitsForTheDayFlow
+            else if(Global.getStringFromSharedPref(this,"backToMemberList").equals("3")){
+                Global.showNotesEditDialogVisits(this);
+            }
         });
 
         //for History
