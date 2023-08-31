@@ -87,6 +87,7 @@ public class MapFragment extends Fragment {
                 try{
                     userLatitude = Global.getDeviceLocation(getActivity()).getLatitude();
                     userLongitude = Global.getDeviceLocation(getActivity()).getLongitude();
+                   // googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); //to set mapType
                 }
                 catch (Exception e){
                     System.out.println("Device Location Exception:"+e);
