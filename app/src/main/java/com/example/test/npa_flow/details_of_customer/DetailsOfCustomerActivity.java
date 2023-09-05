@@ -483,35 +483,6 @@ public class DetailsOfCustomerActivity extends AppCompatActivity {
                     selectedMobileNumberDialog();
                 }
 
-
-               /* // Permission has already been granted, make the call
-               // String phoneNumber = Mobile_Number; //use mobile number fetched from result(API Response)
-               //  Intent dial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
-                Intent dial = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
-                startActivity(dial);
-                System.out.println("Here Mobile Number: "+phoneNumber);
-
-                //Store Call Count in RoomDB
-              //  storeCallCountInRoomDB(FullName, Mobile_Number);
-
-
-                try {
-
-                   getCallRecordingAndCallLogs();
-
-                   //   getCallRecordingAndCallLogs();
-                } catch (Exception e) {
-                    Global.showSnackBar(view, "Call Error" + e);
-                    System.out.println("Here Call Error:" + e);
-                }
-
-
-                //Initiate Call button visible after call made and ivCallLogo invisible
-                binding.ivCall.setVisibility(View.INVISIBLE);
-                binding.btnCallInitiated.setVisibility(View.VISIBLE);*/
-
-
-
             }
 
         });
