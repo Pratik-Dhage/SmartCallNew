@@ -393,7 +393,10 @@ public class DetailsOfCustomerAdapter extends RecyclerView.Adapter<DetailsOfCust
             textWatcherForEditText(holder.binding.edtDetail,holder.binding.ivSaveAlternateNumber );
             holder.binding.ivSaveAlternateNumber.setOnClickListener(v1->{
 
-                if(Global.isValidMobileNumber(context,holder.binding.edtDetail.getText().toString().trim())){
+
+                //Global.isValidMobileNumber(context,holder.binding.edtDetail.getText().toString().trim())
+                //to Save the Alternate Number even if it is empty
+                if(true){
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle("Save Alternate Number");
