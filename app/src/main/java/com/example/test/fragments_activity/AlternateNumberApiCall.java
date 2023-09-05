@@ -24,7 +24,10 @@ public class AlternateNumberApiCall {
         if(!Global.isValidMobileNumber(activity,alternateNumber)){
 
         }
-        else if (Global.isValidMobileNumber(activity,alternateNumber)){
+
+        //Global.isValidMobileNumber(activity,alternateNumber)
+        //to save Alternate Number even if it is empty
+        else if (true){
 
             if(null!= DetailsOfCustomerAdapter.dataSetId ){
                 System.out.println("Here Alternate Number dataSetId:"+DetailsOfCustomerAdapter.dataSetId+" AlternateNumber:"+alternateNumber);
