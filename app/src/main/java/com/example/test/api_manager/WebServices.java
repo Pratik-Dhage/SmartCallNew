@@ -361,7 +361,7 @@ public  class WebServices {
         okHttpBuilder.readTimeout(2, TimeUnit.MINUTES).build();
         okHttpBuilder.writeTimeout(2, TimeUnit.MINUTES);
         okHttpBuilder.addInterceptor(logging);
-        AuthInterceptor authInterceptor = new AuthInterceptor("Admin","abcd1234");
+        AuthInterceptor authInterceptor = new AuthInterceptor("AakhyaAdmin","@aakhyatech#21");
         okHttpBuilder.addInterceptor(authInterceptor);// to authenticate credential before calling the api
         OkHttpClient okHttpClient = okHttpBuilder.build();
 
