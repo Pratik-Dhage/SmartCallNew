@@ -19,6 +19,7 @@ import com.example.test.login.LoginActivity;
 import com.example.test.login.LoginWithMPinActivity;
 import com.example.test.mPin.MPinActivity;
 import com.example.test.roomDB.dao.MPinDao;
+import com.example.test.roomDB.dao.UserNameDao;
 import com.example.test.roomDB.database.LeadListDB;
 
 import java.util.Locale;
@@ -281,12 +282,15 @@ public class OTPActivity extends AppCompatActivity {
         int countOfMPin = mPinDao.checkAnyMPinExists();
        String UserIDInRoomDB = mPinDao.getUserID();
 
-       // If UserID == UserID in RoomDB
-        if (countOfMPin > 0 && UserIDInRoomDB==UserID) {
+       // If UserID equals UserID in RoomDB
+        if (countOfMPin > 0 && UserIDInRoomDB.equals(UserID)) {
             // At least one mPin exists in the table
             startActivity(new Intent(this, LoginWithMPinActivity.class));
         } else {
             // No mPin exists in the table
+              mPinDao.deleteAllRows();
+              UserNameDao userNameDao = LeadListDB.getInstance(this).userNameDao();
+              userNameDao.deleteAllRows();
               Intent i = new Intent(OTPActivity.this, MPinActivity.class);
               startActivity(i);
         }
