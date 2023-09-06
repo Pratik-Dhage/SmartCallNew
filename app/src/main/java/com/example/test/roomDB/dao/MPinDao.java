@@ -47,4 +47,7 @@ public interface MPinDao {
 
     @Query("SELECT BranchCode FROM mpin_table")
     String getBranchCode();
+
+    @Query("DELETE FROM mpin_table")
+    void deleteAllRows();
 }

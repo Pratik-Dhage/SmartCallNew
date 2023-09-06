@@ -28,4 +28,10 @@ public interface UserNameDao {
 
     @Query("UPDATE userName_table SET MPinUserName = :newUserName WHERE  UserID = :UserID ")
     void updateUserName(String UserID,String newUserName);
+
+    @Query("DELETE FROM userName_table")
+    void deleteAllRows();
+
+    @Query("SELECT MPinUserName FROM userName_table ")
+    String getUserName();
 }
