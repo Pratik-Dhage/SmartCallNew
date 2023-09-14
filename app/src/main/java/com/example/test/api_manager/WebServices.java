@@ -353,13 +353,15 @@ public  class WebServices {
 
     public static RestClient create() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+                //.followRedirects(false)
+              //  .followSslRedirects(false);
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        okHttpBuilder.connectTimeout(2, TimeUnit.MINUTES);
-        okHttpBuilder.readTimeout(2, TimeUnit.MINUTES).build();
-        okHttpBuilder.writeTimeout(2, TimeUnit.MINUTES);
+        okHttpBuilder.connectTimeout(5, TimeUnit.MINUTES);
+        okHttpBuilder.readTimeout(5, TimeUnit.MINUTES).build();
+        okHttpBuilder.writeTimeout(5, TimeUnit.MINUTES);
         okHttpBuilder.addInterceptor(logging);
         AuthInterceptor authInterceptor = new AuthInterceptor("AakhyaAdmin","@aakhyatech#21");
         okHttpBuilder.addInterceptor(authInterceptor);// to authenticate credential before calling the api
